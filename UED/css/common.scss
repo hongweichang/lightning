@@ -102,11 +102,6 @@ img{
   margin: 5px 0 0 9px;
   float: left; //IE7 hack
 }
-#he-nav ul{
-  margin-top: 16px;
-  @extend %fr;
-  overflow: hidden;
-}
 #he-nav ul li{
   margin-left: 40px;
   border-top-style: solid;
@@ -115,6 +110,14 @@ img{
   @include font(20px);
   @include line_height(64px);
   @include transition(border-top-width,.5s,ease,0);
+}
+#he-nav ul{
+  margin-top: 16px;
+  @extend %fr;
+  overflow: hidden;
+  li.where{
+    border-top-width: 4px;
+  }
 }
 #he-nav ul li:hover{
   border-top-width: 4px;

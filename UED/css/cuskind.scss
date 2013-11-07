@@ -1,0 +1,105 @@
+%cusking{
+  width: 312px;
+  height: 337px;
+  margin-right: 20px;
+}
+@mixin cuskind($bgcolor,$bocolor){
+  background: $bgcolor;
+  border-color: $bocolor;
+}
+%f12_white{
+  width: 29px;
+  margin: 0 auto;
+  padding-top: 29px;
+  color: white;
+  line-height: 29px;
+}
+%fl{
+  float: left;
+}
+@mixin fontSet ($size,$weight,$color){
+  font:{
+    size: $size;
+    weight: $weight;
+  }
+  color: $color;
+}
+#container{
+  margin-bottom: 40px;
+  font:{
+    family: "Microsoft Yahei";
+  };
+  .con-nav{
+    margin: 40px 0 35px 0;
+    color: #454545;
+    @include fontSet(26px,normal,#454545);
+  }
+  .con-cuskind{
+    position: relative;
+    @extend %cusking;
+    border: 1px solid #e8e8e8;
+    @extend %fl;
+      h2{
+        @include fontSet(18px,normal,#454545);
+        margin-top: 36px;
+        margin-left: 59px;
+        padding-left: 28px;
+      }
+      span{
+        padding-left: 32px;
+        @include fontSet(14px,normal,#a6a6a6);
+      }
+      ul{
+        margin-top: 28px;
+        margin-left: 95px;
+        li{
+          list-style: disc;
+          list-style-position: inside;
+          width: 177px;
+          color: #2a888b;
+          .kind_list{
+            @include fontSet(14px,normal,#3a3a3a);
+            line-height: 28px;
+            margin-left: -37px;
+          }
+        }
+      }
+      a{
+        position: absolute;
+        bottom: 18px;
+        left: 58px + 38px;
+        @include fontSet(14px,normal,#2e8a8d);
+      }
+  }
+  .cuskind{
+    position: relative;
+    width: 57px;
+    border-right: 1px solid;
+    height: 100%;
+    @extend %fl;
+    p {
+      @extend %f12_white;
+      font-size: 27px;
+    }
+    img{
+      position: absolute;
+      left: 50%;
+      margin-left: -15px;
+      bottom: 23px;
+    }
+  }
+  &:after{
+    content: " ";
+    display: block;
+    clear: both;
+  }
+  .cuskind-color-0{
+    @include cuskind(#eea758,#f3c189);
+  }
+  .cuskind-color-1{
+    @include cuskind(#9dd8ca,#d7efe9);
+  }
+  .cuskind-color-2{
+    @include cuskind(#a8f48b,#c2f7ad);
+  }
+}

@@ -46,6 +46,10 @@
 .intro a:visited{
   color:#010101;
 }
+.intro a:hover{
+  background: rgba(1,1,1,.1);
+  box-shadow: 0 -1px 1px rgba(0,0,0,0.3),inset 0 0 5px rgba(0,0,0,.3);
+}
 .intro-pic{
   display: block;
   width:112px;
@@ -122,7 +126,7 @@
   }
   .subText{
     font-size: 12px;
-    color: #dadadb;
+    color: #444;
     white-space: nowrap;
   }
   .news-time{

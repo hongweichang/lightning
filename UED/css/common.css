@@ -64,10 +64,6 @@ img {
   margin: 5px 0 0 9px;
   float: left; }
 
-#he-nav ul {
-  margin-top: 16px;
-  overflow: hidden; }
-
 #he-nav ul li {
   margin-left: 40px;
   border-top-style: solid;
@@ -80,6 +76,12 @@ img {
   -moz-transition: border-top-width 0.5s ease 0;
   -ms-transition: border-top-width 0.5s ease 0;
   transition: border-top-width 0.5s ease 0; }
+
+#he-nav ul {
+  margin-top: 16px;
+  overflow: hidden; }
+  #he-nav ul li.where {
+    border-top-width: 4px; }
 
 #he-nav ul li:hover {
   border-top-width: 4px; }
