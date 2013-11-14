@@ -5,7 +5,7 @@
  * Date 2013-11-14 
  * Encoding UTF-8
  */
-class mainConfig extends ConfigBase{
+class mainConf extends ConfigBase{
 	public function merge(){
 		return array(
 				
