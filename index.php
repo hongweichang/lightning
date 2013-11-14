@@ -7,7 +7,7 @@
  */
 $dir = dirname(__FILE__);
 require $dir.'/../XCms/cms.php';
-require $dir.'/application/config/SqbConfig.php';
+require $dir.'/application/config/mainConf.php';
 $config = new mainConf();
 $environment = new Environment($config);
 $environment->basePath = $dir.DS.'application'.DS;
