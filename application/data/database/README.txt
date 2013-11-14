@@ -1,0 +1,1 @@
+pdm使用powerdesigner打开，报告中含数据库每个表的信息
