@@ -20,6 +20,9 @@ class mainConf extends ConfigBase{
 								'password'=>'lancelot!410',
 								'ipFilters'=>array('127.0.0.1','::1'),
 						),
+						'pay'=>array(
+								
+						),
 				),
 				'import' => array(
 						
@@ -28,10 +31,10 @@ class mainConf extends ConfigBase{
 						'db' => array(
 								'class' => 'system.db.CDbConnection',
 								'autoConnect' => false,
-								'connectionString' => 'mysql:host=host;dbname=lightning',
+								'connectionString' => 'mysql:host=localhost;dbname=lightning',
 								'emulatePrepare' => true,
-								'username' => 'lightning',
-								'password' => 'lightning@caixiaoer',
+								'username' => 'root',
+								'password' => 'toruneko',
 								'charset' => 'utf8',
 								'tablePrefix' => 'xcms_'
 						),
