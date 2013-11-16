@@ -1,0 +1,360 @@
+@mixin fontSet($color,$size){
+  font:{
+    size: $size;
+  }
+  color: $color;
+}
+%normalFont{
+  font: {
+    weight: normal;
+    family: "Microsoft Yahei";
+  };
+}
+%spanCommon{
+  vertical-align: 0;
+  border: none;
+  padding: 0;
+}
+@mixin transition-2 ($style,$start,$ani,$end,$style-1:"",$start-1:"",$ani-1:"",$end-1:"") {
+  transition: $style $start $ani $end,$style-1 $start-1 $ani-1 $end-1;
+}
+@mixin transition-1 ($style,$start,$ani,$end) {
+  transition: $style $start $ani $end;
+}
+#container{
+  .aud-nav{
+    margin-top: 47px;
+    margin-bottom: 32px;
+    @extend %normalFont;
+    a{
+      @include fontSet(#454545,16px);
+    }
+    a:first-child{
+      color: #848383;
+    }
+  }
+  .aud-detail{
+    width: 984px;
+    height: 237px;
+    margin: 0 auto;
+    background: #fff;
+    overflow: hidden;
+    .det-per-inf{
+      height: 122px;
+      background: url("../images/detail-bg.png") no-repeat;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+      img.det-img{
+        position: relative;
+        float: left;
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        border: 3px solid white;
+        left: 63px;
+        top: 8px;
+      }
+      p{
+        position: relative;
+        left: 90px;
+        top: 28px;
+        @include fontSet(white,14px);
+        @extend %normalFont;
+        span{
+          @include fontSet(white,28px);
+        }
+        span.aud-det-name{
+          margin-right: 5px;
+        }
+      }
+      p.aud-st-serve{
+        margin-top: 16px;
+        left: 95px;
+        img{
+          margin-right: 9px;
+        }
+        span{
+          border-left: 2px solid #d3c7c9;
+          vertical-align: 5px;
+          padding-left: 20px;
+          padding-right: 23px;
+          @include fontSet(white,16px);
+          @extend %normalFont;
+          span{
+            @extend %spanCommon;
+          }
+          .det-rank{
+            color: #98f74b;
+          }
+        }
+      }
+    }
+    .aud-money{
+      form{
+        float: right;
+        position: relative;
+        margin-top: 11px;
+        margin-right: 2px;
+        overflow: visible;
+        top: -60px;
+        left: 120px;
+        fieldset{
+          border: none;
+          input{
+            width: 64px;
+            height: 28px;
+            border: 2px solid;
+            border-radius: 4px;
+            background: #fff;
+            outline: none;
+            margin-right: 41px;
+            @extend %normalFont;
+            &:hover{
+              cursor: pointer;
+            }
+          }
+          input#int{
+            color: #aaf8bb;
+          }
+          input#out{
+            color: #2d9194;
+          }
+        }
+      }
+      .mon-show{
+        width: 840px;
+        float: left;
+        p{
+          margin-left: 84px;
+          margin-top: 21px;
+          @extend %normalFont;
+          span{
+            @include fontSet(000,16px);
+            padding-right: 183px;
+          }
+        }
+        p.det-mon{
+          span{
+            padding-right: 80px;
+            @include fontSet(#474747,30px);
+          }
+          span.mon-out{
+            color: red;
+            margin-left: -10px;
+          }
+        }
+      }
+    }
+  }
+  .aud-find{
+    margin-top: 14px;
+    overflow: hidden;
+    ul#find-table-button{
+        height: 59px;
+      li{
+        position: relative;
+        z-index: 2;
+        width: 20%;
+        height: 59px;
+        line-height: 59px;
+        text-align: center;
+        float: left;
+        @include fontSet(white,24px);
+        @include transition-1(backgorund,0.5s,ease,0s);
+        .find-table-op{
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          background: #000000;
+          *left: 0;
+          *top: 0;
+          filter: alpha(opacity=30);
+          opacity: 0.3;
+          @include transition-1(opacity,1s,ease,0s);
+          zoom: 1;
+        }
+        .find-table-op-hidden{
+          height: 0;
+        }
+        &:hover .find-table-op{
+          opacity: 0;
+        }
+      }
+      li.find-table-0{
+        background: #eea758;
+      }
+      li.find-table-1{
+        background: #f4e690;
+      }
+      li.find-table-2{
+        background: #a8f48b;
+      }
+      li.find-table-3{
+        background: #9dd8ca;
+      }
+      li.find-table-4{
+        background: #f9bdea;
+      }
+    }
+    .find-table-box{
+      position: relative;
+      width: 100%;
+      height: 0;
+      margin-top: 0;
+      background: #fff;
+      opacity: 0;
+      @include transition-2(opacity,1.5s,ease,0s,margin-top,1s,ease,0s);
+      overflow: hidden;
+      %tabCommon{
+        position: absolute;
+      }
+      .tab-border{
+        @extend  %tabCommon;
+        width: 100%;
+        height: 4px;
+        background: url("../images/table-border.png") repeat-x;
+      }
+      .tab-border-l{
+        @extend  %tabCommon;
+        width: 4px;
+        height: 100%;
+        background: url("../images/tab-border-l.png") repeat-y;
+      }
+      .tab-top{
+        top: 0;
+      }
+      .tab-bottom{
+        bottom: 0;
+      }
+      .tab-left{
+        left: 0;
+      }
+      .tab-right{
+        right: 0;
+      }
+      .table-content{
+        width: 99.3%;
+        min-height: 100px;
+        padding: 4px;
+        .tab-content-l{
+          float: left;
+          width: 278px;
+          margin-top: 24px;
+          margin-bottom: 27px;
+          position: relative;
+          p{
+            text-align: center;
+            @include fontSet(#2d9194,30px);
+            span{
+              display: block;
+              margin-top: 5px;
+              @include fontSet(#ec9433,26px);
+              span{
+                display: inline;
+                @include fontSet(#2d9194,18px);
+              }
+            }
+          }
+        }
+        .tab-content-r{
+          float: left;
+          margin-top: 25px;
+          color: #8d8d8d;
+          p{
+            margin-left: 47px;
+            font-size: 20px;
+            span{
+              padding-right: 115px;
+            }
+          }
+          p.aud-det-money{
+            margin-top: 5px;
+            span{
+              padding-right: 135px;
+            }
+          }
+          p.aud-det-prompt{
+            font-size: 14px;
+          }
+        }
+        &:after{
+          content: " ";
+          display: block;
+          clear: both;
+        }
+      }
+    }
+    .find-table-box-show{
+      min-height: 138px;
+      margin-top: 30px;
+      opacity: 1;
+    }
+    &:after{
+      content: " ";
+      display: block;
+      clear: both;
+    }
+    ul#find-table-detail{
+      position: relative;
+      height: 35px;
+      li{
+        float: left;
+        margin-right: 32px;
+        border-bottom-width: 0px;
+        border-bottom-color: #2d9194;
+        border-bottom-style: solid;
+        padding-bottom: 5px;
+        @include fontSet(#858585,20px);
+        @include transition-1(border-bottom-width,0.5s,ease,0s);
+        &:hover{
+          cursor: pointer;
+          border-bottom-width: 4px;
+        }
+      }
+      li.find-selected{
+        @include fontSet(#585858,20px);
+        border-bottom-width: 4px;
+      }
+    }
+    div.find-table-content{
+      position: relative;
+      height: 0;
+      opacity: 0;
+      @include fontSet(#585858,16px);
+      @include transition-1(opacity,1s,ease,0s);
+      li{
+        height: 48px;
+        padding-top: 10px;
+      }
+      span{
+        display: inline-block;
+        position: relative;
+        width: 160px;
+        line-height: 48px;
+        text-align: center;
+        img{
+          position: absolute;
+          width: 46px;
+          height: 46px;
+          top: -35px;
+          left: 56px;
+          border: 1px solid #e7f2f6;
+        }
+      }
+      &:after{
+        content: " ";
+        display: block;
+        clear: both;
+      }
+    }
+    div.find-table-content-show{
+      height: 100%;
+      opacity: 1;
+    }
+  }
+  &:after{
+    content: " ";
+    display: block;
+    clear: both;
+  }
+}
+
