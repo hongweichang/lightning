@@ -6,6 +6,11 @@
  * Encoding UTF-8
  */
 class TestController extends CmsController{
+
+	public function filters(){
+		return array();
+	}
+	
 	public function actionIndex(){
 		echo 'succed';
 	}
