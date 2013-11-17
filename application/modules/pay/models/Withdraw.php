@@ -109,31 +109,4 @@ class Withdraw extends CmsActiveRecord
 	{
 		return parent::model($className);
 	}
-	
-	public function onBeginWithdraw($user,$charge,$fee){
-		$this->attributes = array(
-			'id' => '',
-			'user_id' => $user,
-			'sum' => $charge * 100,
-			'fee' => round($fee * 100),
-			'time' => time(),
-			'status' => 0 // 正在处理 - 等待后台处理
-		);
-		
-		if($this->save()){
-			return $this->getPrimaryKey();
-		}else{
-			return false;
-		}
-	}
-	
-	public function onAfterWithdraw($id){
-		$record = self::model()->findByPk($id);
-		
-		$record->attributes = array(
-			
-		);
-		
-		return $record->save();
-	}
 }

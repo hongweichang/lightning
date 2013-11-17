@@ -2,6 +2,7 @@
 
 class PayModule extends CWebModule
 {
+	public $alipay;
 	public function init()
 	{
 		// this method is called when the module is being created

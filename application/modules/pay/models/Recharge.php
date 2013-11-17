@@ -7,15 +7,20 @@
  * @property string $id
  * @property string $user_id
  * @property string $sum
- * @property string $time
- * @property string $serial_number
  * @property string $fee
+ * @property string $raise_time
+ * @property string $trade_no
+ * @property string $subject
+ * @property string $buyer_email
+ * @property string $buyer_id
+ * @property string $pay_time
+ * @property string $finish_time
  * @property integer $status
  *
  * The followings are the available model relations:
  * @property FrontUser $user
  */
-class Recharge extends CmsActiveRecord
+class Recharge extends CActiveRecord
 {
 	/**
 	 * @return string the associated database table name
@@ -33,14 +38,16 @@ class Recharge extends CmsActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('id, user_id, sum, time, serial_number, fee', 'required'),
+			array('user_id, sum, fee, raise_time', 'required'),
 			array('status', 'numerical', 'integerOnly'=>true),
-			array('id, user_id, sum, time', 'length', 'max'=>11),
-			array('serial_number', 'length', 'max'=>64),
+			array('user_id, sum, raise_time, finish_time', 'length', 'max'=>11),
 			array('fee', 'length', 'max'=>5),
+			array('trade_no', 'length', 'max'=>64),
+			array('subject, buyer_email, buyer_id', 'length', 'max'=>255),
+			array('pay_time', 'length', 'max'=>10),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, user_id, sum, time, serial_number, fee, status', 'safe', 'on'=>'search'),
+			array('id, user_id, sum, fee, raise_time, trade_no, subject, buyer_email, buyer_id, pay_time, finish_time, status', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -65,9 +72,14 @@ class Recharge extends CmsActiveRecord
 			'id' => 'ID',
 			'user_id' => 'User',
 			'sum' => 'Sum',
-			'time' => 'Time',
-			'serial_number' => 'Serial Number',
 			'fee' => 'Fee',
+			'raise_time' => 'Raise Time',
+			'trade_no' => 'Trade No',
+			'subject' => 'Subject',
+			'buyer_email' => 'Buyer Email',
+			'buyer_id' => 'Buyer',
+			'pay_time' => 'Pay Time',
+			'finish_time' => 'Finish Time',
 			'status' => 'Status',
 		);
 	}
@@ -93,9 +105,14 @@ class Recharge extends CmsActiveRecord
 		$criteria->compare('id',$this->id,true);
 		$criteria->compare('user_id',$this->user_id,true);
 		$criteria->compare('sum',$this->sum,true);
-		$criteria->compare('time',$this->time,true);
-		$criteria->compare('serial_number',$this->serial_number,true);
 		$criteria->compare('fee',$this->fee,true);
+		$criteria->compare('raise_time',$this->raise_time,true);
+		$criteria->compare('trade_no',$this->trade_no,true);
+		$criteria->compare('subject',$this->subject,true);
+		$criteria->compare('buyer_email',$this->buyer_email,true);
+		$criteria->compare('buyer_id',$this->buyer_id,true);
+		$criteria->compare('pay_time',$this->pay_time,true);
+		$criteria->compare('finish_time',$this->finish_time,true);
 		$criteria->compare('status',$this->status);
 
 		return new CActiveDataProvider($this, array(
@@ -112,33 +129,5 @@ class Recharge extends CmsActiveRecord
 	public static function model($className=__CLASS__)
 	{
 		return parent::model($className);
-	}
-	
-	public function onBeginPay($user,$charge,$fee){
-		$this->attributes = array(
-			'id' => '',
-			'user_id' => $user,
-			'sum' => $charge * 100,
-			'fee' => round($fee * 100),
-			'time' => time(),
-			'serial_number' => '',
-			'status' => 0 // 正在处理 - 等待支付
-		);
-		
-		if($this->save()){
-			return $this->getPrimaryKey();
-		}else{
-			return false;
-		}
-	}
-	
-	public function onAfterPay($id,$serial){
-		$record = self::model()->findByPk($id);
-		
-		$record = array(
-			'serial_number' => $serial,
-		);
-		
-		return $record->save();
 	}
 }

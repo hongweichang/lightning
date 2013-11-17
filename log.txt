@@ -1,0 +1,3 @@
+执行日期：20131116132242
+responseTxt=true
+ return_url_log:isSign=true,body=test&buyer_email=toruneko@163.com&buyer_id=2088202943783145&exterface=trade_create_by_buyer&is_success=T&logistics_fee=0.01&logistics_payment=SELLER_PAY&logistics_type=EMS&notify_id=RqPnCoPT3K9%2Fvwbh3I75K6PIHAi%2B3m1t8Z%2F4T0D%2FhJHx8AesNd0hMY6ddPyb9AcYWZpD&notify_time=2013-11-16 13:22:41&notify_type=trade_status_sync&out_trade_no=2&payment_type=1&receive_address=cqupt&receive_mobile=13618331689&receive_name=djh&receive_phone=13618331689&receive_zip=400000&seller_email=295395100@qq.com&seller_id=2088002995371000&subject=测试支付&total_fee=0.01&trade_no=2013111627258314&trade_status=TRADE_FINISHED&sign=72b113265bf914ce0789fd9d0f3b63ae&sign_type=MD5

@@ -5,7 +5,7 @@
  * date: 2013-11-16
  * desc: 
  */
-$config = array(
+return array(
 	'alipay' => array(
 		//合作身份者id，以2088开头的16位纯数字
 		'partner' => '2088002995371000',
@@ -22,12 +22,14 @@ $config = array(
 		
 		//支付类型 - 必填，不能修改
 		'payment_type' => 1,
-		'service' => 'create_direct_pay_by_user',
+		'service' => 'trade_create_by_buyer',//'create_direct_pay_by_user',
 		//卖家支付宝帐户
 		'seller_email' => '295395100@qq.com',
 		//服务器异步通知页面路径
-		'notify_url' => 'http://127.0.0.1/',
+		'notify_url' => 'http://127.0.0.1:8080'.Yii::app()->createUrl("pay/alipay/notify"),
 		//页面跳转同步通知页面路径
-		'return_url' => 'http://127.0.0.1/',
+		'return_url' => 'http://127.0.0.1:8080'.Yii::app()->createUrl("pay/alipay/return"),
+		//商品展示地址
+		'show_url' => 'http://127.0.0.1:8080'.Yii::app()->createUrl("pay/index"),
 	),
 );
