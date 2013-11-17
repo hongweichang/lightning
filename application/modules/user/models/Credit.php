@@ -6,7 +6,7 @@
  * The followings are the available columns in table '{{front_credit}}':
  * @property string $id
  * @property string $user_id
- * @property string $verfication_id
+ * @property string $verification_id
  * @property string $content
  * @property integer $submit_time
  * @property integer $status
@@ -30,13 +30,13 @@ class Credit extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('id, user_id, verfication_id, content, submit_time, status', 'required'),
+			array('id, user_id, verification_id, content, submit_time, status', 'required'),
 			array('submit_time, status', 'numerical', 'integerOnly'=>true),
-			array('id, user_id, verfication_id', 'length', 'max'=>11),
+			array('id, user_id, verification_id', 'length', 'max'=>11),
 			array('description', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, user_id, verfication_id, content, submit_time, status, description', 'safe', 'on'=>'search'),
+			array('id, user_id, verification_id, content, submit_time, status, description', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -59,7 +59,7 @@ class Credit extends CActiveRecord
 		return array(
 			'id' => 'ID',
 			'user_id' => 'User',
-			'verfication_id' => 'Verfication',
+			'verification_id' => 'Verification',
 			'content' => 'Content',
 			'submit_time' => 'Submit Time',
 			'status' => 'Status',
@@ -87,7 +87,7 @@ class Credit extends CActiveRecord
 
 		$criteria->compare('id',$this->id,true);
 		$criteria->compare('user_id',$this->user_id,true);
-		$criteria->compare('verfication_id',$this->verfication_id,true);
+		$criteria->compare('verification_id',$this->verification_id,true);
 		$criteria->compare('content',$this->content,true);
 		$criteria->compare('submit_time',$this->submit_time);
 		$criteria->compare('status',$this->status);

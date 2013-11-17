@@ -29,11 +29,10 @@ class CreditController extends CmsController{
 **后台管理添加项
 */
 	public function actionCreditGet(){
-		/*$criteria = new criteria;
-		$criteria->select = 'verfication_name,description,verfication_type';
-		$criteria->order = 'id DESC';*/
-		
-		$crediteData = CreditSettings::model()->findAll();
+		$criteria = new CDbCriteria;
+		$criteria->select = 'verification_name,description,verification_type';
+		$criteria->order = 'id DESC';
+		$crediteData = CreditSettings::model()->findAll($criteria);
 		var_dump($crediteData);
 	}
 
