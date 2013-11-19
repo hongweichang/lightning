@@ -25,16 +25,29 @@ class mainConf extends ConfigBase{
 						
 				),
 				'components' => array(
+						//remote database on aliyun.remote ip
 						'db' => array(
 								'class' => 'system.db.CDbConnection',
 								'autoConnect' => false,
-								'connectionString' => 'mysql:host=host;dbname=lightning',
+								'connectionString' => 'mysql:host=115.29.240.98;dbname=lightning',
 								'emulatePrepare' => true,
-								'username' => 'lightning',
-								'password' => 'lightning@caixiaoer',
+								'username' => 'lancelot',
+								'password' => 'lancelot@lightningdbmysqladmin',
 								'charset' => 'utf8',
 								'tablePrefix' => 'xcms_'
 						),
+						//internal database.ip 10.161.180.53
+						/*
+						'db' =>array(
+								'class' => 'system.db.CDbConnection',
+								'autoConnect' => false,
+								'connectionString' => 'mysql:host=10.161.180.53;dbname=lightning',
+								'emulatePrepare' => true,
+								'username' => 'lancelot',
+								'password' => 'lancelot@lightningdbmysqladmin',
+								'charset' => 'utf8',
+								'tablePrefix' => 'xcms_'
+						),*/
 						/*
 						'cacheDb' => array(
 								'class' => 'CDbCache',
