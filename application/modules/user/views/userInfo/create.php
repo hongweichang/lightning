@@ -50,7 +50,9 @@
 		<?php echo $form->errorSummary($model); ?>
 	</div>
 
-	
+	<?php echo $form->labelEx($model,'用户id'); ?>
+    <?php echo $form->textField($model,'user_id',array('class'=>'form-input-text')); ?>
+    <br />
 	 <div class="swfupload"><span id="swfupload">上传</span>(只可以上传1张,支持格式:png,jpg,gif.)</div>
 
 	 <?php echo CHtml::submitButton($model->isNewRecord ? '提交' : '保存修改',array('id'=>'reply','name'=>'submit','class'=>'form-button form-button-submit')); ?>

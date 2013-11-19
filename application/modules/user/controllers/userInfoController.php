@@ -22,12 +22,24 @@ class userInfoController extends CmsController{
 	*/
 	public function actionInfoAdd(){
 		$model = new Credit();
-
+		
 		if(isset($_POST['userInfo'])){
+			var_dump($_POST['userInfo']);
+			die();
 			$model->attributes = $_POST['userInfo'];
 			$model->verification_id = 1;
 			$model->submit_time = time();
 			$model->status = 0;
+
+			if(isset($_SESSION['typeName']) && isset($_SESSION['url'])){
+				$model->file_type = $_SESSION['typeName'];
+				$model->content = $_SESSION['url'];
+				$_SESSION['typeName'] = null;
+				$_SESSION['url'] = null;
+			}else{
+				$model->file_type = "text";
+				$model->content = $_POST['userInfo']->content;
+			}
 
 			if($model->save())
 				echo "ok";
@@ -38,6 +50,9 @@ class userInfoController extends CmsController{
 
 	}
 
+	/*
+	**用户附件上传
+	*/
 	public function actionUpload(){
 		$typeArray = array('jpg','png','gif','jpeg','pdf','zip','rar');
 		$maxSize = 1024*1024*30; //最大文件大小约为30MB
@@ -102,5 +117,6 @@ class userInfoController extends CmsController{
 			return 400;
 		}
 	}
+
 }
 ?>
