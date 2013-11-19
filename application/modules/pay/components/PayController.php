@@ -5,7 +5,19 @@
  * date: 2013-11-16
  * desc: 支付基础模块
  */
-class Controller extends CmsController{
+class PayController extends CmsController{
+	protected $platform; // 支付平台
+	protected $trade_no; // 平台订单号
+	protected $subject;	 // 订单名
+	protected $buyer;	 // 平台账号
+	protected $buyer_id; //	平台ID
+	public 	$user;
+	
+	public function init(){
+		parent::init();
+		
+		$this->user = Yii::app()->user;
+	}
 	
 	/**
 	 * 发起一个充值订单，并生成订单号
@@ -16,7 +28,7 @@ class Controller extends CmsController{
 	protected function raiseOrder($charge,$fee){
 		$db = new Recharge();
 		$db->attributes = array(
-			'user_id' => Yii::app()->user->getState('id'),
+			'user_id' => $this->user->getState('id'),
 			'sum' => $charge * 100,
 			'fee' => round($fee * 100),
 			'raise_time' => time(),
@@ -35,13 +47,19 @@ class Controller extends CmsController{
 	 * @param array $post
 	 * @return boolean
 	 */
-	protected function beginPay($trade_no,$post = array()){
-		$post['pay_time'] = time();
-		$post['status'] = 1;
+	protected function beginPay($trade_no){
 		$record = Recharge::model()->findByPk($trade_no);
-		if($record->getAttribute('status') >= $post['status']) return false;
+		if($record->getAttribute('status') >= 1) return false;
 		
-		$record->attribute = $post;
+		$record->attribute = array(
+			'platform' => $this->platform,
+			'trade_no' => $this->trade_no,
+			'subject' => $this->subject,
+			'buyer' => $this->buyer,
+			'buyer_id' => $this->buyer_id,
+			'pay_time' => time(),
+			'status' => 1
+		);
 		if($record->save()){
 			//业务逻辑
 		}else{
@@ -55,22 +73,19 @@ class Controller extends CmsController{
 	 * @param array $post
 	 * @return boolean
 	 */
-	protected function afterPay($trade_no,$post = array()){
-		$post['finish_time'] = time();
-		$post['status'] = 2;
+	protected function afterPay($trade_no){
 		$record = Recharge::model()->findByPk($trade_no);
-		if($record->getAttribute('status') >= $post['status']) return false;
+		if($record->getAttribute('status') >= 2) return false;
 		
-		$record->attribute = $post;
+		$record->attribute = array(
+			'finish_time' => time(),
+			'status' => 2
+		);
 		if($record->save()){
 			//业务逻辑
 		}else{
 			
 		}
-	}
-	
-	protected function errorPay($id){
-		//
 	}
 	
 	/**
@@ -82,7 +97,7 @@ class Controller extends CmsController{
 	public function beginWithdraw($charge,$fee){
 		$db = new Withdraw();
 		$db->attributes = array(
-			'user_id' => Yii::app()->user->getState('id'),
+			'user_id' => $this->user->getState('id'),
 			'sum' => $charge * 100,
 			'fee' => round($fee * 100),
 			'raise_time' => time(),

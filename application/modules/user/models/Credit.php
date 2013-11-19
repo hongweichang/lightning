@@ -1,34 +1,25 @@
 <?php
 
 /**
- * This is the model class for table "{{recharge}}".
+ * This is the model class for table "{{front_credit}}".
  *
- * The followings are the available columns in table '{{recharge}}':
+ * The followings are the available columns in table '{{front_credit}}':
  * @property string $id
  * @property string $user_id
- * @property string $sum
- * @property string $fee
- * @property string $raise_time
- * @property string $platform
- * @property string $trade_no
- * @property string $subject
- * @property string $buyer
- * @property string $buyer_id
- * @property string $pay_time
- * @property string $finish_time
+ * @property string $verification_id
+ * @property string $content
+ * @property integer $submit_time
  * @property integer $status
- *
- * The followings are the available model relations:
- * @property FrontUser $user
+ * @property string $description
  */
-class Recharge extends CActiveRecord
+class Credit extends CActiveRecord
 {
 	/**
 	 * @return string the associated database table name
 	 */
 	public function tableName()
 	{
-		return '{{recharge}}';
+		return '{{front_credit}}';
 	}
 
 	/**
@@ -39,16 +30,13 @@ class Recharge extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('user_id, sum, fee, raise_time', 'required'),
-			array('status', 'numerical', 'integerOnly'=>true),
-			array('user_id, sum, raise_time, finish_time', 'length', 'max'=>11),
-			array('fee', 'length', 'max'=>5),
-			array('platform, subject, buyer, buyer_id', 'length', 'max'=>255),
-			array('trade_no', 'length', 'max'=>64),
-			array('pay_time', 'length', 'max'=>10),
+			array('id, user_id, verification_id, content, submit_time, status', 'required'),
+			array('submit_time, status', 'numerical', 'integerOnly'=>true),
+			array('id, user_id, verification_id', 'length', 'max'=>11),
+			array('description', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, user_id, sum, fee, raise_time, platform, trade_no, subject, buyer, buyer_id, pay_time, finish_time, status', 'safe', 'on'=>'search'),
+			array('id, user_id, verification_id, content, submit_time, status, description', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -60,7 +48,6 @@ class Recharge extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'user' => array(self::BELONGS_TO, 'FrontUser', 'user_id'),
 		);
 	}
 
@@ -72,17 +59,11 @@ class Recharge extends CActiveRecord
 		return array(
 			'id' => 'ID',
 			'user_id' => 'User',
-			'sum' => 'Sum',
-			'fee' => 'Fee',
-			'raise_time' => 'Raise Time',
-			'platform' => 'Platform',
-			'trade_no' => 'Trade No',
-			'subject' => 'Subject',
-			'buyer' => 'Buyer',
-			'buyer_id' => 'Buyer',
-			'pay_time' => 'Pay Time',
-			'finish_time' => 'Finish Time',
+			'verification_id' => 'Verification',
+			'content' => 'Content',
+			'submit_time' => 'Submit Time',
 			'status' => 'Status',
+			'description' => 'Description',
 		);
 	}
 
@@ -106,17 +87,11 @@ class Recharge extends CActiveRecord
 
 		$criteria->compare('id',$this->id,true);
 		$criteria->compare('user_id',$this->user_id,true);
-		$criteria->compare('sum',$this->sum,true);
-		$criteria->compare('fee',$this->fee,true);
-		$criteria->compare('raise_time',$this->raise_time,true);
-		$criteria->compare('platform',$this->platform,true);
-		$criteria->compare('trade_no',$this->trade_no,true);
-		$criteria->compare('subject',$this->subject,true);
-		$criteria->compare('buyer',$this->buyer,true);
-		$criteria->compare('buyer_id',$this->buyer_id,true);
-		$criteria->compare('pay_time',$this->pay_time,true);
-		$criteria->compare('finish_time',$this->finish_time,true);
+		$criteria->compare('verification_id',$this->verification_id,true);
+		$criteria->compare('content',$this->content,true);
+		$criteria->compare('submit_time',$this->submit_time);
 		$criteria->compare('status',$this->status);
+		$criteria->compare('description',$this->description,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
@@ -127,7 +102,7 @@ class Recharge extends CActiveRecord
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!
 	 * @param string $className active record class name.
-	 * @return Recharge the static model class
+	 * @return Credit the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{

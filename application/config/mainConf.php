@@ -20,9 +20,9 @@ class mainConf extends ConfigBase{
 								'password'=>'admin',
 								'ipFilters'=>array('127.0.0.1','::1'),
 						),
-						'pay'=>array(
-								
-						),
+						'pay' => array(),
+						'user' => array(),
+						'credit' => array(),
 				),
 				'import' => array(
 						

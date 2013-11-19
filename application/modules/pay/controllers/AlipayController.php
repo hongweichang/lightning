@@ -5,32 +5,35 @@
  * date: 2013-11-16
  * desc: Alipay即时到账交易接口接入页
  */
-class AlipayController extends Controller{
+class AlipayController extends PayController{
+	protected $platform = 'alipay';
+	
 	public function filters(){
 		return array();
 	}
 	
 	public function actionIndex(){
 		//付款金额
-		$charge = $_POST['charge'];
+		$charge = 1;//$_POST['charge'];
 		//手续费
 		$fee = $charge * 0.05;
 		
+		$alipay = $this->module->alipay;
 		//构造要请求的参数数组，无需改动
 		$parameter = array(
-			"service" => $this->module->alipay['service'],
-			"partner" => trim($this->module->alipay['partner']),
-			"payment_type"	=> $this->module->alipay['payment_type'],
-			"notify_url"	=> $this->module->alipay['notify_url'],
-			"return_url"	=> $this->module->alipay['return_url'],
-			"show_url"	=> $this->module->alipay['show_url'],
-			"seller_email"	=> $this->module->alipay['seller_email'],
+			"service" => $alipay['service'],
+			"partner" => trim($alipay['partner']),
+			"payment_type"	=> $alipay['payment_type'],
+			"notify_url"	=> $alipay['notify_url'],
+			"return_url"	=> $alipay['return_url'],
+			"show_url"	=> $alipay['show_url'],
+			"seller_email"	=> $alipay['seller_email'],
 			//商户网站订单系统中唯一订单号，必填
 			"out_trade_no"	=> $this->raiseOrder($charge, $fee),
 			//订单名称
 			"subject"	=> '闪电贷：'.$charge.'元',
 			//订单描述
-			"body"	=> '闪电贷充值：'.$charge.'元; 手续费：'.$fee.'元',
+			"body"	=> '闪电贷：'.($charge + $fee).'元（含手续费：'.$fee.'元）',
 			//"total_fee"	=> $total_fee,
 			"price" => $charge + $fee,
 			
@@ -45,10 +48,10 @@ class AlipayController extends Controller{
 			//客户端的IP地址
 			//非局域网的外网IP地址，如：221.0.0.1
 			"exter_invoke_ip"	=> "",
-			"_input_charset"	=> trim(strtolower($this->module->alipay['input_charset']))
+			"_input_charset"	=> trim(strtolower($alipay['input_charset']))
 		);
 		
-		$alipaySubmit = new AlipaySubmit($this->module->alipay);
+		$alipaySubmit = new AlipaySubmit($alipay);
 		$html_text = $alipaySubmit->buildRequestForm($parameter,"get", "");
 		echo $html_text;
 	}
@@ -61,21 +64,20 @@ class AlipayController extends Controller{
 			//判断该笔订单是否在商户网站中已经做过处理
 			//如果没有做过处理，根据订单号（out_trade_no）在商户网站的订单系统中查到该笔订单的详细，并执行商户的业务程序
 			//如果有做过处理，不执行商户的业务程序
-			if(Yii::app()->request->getPost('trade_status') == 'TRADE_SUCCESS'){
+			if($this->getPost('trade_status') == 'TRADE_SUCCESS'){
 				//注意：
 				//该种交易状态只在一种情况下出现——开通了高级即时到账，买家付款成功后。
-				$this->beginPay(Yii::app()->request->getQuery('out_trade_no'),array(
-					'trade_no' => Yii::app()->request->getQuery('trade_no'),
-					'subject' => Yii::app()->request->getQuery('subject'),
-					'buyer_email' => Yii::app()->request->getQuery('buyer_email'),
-					'buyer_id' => Yii::app()->request->getQuery('buyer_id'),
-				));
-			} else if(Yii::app()->request->getPost('trade_status') == 'TRADE_FINISHED') {
+				$this->trade_no = $this->getPost('trade_no');
+				$this->subject = $this->getPost('subject');
+				$this->buyer = $this->getPost('buyer_email');
+				$this->buyer_id = $this->getPost('buyer_id');
+				$this->beginPay($this->getPost('out_trade_no'));
+			} else if($this->getPost('trade_status') == 'TRADE_FINISHED') {
 				//注意：
 				//该种交易状态只在两种情况下出现
 				//1、开通了普通即时到账，买家付款成功后。
 				//2、开通了高级即时到账，从该笔交易成功时间算起，过了签约时的可退款时限（如：三个月以内可退款、一年以内可退款等）后。
-				$this->afterPay(Yii::app()->request->getQuery('out_trade_no'));
+				$this->afterPay($this->getPost('out_trade_no'));
 			}
 			echo "success";
 		}else{ //验证失败
@@ -90,16 +92,15 @@ class AlipayController extends Controller{
 		$verify_result = $alipayNotify->verifyReturn();
 		
 		if($verify_result) { //验证成功
-			if(Yii::app()->request->getQuery('trade_status') == 'TRADE_FINISHED' || Yii::app()->request->getQuery('trade_status') == 'TRADE_SUCCESS') {
+			if($this->getQuery('trade_status') == 'TRADE_FINISHED' || $this->getQuery('trade_status') == 'TRADE_SUCCESS') {
 				//判断该笔订单是否在商户网站中已经做过处理
 				//如果没有做过处理，根据订单号（out_trade_no）在商户网站的订单系统中查到该笔订单的详细，并执行商户的业务程序
 				//如果有做过处理，不执行商户的业务程序
-				$this->beginPay(Yii::app()->request->getQuery('out_trade_no'),array(
-					'trade_no' => Yii::app()->request->getQuery('trade_no'),
-					'subject' => Yii::app()->request->getQuery('subject'),
-					'buyer_email' => Yii::app()->request->getQuery('buyer_email'),
-					'buyer_id' => Yii::app()->request->getQuery('buyer_id'),
-				));
+				$this->trade_no = $this->getQuery('trade_no');
+				$this->subject = $this->getQuery('subject');
+				$this->buyer = $this->getQuery('buyer_email');
+				$this->buyer_id = $this->getQuery('buyer_id');
+				$this->beginPay($this->getQuery('out_trade_no'));
 			}
 		}else{ //验证失败
 			
