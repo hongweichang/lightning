@@ -55,6 +55,18 @@ class mainConf extends ConfigBase{
 								'charset' => 'utf8',
 								'tablePrefix' => 'xcms_'
 						),*/
+						//local database
+						/*
+						 'db' =>array(
+						 		'class' => 'system.db.CDbConnection',
+						 		'autoConnect' => false,
+						 		'connectionString' => 'mysql:host=localhost;dbname=lightning',
+						 		'emulatePrepare' => true,
+						 		'username' => 'lancelot',
+						 		'password' => 'lancelot@lightningdbmysqladmin',
+						 		'charset' => 'utf8',
+						 		'tablePrefix' => 'xcms_'
+						 ),*/
 						'cache' => array(
 								'class' => 'CMemCache',
 								'useMemcached' => true,
