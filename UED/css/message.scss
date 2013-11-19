@@ -1,0 +1,151 @@
+@mixin fontSet($color,$size){
+  font:{
+    size: $size;
+  }
+  color: $color;
+}
+%normalFont{
+  font: {
+    weight: normal;
+    family: "Microsoft Yahei";
+  };
+}
+%aud-com{
+  width: 811px;
+  height: 174px;
+  margin: 0 auto;
+  .aud-warning{
+    width: 665px;
+    margin: 0 auto;
+    div.adu-step{
+      position: relative;
+      float: left;
+      width: 79px;
+      height: 104px;
+      background: url("../images/aud-com.png") no-repeat;
+      @include fontSet(white,16px);
+      font-weight: bold;
+      text-align: center;
+      span{
+        width: 70px;
+        position: absolute;
+        top: 27%;
+        left: 5%;
+        line-height: 20px;
+      }
+    }
+    div.adu-bar{
+      float: left;
+      width: 114px;
+      height: 29px;
+      margin-left: -73px;
+      margin-top: 13px;
+      background: url("../images/aud-bar.png") no-repeat;
+    }
+    div.adu-bar-last{
+      position: relative;
+      width: 100px;
+      left: 90px;
+      margin-left: -63px;
+    }
+    span.adu-next{
+      display: inline-block;
+      position: relative;
+      width: 26px;
+      height: 21px;
+      left: 18px;
+      top: 35px;
+      background: url("../images/aud-next.png");
+    }
+    div.adu-war-box{
+      width: 79px+26px +13px;
+      margin-left: 23px;
+      float: left;
+    }
+    div.adu-war-box-last{
+      width: 79px;
+    }
+    div.adu-war-box-first{
+      margin-left: 0;
+    }
+    &:after{
+      content: " ";
+      display: block;
+      clear: both;
+    }
+  }
+}
+#container{
+  .aud-nav{
+    margin-top: 47px;
+    margin-bottom: 32px;
+    @extend %normalFont;
+    a{
+      @include fontSet(#454545,16px);
+    }
+    a:first-child{
+      color: #848383;
+    }
+  }
+  .aud-common{
+    @extend %aud-com;
+  }
+  &:after{
+    content: " ";
+    display: block;
+    clear: both;
+  }
+  #aud-check{
+    div.aud-checked div.adu-step{
+      background-image: url("../images/aud-com-hover.png");
+    }
+    div.aud-checked span.adu-next{
+      background-image: url("../images/aud-next-hover.png");
+    }
+    div.aud-checked div.adu-bar{
+      background-image: url("../images/aud-bar-hover.png");
+    }
+  }
+  h2{
+    @include fontSet(#000000,16px);
+    @extend %normalFont;
+    text-align: center;
+    span{
+      color: red;
+    }
+  }
+  .adu-detail{
+    margin-top: 25px;
+  }
+  .adu-det-step{
+    float: left;
+    width: 229px;
+    height: 235px;
+    background: white;
+    box-shadow: 0 0 5px rgba(0,0,0,0.1);
+    .adu-step{
+      position: relative;
+      width: 236px;
+      height: 67px;
+      top: 7px;
+      left: -18px;
+      background: url("../images/step.png");
+      .step-waring-text{
+        float: right;
+        position: relative;
+        top: 28px;
+        right: 42px;
+        @include fontSet(white,16px);
+        @extend %normalFont;
+      }
+    }
+  }
+  .adu-det-verify{
+    float: left;
+    width: 727px;
+    height: 745px;
+    margin-left: 25px;
+    background: #fff;
+  }
+}
+

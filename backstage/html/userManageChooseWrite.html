@@ -1,0 +1,95 @@
+<h1>搜索</h1>
+<form>
+    <fieldset>
+        <label for="nick-name">昵称</label>
+        <input type="text" id="nick-name" name="nick-name" />
+        <label for="user-name">姓名</label>
+        <input type="text" id="user-name" name="user-name" />
+        <label for="mobile-number">手机</label>
+        <input type="text" id="mobile-number" name="mobile-number" />
+        <label for="up-time-0">上传时间</label>
+        <input type="text" id="up-time-0" name="up-time-0" />
+        <label for="up-time-1">---</label>
+        <input type="text" id="up-time-1" name="up-time-1" />
+        <label for="choose">不同材料筛选</label>
+        <select name="choose" id="choose">
+            <option value="user_id">123</option>
+            <option value="user_xx">456</option>
+        </select>
+        <input type="button" value="搜索" id="search" data-method="search" />
+    </fieldset>
+</form>
+<table class="userMessage">
+    <tbody>
+    <tr>
+        <td>昵称</td>
+        <td>姓名</td>
+        <td>手机号码</td>
+        <td>审核内容</td>
+        <td>附件</td>
+        <td>上传时间</td>
+        <td>操作</td>
+    </tr>
+    <tr>
+        <td>昵称</td>
+        <td>姓名</td>
+        <td>手机号码</td>
+        <td>审核内容</td>
+        <td>附件</td>
+        <td>上传时间</td>
+        <td><a href="#" class="check" data-method="check-pass">审核</a></td>
+    </tr>
+    <tr>
+        <td>昵称</td>
+        <td>姓名</td>
+        <td>手机号码</td>
+        <td>审核内容</td>
+        <td>附件</td>
+        <td>上传时间</td>
+        <td><a href="#" class="check" data-method="check-pass">审核</a></td>
+    </tr>
+    </tbody>
+</table>
+<p>
+    <span class="page">1</span>
+    <span class="page">2</span>
+    <span class="page">3</span>
+    <span class="page">4</span>
+    <span class="page">5</span>
+</p>
+<div class="alert" id="pass-first">
+    <div class="content">
+        <h2>
+            <span>标段信息></span>
+            个人信息
+        </h2>
+        <div class="message">
+            <p>发标人姓名: <span>SB</span></p>
+            <p>金额: <span>SB</span></p>
+            <p>利率: <span>SB</span></p>
+            <p>期限: <span>SB</span></p>
+            <p>信用: <span>SB</span></p>
+            <p>用途: <span>SB</span></p>
+        </div>
+        <form>
+            <input type="button" value="审核通过" id="pass" data-method="pass" />
+            <input type="button" value="审核不通过" id="nopass" />
+        </form>
+    </div>
+</div>
+<div class="alert" id="pass-second">
+    <div class="content">
+        <h2>
+            通知用户
+        </h2>
+        <div class="message">
+            <p>发标人姓名: <span>SB</span></p>
+            <p>发送内容:</p>
+            <textarea id="send-message">鼠标点击这里填写发送内容</textarea>
+        </div>
+        <form>
+            <input type="button" value="重新审核" id="repeat" />
+            <input type="button" value="立即发送" id="notify" data-method="notify" />
+        </form>
+    </div>
+</div>
