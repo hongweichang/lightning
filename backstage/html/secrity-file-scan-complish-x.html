@@ -1,0 +1,35 @@
+<h1>进行文件扫描一定程度上可以防止挂马，比较有效的保护系统，建议定期检测</h1>
+<form>
+    <fieldset>
+        <input type="button" value="扫描" id="scan" data-method="scan" />
+        <input type="button" value="查看检测日志" id="log" data-method="log"/>
+    </fieldset>
+</form>
+<table class="userMessage">
+    <tbody>
+    <tr>
+        <td>文件夹</td>
+        <td>是否可读</td>
+        <td>是否可用</td>
+        <td>是否可写</td>
+        <td>安全指数</td>
+        <td>安全说明</td>
+        <td>建议修改</td>
+        <td>操作</td>
+    </tr>
+    <tr>
+        <td>文件夹</td>
+        <td>是否可读</td>
+        <td>是否可用</td>
+        <td>是否可写</td>
+        <td>安全指数</td>
+        <td>安全说明</td>
+        <td>建议修改</td>
+        <td>
+            <a href="#" class="check" data-method="modify-read">可读修改</a>
+            <a href="#" class="check" data-method="modify-write">可写修改</a>
+            <a href="#" class="check" data-method="delete">删除文件</a>
+        </td>
+    </tr>
+    </tbody>
+</table>

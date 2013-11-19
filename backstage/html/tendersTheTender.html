@@ -1,0 +1,82 @@
+<form>
+    <fieldset>
+        <label for="nick-name">昵称</label>
+        <input type="text" id="nick-name" name="nick-name" />
+
+        <label for="user-name">姓名</label>
+        <input type="text" id="user-name" name="user-name" />
+
+        <label for="mobile-number">手机</label>
+        <input type="text" id="mobile-number" name="mobile-number" />
+
+        <label for="email">邮箱</label>
+        <input type="text" id="email" name="email" />
+
+        <label for="money-balance-0">金额（元）</label>
+        <input type="text" id="money-balance-0" name="money-balance-0" />
+        <label for="money-balance-1">---</label>
+        <input type="text" id="money-balance-1" name="money-balance-1" />
+
+        <label for="deadline-0">期限（月）</label>
+        <input type="text" id="deadline-0" name="deadline-0" />
+        <label for="deadline-1">---</label>
+        <input type="text" id="deadline-1" name="deadline-1" />
+
+        <label for="rate-0">利率(月)</label>
+        <input type="text" id="rate-0" name="rate-0" />
+        <label for="rate-1">---</label>
+        <input type="text" id="rate-1" name="rate-1" />
+
+        <label for="schedule-0">进度</label>
+        <input type="text" id="schedule-0" name="schedule-0" />
+        <label for="schedule-1">---</label>
+        <input type="text" id="schedule-1" name="schedule-1" />
+
+        <input type="button" value="搜索" />
+    </fieldset>
+</form>
+<table class="userMessage">
+    <tbody>
+    <tr>
+        <td>昵称</td>
+        <td>性别</td>
+        <td>借用</td>
+        <td>说明</td>
+        <td>金额（元）</td>
+        <td>期限（月）</td>
+        <td>月利率</td>
+        <td>招标时间段</td>
+        <td>投标进度</td>
+        <td>已投详情</td>
+        <td>操作</td>
+    </tr>
+    <tr>
+        <td>昵称</td>
+        <td>性别</td>
+        <td>借用</td>
+        <td>说明</td>
+        <td>金额（元）</td>
+        <td>期限（月）</td>
+        <td>月利率</td>
+        <td>招标时间段</td>
+        <td>投标进度</td>
+        <td><a href="#" data-method="check-tender" class="check">查看详情</a></td>
+        <td><a href="#" data-method="delete" class="check">删除</a></td>
+    </tr>
+    </tbody>
+</table>
+<div class="alert" id="pass-first">
+    <div class="content">
+        <h2>
+            <span>标段信息></span>
+            个人信息
+        </h2>
+        <div class="message">
+            <p>姓名: <span>SB</span></p>
+            <p>信用等级: <span>SB</span></p>
+            <p>性别: <span>SB</span></p>
+            <p>身份证: <span>SB</span></p>
+            <p>其他各种证件: <span>SB</span></p>
+        </div>
+    </div>
+</div>

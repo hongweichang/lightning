@@ -1,0 +1,74 @@
+<h1>
+    <span>客户资金总额:</span>
+    <span>网站盈利总额:</span>
+    <span>流动统计:</span>
+    <span>借款统计:</span>
+</h1>
+<h1>搜索</h1>
+<form>
+    <fieldset>
+        <label for="deadline-0">期限（月）</label>
+        <input type="text" id="deadline-0" name="deadline-0" />
+        <label for="deadline-1">---</label>
+        <input type="text" id="deadline-1" name="deadline-1" />
+
+        <label for="rate-0">利率（月）</label>
+        <input type="text" id="rate-0" name="rate-0" />
+        <label for="rate-1">---</label>
+        <input type="text" id="rate-1" name="rate-1" />
+
+        <label for="money-balance-0">金额(元)</label>
+        <input type="text" id="money-balance-0" name="money-balance-0" />
+        <label for="money-balance-1">---</label>
+         <input type="text" id="money-balance-1" name="money-balance-1" />
+
+        <label for="money-get-0">金额(元)</label>
+        <input type="text" id="money-get-0" name="money-get-0" />
+        <label for="money-get-1">---</label>
+        <input type="text" id="money-get-1" name="money-get-1" />
+
+        <input type="button" value="搜索" id="search" />
+        <input type="button" value="导出excel表格" />
+    </fieldset>
+</form>
+<table class="userMessage">
+    <tbody>
+    <tr>
+        <td>昵称</td>
+        <td>姓名</td>
+        <td>手机号码</td>
+        <td>邮箱</td>
+        <td>信用</td>
+        <td>提现原因</td>
+        <td>金额（元）</td>
+        <td>申请时间</td>
+        <td>手续费</td>
+        <td>实提金额（元）</td>
+        <td>操作</td>
+    </tr>
+    <tr>
+        <td>昵称</td>
+        <td>姓名</td>
+        <td>手机号码</td>
+        <td>邮箱</td>
+        <td>信用</td>
+        <td>提现原因</td>
+        <td>金额（元）</td>
+        <td>申请时间</td>
+        <td>手续费</td>
+        <td>实提金额（元）</td>
+        <td>
+            <a href="#" class="check" data-method="delete">删除记录</a>
+            <a href="#" class="check" data-method="return-money">返还收款</a>
+            <a href="#" class="check" data-method="check-user">查看用户信息</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<p>
+    <span class="page">1</span>
+    <span class="page">2</span>
+    <span class="page">3</span>
+    <span class="page">4</span>
+    <span class="page">5</span>
+</p>
