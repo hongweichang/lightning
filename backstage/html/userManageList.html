@@ -1,0 +1,64 @@
+<h1>搜索</h1>
+<form>
+    <fieldset>
+        <label for="user-name">姓名</label>
+        <input type="text" id="user-name" />
+        <label for="mobile-number">手机</label>
+        <input type="text" id="mobile-number"/>
+        <input type="button" value="搜索" id="search" />
+        <input type="button" value="添加" id="add" />
+    </fieldset>
+</form>
+<table class="userMessage">
+    <tbody>
+    <tr>
+        <td>姓名</td>
+        <td>手机号码</td>
+        <td>职能</td>
+        <td>上次登录时间</td>
+        <td>上次登录IP</td>
+        <td>操作</td>
+    </tr>
+    <tr>
+        <td>姓名</td>
+        <td>手机号码</td>
+        <td>职能</td>
+        <td>上次登录时间</td>
+        <td>上次登录IP</td>
+        <td>
+            <a href="#" data-method="delete" class="check">删除</a>
+            <a href="#" data-method="freeze" class="check">冻结</a>
+            <a href="#" data-method="modify" class="check">修改</a>
+            <a href="#" data-method="smart-lists" class="check">智能列表</a>
+            <a href="#" data-method="operation-detail" class="check">操作明细</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<p>
+    <span class="page">1</span>
+    <span class="page">2</span>
+    <span class="page">3</span>
+    <span class="page">4</span>
+    <span class="page">5</span>
+</p>
+<div class="alert" id="pass-first">
+    <div class="content">
+        <h2>
+            <span>标段信息></span>
+            个人信息
+        </h2>
+        <div class="message">
+            <p>发标人姓名: <span>SB</span></p>
+            <p>金额: <span>SB</span></p>
+            <p>利率: <span>SB</span></p>
+            <p>期限: <span>SB</span></p>
+            <p>信用: <span>SB</span></p>
+            <p>用途: <span>SB</span></p>
+        </div>
+        <form>
+            <input type="button" value="审核通过" id="pass" />
+            <input type="button" value="审核不通过" id="nopass" />
+        </form>
+    </div>
+</div>
