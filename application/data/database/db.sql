@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     2013/11/14 20:11:51                          */
+/* Created on:     2013/11/19 12:39:52                          */
 /*==============================================================*/
 
 
@@ -334,7 +334,7 @@ alter table xcms_front_user comment '前台用户，继承自网站用户';
 /*==============================================================*/
 create table xcms_bid
 (
-   id                   int(11) unsigned not null,
+   id                   int(11) unsigned not null auto_increment,
    user_id              int(11) unsigned not null,
    title                varchar(50) not null,
    description          text not null,
@@ -358,7 +358,7 @@ alter table xcms_bid comment '标段信息';
 /*==============================================================*/
 create table xcms_bid_meta
 (
-   id                   int(11) unsigned not null,
+   id                   int(11) unsigned not null auto_increment,
    user_id              int(11) unsigned not null,
    bid_id               int(11) unsigned not null,
    sum                  int(11) unsigned not null comment '购买金额，乘以100',
@@ -401,7 +401,7 @@ create table xcms_credit_settings
    id                   int(11) unsigned not null auto_increment,
    verification_name    varchar(10) not null,
    description          text not null,
-   verification_type    varchar(10) not null comment '信息的类型，如text-文字，image-图片',
+   verification_type    varchar(30) not null comment '信息的类型，如text-文字，image-图片',
    primary key (id)
 );
 
@@ -412,7 +412,7 @@ alter table xcms_credit_settings comment '信用验证内容，包含内容的�
 /*==============================================================*/
 create table xcms_credit_role
 (
-   id                   int(11) unsigned not null,
+   id                   int(11) unsigned not null auto_increment,
    role                 varchar(15) not null,
    verification_id      int(11) unsigned not null,
    optional             tinyint(1) not null default 0 comment '该信用选项是否可以不写，0-否，1-是，默认为0',
@@ -437,9 +437,9 @@ create index xcms_credit_role on xcms_credit_role
 /*==============================================================*/
 create table xcms_front_credit
 (
-   id                   int(11) unsigned not null,
+   id                   int(11) unsigned not null auto_increment,
    user_id              int(11) unsigned not null,
-   verfication_id       int(11) unsigned not null,
+   verification_id      int(11) unsigned not null,
    content              text not null comment '提交内容可以是文字或是URL',
    submit_time          int(11) not null,
    status               tinyint(2) not null comment '审核状态，0-待审，1-通过，2-失败',
@@ -447,7 +447,7 @@ create table xcms_front_credit
    primary key (id),
    constraint FK_FRONT_USER_CREDIT_FU foreign key (user_id)
       references xcms_front_user (id) on delete cascade on update cascade,
-   constraint FK_FRONT_USER_CREDIT_C foreign key (verfication_id)
+   constraint FK_FRONT_USER_CREDIT_C foreign key (verification_id)
       references xcms_credit_settings (id) on delete cascade on update cascade
 );
 
@@ -490,7 +490,7 @@ create index front_user_role on xcms_front_user
 /*==============================================================*/
 create table xcms_front_user_icon
 (
-   id                   int(11) unsigned not null,
+   id                   int(11) unsigned not null auto_increment,
    user_id              int(11) unsigned not null,
    path                 text not null,
    size                 varchar(15) default NULL comment '头像尺寸（长宽），默认为null，表示使用程序定义的默认尺寸',
@@ -508,7 +508,7 @@ alter table xcms_front_user_icon comment '用户头像，一个用户可以有�
 /*==============================================================*/
 create table xcms_front_user_message_board
 (
-   id                   int(11) unsigned not null,
+   id                   int(11) unsigned not null auto_increment,
    user_id              int(11) unsigned not null,
    title                varchar(20) not null,
    content              text not null,
@@ -550,7 +550,7 @@ create unique index fund_name_en on xcms_fund
 /*==============================================================*/
 create table xcms_fund_flow_internal
 (
-   id                   int(11) unsigned not null,
+   id                   int(11) unsigned not null auto_increment,
    to_user              int(11) unsigned not null,
    from_user            int(11) unsigned not null,
    sum                  int(11) unsigned not null comment '流动金额，乘以100',
@@ -571,7 +571,7 @@ alter table xcms_fund_flow_internal comment '站内用户资金流动记录';
 /*==============================================================*/
 create table xcms_message
 (
-   id                   int(11) unsigned not null,
+   id                   int(11) unsigned not null auto_increment,
    user_id              int(11) unsigned not null,
    title                varchar(20) not null,
    content              text not null,
@@ -590,7 +590,7 @@ alter table xcms_message comment '网站消息';
 /*==============================================================*/
 create table xcms_notification_settings
 (
-   id                   int(11) unsigned not null,
+   id                   int(11) unsigned not null auto_increment,
    user_id              int(11) unsigned not null,
    email                tinyint(1) not null default 1 comment '0-否，1-是，默认，1',
    sms                  tinyint(1) not null default 1 comment '0-否，1-是，默认1',
@@ -623,7 +623,7 @@ alter table xcms_operation_log comment '操作日志，用于判断异常行为'
 /*==============================================================*/
 create table xcms_recharge
 (
-   id                   int(11) unsigned not null,
+   id                   int(11) unsigned not null auto_increment,
    user_id              int(11) unsigned not null,
    sum                  int(11) unsigned not null comment '充值金额，乘以100',
    time                 int(11) unsigned not null,
@@ -726,7 +726,7 @@ alter table xcms_user_role comment '用户角色关联表';
 /*==============================================================*/
 create table xcms_withdraw
 (
-   id                   int(11) unsigned not null,
+   id                   int(11) unsigned not null auto_increment,
    user_id              int(11) unsigned not null,
    sum                  int(11) unsigned not null comment '提现金额，乘以100',
    time                 int(11) unsigned not null,
