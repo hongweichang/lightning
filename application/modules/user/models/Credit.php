@@ -30,7 +30,7 @@ class Credit extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('id, user_id, verification_id, content, submit_time, status', 'required'),
+			array('user_id, verification_id, content, submit_time, status', 'required'),
 			array('submit_time, status', 'numerical', 'integerOnly'=>true),
 			array('id, user_id, verification_id', 'length', 'max'=>11),
 			array('description', 'safe'),

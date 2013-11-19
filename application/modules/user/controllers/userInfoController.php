@@ -23,10 +23,8 @@ class userInfoController extends CmsController{
 	public function actionInfoAdd(){
 		$model = new Credit();
 		
-		if(isset($_POST['userInfo'])){
-			var_dump($_POST['userInfo']);
-			die();
-			$model->attributes = $_POST['userInfo'];
+		if(isset($_POST['Credit'])){
+			$model->attributes = $_POST['Credit'];
 			$model->verification_id = 1;
 			$model->submit_time = time();
 			$model->status = 0;
