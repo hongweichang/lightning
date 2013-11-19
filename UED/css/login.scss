@@ -32,16 +32,17 @@ height: 4em;
 }
 //验证样式
 .form-input.error{
-	border-color: red;
+	border-color: #2d9194;
 }
 .form-item label.error{
-	color: red;
+	color: #2d9194;
 	font-size: 12px;
 }
 #signup{
 	.form-item label.error{
+		margin-left:80px;
 		width: auto;
-		color: red;
+		color: #2d9194;
 		font-size: 12px;
 	}
 }
