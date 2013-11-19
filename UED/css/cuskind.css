@@ -1,0 +1,86 @@
+#container .con-cuskind {
+  width: 312px;
+  height: 337px;
+  margin-right: 20px; }
+
+#container .cuskind p {
+  width: 29px;
+  margin: 0 auto;
+  padding-top: 29px;
+  color: white;
+  line-height: 29px; }
+
+#container .con-cuskind, #container .cuskind {
+  float: left; }
+
+#container {
+  margin-bottom: 40px;
+  font-family: "Microsoft Yahei"; }
+  #container .con-nav {
+    margin: 40px 0 35px 0;
+    color: #454545;
+    font-size: 26px;
+    font-weight: normal;
+    color: #454545; }
+  #container .con-cuskind {
+    position: relative;
+    border: 1px solid #e8e8e8; }
+    #container .con-cuskind h2 {
+      font-size: 18px;
+      font-weight: normal;
+      color: #454545;
+      margin-top: 36px;
+      margin-left: 59px;
+      padding-left: 28px; }
+    #container .con-cuskind span {
+      padding-left: 32px;
+      font-size: 14px;
+      font-weight: normal;
+      color: #a6a6a6; }
+    #container .con-cuskind ul {
+      margin-top: 28px;
+      margin-left: 95px; }
+      #container .con-cuskind ul li {
+        list-style: disc;
+        list-style-position: inside;
+        width: 177px;
+        color: #2a888b; }
+        #container .con-cuskind ul li .kind_list {
+          font-size: 14px;
+          font-weight: normal;
+          color: #3a3a3a;
+          line-height: 28px;
+          margin-left: -37px;
+          zoom: 1; }
+    #container .con-cuskind a {
+      position: absolute;
+      bottom: 18px;
+      left: 96px;
+      font-size: 14px;
+      font-weight: normal;
+      color: #2e8a8d; }
+  #container .cuskind {
+    position: relative;
+    width: 57px;
+    border-right: 1px solid;
+    height: 100%; }
+    #container .cuskind p {
+      font-size: 27px; }
+    #container .cuskind img {
+      position: absolute;
+      left: 50%;
+      margin-left: -15px;
+      bottom: 23px; }
+  #container:after {
+    content: " ";
+    display: block;
+    clear: both; }
+  #container .cuskind-color-0 {
+    background: #eea758;
+    border-color: #f3c189; }
+  #container .cuskind-color-1 {
+    background: #9dd8ca;
+    border-color: #d7efe9; }
+  #container .cuskind-color-2 {
+    background: #a8f48b;
+    border-color: #c2f7ad; }

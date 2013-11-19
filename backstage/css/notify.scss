@@ -1,0 +1,84 @@
+h1{
+  font-weight: normal;
+}
+@mixin transition ($style,$start,$ani,$end) {
+  -webkit-transition: $style $start $ani $end;
+  -moz-transition: $style $start $ani $end;
+  -ms-transition: $style $start $ani $end;
+  transition: $style $start $ani $end;
+}
+.back-right{
+  fieldset{
+    border: none;
+    h1{
+      font-size: 14px;
+    }
+  }
+  input[type="button"]{
+    float: left;
+    padding: 10px;
+    opacity: 0;
+    margin-left: 20px;
+    @include transition(all,1s,ease,0s);
+  }
+  %after{
+    &:after{
+      content: " ";
+      display: block;
+      clear: both;
+    }
+  }
+  .open-button{
+    @extend %after;
+  }
+  input[type="button"].click{
+    color: red;
+  }
+  %ani{
+    opacity: 1;
+    margin-left: 10px;
+  }
+  input.box-ani{
+    @extend %ani;
+  }
+  %text{
+    float: left;
+    width: 160px;
+    height: 100px;
+  }
+  .open-content{
+    float: left;
+    width: 165px;
+    height: 0;
+    margin-left: 5px;
+    text-align: center;
+    overflow: hidden;
+    @include transition(all,1s,ease,0s);
+    textarea {
+      @extend %text;
+    }
+  }
+  .send-right{
+    width: 300px;
+    height: 100px;
+    margin: 0 auto;
+    text-align: center;
+    textarea{
+      @extend %text;
+    }
+    #send-now{
+      opacity: 1;
+    }
+  }
+  div.open-ani{
+    @extend %ani;
+    height: 150px;
+  }
+  div.open-save{
+    clear: both;
+    text-align: center;
+    input{
+      padding: 10px;
+    }
+  }
+}

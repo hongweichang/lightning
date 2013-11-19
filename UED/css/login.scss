@@ -1,0 +1,200 @@
+@import "common.scss";
+
+@mixin block ($width,$height,$border:none){
+	width: $width;
+	height: $height;
+	border: $border;
+}
+html,body{
+	height: 100%;
+}
+.wrapper {
+	min-height: 100%;
+	height: auto !important;
+	height: 100%;
+	margin: 0 auto -4em;
+	background: url("../images/bg.jpg") repeat;
+}
+.footer, .push {
+height: 4em;
+}
+#footer{
+	height:70px;
+	#copyright{
+		padding: 0;
+		line-height: 30px;
+	}
+}
+#container{
+  @extend %w100;
+  height: auto;
+  padding: 80px 0 100px 0;
+}
+//验证样式
+.form-input.error{
+	border-color: red;
+}
+.form-item label.error{
+	color: red;
+	font-size: 12px;
+}
+#signup{
+	.form-item label.error{
+		width: auto;
+		color: red;
+		font-size: 12px;
+	}
+}
+.guide{
+  @extend %fl;
+  margin: 0 20px;
+}
+#loginBox{
+	@extend %fl;
+	margin-left: 45px;
+	background-color:#fff;
+}
+.login-tab{
+	li{
+		@extend %fl;
+		@include block(217px,48px,1px solid #c9c9c9);
+		background-color: #f4f4f4;
+		@include font(20px);
+		line-height: 48px;
+		text-align: center;
+		color: #cdcccc;
+		cursor: pointer;
+	}
+	#tab-login{
+		border-right: none;
+	}
+	.tab-on{
+		background-color: #fff;
+		color: #555555;
+	}
+}
+.tab-body{
+	@include block(435px,auto,1px solid #c9c9c9);
+	padding: 25px 0 20px 0;
+	border-top: none;
+}
+.tab-content{
+	display: none;
+}
+.tab-show{
+	display: block;
+}
+.form-item{
+	position: relative;
+	margin-bottom: 20px;
+	color: #c9c9c9;
+	span{
+		position: absolute;
+		left: 2px;
+		top: 4px;
+		display: block;
+		width:33px;
+		height: 26px;
+	}
+	label{
+		color:#8c8c8c;
+		font-size:14px;
+	}
+	p{
+		position: absolute;
+		top: 8px;
+		left: 30px;
+		width: 255px;
+		font-size: 14px;
+	}
+}
+.form-input{
+	@include block(255px,22px,1px solid #c9c9c9);
+	//margin:0 0 20px 0;
+	padding: 4px 5px 4px 35px;
+	line-height: 22px;
+	font-size: 14px;
+}
+#login{
+	margin:0 65px 0 70px;
+}
+#signup{
+	margin:0 50px 0 50px; 
+	.form-input{ width: 196px;}
+	.form-item label{
+		width: 70px;
+		display: inline-block;
+		@include font(16px);
+		text-align: right;
+		color: #000;	
+	}
+	span{ left:80px;}
+	#protocal-label{
+		display: block;
+		float: right;
+		width: 250px;
+		font-size: 12px;
+	}
+	.fakeCheck{
+		float: right;
+		right: 240px;
+		span{
+			left: 0;
+		}
+	}
+}
+.form-input:hover,
+.form-input:focus{
+	border-color: #2d9194;
+	outline: 0;
+}
+.user-ico{
+	background: url("../images/user_ico.png");
+}
+.pw-ico{
+	background: url("../images/pw_ico.png");
+}
+.phone-ico{
+	background: url("../images/phone_ico.png");
+}
+.confirm-ico{
+	background: url("../images/confirm_ico.png");
+}
+#keepSignIn,
+#protocal{
+	display: none;
+}
+
+.fakeCheck{
+	position: relative;
+	float: left;
+	margin: 2px 5px 0 0;
+	@include block(13px,13px,1px solid #c9c9c9);
+	span{
+		position: absolute;
+		left: 0;
+		top: -4px;
+		width: 15px;
+		height: 15px;
+		background: url("../images/tick.png") no-repeat;
+	}
+}
+#protocal-label a,
+#findPw{
+	float: right;
+	color: #2d9194;
+	font-size: 12px;
+}
+#protocal-label a,
+#findPw:visited{color:#2d9194;}
+#loginBtn,
+#signupBtn{
+	border: 0;
+	width:100%;
+	height: 30px;
+	background-color: #2d9194;
+	@include font(18px);
+	color: #fff;
+	@include radius(5px);
+	cursor: pointer;
+}
