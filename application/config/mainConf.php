@@ -21,9 +21,16 @@ class mainConf extends ConfigBase{
 								'password'=>'admin',
 								'ipFilters'=>array('127.0.0.1','::1'),
 						),
-						'pay' => array(),
-						'user' => array(),
-						'credit' => array(),
+
+						'pay' => array(
+								'class' => 'application.modules.pay.PayModule'
+						),
+						'user' => array(
+								'class' => 'application.modules.user.UserModule'
+						),
+						'credit' =>array(
+								'class' => 'application.modules.credit.CreditModule'
+						),
 				),
 				'import' => array(
 						
@@ -52,6 +59,34 @@ class mainConf extends ConfigBase{
 								'charset' => 'utf8',
 								'tablePrefix' => 'xcms_'
 						),*/
+						//local database
+						/*
+						 'db' =>array(
+						 		'class' => 'system.db.CDbConnection',
+						 		'autoConnect' => false,
+						 		'connectionString' => 'mysql:host=localhost;dbname=lightning',
+						 		'emulatePrepare' => true,
+						 		'username' => 'lancelot',
+						 		'password' => 'lancelot@lightningdbmysqladmin',
+						 		'charset' => 'utf8',
+						 		'tablePrefix' => 'xcms_'
+						 ),*/
+						'cache' => array(
+								'class' => 'CMemCache',
+								'useMemcached' => true,
+								'servers' => array(
+										array(
+												//本地memcached缓存
+												'host' => 'localhost',
+												//阿里云外网IP
+												//'host' => '115.29.186.221',
+												//阿里云内网IP，本地测试可以使用本地memcached服务器
+												//'host' => '10.161.138.206',
+												'port' => 11211
+										),
+								),
+						),
+
 						/*
 						'cacheDb' => array(
 								'class' => 'CDbCache',
@@ -59,7 +94,6 @@ class mainConf extends ConfigBase{
 								'cacheTableName' => 'xcms_yii_cache',
 								'autoCreateCacheTable' => false
 						),
-						'cacheMem' => array(),
 						'cacheApc' => array(),
 						*/
 						'urlManager'=>array(

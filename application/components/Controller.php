@@ -9,10 +9,12 @@ class Controller extends CmsController{
 	public $cssUrl;
 	public $scriptUrl;
 	public $imageUrl;
+	public 	$user;
 	
 	public function init(){
 		parent::init();
 		
+		$this->user = Yii::app()->user;
 		$homeUrl = $this->app->getHomeUrl();
 		$this->cssUrl = $homeUrl.'css/';
 		$this->scriptUrl = $homeUrl.'js/';

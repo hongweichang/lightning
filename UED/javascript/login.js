@@ -53,7 +53,7 @@ $(document).ready(function(){
 		messages:{
 			username:{
 				required: "用户名不能为空",
-				uname: "用户名4-16个字符，可由中英文、数字、下划线构成"
+				uname: "可由4-16个中英文、数字、下划线字符构成"
 			},
 			signup_phone:{
 				required: "手机号不能为空",

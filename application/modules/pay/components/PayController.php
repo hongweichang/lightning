@@ -11,13 +11,6 @@ class PayController extends CmsController{
 	protected $subject;	 // 订单名
 	protected $buyer;	 // 平台账号
 	protected $buyer_id; //	平台ID
-	public 	$user;
-	
-	public function init(){
-		parent::init();
-		
-		$this->user = Yii::app()->user;
-	}
 	
 	/**
 	 * 发起一个充值订单，并生成订单号
@@ -61,6 +54,8 @@ class PayController extends CmsController{
 			'status' => 1
 		);
 		if($record->save()){
+			FrontUser::model()->updateByPk($trade_no, array(
+			));
 			//业务逻辑
 		}else{
 	
