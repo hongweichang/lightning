@@ -12,6 +12,7 @@ class mainConf extends ConfigBase{
 		$this->traceLevel = 3;
 	}
 	
+
 	public function merge(){
 		return array(
 				'modules' => array(
@@ -20,6 +21,16 @@ class mainConf extends ConfigBase{
 								'password'=>'lancelot!410',
 								'ipFilters'=>array('127.0.0.1','::1'),
 						),
+
+						'user' => array(
+								'class' => 'application.modules.user.UserModule'
+						),
+
+						'credit' =>array(
+								'class' => 'application.modules.credit.CreditModule'
+						),
+
+
 				),
 				'import' => array(
 						
@@ -29,6 +40,7 @@ class mainConf extends ConfigBase{
 						'db' => array(
 								'class' => 'system.db.CDbConnection',
 								'autoConnect' => false,
+<<<<<<< HEAD
 								'connectionString' => 'mysql:host=115.29.240.98;dbname=lightning',
 								'emulatePrepare' => true,
 								'username' => 'lancelot',
@@ -48,6 +60,17 @@ class mainConf extends ConfigBase{
 								'charset' => 'utf8',
 								'tablePrefix' => 'xcms_'
 						),*/
+=======
+								'connectionString' => 'mysql:localhost=host;dbname=lightning',
+								'emulatePrepare' => true,
+								'username' => 'tianling',
+								'password' => '887976',
+								'charset' => 'utf8',
+								'tablePrefix' => 'xcms_'
+						),
+
+
+>>>>>>> tmp
 						/*
 						'cacheDb' => array(
 								'class' => 'CDbCache',
