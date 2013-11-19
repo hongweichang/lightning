@@ -19,7 +19,7 @@ class mainConf extends ConfigBase{
 								'class'=>'system.gii.GiiModule',
 								'password'=>'lancelot!410',
 								'ipFilters'=>array('127.0.0.1','::1'),
-						),
+						)
 				),
 				'import' => array(
 						
@@ -35,6 +35,21 @@ class mainConf extends ConfigBase{
 								'charset' => 'utf8',
 								'tablePrefix' => 'xcms_'
 						),
+						'cache' => array(
+								'class' => 'CMemCache',
+								'useMemcached' => true,
+								'servers' => array(
+										array(
+												//本地memcached缓存
+												'host' => 'localhost',
+												//阿里云外网IP
+												//'host' => '115.29.186.221',
+												//阿里云内网IP，本地测试可以使用本地memcached服务器
+												//'host' => '10.161.138.206',
+												'port' => 11211
+										),
+								),
+						),
 						/*
 						'cacheDb' => array(
 								'class' => 'CDbCache',
@@ -42,7 +57,6 @@ class mainConf extends ConfigBase{
 								'cacheTableName' => 'xcms_yii_cache',
 								'autoCreateCacheTable' => false
 						),
-						'cacheMem' => array(),
 						'cacheApc' => array(),
 						*/
 						'urlManager'=>array(
