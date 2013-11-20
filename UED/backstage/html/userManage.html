@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>闪电贷</title>
+    <link rel="stylesheet" type="text/css" href="../css/common.css">
+</head>
+<body>
+    <div id="header">
+        <div id="he-login">
+            <div class="wd1002">
+                <p class="he-lo">
+                    <span>你好欢迎登陆，[<a href="#">注销</a>]</span>
+                    <a href="#" class="he-where">前台首页</a>
+                    <a href="#">缓存更新</a>
+                </p>
+            </div>
+        </div>
+        <div id="he-nav">
+            <div class="wd1002">
+                <img src="../images/logo.png" id="logo" />
+                <ul id="main-nav">
+                    <li><a href="#" class="now-page">用户和管理员</a></li>
+                    <li><a href="tenders.html">标段信息</a></li>
+                    <li><a href="informationCheck.html">信息审核</a></li>
+                    <li><a href="secrity.html">安全卫士</a></li>
+                    <li><a href="pay.html">充值提现</a></li>
+                    <li><a href="notify.html">通知消息</a></li>
+                    <li><a href="fund.html">资金统计</a></li>
+                    <li><a href="content.html">内容管理</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div id="backStage">
+        <div class="wd1002">
+            <div class="back-left">
+		                <h1>
+		                    <img src="../images/menu-log.png" />
+		                    <span>管理菜单</span>
+		                </h1>
+		                <ul id="left-back">
+		                    <li id="userManageInformationList">用户信息列表</li>
+		                    <li><span></span>信用信息审核
+		                        <ul class="list-2">
+		                            <li id="userManageMustWrite">必填信息</li>
+		                            <li id="userManageChooseWrite">选填信息</li>
+		                        </ul>
+		                    </li>
+		                    <li id="userManageMemberconfiguration">会员级别配置</li>
+		                    <li id="userManageList"><span></span>管理员列表</li>
+		                </ul>
+		            </div>
+		            <div class="back-right">
+		           		<h1>搜索</h1>
+		<form>
+		    <fieldset>
+		        <label for="nick-name">昵称</label>
+		        <input type="text" id="nick-name" name="nick-name" />
+		        <label for="user-name">姓名</label>
+		        <input type="text" id="user-name" name="user-name" />
+		        <label for="mobile-number">手机</label>
+		        <input type="text" id="mobile-number" name="mobile-number" />
+		        <label for="up-time-0">上传时间</label>
+		        <input type="text" id="up-time-0" name="up-time-0" />
+		        <label for="up-time-1">---</label>
+		        <input type="text" id="up-time-1" name="up-time-1" />
+		        <label for="choose">不同材料筛选</label>
+		        <select name="choose" id="choose">
+		            <option value="user_id">123</option>
+		            <option value="user_xx">456</option>
+		        </select>
+		        <input type="button" value="搜索" id="search" data-method="search" />
+		    </fieldset>
+		</form>
+		<table class="userMessage">
+		    <tbody>
+		    <tr>
+		        <td>昵称</td>
+		        <td>姓名</td>
+		        <td>手机号码</td>
+		        <td>审核内容</td>
+		        <td>附件</td>
+		        <td>上传时间</td>
+		        <td>操作</td>
+		    </tr>
+		    <tr>
+		        <td>昵称</td>
+		        <td>姓名</td>
+		        <td>手机号码</td>
+		        <td>审核内容</td>
+		        <td>附件</td>
+		        <td>上传时间</td>
+		        <td><a href="#" class="check" data-method="check-pass">审核</a></td>
+		    </tr>
+		    <tr>
+		        <td>昵称</td>
+		        <td>姓名</td>
+		        <td>手机号码</td>
+		        <td>审核内容</td>
+		        <td>附件</td>
+		        <td>上传时间</td>
+		        <td><a href="#" class="check" data-method="check-pass">审核</a></td>
+		    </tr>
+		    </tbody>
+		</table>
+		<p>
+		    <span class="page">1</span>
+		    <span class="page">2</span>
+		    <span class="page">3</span>
+		    <span class="page">4</span>
+		    <span class="page">5</span>
+		</p>
+		<div class="alert" id="pass-first">
+		    <div class="content">
+		        <h2>
+		            <span>标段信息></span>
+		            个人信息
+		        </h2>
+		        <div class="message">
+		            <p>发标人姓名: <span>SB</span></p>
+		            <p>金额: <span>SB</span></p>
+		            <p>利率: <span>SB</span></p>
+		            <p>期限: <span>SB</span></p>
+		            <p>信用: <span>SB</span></p>
+		            <p>用途: <span>SB</span></p>
+		        </div>
+		        <form>
+		            <input type="button" value="审核通过" id="pass" data-method="pass" />
+		            <input type="button" value="审核不通过" id="nopass" />
+		        </form>
+		    </div>
+		</div>
+		<div class="alert" id="pass-second">
+		    <div class="content">
+		        <h2>
+		            通知用户
+		        </h2>
+		        <div class="message">
+		            <p>发标人姓名: <span>SB</span></p>
+		            <p>发送内容:</p>
+		            <textarea id="send-message">鼠标点击这里填写发送内容</textarea>
+		        </div>
+		        <form>
+		            <input type="button" value="重新审核" id="repeat" />
+		            <input type="button" value="立即发送" id="notify" data-method="notify" />
+		        </form>
+		    </div>
+		</div>
+
+            </div>
+            <div id="copyright">
+                <p>重庆闪电贷金融信息服务有限公司 版权所有 2007-2013
+                Copyright Reserved 2007-2013©闪电贷（www.sddai.com） | 渝ICP备05063398号</p>
+            </div>
+        </div>
+    </div>
+<script type="text/javascript" src="../javascript/jquery-1.8.2.min.js"></script>
+<script type="text/javascript" src="../javascript/ajaxMVC.js"></script>
+</body>
+</html>

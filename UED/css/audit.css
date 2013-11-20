@@ -1,0 +1,147 @@
+#container .aud-nav, #container #aud-detail .adu-d-nav, #container #aud-detail ul, #container #aud-detail ul.adu-img-bar li, #container #aud-detail p {
+  font-weight: normal;
+  font-family: "Microsoft Yahei"; }
+
+#container .aud-common {
+  width: 811px;
+  height: 174px;
+  margin: 0 auto; }
+  #container .aud-common .aud-warning {
+    width: 665px;
+    margin: 0 auto; }
+    #container .aud-common .aud-warning div.adu-step {
+      position: relative;
+      float: left;
+      width: 79px;
+      height: 104px;
+      background: url("../images/aud-com.png") no-repeat;
+      font-size: 16px;
+      color: white;
+      font-weight: bold;
+      text-align: center; }
+      #container .aud-common .aud-warning div.adu-step span {
+        position: absolute;
+        width: 70px;
+        height: 43px;
+        margin: auto;
+        left: 0;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        *top: 27%;
+        line-height: 20px; }
+    #container .aud-common .aud-warning div.adu-bar {
+      float: left;
+      width: 114px;
+      height: 29px;
+      margin-left: -73px;
+      margin-top: 13px;
+      background: url("../images/aud-bar.png") no-repeat; }
+    #container .aud-common .aud-warning div.adu-bar-last {
+      position: relative;
+      width: 100px;
+      left: 90px;
+      margin-left: -63px; }
+    #container .aud-common .aud-warning span.adu-next {
+      display: inline-block;
+      position: relative;
+      width: 26px;
+      height: 21px;
+      left: 18px;
+      top: 35px;
+      background: url("../images/aud-next.png"); }
+    #container .aud-common .aud-warning div.adu-war-box {
+      width: 118px;
+      margin-left: 23px;
+      float: left; }
+    #container .aud-common .aud-warning div.adu-war-box-last {
+      width: 79px; }
+    #container .aud-common .aud-warning div.adu-war-box-first {
+      margin-left: 0; }
+    #container .aud-common .aud-warning:after {
+      content: " ";
+      display: block;
+      clear: both; }
+
+#container {
+  margin-bottom: 310px; }
+  #container .aud-nav {
+    margin-top: 47px;
+    margin-bottom: 32px; }
+    #container .aud-nav a {
+      font-size: 16px;
+      color: #454545; }
+    #container .aud-nav a:first-child {
+      color: #848383; }
+  #container:after {
+    content: " ";
+    display: block;
+    clear: both; }
+  #container #aud-check {
+    margin-bottom: 23px; }
+    #container #aud-check div.aud-checked div.adu-step {
+      background-image: url("../images/aud-com-hover.png"); }
+    #container #aud-check div.aud-checked span.adu-next {
+      background-image: url("../images/aud-next-hover.png"); }
+    #container #aud-check div.aud-checked div.adu-bar {
+      background-image: url("../images/aud-bar-hover.png"); }
+  #container #aud-detail {
+    width: 989px;
+    margin: 0px auto;
+    height: 780px;
+    border: 2px solid #eaeaea;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    background: white;
+    text-align: center; }
+    #container #aud-detail .adu-d-nav {
+      padding-top: 54px;
+      font-size: 24px;
+      color: #2d8b8e;
+      text-align: center; }
+      #container #aud-detail .adu-d-nav span {
+        display: block;
+        margin-top: 5px;
+        font-size: 14px;
+        color: #2d8b8e; }
+    #container #aud-detail ul {
+      width: 876px;
+      margin: 0 auto;
+      margin-top: 78px;
+      border-bottom: 1px solid #dfdfdf;
+      font-size: 14px;
+      color: gray; }
+      #container #aud-detail ul li {
+        float: left;
+        margin-left: 81px;
+        margin-bottom: 29px; }
+        #container #aud-detail ul li span {
+          font-size: 21px;
+          color: #555555; }
+      #container #aud-detail ul:after {
+        content: " ";
+        display: block;
+        clear: both; }
+    #container #aud-detail ul.adu-img-bar {
+      border-top: 1px solid #eeeeee;
+      margin-top: 0;
+      padding-top: 78px; }
+      #container #aud-detail ul.adu-img-bar li {
+        width: 208px;
+        text-align: center;
+        font-size: 24px;
+        color: #40bdc1; }
+        #container #aud-detail ul.adu-img-bar li p {
+          margin: 21px 0; }
+        #container #aud-detail ul.adu-img-bar li div {
+          width: 44px;
+          height: 41px;
+          margin: 0 auto;
+          background: url("../images/pass.png"); }
+        #container #aud-detail ul.adu-img-bar li div.adu-no-pass {
+          background: url("../images/no-pass.png") no-repeat; }
+    #container #aud-detail .adu-img-waring {
+      margin-top: 75px;
+      margin-bottom: 36px; }
+    #container #aud-detail p {
+      font-size: 24px;
+      color: #40bdc1; }

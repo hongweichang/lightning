@@ -1,0 +1,263 @@
+*{
+  margin: 0;
+  padding: 0;
+}
+a{
+  text-decoration: none;
+}
+ul{
+  list-style: none;
+}
+li{
+  list-style:none;
+}
+img{
+  border: none;
+}
+body{
+  background: #f2f2f2;
+  font-family: "Microsoft Yahei";
+}
+.clearfix:after{
+  visibility: hidden;
+  display: block;
+  font-size:0;
+  content:" ";
+  clear:both;
+  height:0;
+}
+.clearfix{
+  zoom:1;
+}
+//sass
+%w100{
+  width: 100%;
+}
+%w1002center{
+  width: 1002px;
+  margin: 0 auto;
+}
+%f12_white{
+  font-size: 12px;
+  color: white;
+}
+%fr{
+  float: right;
+}
+%fl{
+  float: left;
+}
+%font{
+  font-family: "Microsoft Yahei";
+}
+@mixin font ($size: 12px,$family: "Microsoft Yahei",$weight:normal){
+  font:{
+    size: $size;
+    family: $family;
+    weight: $weight;
+  }
+}
+@mixin line_height ($height) {
+  line-height: $height;
+}
+@mixin transition ($style,$start,$ani,$end) {
+  -webkit-transition: $style $start $ani $end;
+  -moz-transition: $style $start $ani $end;
+  -ms-transition: $style $start $ani $end;
+  transition: $style $start $ani $end;
+}
+@mixin radius($value){
+  -webkit-border-radius: $value;
+  -moz-border-radius: $value;
+  border-radius: $value;
+}
+@mixin shadow($h-shadow,$v-shadow,$blur,$spread,$color){
+  -webkit-box-shadow: $h-shadow $v-shadow $blur $spread $color;
+  -moz-box-shadow: $h-shadow $v-shadow $blur $spread $color;
+  box-shadow: $h-shadow $v-shadow $blur $spread $color;
+}
+@mixin inset_shadow($h-shadow,$v-shadow,$blur,$spread,$color,$inset){
+  -webkit-box-shadow: $h-shadow $v-shadow $blur $spread $color $inset;
+  -moz-box-shadow: $h-shadow $v-shadow $blur $spread $color $inset;
+  box-shadow: $h-shadow $v-shadow $blur $spread $color $inset;
+
+}
+//sass
+#header{
+  @extend %w100;
+  overflow: hidden;
+}
+.wd1002{
+  @extend %w1002center;
+}
+#he-login{
+  @extend %w100;
+  height: 25px;
+  background: url("../images/h_bg.png");
+}
+.he-wl{
+  margin-right: 9px;
+  @extend %fr;
+  @extend %f12_white;
+  @include  line_height(25px);
+}
+.he-lo{
+  @extend %fr;
+}
+.he-lo a{
+  margin-left: 34px;
+  @extend %f12_white;
+}
+#he-nav{
+  @extend %w100;
+  height: 82px;
+  background: url("../images/nav_bg.png");
+}
+#he-nav img{
+  margin: 5px 0 0 9px;
+  float: left; //IE7 hack
+}
+#he-nav ul li{
+  margin-left: 40px;
+  border-top-style: solid;
+  border-top-width: 0;
+  @extend %fl;
+  @include font(20px);
+  @include line_height(64px);
+  @include transition(border-top-width,.5s,ease,0s);
+}
+#he-nav ul{
+  margin-top: 16px;
+  @extend %fr;
+  overflow: hidden;
+  li.where{
+    border-top-width: 4px;
+  }
+}
+#he-nav ul li:hover{
+  border-top-width: 4px;
+}
+#he-nav ul li a{
+  color: #000000;
+}
+.origin{
+  border-color: #eea758;
+}
+.yellow{
+  border-color: #f4e690;
+}
+.green{
+  border-color: #a8f48b;
+}
+.deepGreen{
+  border-color: #9dd8ca;
+}
+.pink{
+  border-color: #f9bdea;
+}
+.violet{
+  border-color: #ddc4f7;
+}
+#footer{
+  @extend %w100;
+  height: 303px;
+  background: url("../images/h_bg.png");
+}
+#fo-nav{
+  @extend %fl;
+  margin-top: 37px;
+}
+#fo-nav > li{
+  @extend %fl;
+  height: 110px;
+  margin-right: 21px;
+  @extend %f12_white;
+  @include font(16px);
+}
+#fo-nav > li > img{
+  @extend %fl;
+  margin-right: 9px;
+}
+#fo-nav > li > ul{
+  margin-left: 8px;
+  margin-top: 19px;
+}
+#fo-nav > li > ul > li {
+  line-height: 12px;
+  padding-bottom: 10px;
+  border-left: 2px solid white;
+}
+#fo-nav > li > ul > li:last-child{
+  padding-bottom: 0;
+}
+#fo-nav > li > ul > li > a{
+  @extend %f12_white;
+  padding-left: 12px;
+  vertical-align: top;
+}
+#fo-contact{
+  width: 300px;
+  @extend %fr;
+  margin-top: 37px;
+  img{
+    @extend %fl;
+  }
+  p{
+    @extend %fr;
+    position: relative;
+    top: -10px;
+    left: -18px;
+    @extend %f12_white;
+    @include font(14px);
+    span{
+      display: block;
+      margin-left: -5px;
+      @include font(36px);
+    }
+  }
+  .con-center{
+    width: 290px;
+    margin: 0 auto;
+    img{
+      margin-top: 11px;
+      margin-left: 5px;
+    }
+  }
+}
+#copyright{
+  clear: both;
+  padding-top: 27px;
+  text-align: center;
+  @extend %f12_white;
+  @include font(16px);
+}
+
+//define width
+$a:(20,30);
+@for $i from 1 to length($a)+1{
+  $w:nth($a,$i);
+  .w#{$w}{
+    width:$w+px;
+  }
+}
+
+//rank
+@mixin bgColor($color){
+  background-color:$color;
+}
+.rankA,
+.rankB,
+.rankC,
+.rankHR{
+  width:30px;
+  height:30px;
+  margin: 0 auto;
+  line-height: 30px;
+  color:#fff;
+  @include font(16px);
+  font-weight:bold;
+}
+.rankA{ @include bgColor(#00ffcc);}
+.rankB{ @include bgColor(#09c93b);}
+.rankC{ @include bgColor(#07ee58);}
+.rankHR{ @include bgColor(#ff001e);}
