@@ -7,7 +7,7 @@
 <div class="form-list">
 <?php
 	$this->widget('application.extensions.swfupload.CSwfUpload', array(
-    'jsHandlerUrl'=>Yii::app()->request->baseUrl."/js/handlers.js", //配置swfupload事件的js文件
+    'jsHandlerUrl'=>Yii::app()->request->baseUrl."/plugins/swfupload/js/handlers.js", //配置swfupload事件的js文件
     'postParams'=>array('PHPSESSID'=>Yii::app()->session->sessionID),//由于flash上传不可以传递cookie只能将session_id用POST方式传递
     'config'=>array(
     	//'debug'=>true,//是否开启调试模式
@@ -28,7 +28,7 @@
         'button_placeholder_id'=>'swfupload',
         'button_width'=>140,
         'button_height'=>28,
-        'button_image_url'=>Yii::app()->request->baseUrl."/images/uploadButton.jpg",
+        'button_image_url'=>Yii::app()->request->baseUrl."/plugins/swfupload/images/uploadButton.jpg",
         'button_text'=>'<span class="button">上传(Max 30 MB)</span>',
         'button_text_style'=>'.button { font-family:"微软雅黑", sans-serif; font-size: 15px; text-align: center;color: #666666; }',
         'button_text_top_padding'=>0,

@@ -5,7 +5,7 @@ design By HJtianling,hjtl1992robin@gmail.com
 2013.11.16
 */
 
-class userInfoController extends CmsController{
+class UserInfoController extends CmsController{
 
 	public function filters(){
 		return array();
@@ -131,8 +131,6 @@ class userInfoController extends CmsController{
 	*/
 	public function actionDownload($id){
 		if(!empty($id) && is_numeric($id)){
-
-			
 			$fileData = Credit::model()->findAll('id =:id',array('id'=>$id));
 
 			if($fileData == null){
