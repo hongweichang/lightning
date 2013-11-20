@@ -1,7 +1,7 @@
 <?php
 /*
 **用户个人信息处理
-design By tianling 
+design By HJtianling,hjtl1992robin@gmail.com
 2013.11.16
 */
 
@@ -11,8 +11,17 @@ class userInfoController extends CmsController{
 		return array();
 	}
 
+	/*
+	**用户信息资料管理
+	*/
 	public function actionIndex(){
-		echo "ok";
+		$criteria = new CDbCriteria;
+		$criteria ->select = 'id,user_id,verification_id,file_type,submit_time,status,description';
+		$criteria ->order = 'submit_time DESC';
+
+		$userInfoData = Credit::model()->findAll($criteria);
+		$this->render('index',array('userInfo'=>$userInfoData));
+
 	}
 
 
@@ -22,12 +31,22 @@ class userInfoController extends CmsController{
 	*/
 	public function actionInfoAdd(){
 		$model = new Credit();
-
-		if(isset($_POST['userInfo'])){
-			$model->attributes = $_POST['userInfo'];
+		
+		if(isset($_POST['Credit'])){
+			$model->attributes = $_POST['Credit'];
 			$model->verification_id = 1;
 			$model->submit_time = time();
 			$model->status = 0;
+
+			if(isset($_SESSION['typeName']) && isset($_SESSION['url'])){
+				$model->file_type = $_SESSION['typeName'];
+				$model->content = $_SESSION['url'];
+				$_SESSION['typeName'] = null;
+				$_SESSION['url'] = null;
+			}else{
+				$model->file_type = "text";
+				$model->content = $_POST['userInfo']->content;
+			}
 
 			if($model->save())
 				echo "ok";
@@ -38,6 +57,9 @@ class userInfoController extends CmsController{
 
 	}
 
+	/*
+	**用户附件上传
+	*/
 	public function actionUpload(){
 		$typeArray = array('jpg','png','gif','jpeg','pdf','zip','rar');
 		$maxSize = 1024*1024*30; //最大文件大小约为30MB
@@ -102,5 +124,31 @@ class userInfoController extends CmsController{
 			return 400;
 		}
 	}
+
+
+	/*
+	**附件下载
+	*/
+	public function actionDownload($id){
+		if(!empty($id) && is_numeric($id)){
+
+			
+			$fileData = Credit::model()->findAll('id =:id',array('id'=>$id));
+
+			if($fileData == null){
+				throw new CHttpException ('500', '文件不存在');  
+			}else{
+				$fileUrl = $fileData[0]->content;
+				$fileType = pathinfo($fileUrl, PATHINFO_EXTENSION);//获取文件扩展名
+				$fileName = Tool::getRandName().'.'.$fileType;
+				
+				if(file_exists($fileUrl)){
+					yii::app ()->request->sendFile ($fileName,  file_get_contents ($fileUrl)); 
+				}
+			}
+
+		}
+	}
+
 }
 ?>
