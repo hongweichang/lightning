@@ -38,7 +38,7 @@ Yii::app ()->clientScript->registerScriptFile ( $this->scriptUrl . 'login.js', C
 			<div class="tab-content">
 				<form method="post" action="<?php echo $this->createUrl('sign/signup'); ?>" id="signup">
 					<div class="form-item">
-						<label for="signup-username">用户名</label>
+						<label for="signup-username">邮箱</label>
 						<input type="text" name="username" class="form-input" id="signup-username" value="" />
 						<span class="user-ico"></span>
 					</div>

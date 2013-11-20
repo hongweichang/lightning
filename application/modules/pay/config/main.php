@@ -32,4 +32,8 @@ return array(
 		//商品展示地址
 		'show_url' => 'http://127.0.0.1:8080'.Yii::app()->createUrl("pay/index"),
 	),
+	
+	'ips' => array(
+		
+	),
 );

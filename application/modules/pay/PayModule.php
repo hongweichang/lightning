@@ -3,6 +3,8 @@
 class PayModule extends CmsModule
 {
 	public $alipay;
+	public $ips;
+	
 	public function init()
 	{
 		parent::init();
