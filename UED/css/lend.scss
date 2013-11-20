@@ -230,3 +230,162 @@ body{
 #viewMore{
   @include border_lr(1px,#dadadb);
 }
+
+//pay
+#borrow-info{
+  margin-top:60px;
+  padding: 0 36px;
+  height: 110px;
+  border-bottom: 3px solid #298689;
+  background-color: #d6f2f3; 
+}
+#borrow-avatar{
+  position:relative;
+  bottom: 60px;
+  width:110px;
+  height: 110px;
+  background-color: #d6f2f3;
+  img{
+    border:2px solid #fff;
+    width:108px;
+    height:108px;
+    vertical-align: middle;
+  }
+  span{
+    position: absolute;
+    right:2px;
+    bottom:2px;
+    width:30px;
+    height:30px;
+    background-color:#75c145;
+    font-size:18px;
+    color:#fff;
+    line-height: 30px;
+    text-align: center;
+  }
+}
+#borrow-details{
+  position: relative;
+  display: inline-block;
+  top: 80px;
+  width: 530px;
+  color: #298689;
+  @include font(14px);
+}
+.text-overflow{
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+#borrow-num{
+  float: right;
+  margin-top: 40px;
+  @include font(24px);
+  color:#a1a9aa;
+  span{
+    @include font(50px);
+    color: #ff6600;
+  }
+}
+#view-detail{
+  width: 110px;
+  height: 19px;
+  margin: 0 auto;
+  background: url("../images/viewDetail.png");
+  cursor: pointer;
+}
+.paycenter{
+  margin: 16px 0;
+  padding: 26px 95px;
+  border: 2px solid #ddd;
+  background: #fff;
+  .check-security{
+    background: url("../images/check_security.png") no-repeat 3px 10px;
+  }
+  .paycenter-alert{
+    width:240px;
+    border:1px solid #5ecacd;
+    background: #d5f3f4 url("../images/alert.png") no-repeat 3px 10px;
+  }
+}
+.paycenter-item{
+  margin-bottom: 26px;
+  label{
+    display: inline-block;
+    width: 85px;
+    text-align: right;
+  }
+  img{
+    display: inline-block;
+    vertical-align: middle;
+    border:1px solid #ddd;
+  }
+  div{
+    display: inline-block;
+    span{
+      color:#ff6600;
+    }
+  }
+  input{
+    border:1px solid #c9c9c9;
+    height: 20px;
+  }
+  p{
+    font-size: 12px;
+    margin: 20px 0 0 90px;
+    padding:10px 25px;
+  }
+  .paycenter-tips{
+    margin-left: 10px;
+    font-size: 12px;
+    color:#2d9194;
+  }
+  .paycenter-hint{
+    margin: 3px 0 0 90px;
+    padding: 0 0 0 20px;
+    color: #848383;
+    background: url("../images/verifycode_ico.png") no-repeat;
+  }
+}
+.paycenter-item input:hover,
+.paycenter-item input:focus{
+  border-color: #2d9194;
+  outline: 0;
+}
+#pay-verify{
+  width:90px;
+}
+#paycenter-pay{
+  margin-left: 90px;
+  width: 100px;
+  height: 36px;
+  background-color: #2da9ac;
+  line-height: 36px;
+  color: #fff;
+  text-align: center;
+  cursor: pointer;
+  @include font(20px);
+  @include radius(5px);
+}
+#helpcenter{
+  padding: 0 38px;
+  p{
+    width: 595px;
+    font-size: 12px;
+  }
+  .help-title{
+    font-weight: bold;
+  }
+  .help-answer{
+    margin-bottom: 20px;
+  }
+  a{
+    margin-right: 20px;
+    font-size:12px;
+    color:#2d9194;
+  }
+  a:visited{
+    color:#2d9194;
+  }
+
+}
