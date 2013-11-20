@@ -14,6 +14,10 @@ li {
 img {
   border: none; }
 
+body {
+  background: #f2f2f2;
+  font-family: "Microsoft Yahei"; }
+
 .clearfix:after {
   visibility: hidden;
   display: block;
@@ -64,10 +68,6 @@ img {
   margin: 5px 0 0 9px;
   float: left; }
 
-#he-nav ul {
-  margin-top: 16px;
-  overflow: hidden; }
-
 #he-nav ul li {
   margin-left: 40px;
   border-top-style: solid;
@@ -76,10 +76,16 @@ img {
   font-family: "Microsoft Yahei";
   font-weight: normal;
   line-height: 64px;
-  -webkit-transition: border-top-width 0.5s ease 0;
-  -moz-transition: border-top-width 0.5s ease 0;
-  -ms-transition: border-top-width 0.5s ease 0;
-  transition: border-top-width 0.5s ease 0; }
+  -webkit-transition: border-top-width 0.5s ease 0s;
+  -moz-transition: border-top-width 0.5s ease 0s;
+  -ms-transition: border-top-width 0.5s ease 0s;
+  transition: border-top-width 0.5s ease 0s; }
+
+#he-nav ul {
+  margin-top: 16px;
+  overflow: hidden; }
+  #he-nav ul li.where {
+    border-top-width: 4px; }
 
 #he-nav ul li:hover {
   border-top-width: 4px; }
@@ -225,15 +231,16 @@ html, body {
   padding: 80px 0 100px 0; }
 
 .form-input.error {
-  border-color: red; }
+  border-color: #2d9194; }
 
 .form-item label.error {
-  color: red;
+  color: #2d9194;
   font-size: 12px; }
 
 #signup .form-item label.error {
+  margin-left: 80px;
   width: auto;
-  color: red;
+  color: #2d9194;
   font-size: 12px; }
 
 .guide {
@@ -320,6 +327,14 @@ html, body {
     color: #000; }
   #signup span {
     left: 80px; }
+  #signup #signup-verifycode {
+    width: 106px; }
+  #signup #randImage {
+    position: absolute;
+    margin-left: 10px;
+    width: 80px;
+    height: 32px;
+    cursor: pointer; }
   #signup #protocal-label {
     display: block;
     float: right;
@@ -347,6 +362,9 @@ html, body {
 
 .confirm-ico {
   background: url("../images/confirm_ico.png"); }
+
+.vc-ico {
+  background: url("../images/vc_ico.png"); }
 
 #keepSignIn,
 #protocal {

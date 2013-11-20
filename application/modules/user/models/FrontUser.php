@@ -34,7 +34,7 @@
  * @property Recharge[] $recharges
  * @property Withdraw[] $withdraws
  */
-class FrontUser extends SingleInheritanceModel
+class FrontUser extends SingleInheritance
 {
 	protected $_parentRelation = "baseUser";
 	/**
@@ -63,6 +63,7 @@ class FrontUser extends SingleInheritanceModel
 			array('identity_id', 'length', 'max'=>18),
 			array('bank', 'length', 'max'=>20),
 			array('address', 'safe'),
+			array('mobile, email','unique'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('id, pay_password, balance, nickname, realname, gender, age, mobile, email, address, identity_id, bank, role, credit_acceptable, credit_grade', 'safe', 'on'=>'search'),
@@ -80,7 +81,7 @@ class FrontUser extends SingleInheritanceModel
 			'bs' => array(self::HAS_MANY, 'Bid', 'user_id'),
 			'bidMetas' => array(self::HAS_MANY, 'BidMeta', 'user_id'),
 			'frontCredits' => array(self::HAS_MANY, 'FrontCredit', 'user_id'),
-			'baseUser' => array(self::BELONGS_TO, 'UserModel', 'id'),
+			'baseUser' => array(self::BELONGS_TO, 'User', 'id'),
 			'frontUserIcons' => array(self::HAS_MANY, 'FrontUserIcon', 'user_id'),
 			'frontUserMessageBoards' => array(self::HAS_MANY, 'FrontUserMessageBoard', 'user_id'),
 			'fundFlowInternals' => array(self::HAS_MANY, 'FundFlowInternal', 'from_user'),

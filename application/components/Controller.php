@@ -20,4 +20,5 @@ class Controller extends CmsController{
 		$this->scriptUrl = $homeUrl.'js/';
 		$this->imageUrl = $homeUrl.'images/';
 	}
+
 }

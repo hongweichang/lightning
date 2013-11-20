@@ -20,8 +20,8 @@ class LoginForm extends CFormModel{
 	public function rules(){
 		return array(
 			// username and password are required
-			array('username', 'required','message' => '请输入账号'),
-			array('password', 'required','message' => '请输入密码'),
+			array('username', 'required'),
+			array('password', 'required'),
 			// password needs to be authenticated
 			array('password', 'authenticate'),
 		);

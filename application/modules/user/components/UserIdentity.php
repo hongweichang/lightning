@@ -18,7 +18,7 @@ class UserIdentity extends CUserIdentity{
 			$this->errorCode = self::ERROR_USERNAME_INVALID;
 			$this->errorMessage = '账号不存在';
 		}else{
-			if($user->getAttribute('password') != md5($this->password)){
+			if($user->getAttribute('password') != Yii::app()->securityManager->generate($this->password)){
 				$this->errorCode = self::ERROR_PASSWORD_INVALID;
 				$this->errorMessage = '密码错误';
 			}elseif($user->getAttribute('locked')){
