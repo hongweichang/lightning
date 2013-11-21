@@ -18,9 +18,14 @@ class mainConf extends ConfigBase{
 				'modules' => array(
 						'gii'=>array(
 								'class'=>'system.gii.GiiModule',
-								'password'=>'lancelot!410',
+								'password'=>'admin',
 								'ipFilters'=>array('127.0.0.1','::1'),
 						),
+
+						'pay' => array(
+								'class' => 'application.modules.pay.PayModule'
+						),
+						
 						'user' => array(
 								'class' => 'application.modules.user.UserModule'
 						),
@@ -36,7 +41,7 @@ class mainConf extends ConfigBase{
 						'db' => array(
 								'class' => 'system.db.CDbConnection',
 								'autoConnect' => false,
-								'connectionString' => 'mysql:host=127.0.0.1;dbname=lightning',
+								'connectionString' => 'mysql:host=115.29.240.98;dbname=lightning',
 								'emulatePrepare' => true,
 								'username' => 'tianling',
 								'password' => '887976',

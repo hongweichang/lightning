@@ -113,8 +113,6 @@ class UserInfoController extends CmsController{
 			}
 
 	}
-<<<<<<< HEAD
-
 
 	/*
 	**获取上传文件在数据库中对应的type
@@ -161,8 +159,5 @@ class UserInfoController extends CmsController{
 
 		}
 	}
-
-=======
->>>>>>> tmp
 }
 ?>
