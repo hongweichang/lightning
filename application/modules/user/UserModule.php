@@ -6,7 +6,5 @@ class UserModule extends CmsModule{
 		Yii::import('application.modules.user.models.*');
 		Yii::import('application.modules.user.components.*');
 	}
-
-	
 }
 ?>
