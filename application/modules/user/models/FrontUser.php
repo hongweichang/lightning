@@ -53,16 +53,16 @@ class FrontUser extends SingleInheritance
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('id, pay_password, nickname, realname, mobile, email, identity_id, bank, role, credit_grade', 'required'),
+			array('pay_password, nickname, realname, mobile, email, identity_id, bank, role, credit_grade', 'required'),
 			array('gender, age, credit_acceptable, credit_grade', 'numerical', 'integerOnly'=>true),
-			array('id, balance, mobile', 'length', 'max'=>11),
+			array('balance, mobile', 'length', 'max'=>11),
 			array('pay_password', 'length', 'max'=>60),
 			array('nickname, role', 'length', 'max'=>15),
 			array('realname', 'length', 'max'=>10),
 			array('email', 'length', 'max'=>50),
 			array('identity_id', 'length', 'max'=>18),
 			array('bank', 'length', 'max'=>20),
-			array('address', 'safe'),
+			array('id,address', 'safe'),
 			array('mobile, email','unique'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.

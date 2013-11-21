@@ -43,8 +43,8 @@ class mainConf extends ConfigBase{
 								'autoConnect' => false,
 								'connectionString' => 'mysql:host=115.29.240.98;dbname=lightning',
 								'emulatePrepare' => true,
-								'username' => 'tianling',
-								'password' => '887976',
+								'username' => 'lancelot',
+								'password' => 'lancelot@lightningdbmysqladmin',
 								'charset' => 'utf8',
 								'tablePrefix' => 'xcms_'
 						),
