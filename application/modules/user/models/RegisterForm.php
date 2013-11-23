@@ -27,7 +27,8 @@ class RegisterForm extends CFormModel
 			array('mobile', 'checkmobile'),
 			array('password','confirmPassword'),
 			// verifyCode needs to be entered correctly
-			array('code', 'captcha', 'allowEmpty'=>!CCaptcha::checkRequirements(),'message'=>'验证码错误                                      '),
+//			array('code','safe','on'=>'appRegister'),
+			array('code', 'captcha', 'allowEmpty'=>!CCaptcha::checkRequirements(),'message'=>'验证码错误'),
 		);
 	}
 	
