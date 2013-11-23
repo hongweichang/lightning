@@ -82,6 +82,7 @@ body{
 //sass
 #header{
   @extend %w100;
+  height: 25px + 82px;
 }
 .wd1002{
   @extend %w1002center;
@@ -146,7 +147,7 @@ body{
     text-align: center;
     @extend %f14;
     line-height: 29px;
-    font-family: "Adobe ºÚÌå Std";
+    font-family: "Adobe ï¿½ï¿½ï¿½ï¿½ Std";
     a{
       color: #423d3d;
       padding: 7px 13px 6px 13px;
@@ -185,7 +186,7 @@ body{
     img{
       float: left;
       position: relative;
-      left: 26px;
+      left: 14%;
     }
     span{
       line-height: 30px;
@@ -307,7 +308,6 @@ body{
       border: 1px solid #dadada;
       a{
         text-decoration: underline;
-        font-size: 12px;
         color: blue;
       }
       input[type="text"]{
@@ -436,6 +436,78 @@ body{
     padding-left: 5px;
     background: #eae9e8;
     border: none;
+  }
+}
+#footer{
+  text-align: center;
+  padding: 40px 0;
+  background: url("../images/h_bg.png");
+  color: white;
+}
+#login{
+  width: 100%;
+  height: 751px;
+  background: #f9f9f9;
+}
+.center_wd1002{
+  width: 1002px;
+  padding-top: 94px;
+  margin: 0 auto;
+  .login_text{
+    float: left;
+    width: 385px;
+    color: #747474;
+    h1{
+      color: #7d7d7d;
+    }
+  }
+  .login{
+    float: right;
+    width: 433px;
+    height: 290px;
+    border: 1px solid #c9c9c9;
+    fieldset{
+      border: none;
+      h1{
+        border-bottom: 1px solid #c9c9c9;
+        padding: 10px;
+        font-size: 20px;
+        text-align: center;
+      }
+      .login_box{
+        width: 296px;
+        margin: 28px auto;
+        input[type="text"]{
+          width: 274px;
+          height: 31px;
+          border: 1px solid #c9c9c9;
+          margin-top: 22px;
+          padding-left: 24px;
+          overflow: hidden;
+          background: url("../images/user_logo.png") no-repeat 5px center;
+        }
+        input#user_account{
+          background: url("../images/user_logo.png") no-repeat 5px center;
+        }
+        input#user_password{
+          background: url("../images/user_password.png") no-repeat 5px center;
+        }
+        input[type="text"]:focus{
+          outline: none;
+        }
+        input[type="submit"]{
+          width: 294px;
+          margin: 20px auto;
+          border: 2px solid #2d9194;
+          background: #9dd8ca;
+          font-size: 17px;
+          padding: 5px;
+          color: white;
+          border-radius: 5px;
+          cursor: pointer;
+        }
+      }
+    }
   }
 }
 @media screen and (min-width: 1800px) {
