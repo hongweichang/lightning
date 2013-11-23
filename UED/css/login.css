@@ -111,6 +111,9 @@ body {
 .violet {
   border-color: #ddc4f7; }
 
+#he-nav ul li.active {
+  border-top-width: 4px; }
+
 #footer {
   height: 303px;
   background: url("../images/h_bg.png"); }
@@ -250,6 +253,10 @@ html, body {
   margin-left: 45px;
   background-color: #fff; }
 
+.login-tab a {
+  color: #555555; }
+.login-tab a:visited {
+  color: #cdcccc; }
 .login-tab li {
   width: 217px;
   height: 48px;
@@ -266,7 +273,9 @@ html, body {
   border-right: none; }
 .login-tab .tab-on {
   background-color: #fff;
-  color: #555555; }
+  color: #555; }
+  .login-tab .tab-on a {
+    color: #555555; }
 
 .tab-body {
   width: 435px;

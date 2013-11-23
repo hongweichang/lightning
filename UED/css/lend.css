@@ -425,6 +425,7 @@ body {
   border-right: 1px solid #dadadb; }
 
 #borrow-info {
+  position: relative;
   margin-top: 60px;
   padding: 0 36px;
   height: 110px;
@@ -432,8 +433,8 @@ body {
   background-color: #d6f2f3; }
 
 #borrow-avatar {
-  position: relative;
-  bottom: 60px;
+  position: absolute;
+  top: -40px;
   width: 110px;
   height: 110px;
   background-color: #d6f2f3; }
@@ -454,15 +455,19 @@ body {
     line-height: 30px;
     text-align: center; }
 
+#borrow-brief,
 #borrow-details {
-  position: relative;
+  position: absolute;
   display: inline-block;
-  top: 80px;
+  bottom: 10px;
   width: 530px;
   color: #298689;
   font-size: 14px;
   font-family: "Microsoft Yahei";
   font-weight: normal; }
+
+#borrow-details {
+  display: none; }
 
 .text-overflow {
   text-overflow: ellipsis;
@@ -470,8 +475,9 @@ body {
   white-space: nowrap; }
 
 #borrow-num {
-  float: right;
-  margin-top: 40px;
+  position: absolute;
+  right: 36px;
+  bottom: 5px;
   font-size: 24px;
   font-family: "Microsoft Yahei";
   font-weight: normal;
@@ -494,12 +500,47 @@ body {
   padding: 26px 95px;
   border: 2px solid #ddd;
   background: #fff; }
+  .paycenter p {
+    font-size: 12px;
+    margin: 20px 0 0 90px;
+    padding: 10px 25px; }
   .paycenter .check-security {
     background: url("../images/check_security.png") no-repeat 3px 10px; }
   .paycenter .paycenter-alert {
     width: 240px;
     border: 1px solid #5ecacd;
     background: #d5f3f4 url("../images/alert.png") no-repeat 3px 10px; }
+  .paycenter .paycenter-hint {
+    display: none;
+    margin: 3px 0 0 90px;
+    padding: 0 0 0 20px;
+    color: #848383;
+    background: url("../images/verifycode_ico.png") no-repeat; }
+    .paycenter .paycenter-hint a {
+      color: #298689;
+      text-decoration: underline; }
+  .paycenter .paycenter-hint.question {
+    margin-left: 10px;
+    background: url("../images/question.png") no-repeat; }
+  .paycenter .paycenter-tips {
+    margin-left: 10px;
+    font-size: 12px;
+    color: #2d9194; }
+  .paycenter .paycenter-button {
+    width: 100px;
+    height: 36px;
+    border: none;
+    background-color: #2da9ac;
+    line-height: 36px;
+    color: #fff;
+    text-align: center;
+    cursor: pointer;
+    font-size: 20px;
+    font-family: "Microsoft Yahei";
+    font-weight: normal;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px; }
 
 .paycenter-item {
   margin-bottom: 26px; }
@@ -518,43 +559,48 @@ body {
   .paycenter-item input {
     border: 1px solid #c9c9c9;
     height: 20px; }
-  .paycenter-item p {
-    font-size: 12px;
-    margin: 20px 0 0 90px;
-    padding: 10px 25px; }
-  .paycenter-item .paycenter-tips {
-    margin-left: 10px;
-    font-size: 12px;
-    color: #2d9194; }
-  .paycenter-item .paycenter-hint {
-    margin: 3px 0 0 90px;
-    padding: 0 0 0 20px;
-    color: #848383;
-    background: url("../images/verifycode_ico.png") no-repeat; }
 
 .paycenter-item input:hover,
 .paycenter-item input:focus {
   border-color: #2d9194;
   outline: 0; }
 
+.paymethod {
+  padding: 15px 36px 45px 36px; }
+  .paymethod .paymethod-manage {
+    float: right; }
+    .paymethod .paymethod-manage a {
+      color: #000;
+      font-size: 12px;
+      font-family: "Microsoft Yahei";
+      font-weight: normal; }
+
+.paymethod-item .paycenter-hint {
+  display: block; }
+.paymethod-item span {
+  font-size: 12px;
+  margin-left: 20px; }
+
+.paymethod-item.userinfo {
+  height: 60px;
+  line-height: 60px;
+  border-bottom: 1px solid #ddd; }
+
+.paymethod-item.method {
+  padding: 26px 0 26px 35px;
+  border-bottom: 1px solid #ddd; }
+
+.paymethod-title {
+  margin: 30px 0 45px 0; }
+
 #pay-verify {
   width: 90px; }
 
 #paycenter-pay {
-  margin-left: 90px;
-  width: 100px;
-  height: 36px;
-  background-color: #2da9ac;
-  line-height: 36px;
-  color: #fff;
-  text-align: center;
-  cursor: pointer;
-  font-size: 20px;
-  font-family: "Microsoft Yahei";
-  font-weight: normal;
-  -webkit-border-radius: 5px;
-  -moz-border-radius: 5px;
-  border-radius: 5px; }
+  margin-left: 90px; }
+
+#paycenter-next {
+  margin-left: 60px; }
 
 #helpcenter {
   padding: 0 38px; }
@@ -571,3 +617,33 @@ body {
     color: #2d9194; }
   #helpcenter a:visited {
     color: #2d9194; }
+
+.paymethod-bank label {
+  display: inline-block;
+  width: 130px;
+  height: 33px;
+  border: 1px solid #ddd; }
+.paymethod-bank li {
+  float: left;
+  margin: 0 0 25px 45px;
+  height: 33px;
+  line-height: 33px; }
+  .paymethod-bank li input {
+    float: left;
+    margin: 10px 5px 0 0; }
+.paymethod-bank .icbc {
+  background: url("../images/bank.jpg") no-repeat 0px -99px; }
+.paymethod-bank .abc {
+  background: url("../images/bank.jpg") no-repeat 0px 0px; }
+.paymethod-bank .cmb {
+  background: url("../images/bank.jpg") no-repeat 0px -33px; }
+.paymethod-bank .ccb {
+  background: url("../images/bank.jpg") no-repeat 0px -66px; }
+.paymethod-bank .boc {
+  background: url("../images/bank.jpg") no-repeat 0px -198px; }
+.paymethod-bank .post {
+  background: url("../images/bank.jpg") no-repeat 0px -231px; }
+.paymethod-bank .spdb {
+  background: url("../images/bank.jpg") no-repeat 0px -132px; }
+.paymethod-bank .cgb {
+  background: url("../images/bank.jpg") no-repeat 0px -165px; }
