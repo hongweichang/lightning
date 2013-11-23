@@ -45,7 +45,8 @@ class AccountController extends Controller{
 		
 		$this->render('layout',array(
 			'model' => $form,
-			'isLogin' => false
+			'isLogin' => false,
+			'form' => 'register'
 		));
 	}
 	
@@ -64,7 +65,8 @@ class AccountController extends Controller{
 		
 		$this->render('layout',array(
 				'model' => $form,
-				'isLogin' => true
+				'isLogin' => true,
+				'form' => 'login'
 		));
 	}
 	

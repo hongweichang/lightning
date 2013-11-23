@@ -85,6 +85,28 @@ List = function(){
 			loan.append(list);
 		}
 	}
+}(),
+Lend = function(){
+	return{
+		viewDetails: function(hide,show){
+			var newH = show.height()+90;
+			$("#borrow-info").height(newH);
+			hide.hide();
+			show.show();
+		},
+		placeholder: function(o){
+			var defaultV = o.val();
+			o.bind("focus",function(){
+				o.val("").css({color:"#000;"});
+				//ajax
+				o.siblings('.paycenter-hint').show();
+			});
+			o.bind("blur",function(){
+				if(!$(this).val())
+					$(this).val(defaultV);
+			});
+		}
+	}
 }();
 
 $("#filter-switch").toggle(
@@ -111,3 +133,15 @@ $("#viewMore").bind("click",function(){
 	var str = Filter.checked($(this));
 	List.showMore(str);
 });
+//lend-pay
+$("#view-detail").toggle(
+	function(){
+		Lend.viewDetails($("#borrow-brief"),$("#borrow-details"));
+		$("#view-detail").css({background:"url('../images/viewBrief.png')"});
+	},
+	function(){
+		Lend.viewDetails($("#borrow-details"),$("#borrow-brief"));
+		$("#view-detail").css({background:"url('../images/viewDetail.png')"})
+	}
+);
+Lend.placeholder($("#pay-verify"));

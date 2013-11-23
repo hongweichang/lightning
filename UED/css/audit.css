@@ -14,7 +14,7 @@
       float: left;
       width: 79px;
       height: 104px;
-      background: url("../images/aud-com.png") no-repeat;
+      background: url("../images/aud-com-hover.png") no-repeat;
       font-size: 16px;
       color: white;
       font-weight: bold;
@@ -36,7 +36,7 @@
       height: 29px;
       margin-left: -73px;
       margin-top: 13px;
-      background: url("../images/aud-bar.png") no-repeat; }
+      background: url("../images/aud-bar-hover.png") no-repeat; }
     #container .aud-common .aud-warning div.adu-bar-last {
       position: relative;
       width: 100px;
@@ -49,7 +49,7 @@
       height: 21px;
       left: 18px;
       top: 35px;
-      background: url("../images/aud-next.png"); }
+      background: url("../images/aud-next-hover.png"); }
     #container .aud-common .aud-warning div.adu-war-box {
       width: 118px;
       margin-left: 23px;
@@ -64,7 +64,7 @@
       clear: both; }
 
 #container {
-  margin-bottom: 310px; }
+  padding-bottom: 40px; }
   #container .aud-nav {
     margin-top: 47px;
     margin-bottom: 32px; }
@@ -80,15 +80,21 @@
   #container #aud-check {
     margin-bottom: 23px; }
     #container #aud-check div.aud-checked div.adu-step {
-      background-image: url("../images/aud-com-hover.png"); }
+      background-image: url("../images/aud-com.png"); }
     #container #aud-check div.aud-checked span.adu-next {
-      background-image: url("../images/aud-next-hover.png"); }
+      background-image: url("../images/aud-next.png"); }
     #container #aud-check div.aud-checked div.adu-bar {
-      background-image: url("../images/aud-bar-hover.png"); }
+      background-image: url("../images/aud-bar.png"); }
+    #container #aud-check div.aud-active div.adu-step {
+      background-image: url("../images/aud-com.png"); }
+    #container #aud-check div.aud-active div.adu-next {
+      background-image: url("../images/aud-next-hover.png"); }
+    #container #aud-check div.aud-active div.adu-bar {
+      background-image: url("../images/aud-bar.png"); }
   #container #aud-detail {
-    width: 989px;
+    width: 857px;
     margin: 0px auto;
-    height: 780px;
+    padding: 20px 66px;
     border: 2px solid #eaeaea;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
     background: white;
@@ -103,8 +109,12 @@
         margin-top: 5px;
         font-size: 14px;
         color: #2d8b8e; }
+    #container #aud-detail .aud-ucenter {
+      text-align: right; }
+      #container #aud-detail .aud-ucenter a {
+        color: #767676;
+        font-size: 12px; }
     #container #aud-detail ul {
-      width: 876px;
       margin: 0 auto;
       margin-top: 78px;
       border-bottom: 1px solid #dfdfdf;
@@ -126,7 +136,7 @@
       margin-top: 0;
       padding-top: 78px; }
       #container #aud-detail ul.adu-img-bar li {
-        width: 208px;
+        width: 130px;
         text-align: center;
         font-size: 24px;
         color: #40bdc1; }
@@ -137,11 +147,42 @@
           height: 41px;
           margin: 0 auto;
           background: url("../images/pass.png"); }
+        #container #aud-detail ul.adu-img-bar li img {
+          height: 65px; }
         #container #aud-detail ul.adu-img-bar li div.adu-no-pass {
           background: url("../images/no-pass.png") no-repeat; }
+    #container #aud-detail .aud-warning {
+      height: 290px;
+      border-bottom: 1px solid #dfdfdf; }
     #container #aud-detail .adu-img-waring {
-      margin-top: 75px;
-      margin-bottom: 36px; }
+      margin-top: 55px;
+      margin-bottom: 26px; }
+    #container #aud-detail .adu-p-warning {
+      font-size: 24px; }
+    #container #aud-detail .aud-link {
+      margin: 20px 0; }
     #container #aud-detail p {
-      font-size: 24px;
+      font-size: 18px;
       color: #40bdc1; }
+    #container #aud-detail .adu-intro {
+      color: #808080;
+      padding: 60px; }
+      #container #aud-detail .adu-intro p {
+        color: #808080;
+        margin-top: 20px;
+        text-align: left; }
+    #container #aud-detail .borrow-button {
+      width: 90px;
+      height: 20px;
+      border: none;
+      margin: 20px 40px 20px 0;
+      padding: 7px 9px;
+      background-color: #2da9ac;
+      line-height: 36px;
+      text-align: center;
+      cursor: pointer;
+      font-size: 20px;
+      color: white;
+      -webkit-border-radius: 5px;
+      -moz-border-radius: 5px;
+      border-radius: 5px; }

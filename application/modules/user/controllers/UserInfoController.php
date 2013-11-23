@@ -1,11 +1,11 @@
 <?php
 /*
 **用户个人信息处理
-design By HJtianling,hjtl1992robin@gmail.com
+design By HJtianling,2507073658@qq.com
 2013.11.16
 */
 
-class UserInfoController extends CmsController{
+class UserInfoController extends Controller{
 
 	public function filters(){
 		return array();
@@ -19,21 +19,18 @@ class UserInfoController extends CmsController{
 		$criteria ->select = 'id,user_id,verification_id,file_type,submit_time,status,description';
 		$criteria ->order = 'submit_time DESC';
 
-		$userInfoData = Credit::model()->findAll($criteria);
+		$userInfoData = FrontCredit::model()->findAll($criteria);
 		$this->render('index',array('userInfo'=>$userInfoData));
-
 	}
-
-
 
 	/*
 	**用户资料提交
 	*/
 	public function actionInfoAdd(){
-		$model = new Credit();
+		$model = new FrontCredit();
 		
-		if(isset($_POST['Credit'])){
-			$model->attributes = $_POST['Credit'];
+		if(isset($_POST['FrontCredit'])){
+			$model->attributes = $_POST['FrontCredit'];
 			$model->verification_id = 1;
 			$model->submit_time = time();
 			$model->status = 0;
@@ -62,57 +59,45 @@ class UserInfoController extends CmsController{
 	*/
 	public function actionUpload(){
 		$typeArray = array('jpg','png','gif','jpeg','pdf','zip','rar');
-			$maxSize = 1024*1024*30; //最大文件大小约为30MB
+		$maxSize = 1024*1024*30; //最大文件大小约为30MB
+
 			if(isset($_FILES['Filedata'])){
 				$fileInfo = CUploadedFile::getInstanceByName('Filedata');
-				//var_dump($fileInfo);
-				//die($fileInfo->type);
 				$fileName = $fileInfo->name;
 				$fileType =  pathinfo($fileName, PATHINFO_EXTENSION); 
-				//die($fileType);
-				//$thumbDir = dirname(Yii::app()->basePath)."/upload/ad_pic/thumbs/";
-				$uploadDir = dirname(Yii::app()->basePath)."/upload/";
+
+				$uploadDir = dirname(Yii::app()->basePath)."/upload/FrontCredit/".$fileType.'/';
 				$dateDir = date('Ym')."/";
 				$uploadDir = $uploadDir.$dateDir;
-				//$thumbDir = $thumbDir.$dateDir;
-				if(!is_dir($uploadDir)){
+
+				if(!is_dir($uploadDir)){ //若目标目录不存在，则生成该目录
 						mkdir($uploadDir,0077,true);
 				}
-				/*if(!is_dir($thumbDir)){
-					mkdir($thumbDir,0077,true);
-				}*/
 				
 				$randName = Tool::getRandName();//获取一个随机名
 				$newName = "userInfo".$randName.".".$fileName;//对文件进行重命名
 				$saveUrl = $uploadDir.$newName;
-				$picUrl = "/upload/ad_pic/pics/".$dateDir.$newName;
 				$isUp = $fileInfo->saveAs($saveUrl);//保存上传文件
 				if($isUp){
-					echo "ok";
-					die();
-					/*$thumbName = "thumbs".$randName.".".$picType;
-					$saveThumb = $thumbDir.$thumbName;
-					$thumbUrl = Tool::getThumb($saveUrl,300,300,$saveThumb);//制作缩略图并放回缩略图存储路径
-					$thumbUrl = str_replace(dirname(Yii::app()->basePath),"",$thumbUrl);*/
-					
-					//保存信息到数据库
-					$model = new AdvertisePic;
-					$model->url = $picUrl;
-					$model->description = $picName;
-					$model->thumb_url = $thumbUrl;
-					$model->save();
-					$id = $model->attributes['id'];
-					$_SESSION['pid'] = $id;
+					//获取对应类型
+					$typeName = $this->getFileType($fileType);	
+					$url = $saveUrl;
+
+					//保存信息到SESSION
+					$_SESSION['typeName'] = $typeName;
+					$_SESSION['url'] = $saveUrl;
+
 					$backData = array(
-						'pid'=>$id,
-						'thumb'=>Yii::app()->baseUrl.$thumbUrl,
-						);
+						'name'=>$fileName,
+						//'thumb'=>Yii::app()->baseUrl.$thumbUrl,
+					);
 					// 返回json数据给swfupload上传插件
 					echo  json_encode($backData);
 				}
 			}
 
 	}
+
 
 	/*
 	**获取上传文件在数据库中对应的type
@@ -143,7 +128,7 @@ class UserInfoController extends CmsController{
 	*/
 	public function actionDownload($id){
 		if(!empty($id) && is_numeric($id)){
-			$fileData = Credit::model()->findAll('id =:id',array('id'=>$id));
+			$fileData = FrontCredit::model()->findAll('id =:id',array('id'=>$id));
 
 			if($fileData == null){
 				throw new CHttpException ('500', '文件不存在');  
@@ -159,5 +144,62 @@ class UserInfoController extends CmsController{
 
 		}
 	}
+
+
+	/*
+	**用户信息审核
+	*/
+	public function actionVerify($id,$action){
+		if(!empty($id) && is_numeric($id) && !empty($action)){
+			$userData = FrontCredit::model()->findByPk($id);
+
+			if(!empty($userData)){
+				if($action = 'pass' && $userData->status != 1){
+						$userData->status = 1;
+
+					if($userData->save())
+						$this->redirect(Yii::app()->createUrl('user/userInfo/index'));
+
+				}elseif($action = 'unpass' && $userData->status != 2){
+					$userData->status = 2;
+
+					if($userData->save())
+						$this->redirect(Yii::app()->createUrl('user/userInfo/verifyReasonInput',array('id'=>$id)));
+
+				}
+
+			}	
+		}
+
+	}
+
+
+	
+	/*
+	**审核未通过原因输入
+	*/
+	public function actionVerifyReasonInput($id){
+		if(!empty($id) && is_numeric($id)){
+			$infoData = FrontCredit::model()->findByPk($id);
+
+			if(!empty($infoData)){
+				$model = $infoData;
+				if(isset($_POST['FrontCredit'])){
+
+					$model->attributes = $_POST['FrontCredit'];
+					$description = $model->description;
+					$infoData->description = $description;
+
+					if($infoData->save())
+						$this->redirect(Yii::app()->createUrl('user/userInfo/index'));
+
+				}
+
+				$this->render('reason',array('model'=>$model));
+			}
+		}
+		
+	}
+
 }
 ?>
