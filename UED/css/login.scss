@@ -130,6 +130,16 @@ height: 4em;
 		color: #000;	
 	}
 	span{ left:80px;}
+	#signup-verifycode{
+		width: 106px;
+	}
+	#randImage{
+		position: absolute;
+		margin-left: 10px;
+		width: 80px;
+		height: 32px;
+		cursor: pointer;
+	}
 	#protocal-label{
 		display: block;
 		float: right;
@@ -160,6 +170,9 @@ height: 4em;
 }
 .confirm-ico{
 	background: url("../images/confirm_ico.png");
+}
+.vc-ico{
+	background: url("../images/vc_ico.png");
 }
 #keepSignIn,
 #protocal{

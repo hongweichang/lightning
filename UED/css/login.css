@@ -264,7 +264,7 @@ html, body {
   cursor: pointer; }
 .login-tab #tab-login {
   border-right: none; }
-.login-tab .tab-on {
+.login-tab .tab-on{
   background-color: #fff;
   color: #555555; }
 
@@ -327,6 +327,14 @@ html, body {
     color: #000; }
   #signup span {
     left: 80px; }
+  #signup #signup-verifycode {
+    width: 106px; }
+  #signup #randImage {
+    position: absolute;
+    margin-left: 10px;
+    width: 80px;
+    height: 32px;
+    cursor: pointer; }
   #signup #protocal-label {
     display: block;
     float: right;
@@ -354,6 +362,9 @@ html, body {
 
 .confirm-ico {
   background: url("../images/confirm_ico.png"); }
+
+.vc-ico {
+  background: url("../images/vc_ico.png"); }
 
 #keepSignIn,
 #protocal {
