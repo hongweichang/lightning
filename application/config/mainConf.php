@@ -48,6 +48,9 @@ class mainConf extends ConfigBase{
 								'charset' => 'utf8',
 								'tablePrefix' => 'xcms_'
 						),
+						'user' => array(
+								'class' => 'cms.modules.accessControl.components.AuthUser'
+						),
 						//internal database.ip 10.161.180.53
 						/*
 						'db' =>array(

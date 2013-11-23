@@ -21,21 +21,25 @@ class SignController extends Controller{
 	}
 
 	public function actionIndex(){
-		$form = new RegisterForm();
-		
 		$post = $this->getPost();
-		if(!empty($post)){
-			$form->attributes = array(
-				'nickname' => $this->getPost(''),
-				'email' => $this->getPost('username'),
-				'phone' => $this->getPost('signup_phone'),
-				'password' => $this->getPost('signup_password'),
-				'confirm' => $this->getPost('signup_password_confirm'),
-				'code' => $this->getPost('signup_verifycode'),
+		$userManager = $this->getModule()->getComponent('userManager');
+		
+		if ( $post !== array() ){
+			$regInfo = array(
+				'nickname' => $post['signup_nickname'],
+				'email' => $post['signup_email'],
+				'mobile' => $post['signup_phone'],
+				'password' => $post['signup_password'],
+				'confirm' => $post['signup_password_confirm'],
+				'code' => $post['signup_verifycode'],
 			);
-			if($form->validate() && $form->save()){
-				$this->redirect(Yii::app()->getHomeUrl());
-			}
+		}else {
+			$regInfo = array();
+		}
+		$form = $userManager->register($regInfo);
+		
+		if ( $form === true ){
+			$this->redirect($this->createUrl('userInfo/infoAdd'));
 		}
 		
 		$this->render('/login/index',array(

@@ -9,16 +9,26 @@ class Controller extends CmsController{
 	public $cssUrl;
 	public $scriptUrl;
 	public $imageUrl;
-	public 	$user;
+	/**
+	 * 
+	 * @var CWebUser
+	 */
+	public $user;
+	/**
+	 * 
+	 * @var CClientScript
+	 */
+	public $cs;
 	
 	public function init(){
 		parent::init();
 		
-		$this->user = Yii::app()->user;
+		$this->user = $this->app->getUser();
+		$this->cs = $this->app->getClientScript();
 		$homeUrl = $this->app->getHomeUrl();
-		$this->cssUrl = $homeUrl.'css/';
-		$this->scriptUrl = $homeUrl.'js/';
-		$this->imageUrl = $homeUrl.'images/';
+		$this->cssUrl = $homeUrl.'UED/css/';
+		$this->scriptUrl = $homeUrl.'UED/javascript/';
+		$this->imageUrl = $homeUrl.'UED/images/';
 	}
 
 }

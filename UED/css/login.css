@@ -264,7 +264,7 @@ html, body {
   cursor: pointer; }
 .login-tab #tab-login {
   border-right: none; }
-.login-tab .tab-on {
+.login-tab .tab-on{
   background-color: #fff;
   color: #555555; }
 

@@ -50,23 +50,19 @@ class FrontUser extends SingleInheritance
 	 */
 	public function rules()
 	{
-		// NOTE: you should only define rules for those attributes that
-		// will receive user inputs.
 		return array(
-			array('pay_password, nickname, realname, mobile, email, identity_id, bank, role, credit_grade', 'required'),
-			array('gender, age, credit_acceptable, credit_grade', 'numerical', 'integerOnly'=>true),
-			array('balance, mobile', 'length', 'max'=>11),
-			array('pay_password', 'length', 'max'=>60),
-			array('nickname, role', 'length', 'max'=>15),
-			array('realname', 'length', 'max'=>10),
-			array('email', 'length', 'max'=>50),
-			array('identity_id', 'length', 'max'=>18),
-			array('bank', 'length', 'max'=>20),
+			array('nickname, mobile, email', 'required','message'=>'请填写{attribute}'),
+//			array('gender, age', 'numerical', 'integerOnly'=>true),
+// 			array('balance, mobile', 'length', 'max'=>11),
+// 			array('pay_password', 'length', 'max'=>60),
+// 			array('nickname, role', 'length', 'max'=>15),
+// 			array('realname', 'length', 'max'=>10),
+// 			array('email', 'length', 'max'=>50),
+// 			array('identity_id', 'length', 'max'=>18),
+// 			array('bank', 'length', 'max'=>20),
 			array('id,address', 'safe'),
-			array('mobile, email','unique'),
-			// The following rule is used by search().
-			// @todo Please remove those attributes that should not be searched.
-			array('id, pay_password, balance, nickname, realname, gender, age, mobile, email, address, identity_id, bank, role, credit_acceptable, credit_grade', 'safe', 'on'=>'search'),
+			array('pay_password,realname,identity_id,bank,role','safe','on'=>'register'),
+			array('mobile, email','unique','message'=>'{attribute}已经被注册'),
 		);
 	}
 
@@ -82,7 +78,7 @@ class FrontUser extends SingleInheritance
 			'bidMetas' => array(self::HAS_MANY, 'BidMeta', 'user_id'),
 			'frontCredits' => array(self::HAS_MANY, 'FrontCredit', 'user_id'),
 			'baseUser' => array(self::BELONGS_TO, 'User', 'id'),
-			'frontUserIcons' => array(self::HAS_MANY, 'FrontUserIcon', 'user_id'),
+			'icons' => array(self::HAS_MANY, 'FrontUserIcon', 'user_id'),
 			'frontUserMessageBoards' => array(self::HAS_MANY, 'FrontUserMessageBoard', 'user_id'),
 			'fundFlowInternals' => array(self::HAS_MANY, 'FundFlowInternal', 'from_user'),
 			'fundFlowInternals1' => array(self::HAS_MANY, 'FundFlowInternal', 'to_user'),
@@ -100,60 +96,21 @@ class FrontUser extends SingleInheritance
 	{
 		return array(
 			'id' => 'ID',
-			'pay_password' => 'Pay Password',
-			'balance' => 'Balance',
-			'nickname' => 'Nickname',
-			'realname' => 'Realname',
-			'gender' => 'Gender',
-			'age' => 'Age',
-			'mobile' => 'Mobile',
-			'email' => 'Email',
-			'address' => 'Address',
-			'identity_id' => 'Identity',
-			'bank' => 'Bank',
-			'role' => 'Role',
-			'credit_acceptable' => 'Credit Acceptable',
-			'credit_grade' => 'Credit Grade',
+			'pay_password' => '支付密码',
+			'balance' => '余额',
+			'nickname' => '昵称',
+			'realname' => '姓名',
+			'gender' => '性别',
+			'age' => '年龄',
+			'mobile' => '手机号码',
+			'email' => '邮箱地址',
+			'address' => '详细住址',
+			'identity_id' => '身份证号码',
+			'bank' => '银行卡号',
+			'role' => '社会角色',
+			'credit_acceptable' => '',
+			'credit_grade' => '信用积分',
 		);
-	}
-
-	/**
-	 * Retrieves a list of models based on the current search/filter conditions.
-	 *
-	 * Typical usecase:
-	 * - Initialize the model fields with values from filter form.
-	 * - Execute this method to get CActiveDataProvider instance which will filter
-	 * models according to data in model fields.
-	 * - Pass data provider to CGridView, CListView or any similar widget.
-	 *
-	 * @return CActiveDataProvider the data provider that can return the models
-	 * based on the search/filter conditions.
-	 */
-	public function search()
-	{
-		// @todo Please modify the following code to remove attributes that should not be searched.
-
-		$criteria=new CDbCriteria;
-
-		$criteria->compare('id',$this->id,true);
-		$criteria->compare('pay_password',$this->pay_password,true);
-		$criteria->compare('balance',$this->balance,true);
-		$criteria->compare('nickname',$this->nickname,true);
-		$criteria->compare('realname',$this->realname,true);
-		$criteria->compare('gender',$this->gender);
-		$criteria->compare('age',$this->age);
-		$criteria->compare('mobile',$this->mobile,true);
-		$criteria->compare('email',$this->email,true);
-		$criteria->compare('address',$this->address,true);
-		$criteria->compare('identity_id',$this->identity_id,true);
-		$criteria->compare('bank',$this->bank,true);
-		$criteria->compare('role',$this->role,true);
-		$criteria->compare('credit_acceptable',$this->credit_acceptable);
-		$criteria->compare('credit_grade',$this->credit_grade);
-
-		return new CActiveDataProvider($this, array(
-			'criteria'=>$criteria,
-		));
 	}
 
 	/**

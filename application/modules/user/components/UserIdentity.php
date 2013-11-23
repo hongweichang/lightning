@@ -1,5 +1,4 @@
 <?php
-
 /**
  * UserIdentity represents the data needed to identity a user.
  * It contains the authentication method that checks if the provided
