@@ -69,7 +69,7 @@ class UserInfoController extends CmsController{
 				$fileName = $fileInfo->name;
 				$fileType =  pathinfo($fileName, PATHINFO_EXTENSION); 
 
-				$uploadDir = dirname(Yii::app()->basePath)."/upload/".$fileType.'/';
+				$uploadDir = dirname(Yii::app()->basePath)."/upload/credit/".$fileType.'/';
 				$dateDir = date('Ym')."/";
 				$uploadDir = $uploadDir.$dateDir;
 
