@@ -125,7 +125,8 @@
       font-size: 28px;
       color: #8a8a8a; }
     #container #borrow-message li input {
-      height: 28px; }
+      height: 28px;
+      line-height: 28px; }
 #container .adu-det-step {
   float: left;
   width: 229px;
