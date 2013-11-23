@@ -1,7 +1,7 @@
 <?php
 /*
 **用户个人信息处理
-design By HJtianling,hjtl1992robin@gmail.com
+design By HJtianling,2507073658@qq.com
 2013.11.16
 */
 
