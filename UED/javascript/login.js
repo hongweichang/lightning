@@ -11,6 +11,8 @@ $(document).ready(function(){
 	$(".form-item input").bind("blur",function(){
 		if(!$(this).val())
 			$(this).siblings("p").css({display: "block"});
+		else
+			$(this).siblings("p").css({display: "none"});
 	});
 	$(".fakeCheck,label[for='keepSignIn'],label[for='protocal']").toggle(function(){
 		$(this).parent().find("span").css({display: "none"});
