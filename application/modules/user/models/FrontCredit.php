@@ -13,7 +13,7 @@
  * @property integer $status
  * @property string $description
  */
-class Credit extends CActiveRecord
+class FrontCredit extends CActiveRecord
 {
 	/**
 	 * @return string the associated database table name

@@ -19,19 +19,18 @@ class UserInfoController extends Controller{
 		$criteria ->select = 'id,user_id,verification_id,file_type,submit_time,status,description';
 		$criteria ->order = 'submit_time DESC';
 
-		$userInfoData = Credit::model()->findAll($criteria);
+		$userInfoData = FrontCredit::model()->findAll($criteria);
 		$this->render('index',array('userInfo'=>$userInfoData));
-
 	}
 
 	/*
 	**用户资料提交
 	*/
 	public function actionInfoAdd(){
-		$model = new Credit();
+		$model = new FrontCredit();
 		
-		if(isset($_POST['Credit'])){
-			$model->attributes = $_POST['Credit'];
+		if(isset($_POST['FrontCredit'])){
+			$model->attributes = $_POST['FrontCredit'];
 			$model->verification_id = 1;
 			$model->submit_time = time();
 			$model->status = 0;
@@ -67,7 +66,7 @@ class UserInfoController extends Controller{
 				$fileName = $fileInfo->name;
 				$fileType =  pathinfo($fileName, PATHINFO_EXTENSION); 
 
-				$uploadDir = dirname(Yii::app()->basePath)."/upload/credit/".$fileType.'/';
+				$uploadDir = dirname(Yii::app()->basePath)."/upload/FrontCredit/".$fileType.'/';
 				$dateDir = date('Ym')."/";
 				$uploadDir = $uploadDir.$dateDir;
 
@@ -91,7 +90,7 @@ class UserInfoController extends Controller{
 					$backData = array(
 						'name'=>$fileName,
 						//'thumb'=>Yii::app()->baseUrl.$thumbUrl,
-						);
+					);
 					// 返回json数据给swfupload上传插件
 					echo  json_encode($backData);
 				}
@@ -129,7 +128,7 @@ class UserInfoController extends Controller{
 	*/
 	public function actionDownload($id){
 		if(!empty($id) && is_numeric($id)){
-			$fileData = Credit::model()->findAll('id =:id',array('id'=>$id));
+			$fileData = FrontCredit::model()->findAll('id =:id',array('id'=>$id));
 
 			if($fileData == null){
 				throw new CHttpException ('500', '文件不存在');  
@@ -152,7 +151,7 @@ class UserInfoController extends Controller{
 	*/
 	public function actionVerify($id,$action){
 		if(!empty($id) && is_numeric($id) && !empty($action)){
-			$userData = Credit::model()->findByPk($id);
+			$userData = FrontCredit::model()->findByPk($id);
 
 			if(!empty($userData)){
 				if($action = 'pass' && $userData->status != 1){
@@ -181,13 +180,13 @@ class UserInfoController extends Controller{
 	*/
 	public function actionVerifyReasonInput($id){
 		if(!empty($id) && is_numeric($id)){
-			$infoData = Credit::model()->findByPk($id);
+			$infoData = FrontCredit::model()->findByPk($id);
 
 			if(!empty($infoData)){
 				$model = $infoData;
-				if(isset($_POST['Credit'])){
+				if(isset($_POST['FrontCredit'])){
 
-					$model->attributes = $_POST['Credit'];
+					$model->attributes = $_POST['FrontCredit'];
 					$description = $model->description;
 					$infoData->description = $description;
 
