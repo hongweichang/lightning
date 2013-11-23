@@ -148,5 +148,61 @@ class UserInfoController extends CmsController{
 		}
 	}
 
+
+	/*
+	**用户信息审核
+	*/
+	public function actionVerify($id,$action){
+		if(!empty($id) && is_numeric($id) && !empty($action)){
+			$userData = Credit::model()->findByPk($id);
+
+			if(!empty($userData)){
+				if($action = 'pass' && $userData->status != 1){
+						$userData->status = 1;
+
+					if($userData->save())
+						$this->redirect(Yii::app()->createUrl('user/userInfo/index'));
+
+				}elseif($action = 'unpass' && $userData->status != 2){
+					$userData->status = 2;
+
+					if($userData->save())
+						$this->redirect(Yii::app()->createUrl('user/userInfo/verifyReasonInput',array('id'=>$id)));
+
+				}
+
+			}	
+		}
+
+	}
+
+
+	
+	/*
+	**审核未通过原因输入
+	*/
+	public function actionVerifyReasonInput($id){
+		if(!empty($id) && is_numeric($id)){
+			$infoData = Credit::model()->findByPk($id);
+
+			if(!empty($infoData)){
+				$model = $infoData;
+				if(isset($_POST['Credit'])){
+
+					$model->attributes = $_POST['Credit'];
+					$description = $model->description;
+					$infoData->description = $description;
+
+					if($infoData->save())
+						$this->redirect(Yii::app()->createUrl('user/userInfo/index'));
+
+				}
+
+				$this->render('reason',array('model'=>$model));
+			}
+		}
+		
+	}
+
 }
 ?>
