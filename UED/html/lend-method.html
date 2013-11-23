@@ -61,32 +61,62 @@
           </div>
         </div>
         <div id="view-detail"></div>
-        <div class="paycenter">
-          <form method="post" action="#" id="pay">
-            <div class="paycenter-item">
-              <label>付款方式：</label>
-              <img src="../images/pay_ssd.png" />
-              <div>支付： <span>1,000</span>元</div>
-              <p class="check-security">检查用户的安全性成功，保护已开启,请放心付款</p>
+        <div class="paycenter paymethod">
+          <form method="post" action="#" id="pay-method">
+            <div class="paymethod-item userinfo">
+              <div class="paymethod-manage">
+                <a href="#">管理我的账户 |</a>
+                <a href="#">使用帮助</a>
+              </div>  
+              <div>王国栋<span>15683128505</span></div>
             </div>
-            <div class="paycenter-item">
-              <label for="pay-pw">支付密码：</label>
-              <input type="password" name="pay_pw" id="pay-pw"/>
-              <a href="#" class="paycenter-tips">忘记密码?</a>
-              <p class="paycenter-alert">您已经开通短信服务，每次交易需要输入密码</p>
+            <div class="paymethod-item method">
+              <input type="radio" checked="checked" name="pay_method" value="ssd" id="pay-ssd"/>
+              <label for="pay-ssd">闪电贷账户余额支付</label>
+              <span>可支付余额： 0.00元</span>
+              <p class="paycenter-hint question">您需要保证余额足够支付，余额不足可在此<a href="#">充值</a></p>
             </div>
-            <div class="paycenter-item">
-              <label>手机号码：</label>
-              <div>156****9658</div>
-            </div>
-            <div class="paycenter-item">
-              <label for="pay-verfiy">校验码： </label>
-              <input type="text" value="点击获取校验码" name="pay_verify" id="pay-verify" />
-              <a href="#" class="paycenter-tips">没收到校验码?</a>
-              <p class="paycenter-hint">校验码已发送，30分钟内输入才有效，请勿泄露</p>
+            <div class="paymethod-item">
+              <div class="paymethod-title">使用银行卡支付</div>
+              <div class="paymethod-bank clearfix">
+                <ul>
+                  <li>
+                    <input type="radio" name="pay_bank" value="icbc" id="b-icbc" />
+                    <label class="icbc" for="b-icbc"></label>
+                  </li>
+                  <li>
+                    <input type="radio" name="pay_bank" value="abc" id="b-abc" />
+                    <label class="abc" for="b-abc"></label>
+                  </li>
+                  <li>
+                    <input type="radio" name="pay_bank" value="cmb" id="b-cmb" />
+                    <label class="cmb" for="b-cmb"></label>
+                  </li>
+                  <li>
+                    <input type="radio" name="pay_bank" value="ccb" id="b-ccb" />
+                    <label class="ccb" for="b-ccb"></label>
+                  </li>
+                  <li>
+                    <input type="radio" name="pay_bank" value="boc" id="b-boc" />
+                    <label class="boc" for="b-boc"></label>
+                  </li>
+                  <li>
+                    <input type="radio" name="pay_bank" value="post" id="b-post" />
+                    <label class="post" for="b-post"></label>
+                  </li>
+                  <li>
+                    <input type="radio" name="pay_bank" value="spdb" id="b-spdb" />
+                    <label class="spdb" for="b-spdb"></label>
+                  </li>
+                  <li>
+                    <input type="radio" name="pay_bank" value="cgb" id="b-cgb" />
+                    <label class="cgb" for="b-cgb"></label>
+                  </li>
+                </ul>
+              </div>
             </div>
             <div>
-              <input type="submit" value="确认支付" class="paycenter-button" id="paycenter-pay"/>
+              <input type="submit" value="下一步" class="paycenter-button" id="paycenter-next"/>
             </div>
           </form>
         </div>
