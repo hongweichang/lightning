@@ -1,9 +1,9 @@
 $(document).ready(function(){
-	$(".login-tab li").bind("click",function(){
+	/*$(".login-tab li").bind("click",function(){
 		var i = $(this).index();
 		$(this).addClass("tab-on").siblings().removeClass("tab-on");
 		$(".tab-content").eq(i).addClass("tab-show").siblings().removeClass("tab-show");
-	});
+	});*/
 	$(".form-item").bind("click",function(){
 		$(this).children("p").css({display:"none"});
 		$(this).children('.form-input').focus();
