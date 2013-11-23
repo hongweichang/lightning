@@ -35,7 +35,7 @@ class PayController extends CmsController{
 	}
 
 	/**
-	 * 收到支付宝通知，执行站内支付业务逻辑
+	 * 收到通知，执行站内支付业务逻辑
 	 * @param string $trade_no
 	 * @param array $post
 	 * @return boolean
@@ -63,7 +63,7 @@ class PayController extends CmsController{
 	}
 	
 	/**
-	 * 收到支付宝通知，完成一个支付订单
+	 * 收到通知，完成一个支付订单
 	 * @param string $trade_no
 	 * @param array $post
 	 * @return boolean

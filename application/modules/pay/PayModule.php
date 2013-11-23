@@ -16,7 +16,6 @@ class PayModule extends CmsModule
 		$this->setImport(array(
 			'pay.models.*',
 			'pay.components.*',
-			'pay.extensions.alipay.*'
 		));
 	}
 
