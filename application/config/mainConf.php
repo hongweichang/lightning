@@ -32,6 +32,9 @@ class mainConf extends ConfigBase{
 						'credit' =>array(
 								'class' => 'application.modules.credit.CreditModule'
 						),
+						'tender' =>array(
+								'class' => 'application.modules.tender.TenderModule'
+						),
 				),
 				'import' => array(
 						
