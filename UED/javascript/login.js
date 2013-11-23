@@ -4,6 +4,10 @@ $(document).ready(function(){
 		$(this).addClass("tab-on").siblings().removeClass("tab-on");
 		$(".tab-content").eq(i).addClass("tab-show").siblings().removeClass("tab-show");
 	});*/
+	$("#form-item input").each(function(){
+		if($(this).val())
+			$(this).siblings('p').css({display: "none"});
+	});
 	$(".form-item").bind("click",function(){
 		$(this).children("p").css({display:"none"});
 		$(this).children('.form-input').focus();
