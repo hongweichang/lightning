@@ -6,8 +6,8 @@
  * Encoding UTF-8
  */
 class AccountController extends Controller{
-	public function filters(){
-		return array();
+	public function noneLoginRequired(){
+		return 'register,login,captcha';
 	}
 	
 	public function actions(){
@@ -22,24 +22,17 @@ class AccountController extends Controller{
 	}
 	
 	public function actionRegister(){
-		$post = $this->getPost();
+		$post = $this->getPost('Register');
 		$userManager = $this->getModule()->getComponent('userManager');
 		
-		if ( $post !== array() ){
-			$regInfo = array(
-				'nickname' => $post['signup_nickname'],
-				'email' => $post['signup_email'],
-				'mobile' => $post['signup_phone'],
-				'password' => $post['signup_password'],
-				'confirm' => $post['signup_password_confirm'],
-				'code' => $post['signup_verifycode'],
-			);
-		}else {
-			$regInfo = array();
-		}
-		$form = $userManager->register($regInfo);
+		$form = $userManager->register($post);
 		
 		if ( $form === true ){
+			$userManager->login(array(
+					'account' => $post['email'],
+					'password' => $post['password'],
+					'rememberMe' => 'on'
+			));
 			$this->redirect($this->createUrl('userInfo/infoAdd'));
 		}
 		
@@ -51,16 +44,16 @@ class AccountController extends Controller{
 	}
 	
 	public function actionLogin(){
-		$form = new LoginForm();
-		if($this->getPost('username') && $this->getPost('password')){
-			$form->attributes = array(
-					'username' => $this->getPost('username'),
-					'password' => $this->getPost('password'),
-					'keey' => $this->getPost('keepSignIn')
-			);
-			if($form->validate() && $form->login()){
+		if ( $this->user->getIsGuest() === false ){
+			$this->redirect($this->createUrl('userInfo/infoAdd'));
+		}
 		
-			}
+		$post = $this->getPost('Login');
+		$userManager = $this->getModule()->getComponent('userManager');
+		
+		$form = $userManager->login($post);
+		if ( $form === true ){
+			$this->redirect($this->createUrl('userInfo/infoAdd'));
 		}
 		
 		$this->render('layout',array(
@@ -72,6 +65,6 @@ class AccountController extends Controller{
 	
 	public function actionLogout(){
 		Yii::app()->user->logout();
-		$this->redirect($this->app->getHomeUrl());
+		$this->redirect($this->createUrl('account/login'));
 	}
 }

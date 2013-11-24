@@ -20,6 +20,38 @@ class Controller extends CmsController{
 	 */
 	public $cs;
 	
+	public function filters(){
+		$filters = parent::filters();
+		$filters['cs'] = 'publicClientScript';
+		
+		$noneLoginRequired = $this->noneLoginRequired();
+		if ( $noneLoginRequired !== '' ){
+			$filters['hasLogined'][0] = $filters['hasLogined'][0].' - '.$noneLoginRequired;
+		}
+		
+		return $filters;
+	}
+	
+	public function noneLoginRequired(){
+		return '';
+	}
+	
+	public function accessRules(){
+		return array(
+				array('allow',
+						'users' => array('*')
+				)
+		);
+	}
+	
+	public function loginRequired(){
+		if ( $this->request->getIsAjaxRequest() === true ){
+			$this->response(403,'请登录');
+		}else {
+			$this->redirect($this->createUrl('/user/account/login'));
+		}
+	}
+	
 	public function init(){
 		parent::init();
 		
@@ -30,6 +62,11 @@ class Controller extends CmsController{
 		$this->cssUrl = $homeUrl.'UED/css/';
 		$this->scriptUrl = $homeUrl.'UED/javascript/';
 		$this->imageUrl = $homeUrl.'UED/images/';
+	}
+	
+	public function filterPublicClientScript($filterChain){
+		$this->cs->registerCssFile($this->cssUrl.'common.css');
+		$filterChain->run();
 	}
 
 }

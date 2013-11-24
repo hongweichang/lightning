@@ -6,24 +6,21 @@
  * user login form data. It is used by the 'login' action of 'SiteController'.
  */
 class LoginForm extends CFormModel{
-	public $username;
+	public $account;
 	public $password;
-	public $keep;
+	public $rememberMe = '';
 
 	private $_identity;
 
 	/**
 	 * Declares the validation rules.
-	 * The rules state that username and password are required,
+	 * The rules state that account and password are required,
 	 * and password needs to be authenticated.
 	 */
 	public function rules(){
 		return array(
-			// username and password are required
-			array('username', 'required'),
-			array('password', 'required'),
-			// password needs to be authenticated
-			array('password', 'authenticate'),
+			array('account,password', 'required','message'=>'请填写{attribute}'),
+			array('rememberMe','safe')
 		);
 	}
 
@@ -32,48 +29,18 @@ class LoginForm extends CFormModel{
 	 */
 	public function attributeLabels(){
 		return array(
-			'username' => '账号',
+			'account' => '账号',
 			'password' => '密码'
 		);
 	}
-
-	/**
-	 * Authenticates the password.
-	 * This is the 'authenticate' validator as declared in rules().
-	 */
-	public function authenticate($attribute,$params){
-		if(!$this->hasErrors()){
-			$this->_identity = new UserIdentity($this->username,$this->password);
-			if(!$this->_identity->authenticate()){
-				switch ($this->_identity->errorCode){
-					case UserIdentity::ERROR_USERNAME_INVALID: $name = 'username'; break;
-					case UserIdentity::ERROR_ACCOUNT_INVALID: $name = 'username'; break;
-					case UserIdentity::ERROR_PASSWORD_INVALID: $name = 'password'; break;
-					case UserIdentity::ERROR_UNKNOWN_IDENTITY: $name = 'unknown'; break;
-					default: $name = 'success'; break;
-				}
-				$this->addError($name,$this->_identity->errorMessage);
-			}
-		}
-	}
-
-	/**
-	 * Logs in the user using the given username and password in the model.
-	 * @return boolean whether login is successful
-	 */
-	public function login(){
-		if($this->_identity === null){
-			$this->_identity = new UserIdentity($this->username,$this->password);
-			$this->_identity->authenticate();
-		}
-		if($this->_identity->errorCode === UserIdentity::ERROR_NONE){
-			if($this->keep){
-				Yii::app()->user->login($this->_identity, 30 * 24 * 3600);
-			}else{
-				Yii::app()->user->login($this->_identity);
-			}
+	
+	public function run($duration=0){
+		$this->_identity = new UserIdentity($this->account,$this->password);
+		if ( $this->_identity->authenticate() ){
+			Yii::app()->getUser()->login($this->_identity,$duration);
 			return true;
-		}else{
+		}else {
+			$this->addError('password',$this->_identity->errorMessage);
 			return false;
 		}
 	}
