@@ -116,10 +116,11 @@ body {
       transition: background 0.5s ease 0s; }
 
 #backStage {
-  height: 88.7%;
-  text-align: center; }
-  #backStage h7 {
+  height: 88.7%; }
+  #backStage h6 {
+    width: 100%;
     line-height: 200px;
+    text-align: center;
     font-size: 24px;
     color: #ffffff; }
 
@@ -176,7 +177,7 @@ body {
     .back-left ul li.back-nav-list-2 {
       background: url("../images/has-second.png") no-repeat 20% 10px; }
 
-.back-right input[type="button"], .alert input[type="button"] {
+.back-right input[type="button"], .back-right input[type="reset"], .alert input[type="button"], .banner_box input[type="button"], .file_save input[type="submit"] {
   padding: 3px 27px 2px 27px;
   border: 1px solid #e2f7f2;
   border-radius: 3px;
@@ -202,7 +203,6 @@ body {
   .back-right form fieldset {
     margin: 0 auto;
     line-height: 29px;
-    background: #e6e6e7;
     border: none; }
   .back-right form label {
     font-size: 12px;
@@ -240,15 +240,45 @@ body {
     .back-right p span:hover {
       cursor: pointer; }
 
+.right-message textarea, .is_send textarea {
+  border: none;
+  background: #eae9e8;
+  box-shadow: inset 0 5px 3px rgba(0, 0, 0, 0.1); }
+
+.is_open:after {
+  content: " ";
+  display: block;
+  clear: both; }
+
 .right-message {
   float: left;
-  width: 200px;
-  height: 200px;
+  width: 221px;
+  height: 144px;
   margin-left: 20px;
-  text-align: center; }
+  text-align: left;
+  font-size: 12px; }
   .right-message textarea {
-    width: 200px;
-    height: 100px; }
+    width: 221px;
+    height: 91px; }
+  .right-message .check_code {
+    width: 85px;
+    height: 15px;
+    border: 1px solid #dcdbdb; }
+
+.is_save {
+  margin: 20px; }
+
+.is_send {
+  width: 338px;
+  margin-left: 20px; }
+  .is_send label {
+    float: left;
+    position: relative;
+    top: 5px; }
+  .is_send textarea {
+    margin-top: 5px;
+    width: 300px;
+    height: 200px; }
 
 #save-operation {
   float: right;
@@ -401,3 +431,28 @@ body {
       font-size: 20px; }
     .back-right p {
       font-size: 20px; } }
+.text_size14 {
+  font-size: 14px; }
+
+.banner_box {
+  float: left;
+  width: 220px;
+  height: 180px;
+  margin-left: 10px;
+  text-align: center; }
+  .banner_box h1 {
+    padding-left: 0; }
+  .banner_box img {
+    width: 220px;
+    height: 93px; }
+  .banner_box p {
+    width: 100%; }
+  .banner_box input[type="button"] {
+    margin-left: 10px; }
+  .banner_box input[type="file"] {
+    display: none; }
+
+.file_save {
+  margin-left: 20px; }
+  .file_save input[type="submit"] {
+    width: 880px; }
