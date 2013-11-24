@@ -1,7 +1,7 @@
 <?php
 /*
-**用户个人信息处理
-design By HJtianling,2507073658@qq.com
+**用户个人信息管理
+design By HJtianling_LXY,<2507073658@qq.com>
 2013.11.16
 */
 
@@ -20,8 +20,68 @@ class UserInfoController extends Controller{
 		$criteria ->order = 'submit_time DESC';
 
 		$userInfoData = Credit::model()->findAll($criteria);
+		$dataArray = array();
+
+		if(!empty($userInfoData)){
+			foreach($userInfoData as $key=>$value){
+				$infoData[$key] = $value->getAttributes();
+			}
+
+			foreach ($infoData as $value){
+				$dataArray[] = array(
+									'0'=>$value['id'],
+									'1'=>$value['userid'],
+									'2'=>$value['verification_id'],
+									'3'=>$value['content'],
+									'4'=>$value['submit_time'],
+									'5'=>$value['status'],
+								);
+			}
+			
+			
+		}
+		
 		$this->render('index',array('userInfo'=>$userInfoData));
 
+	}
+
+	public function actionOutputInfoByExcel(){
+		$criteria = new CDbCriteria;
+		$criteria ->select = 'id,user_id,verification_id,file_type,submit_time,status,description';
+		$criteria ->order = 'submit_time DESC';
+
+		$userInfoData = Credit::model()->findAll($criteria);
+		$dataArray = array();
+
+		if(!empty($userInfoData)){
+			foreach($userInfoData as $key=>$value){
+				$infoData[$key] = $value->getAttributes();
+			}
+
+			foreach ($infoData as $value){
+				$dataArray[] = array(
+									'0'=>$value['id'],
+									'1'=>$value['userid'],
+									'2'=>$value['verification_id'],
+									'3'=>$value['content'],
+									'4'=>$value['submit_time'],
+									'5'=>$value['status'],
+								);
+			}
+			
+			
+		}
+
+		$titleArray = array(
+						'0'=>'项目编号',
+						'1'=>'用户Id',
+						'2'=>'审核项编号',
+						'3'=>'审核项内容',
+						'4'=>'提交时间',
+						'5'=>'审核状态'
+					);
+
+		$output = $this->app->UserManager->login();
 	}
 
 	/*
@@ -54,6 +114,7 @@ class UserInfoController extends Controller{
 		$this->render('create',array('model'=>$model));
 
 	}
+
 
 	/*
 	**用户附件上传

@@ -32,6 +32,7 @@ class UserManager extends CApplicationComponent{
 	}
 	
 	public function login(){
+		echo "ok";
 		
 	}
 }
