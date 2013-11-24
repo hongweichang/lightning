@@ -21,7 +21,15 @@ class AccountController extends Controller{
 		);
 	}
 	
+	public function actionVerify(){
+		$cache = $this->app->getCache();
+	}
+	
 	public function actionRegister(){
+		if ( $this->user->getIsGuest() === false ){
+			$this->redirect('verify');
+		}
+		
 		$post = $this->getPost('Register');
 		$userManager = $this->getModule()->getComponent('userManager');
 		
@@ -33,7 +41,7 @@ class AccountController extends Controller{
 					'password' => $post['password'],
 					'rememberMe' => 'on'
 			));
-			$this->redirect($this->createUrl('userInfo/infoAdd'));
+			$this->redirect('verify');
 		}
 		
 		$this->render('layout',array(
@@ -45,7 +53,7 @@ class AccountController extends Controller{
 	
 	public function actionLogin(){
 		if ( $this->user->getIsGuest() === false ){
-			$this->redirect($this->createUrl('userInfo/infoAdd'));
+			$this->redirect('verify');
 		}
 		
 		$post = $this->getPost('Login');
@@ -53,7 +61,7 @@ class AccountController extends Controller{
 		
 		$form = $userManager->login($post);
 		if ( $form === true ){
-			$this->redirect($this->createUrl('userInfo/infoAdd'));
+			$this->redirect('verify');
 		}
 		
 		$this->render('layout',array(

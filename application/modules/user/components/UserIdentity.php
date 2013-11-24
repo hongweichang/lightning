@@ -40,6 +40,10 @@ class UserIdentity extends CUserIdentity{
 		}
 	}
 	
+	public function getUserModel(){
+		return $this->_user;
+	}
+	
 	/**
 	 * @return boolean
 	 */
