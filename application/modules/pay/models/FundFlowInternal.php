@@ -114,17 +114,4 @@ class FundFlowInternal extends CmsActiveRecord
 	{
 		return parent::model($className);
 	}
-	
-	public function write($fromuid,$touid,$charge,$fee){
-		$this->attributes = array(
-			'to_user' => $touid,
-			'from_user' => $fromuid,
-			'sum' => $charge * 100,
-			'fee' => round($fee * 100), // 四舍五入??
-			'time' => time(),
-			'status' => 1 // 暂时不分过程
-		);
-		
-		return $this->save();
-	}
 }

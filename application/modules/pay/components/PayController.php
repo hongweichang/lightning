@@ -82,39 +82,4 @@ class PayController extends CmsController{
 			
 		}
 	}
-	
-	/**
-	 * 提交一个提现申请，等待后台处理
-	 * @param float $charge
-	 * @param float $fee
-	 * @return boolean
-	 */
-	public function beginWithdraw($charge,$fee){
-		$db = new Withdraw();
-		$db->attributes = array(
-			'user_id' => $this->user->getState('id'),
-			'sum' => $charge * 100,
-			'fee' => round($fee * 100),
-			'raise_time' => time(),
-			'status' => 0, // 正在处理 - 等待后台处理
-		);
-	
-		return $db->save();
-	}
-	
-	/**
-	 * 后台处理提现申请
-	 * @param string $trade_no
-	 * @return boolean
-	 */
-	public function afterWithdraw($trade_no){
-		$record = Withdraw::model()->findByPk($trade_no);
-	
-		$record->attributes = array(
-			'finish_time' => time(),
-			'status' => 1,
-		);
-	
-		return $record->save();
-	}
 }
