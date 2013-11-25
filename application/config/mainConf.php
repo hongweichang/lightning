@@ -41,7 +41,7 @@ class mainConf extends ConfigBase{
 				),
 				'components' => array(
 						//remote database on aliyun.remote ip
-						'db' => array(
+						/*'db' => array(
 								'class' => 'system.db.CDbConnection',
 								'autoConnect' => false,
 								'connectionString' => 'mysql:host=115.29.240.98;dbname=lightning',
@@ -50,7 +50,7 @@ class mainConf extends ConfigBase{
 								'password' => 'lancelot@lightningdbmysqladmin',
 								'charset' => 'utf8',
 								'tablePrefix' => 'xcms_'
-						),
+						),*/
 						'user' => array(
 								'class' => 'cms.modules.accessControl.components.AuthUser'
 						),
@@ -67,17 +67,17 @@ class mainConf extends ConfigBase{
 								'tablePrefix' => 'xcms_'
 						),*/
 						//local database
-						/*
+						
 						 'db' =>array(
 						 		'class' => 'system.db.CDbConnection',
 						 		'autoConnect' => false,
 						 		'connectionString' => 'mysql:host=localhost;dbname=lightning',
 						 		'emulatePrepare' => true,
-						 		'username' => 'lancelot',
-						 		'password' => 'lancelot@lightningdbmysqladmin',
+						 		'username' => 'root',
+						 		'password' => '123456',
 						 		'charset' => 'utf8',
 						 		'tablePrefix' => 'xcms_'
-						 ),*/
+						 ),
 						'cache' => array(
 								'class' => 'CMemCache',
 								'useMemcached' => true,

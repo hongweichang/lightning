@@ -4,15 +4,15 @@
  * @author even
  *
  */
-class PurchaseController extends CmsController {
+class PurchaseController extends Controller {
 	public $defaultAction = "showAllBid"; // 更改默认的action,默认显示所有的标段
 	public function filters() {
 		return array();
 	}
 	public function init() {
 		parent::init();
-		Yii::import( 'application.modules.borrow.models.*' );
-		Yii::import( 'application.modules.borrow.components.*' );
+		Yii::import( 'application.modules.tender.models.*' );
+		Yii::import( 'application.modules.tender.components.*' );
 	}
 	
 	/**
@@ -33,6 +33,8 @@ class PurchaseController extends CmsController {
 			
   			'criteria'=>$criteria,
   		));
+  		
+//  获得当前用户对象		$this->user->isGuest;
   		
   		//$data = $model->findAll( $criteria );
 		CVarDumper::dump( $dataProvider );
