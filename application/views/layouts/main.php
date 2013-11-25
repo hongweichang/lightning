@@ -3,7 +3,6 @@
 <head>
 	<meta charset="utf-8">
 	<title>闪电贷</title>
-	<link rel="stylesheet" type="text/css" href="<?php echo $this->cssUrl; ?>login.css">
     <script type="text/javascript" src="<?php echo $this->scriptUrl; ?>jquery-1.8.2.min.js"></script>
     <script type="text/javascript" src="<?php echo $this->scriptUrl; ?>jquery.validate.min.js"></script>
 </head>

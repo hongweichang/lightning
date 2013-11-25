@@ -4,6 +4,11 @@
   }
   color: $color;
 }
+@mixin radius($value){
+  -webkit-border-radius: $value;
+  -moz-border-radius: $value;
+  border-radius: $value;
+}
 %normalFont{
   font: {
     weight: normal;
@@ -22,7 +27,7 @@
       float: left;
       width: 79px;
       height: 104px;
-      background: url("../images/aud-com.png") no-repeat;
+      background: url("../images/aud-com-hover.png") no-repeat;
       @include fontSet(white,16px);
       font-weight: bold;
       text-align: center;
@@ -45,7 +50,7 @@
       height: 29px;
       margin-left: -73px;
       margin-top: 13px;
-      background: url("../images/aud-bar.png") no-repeat;
+      background: url("../images/aud-bar-hover.png") no-repeat;
     }
     div.adu-bar-last{
       position: relative;
@@ -60,7 +65,7 @@
       height: 21px;
       left: 18px;
       top: 35px;
-      background: url("../images/aud-next.png");
+      background: url("../images/aud-next-hover.png");
     }
     div.adu-war-box{
       width: 79px+26px +13px;
@@ -81,7 +86,7 @@
   }
 }
 #container{
-  margin-bottom: 310px;
+  padding-bottom: 40px;
   .aud-nav{
     margin-top: 47px;
     margin-bottom: 32px;
@@ -104,19 +109,28 @@
   #aud-check{
     margin-bottom: 23px;
     div.aud-checked div.adu-step{
-      background-image: url("../images/aud-com-hover.png");
+      background-image: url("../images/aud-com.png");
     }
     div.aud-checked span.adu-next{
-      background-image: url("../images/aud-next-hover.png");
+      background-image: url("../images/aud-next.png");
     }
     div.aud-checked div.adu-bar{
-      background-image: url("../images/aud-bar-hover.png");
+      background-image: url("../images/aud-bar.png");
+    }
+    div.aud-active div.adu-step{
+      background-image: url("../images/aud-com.png");
+    }
+    div.aud-active div.adu-next{
+      background-image: url("../images/aud-next-hover.png");
+    }
+    div.aud-active div.adu-bar{
+      background-image: url("../images/aud-bar.png");
     }
   }
   #aud-detail{
-    width: 989px;
+    width: 857px;
     margin: 0px auto;
-    height: 780px;
+    padding: 20px 66px;
     border: 2px solid #eaeaea;
     box-shadow: 0 0 5px rgba(0,0,0,0.1);
     background: white;
@@ -132,8 +146,14 @@
         @include fontSet(#2d8b8e,14px);
       }
     }
+    .aud-ucenter{
+      text-align: right;
+      a{
+        color: #767676;
+        font-size: 12px;
+      }
+    }
     ul{
-      width: 876px;
       margin: 0 auto;
       margin-top: 78px;
       border-bottom: 1px solid #dfdfdf;
@@ -158,7 +178,7 @@
       margin-top: 0;
       padding-top: 78px;
       li{
-        width: 208px;
+        width: 130px;
         text-align: center;
         @include fontSet(#40bdc1,24px);
         @extend %normalFont;
@@ -171,19 +191,53 @@
           margin: 0 auto;
           background: url("../images/pass.png");
         }
+        img{
+          height: 65px;
+        }
         div.adu-no-pass{
           background: url("../images/no-pass.png") no-repeat;
         }
       }
     }
+    .aud-warning{
+      height: 290px;
+      border-bottom:1px solid #dfdfdf;
+    }
     .adu-img-waring{
-        margin-top: 75px;
-        margin-bottom: 36px;
+      margin-top: 55px;
+      margin-bottom: 26px;
+    }
+    .adu-p-warning{
+      font-size:24px;
+    }
+    .aud-link{
+      margin: 20px 0;
     }
     p{
-      @include fontSet(#40bdc1,24px);
+      @include fontSet(#40bdc1,18px);
       @extend %normalFont;
     }
+    .adu-intro{
+      color: #808080;
+      padding: 60px;
+      p{
+        color: #808080;
+        margin-top: 20px;
+        text-align: left;
+      }
+    }
+    .borrow-button{
+      width: 90px;
+      height: 20px;
+      border: none;
+      margin:20px 40px 20px 0;
+      padding: 7px 9px;
+      background-color: #2da9ac;
+      line-height: 36px;
+      text-align: center;
+      cursor: pointer;
+      @include fontSet(#fff,20px);
+      @include radius(5px);
+    }
   }
-
 }

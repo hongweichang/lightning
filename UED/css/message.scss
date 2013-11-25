@@ -22,7 +22,7 @@
       float: left;
       width: 79px;
       height: 104px;
-      background: url("../images/aud-com.png") no-repeat;
+      background: url("../images/aud-com-hover.png") no-repeat;
       @include fontSet(white,16px);
       font-weight: bold;
       text-align: center;
@@ -40,7 +40,7 @@
       height: 29px;
       margin-left: -73px;
       margin-top: 13px;
-      background: url("../images/aud-bar.png") no-repeat;
+      background: url("../images/aud-bar-hover.png") no-repeat;
     }
     div.adu-bar-last{
       position: relative;
@@ -55,7 +55,7 @@
       height: 21px;
       left: 18px;
       top: 35px;
-      background: url("../images/aud-next.png");
+      background: url("../images/aud-next-hover.png");
     }
     div.adu-war-box{
       width: 79px+26px +13px;
@@ -97,13 +97,22 @@
   }
   #aud-check{
     div.aud-checked div.adu-step{
-      background-image: url("../images/aud-com-hover.png");
+      background-image: url("../images/aud-com.png");
     }
     div.aud-checked span.adu-next{
-      background-image: url("../images/aud-next-hover.png");
+      background-image: url("../images/aud-next.png");
     }
     div.aud-checked div.adu-bar{
-      background-image: url("../images/aud-bar-hover.png");
+      background-image: url("../images/aud-bar.png");
+    }
+    div.aud-active div.adu-step{
+      background-image: url("../images/aud-com.png");
+    }
+    div.aud-active div.adu-next{
+      background-image: url("../images/aud-next-hover.png");
+    }
+    div.aud-active div.adu-bar{
+      background-image: url("../images/aud-bar.png");
     }
   }
   h2{
@@ -115,7 +124,53 @@
     }
   }
   .adu-detail{
-    margin-top: 25px;
+    margin: 25px auto 0;
+    padding: 20px 66px;
+    border: 2px solid #eaeaea;
+    box-shadow: 0 0 5px rgba(0,0,0,0.1);
+    background: white;
+  }
+  .aud-ucenter{
+      text-align: right;
+      a{
+        color: #767676;
+        font-size: 12px;
+      }
+    }
+  .adu-progress{
+    float: left;
+    width:238px;
+    height:970px;
+    padding-left: 30px;
+    border-left: 3px solid #2d9194;
+    li{
+      position: relative;
+      @include fontSet(#2d9194,24px);
+      margin-bottom:172px;
+      line-height: 22px;
+      img{
+        position: absolute;
+        left: -42px;
+
+      }
+    }
+  }
+  #borrow-message{
+    float: left;
+    li{
+      height: 190px;
+      div{
+        height: 32px;
+        line-height: 32px;
+      }
+      label{
+        @include fontSet(#8a8a8a,28px)
+      }
+      input{
+        height: 28px;
+        line-height: 28px;
+      }
+    }
   }
   .adu-det-step{
     float: left;

@@ -6,6 +6,7 @@
  * Encoding UTF-8
  */
 class UserManager extends CApplicationComponent{
+	public $cookieTimeout = 0;
 	/**
 	 * 
 	 * @param array $regInfo
@@ -14,8 +15,12 @@ class UserManager extends CApplicationComponent{
 	public function register($regInfo){
 		$form = new RegisterForm();
 		
-		if ( $regInfo !== array() ){
-			$form->attributes = $regInfo;
+		if ( $regInfo === null ){
+			return $form;
+		}
+		
+		$form->attributes = $regInfo;
+		if ( $form->validate() ){
 			$result = $form->save();
 			if ( $result === true ){
 				return true;
@@ -31,8 +36,24 @@ class UserManager extends CApplicationComponent{
 		return $form;
 	}
 	
-	public function login(){
-		echo "ok";
+
+	public function login($info){
+		$login = new LoginForm();
+
+		if ( $info !== null ){
+			$login->attributes = $info;
+			if ( $login->rememberMe !== 'on' ){
+				$this->cookieTimeout = 0;
+			}
+			if($login->validate() && $login->run($this->cookieTimeout)){
+				return true;
+			}
+		}
 		
+		return $login;
+	}
+	
+	public function getUserInfo($id){
+		return FrontUser::model()->with('baseUser')->findByPk($id);
 	}
 }

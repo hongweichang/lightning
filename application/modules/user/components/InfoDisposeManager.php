@@ -6,16 +6,16 @@ design By HJtianling_LXY,<2507073658@qq.com>
 */
 
 class InfoDisposeManager extends CApplicationComponent{
-
-	Yii::import('application.extensions.PHPExcel.PHPExcel.php');
-	Yii::import('application.extensions.PHPExcel.PHPExcel.IOFactory.php');
-	Yii::import('application.extensions.PHPExcel.PHPExcel.Writer.Excel5.php');
+	Yii::import('application.extensions.PHPExcel.*');
+	require_once "PHPExcel.php";  
+	require_once 'PHPExcel/IOFactory.php';  
+	require_once 'PHPExcel/Writer/Excel5.php';   
 
 	/*
 	**excel方式导出数据
 	**注意表头标题应当和数据项对应,建议使用标准二维数组作为参数！
 	*/
-	public static function ExcelOutput($title,$data){
+	public function ExcelOutput($title,$data){
 		$excelData = new PHPExcel();
 
 		if(!empty($title) && is_array($title) && !empty($title) && is_array($title)){
@@ -32,7 +32,7 @@ class InfoDisposeManager extends CApplicationComponent{
 				$titleLevelPointer = 'A';
 				$titleNumber++;
 
-				foreach($data as $key){
+				foreach($value as $key){
 					$excelData->getActiveSheet()->setCellValue($titleLevelPointer.$titleNumber,$key);
 					$titleLevelPointer++;
 				}
@@ -63,6 +63,7 @@ class InfoDisposeManager extends CApplicationComponent{
 		
 
 	}
+
 }
 
 

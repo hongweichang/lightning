@@ -50,7 +50,12 @@ class mainConf extends ConfigBase{
 								'tablePrefix' => 'xcms_'
 						),
 						'user' => array(
-								'class' => 'cms.modules.accessControl.components.AuthUser'
+								'class' => 'cms.modules.accessControl.components.AuthUser',
+								'stateKeyPrefix' => 'FU',
+								'allowAutoLogin' => true,
+								'autoRenewCookie' => true,
+								'guestName' => '游客',
+								'authTimeout' => 3600
 						),
 						//internal database.ip 10.161.180.53
 						/*
@@ -100,6 +105,13 @@ class mainConf extends ConfigBase{
 						),
 						'cacheApc' => array(),
 						*/
+						'clientScript' => array(
+								'scriptMap' => array(
+										'jquery.js' => false,
+										'jquery.min.js' => false,
+										'jquery.ba-bbq.js' => false
+								)
+						),
 						'urlManager'=>array(
 								'urlFormat'=>'path',
 								'urlSuffix' => '',

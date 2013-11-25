@@ -41,50 +41,88 @@
             </h1>
             <div id="aud-check" class="aud-common">
                 <div class="aud-warning">
-                    <div class="adu-war-box adu-war-box-first">
+                    <div class="adu-war-box adu-war-box-first aud-checked">
                         <div class="adu-step"><span>1.填写借款申请</span></div>
                         <span class="adu-next"></span>
                         <div class="adu-bar"></div>
                     </div>
-                    <div class="adu-war-box">
-                        <div class="adu-step"><span>2.填写借款申请</span></div>
+                    <div class="adu-war-box aud-active">
+                        <div class="adu-step"><span>2.填写借款信息</span></div>
                         <span class="adu-next"></span>
                         <div class="adu-bar"></div>
                     </div>
-                    <div class="adu-war-box aud-checked">
+                    <div class="adu-war-box">
                         <div class="adu-step"><span>3.审核</span></div>
                         <span class="adu-next"></span>
                         <div class="adu-bar"></div>
                     </div>
-                    <div class="adu-war-box aud-checked">
+                    <div class="adu-war-box">
                         <div class="adu-step"><span>4.招标</span></div>
                         <span class="adu-next"></span>
                         <div class="adu-bar"></div>
                     </div>
-                    <div class="adu-war-box adu-war-box-last aud-checked">
+                    <div class="adu-war-box adu-war-box-last">
                         <div class="adu-step"><span>5.提现</span></div>
                         <div class="adu-bar"></div>
                         <div class="adu-bar adu-bar-last"></div>
                     </div>
                 </div>
             </div>
-            <h2>( 温馨提示：<span>*</span> 为必填项和必要认证项，所有资料均会严格保密。)</h2>
-            <div class="adu-detail">
-                <div class="adu-det-step">
-                    <div class="adu-step">
-                        <span></span>
-                    </div>
-                    <div class="adu-step">
-                        <span></span>
-                    </div>
-                    <div class="adu-step">
-                        <span class="step-waring-img"></span>
-                        <span class="step-waring-text">上传完整资料证明</span>
-                    </div>
+            <div class="adu-detail clearfix">
+                <div class="aud-ucenter">
+                    <a href="#">进入个人中心 |</a>
+                    <a href="#">使用帮助</a>
                 </div>
-                <div class="adu-det-verify">
-
+                <div class="adu-progress">
+                    <ul>
+                        <li>
+                            <img src="../images/progress_c.png" />
+                            NAME
+                        </li>
+                        <li>
+                            <img src="../images/progress_c.png" />
+                            MONEY
+                        </li>
+                        <li>
+                            <img src="../images/progress_c.png" />
+                            RATE
+                        </li>
+                        <li>
+                            <img src="../images/progress_c.png" />
+                            DEADLINE
+                        </li>
+                        <li>
+                            <img src="../images/progress_c.png" />
+                            TIME
+                        </li>
+                        <li>
+                            <img src="../images/progress_c.png" />
+                            INTRODUCTION
+                        </li>
+                    </ul>
                 </div>
+                <form method="post" action="#" id="borrow-message">
+                    <ul>
+                        <li class="message-item">
+                            <div>
+                                <label>标段名字:</label>
+                                <input type="text" maxlength="4" />
+                            </div>
+                        </li>
+                        <li class="message-item">
+                            <label>借款金额:</label>
+                            <input type="text" />
+                        </li>
+                        <li class="message-item">
+                            <label>标段利率:</label>
+                            <input type="text" />
+                        </li>
+                        <li class="message-item">
+                            <label>标段期限:</label>
+                            <input type="text" />
+                        </li>
+                    </ul>
+                </form>
             </div>
         </div>
     </div>

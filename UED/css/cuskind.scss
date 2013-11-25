@@ -7,6 +7,19 @@
   background: $bgcolor;
   border-color: $bocolor;
 }
+@mixin font ($size: 12px,$family: "Microsoft Yahei",$weight:normal){
+  font:{
+    size: $size;
+    family: $family;
+    weight: $weight;
+  }
+}
+@mixin radius($value){
+  -webkit-border-radius: $value;
+  -moz-border-radius: $value;
+  border-radius: $value;
+}
+
 %f12_white{
   width: 29px;
   margin: 0 auto;
@@ -24,6 +37,82 @@
   }
   color: $color;
 }
+%normalFont{
+  font: {
+    weight: normal;
+    family: "Microsoft Yahei";
+  };
+}
+%aud-com{
+  width: 811px;
+  height: 174px;
+  margin: 0 auto;
+  .aud-warning{
+    width: 665px;
+    margin: 0 auto;
+    div.adu-step{
+      position: relative;
+      float: left;
+      width: 79px;
+      height: 104px;
+      background: url("../images/aud-com-hover.png") no-repeat;
+      @include fontSet(16px,normal,white);
+      font-weight: bold;
+      text-align: center;
+      span{
+        position: absolute;
+        width: 70px;
+        height: 43px;
+        margin: auto;
+        left: 0;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        *top: 27%;
+        line-height: 20px;
+      }
+    }
+    div.adu-bar{
+      float: left;
+      width: 114px;
+      height: 29px;
+      margin-left: -73px;
+      margin-top: 13px;
+      background: url("../images/aud-bar-hover.png") no-repeat;
+    }
+    div.adu-bar-last{
+      position: relative;
+      width: 100px;
+      left: 90px;
+      margin-left: -63px;
+    }
+    span.adu-next{
+      display: inline-block;
+      position: relative;
+      width: 26px;
+      height: 21px;
+      left: 18px;
+      top: 35px;
+      background: url("../images/aud-next-hover.png");
+    }
+    div.adu-war-box{
+      width: 79px+26px +13px;
+      margin-left: 23px;
+      float: left;
+    }
+    div.adu-war-box-last{
+      width: 79px;
+    }
+    div.adu-war-box-first{
+      margin-left: 0;
+    }
+    &:after{
+      content: " ";
+      display: block;
+      clear: both;
+    }
+  }
+}
 #container{
   margin-bottom: 40px;
   font:{
@@ -34,11 +123,39 @@
     color: #454545;
     @include fontSet(26px,normal,#454545);
   }
+  .con-hint{
+    padding: 0 20px;
+    width: 348px;
+    margin: 15px auto;
+    background: url("../images/cus_hint.png") no-repeat;
+    @include fontSet(18px,normal,#a6a6a6);
+  }
+  .next{
+    width:100px;
+    margin: 0 auto;
+  }
+  .borrow-button{
+    display: inline-block;
+    position: relative;
+    width: 100px;
+    height: 36px;
+    border: none;
+    top: 40px;
+    margin-bottom:20px;
+    background-color: #2da9ac;
+    line-height: 36px;
+    color: #fff;
+    text-align: center;
+    cursor: pointer;
+    @include font(20px);
+    @include radius(5px);
+  }
   .con-cuskind{
     position: relative;
     @extend %cusking;
     border: 1px solid #e8e8e8;
     @extend %fl;
+    background: #fff;
       h2{
         @include fontSet(18px,normal,#454545);
         margin-top: 36px;
@@ -61,7 +178,6 @@
             @include fontSet(14px,normal,#3a3a3a);
             line-height: 28px;
             margin-left: -37px;
-            //haslayour ¼¤»î
             zoom: 1;
           }
         }
@@ -103,5 +219,111 @@
   }
   .cuskind-color-2{
     @include cuskind(#a8f48b,#c2f7ad);
+  }
+  .aud-nav{
+    margin-top: 47px;
+    margin-bottom: 32px;
+    @extend %normalFont;
+    a{
+      @include fontSet(16px,normal,#454545);
+    }
+    a:first-child{
+      color: #848383;
+    }
+  }
+  .aud-common{
+    @extend %aud-com;
+  }
+  #aud-check{
+    div.aud-checked div.adu-step{
+      background-image: url("../images/aud-com.png");
+    }
+    div.aud-checked span.adu-next{
+      background-image: url("../images/aud-next.png");
+    }
+    div.aud-checked div.adu-bar{
+      background-image: url("../images/aud-bar.png");
+    }
+    div.aud-active div.adu-step{
+      background-image: url("../images/aud-com.png");
+    }
+    div.aud-active div.adu-next{
+      background-image: url("../images/aud-next-hover.png");
+    }
+    div.aud-active div.adu-bar{
+      background-image: url("../images/aud-bar.png");
+    }
+  }
+  #aud-detail{
+    width: 989px;
+    margin: 0px auto;
+    height: 780px;
+    border: 2px solid #eaeaea;
+    box-shadow: 0 0 5px rgba(0,0,0,0.1);
+    background: white;
+    text-align: center;
+    .adu-d-nav{
+      padding-top: 54px;
+      @include fontSet(24px,normal,#2d8b8e);
+      @extend %normalFont;
+      text-align: center;
+      span{
+        display: block;
+        margin-top: 5px;
+        @include fontSet(14px,normal,#2d8b8e);
+      }
+    }
+    ul{
+      width: 876px;
+      margin: 0 auto;
+      margin-top: 78px;
+      border-bottom: 1px solid #dfdfdf;
+      @include fontSet(14px,normal,#808080);
+      @extend %normalFont;
+      li{
+        float: left;
+        margin-left: 81px;
+        margin-bottom: 29px;
+        span{
+          @include fontSet(21px,normal,#555555);
+        }
+      }
+      &:after{
+        content: " ";
+        display: block;
+        clear: both;
+      }
+    }
+    ul.adu-img-bar{
+      border-top: 1px solid #eeeeee;
+      margin-top: 0;
+      padding-top: 78px;
+      li{
+        width: 208px;
+        text-align: center;
+        @include fontSet(24px,normal,#40bdc1);
+        @extend %normalFont;
+        p{
+          margin: 21px 0;
+        }
+        div{
+          width: 44px;
+          height: 41px;
+          margin: 0 auto;
+          background: url("../images/pass.png");
+        }
+        div.adu-no-pass{
+          background: url("../images/no-pass.png") no-repeat;
+        }
+      }
+    }
+    .adu-img-waring{
+        margin-top: 75px;
+        margin-bottom: 36px;
+    }
+    p{
+      @include fontSet(24px,normal,#40bdc1);
+      @extend %normalFont;
+    }
   }
 }

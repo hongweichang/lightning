@@ -230,3 +230,240 @@ body{
 #viewMore{
   @include border_lr(1px,#dadadb);
 }
+
+//pay
+#borrow-info{
+  position: relative;
+  margin-top:60px;
+  padding: 0 36px;
+  height: 110px;
+  border-bottom: 3px solid #298689;
+  background-color: #d6f2f3; 
+}
+#borrow-avatar{
+  position:absolute;
+  top: -40px;
+  width:110px;
+  height: 110px;
+  background-color: #d6f2f3;
+  img{
+    border:2px solid #fff;
+    width:108px;
+    height:108px;
+    vertical-align: middle;
+  }
+  span{
+    position: absolute;
+    right:2px;
+    bottom:2px;
+    width:30px;
+    height:30px;
+    background-color:#75c145;
+    font-size:18px;
+    color:#fff;
+    line-height: 30px;
+    text-align: center;
+  }
+}
+#borrow-brief,
+#borrow-details{
+  position: absolute;
+  display: inline-block;
+  bottom: 10px;
+  width: 530px;
+  color: #298689;
+  @include font(14px);
+}
+#borrow-details{
+  display: none;
+}
+.text-overflow{
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+#borrow-num{
+  position: absolute;
+  right: 36px;
+  bottom:5px;
+  @include font(24px);
+  color:#a1a9aa;
+  span{
+    @include font(50px);
+    color: #ff6600;
+  }
+}
+#view-detail{
+  width: 110px;
+  height: 19px;
+  margin: 0 auto;
+  background: url("../images/viewDetail.png");
+  cursor: pointer;
+}
+.paycenter{
+  margin: 16px 0;
+  padding: 26px 95px;
+  border: 2px solid #ddd;
+  background: #fff;
+  p{
+    font-size: 12px;
+    margin: 20px 0 0 90px;
+    padding:10px 25px;
+  }
+  .check-security{
+    background: url("../images/check_security.png") no-repeat 3px 10px;
+  }
+  .paycenter-alert{
+    width:240px;
+    border:1px solid #5ecacd;
+    background: #d5f3f4 url("../images/alert.png") no-repeat 3px 10px;
+  }
+  .paycenter-hint{
+    display: none;
+    margin: 3px 0 0 90px;
+    padding: 0 0 0 20px;
+    color: #848383;
+    background: url("../images/verifycode_ico.png") no-repeat;
+    a{
+      color:#298689;
+      text-decoration: underline;
+    }
+  }
+  .paycenter-hint.question{
+    margin-left: 10px;
+    background: url("../images/question.png") no-repeat;
+  }
+  .paycenter-tips{
+    margin-left: 10px;
+    font-size: 12px;
+    color:#2d9194;
+  }
+  .paycenter-button{
+    width: 100px;
+    height: 36px;
+    border: none;
+    background-color: #2da9ac;
+    line-height: 36px;
+    color: #fff;
+    text-align: center;
+    cursor: pointer;
+    @include font(20px);
+    @include radius(5px);
+}
+}
+.paycenter-item{
+  margin-bottom: 26px;
+  label{
+    display: inline-block;
+    width: 85px;
+    text-align: right;
+  }
+  img{
+    display: inline-block;
+    vertical-align: middle;
+    border:1px solid #ddd;
+  }
+  div{
+    display: inline-block;
+    span{
+      color:#ff6600;
+    }
+  }
+  input{
+    border:1px solid #c9c9c9;
+    height: 20px;
+  }
+}
+.paycenter-item input:hover,
+.paycenter-item input:focus{
+  border-color: #2d9194;
+  outline: 0;
+}
+.paymethod{
+  padding: 15px 36px 45px 36px;
+  .paymethod-manage{
+    float: right;
+    a{
+      color:#000;
+      @include font(12px);
+    }
+  }
+}
+.paymethod-item{
+  .paycenter-hint{
+    display: block;
+  }
+  span{
+    font-size:12px;
+    margin-left: 20px;
+  }
+}
+.paymethod-item.userinfo{
+  height: 60px;
+  line-height: 60px;
+  border-bottom: 1px solid #ddd;
+}
+.paymethod-item.method{
+  padding: 26px 0 26px 35px;
+  border-bottom: 1px solid #ddd;
+}
+.paymethod-title{
+  margin: 30px 0 45px 0; 
+}
+#pay-verify{
+  width:90px;
+}
+#paycenter-pay{
+  margin-left: 90px;
+}
+#paycenter-next{
+  margin-left: 60px;
+}
+#helpcenter{
+  padding: 0 38px;
+  p{
+    width: 595px;
+    font-size: 12px;
+  }
+  .help-title{
+    font-weight: bold;
+  }
+  .help-answer{
+    margin-bottom: 20px;
+  }
+  a{
+    margin-right: 20px;
+    font-size:12px;
+    color:#2d9194;
+  }
+  a:visited{
+    color:#2d9194;
+  }
+
+}
+.paymethod-bank{
+  label{
+    display: inline-block;
+    width: 130px;
+    height: 33px;
+    border: 1px solid #ddd;
+  }
+  li{
+    float: left;
+    margin: 0 0 25px 45px;
+    height: 33px;
+    line-height: 33px;
+    input{
+      float: left;
+      margin:10px 5px 0 0;
+    }
+  }
+  .icbc{ background: url("../images/bank.jpg") no-repeat 0px -99px;}
+  .abc{ background: url("../images/bank.jpg") no-repeat 0px 0px;}
+  .cmb{ background: url("../images/bank.jpg") no-repeat 0px -33px;}
+  .ccb{ background: url("../images/bank.jpg") no-repeat 0px -66px;}
+  .boc{ background: url("../images/bank.jpg") no-repeat 0px -198px;}
+  .post{ background: url("../images/bank.jpg") no-repeat 0px -231px;}
+  .spdb{ background: url("../images/bank.jpg") no-repeat 0px -132px;}
+  .cgb{ background: url("../images/bank.jpg") no-repeat 0px -165px;}
+}

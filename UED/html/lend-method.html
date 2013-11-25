@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>闪电贷</title>
+    <link rel="stylesheet" type="text/css" href="../css/lend.css">
+    <script type="text/javascript" src="../javascript/jquery-1.8.2.min.js"></script>    
+</head>
+<body>
+    <div id="header">
+      <div id="he-login">
+        <div class="wd1002">
+            <p class="he-lo">
+              <a href="#">登陆</a>
+              <a href="#">注册中心</a>
+              <a href="#">帮助中心</a>
+            </p>
+            <p class="he-wl">您好，欢迎你来到闪电贷！</p>
+        </div>
+      </div>
+      <div id="he-nav">
+        <div class="wd1002">
+          <img src="../images/logo.png" id="logo" />
+          <ul>
+            <li class="origin"><a href="#">首页</a></li>
+            <li class="yellow"><a href="#">我要借贷</a></li>
+            <li class="green active"><a href="#">我要投资</a></li>
+            <li class="deepGreen"><a href="#">债券转让</a></li>
+            <li class="pink"><a href="#">关于我们</a></li>
+            <li class="violet"><a href="#">个人中心</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div id="container">
+      <div class="wd1002">
+        <div class="breadcrumb">
+          <ul>
+            <li class="breadcrumb-item">
+              <a href="#">我要投资</a>
+            </li>
+            <li class="breadcrumb-separator"> >
+            </li>
+            <li class="breadcrumb-item active">
+              <a href="#">投资中心</a>
+            </li>
+          </ul>
+        </div>
+        <div id="borrow-info">
+          <p id="borrow-brief" class="text-overflow">借款人信息：王果冻，借款10000元，月利率10%，结束时间19日23点，期限3个月期限3个月</p>
+          <div id="borrow-details">
+            <p>借款人：王国栋，男，淘宝主</p>
+            <p>身份证号码：**************,现居地:重庆南岸</p>
+            <p>借款金额：10000元，标段月利率10%，期限3个月，完成30%招募</p>
+            <p>招标开始时间：2013年16日0点，结束时间：2013年19日23点</p>
+          </div>
+          <div id="borrow-num">投标金额：<span>1,000元</span></div>
+          <div id="borrow-avatar">
+            <img src="../images/intro-pic_1.png" />
+            <span>信</span>
+          </div>
+        </div>
+        <div id="view-detail"></div>
+        <div class="paycenter paymethod">
+          <form method="post" action="#" id="pay-method">
+            <div class="paymethod-item userinfo">
+              <div class="paymethod-manage">
+                <a href="#">管理我的账户 |</a>
+                <a href="#">使用帮助</a>
+              </div>  
+              <div>王国栋<span>15683128505</span></div>
+            </div>
+            <div class="paymethod-item method">
+              <input type="radio" checked="checked" name="pay_method" value="ssd" id="pay-ssd"/>
+              <label for="pay-ssd">闪电贷账户余额支付</label>
+              <span>可支付余额： 0.00元</span>
+              <p class="paycenter-hint question">您需要保证余额足够支付，余额不足可在此<a href="#">充值</a></p>
+            </div>
+            <div class="paymethod-item">
+              <div class="paymethod-title">使用银行卡支付</div>
+              <div class="paymethod-bank clearfix">
+                <ul>
+                  <li>
+                    <input type="radio" name="pay_bank" value="icbc" id="b-icbc" />
+                    <label class="icbc" for="b-icbc"></label>
+                  </li>
+                  <li>
+                    <input type="radio" name="pay_bank" value="abc" id="b-abc" />
+                    <label class="abc" for="b-abc"></label>
+                  </li>
+                  <li>
+                    <input type="radio" name="pay_bank" value="cmb" id="b-cmb" />
+                    <label class="cmb" for="b-cmb"></label>
+                  </li>
+                  <li>
+                    <input type="radio" name="pay_bank" value="ccb" id="b-ccb" />
+                    <label class="ccb" for="b-ccb"></label>
+                  </li>
+                  <li>
+                    <input type="radio" name="pay_bank" value="boc" id="b-boc" />
+                    <label class="boc" for="b-boc"></label>
+                  </li>
+                  <li>
+                    <input type="radio" name="pay_bank" value="post" id="b-post" />
+                    <label class="post" for="b-post"></label>
+                  </li>
+                  <li>
+                    <input type="radio" name="pay_bank" value="spdb" id="b-spdb" />
+                    <label class="spdb" for="b-spdb"></label>
+                  </li>
+                  <li>
+                    <input type="radio" name="pay_bank" value="cgb" id="b-cgb" />
+                    <label class="cgb" for="b-cgb"></label>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div>
+              <input type="submit" value="下一步" class="paycenter-button" id="paycenter-next"/>
+            </div>
+          </form>
+        </div>
+        <div id="helpcenter">
+          <h3>充值时遇到的问题</h3>
+          <p class="help-title">1. 我可以如何充值？没有第三方支付的账户是否也可以充值？</p>
+          <p class="help-answer">答：您在"我的账户"首页可看到"充值"按钮，点击充值，会自动弹出充值页面，按照操作提示一步步进行即可。</p>
+          <p class="help-title">2. 为什么网上银行充值成功，但是闪电贷帐号里面的余额却没有增加？</p>
+          <p class="help-answer">答：由于在同一时间使用同一个第三方充值账户端口充值的人可能非常多，在某些时候会造成网银显示与闪电贷
+账号金额不同步的情况。如果遇到这种情况请您将网银付款成功的页面截图，然后刷新闪电贷账户页面。如果刷
+新未能解决问题，请您致电客服400 890 3890，客服专员会指导发送截图并马上处理您的问题。</p>
+          <a href="#">更多帮助</a>
+          <a href="#">进入闪电贷账户</a>
+        </div>
+      </div>
+    </div>
+    <div id="footer">
+      <div class="wd1002">
+        <ul id="fo-nav">
+          <li><img src="../images/wl.png" />新手入门
+            <ul>
+              <li><a href="#">免费注册</a></li>
+              <li><a href="#">我的闪电袋</a></li>
+              <li><a href="#">如何借入</a></li>
+            </ul>
+          </li>
+          <li><img src="../images/out.png" />我要借出
+            <ul>
+              <li><a href="#">浏览借款</a></li>
+              <li><a href="#">自动投票</a></li>
+              <li><a href="#">成为VIP</a></li>
+            </ul>
+          </li>
+          <li><img src="../images/int.png" />我要借入
+            <ul>
+              <li><a href="#">发布借款</a></li>
+              <li><a href="#">优先计划</a></li>
+              <li><a href="#">诚信认证</a></li>
+            </ul>
+          </li>
+          <li><img src="../images/belief.png" />诚信保障
+            <ul>
+              <li><a href="#">本金保障</a></li>
+              <li><a href="#">法律政策</a></li>
+            </ul>
+          </li>
+          <li><img src="../images/about_p2p.png" />关于闪电贷
+            <ul>
+              <li><a href="#">闪电贷团队</a></li>
+              <li><a href="#">闪电贷论坛</a></li>
+              <li><a href="#">媒体报道</a></li>
+              <li><a href="#">招贤纳士</a></li>
+            </ul>
+          </li>
+          <li><img src="../images/about.png" />关于我们
+            <ul>
+              <li><a href="#">新浪微博</a></li>
+              <li><a href="#">腾讯微博</a></li>
+            </ul>
+          </li>
+        </ul>
+        <div id="fo-contact">
+          <img src="../images/phone-ico.png" />
+          <p><span class="con-number">400-181-081</span>
+              (工作日：9:30-11:30 13:00-17:30)</p>
+          <div class="con-center">
+              <a href="#"><img src="../images/con-img_0.png" /></a>
+              <a href="#"><img src="../images/con-img_1.png" /></a>
+              <a href="#"><img src="../images/con-img_4.png" /></a>
+              <a href="#"><img src="../images/con-img_3.png" /></a>
+              <a href="#"><img src="../images/con-img_2.png" /></a>
+          </div>
+        </div>
+        <div id="copyright">
+            <p>重庆闪电贷金融信息服务有限公司 版权所有 2007-2013<p>
+            <p>Copyright Reserved 2007-2013©闪电贷（www.sddai.com） | 渝ICP备05063398号</p>
+        </div>
+      </div>
+    </div>
+    <script type="text/javascript" src="../javascript/lend.js"></script>
+</body>
+</html>

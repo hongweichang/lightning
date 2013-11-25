@@ -56,6 +56,12 @@ height: 4em;
 	background-color:#fff;
 }
 .login-tab{
+	a{
+		color: #555555;
+	}
+	a:visited{
+		color: #cdcccc;
+	}
 	li{
 		@extend %fl;
 		@include block(217px,48px,1px solid #c9c9c9);
@@ -71,7 +77,10 @@ height: 4em;
 	}
 	.tab-on{
 		background-color: #fff;
-		color: #555555;
+		color: #555;
+		a{
+			color: #555555;
+		}
 	}
 }
 .tab-body{

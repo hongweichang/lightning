@@ -19,7 +19,7 @@ class UserInfoController extends Controller{
 		$criteria ->select = 'id,user_id,verification_id,file_type,submit_time,status,description';
 		$criteria ->order = 'submit_time DESC';
 
-		$userInfoData = Credit::model()->findAll($criteria);
+		$userInfoData = FrontCredit::model()->findAll($criteria);
 		$dataArray = array();
 
 		if(!empty($userInfoData)){
@@ -30,7 +30,7 @@ class UserInfoController extends Controller{
 			foreach ($infoData as $value){
 				$dataArray[] = array(
 									'0'=>$value['id'],
-									'1'=>$value['userid'],
+									'1'=>$value['user_id'],
 									'2'=>$value['verification_id'],
 									'3'=>$value['content'],
 									'4'=>$value['submit_time'],
@@ -41,16 +41,20 @@ class UserInfoController extends Controller{
 			
 		}
 		
+
+		$userInfoData = FrontCredit::model()->findAll($criteria);
+
 		$this->render('index',array('userInfo'=>$userInfoData));
 
 	}
 
+	
 	public function actionOutputInfoByExcel(){
 		$criteria = new CDbCriteria;
-		$criteria ->select = 'id,user_id,verification_id,file_type,submit_time,status,description';
+		$criteria ->select = 'id,user_id,verification_id,content,submit_time,status,description';
 		$criteria ->order = 'submit_time DESC';
 
-		$userInfoData = Credit::model()->findAll($criteria);
+		$userInfoData = FrontCredit::model()->findAll($criteria);
 		$dataArray = array();
 
 		if(!empty($userInfoData)){
@@ -61,7 +65,7 @@ class UserInfoController extends Controller{
 			foreach ($infoData as $value){
 				$dataArray[] = array(
 									'0'=>$value['id'],
-									'1'=>$value['userid'],
+									'1'=>$value['user_id'],
 									'2'=>$value['verification_id'],
 									'3'=>$value['content'],
 									'4'=>$value['submit_time'],
@@ -80,18 +84,68 @@ class UserInfoController extends Controller{
 						'4'=>'提交时间',
 						'5'=>'审核状态'
 					);
+		//var_dump($dataArray);
+		//die();
+		$output = $this->ExcelOutput($titleArray,$dataArray);
+	}
 
-		$output = $this->app->UserManager->login();
+	public function ExcelOutput($title,$data){
+		Yii::import('application.extensions.PHPExcel.PHPExcel.*');
+		spl_autoload_unregister(array('YiiBase','autoload'));
+		include dirname(Yii::app()->basePath).'/application/extensions/PHPExcel/PHPExcel.php';
+		include dirname(Yii::app()->basePath).'/application/extensions/PHPExcel/PHPExcel/IOFactory.php';
+		include dirname(Yii::app()->basePath).'/application/extensions/PHPExcel/PHPExcel/Writer/Excel5.php';
+		$excelData = new PHPExcel();
+
+		if(!empty($title) && is_array($title) && !empty($title) && is_array($title)){
+			$titleNumber = 1;
+			$titleLevel = 'A';
+
+			foreach($title as $value){
+				$excelData->getActiveSheet()->setCellValue($titleLevel.$titleNumber,$value);
+				$titleLevel++;
+			}
+
+		
+			foreach($data as $value){
+				$titleLevelPointer = 'A';
+				$titleNumber++;
+
+				foreach($value as $key){
+					$excelData->getActiveSheet()->setCellValue($titleLevelPointer.$titleNumber,$key);
+					$titleLevelPointer++;
+				}
+			
+			}
+			 
+
+			$OutputFilname = 'excelFile.xls';
+			//$objWriter = new PHPExcel_Writer_Excel2007($excelData);
+			$objWriter = new PHPExcel_Writer_Excel5($excelData);
+			header("Pragma: public");
+			header("Expires: 0");
+			header('Cache-Control:must-revalidate, post-check=0, pre-check=0');
+			header("Content-Type:application/force-download");
+			header("Content-Type:application/vnd.ms-execl");
+			header("Content-Type:application/octet-stream");
+			header("Content-Type:application/download");;
+			header('Content-Disposition:attachment;filename="resume.xls"');
+			header("Content-Transfer-Encoding:binary");
+			$objWriter->save('php://output');
+			
+		}
+		
+
 	}
 
 	/*
 	**用户资料提交
 	*/
 	public function actionInfoAdd(){
-		$model = new Credit();
+		$model = new FrontCredit();
 		
-		if(isset($_POST['Credit'])){
-			$model->attributes = $_POST['Credit'];
+		if(isset($_POST['FrontCredit'])){
+			$model->attributes = $_POST['FrontCredit'];
 			$model->verification_id = 1;
 			$model->submit_time = time();
 			$model->status = 0;
@@ -152,7 +206,7 @@ class UserInfoController extends Controller{
 					$backData = array(
 						'name'=>$fileName,
 						//'thumb'=>Yii::app()->baseUrl.$thumbUrl,
-						);
+					);
 					// 返回json数据给swfupload上传插件
 					echo  json_encode($backData);
 				}
@@ -190,7 +244,7 @@ class UserInfoController extends Controller{
 	*/
 	public function actionDownload($id){
 		if(!empty($id) && is_numeric($id)){
-			$fileData = Credit::model()->findAll('id =:id',array('id'=>$id));
+			$fileData = FrontCredit::model()->findAll('id =:id',array('id'=>$id));
 
 			if($fileData == null){
 				throw new CHttpException ('500', '文件不存在');  
@@ -213,7 +267,7 @@ class UserInfoController extends Controller{
 	*/
 	public function actionVerify($id,$action){
 		if(!empty($id) && is_numeric($id) && !empty($action)){
-			$userData = Credit::model()->findByPk($id);
+			$userData = FrontCredit::model()->findByPk($id);
 
 			if(!empty($userData)){
 				if($action = 'pass' && $userData->status != 1){
@@ -242,13 +296,13 @@ class UserInfoController extends Controller{
 	*/
 	public function actionVerifyReasonInput($id){
 		if(!empty($id) && is_numeric($id)){
-			$infoData = Credit::model()->findByPk($id);
+			$infoData = FrontCredit::model()->findByPk($id);
 
 			if(!empty($infoData)){
 				$model = $infoData;
-				if(isset($_POST['Credit'])){
+				if(isset($_POST['FrontCredit'])){
 
-					$model->attributes = $_POST['Credit'];
+					$model->attributes = $_POST['FrontCredit'];
 					$description = $model->description;
 					$infoData->description = $description;
 
