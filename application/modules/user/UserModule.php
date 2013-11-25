@@ -8,7 +8,8 @@ class UserModule extends CmsModule{
 		
 		$this->setComponents(array(
 				'userManager' => array(
-						'class' => 'UserManager'
+						'class' => 'UserManager',
+						'cookieTimeout' => 864000
 				),
 		));
 	}
