@@ -82,4 +82,5 @@ class PayController extends CmsController{
 			
 		}
 	}
+	
 }

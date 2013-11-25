@@ -6,6 +6,8 @@
  * Encoding UTF-8
  */
 class AccountController extends Controller{
+	public $layout='//layouts/login';
+	
 	public function noneLoginRequired(){
 		return 'register,login,captcha';
 	}
