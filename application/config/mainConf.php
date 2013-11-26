@@ -81,7 +81,7 @@ class mainConf extends ConfigBase{
 						 		'charset' => 'utf8',
 						 		'tablePrefix' => 'xcms_'
 						 ),*/
-						'cache' => array(
+						/*'cache' => array(
 								'class' => 'CMemCache',
 								'useMemcached' => true,
 								'servers' => array(
@@ -95,7 +95,7 @@ class mainConf extends ConfigBase{
 												'port' => 11211
 										),
 								),
-						),
+						),*/
 						/*
 						'cacheDb' => array(
 								'class' => 'CDbCache',

@@ -86,7 +86,7 @@ class UserInfoController extends Controller{
 					);
 		//var_dump($dataArray);
 		//die();
-		$output = $this->app->getModule('user')->getComponent('InfoDisposeManager')->ExcelOutput($titleArray,$dataArray);
+		$output = $this->app->getModule('user')->getComponent('infoDisposeManager')->ExcelOutput($titleArray,$dataArray);
 	}
 
 	public function ExcelOutput($title,$data){

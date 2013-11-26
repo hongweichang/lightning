@@ -11,14 +11,14 @@ class InfoDisposeManager extends CApplicationComponent{
 	**excel方式导出数据
 	**注意表头标题应当和数据项对应,建议使用标准二维数组作为参数！
 	*/
-	
 	public function ExcelOutput($title,$data){
+		spl_autoload_unregister(array('YiiBase','autoload'));//暂时关闭Yii自动加载功能
+
 		Yii::import('application.extensions.PHPExcel.PHPExcel.*');
 		include dirname(Yii::app()->basePath).'/application/extensions/PHPExcel/PHPExcel.php';
 		include dirname(Yii::app()->basePath).'/application/extensions/PHPExcel/PHPExcel/IOFactory.php';
 		include dirname(Yii::app()->basePath).'/application/extensions/PHPExcel/PHPExcel/Writer/Excel5.php';
 		
-		spl_autoload_unregister(array('YiiBase','autoload'));//暂时关闭Yii自动加载功能
 		$excelData = new PHPExcel();
 
 		if(!empty($title) && is_array($title) && !empty($title) && is_array($title)){
@@ -62,7 +62,24 @@ class InfoDisposeManager extends CApplicationComponent{
 			
 		}
 		
+	}
 
+
+	/*
+	**用户留言以及提问添加
+	*/
+	public function UsermessageAdd($data){
+		if(!empty($data) && is_array($data)){
+			$model = new FrontUserMessageBoard;
+			$model->attributes = $data;
+			$model->add_time = time();
+			$model->reply_status = 0;
+			if($model->save())
+				return 200;
+			else
+				return 400;
+			
+		}
 	}
 		
 

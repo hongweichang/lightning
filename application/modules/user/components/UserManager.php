@@ -52,6 +52,7 @@ class UserManager extends CApplicationComponent{
 		
 		return $login;
 	}
+
 	
 	public function getUserInfo($id){
 		return FrontUser::model()->with('baseUser')->findByPk($id);
