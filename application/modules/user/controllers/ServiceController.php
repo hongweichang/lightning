@@ -103,7 +103,8 @@ class ServiceController extends Controller{
 						'password'=>$password,
 						'repassword'=>$repassword,
 					);
-			$register = $this->getModule()->getComponent('userManager')->register($info);
+			
+			$register = $this->getModule()->getComponent('userManager')->register($info,$scenario='appRegister');
 			if($register === true)
 				$this->response(200,'注册成功','');
 			else
