@@ -12,7 +12,6 @@ class UserIdentity extends CUserIdentity{
 			'nickname',
 			'email',
 			'role',
-			'icon',
 			'uuid',
 			'last_login_time'
 	);
@@ -31,7 +30,6 @@ class UserIdentity extends CUserIdentity{
 			$this->setPersistentStates($this->_user->getAttributes($this->_stateKeys));
 			$this->username = $this->_user->getAttribute('nickname');
 			$this->errorCode = self::ERROR_NONE;
-			$this->afterLogin();
 			return true;
 		}else {
 			$this->errorCode = self::ERROR_PASSWORD_INVALID;
@@ -72,13 +70,5 @@ class UserIdentity extends CUserIdentity{
 		}else {
 			return true;
 		}
-	}
-	
-	public function afterLogin(){
-		$this->_user->attributes = array(
-			'last_login_time' => time(),
-			'last_login_ip' => Yii::app()->request->getUserHostAddress()
-		);
-		$this->_user->update();
 	}
 }

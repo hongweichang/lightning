@@ -1,22 +1,94 @@
-<form>
-    <fieldset>
-        <div class="open-button">
-            <input type="button" value="手机号码验证码" class="open-fun-box" />
-        </div>
-        <div class="open-content">
-            <h1>用户注册手机号验证码</h1>
-            <textarea>亲爱的XXX，你好！欢迎你注册闪电贷，验证：#CODE</textarea>
-            <input type="checkbox" value="开启" id="tel-mobile"/><span>开启</span>
-        </div>
-        <div class="open-save">
-            <input type="submit" value="保存" id="save" />
-            <input type="reset" value="取消" id="cancel" />
-        </div>
-        <div class="send-right">
-            <h1>发送短信</h1>
-            <textarea>亲爱的XXX，你好！欢迎你注册闪电贷，验证：#CODE</textarea>
-            <input type="button" value="开启" id="send-now"/>
-        </div>
-    </fieldset>
-</form>
-<script type="text/javascript" src="../javascript/button.js"></script>
+<h1>信息搜索</h1>
+<div class="is_open">
+    <div class="right-message">
+        <label for="register_success" class="text_size14">| 用户手机注册激活验证码:</label>
+        <textarea id="register_success" name="register_success"></textarea>
+        <input type="radio" class="isOpen" id="register_success_open"/>
+        <label for="register_success_open">开启</label>
+    </div>
+    <div class="right-message">
+        <label for="pay_success" class="text_size14">| 用户充值成功:</label>
+        <textarea id="pay_success" name="pay_success"></textarea>
+        <input type="radio" class="isOpen" id="pay_success_open" />
+        <label for="pay_success_open">开启</label>
+    </div>
+    <div class="right-message">
+        <label for="other_check" class="text_size14">| 其他验证码:</label>
+        <textarea id="other_check" name="other_check"></textarea>
+        <input type="radio" class="isOpen" id="other_check_open" />
+        <label for="other_check_open">开启</label>
+    </div>
+    <div class="right-message">
+        <label for="up_information" class="text_size14">| 用户成功上传资料信息验证码:</label>
+        <textarea id="up_information" name="up_information"></textarea>
+        <input type="radio" class="isOpen" id="up_information_open" />
+        <label for="up_information_open">开启</label>
+    </div>
+    <div class="right-message">
+        <label for="pass_email" class="text_size14">| 用户上传资料审核通过:</label>
+        <textarea id="pass_email" name="pass_email"></textarea>
+        <input type="radio" class="isOpen" id="pass_email_open" />
+        <label for="pass_email_open">开启</label>
+    </div>
+    <div class="right-message">
+        <label for="tender_pass" class="text_size14">| 发标审核通过短信通知:</label>
+        <textarea id="tender_pass" name="tender_pass"></textarea>
+        <input type="radio" class="isOpen" id="tender_pass_open" />
+        <label for="tender_pass_open">开启</label>
+    </div>
+    <div class="right-message">
+        <label for="no_pass_information" class="text_size14">| 资料审核未通过短信通知:</label>
+        <textarea id="no_pass_information" name="no_pass_information"></textarea>
+        <input type="radio" class="isOpen" id="no_pass_information_open" />
+        <label for="no_pass_information_open">开启</label>
+    </div>
+    <div class="right-message">
+        <label for="tender_no_pass" class="text_size14">| 发标审核未通过短信通知:</label>
+        <textarea id="tender_no_pass" name="tender_no_pass"></textarea>
+        <input type="radio" class="isOpen" id="tender_no_pass_open" />
+        <label for="tender_no_pass_open">开启</label>
+    </div>
+    <div class="right-message">
+        <label for="apply_money" class="text_size14">| 申请提现已通过短信通知:</label>
+        <textarea id="apply_money" name="apply_money"></textarea>
+        <input type="radio" class="isOpen" id="apply_money_open" />
+        <label for="apply_money_open">开启</label>
+    </div>
+    <div class="right-message">
+        <label for="apply_money_no" class="text_size14">| 申请提现未通过短信通知:</label>
+        <textarea id="apply_money_no" name="apply_money_no"></textarea>
+        <input type="radio" class="isOpen" id="apply_money_no_open" />
+        <label for="apply_money_no_open">开启</label>
+    </div>
+    <div class="right-message">
+        <label for="lose_tender" class="text_size14">| 标段流标短信通知:</label>
+        <textarea id="lose_tender" name="lose_tender"></textarea>
+        <input type="radio" class="isOpen" id="lose_tender_open" />
+        <label for="lose_tender_open">开启</label>
+    </div>
+    <div class="right-message">
+        <label for="success_tender" class="text_size14">| 标段满标短信通知:</label>
+        <textarea id="success_tender" name="success_tender"></textarea>
+        <input type="radio" class="isOpen" id="success_tender_open" />
+        <label for="success_tender_open">开启</label>
+    </div>
+    <div class="right-message">
+        <label for="return_money" class="text_size14">| 还款通知:</label>
+        <textarea id="return_money" name="return_money"></textarea>
+        <input type="radio" class="isOpen" id="return_money_open" />
+        <label for="return_money_open">开启</label>
+    </div>
+</div>
+<div class="is_save">
+    <input type="button" value="保存" />
+    <input type="reset" value="取消选择" />
+</div>
+<h1>给指定的用户发送短信</h1>
+<div class="is_send">
+    <label for="receipt_user" class="text_size14">收件用户</label>
+    <input type="text" id="receipt_user" name="receipt_user" />
+    <input type="button" value="选择用户" id="select_user" />
+    <label for="send_message" class="text_size14">发送信息</label>
+    <textarea id="send_message" name="send_message"></textarea>
+    <input type="button" value="立即发送" id="send_right" />
+</div>

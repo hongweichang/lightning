@@ -4,7 +4,7 @@ return array (
   'connectionId' => 'db',
   'tablePrefix' => 'xcms_',
   'modelPath' => 'application.modules.user.models',
-  'baseClass' => 'CActiveRecord',
+  'baseClass' => 'CmsActiveRecord',
   'buildRelations' => '1',
   'commentsAsLabels' => '0',
 );
