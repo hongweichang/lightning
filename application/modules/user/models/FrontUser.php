@@ -61,7 +61,7 @@ class FrontUser extends SingleInheritance
 // 			array('identity_id', 'length', 'max'=>18),
 // 			array('bank', 'length', 'max'=>20),
 			array('id,address', 'safe'),
-			array('pay_password,realname,identity_id,bank,role','safe','on'=>'register'),
+			array('pay_password,realname,identity_id,bank,role,email_passed,email_verify_code,mobile_passed,mobile_verify_code','safe','on'=>'register'),
 			array('mobile, email','unique','message'=>'{attribute}已经被注册'),
 		);
 	}
@@ -110,6 +110,8 @@ class FrontUser extends SingleInheritance
 			'role' => '社会角色',
 			'credit_acceptable' => '',
 			'credit_grade' => '信用积分',
+			'email_verify_code' => '邮箱验证码',
+			'mobile_verify_code' => '手机验证码'
 		);
 	}
 

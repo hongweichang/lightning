@@ -32,10 +32,31 @@ class mainConf extends ConfigBase{
 						'credit' =>array(
 								'class' => 'application.modules.credit.CreditModule'
 						),
+						'notify' => array(
+								'class' => 'application.modules.notify.NotifyModule',
+								'email' => array(
+										'pathViews' => 'application.views.email',
+										'pathLayouts' => 'application.views.email.layouts',
+										'ccEmail'=>'',//抄送
+										'Mailer' => 'smtp',
+										'Host'=>'smtp.qq.com',
+										'Port'=>'25',
+										'SMTPAuth'=>true,
+										'Username'=>'574891711',
+										'Password'=>'lancelot@410',
+										'From'=>'574891711@qq.com',
+										'FromName'=>'闪电贷',
+										'CharSet'=>'UTF-8',
+								)
+						),
 				),
 				'import' => array(
-						'application.extensions.PHPExcel.PHPExcel.*'
+
+						'application.extensions.PHPExcel.PHPExcel.*',
 						
+
+						'application.modules.user.models.*'
+
 				),
 				'components' => array(
 						//remote database on aliyun.remote ip
@@ -50,12 +71,13 @@ class mainConf extends ConfigBase{
 								'tablePrefix' => 'xcms_'
 						),
 						'user' => array(
-								'class' => 'cms.modules.accessControl.components.AuthUser',
+								'class' => 'application.modules.user.components.LightningUser',
 								'stateKeyPrefix' => 'FU',
 								'allowAutoLogin' => true,
 								'autoRenewCookie' => true,
 								'guestName' => '游客',
-								'authTimeout' => 3600
+								'authTimeout' => 3600,
+								'avatarPath' => '/upload/avatar/'
 						),
 						//internal database.ip 10.161.180.53
 						/*
@@ -84,6 +106,7 @@ class mainConf extends ConfigBase{
 						/*'cache' => array(
 								'class' => 'CMemCache',
 								'useMemcached' => true,
+								'keyPrefix' => 'lightning',
 								'servers' => array(
 										array(
 												//本地memcached缓存
@@ -95,7 +118,17 @@ class mainConf extends ConfigBase{
 												'port' => 11211
 										),
 								),
+
 						),*/
+
+						),
+						'session' => array(
+								'class'=> 'CCacheHttpSession',
+								'cacheID' => 'cache',
+								'autoStart' => true,
+								'timeout' => 86400//24小时
+						),
+
 						/*
 						'cacheDb' => array(
 								'class' => 'CDbCache',

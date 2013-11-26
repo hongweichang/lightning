@@ -14,7 +14,7 @@ class VarnishTestController extends Controller{
 		if ( isset($_SERVER['FromVarnish']) && $_SERVER['FromVarnish'] === 'yes' ){
 			echo 'yes';
 		}else {
-			echo 'no';
+			throw CHttpException(404,'Not Found');
 		}
 	}
 }

@@ -23,6 +23,7 @@ class AccountController extends Controller{
 	
 	public function actionVerify(){
 		$cache = $this->app->getCache();
+		$this->render('verify');
 	}
 	
 	public function actionRegister(){
