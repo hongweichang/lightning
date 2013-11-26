@@ -34,7 +34,7 @@ class AccountController extends Controller{
 		$post = $this->getPost('Register');
 		$userManager = $this->getModule()->getComponent('userManager');
 		
-		$form = $userManager->register($post);
+		$form = $userManager->register($post,'appRegister');
 		
 		if ( $form === true ){
 			$userManager->login(array(
@@ -44,7 +44,7 @@ class AccountController extends Controller{
 			));
 			$this->redirect('verify');
 		}
-		
+		var_dump($form->getErrors());die;
 		$this->render('layout',array(
 			'model' => $form,
 			'isLogin' => false,
