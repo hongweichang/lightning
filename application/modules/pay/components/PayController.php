@@ -21,7 +21,7 @@ class PayController extends CmsController{
 	protected function raiseOrder($sum,$charge){
 		$db = new Recharge();
 		$db->attributes = array(
-			'user_id' => 23,//$this->user->getId(),
+			'user_id' => $this->user->getId(),
 			'sum' => $sum * 100,
 			'fee' => round($charge * 100),
 			'raise_time' => time(),

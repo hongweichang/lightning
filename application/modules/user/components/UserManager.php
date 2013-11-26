@@ -56,11 +56,16 @@ class UserManager extends CApplicationComponent{
 		return FrontUser::model()->with('baseUser')->findByPk($id);
 	}
 	
+	/**
+	 * 更新用户余额
+	 * @param int $uid
+	 * @param double $sum
+	 * @return boolean
+	 */
 	public function updateBalance($uid,$sum){
-		return FrontUser::model()->updateCounters(
-			array('balance' => $sum),
-			'id=:i',
-			array('i' => $uid)
-		);
+		$user = FrontUser::model()->findByPk($uid);
+		if($user === null) return false;
+		
+		return $user->updateCounters(array('balance' => $sum * 100));
 	}
 }

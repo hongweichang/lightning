@@ -13,17 +13,25 @@ class FundManager extends CApplicationComponent{
 	 * @param float $fee
 	 * @return boolean
 	 */
-	public function beginWithdraw($sum,$charge){
-		$db = new Withdraw();
-		$db->attributes = array(
-			'user_id' => Yii::app()->user->getState('id'),
-			'sum' => $sum * 100,
-			'fee' => round($charge * 100),
-			'raise_time' => time(),
-			'status' => 0, // 正在处理 - 等待后台处理
-		);
-	
-		return $db->save();
+	public function raiseWithdraw($uid,$sum,$charge){
+		$transaction = Yii::app()->db->beginTransaction();
+		try{
+			Yii::app()->getModule('user')->userManager->updateBalance($uid,-($sum + charge));
+			$db = new Withdraw();
+			$db->attributes = array(
+				'user_id' => $uid,
+				'sum' => $sum * 100,
+				'fee' => round($charge * 100),
+				'raise_time' => time(),
+				'status' => 0, // 正在处理 - 等待后台处理
+			);
+			$db->save();
+			$transaction->commit();
+			return true;
+		}catch (Exception $e){
+			$transaction->rollback();
+			return false;
+		}
 	}
 	
 	/**
@@ -31,8 +39,10 @@ class FundManager extends CApplicationComponent{
 	 * @param string $trade_no
 	 * @return boolean
 	 */
-	public function afterWithdraw($trade_no){
+	public function handleWithdraw($trade_no){
 		$record = Withdraw::model()->findByPk($trade_no);
+		if($record->getAttribute('status') >= 1) return false;
+		
 		$record->attributes = array(
 			'finish_time' => time(),
 			'status' => 1,
@@ -42,7 +52,34 @@ class FundManager extends CApplicationComponent{
 	}
 	
 	/**
-	 * 站内点对点资金流动
+	 * 后台撤销提现申请
+	 * @param string $trade_no
+	 * @return boolean
+	 */
+	public function revokeWithdraw($trade_no){
+		$record = Withdraw::model()->findByPk($trade_no);
+		$sum = $record->getAttribute('sum') / 100;
+		$charge = $record->getAttribute('fee') / 100;
+		$uid = $record->getAttribute('user_id');
+		
+		$transaction = Yii::app()->db->beginTransaction();
+		try{
+			Yii::app()->getModule('user')->userManager->updateBalance($uid,$sum + charge);
+			$record->attributes = array(
+				'finish_time' => time(),
+				'status' => 2,
+			);
+			$record->save();
+			$transaction->commit();
+			return true;
+		}catch (Exception $e){
+			$transaction->rollback();
+			return false;
+		}
+	}
+	
+	/**
+	 * 站内点对点资金流动记录
 	 * @param int $fromuid 资金来源
 	 * @param int $touid 资金去向
 	 * @param double $charge 资金
