@@ -14,16 +14,16 @@ class PayController extends CmsController{
 	
 	/**
 	 * 发起一个充值订单，并生成订单号
+	 * @param float $sum
 	 * @param float $charge
-	 * @param float $fee
 	 * @return Ambigous <mixed, NULL, multitype:NULL >|boolean
 	 */
-	protected function raiseOrder($charge,$fee){
+	protected function raiseOrder($sum,$charge){
 		$db = new Recharge();
 		$db->attributes = array(
-			'user_id' => $this->user->getState('id'),
-			'sum' => $charge * 100,
-			'fee' => round($fee * 100),
+			'user_id' => 23,//$this->user->getId(),
+			'sum' => $sum * 100,
+			'fee' => round($charge * 100),
 			'raise_time' => time(),
 			'status' => 0,
 		);
@@ -44,21 +44,27 @@ class PayController extends CmsController{
 		$record = Recharge::model()->findByPk($trade_no);
 		if($record->getAttribute('status') >= 1) return false;
 		
-		$record->attribute = array(
-			'platform' => $this->platform,
-			'trade_no' => $this->trade_no,
-			'subject' => $this->subject,
-			'buyer' => $this->buyer,
-			'buyer_id' => $this->buyer_id,
-			'pay_time' => time(),
-			'status' => 1
-		);
-		if($record->save()){
-			FrontUser::model()->updateByPk($trade_no, array(
-			));
-			//业务逻辑
-		}else{
-	
+		$transaction = Yii::app()->db->beginTransaction();
+		try{
+			$record->attribute = array(
+				'platform' => $this->platform,
+				'trade_no' => $this->trade_no,
+				'subject' => $this->subject,
+				'buyer' => $this->buyer,
+				'buyer_id' => $this->buyer_id,
+				'pay_time' => time(),
+				'status' => 1
+			);
+			$record->save();
+			Yii::app()->getModule('user')->userManager->updateBalance(
+				Yii::app()->user->getId(),
+				$record->getAttribute('sum')
+			);
+			$transaction->commit();
+			return true;
+		}catch (Exception $e){
+			$transaction->rollback();
+			return false;
 		}
 	}
 	
@@ -76,11 +82,7 @@ class PayController extends CmsController{
 			'finish_time' => time(),
 			'status' => 2
 		);
-		if($record->save()){
-			//业务逻辑
-		}else{
-			
-		}
+		return $record->save();
 	}
 	
 }

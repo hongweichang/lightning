@@ -55,4 +55,12 @@ class UserManager extends CApplicationComponent{
 	public function getUserInfo($id){
 		return FrontUser::model()->with('baseUser')->findByPk($id);
 	}
+	
+	public function updateBalance($uid,$sum){
+		return FrontUser::model()->updateCounters(
+			array('balance' => $sum),
+			'id=:i',
+			array('i' => $uid)
+		);
+	}
 }
