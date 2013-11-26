@@ -68,7 +68,7 @@ class UserInfoController extends Controller{
 									'1'=>$value['user_id'],
 									'2'=>$value['verification_id'],
 									'3'=>$value['content'],
-									'4'=>$value['submit_time'],
+									'4'=>date('Y-m-d H:i:s',$value['submit_time']),
 									'5'=>$value['status'],
 								);
 			}
@@ -86,11 +86,11 @@ class UserInfoController extends Controller{
 					);
 		//var_dump($dataArray);
 		//die();
-		$output = $this->ExcelOutput($titleArray,$dataArray);
+		$output = $this->app->getModule('user')->getComponent('InfoDisposeManager')->ExcelOutput($titleArray,$dataArray);
 	}
 
 	public function ExcelOutput($title,$data){
-		Yii::import('application.extensions.PHPExcel.PHPExcel.*');
+		Yii::import('application.extensions.PHPExcel.*');
 		spl_autoload_unregister(array('YiiBase','autoload'));
 		include dirname(Yii::app()->basePath).'/application/extensions/PHPExcel/PHPExcel.php';
 		include dirname(Yii::app()->basePath).'/application/extensions/PHPExcel/PHPExcel/IOFactory.php';
@@ -129,9 +129,11 @@ class UserInfoController extends Controller{
 			header("Content-Type:application/vnd.ms-execl");
 			header("Content-Type:application/octet-stream");
 			header("Content-Type:application/download");;
-			header('Content-Disposition:attachment;filename="resume.xls"');
+			header('Content-Disposition:attachment;filename='.$OutputFilname.'');
 			header("Content-Transfer-Encoding:binary");
 			$objWriter->save('php://output');
+
+			spl_autoload_register(array('YiiBase','autoload'));
 			
 		}
 		

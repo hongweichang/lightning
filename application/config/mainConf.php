@@ -116,6 +116,7 @@ class mainConf extends ConfigBase{
 								'urlFormat'=>'path',
 								'urlSuffix' => '',
 								'showScriptName' => false,
+								'rules' => require dirname(__FILE__).'/RestApiRules.php',
 						),
 						'log'=>array(
 								'class'=>'CLogRouter',
