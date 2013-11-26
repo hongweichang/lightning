@@ -127,7 +127,10 @@ class mainConf extends ConfigBase{
 										),
 								),
 						),
-				)
+				),
+				'params' => array(
+						'copyright' => '<p>重庆闪电贷金融信息服务有限公司 版权所有 2007-2013<p><p>Copyright Reserved 2007-2013&copy;闪电贷（www.sddai.com） | 渝ICP备05063398号</p>'
+				),
 		);
 	}
 }
