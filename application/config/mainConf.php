@@ -51,28 +51,28 @@ class mainConf extends ConfigBase{
 						),
 				),
 				'import' => array(
-						'application.modules.user.models.*'
+						'application.extensions.PHPExcel.PHPExcel.*'
+						
 				),
 				'components' => array(
 						//remote database on aliyun.remote ip
 						'db' => array(
 								'class' => 'system.db.CDbConnection',
 								'autoConnect' => false,
-								'connectionString' => 'mysql:host=115.29.240.98;dbname=lightning',
+								'connectionString' => 'mysql:host=127.0.0.1;dbname=lightning',
 								'emulatePrepare' => true,
-								'username' => 'lancelot',
-								'password' => 'lancelot@lightningdbmysqladmin',
+								'username' => 'tianling',
+								'password' => '887976',
 								'charset' => 'utf8',
 								'tablePrefix' => 'xcms_'
 						),
 						'user' => array(
-								'class' => 'application.modules.user.components.LightningUser',
+								'class' => 'cms.modules.accessControl.components.AuthUser',
 								'stateKeyPrefix' => 'FU',
 								'allowAutoLogin' => true,
 								'autoRenewCookie' => true,
 								'guestName' => '游客',
-								'authTimeout' => 3600,
-								'avatarPath' => '/upload/avatar/'
+								'authTimeout' => 3600
 						),
 						//internal database.ip 10.161.180.53
 						/*
@@ -100,12 +100,9 @@ class mainConf extends ConfigBase{
 						 ),*/
 						'cache' => array(
 								'class' => 'CMemCache',
-<<<<<<< HEAD
 								'useMemcached' => true,
 								'keyPrefix' => 'lightning',
-=======
 								'useMemcached' => false,
->>>>>>> ab32f30a2e3f96e3c12c212aab5ae16f7e053a1f
 								'servers' => array(
 										array(
 												//本地memcached缓存
@@ -117,12 +114,6 @@ class mainConf extends ConfigBase{
 												'port' => 11211
 										),
 								),
-						),
-						'session' => array(
-								'class'=> 'CCacheHttpSession',
-								'cacheID' => 'cache',
-								'autoStart' => true,
-								'timeout' => 86400//24小时
 						),
 						/*
 						'cacheDb' => array(
@@ -144,6 +135,7 @@ class mainConf extends ConfigBase{
 								'urlFormat'=>'path',
 								'urlSuffix' => '',
 								'showScriptName' => false,
+								'rules' => require dirname(__FILE__).'/RestApiRules.php',
 						),
 						'log'=>array(
 								'class'=>'CLogRouter',

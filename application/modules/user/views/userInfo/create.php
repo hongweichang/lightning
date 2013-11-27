@@ -16,7 +16,7 @@
         'file_size_limit'=>'30 MB',//文件大小限制
         'file_types'=>'*.jpg;*.png;*.gif;*.jpeg;*.pdf;*.zip;*.rar',//文件格式限制
         'file_types_description'=>'Files',
-        'file_upload_limit'=>100,
+        'file_upload_limit'=>1,
         'file_queue_limit'=>0,//一次上传文件个数
         'file_queue_error_handler'=>'js:fileQueueError',
         'file_dialog_complete_handler'=>'js:fileDialogComplete',
@@ -53,7 +53,7 @@
 	<?php echo $form->labelEx($model,'用户id'); ?>
     <?php echo $form->textField($model,'user_id',array('class'=>'form-input-text')); ?>
     <br />
-	 <div class="swfupload"><span id="swfupload">上传</span>(只可以上传1张,支持格式:png,jpg,gif.)</div>
+	 <div class="swfupload"><span id="swfupload">上传</span>(只可以上传1个文件,支持格式:png,jpg,jpeg,gif,zip,rar,pdf.)</div>
 
 	 <?php echo CHtml::submitButton($model->isNewRecord ? '提交' : '保存修改',array('id'=>'reply','name'=>'submit','class'=>'form-button form-button-submit')); ?>
 
