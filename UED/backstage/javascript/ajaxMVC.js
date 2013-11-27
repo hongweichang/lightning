@@ -2,7 +2,7 @@
  * Created with JetBrains WebStorm.
  * User: Soul
  * Date: 13-11-13
- * Time: обнГ8:21
+ * Time: О©╫О©╫О©╫О©╫8:21
  * To change this template use File | Settings | File Templates.
  */
 function Event (sender) {
@@ -66,7 +66,6 @@ var ViewAjax = function (model,eleS) {
     })
 
     eleS.message.click(function(e){
-        e.preventDefault();
         var ele = e.target;
         if(ele.tagName.toUpperCase() === "A"){
             _this.getIdAjax.notify({e:e,method:"check",id:$(ele).attr("data-method")});

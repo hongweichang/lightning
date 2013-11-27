@@ -16,14 +16,14 @@ class PayController extends CmsController{
 	 * 发起一个充值订单，并生成订单号
 	 * @param float $sum
 	 * @param float $charge
-	 * @return Ambigous <mixed, NULL, multitype:NULL >|boolean
+	 * @return integer|boolean
 	 */
 	protected function raiseOrder($sum,$charge){
 		$db = new Recharge();
 		$db->attributes = array(
 			'user_id' => $this->user->getId(),
 			'sum' => $sum * 100,
-			'fee' => round($charge * 100),
+			'fee' => $charge * 100,
 			'raise_time' => time(),
 			'status' => 0,
 		);

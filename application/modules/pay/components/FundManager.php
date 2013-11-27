@@ -21,7 +21,7 @@ class FundManager extends CApplicationComponent{
 			$db->attributes = array(
 				'user_id' => $uid,
 				'sum' => $sum * 100,
-				'fee' => round($charge * 100),
+				'fee' => $charge * 100,
 				'raise_time' => time(),
 				'status' => 0, // 正在处理 - 等待后台处理
 			);
