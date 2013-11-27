@@ -6,6 +6,8 @@
  * Encoding UTF-8
  */
 class AccountController extends Controller{
+	public $layout='//layouts/login';
+	
 	public function noneLoginRequired(){
 		return 'register,login,captcha';
 	}
@@ -44,7 +46,7 @@ class AccountController extends Controller{
 			));
 			$this->redirect('verify');
 		}
-		var_dump($form->getErrors());die;
+		
 		$this->render('layout',array(
 			'model' => $form,
 			'isLogin' => false,

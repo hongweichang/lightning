@@ -34,6 +34,27 @@ return array(
 	),
 	
 	'ips' => array(
-		
+		//IPS商户编号
+		'Mer_code' => '000015',
+		//IPS商户证书
+		'Mer_key' => 'GDgLwwdK270Qj1w4xho8lyTpRQZV9Jm5x4NwWOTThUa4fMhEBK9jOXFrKRT6xhlJuU2FEa89ov0ryyjfJuuPkcGzO5CeVx5ZIrkkt1aBlZV36ySvHOMcNv8rncRiy3DQ',
+		//币种
+		'Currency_Type' => 'RMB',
+		//支付卡种
+		'Gateway_Type' => '01', // 人民币储蓄卡
+		//支付结果成功返回的商户URL
+		'Merchanturl' => 'http://127.0.0.1:8080'.Yii::app()->createUrl("pay/ips/return"),
+		//支付结果失败返回的商户URL
+		//'Failurl' => 'http://127.0.0.1:8080'.Yii::app()->createUrl("pay/ips/return"),
+		//商户数据包,该数据包会被原封不动的返回
+		'Attach' => '',
+		//订单支付接口加密方式
+		'OrderEncodeType' => '5', //MD5
+		//交易返回加密方式
+		'RetEncodeType' => '17', // MD5
+		//是否提供Server返回方式
+		'Rettype' => 1,
+		//Server to Server返回页面
+		'ServerUrl' => 'http://127.0.0.1:8080'.Yii::app()->createUrl("pay/ips/notify"),
 	),
 );
