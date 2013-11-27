@@ -30,7 +30,7 @@
                     </div>
                 </div>
             </div>
-            <div class="con-hint">您已经选择"<?php echo $role; ?>"类型,请点击下一步</div>
+            <div class="con-hint">您已经选择"<?php echo $roleName; ?>"类型,请点击下一步</div>
             <div class="con-cuskind">
                 <div class="cuskind cuskind-color-0">
                     <p>工薪族</p>

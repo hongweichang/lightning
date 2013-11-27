@@ -5,41 +5,88 @@
  *
  */
 class PurchaseController extends Controller {
-	public $defaultAction = "showAllBid"; // 更改默认的action,默认显示所有的标段
+	public $defaultAction = "showAllBids"; // 更改默认的action,默认显示所有的标段
+	
 	public function filters() {
-		return array();
+		return '';
 	}
 	public function init() {
 		parent::init();
 		Yii::import( 'application.modules.tender.models.*' );
 		Yii::import( 'application.modules.tender.components.*' );
+		$this->user->getState('avatar');//获取头像url
 	}
 	
 	/**
 	 * 默认action，显示所有的标段
 	 * 利用CListview
 	 */
-	function actionShowAllBid() {
-		//$model = BidInfo::model();
-		$criteria = new CDbCriteria();
-		$criteria->addCondition( 'verify_progress=1' ); // 1代表审核通过
-		$criteria->order = '`start` DESC';
+	function actionShowAllBids() {
+		$selector = $this->getPost('selector');
+		$selectorMap = array(
+				'monthRate' => array(
+						'all' => '',
+						'monthRate1' => ' month_rate between 5 and 10 ',
+						'monthRate2' => ' month_rate between 10 and 15 ',
+						'monthRate3' => ' month_rate between 15 and 20 ',
+				),
+				'deadline' => array(
+						'all' => '',
+						'betwen3and6' => ' deadline between 3 and 6 ',
+						'betwen6and9' => ' deadline between 6 and 9 ',
+						'betwen9and12' => ' deadline between 9 and 12 ',
+				),
+				'authenGrade' => array(
+						'all' => '',
+						'authenGrade1' => " authenGrade = 'AA' ",
+						'authenGrade2' => " authenGrade = 'AAA' ",
+						'authenGrade3' => " authenGrade = 'HR' ",
+				),
+				
+		);
 		
-		$dataProvider = new CActiveDataProvider('BidInfo', array(
-	   		'pagination'=>array(
-	      		'pageSize'=>$_GET['bidsPerPage'],//设置分页条数以确定取出数据的条数
-				//'pageSize'=>10,//写死在这里？？	
-			),
-			
-  			'criteria'=>$criteria,
-  		));
-  		
-//  获得当前用户对象		$this->user->isGuest;
-  		
-  		//$data = $model->findAll( $criteria );
-		CVarDumper::dump( $dataProvider );
-  		$this->render('showAllBid',array(
-         	'model' => $model,
+		$criteria = new CDbCriteria();
+		$criteria->condition = 'verify_progress=1 AND start < '.time();
+		$criteria->order = 'start DESC';
+		
+		if ( isset($x) ){
+			$criteria->addCondition();
+		}
+		
+		$dataProvider = new CActiveDataProvider('BidInfo',array(
+				'criteria' => $criteria,
+				'countCriteria' => array(
+						'condition' => $criteria->condition,
+				),
+				'pagination'=>array(
+						'pageSize' => 10
+				)
+		));
+		
+//		$this->wxweven($dataProvider);
+  		//月利率的查询条件
+		$monthRate = array(
+						'condition1'=>'5%-10%',
+						'condition2'=>'10%-15%',
+						'condition3'=>'15%-20%',
+		);
+		//借款期限的查询条件
+		$deadline = array(
+						'condition1'=>'3-6',
+						'condition2'=>'6-9',
+						'condition3'=>'9-12',
+		);
+		//认证等级的查询条件
+		$authenGrade = array(
+						'condition1'=>'AA',
+						'condition2'=>'AAA',
+						'condition3'=>'HR',
+		);
+
+  		$this->render('showAllBids',array(
+  			'monthRate' => $monthRate,
+  			'deadline' => $deadline,
+  			'authenGrade' => $authenGrade,
          	'dataProvider' => $dataProvider,
 		));
 		/*$model = BidInfo::model();
@@ -90,9 +137,9 @@ class PurchaseController extends Controller {
 	 *        	$money:购买的金额
 	 */
 	function actionCreatePurchase() {
-		验证金额
+//		验证金额
 		if($this->checkMoney()) {
-			验证身份，调用接口
+//			验证身份，调用接口
 			if(checkIdentity()) {
 				$model = new BidMeta();//购买标段信息表
 				
@@ -146,6 +193,14 @@ class PurchaseController extends Controller {
 		/**
 		 * 失败处理功能：跳转到错误页面或者其他。。。
 		 */
+	}
+	
+	public function wxweven($data,$die = true) {
+		echo "<meta charset='utf-8'>";
+		echo "<pre>";
+		print_r($data);
+		if($die)
+			die();
 	}
 	
 }

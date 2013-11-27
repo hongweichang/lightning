@@ -52,7 +52,12 @@ class mainConf extends ConfigBase{
 								'tablePrefix' => 'xcms_'
 						),*/
 						'user' => array(
-								'class' => 'cms.modules.accessControl.components.AuthUser'
+								'class' => 'cms.modules.accessControl.components.AuthUser',
+								'stateKeyPrefix' => 'FU',
+								'allowAutoLogin' => true,
+								'autoRenewCookie' => true,
+								'guestName' => '游客',
+								'authTimeout' => 3600
 						),
 						//internal database.ip 10.161.180.53
 						/*
@@ -102,6 +107,13 @@ class mainConf extends ConfigBase{
 						),
 						'cacheApc' => array(),
 						*/
+						'clientScript' => array(
+								'scriptMap' => array(
+										'jquery.js' => false,
+										'jquery.min.js' => false,
+										'jquery.ba-bbq.js' => false
+								)
+						),
 						'urlManager'=>array(
 								'urlFormat'=>'path',
 								'urlSuffix' => '',
@@ -116,7 +128,22 @@ class mainConf extends ConfigBase{
 										),
 								),
 						),
-				)
+				),
+				'params' => array(
+						'copyright' => '<p>重庆闪电贷金融信息服务有限公司 版权所有 2007-2013<p><p>Copyright Reserved 2007-2013&copy;闪电贷（www.sddai.com） | 渝ICP备05063398号</p>',
+						'roleMap' =>array(
+								'gxjc' => '工薪阶层',
+								'qyz' => '企业主',
+								'wddz' => '网店店主',
+						),
+						'commonUrls' =>array(
+								'index' => '/site',
+								'useHelp' => '#',
+						),
+						'purchaseMap' =>array(
+								'bidsPerPage' => 10,//默认的每次请求的标段条数
+						),
+				),
 		);
 	}
 }

@@ -47,7 +47,7 @@
                         <a href="#" class="borrow-button">返回首页</a>
                     </div>
                 </div>
-                <h1 class="adu-d-nav">项目缺钱，上平台求助</h1>
+                <h1 class="adu-d-nav"><?php echo $model->title;?></h1>
                 <ul>
                     <li>借款金额 :  <span><?php echo $model->sum;?></span>元</li>
                     <li>年利率 :  <span><?php echo $model->month_rate;?></span>%</li>

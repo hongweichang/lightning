@@ -5,38 +5,80 @@
  * data can identity the user.
  */
 class UserIdentity extends CUserIdentity{
-	const ERROR_ACCOUNT_INVALID=3; // 账户被锁定
-	public $errorMessage = '未知错误';
+	const ERROR_USER_LOCKED = 3; // 账户被锁定
+	protected $_user;
 	
-	public function authenticate(){
-		$user = FrontUser::model()->find('email=:u',array('u' => $this->username));
-		if(empty($user)){
-			$user = FrontUser::model()->find('mobile=:m',array('m' => $this->username));
-		}
-		if(empty($user)){
-			$this->errorCode = self::ERROR_USERNAME_INVALID;
-			$this->errorMessage = '账号不存在';
-		}else{
-			if($user->getAttribute('password') != Yii::app()->securityManager->generate($this->password)){
-				$this->errorCode = self::ERROR_PASSWORD_INVALID;
-				$this->errorMessage = '密码错误';
-			}elseif($user->getAttribute('locked')){
-				$this->errorCode = self::ERROR_ACCOUNT_INVALID;
-				$this->errorMessage = '账号已被锁定';
-			}else{
-				$this->errorCode = self::ERROR_NONE;
-				$this->setPersistentStates($user->getAttributes());
-				$this->afterLogin($user);
-			}
-		}
-		return !$this->errorCode;
+	protected $_stateKeys = array(
+			'nickname',
+			'email',
+			'role',
+			'icon',
+			'uuid',
+			'last_login_time'
+	);
+	
+	public function getId(){
+		return $this->_user->getAttribute('id');
 	}
 	
-	public function afterLogin($db){
-		$db->attributes = array(
+	public function authenticate(){
+		if ( $this->findUser() === false || $this->checkLocked() === true ){
+			return false;
+		}
+		
+		$security = Yii::app()->getSecurityManager();
+		if ( $security->verifyPassword($this->password,$this->_user->getAttribute('password')) ){
+			$this->setPersistentStates($this->_user->getAttributes($this->_stateKeys));
+			$this->username = $this->_user->getAttribute('nickname');
+			$this->errorCode = self::ERROR_NONE;
+			$this->afterLogin();
+			return true;
+		}else {
+			$this->errorCode = self::ERROR_PASSWORD_INVALID;
+			$this->errorMessage = '密码错误，请重试';
+			return false;
+		}
+	}
+	
+	public function getUserModel(){
+		return $this->_user;
+	}
+	
+	/**
+	 * @return boolean
+	 */
+	protected function checkLocked(){
+		if ( $this->_user->getAttribute('locked') == 1 ){
+			$this->errorCode = self::ERROR_USER_LOCKED;
+			$this->errorMessage = '该帐号被锁定，请与管理员联系';
+			return true;
+		}else {
+			return false;
+		}
+	}
+	
+	/**
+	 *
+	 * @return boolean
+	 */
+	protected function findUser(){
+		$condition = '`email`=:account OR `mobile`=:account';
+		$this->_user = FrontUser::model()->with('baseUser')->find($condition,array(':account'=>$this->username));
+		
+		if ( $this->_user === null ){
+			$this->errorCode = self::ERROR_USERNAME_INVALID;
+			$this->errorMessage = '用户不存在';
+			return false;
+		}else {
+			return true;
+		}
+	}
+	
+	public function afterLogin(){
+		$this->_user->attributes = array(
 			'last_login_time' => time(),
 			'last_login_ip' => Yii::app()->request->getUserHostAddress()
 		);
-		$db->update();
+		$this->_user->update();
 	}
 }

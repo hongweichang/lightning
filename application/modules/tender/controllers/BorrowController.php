@@ -7,9 +7,10 @@
 class BorrowController extends Controller {
 	public $defaultAction = "roleChoose"; // 更改默认的action,默认要选择社会角色：工薪阶层，企业主，网店店主
 	
-	public function filters() {
-		return array();
+	public function noneLoginRequired(){
+		return '';
 	}
+	
 	public function init() {
 		parent::init();
 		Yii::import( 'application.modules.tender.models.*' );
@@ -22,10 +23,25 @@ class BorrowController extends Controller {
 	 * 用户角色从user里面取得
 	 */
 	function actionRoleChoose() {
-//		$role = $this->user->getState("role");
-		$role = "工薪阶层";
+		//检查信息是否完善
+/**
+ * 下面的功能有待完善
+ */
+		/*$isFinished = $this->getModule("user")->getComponent("userManager")->checkInfo();
+		if($isFinished === false){
+			$this->render("infoError");//提示信息不完整页面
+			$this->app->end();//结束当前应用程序
+		} */
+		$role = $this->user->getState("role");
+		$roleName = '还未填写角色名字';//角色名字
+		$map = $this->app['roleMap'];
+		if ( isset($map[$role]) ){
+			$roleName = $map[$role];
+		}
+		
+		//$role = "工薪阶层";
 //		CVarDumper::dump($role);
-		$this->render("roleChoose",array('role'=>$role));
+		$this->render("roleChoose",array('roleName'=>$roleName));
 	}
 	
 	/**
@@ -45,8 +61,8 @@ class BorrowController extends Controller {
 //		$userCenter = $this->user->userCenter;//获得个人中心的url
 //		$help = $this->helpUrl;//获得使用帮助的url
 		
-		$userCenter = "borrow/roleChoose";
-		$help = "borrow/roleChoose";
+		$userCenter = "#";
+		$help = "#";
 		$postUrl = "borrow/borrowInfoToDB";//将表单写入数据库的action
 		
 		/**
@@ -57,7 +73,7 @@ class BorrowController extends Controller {
 		$data['userCenter'] = $userCenter;
 		$data['help'] = $help;
 		$data['postUrl'] = $postUrl;
-		
+		$this->createUrl('/site');
 		$this->render("writeBorrowInfo",array('data'=>$data));
 	}
 	
@@ -68,19 +84,19 @@ class BorrowController extends Controller {
 		$model = new BidInfo;
 		if(isset($_POST['writeBidInfoForm'])) {
 //			$_POST['writeBidInfoForm']['user_id'] = $this->app->getModule('user')->getComponent('userManager');//招标用户就是当前用户
-			$_POST['writeBidInfoForm']['user_id'] = 21;//测试用户的id：21
+			$_POST['writeBidInfoForm']['user_id'] = $this->user->getId();//测试用户的id：21
 			$_POST['writeBidInfoForm']['start'] = time();//招标开始时间是当前时间
 //			招标结束时间是怎么确定的呢？？
 			$_POST['writeBidInfoForm']['end'] = time();
+			$_POST['writeBidInfoForm']['description'] = '测试';
 			$model->attributes = $_POST['writeBidInfoForm'];//利用表单来填充
-			echo $model->save(),"333333";die();
+			
 			if($model->save()){//如果发标成功
-				echo "开始插入数据库";
 				$id = $model->getDbConnection()->getLastInsertID();//获得最后一次插入记录的id
-				echo "最后插入数据库的id是：";die();
-				$this->actionViewInfo($id);//转到审核提示页面
+				
+				$this->redirect($this->createUrl('borrow/viewInfo',array('id'=>$id)));//跳转到显示详情页面
 			} else {
-				echo "出错了";
+				$this->redirect("errorUrl",array("errMes"=>"出错了"));
 			}
 		} else {
 			echo "出错了";
@@ -92,17 +108,23 @@ class BorrowController extends Controller {
 	 * @param $id ：最后一次插入的记录的id
 	 */
 	function actionViewInfo() {
+		//利用传递过来的id参数
+		$id = $this->getQuery('id',null);
 		// 根据主键来取出刚刚插入的记录
-		$model = BidInfo::model()->findByPk( 2 );
-		// 显示购买详情的页面
-		$this->render( 'viewBidInfo', array('model' => $model) );
+		$model = BidInfo::model()->findByPk($id);
+		//只能查看自己的信息，将session里面的user_id和数据库里面的user_id作比较
+		if($this->user->getId() === $model->user_id) {
+			$this->render( 'viewBidInfo', array('model' => $model) );//显示详情页
+		} else {
+			$this->redirect('errorUrl','错误');//错误页面
+		}
 	}
 	
 	/**
 	 * 前面的检测成功后，开始填写标段信息，提交审核
 	 */
 	public function actionSuccess(){
-		$this->actionCreateInfo();//调用添加信息的action
+
 	}
 	
 	public function actionFailed(){
@@ -110,6 +132,7 @@ class BorrowController extends Controller {
 	}
 	
 	public function wxweven($data,$die = true) {
+		echo "<meta charset='utf-8'>";
 		echo "<pre>";
 		print_r($data);
 		if($die)

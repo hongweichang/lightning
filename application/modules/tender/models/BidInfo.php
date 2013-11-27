@@ -11,7 +11,7 @@ class BidInfo extends CActiveRecord
 	{
 	
 		return array(
-			array('title,description,sum,month_rate,start,end', 'required'),
+			array('title,description,sum,month_rate,start,end,user_id,deadline', 'required'),
 			array('sum, month_rate', 'numerical'),
 		);
 	}
