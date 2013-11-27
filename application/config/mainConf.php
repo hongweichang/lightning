@@ -102,7 +102,7 @@ class mainConf extends ConfigBase{
 								'class' => 'CMemCache',
 								'useMemcached' => true,
 								'keyPrefix' => 'lightning',
-								'useMemcached' => false,
+								'useMemcached' => true,
 								'servers' => array(
 										array(
 												//本地memcached缓存
