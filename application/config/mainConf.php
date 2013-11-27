@@ -26,6 +26,10 @@ class mainConf extends ConfigBase{
 								'class' => 'application.modules.pay.PayModule'
 						),
 						
+						'admin' => array(
+							'class' => 'application.modules.admin.AdminModule'
+						),
+						
 						'user' => array(
 								'class' => 'application.modules.user.UserModule'
 						),

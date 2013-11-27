@@ -6,7 +6,13 @@
  * desc: 
  */
 class FundManager extends CApplicationComponent{
-
+	/**
+	 * 表单提交地址 - 进入支付阶段
+	 */
+	public function pay(){
+		return Yii::app()->createUrl('pay/platform/index');
+	}
+	
 	/**
 	 * 提交一个提现申请，等待后台处理
 	 * @param float $charge
@@ -16,7 +22,11 @@ class FundManager extends CApplicationComponent{
 	public function raiseWithdraw($uid,$sum,$charge){
 		$transaction = Yii::app()->db->beginTransaction();
 		try{
-			Yii::app()->getModule('user')->userManager->updateBalance($uid,-($sum + charge));
+			$user = Yii::app()->getModule('user')->userManager->findByPk($uid);
+			$user->updateCounters(array(
+				'balance' => -($sum + charge) * 100
+			));
+			
 			$db = new Withdraw();
 			$db->attributes = array(
 				'user_id' => $uid,
@@ -64,7 +74,11 @@ class FundManager extends CApplicationComponent{
 		
 		$transaction = Yii::app()->db->beginTransaction();
 		try{
-			Yii::app()->getModule('user')->userManager->updateBalance($uid,$sum + charge);
+			$user = Yii::app()->getModule('user')->userManager->findByPk($uid);
+			$user->updateCounters(array(
+				'balance' => ($sum + charge) * 100
+			));
+			
 			$record->attributes = array(
 				'finish_time' => time(),
 				'status' => 2,
@@ -92,7 +106,7 @@ class FundManager extends CApplicationComponent{
 			'to_user' => $touid,
 			'from_user' => $fromuid,
 			'sum' => $sum * 100,
-			'fee' => round($charge * 100), // 四舍五入??
+			'fee' => $charge * 100, // 四舍五入??
 			'time' => time(),
 			'status' => 1 // 暂时不分过程
 		);

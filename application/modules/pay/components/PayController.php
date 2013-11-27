@@ -56,10 +56,11 @@ class PayController extends CmsController{
 				'status' => 1
 			);
 			$record->save();
-			Yii::app()->getModule('user')->userManager->updateBalance(
-				Yii::app()->user->getId(),
-				$record->getAttribute('sum')
-			);
+			
+			$user = Yii::app()->getModule('user')->userManager->findByPk(Yii::app()->user->getId());
+			$user->updateCounters(array(
+				'balance' => $record->getAttribute('sum') * 100
+			));
 			$transaction->commit();
 			return true;
 		}catch (Exception $e){
