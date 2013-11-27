@@ -5,6 +5,13 @@ class CreditModule extends CmsModule{
 		parent::init();
 		Yii::import('application.modules.credit.models.*');
 		Yii::import('application.modules.credit.components.*');
+		Yii::import('application.modules.user.models.*');
+
+		$this->setComponents(array(
+				'userCreditManager' => array(
+						'class'=>'UserCreditManager',
+					),
+		));
 	}
 }
 ?>
