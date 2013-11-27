@@ -12,6 +12,13 @@ class AlipayController extends PayController{
 		return array();
 	}
 	
+	public function init(){
+		parent::init();
+		$this->module->setImport(array(		
+			'pay.extensions.alipay.*'	
+		));
+	}
+	
 	public function actionIndex(){
 		//付款金额
 		$charge = 1;//$_POST['charge'];

@@ -12,12 +12,13 @@ class UserManager extends CApplicationComponent{
 	 * @param array $regInfo
 	 * @return boolean|RegisterForm
 	 */
-	public function register($regInfo){
+	public function register($regInfo,$scenario='reg'){
 		$form = new RegisterForm();
 		
 		if ( $regInfo === null ){
 			return $form;
 		}
+		$form->setScenario($scenario);
 		
 		$form->attributes = $regInfo;
 		if ( $form->validate() ){
@@ -36,9 +37,10 @@ class UserManager extends CApplicationComponent{
 		return $form;
 	}
 	
+
 	public function login($info){
 		$login = new LoginForm();
-		
+
 		if ( $info !== null ){
 			$login->attributes = $info;
 			if ( $login->rememberMe !== 'on' ){
@@ -51,8 +53,22 @@ class UserManager extends CApplicationComponent{
 		
 		return $login;
 	}
+
 	
-	public function getUserInfo($id){
-		return FrontUser::model()->with('baseUser')->findByPk($id);
+	public function getUserInfo($id,$criteria,$params){
+		$user = FrontUser::model()->with('baseUser')->findByPk($id,$criteria,$params);
+	}
+	
+	/**
+	 * 更新用户余额
+	 * @param int $uid
+	 * @param double $sum
+	 * @return boolean
+	 */
+	public function updateBalance($uid,$sum){
+		$user = FrontUser::model()->findByPk($uid);
+		if($user === null) return false;
+		
+		return $user->updateCounters(array('balance' => $sum * 100));
 	}
 }

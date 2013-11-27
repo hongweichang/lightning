@@ -20,8 +20,10 @@ $(document).ready(function(){
 	});
 	$(".fakeCheck,label[for='keepSignIn'],label[for='protocal']").toggle(function(){
 		$(this).parent().find("span").css({display: "none"});
+		$(this).siblings("input").removeAttr('checked');
 	},function(){
 		$(this).parent().find("span").css({display: "block"});
+		$(this).siblings("input").attr("checked","checked");
 	});
 	$("#login").validate({
 		rules:{

@@ -32,8 +32,26 @@ class mainConf extends ConfigBase{
 						'credit' =>array(
 								'class' => 'application.modules.credit.CreditModule'
 						),
+						'notify' => array(
+								'class' => 'application.modules.notify.NotifyModule',
+								'email' => array(
+										'pathViews' => 'application.views.email',
+										'pathLayouts' => 'application.views.email.layouts',
+										'ccEmail'=>'',//抄送
+										'Mailer' => 'smtp',
+										'Host'=>'smtp.qq.com',
+										'Port'=>'25',
+										'SMTPAuth'=>true,
+										'Username'=>'574891711',
+										'Password'=>'lancelot@410',
+										'From'=>'574891711@qq.com',
+										'FromName'=>'闪电贷',
+										'CharSet'=>'UTF-8',
+								)
+						),
 				),
 				'import' => array(
+						'application.extensions.PHPExcel.PHPExcel.*'
 						
 				),
 				'components' => array(
@@ -41,10 +59,10 @@ class mainConf extends ConfigBase{
 						'db' => array(
 								'class' => 'system.db.CDbConnection',
 								'autoConnect' => false,
-								'connectionString' => 'mysql:host=115.29.240.98;dbname=lightning',
+								'connectionString' => 'mysql:host=127.0.0.1;dbname=lightning',
 								'emulatePrepare' => true,
-								'username' => 'lancelot',
-								'password' => 'lancelot@lightningdbmysqladmin',
+								'username' => 'tianling',
+								'password' => '887976',
 								'charset' => 'utf8',
 								'tablePrefix' => 'xcms_'
 						),
@@ -83,12 +101,14 @@ class mainConf extends ConfigBase{
 						'cache' => array(
 								'class' => 'CMemCache',
 								'useMemcached' => true,
+								'keyPrefix' => 'lightning',
+								'useMemcached' => false,
 								'servers' => array(
 										array(
 												//本地memcached缓存
-												'host' => 'localhost',
+												//'host' => 'localhost',
 												//阿里云外网IP
-												//'host' => '115.29.186.221',
+												'host' => '115.29.186.221',
 												//阿里云内网IP，本地测试可以使用本地memcached服务器
 												//'host' => '10.161.138.206',
 												'port' => 11211
@@ -115,6 +135,7 @@ class mainConf extends ConfigBase{
 								'urlFormat'=>'path',
 								'urlSuffix' => '',
 								'showScriptName' => false,
+								'rules' => require dirname(__FILE__).'/RestApiRules.php',
 						),
 						'log'=>array(
 								'class'=>'CLogRouter',
