@@ -82,6 +82,7 @@ body{
 //sass
 #header{
   @extend %w100;
+  height: 25px + 82px;
 }
 .wd1002{
   @extend %w1002center;
@@ -146,7 +147,7 @@ body{
     text-align: center;
     @extend %f14;
     line-height: 29px;
-    font-family: "Adobe ºÚÌå Std";
+    font-family: "Adobe ï¿½ï¿½ï¿½ï¿½ Std";
     a{
       color: #423d3d;
       padding: 7px 13px 6px 13px;
@@ -163,9 +164,10 @@ body{
 }
 #backStage{
   height: 88.7%;
-  text-align: center;
-  h7{
+  h6{
+    width: 100%;
     line-height: 200px;
+    text-align: center;
     font-size: 24px;
     color: #ffffff;
   }
@@ -185,7 +187,7 @@ body{
     img{
       float: left;
       position: relative;
-      left: 26px;
+      left: 14%;
     }
     span{
       line-height: 30px;
@@ -276,11 +278,13 @@ body{
   input[type="button"]{
     @extend %styleButton;
   }
+  input[type="reset"]{
+    @extend %styleButton;
+  }
   form{
     fieldset{
       margin: 0 auto;
       line-height: 29px;
-      background: #e6e6e7;
       border: none;
     }
     label{
@@ -307,7 +311,6 @@ body{
       border: 1px solid #dadada;
       a{
         text-decoration: underline;
-        font-size: 12px;
         color: blue;
       }
       input[type="text"]{
@@ -334,15 +337,50 @@ body{
     }
   }
 }
+%textareaStyle{
+  border: none;
+  background: #eae9e8;
+  box-shadow: inset 0 5px 3px rgba(0,0,0,0.1);
+}
+.is_open:after{
+  content: " ";
+  display: block;
+  clear: both;
+}
 .right-message{
   float: left;
-  width: 200px;
-  height: 200px;
+  width: 221px;
+  height: 144px;
   margin-left: 20px;
-  text-align: center;
+  text-align: left;
+  font-size: 12px;
   textarea{
-    width: 200px;
-    height: 100px;
+    width: 221px;
+    height: 91px;
+    @extend %textareaStyle;
+  }
+  .check_code{
+    width: 85px;
+    height: 15px;
+    border: 1px solid #dcdbdb;
+  }
+}
+.is_save{
+  margin: 20px;
+}
+.is_send{
+  width: 338px;
+  margin-left: 20px;
+  label{
+    float: left;
+    position: relative;
+    top: 5px;
+  }
+  textarea{
+    margin-top: 5px;
+    width: 300px;
+    height: 200px;
+    @extend %textareaStyle;
   }
 }
 #save-operation{
@@ -438,6 +476,78 @@ body{
     border: none;
   }
 }
+#footer{
+  text-align: center;
+  padding: 40px 0;
+  background: url("../images/h_bg.png");
+  color: white;
+}
+#login{
+  width: 100%;
+  height: 751px;
+  background: #f9f9f9;
+}
+.center_wd1002{
+  width: 1002px;
+  padding-top: 94px;
+  margin: 0 auto;
+  .login_text{
+    float: left;
+    width: 385px;
+    color: #747474;
+    h1{
+      color: #7d7d7d;
+    }
+  }
+  .login{
+    float: right;
+    width: 433px;
+    height: 290px;
+    border: 1px solid #c9c9c9;
+    fieldset{
+      border: none;
+      h1{
+        border-bottom: 1px solid #c9c9c9;
+        padding: 10px;
+        font-size: 20px;
+        text-align: center;
+      }
+      .login_box{
+        width: 296px;
+        margin: 28px auto;
+        input[type="text"]{
+          width: 274px;
+          height: 31px;
+          border: 1px solid #c9c9c9;
+          margin-top: 22px;
+          padding-left: 24px;
+          overflow: hidden;
+          background: url("../images/user_logo.png") no-repeat 5px center;
+        }
+        input#user_account{
+          background: url("../images/user_logo.png") no-repeat 5px center;
+        }
+        input#user_password{
+          background: url("../images/user_password.png") no-repeat 5px center;
+        }
+        input[type="text"]:focus{
+          outline: none;
+        }
+        input[type="submit"]{
+          width: 294px;
+          margin: 20px auto;
+          border: 2px solid #2d9194;
+          background: #9dd8ca;
+          font-size: 17px;
+          padding: 5px;
+          color: white;
+          border-radius: 5px;
+          cursor: pointer;
+        }
+      }
+    }
+  }
+}
 @media screen and (min-width: 1800px) {
   .back-right{
     h1{
@@ -450,6 +560,40 @@ body{
     p{
       font-size: 20px;
     }
+  }
+}
+.text_size14{
+  font-size: 14px;
+}
+.banner_box{
+  float: left;
+  width: 220px;
+  height: 180px;
+  margin-left: 10px;
+  text-align: center;
+  h1{
+    padding-left: 0;
+  }
+  img{
+    width: 220px;
+    height: 93px;
+  }
+  p{
+    width: 100%;
+  }
+  input[type="button"]{
+    margin-left: 10px;
+    @extend %styleButton;
+  }
+  input[type="file"]{
+    display: none;
+  }
+}
+.file_save{
+  margin-left: 20px;
+  input[type="submit"]{
+    width: 880px;
+    @extend %styleButton;
   }
 }
 

@@ -13,7 +13,7 @@ class BorrowController extends Controller {
 	
 	public function init() {
 		parent::init();
-		Yii::import( 'application.modules.tender.models.*' );
+//		Yii::import( 'application.modules.tender.models.*' );
 		//Yii::import( 'application.modules.tender.components.*' );
 	}
 
@@ -89,6 +89,10 @@ class BorrowController extends Controller {
 //			招标结束时间是怎么确定的呢？？
 			$_POST['writeBidInfoForm']['end'] = time();
 			$_POST['writeBidInfoForm']['description'] = '测试';
+			//获取用户认证等级
+			$_POST['writeBidInfoForm']['authenGrade'] = Yii::app()->getModule('credit')->
+					getComponent('userCreditManager')->getUserCreditLevel($this->user->getId());
+			$this->wxweven($_POST['writeBidInfoForm']['authenGrade']);
 			$model->attributes = $_POST['writeBidInfoForm'];//利用表单来填充
 			
 			if($model->save()){//如果发标成功

@@ -35,9 +35,26 @@ class mainConf extends ConfigBase{
 						'tender' =>array(
 								'class' => 'application.modules.tender.TenderModule'
 						),
+						'notify' => array(
+								'class' => 'application.modules.notify.NotifyModule',
+								'email' => array(
+										'pathViews' => 'application.views.email',
+										'pathLayouts' => 'application.views.email.layouts',
+										'ccEmail'=>'',//抄送
+										'Mailer' => 'smtp',
+										'Host'=>'smtp.qq.com',
+										'Port'=>'25',
+										'SMTPAuth'=>true,
+										'Username'=>'574891711',
+										'Password'=>'lancelot@410',
+										'From'=>'574891711@qq.com',
+										'FromName'=>'闪电贷',
+										'CharSet'=>'UTF-8',
+								),
+						),
 				),
 				'import' => array(
-						
+						'application.modules.user.models.*'
 				),
 				'components' => array(
 						//remote database on aliyun.remote ip
@@ -52,12 +69,13 @@ class mainConf extends ConfigBase{
 								'tablePrefix' => 'xcms_'
 						),*/
 						'user' => array(
-								'class' => 'cms.modules.accessControl.components.AuthUser',
+								'class' => 'application.modules.user.components.LightningUser',
 								'stateKeyPrefix' => 'FU',
 								'allowAutoLogin' => true,
 								'autoRenewCookie' => true,
 								'guestName' => '游客',
-								'authTimeout' => 3600
+								'authTimeout' => 3600,
+								'avatarPath' => '/upload/avatar/'
 						),
 						//internal database.ip 10.161.180.53
 						/*
@@ -85,7 +103,8 @@ class mainConf extends ConfigBase{
 						 ),
 						'cache' => array(
 								'class' => 'CMemCache',
-								'useMemcached' => true,
+								'useMemcached' => false,
+								'keyPrefix' => 'lightning',
 								'servers' => array(
 										array(
 												//本地memcached缓存
@@ -97,6 +116,12 @@ class mainConf extends ConfigBase{
 												'port' => 11211
 										),
 								),
+						),
+						'session' => array(
+								'class'=> 'CCacheHttpSession',
+								'cacheID' => 'cache',
+								'autoStart' => true,
+								'timeout' => 86400//24小时
 						),
 						/*
 						'cacheDb' => array(
@@ -143,6 +168,33 @@ class mainConf extends ConfigBase{
 						'purchaseMap' =>array(
 								'bidsPerPage' => 10,//默认的每次请求的标段条数
 						),
+						//标段选择条件参数
+						'selectorMap' => array(
+								'monthRate' => array(//月利率条件
+										'all' => 'all',
+										'5%-10%' => ' month_rate between 5 and 10 ',
+										'10%-15%' => ' month_rate between 10 and 15 ',
+										'15%-20%' => ' month_rate between 15 and 20 ',
+								),
+								'deadline' => array(//借款期限条件
+										'all' => 'all',
+										'3-6' => ' deadline between 3 and 6 ',
+										'6-9' => ' deadline between 6 and 9 ',
+										'6-9' => ' deadline between 9 and 12 ',
+								),
+								'authenGrade' => array(//认证等级条件
+										'all' => 'all',
+										'AA' => " authenGrade = 'AA' ",
+										'AAA' => " authenGrade = 'AAA' ",
+										'HR' => " authenGrade = 'HR' ",
+								),
+						),
+						//月利率的查询条件
+						'monthRate' => array('5%-10%','10%-15%','15%-20%',),
+						//借款期限的查询条件
+						'deadline' => array('3-6','6-9','9-12',),
+						//认证等级的查询条件
+						'authenGrade' => array('AA','AAA','HR',),
 				),
 		);
 	}

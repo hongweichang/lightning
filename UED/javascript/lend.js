@@ -1,3 +1,7 @@
+
+
+
+
 var Filter = function(){
 	var choice = $(".filter-choice");
 	return{
@@ -22,6 +26,8 @@ var Filter = function(){
 					o.removeClass('active').children('input').removeAttr('checked');
 				}
 			}
+			
+			
 			var checked_input = $("input[checked='checked']");
 			var send_str = "";
 			var i = true;
@@ -37,7 +43,7 @@ var Filter = function(){
 		},
 		send: function(str){
 			$.ajax({
-				url: "test.php",
+				url: "ajaxBids",
 				type: 'GET',
 				data: str,
 				dataType: 'json',
@@ -57,8 +63,8 @@ List = function(){
 	return{
 		showMore: function(str){
 			$.ajax({
-				url:'test.php',
-				type:'GET',
+				url: "ajaxBids",
+				type:'POST',
 				data: str,
 				dataType:'json',
 				success: function(listData){
@@ -78,7 +84,7 @@ List = function(){
 			$(".loan-list",loan).remove();
 		},
 		createList: function(list){
-			var node = $('<li class="loan-list"><div class="loan-avatar"><img src="'+(list.avatarSrc || "../images/intro-pic_1.png")+'" /><span>信</span></div><div class="loan-title"><a href="'+list.titleHref+'">'+list.title+'</a></div><div class="loan-rate loan-num">'+list.rate+'</div><div class="loan-rank"><div class="rank'+list.rank+'">'+list.rank+'</div></div><div class="loan-amount loan-num">'+list.amount+'</div><div class="loan-time loan-num">'+list.time+'</div><div class="loan-progress"><div class="bar-out"><div class="bar-in"><span class="bar-complete" style="width:'+list.progress+'"></span><span class="bar-num">'+list.progress+'</span></div></div></div></li>')
+			var node = $('<li class="loan-list"><div class="loan-avatar"><img src="/lightning/UED/images/intro-pic_1.png" /><span>信</span></div><div class="loan-title"><a href="'+list.titleHref+'">'+list.title+'</a></div><div class="loan-rate loan-num">'+list.month_rate+'%</div><div class="loan-rank"><div class="rank'+list.authenGrade+'">'+list.authenGrade+'</div></div><div class="loan-amount loan-num">￥'+list.sum+'</div><div class="loan-time loan-num">'+list.deadline+'个月</div><div class="loan-progress"><div class="bar-out"><div class="bar-in"><span class="bar-complete" style="width:'+list.progress+'"></span><span class="bar-num">'+list.progress+'</span></div></div></div></li>')
 			return node;
 		},
 		insertList: function(list){
@@ -117,10 +123,14 @@ $("#filter-switch").toggle(
 		$(this).removeClass("active");
 	}
 );
-$(".filter-choice").bind("click",function(){
-	var str = Filter.checked($(this));
-	Filter.send(str);
-});
+
+//override the chose event
+//$(".filter-choice").bind("click",function(){
+//
+//	var str = Filter.checked($(this));
+//	Filter.send(str);
+//});
+
 $(".loan-list").live("hover",function(e){
 	if(e.type == "mouseenter"){
 		var href = $(".loan-title a",$(this)).attr("href");
@@ -145,3 +155,61 @@ $("#view-detail").toggle(
 	}
 );
 Lend.placeholder($("#pay-verify"));
+
+//-------wxw
+//ajax filter param
+var monthRate = "",
+deadline = "",
+authenGrade = "";
+
+//choice & ajax
+$('.filter-choice span').click(function(e){
+	
+	//implement checked color switch
+	var o = (parent_li = $(this).parent('.filter-choice'));
+	
+//lyq 
+	var choice = $(".filter-choice");
+	var switcher = $("#filter-switch").hasClass("active"),
+	input =$("input",o),
+	siblings = o.siblings(choice),
+	input_v = input.val(),
+	input_f = input.attr("checked"),
+	flag = 0;
+	o.addClass("active").children('input').attr({checked: 'checked'});
+	if(!switcher || input_v=="all"){ //单选
+		siblings.removeClass("active").children('input').removeAttr('checked');
+	}else{
+		$("input[value='all']",siblings).removeAttr('checked').parent("li").removeClass('active');
+		siblings.children('input').each(function(){
+	if($(this).attr("checked")){
+		flag++;
+	}
+		});
+		if(input_f=="checked" && flag>=1){
+	o.removeClass('active').children('input').removeAttr('checked');
+		}
+	}
+//lyq
+	
+	//get the value of checkbox 
+	//attention to text node(space)
+	var input_node = this.previousSibling.previousSibling;
+	//build get url
+	switch(input_node.getAttribute('name')){
+		case 'monthRate':
+			monthRate = input_node.value;
+			break;
+		case 'deadline':
+			deadline = input_node.value;
+			break;
+		case 'authenGrade':
+			authenGrade = input_node.value;
+			break;
+	}
+	
+	str = 'monthRate='+monthRate+'&deadline='+deadline+'&authenGrade='+authenGrade;
+	Filter.send(str);
+	
+});
+//----/wxw

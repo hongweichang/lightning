@@ -185,8 +185,8 @@ body {
   width: 30px; }
 
 .rankA,
-.rankB,
-.rankC,
+.rankAA,
+.rankAAA,
 .rankHR {
   width: 30px;
   height: 30px;
@@ -201,10 +201,10 @@ body {
 .rankA {
   background-color: #00ffcc; }
 
-.rankB {
+.rankAA {
   background-color: #09c93b; }
 
-.rankC {
+.rankAAA {
   background-color: #07ee58; }
 
 .rankHR {

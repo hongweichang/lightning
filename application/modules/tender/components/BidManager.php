@@ -1,12 +1,25 @@
 <?php
 /**
- * @name UserManager.php
- * @author lancelot <lancelot1215@gmail.com>
- * Date 2013-11-23 
+ * @name BidManager.php
+ * @author wxweven wxweven@163.com
+ * Date 2013-11-27 
  * Encoding UTF-8
  */
-class UserManager extends CApplicationComponent{
+class BidManager extends CApplicationComponent{
 	public $cookieTimeout = 0;
+	
+	/**
+	 * 根据标段的id,返回标段的详细信息
+	 * Enter description here ...
+	 * @param $bidId
+	 * @return $bidDetail 标段的详细信息
+	 */
+	public function getBidDetail($bidId) {
+		$bidDetail = BidInfo::model(); // 标段信息对应的表
+		                               
+		$bidDetail = $model->findByPk( $bidId ); // 通过标段id来获取标段信息
+		return $bidDetail;//返回标段详细信息
+	}
 	/**
 	 * 
 	 * @param array $regInfo

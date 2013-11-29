@@ -1,7 +1,9 @@
-<?php $this->cs->registerCssFile($this->cssUrl.'lend.css'); 
-/*echo "<pre>";
-print_r( $dataProvider->getCriteria());
-print_r($dataProvider->getData());die;*/
+<?php 
+$this->cs->registerCssFile($this->cssUrl.'lend.css');
+$this->cs->registerScriptFile($this->scriptUrl.'lend.js',CClientScript::POS_END);
+//echo "<pre>";
+//print_r( $dataProvider->getCriteria());
+//print_r($dataProvider->getData());
 ?>
 <div class="wd1002">
     		<div class="breadcrumb">
@@ -27,63 +29,48 @@ print_r($dataProvider->getData());die;*/
     						<ul>
     							<li class="filter-item">月&nbsp;利&nbsp;率&nbsp;</li>
     							<li class="filter-item filter-choice active">
-    								<input type="checkbox" name="loanType" value="all" checked="checked" />
+    								<input type="checkbox" name="monthRate" value="all" checked="checked" />
     								<span>不限</span>
     							</li>
+    							<!-- 月利率条件循环开始 -->
+    							<?php foreach ($monthRate as $key => $val) {?>
     							<li class="filter-item filter-choice">
-    								<input type="checkbox" name="loanType" value="" />
-    								<span><?php echo $monthRate['condition1']; ?></span>
+    								<input type="checkbox" name="monthRate" value="<?php echo $val; ?>" />
+    								<span><?php echo $val; ?></span>
     							</li>
-    							<li class="filter-item filter-choice">
-    								<input type="checkbox" name="loanType" value="" />
-    								<span><?php echo $monthRate['condition2']; ?></span>
-    							</li>
-    							<li class="filter-item filter-choice">
-    								<input type="checkbox" name="loanType" value="" />
-    								<span><?php echo $monthRate['condition3']; ?></span>
-    							</li>
+    							<?php }?><!-- 月利率条件循环结束 -->
     						</ul>
     					</li>
     					<li>
     						<ul>
     							<li class="filter-item">借款期限</li>
     							<li class="filter-item filter-choice active">
-    								<input type="checkbox" name="loanTime" value="all" checked="checked" />
+    								<input type="checkbox" name="deadline" value="all" checked="checked" />
     								<span>不限</span>
     							</li>
+    							<!-- 借款期限条件列表开始 -->
+    							<?php foreach ($deadline as $key => $val) {?>
     							<li class="filter-item filter-choice">
-    								<input type="checkbox" name="loanTime" value="term_3_6" />
-    								<span><?php echo $deadline['condition1']; ?>个月</span>
+    								<input type="checkbox" name="deadline" value="<?php echo $val; ?>" />
+    								<span><?php echo $val; ?>个月</span>
     							</li>
-    							<li class="filter-item filter-choice">
-    								<input type="checkbox" name="loanTime" value="term_9_12" />
-    								<span><?php echo $deadline['condition2']; ?>个月</span>
-    							</li>
-    							<li class="filter-item filter-choice">
-    								<input type="checkbox" name="loanTime" value="term_9_12" />
-    								<span><?php echo $deadline['condition3']; ?>个月</span>
-    							</li>
+    							<?php }?><!-- 借款期限条件列表结束 -->
     						</ul>
     					</li>
     					<li>
     						<ul>
     							<li class="filter-item">认证等级</li>
     							<li class="filter-item filter-choice active">
-    								<input type="checkbox" name="rank" value="all" checked="checked" />
+    								<input type="checkbox" name="authenGrade" value="all" checked="checked" />
     								<span>不限</span>
     							</li>
+    							<!-- 认证等级条件列表开始 -->
+    							<?php foreach ($authenGrade as $key => $val) {?>
     							<li class="filter-item filter-choice">
-    								<input type="checkbox" name="rank" value="rank_AA" />
-    								<span><?php echo $authenGrade['condition1']; ?></span>
+    								<input type="checkbox" name="authenGrade" value="<?php echo $val; ?>" />
+    								<span><?php echo $val; ?></span>
     							</li>
-    							<li class="filter-item filter-choice">
-    								<input type="checkbox" name="rank" value="rank_A" />
-    								<span><?php echo $authenGrade['condition2']; ?></span>
-    							</li>
-    							<li class="filter-item filter-choice">
-    								<input type="checkbox" name="rank" value="rank_A" />
-    								<span><?php echo $authenGrade['condition3']; ?></span>
-    							</li>
+    							<?php }?><!-- 认证等级条件列表结束 -->
     						</ul>
     					</li>
     				</ul>
@@ -108,16 +95,19 @@ print_r($dataProvider->getData());die;*/
                     <span>进度</span>
                 </div>
                 <ul>
+                <!-- 标段信息列表开始 默认显示2条 -->
+                <?php foreach ($dataProvider->getData() as $key => $val) {?>
                     <li class="loan-list">
                         <div class="loan-avatar">
                             <img src="<?php echo $this->imageUrl;?>intro-pic_1.png" />
                             <span>信</span>
                         </div>
-                        <div class="loan-title"><a href="#">再次支持免费充值</a></div>
-                        <div class="loan-rate loan-num">10.00%</div>
-                        <div class="loan-rank"><div class="rankA">A</div></div>
-                        <div class="loan-amount loan-num">￥3000元</div>
-                        <div class="loan-time loan-num">3个月</div>
+                        <div class="loan-title"><a href="#"><?php echo $val['title'];?></a></div>
+                        <div class="loan-rate loan-num"><?php echo $val['month_rate'];?>%</div>
+                        <div class="loan-rank"><div class="rank<?php echo $val['authenGrade'];?>"><?php echo $val['authenGrade'];?></div></div>
+                        <div class="loan-amount loan-num">￥<?php echo $val['sum'];?>元</div>
+                        <div class="loan-time loan-num"><?php echo $val['deadline'];?>个月</div>
+                        <!-- 进度这个要作关联查询。。。待定 -->
                         <div class="loan-progress">
                             <div class="bar-out">
                                 <div class="bar-in">
@@ -127,26 +117,9 @@ print_r($dataProvider->getData());die;*/
                             </div>
                         </div>
                     </li>
-                    <li class="loan-list">
-                        <div class="loan-avatar">
-                            <img src="<?php echo $this->imageUrl;?>intro-pic_1.png" />
-                            <span>信</span>
-                        </div>
-                        <div class="loan-title"><a href="#">再次支持免费充值</a></div>
-                        <div class="loan-rate loan-num">10.00%</div>
-                        <div class="loan-rank"><div class="rankHR">HR</div></div>
-                        <div class="loan-amount loan-num">￥3000元</div>
-                        <div class="loan-time loan-num">3个月</div>
-                        <div class="loan-progress">
-                            <div class="bar-out">
-                                <div class="bar-in">
-                                    <span class="bar-complete" style="width:30%"></span>
-                                    <span class="bar-num">30%</span>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
+                    <?php }?> <!-- 标段信息列表结束 -->
                 </ul>
+                <!-- 这个Ajax请求在哪？？ -->
                 <div id="viewMore">
                 	<img src="<?php echo $this->imageUrl;?>more_ico.png" />
                 	<span>查看更多</span>
