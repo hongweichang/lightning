@@ -20,8 +20,8 @@ $this->cs->registerCssFile($this->cssUrl.'common.css');
         <div id="he-login">
             <div class="wd1002">
                 <p class="he-lo">
-                    <span>你好欢迎登陆，[<a href="#">注销</a>]</span>
-                    <a href="#" class="he-where">前台首页</a>
+                    <span>你好欢迎登陆，[<a href="<?php echo $this->createUrl('index/logout'); ?>">注销</a>]</span>
+                    <a href="<?php echo Yii::app()->homeUrl; ?>" class="he-where">前台首页</a>
                     <a href="#">缓存更新</a>
                 </p>
             </div>
@@ -44,7 +44,14 @@ $this->cs->registerCssFile($this->cssUrl.'common.css');
     </div>
     <div id="backStage">
     	<div class="wd1002">
-            <?php echo $content; ?>
+			<div class="back-left">
+				<h1>
+					<img src="<?php echo $this->imageUrl; ?>menu-log.png" />
+					<span>管理菜单</span>
+				</h1>
+				<ul id="left-back"><?php echo $content; ?></ul>
+			</div>
+			<div class="back-right"></div>
             <div id="copyright">
                 <p>重庆闪电贷金融信息服务有限公司 版权所有 2007-2013
                     Copyright Reserved 2007-2013©闪电贷（www.sddai.com） | 渝ICP备05063398号</p>

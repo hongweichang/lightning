@@ -116,4 +116,39 @@ class FundManager extends CApplicationComponent{
 	public function calculate($sum){
 		return $sum;
 	}
+	
+	/**
+	 * 
+	 * @param unknown $status
+	 * @return array()
+	 */
+	public function getWithdrawList($status){
+		$pager = new CPagination(Withdraw::model()->count());
+		$pager->setPageSize(20);
+		
+		$list = Withdraw::model()->with('user')->findAll(array(
+			'offset' => $pager->getOffset(),
+			'limit' => $pager->getLimit(),
+			'order' => 'raise_time desc, finish_time desc',
+			'condition' => 'status=:s',
+			'param' => array('s' => $status)
+		));
+		
+		return array('list' => $list, 'pager' => $pager);
+	}
+	
+	public function getPayList($status){
+		$pager = new CPagination(Recharge::model()->count());
+		$pager->setPageSize(20);
+		
+		$list = Recharge::model()->with('user')->findAll(array(
+			'offset' => $pager->getOffset(),
+			'limit' => $pager->getLimit(),
+			'order' => 'raise_time desc, pay_time desc, finish_time desc',
+			'condition' => 'status=:s',
+			'param' => array('s' => $status)
+		));
+		
+		return array('list' => $list, 'pager' => $pager);
+	}
 }
