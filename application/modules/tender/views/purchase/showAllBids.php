@@ -3,6 +3,7 @@ $this->cs->registerCssFile($this->cssUrl.'lend.css');
 $this->cs->registerScriptFile($this->scriptUrl.'lend.js',CClientScript::POS_END);
 
 //echo Yii::app()->getModule('credit')->getComponent('userCreditManager')->getUserCreditLevel($val['user_id']);
+
 //echo "<pre>";
 //print_r( $dataProvider->getCriteria());
 //print_r($dataProvider->getData());
@@ -106,7 +107,11 @@ $this->cs->registerScriptFile($this->scriptUrl.'lend.js',CClientScript::POS_END)
                         </div>
                         <div class="loan-title"><a href="#"><?php echo $val['title'];?></a></div>
                         <div class="loan-rate loan-num"><?php echo $val['month_rate'];?>%</div>
+<<<<<<< HEAD
                         <div class="loan-rank"><div class="rankA">A</div></div>
+=======
+                        <div class="loan-rank"><div class="rank<?php echo $val['authenGrade'];?>"><?php echo $val['authenGrade'];?></div></div>
+>>>>>>> 385f3d168628d7239f564ad6fd3a841a11af0314
                         <div class="loan-amount loan-num">￥<?php echo $val['sum'];?>元</div>
                         <div class="loan-time loan-num"><?php echo $val['deadline'];?>个月</div>
                         <!-- 进度这个要作关联查询。。。待定 -->

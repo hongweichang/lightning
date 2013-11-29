@@ -1,3 +1,7 @@
+
+
+
+
 var Filter = function(){
 	var choice = $(".filter-choice"),
 		page = 2;
@@ -26,6 +30,8 @@ var Filter = function(){
 					o.removeClass('active').children('input').removeAttr('checked');
 				}
 			}
+			
+			
 			var checked_input = $("input[checked='checked']");
 			var send_str = "";
 			var i = true;
@@ -124,10 +130,14 @@ $("#filter-switch").toggle(
 		$(this).removeClass("active");
 	}
 );
-$(".filter-choice").bind("click",function(){
-	var str = Filter.checked($(this));
-	Filter.send(str);
-});
+
+//override the chose event
+//$(".filter-choice").bind("click",function(){
+//
+//	var str = Filter.checked($(this));
+//	Filter.send(str);
+//});
+
 $(".loan-list").live("hover",function(e){
 	if(e.type == "mouseenter"){
 		var href = $(".loan-title a",$(this)).attr("href");

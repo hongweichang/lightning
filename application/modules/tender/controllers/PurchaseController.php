@@ -30,7 +30,7 @@ class PurchaseController extends Controller {
 		$monthRate = $this->app['monthRate'];
 		$deadline = $this->app['deadline'];
 		$authenGrade = $this->app['authenGrade'];
-
+		
 		$criteria = new CDbCriteria();
 		$criteria->condition = 'verify_progress=1 AND start < '.time();
 		$criteria->order = 'start DESC';
@@ -47,6 +47,7 @@ class PurchaseController extends Controller {
 				$criteria->addCondition($value[$_POST[$key]]);
 			}
 		}
+//		$criteria->with = array('user');
 		
 		$dataProvider = new CActiveDataProvider('BidInfo',array(
 				'criteria' => $criteria,
@@ -85,6 +86,7 @@ class PurchaseController extends Controller {
 		$pageSize = $this->getQuery('pageSize',1);
 		$page = $this->getQuery('page');
 		$model = BidInfo::model();
+
 		//获得mainConf里面的配置参数
 		$monthRate = $this->app['monthRate'];
 		$deadline = $this->app['deadline'];
