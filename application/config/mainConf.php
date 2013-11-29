@@ -54,14 +54,15 @@ class mainConf extends ConfigBase{
 						),
 				),
 				'import' => array(
-						'application.modules.user.models.*'
+						'application.extensions.PHPExcel.PHPExcel.*'
+						
 				),
 				'components' => array(
 						//remote database on aliyun.remote ip
 						/*'db' => array(
 								'class' => 'system.db.CDbConnection',
 								'autoConnect' => false,
-								'connectionString' => 'mysql:host=115.29.240.98;dbname=lightning',
+								'connectionString' => 'mysql:host=115.29.186.221;dbname=lightning',
 								'emulatePrepare' => true,
 								'username' => 'lancelot',
 								'password' => 'lancelot@lightningdbmysqladmin',
@@ -105,23 +106,18 @@ class mainConf extends ConfigBase{
 								'class' => 'CMemCache',
 								'useMemcached' => false,
 								'keyPrefix' => 'lightning',
+								'useMemcached' => false,
 								'servers' => array(
 										array(
 												//本地memcached缓存
-												'host' => 'localhost',
+												//'host' => 'localhost',
 												//阿里云外网IP
-												//'host' => '115.29.186.221',
+												'host' => '115.29.186.221',
 												//阿里云内网IP，本地测试可以使用本地memcached服务器
 												//'host' => '10.161.138.206',
 												'port' => 11211
 										),
 								),
-						),
-						'session' => array(
-								'class'=> 'CCacheHttpSession',
-								'cacheID' => 'cache',
-								'autoStart' => true,
-								'timeout' => 86400//24小时
 						),
 						/*
 						'cacheDb' => array(
@@ -143,6 +139,7 @@ class mainConf extends ConfigBase{
 								'urlFormat'=>'path',
 								'urlSuffix' => '',
 								'showScriptName' => false,
+								'rules' => require dirname(__FILE__).'/RestApiRules.php',
 						),
 						'log'=>array(
 								'class'=>'CLogRouter',

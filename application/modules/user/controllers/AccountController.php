@@ -6,6 +6,8 @@
  * Encoding UTF-8
  */
 class AccountController extends Controller{
+	public $layout='//layouts/login';
+	
 	public function noneLoginRequired(){
 		return 'register,login,captcha';
 	}
@@ -34,7 +36,7 @@ class AccountController extends Controller{
 		$post = $this->getPost('Register');
 		$userManager = $this->getModule()->getComponent('userManager');
 		
-		$form = $userManager->register($post);
+		$form = $userManager->register($post,'appRegister');
 		
 		if ( $form === true ){
 			$userManager->login(array(
