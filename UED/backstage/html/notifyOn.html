@@ -1,22 +1,21 @@
-<form>
-    <fieldset>
-        <div class="open-button">
-            <input type="button" value="手机号码验证码" class="open-fun-box" />
-        </div>
-        <div class="open-content">
-            <h1>用户注册手机号验证码</h1>
-            <textarea>亲爱的XXX，你好！欢迎你注册闪电贷，验证：#CODE</textarea>
-            <input type="checkbox" value="开启" id="tel-mobile"/><span>开启</span>
-        </div>
-        <div class="open-save">
-            <input type="submit" value="保存" id="save" />
-            <input type="reset" value="取消" id="cancel" />
-        </div>
-        <div class="send-right">
-            <h1>发送短信</h1>
-            <textarea>亲爱的XXX，你好！欢迎你注册闪电贷，验证：#CODE</textarea>
-            <input type="button" value="开启" id="send-now"/>
-        </div>
-    </fieldset>
-</form>
-<script type="text/javascript" src="../javascript/button.js"></script>
+<h1>站内信</h1>
+<div class="is_open">
+    <div class="right-message">
+        <label for="on_message" class="text_size14">| 用户注册成功第一封信:</label>
+        <textarea id="on_message" name="on_message"></textarea>
+        <input type="radio" class="isOpen" id="on_message_open"/>
+        <label for="on_message_open">保持</label>
+    </div>
+</div>
+<div class="is_save">
+    <input type="button" value="保持" />
+</div>
+<h1>给指定的用户发送站内信</h1>
+<div class="is_send">
+    <label for="receipt_user" class="text_size14">收件用户</label>
+    <input type="text" id="receipt_user" name="receipt_user" />
+    <input type="button" value="选择用户" id="select_user" />
+    <label for="send_message" class="text_size14">发送信息</label>
+    <textarea id="send_message" name="send_message"></textarea>
+    <input type="button" value="立即发送" id="send_right" />
+</div>

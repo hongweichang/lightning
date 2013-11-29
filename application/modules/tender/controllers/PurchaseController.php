@@ -14,7 +14,7 @@ class PurchaseController extends Controller {
 		parent::init();
 		Yii::import( 'application.modules.tender.models.*' );
 		Yii::import( 'application.modules.tender.components.*' );
-		$this->user->getState('avatar');//获取头像url
+//		$this->user->getState('avatar');//获取头像url
 	}
 	
 	/**
@@ -22,36 +22,29 @@ class PurchaseController extends Controller {
 	 * 利用CListview
 	 */
 	function actionShowAllBids() {
-		$selector = $this->getPost('selector');
-		$selectorMap = array(
-				'monthRate' => array(
-						'all' => '',
-						'monthRate1' => ' month_rate between 5 and 10 ',
-						'monthRate2' => ' month_rate between 10 and 15 ',
-						'monthRate3' => ' month_rate between 15 and 20 ',
-				),
-				'deadline' => array(
-						'all' => '',
-						'betwen3and6' => ' deadline between 3 and 6 ',
-						'betwen6and9' => ' deadline between 6 and 9 ',
-						'betwen9and12' => ' deadline between 9 and 12 ',
-				),
-				'authenGrade' => array(
-						'all' => '',
-						'authenGrade1' => " authenGrade = 'AA' ",
-						'authenGrade2' => " authenGrade = 'AAA' ",
-						'authenGrade3' => " authenGrade = 'HR' ",
-				),
-				
-		);
+		//获得mainConf里面的配置参数
+		$monthRate = $this->app['monthRate'];
+		$deadline = $this->app['deadline'];
+		$authenGrade = $this->app['authenGrade'];
+//		$selectorMap = $this->app['selectorMap'];
 		
 		$criteria = new CDbCriteria();
 		$criteria->condition = 'verify_progress=1 AND start < '.time();
 		$criteria->order = 'start DESC';
+		$criteria->limit = '10';//初始条件显示两条
 		
-		if ( isset($x) ){
-			$criteria->addCondition();
+		$selectorMap = $this->app['selectorMap'];
+		/**
+		 * 下面这个利用foreach来遍历二维数组
+		 * 获取Ajax请求的参数
+		 * 并根据Ajax请求的参数，来设置相应的查询条件
+		 */
+		foreach ($selectorMap as $key => $value) {
+			if(isset($_POST[$key]) && $_POST[$key] != 'all') {
+				$criteria->addCondition($value[$_POST[$key]]);
+			}
 		}
+//		$criteria->with = array('user');
 		
 		$dataProvider = new CActiveDataProvider('BidInfo',array(
 				'criteria' => $criteria,
@@ -63,25 +56,9 @@ class PurchaseController extends Controller {
 				)
 		));
 		
-//		$this->wxweven($dataProvider);
-  		//月利率的查询条件
-		$monthRate = array(
-						'condition1'=>'5%-10%',
-						'condition2'=>'10%-15%',
-						'condition3'=>'15%-20%',
-		);
-		//借款期限的查询条件
-		$deadline = array(
-						'condition1'=>'3-6',
-						'condition2'=>'6-9',
-						'condition3'=>'9-12',
-		);
-		//认证等级的查询条件
-		$authenGrade = array(
-						'condition1'=>'AA',
-						'condition2'=>'AAA',
-						'condition3'=>'HR',
-		);
+//		$this->wxweven($dataProvider->getCriteria());
+		
+  		
 
   		$this->render('showAllBids',array(
   			'monthRate' => $monthRate,
@@ -89,33 +66,81 @@ class PurchaseController extends Controller {
   			'authenGrade' => $authenGrade,
          	'dataProvider' => $dataProvider,
 		));
-		/*$model = BidInfo::model();
+	}
+	
+	/**
+	 * 公用函数，用户获取mainConf里面的配置
+	 * Enter description here ...
+	 */
+	function actionCommon() {
+		//获得mainConf里面的配置参数
+		$monthRate = $this->app['monthRate'];
+		$deadline = $this->app['deadline'];
+		$authenGrade = $this->app['authenGrade'];
+		$selectorMap = $this->app['selectorMap'];
+	}
+	/**
+	 * 用于获取Ajax请求
+	 * Enter description here ...
+	 */
+	function actionAjaxBids() {
+		//获得mainConf里面的配置参数
+		$monthRate = $this->app['monthRate'];
+		$deadline = $this->app['deadline'];
+		$authenGrade = $this->app['authenGrade'];
+//		$selectorMap = $this->app['selectorMap'];
 		
-		// 分页的使用
 		$criteria = new CDbCriteria();
-		$criteria->addCondition( 'verify_progress=1' ); // 1代表审核通过
+		$criteria->condition = 'verify_progress=1 AND start < '.time();
+		$criteria->order = 'start DESC';
+		$criteria->limit = '2';//初始条件显示两条
 		
-		$count = $model->count( $criteria );
-		$pager = new CPagination( $count );
-		$pager->pageSize = 20; // 每页显示的条数
-		$pager->applyLimit( $criteria );
+		$selectorMap = $this->app['selectorMap'];
 		
-		$data = $model->findAll( $criteria );
-		CVarDumper::dump( $data );
-		// 显示全部标段的view
-		// $this->render("showAllBid",array("data"=>$data,'pager'=>$pager));*/
+		/**
+		 * 下面这个利用foreach来遍历二维数组
+		 * 获取Ajax请求的参数
+		 * 并根据Ajax请求的参数，来设置相应的查询条件
+		 */
+		foreach ($selectorMap as $key => $value) {
+			if(isset($_GET[$key]) && $_GET[$key] != 'all' && $_GET[$key] != '') {
+				$criteria->addCondition($value[$_GET[$key]]);
+			}
+		}
+		
+		$dataProvider = new CActiveDataProvider('BidInfo',array(
+				'criteria' => $criteria,
+				'countCriteria' => array(
+						'condition' => $criteria->condition,
+				),
+				'pagination'=>array(
+						'pageSize' => 10
+				)
+		));
+
+		$data = $dataProvider->getData();//获取查询到的数据
+		$arr = array();
+		foreach($data as $keyOut => $valueOut) {
+			foreach ($valueOut as $keyIn => $valIn) {
+				$arr[$keyOut][$keyIn] = $valIn;
+			}
+		}
+		/*$this->wxweven($arr);
+		$arr = $data;*/
+		$arr = array("state"=> 1 ,"data"=> $arr );
+		
+		echo json_encode($arr);
 	}
 	
 	/**
 	 * 显示标段详细信息
 	 * @param $bidId:标段id
-	 * @param $userId:对应标段的user_id
 	 */
-	function acrtionShowBidDetail($bidId, $userId) {
+	function acrtionShowBidDetail($bidId) {
 		$bidDetail = BidInfo::model(); // 标段信息对应的表
 		                               
 		// 调用其他组件接口，获得发标人的信息
-		// $userInfo = Yii::app->getComponent('userInfo')->getInfo($userId);
+//		$userInfo = $this->user->getUserInfo();
 		$bidDetail = $model->findByPk( $bidId ); // 通过标段id来获取标段信息
 		$info = array();
 		$info ['bid'] = $bidDetail;
@@ -126,17 +151,24 @@ class PurchaseController extends Controller {
 		) );
 	}
 	
+/**
+	 * @return 返回标段的详细信息
+	 * @param $bidId:标段id
+	 */
+	function acrtionGetBidDetail($bidId) {
+		$bidDetail = BidInfo::model(); // 标段信息对应的表
+		                               
+		$bidDetail = $model->findByPk( $bidId ); // 通过标段id来获取标段信息
+		return $bidDetail;//返回标段详细信息
+	}
+	
 	/**
 	 * 购买对应的标段action
 	 * 
 	 * @param
-	 *        	$userId:购买用户的user_id
-	 * @param
 	 *        	$bidId:要购买的标段id
-	 * @param
-	 *        	$money:购买的金额
 	 */
-	function actionCreatePurchase() {
+	function actionCreatePurchase($bidId) {
 //		验证金额
 		if($this->checkMoney()) {
 //			验证身份，调用接口
