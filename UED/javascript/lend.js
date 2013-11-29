@@ -1,5 +1,6 @@
 var Filter = function(){
 	var choice = $(".filter-choice");
+	var page = 2;
 	return{
 		checked: function(o){
 			var switcher = $("#filter-switch").hasClass("active"),
@@ -8,6 +9,9 @@ var Filter = function(){
 					input_v = input.val(),
 					input_f = input.attr("checked"),
 					flag = 0;
+			if(o.hasClass('filter-choice')){
+				page = 2;
+			}
 			o.addClass("active").children('input').attr({checked: 'checked'});
 			if(!switcher || input_v=="all"){ //单选
 				siblings.removeClass("active").children('input').removeAttr('checked');
@@ -33,6 +37,8 @@ var Filter = function(){
 					send_str += "&"+$(this).attr("name")+"=";
 				send_str += $(this).val();
 			});
+			send_str+= "&page="+page;
+			page++;
 			return send_str;
 		},
 		send: function(str){
@@ -78,7 +84,7 @@ List = function(){
 			$(".loan-list",loan).remove();
 		},
 		createList: function(list){
-			var node = $('<li class="loan-list"><div class="loan-avatar"><img src="'+(list.avatarSrc || "../images/intro-pic_1.png")+'" /><span>信</span></div><div class="loan-title"><a href="'+list.titleHref+'">'+list.title+'</a></div><div class="loan-rate loan-num">'+list.rate+'</div><div class="loan-rank"><div class="rank'+list.rank+'">'+list.rank+'</div></div><div class="loan-amount loan-num">'+list.amount+'</div><div class="loan-time loan-num">'+list.time+'</div><div class="loan-progress"><div class="bar-out"><div class="bar-in"><span class="bar-complete" style="width:'+list.progress+'"></span><span class="bar-num">'+list.progress+'</span></div></div></div></li>')
+			var node = $('<li class="loan-list"><div class="loan-avatar"><img src="'+(list.avatarSrc || "../images/intro-pic_1.png")+'" /><span>信</span></div><div class="loan-title"><a href="'+list.titleHref+'">'+list.title+'</a></div><div class="loan-rate loan-num">'+list.rate+'</div><div class="loan-rank"><div class="rank'+list.rank+'">'+list.rank+'</div></div><div class="loan-amount loan-num">'+list.amount+'</div><div class="loan-time loan-num">'+list.time+'</div><div class="loan-progress"><div class="bar-out"><div class="bar-in"><span class="bar-complete" style="width:'+list.progress+'"></span><span class="bar-num">'+list.progress+'</span></div></div></div></li>');
 			return node;
 		},
 		insertList: function(list){
@@ -145,3 +151,17 @@ $("#view-detail").toggle(
 	}
 );
 Lend.placeholder($("#pay-verify"));
+
+//lend-details
+$(".fakeCheck,label[for='keepSignIn'],label[for='protocal']").toggle(function(){
+		$(this).parent().find("span").css({display: "none"});
+		$(this).siblings("input").removeAttr('checked');
+	},function(){
+		$(this).parent().find("span").css({display: "block"});
+		$(this).siblings("input").attr("checked","checked");
+	});
+$(".details-tab li").bind("click",function(){
+		var i = $(this).index();
+		$(this).addClass("tab-on").siblings().removeClass("tab-on");
+		$(".tab-content").eq(i).addClass("tab-show").siblings().removeClass("tab-show");
+	})
