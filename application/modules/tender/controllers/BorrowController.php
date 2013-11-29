@@ -24,14 +24,6 @@ class BorrowController extends Controller {
 	 */
 	function actionRoleChoose() {
 		//检查信息是否完善
-/**
- * 下面的功能有待完善
- */
-		/*$isFinished = $this->getModule("user")->getComponent("userManager")->checkInfo();
-		if($isFinished === false){
-			$this->render("infoError");//提示信息不完整页面
-			$this->app->end();//结束当前应用程序
-		} */
 		$role = $this->user->getState("role");
 		$roleName = '还未填写角色名字';//角色名字
 		$map = $this->app['roleMap'];
@@ -39,8 +31,6 @@ class BorrowController extends Controller {
 			$roleName = $map[$role];
 		}
 		
-		//$role = "工薪阶层";
-//		CVarDumper::dump($role);
 		$this->render("roleChoose",array('roleName'=>$roleName));
 	}
 	

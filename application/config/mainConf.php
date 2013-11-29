@@ -173,14 +173,14 @@ class mainConf extends ConfigBase{
 								'monthRate' => array(//月利率条件
 										'all' => 'all',
 										'5%-10%' => ' month_rate between 5 and 10 ',
-										'10%-15%' => ' month_rate between 10 and 15 ',
-										'15%-20%' => ' month_rate between 15 and 20 ',
+										'11%-15%' => ' month_rate between 11 and 15 ',
+										'16%-20%' => ' month_rate between 16 and 20 ',
 								),
 								'deadline' => array(//借款期限条件
 										'all' => 'all',
 										'3-6' => ' deadline between 3 and 6 ',
-										'6-9' => ' deadline between 6 and 9 ',
-										'6-9' => ' deadline between 9 and 12 ',
+										'7-9' => ' deadline between 7 and 9 ',
+										'10-12' => ' deadline between 10 and 12 ',
 								),
 								'authenGrade' => array(//认证等级条件
 										'all' => 'all',
@@ -190,9 +190,9 @@ class mainConf extends ConfigBase{
 								),
 						),
 						//月利率的查询条件
-						'monthRate' => array('5%-10%','10%-15%','15%-20%',),
+						'monthRate' => array('5%-10%','11%-15%','16%-20%',),
 						//借款期限的查询条件
-						'deadline' => array('3-6','6-9','9-12',),
+						'deadline' => array('3-6','7-9','10-12',),
 						//认证等级的查询条件
 						'authenGrade' => array('AA','AAA','HR',),
 				),

@@ -10,6 +10,10 @@ class PurchaseController extends Controller {
 	public function filters() {
 		return '';
 	}
+	
+	public function noneLoginRequired(){
+		return '';
+	}
 	public function init() {
 		parent::init();
 		Yii::import( 'application.modules.tender.models.*' );
@@ -26,12 +30,11 @@ class PurchaseController extends Controller {
 		$monthRate = $this->app['monthRate'];
 		$deadline = $this->app['deadline'];
 		$authenGrade = $this->app['authenGrade'];
-//		$selectorMap = $this->app['selectorMap'];
-		
+
 		$criteria = new CDbCriteria();
 		$criteria->condition = 'verify_progress=1 AND start < '.time();
 		$criteria->order = 'start DESC';
-		$criteria->limit = '10';//初始条件显示两条
+//		$criteria->limit = '10';//初始条件显示两条
 		
 		$selectorMap = $this->app['selectorMap'];
 		/**
@@ -44,7 +47,6 @@ class PurchaseController extends Controller {
 				$criteria->addCondition($value[$_POST[$key]]);
 			}
 		}
-//		$criteria->with = array('user');
 		
 		$dataProvider = new CActiveDataProvider('BidInfo',array(
 				'criteria' => $criteria,
@@ -52,14 +54,10 @@ class PurchaseController extends Controller {
 						'condition' => $criteria->condition,
 				),
 				'pagination'=>array(
-						'pageSize' => 10
+						'pageSize' => 1
 				)
 		));
 		
-//		$this->wxweven($dataProvider->getCriteria());
-		
-  		
-
   		$this->render('showAllBids',array(
   			'monthRate' => $monthRate,
   			'deadline' => $deadline,
@@ -84,16 +82,16 @@ class PurchaseController extends Controller {
 	 * Enter description here ...
 	 */
 	function actionAjaxBids() {
+		$pageSize = $this->getQuery('pageSize',1);
+		$page = $this->getQuery('page');
+		$model = BidInfo::model();
 		//获得mainConf里面的配置参数
 		$monthRate = $this->app['monthRate'];
 		$deadline = $this->app['deadline'];
 		$authenGrade = $this->app['authenGrade'];
-//		$selectorMap = $this->app['selectorMap'];
 		
 		$criteria = new CDbCriteria();
 		$criteria->condition = 'verify_progress=1 AND start < '.time();
-		$criteria->order = 'start DESC';
-		$criteria->limit = '2';//初始条件显示两条
 		
 		$selectorMap = $this->app['selectorMap'];
 		
@@ -108,27 +106,23 @@ class PurchaseController extends Controller {
 			}
 		}
 		
-		$dataProvider = new CActiveDataProvider('BidInfo',array(
-				'criteria' => $criteria,
-				'countCriteria' => array(
-						'condition' => $criteria->condition,
-				),
-				'pagination'=>array(
-						'pageSize' => 10
-				)
-		));
-
-		$data = $dataProvider->getData();//获取查询到的数据
+		$count = $model->count($criteria);
+		if ( $pageSize * $page > $count ){
+			$this->response(0);
+		}
+		$pager = new CPagination($count);
+		$pager->pageVar = 'page';
+		$pager->pageSize = $pageSize;
+		$pager->applyLimit($criteria);
+		
+		$data = $model->findAll($criteria);
 		$arr = array();
 		foreach($data as $keyOut => $valueOut) {
 			foreach ($valueOut as $keyIn => $valIn) {
 				$arr[$keyOut][$keyIn] = $valIn;
 			}
 		}
-		/*$this->wxweven($arr);
-		$arr = $data;*/
 		$arr = array("state"=> 1 ,"data"=> $arr );
-		
 		echo json_encode($arr);
 	}
 	
