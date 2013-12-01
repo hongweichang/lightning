@@ -19,6 +19,11 @@ class Controller extends CmsController{
 	 * @var CClientScript
 	 */
 	public $cs;
+	/**
+	 * 
+	 * @var Application
+	 */
+	public $app;
 	
 	public function filters(){
 		$filters = parent::filters();
@@ -57,11 +62,10 @@ class Controller extends CmsController{
 		
 		$this->user = $this->app->getUser();
 		$this->cs = $this->app->getClientScript();
-		$homeUrl = $this->app->getHomeUrl();
 		
-		$this->cssUrl = $homeUrl.'UED/css/';
-		$this->scriptUrl = $homeUrl.'UED/javascript/';
-		$this->imageUrl = $homeUrl.'UED/images/';
+		$this->cssUrl = $this->app->getCssUrl();
+		$this->scriptUrl = $this->app->getJsUrl();
+		$this->imageUrl = $this->app->getImageUrl();
 	}
 	
 	public function filterPublicClientScript($filterChain){

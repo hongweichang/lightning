@@ -73,7 +73,7 @@ class mainConf extends ConfigBase{
 						),
 						//remote database on aliyun.remote ip
 						'db' => array(
-						 'class' => 'system.db.CDbConnection',
+						 		'class' => 'system.db.CDbConnection',
 								'autoConnect' => false,
 								'connectionString' => 'mysql:host=115.29.240.98;dbname=lightning',
 								'emulatePrepare' => true,
@@ -116,7 +116,7 @@ class mainConf extends ConfigBase{
 						),
 						'cache' => array(
 								'class' => 'CMemCache',
-								'useMemcached' => false,
+								'useMemcached' => true,
 								'keyPrefix' => 'lightning',
 								'servers' => array(
 										array(
