@@ -6,7 +6,13 @@
  * desc: 
  */
 class FundManager extends CApplicationComponent{
-
+	/**
+	 * 表单提交地址 - 进入支付阶段
+	 */
+	public function pay(){
+		return Yii::app()->createUrl('pay/platform/index');
+	}
+	
 	/**
 	 * 提交一个提现申请，等待后台处理
 	 * @param float $charge
@@ -16,12 +22,16 @@ class FundManager extends CApplicationComponent{
 	public function raiseWithdraw($uid,$sum,$charge){
 		$transaction = Yii::app()->db->beginTransaction();
 		try{
-			Yii::app()->getModule('user')->userManager->updateBalance($uid,-($sum + charge));
+			$user = Yii::app()->getModule('user')->userManager->findByPk($uid);
+			$user->updateCounters(array(
+				'balance' => -($sum + charge) * 100
+			));
+			
 			$db = new Withdraw();
 			$db->attributes = array(
 				'user_id' => $uid,
 				'sum' => $sum * 100,
-				'fee' => round($charge * 100),
+				'fee' => $charge * 100,
 				'raise_time' => time(),
 				'status' => 0, // 正在处理 - 等待后台处理
 			);
@@ -64,7 +74,11 @@ class FundManager extends CApplicationComponent{
 		
 		$transaction = Yii::app()->db->beginTransaction();
 		try{
-			Yii::app()->getModule('user')->userManager->updateBalance($uid,$sum + charge);
+			$user = Yii::app()->getModule('user')->userManager->findByPk($uid);
+			$user->updateCounters(array(
+				'balance' => ($sum + charge) * 100
+			));
+			
 			$record->attributes = array(
 				'finish_time' => time(),
 				'status' => 2,
@@ -92,7 +106,7 @@ class FundManager extends CApplicationComponent{
 			'to_user' => $touid,
 			'from_user' => $fromuid,
 			'sum' => $sum * 100,
-			'fee' => round($charge * 100), // 四舍五入??
+			'fee' => $charge * 100, // 四舍五入??
 			'time' => time(),
 			'status' => 1 // 暂时不分过程
 		);
@@ -101,5 +115,40 @@ class FundManager extends CApplicationComponent{
 	
 	public function calculate($sum){
 		return $sum;
+	}
+
+	/**
+	 * 
+	 * @param unknown $status
+	 * @return array()
+	 */
+	public function getWithdrawList($status){
+		$pager = new CPagination(Withdraw::model()->count());
+		$pager->setPageSize(20);
+		
+		$list = Withdraw::model()->with('user')->findAll(array(
+			'offset' => $pager->getOffset(),
+			'limit' => $pager->getLimit(),
+			'order' => 'raise_time desc, finish_time desc',
+			'condition' => 'status=:s',
+			'param' => array('s' => $status)
+		));
+		
+		return array('list' => $list, 'pager' => $pager);
+	}
+	
+	public function getPayList($status){
+		$pager = new CPagination(Recharge::model()->count());
+		$pager->setPageSize(20);
+		
+		$list = Recharge::model()->with('user')->findAll(array(
+			'offset' => $pager->getOffset(),
+			'limit' => $pager->getLimit(),
+			'order' => 'raise_time desc, pay_time desc, finish_time desc',
+			'condition' => 'status=:s',
+			'param' => array('s' => $status)
+		));
+		
+		return array('list' => $list, 'pager' => $pager);
 	}
 }

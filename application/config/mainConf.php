@@ -26,6 +26,10 @@ class mainConf extends ConfigBase{
 								'class' => 'application.modules.pay.PayModule'
 						),
 						
+						'admin' => array(
+							'class' => 'application.modules.admin.AdminModule'
+						),
+						
 						'user' => array(
 								'class' => 'application.modules.user.UserModule'
 						),
@@ -102,23 +106,22 @@ class mainConf extends ConfigBase{
 						 		'charset' => 'utf8',
 						 		'tablePrefix' => 'xcms_'
 						 ),
-						/*'cache' => array(
+						'cache' => array(
 								'class' => 'CMemCache',
 								'useMemcached' => false,
 								'keyPrefix' => 'lightning',
-								'useMemcached' => false,
 								'servers' => array(
 										array(
 												//本地memcached缓存
-												'host' => 'localhost',
+//												'host' => 'localhost',
 												//阿里云外网IP
-//												'host' => '115.29.186.221',
+												'host' => '115.29.186.221',
 												//阿里云内网IP，本地测试可以使用本地memcached服务器
 												//'host' => '10.161.138.206',
 												'port' => 11211
 										),
 								),
-						),*/
+						),
 						/*
 						'cacheDb' => array(
 								'class' => 'CDbCache',

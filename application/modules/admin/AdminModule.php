@@ -1,29 +1,25 @@
 <?php
 
-class PayModule extends CmsModule
+class AdminModule extends CWebModule
 {
-	public $alipay;
-	public $ips;
-	
 	public function init()
 	{
-		parent::init();
+		
 		// this method is called when the module is being created
 		// you may place code here to customize the module or the application
-		$config = require Yii::getPathOfAlias('pay.config.main').'.php';
-		$this->configure($config);
+		$this->defaultController = "index";
 		// import the module-level models and components
 		$this->setImport(array(
-			'pay.models.*',
-			'pay.components.*',
+			'admin.components.*',
+			'admin.models.*',
+			'admin.models.forms.*',
 		));
 		
-		$this->setComponents(array(
-			'fundManager' => array(
-				'class' => 'FundManager',
+		Yii::app()->setComponents(array(
+			'errorHandler' => array(
+				'errorAction' => 'admin/index/error',
 			),
 		));
-		
 		
 	}
 
