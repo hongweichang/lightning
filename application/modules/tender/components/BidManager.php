@@ -12,7 +12,7 @@ class BidManager extends CApplicationComponent{
 	 * @param $bidId
 	 * @return $bidDetail 标段的详细信息
 	 */
-	public function getBidDetail($bidId,$condition='',$params=array()) {
+	public function getBidInfo($bidId,$condition='',$params=array()) {
 		return BidInfo::model()->findByPk( $bidId ,$condition,$params); // 通过标段id来获取标段信息
 	}
 }
