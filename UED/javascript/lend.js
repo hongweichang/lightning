@@ -1,5 +1,6 @@
 var Filter = function(){
 	var choice = $(".filter-choice");
+	var page = 2;
 	return{
 		checked: function(o){
 			var switcher = $("#filter-switch").hasClass("active"),
@@ -8,6 +9,9 @@ var Filter = function(){
 					input_v = input.val(),
 					input_f = input.attr("checked"),
 					flag = 0;
+			if(o.hasClass('filter-choice')){
+				page = 2;
+			}
 			o.addClass("active").children('input').attr({checked: 'checked'});
 			if(!switcher || input_v=="all"){ //单选
 				siblings.removeClass("active").children('input').removeAttr('checked');
@@ -22,6 +26,8 @@ var Filter = function(){
 					o.removeClass('active').children('input').removeAttr('checked');
 				}
 			}
+			
+			
 			var checked_input = $("input[checked='checked']");
 			var send_str = "";
 			var i = true;
@@ -33,11 +39,13 @@ var Filter = function(){
 					send_str += "&"+$(this).attr("name")+"=";
 				send_str += $(this).val();
 			});
+			send_str+= "&page="+page;
+			page++;
 			return send_str;
 		},
 		send: function(str){
 			$.ajax({
-				url: "test.php",
+				url: "purchase/ajaxBids",
 				type: 'GET',
 				data: str,
 				dataType: 'json',
@@ -57,7 +65,7 @@ List = function(){
 	return{
 		showMore: function(str){
 			$.ajax({
-				url:'test.php',
+				url:'purchase/ajaxBids',
 				type:'GET',
 				data: str,
 				dataType:'json',
@@ -70,6 +78,7 @@ List = function(){
 
 					}else{
 						//没有更多了
+						alert("没有更多");
 					}
 				}
 			});
@@ -78,7 +87,7 @@ List = function(){
 			$(".loan-list",loan).remove();
 		},
 		createList: function(list){
-			var node = $('<li class="loan-list"><div class="loan-avatar"><img src="'+(list.avatarSrc || "../images/intro-pic_1.png")+'" /><span>信</span></div><div class="loan-title"><a href="'+list.titleHref+'">'+list.title+'</a></div><div class="loan-rate loan-num">'+list.rate+'</div><div class="loan-rank"><div class="rank'+list.rank+'">'+list.rank+'</div></div><div class="loan-amount loan-num">'+list.amount+'</div><div class="loan-time loan-num">'+list.time+'</div><div class="loan-progress"><div class="bar-out"><div class="bar-in"><span class="bar-complete" style="width:'+list.progress+'"></span><span class="bar-num">'+list.progress+'</span></div></div></div></li>')
+			var node = $('<li class="loan-list"><div class="loan-avatar"><img src="'+(list.avatarSrc || "../images/intro-pic_1.png")+'" /><span>信</span></div><div class="loan-title"><a href="'+list.titleHref+'">'+list.title+'</a></div><div class="loan-rate loan-num">'+list.rate+'</div><div class="loan-rank"><div class="rank'+list.rank+'">'+list.rank+'</div></div><div class="loan-amount loan-num">'+list.amount+'</div><div class="loan-time loan-num">'+list.time+'</div><div class="loan-progress"><div class="bar-out"><div class="bar-in"><span class="bar-complete" style="width:'+list.progress+'"></span><span class="bar-num">'+list.progress+'</span></div></div></div></li>');
 			return node;
 		},
 		insertList: function(list){
@@ -117,10 +126,14 @@ $("#filter-switch").toggle(
 		$(this).removeClass("active");
 	}
 );
+
+//override the chose event
 $(".filter-choice").bind("click",function(){
+
 	var str = Filter.checked($(this));
 	Filter.send(str);
 });
+
 $(".loan-list").live("hover",function(e){
 	if(e.type == "mouseenter"){
 		var href = $(".loan-title a",$(this)).attr("href");
@@ -137,11 +150,25 @@ $("#viewMore").bind("click",function(){
 $("#view-detail").toggle(
 	function(){
 		Lend.viewDetails($("#borrow-brief"),$("#borrow-details"));
-		$("#view-detail").css({background:"url('../images/viewBrief.png')"});
+		$("#view-detail").css({background:"url('/lightning/UED/images/viewBrief.png')"});
 	},
 	function(){
 		Lend.viewDetails($("#borrow-details"),$("#borrow-brief"));
-		$("#view-detail").css({background:"url('../images/viewDetail.png')"})
+		$("#view-detail").css({background:"url('/lightning/UED/images/viewDetail.png')"})
 	}
 );
 Lend.placeholder($("#pay-verify"));
+
+//lend-details
+$(".fakeCheck,label[for='keepSignIn'],label[for='protocal']").toggle(function(){
+		$(this).parent().find("span").css({display: "none"});
+		$(this).siblings("input").removeAttr('checked');
+	},function(){
+		$(this).parent().find("span").css({display: "block"});
+		$(this).siblings("input").attr("checked","checked");
+	});
+$(".details-tab li").bind("click",function(){
+		var i = $(this).index();
+		$(this).addClass("tab-on").siblings().removeClass("tab-on");
+		$(".tab-content").eq(i).addClass("tab-show").siblings().removeClass("tab-show");
+	});

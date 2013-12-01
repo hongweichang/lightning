@@ -36,6 +36,9 @@ class mainConf extends ConfigBase{
 						'credit' =>array(
 								'class' => 'application.modules.credit.CreditModule'
 						),
+						'tender' =>array(
+								'class' => 'application.modules.tender.TenderModule'
+						),
 						'notify' => array(
 								'class' => 'application.modules.notify.NotifyModule',
 								'email' => array(
@@ -51,7 +54,7 @@ class mainConf extends ConfigBase{
 										'From'=>'574891711@qq.com',
 										'FromName'=>'闪电贷',
 										'CharSet'=>'UTF-8',
-								)
+								),
 						),
 				),
 				'import' => array(
@@ -59,11 +62,20 @@ class mainConf extends ConfigBase{
 						
 				),
 				'components' => array(
+						'user' => array(
+								'class' => 'application.modules.user.components.LightningUser',
+								'stateKeyPrefix' => 'FU',
+								'allowAutoLogin' => true,
+								'autoRenewCookie' => true,
+								'guestName' => '游客',
+								'authTimeout' => 3600,
+								'avatarPath' => '/upload/avatar/'
+						),
 						//remote database on aliyun.remote ip
 						'db' => array(
-								'class' => 'system.db.CDbConnection',
+						 'class' => 'system.db.CDbConnection',
 								'autoConnect' => false,
-								'connectionString' => 'mysql:host=115.29.186.221;dbname=lightning',
+								'connectionString' => 'mysql:host=115.29.240.98;dbname=lightning',
 								'emulatePrepare' => true,
 								'username' => 'lancelot',
 								'password' => 'lancelot@lightningdbmysqladmin',
@@ -83,17 +95,17 @@ class mainConf extends ConfigBase{
 								'tablePrefix' => 'xcms_'
 						),*/
 						//local database
-						/*
-						 'db' =>array(
+						/*'db' =>array(
 						 		'class' => 'system.db.CDbConnection',
 						 		'autoConnect' => false,
 						 		'connectionString' => 'mysql:host=localhost;dbname=lightning',
 						 		'emulatePrepare' => true,
-						 		'username' => 'lancelot',
-						 		'password' => 'lancelot@lightningdbmysqladmin',
+						 		'username' => 'root',
+						 		'password' => '123456',
 						 		'charset' => 'utf8',
 						 		'tablePrefix' => 'xcms_'
 						 ),*/
+
 						'user' => array(
 								'class' => 'cms.modules.accessControl.components.AuthUser',
 								'stateKeyPrefix' => 'FU',
@@ -102,14 +114,14 @@ class mainConf extends ConfigBase{
 								'guestName' => '游客',
 								'authTimeout' => 3600
 						),
-						/*'cache' => array(
+						'cache' => array(
 								'class' => 'CMemCache',
 								'useMemcached' => false,
 								'keyPrefix' => 'lightning',
 								'servers' => array(
 										array(
 												//本地memcached缓存
-												//'host' => 'localhost',
+//												'host' => 'localhost',
 												//阿里云外网IP
 												'host' => '115.29.186.221',
 												//阿里云内网IP，本地测试可以使用本地memcached服务器
@@ -117,16 +129,13 @@ class mainConf extends ConfigBase{
 												'port' => 11211
 										),
 								),
-						),*/
-						/*
-						'cacheDb' => array(
-								'class' => 'CDbCache',
-								'connectionID' => 'db',
-								'cacheTableName' => 'xcms_yii_cache',
-								'autoCreateCacheTable' => false
 						),
-						'cacheApc' => array(),
-						*/
+						'session' => array(
+								'class'=> 'CCacheHttpSession',
+								'cacheID' => 'cache',
+								'autoStart' => true,
+								'timeout' => 3600*24
+						),
 						'clientScript' => array(
 								'scriptMap' => array(
 										'jquery.js' => false,
@@ -136,6 +145,7 @@ class mainConf extends ConfigBase{
 						),
 						'urlManager'=>array(
 								'urlFormat'=>'path',
+								'cacheID' => 'cache',
 								'urlSuffix' => '',
 								'showScriptName' => false,
 								'rules' => require dirname(__FILE__).'/RestApiRules.php',
@@ -151,7 +161,45 @@ class mainConf extends ConfigBase{
 						),
 				),
 				'params' => array(
-						'copyright' => '<p>重庆闪电贷金融信息服务有限公司 版权所有 2007-2013<p><p>Copyright Reserved 2007-2013&copy;闪电贷（www.sddai.com） | 渝ICP备05063398号</p>'
+						'copyright' => '<p>重庆闪电贷金融信息服务有限公司 版权所有 2007-2013<p><p>Copyright Reserved 2007-2013&copy;闪电贷（www.sddai.com） | 渝ICP备05063398号</p>',
+						'roleMap' =>array(
+								'gxjc' => '工薪阶层',
+								'qyz' => '企业主',
+								'wddz' => '网店店主',
+						),
+						'commonUrls' =>array(
+								'index' => '/site',
+								'useHelp' => '#',
+						),
+						'bidsPerPage' => 10,//默认的每次请求的标段条数
+						
+						//标段选择条件参数
+						'selectorMap' => array(
+								'monthRate' => array(//月利率条件
+										'all' => 'all',
+										'5%-10%' => ' month_rate between 5 and 10 ',
+										'11%-15%' => ' month_rate between 11 and 15 ',
+										'16%-20%' => ' month_rate between 16 and 20 ',
+								),
+								'deadline' => array(//借款期限条件
+										'all' => 'all',
+										'3-6' => ' deadline between 3 and 6 ',
+										'7-9' => ' deadline between 7 and 9 ',
+										'10-12' => ' deadline between 10 and 12 ',
+								),
+								'authenGrade' => array(//认证等级条件
+										'all' => 'all',
+										'AA' => " authenGrade = 'AA' ",
+										'AAA' => " authenGrade = 'AAA' ",
+										'HR' => " authenGrade = 'HR' ",
+								),
+						),
+						//月利率的查询条件
+						'monthRate' => array('5%-10%','11%-15%','16%-20%',),
+						//借款期限的查询条件
+						'deadline' => array('3-6','7-9','10-12',),
+						//认证等级的查询条件
+						'authenGrade' => array('AA','AAA','HR',),
 				),
 		);
 	}
