@@ -6,7 +6,9 @@
  * Encoding UTF-8
  */
 class SiteController extends Controller{
-	
+	public function noneLoginRequired(){
+		return 'index';
+	}
 	
 	public function actionIndex(){
 		
