@@ -4,7 +4,11 @@
     <meta charset="UTF-8" />
     <title>闪电贷</title>
     <link rel="stylesheet" type="text/css" href="../css/common.css" />
+    <link rel="stylesheet" type="text/css" href="../css/datepicker.css" />
     <link rel="stylesheet" type="text/css" href="../css/message.css" />
+    <script type="text/javascript" src="../javascript/jquery-1.8.2.min.js"></script>
+    <script type="text/javascript" src="../javascript/jquery.validate.min.js"></script>
+    <script type="text/javascript" src="../javascript/datepicker.js"></script>
 </head>
 <body>
     <div id="header">
@@ -104,24 +108,44 @@
                 <form method="post" action="#" id="borrow-message">
                     <ul>
                         <li class="message-item">
-                            <div>
                                 <label>标段名字:</label>
-                                <input type="text" name="writeBidInfoForm['bidname']" maxlength="4" />
-                            </div>
+                                <input type="text" maxlength="10" />
+                            <p class="message-hint">申请借款的用户需要根据不同的产品提交相应的信用认证材料，经过闪电贷审核后获取相应的信用级及借款额度。</p>
                         </li>
                         <li class="message-item">
                             <label>借款金额:</label>
                             <input type="text" />
+                            <span class="unit">元<span>
                         </li>
                         <li class="message-item">
                             <label>标段利率:</label>
                             <input type="text" />
+                            <span class="unit">%</span>
                         </li>
                         <li class="message-item">
                             <label>标段期限:</label>
                             <input type="text" />
+                            <span class="unit">月</span>
+                        </li>
+                        <li class="message-item">
+                            <div class="input-daterange" id="datepicker">
+                                <p>
+                                    <label>招标开始时间:</label>
+                                    <input type="text" class="input-small" name="start" />
+                                </p>
+                                <p><span class="add-on">to</span></p>
+                                <p>
+                                    <label>招标结束时间:</label>
+                                    <input type="text" class="input-small" name="end" />
+                                </p>
+                            </div>
+                        </li>
+                        <li class="message-item">
+                            <label>标段介绍:</label>
+                            <textarea></textarea>
                         </li>
                     </ul>
+                    <p><input type="submit" value="下一步" id="message-next"  /> </p>
                 </form>
             </div>
         </div>
@@ -189,5 +213,12 @@
             </div>
         </div>
     </div>
+    <script type="text/javascript">
+        $('.input-daterange').datepicker({
+            startDate: "today",
+            language: "zh-CN",    
+            todayHighlight: true
+        });
+    </script>
 </body>
 </html>

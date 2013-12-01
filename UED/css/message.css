@@ -89,20 +89,28 @@
   #container h2 span {
     color: red; }
 #container .adu-detail {
-  margin: 25px auto 0;
+  margin: 25px auto 60px;
   padding: 20px 66px;
   border: 2px solid #eaeaea;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
   background: white; }
 #container .aud-ucenter {
-  text-align: right; }
+  text-align: right;
+  margin-bottom: 40px; }
   #container .aud-ucenter a {
     color: #767676;
     font-size: 12px; }
+#container input {
+  border: 1px solid #dfdfdf; }
+#container input:hover,
+#container input:focus {
+  border-color: #2d9194;
+  outline: 0; }
 #container .adu-progress {
   float: left;
-  width: 238px;
+  width: 160px;
   height: 970px;
+  margin: 8px 0 0 60px;
   padding-left: 30px;
   border-left: 3px solid #2d9194; }
   #container .adu-progress li {
@@ -117,16 +125,32 @@
 #container #borrow-message {
   float: left; }
   #container #borrow-message li {
-    height: 190px; }
-    #container #borrow-message li div {
-      height: 32px;
-      line-height: 32px; }
+    position: relative;
+    height: 194px; }
     #container #borrow-message li label {
       font-size: 28px;
       color: #8a8a8a; }
     #container #borrow-message li input {
       height: 28px;
-      line-height: 28px; }
+      padding: 3px;
+      line-height: 28px;
+      text-align: center; }
+    #container #borrow-message li .unit {
+      position: absolute;
+      top: 5px;
+      right: 10px; }
+  #container #borrow-message #message-next {
+    border: 0;
+    width: 100px;
+    height: 30px;
+    margin-left: 80px;
+    background-color: #2d9194;
+    font-size: 20px;
+    color: #fff;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    cursor: pointer; }
 #container .adu-det-step {
   float: left;
   width: 229px;
@@ -153,3 +177,35 @@
   height: 745px;
   margin-left: 25px;
   background: #fff; }
+
+.message-item label {
+  float: left;
+  width: 200px;
+  padding-right: 10px;
+  text-align: right; }
+.message-item input {
+  float: left;
+  width: 274px; }
+.message-item .add-on {
+  margin-left: 330px; }
+.message-item textarea {
+  width: 272px;
+  height: 140px;
+  padding: 4px;
+  font-size: 14px; }
+.message-item .message-hint {
+  float: right;
+  width: 280px;
+  overflow: hidden;
+  margin: 5px 0 0 0;
+  font-size: 12px;
+  color: #dfdfdf;
+  clear: both; }
+
+#datepicker p:after {
+  visibility: hidden;
+  display: block;
+  font-size: 0;
+  content: " ";
+  clear: both;
+  height: 0; }

@@ -26,6 +26,10 @@ class mainConf extends ConfigBase{
 								'class' => 'application.modules.pay.PayModule'
 						),
 						
+						'admin' => array(
+							'class' => 'application.modules.admin.AdminModule'
+						),
+						
 						'user' => array(
 								'class' => 'application.modules.user.UserModule'
 						),
@@ -58,17 +62,6 @@ class mainConf extends ConfigBase{
 						
 				),
 				'components' => array(
-						//remote database on aliyun.remote ip
-						/*'db' => array(
-								'class' => 'system.db.CDbConnection',
-								'autoConnect' => false,
-								'connectionString' => 'mysql:host=115.29.186.221;dbname=lightning',
-								'emulatePrepare' => true,
-								'username' => 'lancelot',
-								'password' => 'lancelot@lightningdbmysqladmin',
-								'charset' => 'utf8',
-								'tablePrefix' => 'xcms_'
-						),*/
 						'user' => array(
 								'class' => 'application.modules.user.components.LightningUser',
 								'stateKeyPrefix' => 'FU',
@@ -77,6 +70,17 @@ class mainConf extends ConfigBase{
 								'guestName' => '游客',
 								'authTimeout' => 3600,
 								'avatarPath' => '/upload/avatar/'
+						),
+						//remote database on aliyun.remote ip
+						'db' => array(
+						 'class' => 'system.db.CDbConnection',
+								'autoConnect' => false,
+								'connectionString' => 'mysql:host=115.29.240.98;dbname=lightning',
+								'emulatePrepare' => true,
+								'username' => 'lancelot',
+								'password' => 'lancelot@lightningdbmysqladmin',
+								'charset' => 'utf8',
+								'tablePrefix' => 'xcms_'
 						),
 						//internal database.ip 10.161.180.53
 						/*
@@ -91,8 +95,7 @@ class mainConf extends ConfigBase{
 								'tablePrefix' => 'xcms_'
 						),*/
 						//local database
-						
-						 'db' =>array(
+						/*'db' =>array(
 						 		'class' => 'system.db.CDbConnection',
 						 		'autoConnect' => false,
 						 		'connectionString' => 'mysql:host=localhost;dbname=lightning',
@@ -101,33 +104,29 @@ class mainConf extends ConfigBase{
 						 		'password' => '123456',
 						 		'charset' => 'utf8',
 						 		'tablePrefix' => 'xcms_'
-						 ),
-						/*'cache' => array(
+						 ),*/
+						'cache' => array(
 								'class' => 'CMemCache',
 								'useMemcached' => false,
 								'keyPrefix' => 'lightning',
-								'useMemcached' => false,
 								'servers' => array(
 										array(
 												//本地memcached缓存
-												'host' => 'localhost',
+//												'host' => 'localhost',
 												//阿里云外网IP
-//												'host' => '115.29.186.221',
+												'host' => '115.29.186.221',
 												//阿里云内网IP，本地测试可以使用本地memcached服务器
 												//'host' => '10.161.138.206',
 												'port' => 11211
 										),
 								),
-						),*/
-						/*
-						'cacheDb' => array(
-								'class' => 'CDbCache',
-								'connectionID' => 'db',
-								'cacheTableName' => 'xcms_yii_cache',
-								'autoCreateCacheTable' => false
 						),
-						'cacheApc' => array(),
-						*/
+						'session' => array(
+								'class'=> 'CCacheHttpSession',
+								'cacheID' => 'cache',
+								'autoStart' => true,
+								'timeout' => 3600*24
+						),
 						'clientScript' => array(
 								'scriptMap' => array(
 										'jquery.js' => false,
@@ -137,6 +136,7 @@ class mainConf extends ConfigBase{
 						),
 						'urlManager'=>array(
 								'urlFormat'=>'path',
+								'cacheID' => 'cache',
 								'urlSuffix' => '',
 								'showScriptName' => false,
 								'rules' => require dirname(__FILE__).'/RestApiRules.php',

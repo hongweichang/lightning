@@ -319,5 +319,12 @@ class UserInfoController extends Controller{
 		
 	}
 
+	public function actionGetUserLevel($uid){
+		$output = $this->app->getModule('credit')->getComponent('userCreditManager')->getUserCreditLevel($uid);
+		echo $output;
+	}
+
+	
+
 }
 ?>
