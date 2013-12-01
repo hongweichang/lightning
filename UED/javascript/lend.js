@@ -132,11 +132,11 @@ $("#filter-switch").toggle(
 );
 
 //override the chose event
-//$(".filter-choice").bind("click",function(){
-//
-//	var str = Filter.checked($(this));
-//	Filter.send(str);
-//});
+$(".filter-choice").bind("click",function(){
+
+	var str = Filter.checked($(this));
+	Filter.send(str);
+});
 
 $(".loan-list").live("hover",function(e){
 	if(e.type == "mouseenter"){

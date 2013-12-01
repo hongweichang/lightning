@@ -102,7 +102,7 @@ class mainConf extends ConfigBase{
 						 		'charset' => 'utf8',
 						 		'tablePrefix' => 'xcms_'
 						 ),
-						'cache' => array(
+						/*'cache' => array(
 								'class' => 'CMemCache',
 								'useMemcached' => false,
 								'keyPrefix' => 'lightning',
@@ -110,15 +110,15 @@ class mainConf extends ConfigBase{
 								'servers' => array(
 										array(
 												//本地memcached缓存
-												//'host' => 'localhost',
+												'host' => 'localhost',
 												//阿里云外网IP
-												'host' => '115.29.186.221',
+//												'host' => '115.29.186.221',
 												//阿里云内网IP，本地测试可以使用本地memcached服务器
 												//'host' => '10.161.138.206',
 												'port' => 11211
 										),
 								),
-						),
+						),*/
 						/*
 						'cacheDb' => array(
 								'class' => 'CDbCache',
@@ -162,9 +162,8 @@ class mainConf extends ConfigBase{
 								'index' => '/site',
 								'useHelp' => '#',
 						),
-						'purchaseMap' =>array(
-								'bidsPerPage' => 10,//默认的每次请求的标段条数
-						),
+						'bidsPerPage' => 10,//默认的每次请求的标段条数
+						
 						//标段选择条件参数
 						'selectorMap' => array(
 								'monthRate' => array(//月利率条件
