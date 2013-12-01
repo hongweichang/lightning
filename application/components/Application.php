@@ -51,7 +51,8 @@ class Application extends CmsApplication{
 			'siteBanner' => self::PARTITION_METHOD_TIME,
 			'appBanner' => self::PARTITION_METHOD_TIME,
 			'avatar' => self::PARTITION_METHOD_ID,
-			'creditFile' => self::PARTITION_METHOD_ID
+			'creditFile' => self::PARTITION_METHOD_ID,
+			'bidFile' => self::PARTITION_METHOD_ID
 	);
 	/**
 	 * 网站域名
@@ -69,10 +70,20 @@ class Application extends CmsApplication{
 	 */
 	private $_siteBaseUrl = 'http://localhost';
 	/**
+	 * js地址
+	 * @var string
+	 */
+	private $_jsUrl = 'UED/javascript/';
+	/**
+	 * css地址
+	 * @var string
+	 */
+	private $_cssUrl = 'UED/css/';
+	/**
 	 * 网站静态图片地址
 	 * @var string
 	 */
-	private $_imageUrl = 'image/';
+	private $_imageUrl = 'UED/images/';
 	/**
 	 * 上传到网站上的图片的地址
 	 * @var string
@@ -98,10 +109,23 @@ class Application extends CmsApplication{
 	 * @var string
 	 */
 	private $_creditFileUrl = 'upload/credit/';
+	/**
+	 * 标段资料文件地址
+	 * @var string
+	 */
+	private $_bidFileUrl = 'upload/bid/';
 	
 	public function init(){
 		parent::init();
 		$this->_siteBaseUrl = $this->hostName.$this->getUrlManager()->getBaseUrl().'/';
+	}
+	
+	public function setJsUrl($url){
+		$this->_jsUrl = $url;
+	}
+	
+	public function setCssUrl($url){
+		$this->_cssUrl = $url;
 	}
 	
 	public function setImageUrl($url){
@@ -128,6 +152,10 @@ class Application extends CmsApplication{
 		$this->_creditFileUrl = $url;
 	}
 	
+	public function setBidFileUrl($url){
+		$this->_bidFileUrl = $url;
+	}
+	
 	public function setPartitionMethod($config){
 		foreach ( $config as $key => $c ){
 			if ( isset($this->_partitionMethod[$key]) && $c === null ){
@@ -138,8 +166,19 @@ class Application extends CmsApplication{
 		}
 	}
 	
+	public function getSiteBaseUrl(){
+		return $this->_siteBaseUrl;
+	}
+	
+	public function getJsUrl(){
+		return $this->_siteBaseUrl.$this->_jsUrl;
+	}
+	
+	public function getCssUrl(){
+		return $this->_siteBaseUrl.$this->_cssUrl;
+	}
+	
 	public function getImageUrl(){
-		$part = $this->partition($partIn);
 		return $this->_siteBaseUrl.$this->_imageUrl;
 	}
 	
@@ -165,6 +204,11 @@ class Application extends CmsApplication{
 	public function getCreditFileUrl($partIn=null){
 		$part = $this->partition($partIn,'creditFile');
 		return $this->_siteBaseUrl.$part.$this->_creditFileUrl;
+	}
+	
+	public function getBidFileUrl($partIn=null){
+		$part = $this->partition($partIn,'bidFile');
+		return $this->_siteBaseUrl.$part.$this->_bidFileUrl;
 	}
 	
 	public function partition($partIn,$from){

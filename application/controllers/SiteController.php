@@ -11,7 +11,9 @@ class SiteController extends Controller{
 	}
 	
 	public function actionIndex(){
-		echo $this->app->urlManager->getBaseUrl();die;
+		
+		$this->cs->registerCssFile($this->app->getCssUrl().'index.css');
+		$this->cs->registerScriptFile($this->app->getJsUrl().'slide_fade.js',CClientScript::POS_END);
 		$this->render('index');
 	}
 }

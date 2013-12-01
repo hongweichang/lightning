@@ -3,14 +3,17 @@
 <head>
     <meta charset="UTF-8" />
     <title>闪电贷</title>
-    <script type="text/javascript" src="<?php echo $this->scriptUrl; ?>jquery-1.8.2.min.js"></script>    
+    <script type="text/javascript" src="<?php echo $this->scriptUrl; ?>jquery-1.8.2.min.js"></script>
+    <script type="text/javascript">
+     var baseUrl = '<?php echo $this->app->getSiteBaseUrl();?>';
+</script>  
 </head>
 <body>
     <div id="header">
       <div id="he-login">
         <div class="wd1002">
             <p class="he-lo">
-              <a href="#">登陆</a>
+              <a href="#">登录</a>
               <a href="#">注册中心</a>
               <a href="#">帮助中心</a>
             </p>
@@ -31,7 +34,7 @@
         </div>
       </div>
     </div>
-    <div id="container"><?php echo $content; ?></div>
+    <?php echo $content; ?>
     <div id="footer">
       <div class="wd1002">
         <ul id="fo-nav">
