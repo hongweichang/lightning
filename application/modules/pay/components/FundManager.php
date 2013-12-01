@@ -116,7 +116,7 @@ class FundManager extends CApplicationComponent{
 	public function calculate($sum){
 		return $sum;
 	}
-	
+
 	/**
 	 * 
 	 * @param unknown $status
