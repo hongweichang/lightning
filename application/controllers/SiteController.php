@@ -11,6 +11,7 @@ class SiteController extends Controller{
 	}
 	
 	public function actionIndex(){
-		
+		echo $this->app->urlManager->getBaseUrl();die;
+		$this->render('index');
 	}
 }
