@@ -148,6 +148,7 @@ $(".loan-list").live("hover",function(e){
 });
 $("#viewMore").bind("click",function(){
 	var str = Filter.checked($(this));
+	str += '&viewmore=1';
 	List.showMore(str);
 });
 //lend-pay

@@ -22,7 +22,7 @@ class BidInfo extends CActiveRecord
 		
 		return array(
 			'user'=>array(self::BELONGS_TO, 'FrontUser', 'user_id'),
-			'bidMeta'=>array(self::HAS_ONE, 'BidMeta', 'bid_id'),
+			'bidMeta'=>array(self::HAS_MANY, 'BidMeta', 'bid_id'),
 		);
 	}
 

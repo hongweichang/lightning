@@ -52,7 +52,7 @@ class PurchaseController extends Controller {
 		//初始化条件：审核通过，招标已经开始，按时间降序排列
 		$criteria->condition = 'verify_progress=1 AND start < '.time();
 		$criteria->order = 'start DESC';
-		
+		$criteria->with = 'bidMeta';//调用relations   
 		//还要获得购买信息，这里是否要做关联查询？？
 		$dataProvider = new CActiveDataProvider('BidInfo',array(
 				'criteria' => $criteria,
@@ -64,8 +64,19 @@ class PurchaseController extends Controller {
 				)
 		));
 		
-//		$this->wxweven($criteria);
-		
+		/*$testArr = $dataProvider->getData();
+		echo "<pre>";
+		foreach ($testArr as $key => $value) {
+			$bidInfo = $value->bidMeta;
+			foreach ($bidInfo as $val){
+				print_r($val->sum);
+			}
+			
+		}
+		die();
+		$this->wxweven($testArr);
+		$this->wxweven($dataProvider->getData());
+		*/
   		$this->render('showAllBids',array(
   			'monthRate' => $this->_monthRate,
   			'deadline' => $this->_deadline,
@@ -78,35 +89,45 @@ class PurchaseController extends Controller {
 	 * 用于获取Ajax请求
 	 */
 	function actionAjaxBids() {
-		$pageSize = $this->getQuery('pageSize',$this->_bidsPerPage);
-		$page = $this->getQuery('page');
+		$pageSize = (int)$this->getQuery('pageSize',$this->_bidsPerPage);
+		$page = (int)$this->getQuery('page');
 		
 		$model = BidInfo::model();
 		$criteria = new CDbCriteria();
 		$criteria->condition = 'verify_progress=1 AND start < '.time();
 		$criteria->order = 'start DESC';
+		$criteria->with = 'bidMeta';
 
 		/**
 		 * 下面这个利用foreach来遍历二维数组
 		 * 获取Ajax请求的参数
 		 * 并根据Ajax请求的参数，来设置相应的查询条件
 		 */
+		$allCount = 3;//筛选条件，一开始三个参数都是all
 		foreach ($this->_selectorMap as $key => $value) {
 			if(isset($_GET[$key]) && $_GET[$key] != 'all' && $_GET[$key] != '') {
+				$allCount--;
 				$criteria->addCondition($value[$_GET[$key]]);
 			}
 		}
 		
+		
 		$count = $model->count($criteria);//获取总记录数
-		if ( $pageSize * $page > $count ){//后面没有更多记录了
-			$this->response(0);
+//		echo '$pageSize * $page = '.$pageSize .'*'. $page.',$count='.$count.'     ';
+		//有viewmore参数的请求时点击查看更多发起的ajax请求
+		if(isset($_GET['viewmore']) && $_GET['viewmore'] == 1) {
+			if($allCount !== 3)//说明应用了筛选条件
+				$_GET['page'] = --$page;//应用了筛选条件后，要从第一页开始算
+				
+			if ( $pageSize * $page > $count ){//后面没有更多记录了		
+				$this->response(0);
+			}
 		}
 		$pager = new CPagination($count);
 		$pager->pageVar = 'page';
 		$pager->pageSize = $pageSize;
 		$pager->applyLimit($criteria);
 		$data = $model->findAll($criteria);
-		
 		//把从数据库获取到的数据，处理后返回给前台
 		$arr = array();
 		foreach($data as $keyOut => $valueOut) {
@@ -218,6 +239,7 @@ class PurchaseController extends Controller {
 	
 	public function wxweven($data,$die = true) {
 		echo "<meta charset='utf-8'>";
+		echo time();
 		echo "<pre>";
 		print_r($data);
 		if($die)

@@ -1,7 +1,6 @@
 <?php 
 $this->cs->registerCssFile($this->cssUrl.'lend.css');
 $this->cs->registerScriptFile($this->scriptUrl.'lend.js',CClientScript::POS_END);
-
 //echo Yii::app()->getModule('credit')->getComponent('userCreditManager')->getUserCreditLevel($val['user_id']);
 
 //echo "<pre>";
@@ -111,12 +110,20 @@ $this->cs->registerScriptFile($this->scriptUrl.'lend.js',CClientScript::POS_END)
 
                         <div class="loan-amount loan-num">￥<?php echo $val['sum'];?>元</div>
                         <div class="loan-time loan-num"><?php echo $val['deadline'];?>个月</div>
-                        <!-- 进度这个要作关联查询。。。待定 -->
+                        <!-- 进度这个要作关联查询 累加总计的sum -->
+                       		<?php 
+                       				$bidInfo = $val->bidMeta;
+                                    $sum = 0;
+                                    foreach ($bidInfo as $valIn){
+                                    $sum += $valIn->sum;
+                                    }
+                                    $percent = ($sum / $val['sum']) * 100;
+                        	?>
                         <div class="loan-progress">
                             <div class="bar-out">
                                 <div class="bar-in">
-                                    <span class="bar-complete" style="width:30%"></span>
-                                    <span class="bar-num">30%</span>
+                                    <span class="bar-complete" style="width:<?php echo $percent;?>%"></span>
+                                    <span class="bar-num"><?php echo $percent;?>%</span>
                                 </div>
                             </div>
                         </div>
