@@ -97,7 +97,7 @@ class ServiceController extends Controller{
 
 		if(!empty($account) && !empty($email) && !empty($mobile) && !empty($password) && !empty($repassword)){
 			$info = array(
-						'account'=>$account,
+						'nickname'=>$account,
 						'email'=>$email,
 						'mobile'=>$mobile,
 						'password'=>$password,

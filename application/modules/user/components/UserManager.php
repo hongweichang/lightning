@@ -14,7 +14,7 @@ class UserManager extends CApplicationComponent{
 	 */
 	public function register($regInfo,$scenario='reg'){
 		$form = new RegisterForm();
-		
+
 		if ( $regInfo === null ){
 			return $form;
 		}
