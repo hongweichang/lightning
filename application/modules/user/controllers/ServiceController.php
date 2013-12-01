@@ -94,21 +94,23 @@ class ServiceController extends Controller{
 		$mobile = $this->getPost('mobile',null);
 		$password = $this->getPost('password',null);
 		$repassword = $this->getPost('repassword',null);
-
+		
 		if(!empty($account) && !empty($email) && !empty($mobile) && !empty($password) && !empty($repassword)){
 			$info = array(
 						'nickname'=>$account,
 						'email'=>$email,
 						'mobile'=>$mobile,
 						'password'=>$password,
-						'repassword'=>$repassword,
+						'confirm'=>$repassword,
 					);
 			
-			$register = $this->getModule()->getComponent('userManager')->register($info,$scenario='appRegister');
+			$register = $this->getModule()->getComponent('userManager')->register($info,'appRegister');
 			if($register === true)
 				$this->response(200,'注册成功','');
-			else
+			else{
+				var_dump($register->getErrors());
 				$this->response(400,'注册失败','');
+			}
 
 		}else
 			$this->response(401,'信息不完整','');
