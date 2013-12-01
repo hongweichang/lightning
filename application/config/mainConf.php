@@ -102,7 +102,7 @@ class mainConf extends ConfigBase{
 								'guestName' => '游客',
 								'authTimeout' => 3600
 						),
-						'cache' => array(
+						/*'cache' => array(
 								'class' => 'CMemCache',
 								'useMemcached' => false,
 								'keyPrefix' => 'lightning',
@@ -117,7 +117,7 @@ class mainConf extends ConfigBase{
 												'port' => 11211
 										),
 								),
-						),
+						),*/
 						/*
 						'cacheDb' => array(
 								'class' => 'CDbCache',
