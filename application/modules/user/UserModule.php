@@ -11,6 +11,10 @@ class UserModule extends CmsModule{
 						'class' => 'UserManager',
 						'cookieTimeout' => 864000
 				),
+
+				'infoDisposeManager' => array(
+						'class'=>'InfoDisposeManager',
+					),
 		));
 	}
 }

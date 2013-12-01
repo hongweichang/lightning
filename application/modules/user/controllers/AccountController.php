@@ -36,7 +36,7 @@ class AccountController extends Controller{
 		$post = $this->getPost('Register');
 		$userManager = $this->getModule()->getComponent('userManager');
 		
-		$form = $userManager->register($post);
+		$form = $userManager->register($post,'appRegister');
 		
 		if ( $form === true ){
 			$userManager->login(array(

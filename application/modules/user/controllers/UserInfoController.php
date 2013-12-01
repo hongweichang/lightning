@@ -1,7 +1,7 @@
 <?php
 /*
-**用户个人信息处理
-design By HJtianling,2507073658@qq.com
+**用户个人信息管理
+design By HJtianling_LXY,<2507073658@qq.com>
 2013.11.16
 */
 
@@ -20,7 +20,124 @@ class UserInfoController extends Controller{
 		$criteria ->order = 'submit_time DESC';
 
 		$userInfoData = FrontCredit::model()->findAll($criteria);
+		$dataArray = array();
+
+		if(!empty($userInfoData)){
+			foreach($userInfoData as $key=>$value){
+				$infoData[$key] = $value->getAttributes();
+			}
+
+			foreach ($infoData as $value){
+				$dataArray[] = array(
+									'0'=>$value['id'],
+									'1'=>$value['user_id'],
+									'2'=>$value['verification_id'],
+									'3'=>$value['content'],
+									'4'=>$value['submit_time'],
+									'5'=>$value['status'],
+								);
+			}
+			
+			
+		}
+		
+
+		$userInfoData = FrontCredit::model()->findAll($criteria);
+
 		$this->render('index',array('userInfo'=>$userInfoData));
+
+	}
+
+	
+	public function actionOutputInfoByExcel(){
+		$criteria = new CDbCriteria;
+		$criteria ->select = 'id,user_id,verification_id,content,submit_time,status,description';
+		$criteria ->order = 'submit_time DESC';
+
+		$userInfoData = FrontCredit::model()->findAll($criteria);
+		$dataArray = array();
+
+		if(!empty($userInfoData)){
+			foreach($userInfoData as $key=>$value){
+				$infoData[$key] = $value->getAttributes();
+			}
+
+			foreach ($infoData as $value){
+				$dataArray[] = array(
+									'0'=>$value['id'],
+									'1'=>$value['user_id'],
+									'2'=>$value['verification_id'],
+									'3'=>$value['content'],
+									'4'=>date('Y-m-d H:i:s',$value['submit_time']),
+									'5'=>$value['status'],
+								);
+			}
+			
+			
+		}
+
+		$titleArray = array(
+						'0'=>'项目编号',
+						'1'=>'用户Id',
+						'2'=>'审核项编号',
+						'3'=>'审核项内容',
+						'4'=>'提交时间',
+						'5'=>'审核状态'
+					);
+		//var_dump($dataArray);
+		//die();
+		$output = $this->app->getModule('user')->getComponent('infoDisposeManager')->ExcelOutput($titleArray,$dataArray);
+	}
+
+	public function ExcelOutput($title,$data){
+		Yii::import('application.extensions.PHPExcel.*');
+		spl_autoload_unregister(array('YiiBase','autoload'));
+		include dirname(Yii::app()->basePath).'/application/extensions/PHPExcel/PHPExcel.php';
+		include dirname(Yii::app()->basePath).'/application/extensions/PHPExcel/PHPExcel/IOFactory.php';
+		include dirname(Yii::app()->basePath).'/application/extensions/PHPExcel/PHPExcel/Writer/Excel5.php';
+		$excelData = new PHPExcel();
+
+		if(!empty($title) && is_array($title) && !empty($title) && is_array($title)){
+			$titleNumber = 1;
+			$titleLevel = 'A';
+
+			foreach($title as $value){
+				$excelData->getActiveSheet()->setCellValue($titleLevel.$titleNumber,$value);
+				$titleLevel++;
+			}
+
+		
+			foreach($data as $value){
+				$titleLevelPointer = 'A';
+				$titleNumber++;
+
+				foreach($value as $key){
+					$excelData->getActiveSheet()->setCellValue($titleLevelPointer.$titleNumber,$key);
+					$titleLevelPointer++;
+				}
+			
+			}
+			 
+
+			$OutputFilname = 'excelFile.xls';
+			//$objWriter = new PHPExcel_Writer_Excel2007($excelData);
+			$objWriter = new PHPExcel_Writer_Excel5($excelData);
+			header("Pragma: public");
+			header("Expires: 0");
+			header('Cache-Control:must-revalidate, post-check=0, pre-check=0');
+			header("Content-Type:application/force-download");
+			header("Content-Type:application/vnd.ms-execl");
+			header("Content-Type:application/octet-stream");
+			header("Content-Type:application/download");;
+			header('Content-Disposition:attachment;filename='.$OutputFilname.'');
+			header("Content-Transfer-Encoding:binary");
+			$objWriter->save('php://output');
+
+			spl_autoload_register(array('YiiBase','autoload'));
+			
+		}
+		
+
 	}
 
 	/*
@@ -54,6 +171,7 @@ class UserInfoController extends Controller{
 
 	}
 
+
 	/*
 	**用户附件上传
 	*/
@@ -66,7 +184,7 @@ class UserInfoController extends Controller{
 				$fileName = $fileInfo->name;
 				$fileType =  pathinfo($fileName, PATHINFO_EXTENSION); 
 
-				$uploadDir = dirname(Yii::app()->basePath)."/upload/FrontCredit/".$fileType.'/';
+				$uploadDir = dirname(Yii::app()->basePath)."/upload/credit/".$fileType.'/';
 				$dateDir = date('Ym')."/";
 				$uploadDir = $uploadDir.$dateDir;
 
