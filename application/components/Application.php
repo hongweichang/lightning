@@ -59,7 +59,7 @@ class Application extends CmsApplication{
 	 * 格式为http[s]://foo.bar.com
 	 * @var string
 	 */
-	public $hostName = 'http://localhost';
+	public $hostName = 'http://localhost:8080';
 	/**
 	 * 网站基地址
 	 * 值为 $hostName + UrlManager::getBaseUrl()
@@ -68,7 +68,7 @@ class Application extends CmsApplication{
 	 * 此设计是为了能够在使用磁盘地址的时候复用
 	 * @var string
 	 */
-	private $_siteBaseUrl = 'http://localhost';
+	private $_siteBaseUrl = 'http://localhost:8080';
 	/**
 	 * js地址
 	 * @var string
