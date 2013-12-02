@@ -94,6 +94,10 @@ body{
 .wd1002{
   @extend %w1002center;
 }
+.wd989{
+  width: 989px;
+  margin: 0 auto;
+}
 #he-login{
   @extend %w100;
   height: 25px;
