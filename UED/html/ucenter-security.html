@@ -5,6 +5,8 @@
     <title>闪电贷</title>
     <link rel="stylesheet" type="text/css" href="../css/common.css" />
     <link rel="stylesheet" type="text/css" href="../css/detail.css" />
+    <script type="text/javascript" src="../javascript/jquery-1.8.2.min.js"></script>
+    <script type="text/javascript" src="../javascript/jquery.validate.min.js"></script>
 </head>
 <body>
     <div id="header">
@@ -80,13 +82,13 @@
             <div class="aud-find">
                 <ul id="find-table-button">
                     <a href="">
-                        <li class="find-table-0"><div class="find-table-op find-table-op-hidden"></div>我的借款</li>
+                        <li class="find-table-0"><div class="find-table-op find-table-op"></div>我的借款</li>
                     </a>
                     <a href="">
                         <li class="find-table-1"><div class="find-table-op"></div>我的投资</li>
                     </a>
                     <a href="">
-                        <li class="find-table-2"><div class="find-table-op"></div>安全中心</li>
+                        <li class="find-table-2"><div class="find-table-op-hidden"></div>安全中心</li>
                     </a>
                     <a href="">
                         <li class="find-table-3"><div class="find-table-op"></div>个人信息</li>
@@ -95,129 +97,104 @@
                         <li class="find-table-4"><div class="find-table-op"></div>资金管理</li>
                     </a>
                 </ul>
-                <div class="find-table-box find-table-box-show">
-                    <div class="tab-border tab-top"></div>
-                    <div class="tab-border tab-bottom"></div>
-                    <div class="tab-border-l tab-left"></div>
-                    <div class="tab-border-l tab-right"></div>
-                    <div class="table-content">
-                        <div class="tab-content-l">
-                            <div class="tab-border-l tab-right"></div>
-                            <p>借款总金额<span>0.00<span>元</span></span></p>
+                <ul id="security-set">
+                    <h3>安全设置</h3>
+                    <li>
+                        <div class="clearfix sec-fold">
+                            <div class="sec-img ico-nick"></div>
+                            <p class="sec-val">昵称</p>
+                            <p class="sec-status">已设置</p>
+                            <div class="sec-update">果冻</div>
                         </div>
-                        <div class="tab-content-r">
-                            <p><span>逾期金额</span><span>待还金额</span><span>近30天应还金额</span></p>
-                            <p class="aud-det-money"><span>0.00元</span><span>0.00元</span><span>0.00元</span></p>
-                            <p class="aud-det-prompt">您最近10天内有 0笔 借款须归还，总额 0.00元</p>
+                    </li>
+                    <li>
+                        <div class="clearfix sec-fold">
+                            <div class="sec-img ico-id"></div>
+                            <p class="sec-val">实名认证</p>
+                            <p class="sec-status">33**********</p>
+                            <div class="sec-update">王**</div>
                         </div>
-                    </div>
-                </div>
-                <ul id="find-table-detail">
-                    <li class="find-selected">还款中借款</li>
-                    <li>已还清借款</li>
-                    <li>借款申请查询</li>
+                    </li>
+                    <li>
+                        <div class="clearfix sec-fold">
+                            <div class="sec-img ico-pwd"></div>
+                            <p class="sec-val">登录密码</p>
+                            <p class="sec-status">已设置</p>
+                            <div class="sec-update">
+                                <a href="javascript:;">修改</a>
+                            </div>
+                        </div>
+                        <div class="sec-unfold">
+                            <form>
+                                <div class="form-item">
+                                    <label>当前密码</label>
+                                    <input type="password" />
+                                </div>
+                                <div class="form-item">
+                                    <label>新密码</label>
+                                    <input type="password" />
+                                </div>
+                                <div class="form-item">
+                                    <label>确认密码</label>
+                                    <input type="password" />
+                                </div>
+                                <div class="form-item">
+                                    <input type="submit" class="form-button" value="保存修改"/>
+                                </div>
+                            </form>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="clearfix sec-fold">
+                            <div class="sec-img ico-mail"></div>
+                            <p class="sec-val">绑定邮箱</p>
+                            <p class="sec-status">未设置</p>
+                            <div class="sec-update">
+                                <a href="javascript:;">设置</a>
+                            </div>
+                        </div>
+                        <div class="sec-unfold">
+                            <form>
+                                <div class="form-item">
+                                    <label>当前密码</label>
+                                    <input type="password" />
+                                </div>
+                                <div class="form-item">
+                                    <label>新密码</label>
+                                    <input type="password" />
+                                </div>
+                                <div class="form-item">
+                                    <label>确认密码</label>
+                                    <input type="password" />
+                                </div>
+                                <div class="form-item">
+                                    <input type="submit" class="form-button" value="保存修改"/>
+                                </div>
+                            </form>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="clearfix sec-fold">
+                            <div class="sec-img ico-phone"></div>
+                            <p class="sec-val">绑定手机</p>
+                            <p class="sec-status">136****9982</p>
+                            <div class="sec-update">
+                                <a href="javascript:;">修改</a>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="clearfix sec-fold">
+                            <div class="sec-img ico-paywd"></div>
+                            <p class="sec-val">交易密码</p>
+                            <p class="sec-status">已设置</p>
+                            <div class="sec-update">
+                                <a href="javascript:;">修改 |</a>
+                                <a href="javascript:;">找回</a>
+                            </div>
+                        </div>
+                    </li>
                 </ul>
-                <div class="find-table-content find-table-content-show">
-                    <ul>
-                        <li>
-                            <span>借款人</span>
-                            <span>借款标题</span>
-                            <span>年利率</span>
-                            <span>还款金额</span>
-                            <span>期限</span>
-                            <span class="deadline">结束时间</span>
-                            <span class="repay">还款</span>
-                        </li>
-                        <li>
-                            <span><img src="#" /></span>
-                            <span>再次支持免费充值</span>
-                            <span>10.00 % </span>
-                            <span>￥25000元</span>
-                            <span>3个月</span>
-                            <span class="deadline">2013-11-15 23:59</span>
-                            <span class="repay">
-                                <a href="">
-                                    <img src="../images/repay.png" />
-                                </a>
-                            </span>
-                        </li>
-                        <li>
-                            <span><img src="#" /></span>
-                            <span>再次支持免费充值</span>
-                            <span>10.00 % </span>
-                            <span>￥25000元</span>
-                            <span>3个月</span>
-                            <span class="deadline">2013-11-15 23:59</span>
-                            <span class="repay">
-                                <a href="">
-                                    <img src="../images/repay.png" />
-                                </a>
-                            </span>
-                        </li>
-                    </ul>
-                </div>
-                <div class="find-table-content">
-                    <ul>
-                        <li>
-                            <span>借款人</span>
-                            <span>借款标题</span>
-                            <span>年利率</span>
-                            <span>还款金额</span>
-                            <span>期限</span>
-                            <span class="deadline">还清时间</span>
-                            <span class="repay">合同</span>
-                        </li>
-                        <li>
-                            <span><img src="#" /></span>
-                            <span>再次支持免费充值</span>
-                            <span>10.00 % </span>
-                            <span>￥25000元</span>
-                            <span>3个月</span>
-                            <span class="deadline">2013-11-15 23:59</span>
-                            <span class="repay"><a href="">查看</a></span>
-                        </li>
-                        <li>
-                            <span><img src="#" /></span>
-                            <span>再次支持免费充值</span>
-                            <span>10.00 % </span>
-                            <span>￥25000元</span>
-                            <span>3个月</span>
-                            <span class="deadline">2013-11-15 23:59</span>
-                            <span class="repay"><a href="">查看</a></span>
-                        </li>
-                    </ul>
-                </div>
-                <div class="find-table-content">
-                    <ul>
-                        <li>
-                            <span>借款人</span>
-                            <span>借款标题</span>
-                            <span>年利率</span>
-                            <span>还款金额</span>
-                            <span>期限</span>
-                            <span class="deadline">状态</span>
-                            <span class="repay">操作</span>
-                        </li>
-                        <li>
-                            <span><img src="#" /></span>
-                            <span>再次支持免费充值</span>
-                            <span>10.00 % </span>
-                            <span>￥25000元</span>
-                            <span>3个月</span>
-                            <span class="deadline">正在审核</span>
-                            <span class="repay"><a href="">查看</a></span>
-                        </li>
-                        <li>
-                            <span><img src="#" /></span>
-                            <span>再次支持免费充值</span>
-                            <span>10.00 % </span>
-                            <span>￥25000元</span>
-                            <span>3个月</span>
-                            <span class="deadline">已流标</span>
-                            <span class="repay"><a href="">查看</a></span>
-                        </li>
-                    </ul>
-                </div>
             </div>
         </div>
     </div>
@@ -284,7 +261,7 @@
             </div>
         </div>
     </div>
-<script type="text/javascript" src="../javascript/jquery-1.8.2.min.js"></script>
 <script type="text/javascript" src="../javascript/tableChange.js"></script>
+<script type="text/javascript" src="../javascript/update.js"></script>
 </body>
 </html>
