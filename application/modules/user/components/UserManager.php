@@ -43,6 +43,7 @@ class UserManager extends CApplicationComponent{
 
 		if ( $info !== null ){
 			$login->attributes = $info;
+			
 			if ( $login->rememberMe !== 'on' ){
 				$this->cookieTimeout = 0;
 			}

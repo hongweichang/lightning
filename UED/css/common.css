@@ -49,6 +49,10 @@ body {
 #header {
   overflow: hidden; }
 
+.wd989 {
+  width: 989px;
+  margin: 0 auto; }
+
 #he-login {
   height: 25px;
   background: url("../images/h_bg.png"); }

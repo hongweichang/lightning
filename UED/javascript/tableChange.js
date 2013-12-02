@@ -2,7 +2,7 @@
  * Created with JetBrains WebStorm.
  * User: Soul
  * Date: 13-11-6
- * Time: 下午6:37
+ * Time: 涓嬪崍6:37
  * To change this template use File | Settings | File Templates.
  */
 
@@ -23,7 +23,7 @@ var viewTable = function (controlObject) {
 
         }
 
-        //此处事件绑定直接改为jquery即可
+        //姝ゅ浜嬩欢缁戝畾鐩存帴鏀逛负jquery鍗冲彲
         this.parentEle.click(function (e) {
             var clickEle = e.target;
             if (clickEle.tagName.toUpperCase() === _this.clickEle) {
@@ -43,14 +43,14 @@ viewTable.prototype.display = function (index,className) {
     this.controlEle.eq(index).addClass(className);
     this.childEle.eq(index).addClass(this.buttonStyle);
 };
-new viewTable({
+/*new viewTable({
     ele : $("#find-table-button"),
     eleChild: $(".find-table-op"),
     eleControl : $(".find-table-box"),
     clickEle: "DIV",
     classStr : "find-table-box-show",
     buttonStyle: "find-table-op-hidden"
-});
+});*/
 new viewTable({
     ele : $("#find-table-detail"),
     eleChild: $("#find-table-detail li"),
