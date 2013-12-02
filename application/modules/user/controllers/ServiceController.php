@@ -55,6 +55,7 @@ class ServiceController extends Controller{
 	*/
 	public function actionLogin(){
 		if($this->app->getUser()->getIsGuest()){
+
 			$account = $this->getPost('account',null);
 			$password = $this->getPost('password',null);
 
@@ -64,7 +65,8 @@ class ServiceController extends Controller{
 							'password'=>$password,
 						);
 
-				$login = $this->getModule()->getComponent('userManager')->login($info);
+
+				$login = $this->getModule('user')->getComponent('userManager')->login($info);
 
 				if($login === true)
 					$this->response(200,'登陆成功','');

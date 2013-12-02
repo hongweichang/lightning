@@ -56,6 +56,10 @@ class mainConf extends ConfigBase{
 										'CharSet'=>'UTF-8',
 								),
 						),
+
+						'appservice' => array(
+								'class' => 'application.modules.appservice.AppserviceModule',
+						),
 				),
 				'import' => array(
 						'application.extensions.PHPExcel.PHPExcel.*'
@@ -111,8 +115,9 @@ class mainConf extends ConfigBase{
 								'keyPrefix' => 'lightning',
 								'servers' => array(
 										array(
+												//'host' => 'localhost',
 												//本地memcached缓存
-//												'host' => 'localhost',
+//												
 												//阿里云外网IP
 												'host' => '115.29.186.221',
 												//阿里云内网IP，本地测试可以使用本地memcached服务器
