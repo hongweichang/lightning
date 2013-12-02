@@ -105,9 +105,18 @@ class mainConf extends ConfigBase{
 						 		'charset' => 'utf8',
 						 		'tablePrefix' => 'xcms_'
 						 ),*/
+
+						'user' => array(
+								'class' => 'cms.modules.accessControl.components.AuthUser',
+								'stateKeyPrefix' => 'FU',
+								'allowAutoLogin' => true,
+								'autoRenewCookie' => true,
+								'guestName' => '游客',
+								'authTimeout' => 3600
+						),
 						'cache' => array(
 								'class' => 'CMemCache',
-								'useMemcached' => true,
+								'useMemcached' => false,
 								'keyPrefix' => 'lightning',
 								'servers' => array(
 										array(
