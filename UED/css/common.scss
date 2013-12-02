@@ -262,6 +262,7 @@ $a:(20,30);
   line-height: 30px;
   color:#fff;
   @include font(16px);
+  text-align: center;
   font-weight:bold;
 }
 .rankA{ @include bgColor(#00ffcc);}

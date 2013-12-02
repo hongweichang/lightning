@@ -8,8 +8,9 @@
 $dir = dirname(__FILE__);
 require $dir.'/../XCms/cms.php';
 require $dir.'/application/config/mainConf.php';
+require $dir.'/application/config/Env.php';
 $config = new mainConf();
-$environment = new Environment($config);
+$environment = new Env($config,'Application');
 $environment->basePath = $dir.DS.'application'.DS;
 $environment->run();
 ?>

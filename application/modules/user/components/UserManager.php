@@ -14,7 +14,7 @@ class UserManager extends CApplicationComponent{
 	 */
 	public function register($regInfo,$scenario='reg'){
 		$form = new RegisterForm();
-		
+
 		if ( $regInfo === null ){
 			return $form;
 		}
@@ -43,6 +43,7 @@ class UserManager extends CApplicationComponent{
 
 		if ( $info !== null ){
 			$login->attributes = $info;
+			
 			if ( $login->rememberMe !== 'on' ){
 				$this->cookieTimeout = 0;
 			}
@@ -55,20 +56,7 @@ class UserManager extends CApplicationComponent{
 	}
 
 	
-	public function getUserInfo($id,$criteria,$params){
-		$user = FrontUser::model()->with('baseUser')->findByPk($id,$criteria,$params);
-	}
-	
-	/**
-	 * 更新用户余额
-	 * @param int $uid
-	 * @param double $sum
-	 * @return boolean
-	 */
-	public function updateBalance($uid,$sum){
-		$user = FrontUser::model()->findByPk($uid);
-		if($user === null) return false;
-		
-		return $user->updateCounters(array('balance' => $sum * 100));
+	public function getUserInfo($uid,$condition='',$params=array()){
+		return FrontUser::model()->with('baseUser')->findByPk($uid,$condition,$params);
 	}
 }

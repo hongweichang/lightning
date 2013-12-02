@@ -23,6 +23,8 @@ class PayModule extends CmsModule
 				'class' => 'FundManager',
 			),
 		));
+		
+		
 	}
 
 	public function beforeControllerAction($controller, $action)

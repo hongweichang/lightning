@@ -1,4 +1,21 @@
 @import "common.scss";
+@mixin block ($width,$height,$border:none){
+  width: $width;
+  height: $height;
+  border: $border;
+}
+@mixin fontSet($color,$size){
+  font:{
+    size: $size;
+  }
+  color: $color;
+}
+%normalFont{
+  font: {
+    weight: normal;
+    family: "Microsoft Yahei";
+  };
+}
 body{
   background: url("../images/bg.jpg") repeat;
 }
@@ -32,6 +49,9 @@ body{
   h4{
     @include font(23px);
   }
+}
+.loan-filter.creditor{
+  border-color:#9ed8ca;
 }
 .guide{
   float: left;
@@ -74,6 +94,13 @@ body{
     background-color:#a8f48b;
     cursor: pointer;
   }
+  .filter-choice.creditor.active{
+    background-color:#9ed8ca;
+  }
+  .filter-choice.creditor:hover{
+    background-color:#9ed8ca;
+    cursor: pointer;
+  }
 }
 #filter-switch{
   display: block;
@@ -104,6 +131,9 @@ body{
 .loan{
   .title{
     background-color:#a8f48b;
+  }
+  .title.creditor{
+    background-color:#9ed8ca;
   }
   
   li{ 
@@ -466,4 +496,460 @@ body{
   .post{ background: url("../images/bank.jpg") no-repeat 0px -231px;}
   .spdb{ background: url("../images/bank.jpg") no-repeat 0px -132px;}
   .cgb{ background: url("../images/bank.jpg") no-repeat 0px -165px;}
+}
+
+
+//lend-details
+#lend-details{
+  background: #fff;
+  padding: 10px 30px 40px;
+}
+.details-head{
+  position: relative;
+  height: 16px;
+  border-bottom: 2px dashed #c7c7c7;
+  margin-bottom: 40px;
+  font-size: 14px;
+  div{
+    position: absolute;
+    background: #fff;
+    a{
+      display: block;
+      padding: 5px 8px;
+      border: 1px solid #979797;
+      color:#979797;
+      @include radius(5px);
+    }
+    a:visited{
+      color:#979797;
+    }
+  }
+  .return{
+    left:0;
+    padding-right: 20px;
+  }
+  .balance{
+    right: 0;
+    padding-left: 20px;
+    span{
+      color: #787878;
+    }
+  }
+  .name{
+    margin-left: 380px;
+    padding: 6px 20px;
+    font-size: 16px;
+    color: #787878;
+  }
+}
+.details-info,
+.details-lend{
+  float: left;
+  height: 380px;
+  border: 1px solid #c7c7c7;
+  @include radius(5px);
+  .info-title{
+    padding: 10px 13px;
+    background: #f0f5f7;
+    border-bottom: 1px solid #c7c7c7;
+    -webkit-border-top-left-radius: 5px;
+    -webkit-border-top-right-radius: 5px; 
+    -moz-border-top-left-radius:5px;
+    -moz-border-top-right-radius:5px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+  }
+}
+.info-subtitle{
+  float: right;
+  margin-top:5px;
+  font-size: 12px;
+  color: #c7c7c7;
+}
+.details-info{
+  width: 628px;
+}
+.details-lend{
+  width: 290px;
+  margin-left: 20px;
+}
+.info-content{
+  padding: 50px 50px 42px;
+  div{
+    float: left;
+  }
+  p{
+    overflow: hidden;
+    font-size: 12px;
+  }
+  .info-content-val{
+    line-height: 70px;
+    @include font(36px);
+    color:#69737b;
+    font-weight: bold;
+    span{
+      font-size: 16px;
+      font-weight: normal;
+    }
+  }
+  .info-content-rank{
+    margin-top: 20px;
+  }
+  .info-content-l{
+    width: 275px;
+    height: 94px;
+  }
+  .info-content-l.small{
+    width: 122px;
+  }
+  .info-content-r{
+    width: 235px;
+    height: 94px;
+  }
+}
+.info-content-term{
+    position: relative;
+    margin-left: 42px;
+    padding-left:10px;
+    height: 70px;
+    border-left: 2px solid #69737b;
+    .term-start,
+    .term-end{
+      position: absolute;
+      width: 230px;
+      left: -12px;
+      line-height: 1;
+      p{
+        padding-left: 10px;
+      }
+    }
+    .term-start{
+      top: 0;
+    }
+    .term-end{
+      bottom:0;
+    }
+    .term-ico{
+      background: #fff;
+      padding: 2px;
+      border: 1px solid #69737b;
+      line-height:1;
+      @include radius(50%);
+    }
+    p{
+      font-size: 22px;
+    }
+}
+.info-progress{
+  height: 57px;
+  line-height: 57px;
+  .loan-progress{
+    float: left;
+    width:223px;
+    height: 57px;
+    padding:0 45px;
+    border-top: 1px solid #c7c7c7;
+    border-right: 1px solid #c7c7c7;
+    span{
+      font-size: 12px;
+    }
+    .tick{
+      font-weight: 900;
+      margin-right: 5px;
+    }
+    .bar-out{
+      position: relative;
+      top: 5px;
+      margin: 0 auto;
+      width: 80px;
+      height: 25px;
+      border: 1px solid #226e72;
+      @include radius(5px);
+    }
+    .bar-in{
+      float:left;
+      position: relative;
+      margin: 24px 10px;
+      width: 116px;
+      height: 12px;
+      background-color:#e4e4e4;
+      @include radius(5px);
+      span{
+        width:100%;
+        position: absolute;
+        height: 12px;
+        line-height: 21px;
+        text-align: center;
+        font-size: 12px;
+        color:#fff;
+      }
+    }
+    .bar-complete{
+      border-top-left-radius: 5px;
+      border-bottom-left-radius: 5px;
+      width:0;
+      left:0;
+      background-color:#69737b;
+    }
+    .bar-num{
+      left:0;
+    }  
+  }
+  .loan-progress:last-child{
+    border-right:0;
+  }
+}
+#lend-form,
+#creditor-form{
+  padding:30px 10px 0 28px;
+  font-size: 14px;
+  line-height: 45px;
+  text-align: center;
+  p{
+    line-height: 25px;
+    span{
+      color: #fc8936;
+    }
+  }
+}
+#creditor-form p{line-height:35px;}
+#lend-num{
+  width: 220px;
+  height: 20px;
+  margin-bottom: 25px;
+  padding: 10px 5px;
+  line-height: 40px;
+  @include radius(5px);
+}
+.details-lend input{
+  border: 1px solid #b4b9bd;
+}
+.details-lend input:hover,
+.details-lend input:focus{
+  border-color: #2d9194;
+  outline: 0;
+}
+#verifycode{
+  width: 45px;
+  height: 23px;
+  padding:0 5px;
+  vertical-align: middle;
+}
+#randImage{
+  width: 75px;
+  height: 25px;
+  border: 0;
+  vertical-align: middle;
+}
+#lend-confirm,
+#creditor-confirm{
+  width: 140px;
+  height: 35px;
+  border: none;
+  background-color: #2da9ac;
+  line-height: 36px;
+  color: #fff;
+  text-align: center;
+  cursor: pointer;
+  @include font(20px);
+  @include radius(5px);
+}
+#creditor-confirm{
+  margin-top: 10px;
+}
+.lend-verify{
+  margin-top: 25px;
+}
+.fakeCheck{
+  position: relative;
+  float: left;
+  top: 15px;
+  left: 30px;
+  @include block(13px,13px,1px solid #c9c9c9);
+  span{
+    position: absolute;
+    left: 0;
+    top: -4px;
+    width: 15px;
+    height: 15px;
+    background: url("../images/tick.png") no-repeat;
+  }
+}
+#protocal{
+  display: none;
+}
+#protocal-label{
+  a{
+    color:#25797c;
+  }
+  a:visited{
+    color: #25797c;
+  }
+}
+.details-tab{
+  float: left;
+  margin: 30px 0 18px 0;
+  li{
+    float: left;
+    margin-right: 25px;
+    width: 142px;
+    height: 45px;
+    border: 1px solid #fff;
+    line-height: 45px;
+    text-align: center;
+    cursor: pointer;
+  }
+  li:hover,
+  .tab-on{
+    border-color:#d0d5d9;
+    color: #25797c;
+  }
+}
+.tab-body{
+  float: left;
+  width: 100%;
+  .tab-content{
+    display: none;
+  }
+  .tab-show{
+    display: block;
+  }
+}
+.borrower-content{
+  ul{
+    border: 1px solid #c7c7c7;
+    border-bottom: 0;
+  }
+  span{
+    display: inline-block;
+    //height: 50px;
+    //line-height: 50px;
+    vertical-align: middle;
+    color: #475058;
+  }
+  li{
+    border-bottom: 1px solid #c7c7c7;
+  }
+  .borrower-name{
+    width: 155px;
+    border-right: 1px solid #c7c7c7;
+    background-color: #f0f5f7;
+    padding: 14px 20px;
+    text-align: right;
+    overflow: hidden;
+  }
+  .borrower-val{
+    width: 678px;
+    padding: 0 30px;
+    overflow: hidden;
+    img{
+      margin-left: 10px;
+    }
+  }
+  .borrower-val.separation{ text-align: center;}
+}
+.record-content{
+  table{
+    width:750px;
+    margin:0 auto;
+    font-size:12px;
+  }
+  thead th{
+    border-bottom: 1px solid #c7c7c7;
+    padding:7px 0;
+  }
+  tbody{
+    text-align: center;
+    td{
+      padding:10px;
+    }
+  }
+}
+.tb-col-buyer{
+  width:20%;
+}
+.tb-col-title{
+  width:25%;
+}
+.tb-col-num{
+  width:15%;
+}
+.tb-col-time{
+  width:30%;
+}
+.tb-col-status{
+  width:10%;
+}
+.info-content{
+  .adu-d-nav{
+    padding-top: 54px;
+    @include fontSet(#2d8b8e,24px);
+    @extend %normalFont;
+    text-align: center;
+    span{
+      display: block;
+      margin-top: 5px;
+      @include fontSet(#2d8b8e,14px);
+    }
+  }
+  p{
+      @include fontSet(#40bdc1,18px);
+      @extend %normalFont;
+    }
+  ul{
+      margin: 0 auto;
+      margin-top: 78px;
+      border-bottom: 1px solid #dfdfdf;
+      @include fontSet(#808080,14px);
+      @extend %normalFont;
+      li{
+        float: left;
+        margin-left: 70px;
+        margin-bottom: 29px;
+        span{
+          @include fontSet(#555555,21px);
+        }
+      }
+      &:after{
+        content: " ";
+        display: block;
+        clear: both;
+      }
+    }
+    ul.adu-img-bar{
+      border-top: 1px solid #eeeeee;
+      margin-top: 0;
+      padding-top: 78px;
+      li{
+        width: 130px;
+        text-align: center;
+        @include fontSet(#40bdc1,24px);
+        @extend %normalFont;
+        p{
+          margin: 21px 0;
+        }
+        div{
+          width: 44px;
+          height: 41px;
+          margin: 0 auto;
+          background: url("../images/pass.png");
+        }
+        img{
+          height: 65px;
+        }
+        div.adu-no-pass{
+          background: url("../images/no-pass.png") no-repeat;
+        }
+      }
+    }
+    .adu-intro{
+      h3{ text-align:center;}
+      color: #808080;
+      padding: 60px;
+      p{
+        color: #808080;
+        margin-top: 20px;
+        text-align: left;
+      }
+    }
 }
