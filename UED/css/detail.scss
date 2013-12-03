@@ -202,6 +202,14 @@
         background: #f9bdea;
       }
     }
+    .find-table-box.fund{
+      .tab-border-l{
+        background: url("../images/fund-border-l.png") repeat-y;
+      }
+      .tab-border{
+        background: url("../images/fund-border-top.png") repeat-x;
+      }
+    }
     .find-table-box{
       position: relative;
       width: 95%;
@@ -330,7 +338,7 @@
     div.find-table-content{
       position: relative;
       height: 0;
-      opacity: 0;
+      display: none;
       @include fontSet(#585858,16px);
       @include transition-1(opacity,1s,ease,0s);
       ul{
@@ -382,7 +390,7 @@
     }
     div.find-table-content-show{
       height: 100%;
-      opacity: 1;
+      display: block;
     }
   }
   &:after{
@@ -483,6 +491,10 @@ input:focus{
   margin:20px 0 0 48px;
   text-align: center;
   color: #267b7e;
+  img{
+    width: 97px;
+    height: 97px;
+  }
 }
 .basic-info{
   padding: 10px 40px;
@@ -534,3 +546,81 @@ input:focus{
 .personal-birth{background:url("../images/personal-ico.png") no-repeat 0px -238px;}
 .personal-address{background:url("../images/personal-ico.png") no-repeat 0px -278px;}
 .personal-role{background:url("../images/personal-ico.png") no-repeat 0px -318px;}
+
+#personal-modify{
+  position: absolute;
+  top: 25px;
+  right: 90px;
+  padding: 0;
+  width:95px;
+  height: 35px;
+  line-height: 35px;
+  text-align: center;
+}
+.hidden{
+  display: none;
+}
+.show{
+  display: block;
+}
+
+
+//personal verify
+.verify{
+  padding-top: 10px;
+  table{
+    width: 100%;
+    padding: 0 40px;
+    border-spacing: 0;
+    td{
+      border-bottom: 1px solid #e4e4e4;
+      height: 30px;
+      line-height: 30px;
+    }
+  }
+  .score{
+    text-align: center;
+  }
+  .upload{
+    position: absolute;
+    right: 70px;
+    opacity: 0;
+    filter: alpha(opacity=0);
+    cursor: pointer;
+  }
+  .upload-button{
+    vertical-align: middle;
+    cursor: pointer;
+  }
+}
+.bankcard{
+  padding: 40px 40px;
+}
+.bankcard-box{
+  float: left;
+  width: 266px;
+  margin-right: 45px;
+  border: 2px dashed #cbcbcb;
+  color: #555;
+  text-align: center;
+  div{
+    height: 65px;
+    padding: 20px 33px;
+  }
+  .bankcard-op{
+    height: 28px;
+    line-height: 28px;
+    border-top: 2px dashed #cbcbcb;
+    color: #2d9194;
+    text-align: center;
+  }
+}
+.bankcard-box.add{
+  div{
+    height: 72px;
+    padding: 17px 33px;
+  }
+}
+.bankcard-box.last{
+  margin-right: 0;
+}
