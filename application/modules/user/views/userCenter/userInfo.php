@@ -53,7 +53,7 @@ $this->cs->registerCssFile($this->cssUrl.'detail.css');
             </div>
             <div class="aud-find">
                 <ul id="find-table-button">
-                    <a href="">
+                    <a href="<?php echo Yii::app()->createUrl('user/userCenter/myBorrow');?>">
                         <li class="find-table-0"><div class="find-table-op find-table-op"></div>我的借款</li>
                     </a>
                     <a href="<?php echo Yii::app()->createUrl('user/userCenter/myLend');?>">

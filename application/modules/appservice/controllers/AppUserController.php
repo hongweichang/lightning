@@ -76,5 +76,24 @@ class AppUserController extends Controller{
 			$this->response(401,'信息不完整','');
 	}
 
+
+	/*
+	**用户信用级别查询接口
+	*/
+	public function actionGetCreditGrade(){
+		$post = $this->getPost();
+		if(!empty($post['uid'])){
+			$uid = $post['uid'];
+			$userLevel = $this->app->getModule('credit')->getComponent('userCreditManager')->getUserCreditLevel($uid);
+
+			if($userLevel !== null)
+				$this->response(200,'获取成功',$userLevel);
+			else
+				$this->response(400,'获取失败，该用户不存在或其他错误','')
+		}
+		
+
+	}
+
 }
 ?>
