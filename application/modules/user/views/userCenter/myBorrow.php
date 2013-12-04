@@ -2,7 +2,7 @@
 $this->cs->registerCssFile($this->cssUrl.'common.css');
 $this->cs->registerCssFile($this->cssUrl.'detail.css');
 ?>
-
+<html>
 <body>
     <div id="container">
         <div class="wd989">
@@ -15,7 +15,7 @@ $this->cs->registerCssFile($this->cssUrl.'detail.css');
                     <img src="<?php echo $this->imageUrl.'user-avatar.png'?>" class="det-img" />
                     <p>
                         <span class="aud-time">晚上好，</span>
-                        <span class="aud-det-name">王国栋 </span>
+                        <span class="aud-det-name"><?php echo Yii::app()->user->name;?> </span>
                         现在是属于你自己的时间，好好休息吧
                     </p>
                     <p class="aud-st-serve">
@@ -51,16 +51,16 @@ $this->cs->registerCssFile($this->cssUrl.'detail.css');
             </div>
             <div class="aud-find">
                 <ul id="find-table-button">
-                    <a href="<?php echo Yii::app()->createUrl('user/userCenter/myBorrow');?>">
-                        <li class="find-table-0"><div class="find-table-op find-table-op"></div>我的借款</li>
+                    <a href="">
+                        <li class="find-table-0"><div class="find-table-op find-table-op-hidden"></div>我的借款</li>
                     </a>
                     <a href="">
-                        <li class="find-table-1"><div class="find-table-op-hidden"></div>我的投资</li>
+                        <li class="find-table-1"><div class="find-table-op"></div>我的投资</li>
                     </a>
-                    <a href="<?php echo Yii::app()->createUrl('user/userCenter/userSecurity');?>">
+                    <a href="">
                         <li class="find-table-2"><div class="find-table-op"></div>安全中心</li>
                     </a>
-                  	<a href="<?php echo Yii::app()->createUrl('user/userCenter/userInfo');?>">
+                    <a href="">
                         <li class="find-table-3"><div class="find-table-op"></div>个人信息</li>
                     </a>
                     <a href="">
@@ -75,19 +75,19 @@ $this->cs->registerCssFile($this->cssUrl.'detail.css');
                     <div class="table-content">
                         <div class="tab-content-l">
                             <div class="tab-border-l tab-right"></div>
-                            <p>投资总金额<span>0.00<span>元</span></span></p>
+                            <p>借款总金额<span>0.00<span>元</span></span></p>
                         </div>
                         <div class="tab-content-r">
-                            <p><span>投标金额</span><span>收益</span><span>近30天应收益</span></p>
+                            <p><span>逾期金额</span><span>待还金额</span><span>近30天应还金额</span></p>
                             <p class="aud-det-money"><span>0.00元</span><span>0.00元</span><span>0.00元</span></p>
-                            <p class="aud-det-prompt">您最近10天内有 8笔 投资将收益，总额 0.00元</p>
+                            <p class="aud-det-prompt">您最近10天内有 0笔 借款须归还，总额 0.00元</p>
                         </div>
                     </div>
                 </div>
                 <ul id="find-table-detail">
-                    <li class="find-selected">完成标段</li>
-                    <li>正在竞标</li>
-                    <li>债权转让</li>
+                    <li class="find-selected">还款中借款</li>
+                    <li>已还清借款</li>
+                    <li>借款申请查询</li>
                 </ul>
                 <div class="find-table-content find-table-content-show">
                     <ul>
@@ -97,8 +97,8 @@ $this->cs->registerCssFile($this->cssUrl.'detail.css');
                             <span>年利率</span>
                             <span>还款金额</span>
                             <span>期限</span>
-                            <span class="deadline">状态</span>
-                            <span class="repay">查看详情</span>
+                            <span class="deadline">结束时间</span>
+                            <span class="repay">还款</span>
                         </li>
                         <li>
                             <span><img src="#" /></span>
@@ -106,8 +106,12 @@ $this->cs->registerCssFile($this->cssUrl.'detail.css');
                             <span>10.00 % </span>
                             <span>￥25000元</span>
                             <span>3个月</span>
-                            <span class="deadline">待转</span>
-                            <span class="repay"><a href="">查看</a></span>
+                            <span class="deadline">2013-11-15 23:59</span>
+                            <span class="repay">
+                                <a href="">
+                                    <img src="../images/repay.png" />
+                                </a>
+                            </span>
                         </li>
                         <li>
                             <span><img src="#" /></span>
@@ -115,8 +119,12 @@ $this->cs->registerCssFile($this->cssUrl.'detail.css');
                             <span>10.00 % </span>
                             <span>￥25000元</span>
                             <span>3个月</span>
-                            <span class="deadline">已转</span>
-                            <span class="repay"><a href="">查看</a></span>
+                            <span class="deadline">2013-11-15 23:59</span>
+                            <span class="repay">
+                                <a href="">
+                                    <img src="../images/repay.png" />
+                                </a>
+                            </span>
                         </li>
                     </ul>
                 </div>
@@ -128,8 +136,8 @@ $this->cs->registerCssFile($this->cssUrl.'detail.css');
                             <span>年利率</span>
                             <span>还款金额</span>
                             <span>期限</span>
-                            <span class="deadline">收益时间</span>
-                            <span class="repay">查看详情</span>
+                            <span class="deadline">还清时间</span>
+                            <span class="repay">合同</span>
                         </li>
                         <li>
                             <span><img src="#" /></span>
@@ -160,7 +168,7 @@ $this->cs->registerCssFile($this->cssUrl.'detail.css');
                             <span>还款金额</span>
                             <span>期限</span>
                             <span class="deadline">状态</span>
-                            <span class="repay">查看详情</span>
+                            <span class="repay">操作</span>
                         </li>
                         <li>
                             <span><img src="#" /></span>
@@ -168,7 +176,7 @@ $this->cs->registerCssFile($this->cssUrl.'detail.css');
                             <span>10.00 % </span>
                             <span>￥25000元</span>
                             <span>3个月</span>
-                            <span class="deadline">待转</span>
+                            <span class="deadline">正在审核</span>
                             <span class="repay"><a href="">查看</a></span>
                         </li>
                         <li>
@@ -177,7 +185,7 @@ $this->cs->registerCssFile($this->cssUrl.'detail.css');
                             <span>10.00 % </span>
                             <span>￥25000元</span>
                             <span>3个月</span>
-                            <span class="deadline">待转</span>
+                            <span class="deadline">已流标</span>
                             <span class="repay"><a href="">查看</a></span>
                         </li>
                     </ul>
@@ -185,11 +193,10 @@ $this->cs->registerCssFile($this->cssUrl.'detail.css');
             </div>
         </div>
     </div>
+
 <?php
 $this->cs->registerScriptFile($this->scriptUrl.'jquery-1.8.2.min.js',CClientScript::POS_END);
 $this->cs->registerScriptFile($this->scriptUrl.'tableChange.js',CClientScript::POS_END);
 ?>
-
-<script type="text/javascript" src="../javascript/tableChange.js"></script>
 </body>
-</html>
+<html>

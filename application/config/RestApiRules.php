@@ -7,8 +7,8 @@ design By HJtianling_LXY,<2507073658@qq.com>
 
 return array(
 		array(
-				'pattern'=>'<_m:(user)>/<_a:(CreditGrade)>/',
-				'<_m>/service/get<_a>',
+				'pattern'=>'<_m:(appservice)>/<_a:(CreditGrade)>/',
+				'<_m>/appUser/get<_a>',
 				'verb'=>'POST'
 			),
 
@@ -22,6 +22,12 @@ return array(
 				'pattern'=>'<_m:(appservice)>/<_a:(login|logout|register)>',
 				'<_m>/appUser/<_a>',
 				'verb'=>'POST'
+			),
+
+		array(
+				'pattern'=>'<_m:(appservice)>/<_a:(BidList|BidById)>',
+				'<_m>/appTender/get<_a>',
+				'verb'=>'post'
 			),
 	);
 ?>

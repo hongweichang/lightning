@@ -88,14 +88,6 @@ class mainConf extends ConfigBase{
 								'tablePrefix' => 'xcms_'
 						),
 
-						'user' => array(
-								'class' => 'cms.modules.accessControl.components.AuthUser',
-								'stateKeyPrefix' => 'FU',
-								'allowAutoLogin' => true,
-								'autoRenewCookie' => true,
-								'guestName' => '游客',
-								'authTimeout' => 3600
-						),
 						/*'cache' => array(
 								'class' => 'CMemCache',
 								'useMemcached' => true,
@@ -111,8 +103,7 @@ class mainConf extends ConfigBase{
 												'port' => 11211
 										),
 								),
-						),*/
-
+*/
 						/*'session' => array(
 								'class'=> 'CCacheHttpSession',
 								'cacheID' => 'cache',
@@ -155,7 +146,7 @@ class mainConf extends ConfigBase{
 								'index' => '/site',
 								'useHelp' => '#',
 						),
-						'bidsPerPage' => 10,//默认的每次请求的标段条数
+						'bidsPerPage' => 2,//默认的每次请求的标段条数
 						
 						//标段选择条件参数
 						'selectorMap' => array(

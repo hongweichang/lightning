@@ -109,7 +109,7 @@
                         <img src="../images/user-avatar.png" />
                         <p>点击修改头像</p>
                     </a>
-                    <form>
+                    <form class="show">
                         <ul class="personal-info">
                             <li class="clearfix">
                                 <label class="personal-name">昵称</label>
@@ -126,7 +126,7 @@
                                 <label class="personal-name">身份证号</label>
                                 <div class="personal-ico personal-id"></div>
                                 <p>3434324*******</p>
-                                <p class="ico-status unpass">已认证</p>
+                                <p class="ico-status unpass">未认证</p>
                             </li>
                             <li class="clearfix">
                                 <label class="personal-name">手机号码</label>
@@ -162,10 +162,162 @@
                             </li>
                         </ul>
                     </form>
+                    <form class="hidden">
+                        <ul class="personal-info">
+                            <li class="clearfix">
+                                <label class="personal-name">昵称</label>
+                                <div class="personal-ico personal-nick"></div>
+                                <p>37727423</p>
+                            </li>
+                            <li class="clearfix">
+                                <label class="personal-name">真实姓名</label>
+                                <div class="personal-ico personal-realname"></div>
+                                <p>王晓亮</p>
+                                <p class="ico-status pass">已认证<p>
+                            </li>
+                            <li class="clearfix">
+                                <label class="personal-name">身份证号</label>
+                                <div class="personal-ico personal-id"></div>
+                                <p>3434324*******</p>
+                                <p class="ico-status unpass">未认证</p>
+                            </li>
+                            <li class="clearfix">
+                                <label class="personal-name">手机号码</label>
+                                <div class="personal-ico personal-phone"></div>
+                                <p>156****4344</p>
+                                <p class="ico-status pass">已绑定</p>
+                            </li>
+                            <li class="clearfix">
+                                <label class="personal-name">邮箱地址</label>
+                                <div class="personal-ico personal-mail"></div>
+                                <p>156****4344</p>
+                                <p class="ico-status pass">已绑定</p>
+                            </li>
+                            <li class="clearfix">
+                                <label class="personal-name">性别</label>
+                                <div class="personal-ico personal-sex"></div>
+                                <p>男</p>
+                            </li>
+                            <li class="clearfix">
+                                <label class="personal-name">出生日期</label>
+                                <div class="personal-ico personal-birth"></div>
+                                <p>1993-01-01</p>
+                            </li>
+                            <li class="clearfix">
+                                <label class="personal-name">居住地址</label>
+                                <div class="personal-ico personal-address"></div>
+                                <input type="text" />
+                            </li>
+                            <li class="clearfix">
+                                <label class="personal-name">社会角色</label>
+                                <div class="personal-ico personal-role"></div>
+                                <input type="text" />
+                            </li>
+                            <li class="clearfix">
+                                <input type="submit" value="保存修改" class="form-button" />
+                            </li>
+                        </ul>
+                    </form>
+                    <a href="javascript:;" class="form-button" id="personal-modify">修改信息</a>
                 </div>
-                <div class="find-table-content">
+                <div class="find-table-content verify">
+                    <table>
+                        <tr>
+                            <td>&nbsp</td>
+                            <td width="500">项目</td>
+                            <td>状态</td>
+                            <td class="score">信用分数</td>
+                        </tr>
+                        <tr>
+                            <td>基本信息</td>
+                            <td>个人详细信息</td>
+                            <td>
+                                <img src="../images/upload_tick.png" class="upload-button" title="已认证"/>
+                            </td>
+                            <td class="score">10分</td>
+                        </tr>
+                        <tr>
+                            <td rowspan="6">必要信用认证</td>
+                            <td>身份证</td>
+                            <td>
+                                <img src="../images/upload_button.png" class="upload-button" />
+                                <input type="file" class="upload"/>
+                            </td>
+                            <td rowspan="6" class="score">50分</td>
+                        </tr>
+                        <tr>
+                            <td>长住地址证明</td>
+                            <td>
+                                <img src="../images/upload_tick.png" class="upload-button" title="已认证"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>个人信用证明</td>
+                            <td><img src="../images/upload_tick.png" class="upload-button" title="已认证"/></td>
+                        </tr>
+                        <tr>
+                            <td>联系电话</td>
+                            <td><img src="../images/upload_tick.png" class="upload-button" title="已认证"/></td>
+                        </tr>
+                        <tr>
+                            <td>工作单位</td>
+                            <td><img src="../images/upload_tick.png" class="upload-button" title="已认证"/></td>
+                        </tr>
+                        <tr>
+                            <td>银行流水</td>
+                            <td><img src="../images/upload_tick.png" class="upload-button" title="已认证"/></td>
+                        </tr>
+                        <tr>
+                            <td rowspan="3">限填信息</td>
+                            <td>联系电话或其他联系人</td>
+                            <td><img src="../images/upload_tick.png" class="upload-button" title="已认证"/></td>
+                            <td rowspan="3" class="score">100分</td>
+                        </tr>
+                        <tr>
+                            <td>月收入证明</td>
+                            <td><img src="../images/upload_tick.png" class="upload-button" title="已认证"/></td>
+                        </tr>
+                        <tr>
+                            <td>营业执照副本</td>
+                            <td><img src="../images/upload_tick.png" class="upload-button" title="已认证"/></td>
+                        </tr>
+                        <tr>
+                            <td rowspan="2">选填信息</td>
+                            <td>户口卡</td>
+                            <td>
+                                <img src="../images/upload_button.png" class="upload-button" />
+                                <input type="file" class="upload"/>
+                            </td>
+                            <td rowspan="2" class="score">50分</td>
+                        </tr>
+                        <tr>
+                            <td>视频</td>
+                            <td>
+                                <img src="../images/upload_tick.png" class="upload-button" title="已认证" />
+                            </td>
+                        </tr>
+                    </table>
                 </div>
-                <div class="find-table-content">
+                <div class="find-table-content bankcard">
+                    <a href="#" class="bankcard-box">
+                        <div>
+                            <img src="../images/psbc.png" />
+                            <p>尾号6236</p>
+                        </div>
+                        <p class="bankcard-op">删除银行卡</p>
+                    </a>
+                    <a href="#" class="bankcard-box add">
+                        <div>
+                            <img src="../images/bankcard_add.png" />
+                        </div>
+                        <p class="bankcard-op">新增银行卡</p>
+                    </a>
+                    <a href="#" class="bankcard-box add last">
+                        <div>
+                            <img src="../images/bankcard_add.png" />
+                        </div>
+                        <p class="bankcard-op">新增银行卡</p>
+                    </a>
                 </div>
             </div>
         </div>

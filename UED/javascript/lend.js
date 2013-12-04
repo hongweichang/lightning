@@ -39,8 +39,15 @@ var Filter = function(){
 					send_str += "&"+$(this).attr("name")+"=";
 				send_str += $(this).val();
 			});
-			send_str+= "&page="+page;
-			page++;
+			
+			if (!isFilter){
+				send_str+= "&page="+page;
+				page++;
+			}/*else {
+				alert("isFilter: "+isFilter);
+			}*/
+			
+			
 			return send_str;
 		},
 		send: function(str){
@@ -87,7 +94,7 @@ List = function(){
 			$(".loan-list",loan).remove();
 		},
 		createList: function(list){
-			var node = $('<li class="loan-list"><div class="loan-avatar"><img src="'+(list.avatarSrc || baseUrl+"UED/images/intro-pic_1.png")+'" /><span>信</span></div><div class="loan-title"><a href="'+list.titleHref+'">'+list.title+'</a></div><div class="loan-rate loan-num">'+list.rate+'</div><div class="loan-rank"><div class="rank'+list.rank+'">'+list.rank+'</div></div><div class="loan-amount loan-num">'+list.amount+'</div><div class="loan-time loan-num">'+list.time+'</div><div class="loan-progress"><div class="bar-out"><div class="bar-in"><span class="bar-complete" style="width:'+list.progress+'"></span><span class="bar-num">'+list.progress+'</span></div></div></div></li>');
+			var node = $('<li class="loan-list"><div class="loan-avatar"><img src="'+(list.avatarSrc || "../images/intro-pic_1.png")+'" /><span>信</span></div><div class="loan-title"><a href="'+list.titleHref+'">'+list.title+'</a></div><div class="loan-rate loan-num">'+list.month_rate+'%</div><div class="loan-rank"><div class="rank'+list.authGrade+'">'+list.authGrade+'</div></div><div class="loan-amount loan-num">￥'+list.sum+'</div><div class="loan-time loan-num">'+list.deadline+'个月</div><div class="loan-progress"><div class="bar-out"><div class="bar-in"><span class="bar-complete" style="width:'+list.progress+'%"></span><span class="bar-num">'+list.progress+'%</span></div></div></div></li>');
 			return node;
 		},
 		insertList: function(list){
@@ -127,9 +134,9 @@ $("#filter-switch").toggle(
 	}
 );
 
-//override the chose event
+var isFilter = false;
 $(".filter-choice").bind("click",function(){
-
+	isFilter = true;
 	var str = Filter.checked($(this));
 	Filter.send(str);
 });
@@ -143,7 +150,9 @@ $(".loan-list").live("hover",function(e){
 	}
 });
 $("#viewMore").bind("click",function(){
+	isFilter = false;
 	var str = Filter.checked($(this));
+	str += '&viewmore=1';
 	List.showMore(str);
 });
 //lend-pay

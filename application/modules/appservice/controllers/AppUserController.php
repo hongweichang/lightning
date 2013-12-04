@@ -32,11 +32,27 @@ class AppUserController extends Controller{
 
 				$login = $this->app->getModule('user')->getComponent('userManager')->login($info);
 
-				if($login === true)
-					$this->response(200,'登陆成功','');
+				if($login === true){
+					$uid = Yii::app()->user->id;
+					$userData = $this->app->getModule('user')->getComponent('userManager')->getUserInfo($uid);
+					$attributes = $userData->attributes;
+					/*将部分用户信息提供给app*/
+					$userInfo = array(
+								'uid' => $attributes['id'],
+								'email' => $attributes['email'],
+								'mobile' => $attributes['mobile'],
+								'sex' => $attributes['gender'],
+								'balance' => $attributes['balance'],
+								'realName' => $attributes['realname'],
+								'age' => $attributes['age']
+							);
+					$this->response(200,'登陆成功',$userInfo);
+				}
+					
+			}
 				else
 					$this->response(400,'登陆失败，用户名或密码错误','');
-			}
+			
 		}else
 			$this->response(401,'登陆失败，请不要重复登陆','');
 		
@@ -74,6 +90,25 @@ class AppUserController extends Controller{
 
 		}else
 			$this->response(401,'信息不完整','');
+	}
+
+
+	/*
+	**用户信用级别查询接口
+	*/
+	public function actionGetCreditGrade(){
+		$post = $this->getPost();
+		if(!empty($post['uid'])){
+			$uid = $post['uid'];
+			$userLevel = $this->app->getModule('credit')->getComponent('userCreditManager')->getUserCreditLevel($uid);
+
+			if($userLevel !== null)
+				$this->response(200,'获取成功',$userLevel);
+			else
+				$this->response(400,'获取失败，该用户不存在或其他错误','');
+		}
+		
+
 	}
 
 }
