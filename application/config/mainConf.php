@@ -141,7 +141,7 @@ class mainConf extends ConfigBase{
 								'autoStart' => true,
 								'timeout' => 3600*24
 						),/*
-						'session' => array(
+						/*'session' => array(
 								'class'=> 'CHttpSession',
 								//'cacheID' => 'cache',
 								'autoStart' => true,

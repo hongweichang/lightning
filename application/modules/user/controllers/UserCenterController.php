@@ -16,7 +16,7 @@ class UserCenterController extends Controller{
 
 	public function actionUserInfo(){
 		$uid = Yii::app()->user->id;
-		$uid = 23;
+		//$uid = 23;
 		$userData = $this->app->getModule('user')->getComponent('userManager')->getUserInfo($uid);
 
 		if(isset($_POST['FrontUser'])){
@@ -39,7 +39,7 @@ class UserCenterController extends Controller{
 
 	public function actionUserSecurity(){
 		$uid = Yii::app()->user->id;
-		$uid = 23;
+		//$uid = 23;
 
 		$userData = $this->app->getModule('user')->getComponent('userManager')->getUserInfo($uid);
 		if(!empty($userData)){
@@ -50,9 +50,17 @@ class UserCenterController extends Controller{
 
 	public function actionMyLend(){
 		$uid = Yii::app()->user->id;
-		$uid = 23;
-
+		//$uid = 23;
+		/*$lendData = $this->app->getModule('tender')->bidManager->getBidMetaList('user_id =:uid',array('uid'=>$uid));
+		var_dump($lendData);*/
+		$this->render('myLend',array(''));
 		
+	}
+
+	public function actionMyBorrow(){
+		$uid = Yii::app()->user->id;
+
+		$this->render('myBorrow',array(''));
 	}
 }
 ?>
