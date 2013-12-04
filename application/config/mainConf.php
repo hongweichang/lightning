@@ -63,8 +63,8 @@ class mainConf extends ConfigBase{
 						),
 				),
 				'import' => array(
-						'application.extensions.PHPExcel.PHPExcel.*'
-						
+						'application.extensions.PHPExcel.PHPExcel.*',
+						'application.modules.user.models.*'
 				),
 				'components' => array(
 						'user' => array(
@@ -133,19 +133,12 @@ class mainConf extends ConfigBase{
 												'port' => 11211
 										),
 								),
-						),
 						'session' => array(
 								'class'=> 'CCacheHttpSession',
 								'cacheID' => 'cache',
 								'autoStart' => true,
 								'timeout' => 3600*24
 						),
-						/*'session' => array(
-								'class'=> 'CHttpSession',
-								//'cacheID' => 'cache',
-								'autoStart' => true,
-								'timeout' => 3600*24
-						),*/
 						'clientScript' => array(
 								'scriptMap' => array(
 										'jquery.js' => false,

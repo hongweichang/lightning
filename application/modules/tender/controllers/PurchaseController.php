@@ -14,6 +14,17 @@ class PurchaseController extends Controller {
 	
 	public $defaultAction = "showAllBids"; // 更改默认的action,默认显示所有的标段
 	
+	public function actions(){
+		return array(
+			'captcha'=>array(
+				'class'=>'CCaptchaAction',
+				'backColor'=>0xFFFFFF,
+				'maxLength' => 4,
+				'minLength' => 4
+			),
+		);
+	}
+	
 	public function filters() {
 		return '';
 	}
@@ -160,7 +171,14 @@ class PurchaseController extends Controller {
 		//利用传递过来的参数
 		$bidId = $this->getQuery('bidId',null);//要购买的标段的id
 		$userId = $this->getQuery('userId',null);//购买人，即当前用户的id
-		
+		$code = $_POST['writeBidMeta']['code'];
+		if($_SESSION['Yii.CCaptchaAction.Powered By XCms.tender/purchase.captcha'] != $code){
+			$this->redirect($this->createUrl('purchase/purchaseBid',array(
+				'bidId' => $bidId,
+				'userId' => $userId
+			)));
+		}
+		/*
 		$model = new BidMeta();	//购买标段对应的表
 		
 		$_POST['writeBidMeta']['user_id'] = $userId;
@@ -168,7 +186,7 @@ class PurchaseController extends Controller {
 		$_POST['writeBidMeta']['buy_time'] = time();
 		
 		$model->attributes = $_POST['writeBidMeta'];//利用表单来填充
-		
+		*/
 		$meta_id = $this->getModule()->bidManager->purchaseBid($this->user->getId(),$bidId,$_POST['writeBidMeta']['sum']);
 		if($meta_id != 0){//如果插入数据库成功
 			/**
