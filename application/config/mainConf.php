@@ -83,8 +83,8 @@ class mainConf extends ConfigBase{
 								'tablePrefix' => 'xcms_'
 						),
 						//internal database.ip 10.161.180.53
-						/*
-						'db' =>array(
+						
+						/*'db' =>array(
 								'class' => 'system.db.CDbConnection',
 								'autoConnect' => false,
 								'connectionString' => 'mysql:host=10.161.180.53;dbname=lightning',
@@ -105,7 +105,7 @@ class mainConf extends ConfigBase{
 						 		'charset' => 'utf8',
 						 		'tablePrefix' => 'xcms_'
 						 ),*/
-						'cache' => array(
+						/*'cache' => array(
 								'class' => 'CMemCache',
 								'useMemcached' => false,
 								'keyPrefix' => 'lightning',
@@ -120,13 +120,13 @@ class mainConf extends ConfigBase{
 												'port' => 11211
 										),
 								),
-						),
-						'session' => array(
+						),*/
+						/*'session' => array(
 								'class'=> 'CCacheHttpSession',
 								'cacheID' => 'cache',
 								'autoStart' => true,
 								'timeout' => 3600*24
-						),
+						),*/
 						'clientScript' => array(
 								'scriptMap' => array(
 										'jquery.js' => false,

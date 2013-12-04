@@ -64,24 +64,12 @@ class PurchaseController extends Controller {
 				)
 		));
 		
-		/*$testArr = $dataProvider->getData();
-		echo "<pre>";
-		foreach ($testArr as $key => $value) {
-			$bidInfo = $value->bidMeta;
-			foreach ($bidInfo as $val){
-				print_r($val->sum);
-			}
-			
-		}
-		die();
-		$this->wxweven($testArr);
-		$this->wxweven($dataProvider->getData());
-		*/
   		$this->render('showAllBids',array(
   			'monthRate' => $this->_monthRate,
   			'deadline' => $this->_deadline,
   			'authenGrade' => $this->_authenGrade,
          	'dataProvider' => $dataProvider,
+  			'purchaseUrl' => 'purchase/purchaseBid/',
 		));
 	}
 	
@@ -103,23 +91,17 @@ class PurchaseController extends Controller {
 		 * 获取Ajax请求的参数
 		 * 并根据Ajax请求的参数，来设置相应的查询条件
 		 */
-		$allCount = 3;//筛选条件，一开始三个参数都是all
 		foreach ($this->_selectorMap as $key => $value) {
 			if(isset($_GET[$key]) && $_GET[$key] != 'all' && $_GET[$key] != '') {
-				$allCount--;
 				$criteria->addCondition($value[$_GET[$key]]);
 			}
 		}
 		
-		
 		$count = $model->count($criteria);//获取总记录数
-//		echo '$pageSize * $page = '.$pageSize .'*'. $page.',$count='.$count.'     ';
 		//有viewmore参数的请求时点击查看更多发起的ajax请求
 		if(isset($_GET['viewmore']) && $_GET['viewmore'] == 1) {
-			if($allCount !== 3)//说明应用了筛选条件
-				$_GET['page'] = --$page;//应用了筛选条件后，要从第一页开始算
-				
-			if ( $pageSize * $page > $count ){//后面没有更多记录了		
+			$totalPages = ceil($count / $pageSize);//获得总页数
+			if (  $page > $totalPages ){//当前页大于总页数，就没有更多了	
 				$this->response(0);
 			}
 		}
@@ -128,113 +110,115 @@ class PurchaseController extends Controller {
 		$pager->pageSize = $pageSize;
 		$pager->applyLimit($criteria);
 		$data = $model->findAll($criteria);
+		
 		//把从数据库获取到的数据，处理后返回给前台
 		$arr = array();
 		foreach($data as $keyOut => $valueOut) {
 			foreach ($valueOut as $keyIn => $valIn) {
 				$arr[$keyOut][$keyIn] = $valIn;
+				//拼接购买该标段的链接
+				$arr[$keyOut]['titleHref'] = "purchase/purchaseBid/bidId/".$valueOut['id']."/userId/".$valueOut['user_id'];
+				$arr[$keyOut]['authGrade'] = $this->getUserAuthGrade($valueOut['user_id']);//得到用户的认证等级
 			}
 		}
+		
 		$arr = array("state"=> 1 ,"data"=> $arr );//state=1,表示结果正常返回
 		echo json_encode($arr);//利用php的jsonencode()返回json格式的数据
 	}
 	
 	/**
-	 * 显示标段详细信息
-	 * @param $bidId:标段id
+	 * 购买标段的action
+	 * Enter description here ...
+	 * @param $bidId：标段id
+	 * @param $userId：借款人的id
 	 */
-	function acrtionShowBidDetail($bidId) {
-		$bidDetail = BidInfo::model(); // 标段信息对应的表
-		                               
-		// 调用其他组件接口，获得发标人的信息
-//		$userInfo = $this->user->getUserInfo();
-		$bidDetail = $model->findByPk( $bidId ); // 通过标段id来获取标段信息
-		$info = array();
-		$info ['bid'] = $bidDetail;
-		$info ['user'] = $userInfo;
-		// 显示标段的详细信息，包括发布标段的用户信息和标段本身的信息
-		$this->render( 'bidDetail', array(
-				'info' => $info 
-		) );
+	function actionPurchaseBid() {
+		$bidId = $this->getQuery('bidId',null);//标段id
+		$userId = $this->getQuery('userId',null);//发标人id
+		
+		$bidInfo = $this->getBidDetail($bidId,true);
+		//这里的userId是发标用户的id，而不是当前登录用户的id
+		//当前登录用户的id是：$this->user->getId()
+		$authGrade = $this->getUserAuthGrade($userId);//得到发标人的认证等级
+		$borrowUserInfo = $this->getUserInfo($userId);//得到发布标段的人的信息
+		$currentUserInfo = $this->getUserInfo($this->user->getId());//得到当前登录用户的信息
+
+		$this->render("purchaseBid",array(
+				'bidInfo' => $bidInfo,
+				'borrowUserInfo' => $borrowUserInfo,
+				'currentUserInfo' => $currentUserInfo,
+				'authGrade' => $authGrade,
+				'formAction' => 'purchase/purchaseBidToDb',
+		));
 	}
 	
 	/**
-	 * @return 返回标段的详细信息
-	 * @param $bidId:标段id
+	 * 将购买的标段信息插入数据库
+	 * Enter description here ...
 	 */
-	function acrtionGetBidDetail($bidId) {
-		$bidDetail = BidInfo::model(); // 标段信息对应的表
-		                               
-		$bidDetail = $model->findByPk( $bidId ); // 通过标段id来获取标段信息
-		return $bidDetail;//返回标段详细信息
-	}
-	
-	/**
-	 * 购买对应的标段action
-	 * 
-	 * @param
-	 *        	$bidId:要购买的标段id
-	 */
-	function actionCreatePurchase($bidId) {
-//		验证金额
-		if($this->checkMoney()) {
-//			验证身份，调用接口
-			if(checkIdentity()) {
-				$model = new BidMeta();//购买标段信息表
-				
-				if(isset($_POST['bidPurchase'])) {
-					$_POST['buy_time'] = time();
-					$model->attributes = $_POST['bidPurchase'];
-					
-					if($model->save()) {//将购买的信息插入数据库后，跳转到购买信息页
-						$id = $model->getDbConnection()->getLastInsertID();
-						$this->actionViewInfo( $id ); // 显示标段详情
-					}
-				}
-			}
+	function actionPurchaseBidToDb() {
+		//利用传递过来的参数
+		$bidId = $this->getQuery('bidId',null);//要购买的标段的id
+		$userId = $this->getQuery('userId',null);//购买人，即当前用户的id
+		
+		$model = new BidMeta();	//购买标段对应的表
+		
+		$_POST['writeBidMeta']['user_id'] = $userId;
+		$_POST['writeBidMeta']['bid_id'] = $bidId;
+		$_POST['writeBidMeta']['buy_time'] = time();
+		
+		$model->attributes = $_POST['writeBidMeta'];//利用表单来填充
+		
+		$meta_id = $this->getModule()->bidManager->purchaseBid($this->user->getId(),$bidId,$_POST['writeBidMeta']['sum']);
+		if($meta_id != 0){//如果插入数据库成功
+			/**
+			 * 插入数据库后 ，跳转到付款界面，调用接口
+			 */
+			//Yii::app()->getModule('pay')->fundManager->pay($meta_id);
+//			Yii::app()->redirect('pay/platform/index',array('no'=>$meta_id));
+			$this->redirect($this->createUrl('platform/index',array('meta_no' => $meta_id)));
+			
+			/**
+			 * 付款成功后:
+			 * （1）将bid_meta表的status改为1
+			 * （2）同时更新bid表的招标进度:progress = progress + (lend_sum/sum*100)
+			 */
 		}
 	}
 	
 	/**
-	 * 调用其他接口，判断该用户是否有足够金额来购买该标段
-	 * 
-	 * @param unknown $bidId        	
-	 * @param unknown $userId        	
+	 * 根据bidId得到标段详细信息
+	 * @param $bidId:标段id
 	 */
-	function checkMoney($bidId, $userId, $mondy) {
-		// 调研其他接口来判断
-	}
-	
-	/*
-	 * public function actionFailed(){ 
-	 * 跳转到错误页面（比如充值页面什么的） 
-	 * $this->app->getComponent('urlManager')->error(); 
-	 * }
-	 */
-	function actionViewInfo($id) {
-		// 根据主键来取出刚刚插入的记录
-		$model = BidIndo::model()->findByPk( $id );
+	private function getBidDetail($bidId,$related = false) {
+		$model = BidInfo::model(); // 标段信息对应的表
+		if($related === true)
+			$bidDetail = $model->with('bidMeta')->findByPk( $bidId ); // 通过标段id来获取标段信息,同时做关联查询
+		else//不做关联查询
+			$bidDetail = $model->findByPk( $bidId );
 		
-		// 显示购买详情的页面
-		$this->render( 'viewBidInfo', array('model' => $model) );
+		return $bidDetail;
 	}
 	
 	/**
-	 * 购买成功的处理函数
+	 * 根据userId得到用户认证等级
+	 * @param $userId:用户id
 	 */
-	function actionSuccess() {
-		/**
-		 * 购买成功相应的处理
-		 */
+	private function getUserAuthGrade($userId) {
+		$authGrade = Yii::app()->getModule('credit')->getComponent('userCreditManager')->getUserCreditLevel($userId);
+		if($authGrade != "")
+			return $authGrade;//返回用户认证等级
+		else
+			return "信用等级未知";
 	}
 	
 	/**
-	 * 购买失败的处理函数
+	 * 根据userId得到详细信息
+	 * @param $userId:用户id
 	 */
-	function actionFailure() {
-		/**
-		 * 失败处理功能：跳转到错误页面或者其他。。。
-		 */
+	private function getUserInfo($userId) {
+		$userInfo = Yii::app()->getModule('user')->userManager->getUserInfo($userId);
+		return $userInfo;//返回用户信息数组
 	}
 	
 	public function wxweven($data,$die = true) {

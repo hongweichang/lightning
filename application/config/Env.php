@@ -6,7 +6,7 @@
  * Encoding UTF-8
  */
 class Env extends Environment{
-	protected function beforeRun(){
+	public function beforeRun(){
 		Yii::import('cms.components.CmsApplication',true);
 		require dirname(__FILE__).DS.'../components/Application.php';
 		return true;
