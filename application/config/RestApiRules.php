@@ -29,5 +29,11 @@ return array(
 				'<_m>/appUser/<_a>',
 				'verb'=>'POST'
 			),
+
+		array(
+				'pattern'=>'<_m:(appservice)>/<_a:(BidList|BidById)>',
+				'<_m>/appTender/get<_a>',
+				'verb'=>'post'
+			),
 	);
 ?>
