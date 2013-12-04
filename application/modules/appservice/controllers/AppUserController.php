@@ -1,4 +1,10 @@
 <?php
+/*
+**用户模块API服务
+design By HJtianling_LXY,<2507073658@qq.com>
+2013.11.16
+*/
+
 class AppUserController extends Controller{
 
 	public function filters(){
@@ -9,6 +15,9 @@ class AppUserController extends Controller{
 		echo "ok";
 	}
 
+	/*
+	**用户登陆接口
+	*/
 	public function actionLogin(){
 		if($this->app->getUser()->getIsGuest()){
 			$account = $this->getPost('account',null);
@@ -33,11 +42,18 @@ class AppUserController extends Controller{
 	}
 
 
+	/*
+	**用户退出接口
+	*/
 	public function actionLogout(){
 		Yii::app()->user->logout();
 		$this->response(200,'退出成功','');
 	}
 
+
+	/*
+	**用户注册接口
+	*/
 	public function actionRegister(){
 		$post = $this->getPost();
 		

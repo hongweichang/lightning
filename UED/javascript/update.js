@@ -27,4 +27,29 @@ $(document).ready(function(){
 			}
 		});
 	});
+
+	var personal = function(){
+		return{
+			change: function(o){
+				var f = $(o).siblings("form");
+				f.each(function(){
+					if($(this).hasClass('hidden')){
+						$(this).removeClass('hidden').addClass('show');
+					}else{
+						$(this).addClass('hidden').removeClass('show');
+					}
+				});
+			}
+		}
+	}();
+	$("#personal-modify").toggle(
+		function(){
+			$(this).text("取消修改");
+			personal.change($(this));
+		},
+		function(){
+			$(this).text("修改信息");
+			personal.change($(this));
+		}
+	);
 });
