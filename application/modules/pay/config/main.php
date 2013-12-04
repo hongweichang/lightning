@@ -30,7 +30,7 @@ return array(
 		//页面跳转同步通知页面路径
 		'return_url' => 'http://127.0.0.1:8080'.Yii::app()->createUrl("pay/alipay/return"),
 		//商品展示地址
-		'show_url' => 'http://127.0.0.1:8080'.Yii::app()->createUrl("pay/index"),
+		'show_url' => 'http://127.0.0.1:8080'.Yii::app()->createUrl("pay/platform/bill"),
 	),
 	
 	'ips' => array(

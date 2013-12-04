@@ -7,9 +7,9 @@
 class BorrowController extends Controller {
 	public $defaultAction = "roleChoose"; // 更改默认的action,默认要选择社会角色：工薪阶层，企业主，网店店主
 	
-	public function noneLoginRequired(){
+	/*public function noneLoginRequired(){
 		return '';
-	}
+	}*/
 	
 	public function init() {
 		parent::init();
@@ -56,7 +56,6 @@ class BorrowController extends Controller {
 		$postUrl = "borrow/borrowInfoToDB";//将表单写入数据库的action
 		
 		/**
-		 * 问题。。。。
 		 * Enter description here ...
 		 * @var unknown_type
 		 */
@@ -73,16 +72,16 @@ class BorrowController extends Controller {
 	public function actionBorrowInfoToDB() {
 		$model = new BidInfo;
 		if(isset($_POST['writeBidInfoForm'])) {
-//			$_POST['writeBidInfoForm']['user_id'] = $this->app->getModule('user')->getComponent('userManager');//招标用户就是当前用户
 			$_POST['writeBidInfoForm']['user_id'] = $this->user->getId();//测试用户的id：21
-			$_POST['writeBidInfoForm']['start'] = time();//招标开始时间是当前时间
-//			招标结束时间是怎么确定的呢？？
-			$_POST['writeBidInfoForm']['end'] = time();
-			$_POST['writeBidInfoForm']['description'] = '测试';
+			/**
+			 * 将前台提交过来的招标开始时间和结束时间转化为时间戳后存入数据库
+			 */
+			$_POST['writeBidInfoForm']['start'] = strtotime($_POST['writeBidInfoForm']['start']);
+			$_POST['writeBidInfoForm']['end'] = strtotime($_POST['writeBidInfoForm']['end']);
+
 			//获取用户认证等级
 			$_POST['writeBidInfoForm']['authenGrade'] = Yii::app()->getModule('credit')->
 					getComponent('userCreditManager')->getUserCreditLevel($this->user->getId());
-			$this->wxweven($_POST['writeBidInfoForm']['authenGrade']);
 			$model->attributes = $_POST['writeBidInfoForm'];//利用表单来填充
 			
 			if($model->save()){//如果发标成功
@@ -99,7 +98,6 @@ class BorrowController extends Controller {
 	
 	/**
 	 * 显示标段详情，并且提示审核的信息页面
-	 * @param $id ：最后一次插入的记录的id
 	 */
 	function actionViewInfo() {
 		//利用传递过来的id参数

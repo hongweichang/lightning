@@ -77,7 +77,7 @@ class mainConf extends ConfigBase{
 								'avatarPath' => '/upload/avatar/'
 						),
 						//remote database on aliyun.remote ip
-						/*
+						
 						'db' => array(
 						 		'class' => 'system.db.CDbConnection',
 								'autoConnect' => false,
@@ -87,10 +87,9 @@ class mainConf extends ConfigBase{
 								'password' => 'lancelot@lightningdbmysqladmin',
 								'charset' => 'utf8',
 								'tablePrefix' => 'xcms_'
-						),*/
+						),
 						//internal database.ip 10.161.180.53
-						
-						'db' =>array(
+						/*'db' =>array(
 								'class' => 'system.db.CDbConnection',
 								'autoConnect' => false,
 								'connectionString' => 'mysql:host=10.161.180.53;dbname=lightning',
@@ -111,7 +110,6 @@ class mainConf extends ConfigBase{
 						 		'charset' => 'utf8',
 						 		'tablePrefix' => 'xcms_'
 						 ),*/
-
 						'user' => array(
 								'class' => 'cms.modules.accessControl.components.AuthUser',
 								'stateKeyPrefix' => 'FU',
@@ -136,18 +134,18 @@ class mainConf extends ConfigBase{
 										),
 								),
 						),
-						/*'session' => array(
+						'session' => array(
 								'class'=> 'CCacheHttpSession',
 								'cacheID' => 'cache',
 								'autoStart' => true,
 								'timeout' => 3600*24
-						),*/
-						'session' => array(
+						),
+						/*'session' => array(
 								'class'=> 'CHttpSession',
 								//'cacheID' => 'cache',
 								'autoStart' => true,
 								'timeout' => 3600*24
-						),
+						),*/
 						'clientScript' => array(
 								'scriptMap' => array(
 										'jquery.js' => false,
@@ -183,7 +181,7 @@ class mainConf extends ConfigBase{
 								'index' => '/site',
 								'useHelp' => '#',
 						),
-						'bidsPerPage' => 10,//默认的每次请求的标段条数
+						'bidsPerPage' => 2,//默认的每次请求的标段条数
 						
 						//标段选择条件参数
 						'selectorMap' => array(
