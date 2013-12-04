@@ -55,6 +55,7 @@ class AccountController extends Controller{
 	}
 	
 	public function actionLogin(){
+		
 		if ( $this->user->getIsGuest() === false ){
 			$this->redirect('verify');
 		}

@@ -107,7 +107,7 @@ class BidManager extends CApplicationComponent{
 	 * @return boolean
 	 */
 	public function payPurchaseBid($meta_no){
-		$meta = BidMeta::model()->with(array('user','bid'))->findByPk($meta_no);
+		$meta = BidMeta::model()->with('user','bid')->findByPk($meta_no);
 		$user = $meta->getRelated('user');
 		
 		$transaction = Yii::app()->db->beginTransaction();

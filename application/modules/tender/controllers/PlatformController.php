@@ -10,7 +10,7 @@ class PlatformController extends Controller{
 	public function actionIndex(){
 		$userManager = Yii::app()->getModule('user')->userManager;
 		
-		$meta = BidMeta::model()->with('user','bid')->findByPk($this->getQuery('meta_no'));
+		$meta = BidMeta::model()->with('user','bid')->findByPk($this->getQuery('meta_no',1));
 		$user = $meta->getRelated('user');
 		$bid = $meta->getRelated('bid');
 		$bider = $userManager->getUserInfo($bid->getAttribute('user_id'));
@@ -50,8 +50,8 @@ class PlatformController extends Controller{
 				));
 			}else{
 				$this->render('process',array(
-					'action' => Yii::app()->getModule('pay')->pay($meta->getAttribute('id'),$payment),
-					'sum' => $meta->getAttribute('sum') - $in_pay,
+					'action' => Yii::app()->getModule('pay')->fundManager->pay($meta->getAttribute('id'),$payment),
+					'sum' => $meta->getAttribute('sum') / 100 - $in_pay,
 				));
 			}
 		}else{

@@ -54,12 +54,10 @@ class ServiceController extends Controller{
 	**用户登陆接口
 	*/
 	public function actionLogin(){
-		if($this->app->getUser()->getIsGuest()){
+		if($this->app->getUser()->getIsGuest()){	
 			$post = $this->getPost();
-
 			if( $post !== null ){
 				$login = $this->getModule()->getComponent('userManager')->login($post);
-
 				if($login === true){
 					$this->response(200,'登录成功','');
 				}else{
