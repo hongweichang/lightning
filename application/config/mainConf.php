@@ -135,18 +135,18 @@ class mainConf extends ConfigBase{
 										),
 								),
 						),
-						/*'session' => array(
+						'session' => array(
 								'class'=> 'CCacheHttpSession',
 								'cacheID' => 'cache',
 								'autoStart' => true,
 								'timeout' => 3600*24
-						),*/
+						),/*
 						'session' => array(
 								'class'=> 'CHttpSession',
 								//'cacheID' => 'cache',
 								'autoStart' => true,
 								'timeout' => 3600*24
-						),
+						),*/
 						'clientScript' => array(
 								'scriptMap' => array(
 										'jquery.js' => false,
