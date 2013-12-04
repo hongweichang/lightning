@@ -80,7 +80,7 @@ class BidManager extends CApplicationComponent{
 		
 		$transaction = Yii::app()->db->beginTransaction();
 		try{
-			$bid->updateCounters(array(
+			$bid->saveCounters(array(
 				'progress' => ($sum * 100) / $bid->getAttribute('sum')
 			));
 			
@@ -112,7 +112,7 @@ class BidManager extends CApplicationComponent{
 		
 		$transaction = Yii::app()->db->beginTransaction();
 		try{
-			$user->updateCounters(array(
+			$user->saveCounters(array(
 				'balance' => - $meta->getAttribute('sum')
 			));
 			
@@ -141,7 +141,7 @@ class BidManager extends CApplicationComponent{
 		
 		$transaction = Yii::app()->db->beginTransaction();
 		try{
-			$bid->updateCounters(array(
+			$bid->saveCounters(array(
 				'progress' => - $meta->getAttribute('sum') / $bid->getAttribute('sum')
 			));
 		

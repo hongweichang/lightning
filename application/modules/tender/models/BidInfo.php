@@ -60,7 +60,7 @@ class BidInfo extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'user' => array(self::BELONGS_TO, 'FrontUser', 'user_id'),
-			'bidMetas' => array(self::HAS_MANY, 'BidMeta', 'bid_id'),
+			'bidMeta' => array(self::HAS_MANY, 'BidMeta', 'bid_id'),
 		);
 	}
 
@@ -125,7 +125,7 @@ class BidInfo extends CActiveRecord
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!
 	 * @param string $className active record class name.
-	 * @return Bid the static model class
+	 * @return BidInfo the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{

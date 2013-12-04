@@ -63,8 +63,8 @@ class mainConf extends ConfigBase{
 						),
 				),
 				'import' => array(
-						'application.extensions.PHPExcel.PHPExcel.*'
-						
+						'application.extensions.PHPExcel.PHPExcel.*',
+						'application.modules.user.models.*'
 				),
 				'components' => array(
 						'user' => array(
