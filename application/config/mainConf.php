@@ -15,7 +15,7 @@ class mainConf extends ConfigBase{
 
 	public function merge(){
 		return array(
-				'hostName' => 'http://localhost',
+				'hostName' => 'http://115.29.186.221',
 				'modules' => array(
 						'gii'=>array(
 								'class'=>'system.gii.GiiModule',
