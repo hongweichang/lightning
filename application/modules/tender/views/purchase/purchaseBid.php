@@ -77,11 +77,22 @@
               <input type="text" name="writeBidMeta[sum]" id="lend-num" /><span>元</span>
               <p>到期总收益 ¥<span>0.00元</span></p>
               <p>标段利率 <span>0.00%</span></p>
+              <?php if(CCaptcha::checkRequirements()){ ?>
               <p class="lend-verify">
                 <label for="verifycode">验证码</label>
-                <input type="text" id="verifycode"/>
-                <img src="" id="randImage" title="点击刷新验证码" alt="验证码"/>
+                <input type="text" name="writeBidMeta[code]" id="verifycode"/>
+                <?php $this->widget('CCaptcha',array(
+					'id' => 'randImage',
+					'showRefreshButton' => false,
+					'clickableImage' => true,
+					'imageOptions' => array(
+						'name' => 'randImage',
+						'title' => '点击刷新验证码',
+						'alt' => '验证码',
+					),
+				)); ?>
               </p>
+              <?php } ?>
               <div>
                 <input type="checkbox" checked="checked" name="protocal" id="protocal" />
                 <div class="fakeCheck"><span></span></div>
