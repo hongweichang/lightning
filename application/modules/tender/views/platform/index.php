@@ -35,7 +35,7 @@ $recharge = $user->getAttribute('balance') < $meta->getAttribute('sum');
             <p>借款金额：<?php echo number_format($bid->getAttribute('sum') / 100,2);?>元，标段月利率<?php echo $bid->getAttribute('month_rate'); ?>%，期限<?php echo $bid->getAttribute('deadline'); ?>个月，完成<?php echo $bid->getAttribute('progress'); ?>%招募</p>
             <p>招标开始时间：<?php echo date('Y年j月n日H时',$bid->getAttribute('start')); ?>，结束时间：<?php echo date('Y年j月n日H时',$bid->getAttribute('end')); ?></p>
           </div>
-          <div id="borrow-num"><span><?php echo number_format($meta->getAttribute('sum'),2);?>元</span></div>
+          <div id="borrow-num"><span><?php echo number_format($meta->getAttribute('sum') / 100,2);?>元</span></div>
           <div id="borrow-avatar">
             <img src="<?php echo $this->imageUrl; ?>intro-pic_1.png" />
             <span>信</span>

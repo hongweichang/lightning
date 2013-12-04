@@ -65,7 +65,6 @@ class mainConf extends ConfigBase{
 				'import' => array(
 						'application.extensions.PHPExcel.PHPExcel.*',
 						'application.modules.user.models.*'
-						
 				),
 				'components' => array(
 						'user' => array(
@@ -88,37 +87,7 @@ class mainConf extends ConfigBase{
 								'charset' => 'utf8',
 								'tablePrefix' => 'xcms_'
 						),
-						//internal database.ip 10.161.180.53
-						
-						/*'db' =>array(
-								'class' => 'system.db.CDbConnection',
-								'autoConnect' => false,
-								'connectionString' => 'mysql:host=10.161.180.53;dbname=lightning',
-								'emulatePrepare' => true,
-								'username' => 'lancelot',
-								'password' => 'lancelot@lightningdbmysqladmin',
-								'charset' => 'utf8',
-								'tablePrefix' => 'xcms_'
-						),*/
-						//local database
-						/*'db' =>array(
-						 		'class' => 'system.db.CDbConnection',
-						 		'autoConnect' => false,
-						 		'connectionString' => 'mysql:host=localhost;dbname=lightning',
-						 		'emulatePrepare' => true,
-						 		'username' => 'root',
-						 		'password' => '123456',
-						 		'charset' => 'utf8',
-						 		'tablePrefix' => 'xcms_'
-						 ),*/
-						'user' => array(
-								'class' => 'cms.modules.accessControl.components.AuthUser',
-								'stateKeyPrefix' => 'FU',
-								'allowAutoLogin' => true,
-								'autoRenewCookie' => true,
-								'guestName' => '游客',
-								'authTimeout' => 3600
-						),
+
 						'cache' => array(
 								'class' => 'CMemCache',
 								'useMemcached' => true,
@@ -134,19 +103,12 @@ class mainConf extends ConfigBase{
 												'port' => 11211
 										),
 								),
-						),
 						'session' => array(
 								'class'=> 'CCacheHttpSession',
 								'cacheID' => 'cache',
 								'autoStart' => true,
 								'timeout' => 3600*24
 						),
-						/*'session' => array(
-								'class'=> 'CHttpSession',
-								//'cacheID' => 'cache',
-								'autoStart' => true,
-								'timeout' => 3600*24
-						),*/
 						'clientScript' => array(
 								'scriptMap' => array(
 										'jquery.js' => false,
