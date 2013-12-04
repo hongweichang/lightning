@@ -46,11 +46,12 @@ class AppUserController extends Controller{
 								'age' => $attributes['age']
 							);
 					$this->response(200,'登陆成功',$userInfo);
-				}
+				}else
+					$this->response(400,'登陆失败，用户名或密码错误',$login->getErrors());
 					
-			}
-				else
-					$this->response(400,'登陆失败，用户名或密码错误','');
+			}else
+				$this->response(402,'登录失败,信息不完整','');
+				
 			
 		}else
 			$this->response(401,'登陆失败，请不要重复登陆','');
