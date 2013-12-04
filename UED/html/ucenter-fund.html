@@ -106,109 +106,154 @@
                             <p>账户余额<span>0.00<span>元</span></span></p>
                         </div>
                         <div class="tab-content-r">
-                            <p><span>可用资金  0.00元</span><span>可充值总额</span></p>
-                            <p class="aud-det-money"><span>0.00元</span><span>0.00元</span><span>0.00元</span></p>
-                            <p class="aud-det-prompt">您最近10天内有 8笔 投资将收益，总额 0.00元</p>
+                            <p>
+                                <span>可用资金  0.00元</span>
+                                <span>可充值总额  0.00元</span>
+                            </p>
+                            <p>
+                                <span>冻结资金  0.00元</span>
+                                <span>可提现总额  0.00元</span>
+                            </p>
                         </div>
                     </div>
                 </div>
                 <ul id="find-table-detail">
-                    <li class="find-selected">完成标段</li>
-                    <li>正在竞标</li>
-                    <li>债权转让</li>
+                    <li class="find-selected">交易记录</li>
+                    <li>充值</li>
+                    <li>提现</li>
                 </ul>
-                <div class="find-table-content find-table-content-show">
-                    <ul>
-                        <li>
-                            <span>借款人</span>
-                            <span>借款标题</span>
-                            <span>年利率</span>
-                            <span>还款金额</span>
-                            <span>期限</span>
-                            <span class="deadline">状态</span>
-                            <span class="repay">查看详情</span>
-                        </li>
-                        <li>
-                            <span><img src="#" /></span>
-                            <span>再次支持免费充值</span>
-                            <span>10.00 % </span>
-                            <span>￥25000元</span>
-                            <span>3个月</span>
-                            <span class="deadline">待转</span>
-                            <span class="repay"><a href="">查看</a></span>
-                        </li>
-                        <li>
-                            <span><img src="#" /></span>
-                            <span>再次支持免费充值</span>
-                            <span>10.00 % </span>
-                            <span>￥25000元</span>
-                            <span>3个月</span>
-                            <span class="deadline">已转</span>
-                            <span class="repay"><a href="">查看</a></span>
-                        </li>
-                    </ul>
+                <div class="find-table-content fund find-table-content-show">
+                    <div id="fund-record-query">
+                        <span>查询类型</span>
+                        <select>
+                            <option value="">所有</option>
+                            <option value="">投标成功</option>
+                            <option value="">招标成功</option>
+                        </select>
+                        <span>查询时间</span>
+                        <select>
+                            <option value="">三天以内</option>
+                            <option value="">一周以内</option>
+                        </select>
+                        <a href="javascript:;" class="form-button">查询</a>
+                        <a href="javascript:;" id="export-record">导出查询结果</a>
+                    </div>
+                    <table class="record-table">
+                        <tbody>
+                            <tr>
+                                <td>时间</td>
+                                <td>类型明细</td>
+                                <td>收入</td>
+                                <td>支出</td>
+                                <td>结余</td>
+                                <td>备注记录</td>
+                            </tr>
+                            <tr>
+                                <td>2013-12-01 19:30</td>
+                                <td>充值</td>
+                                <td>1,000,000,000</td>
+                                <td>1,000,000,000</td>
+                                <td>1,000,000,000</td>
+                                <td>德玛西亚！</td>
+                            </tr>
+                            <tr>
+                                <td>2013-12-01 19:30</td>
+                                <td>充值</td>
+                                <td>1,000,000,000</td>
+                                <td>1,000,000,000</td>
+                                <td>1,000,000,000</td>
+                                <td>德玛西亚！</td>
+                            </tr>
+                            <tr>
+                                <td>2013-12-01 19:30</td>
+                                <td>充值</td>
+                                <td>1,000,000,000</td>
+                                <td>1,000,000,000</td>
+                                <td>1,000,000,000</td>
+                                <td>德玛西亚！</td>
+                            </tr>
+                            <tr>
+                                <td>2013-12-01 19:30</td>
+                                <td>充值</td>
+                                <td>1,000,000,000</td>
+                                <td>1,000,000,000</td>
+                                <td>1,000,000,000</td>
+                                <td>德玛西亚！</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="find-table-content fund">
+                    <div class="paymethod-bank clearfix">
+                        <h2>选择充值方式</h2>
+                        <ul>
+                          <li>
+                            <input type="radio" name="pay_bank" value="icbc" id="b-icbc" />
+                            <label class="icbc" for="b-icbc"></label>
+                          </li>
+                          <li>
+                            <input type="radio" name="pay_bank" value="abc" id="b-abc" />
+                            <label class="abc" for="b-abc"></label>
+                          </li>
+                          <li>
+                            <input type="radio" name="pay_bank" value="cmb" id="b-cmb" />
+                            <label class="cmb" for="b-cmb"></label>
+                          </li>
+                          <li>
+                            <input type="radio" name="pay_bank" value="ccb" id="b-ccb" />
+                            <label class="ccb" for="b-ccb"></label>
+                          </li>
+                          <li>
+                            <input type="radio" name="pay_bank" value="boc" id="b-boc" />
+                            <label class="boc" for="b-boc"></label>
+                          </li>
+                          <li>
+                            <input type="radio" name="pay_bank" value="post" id="b-post" />
+                            <label class="post" for="b-post"></label>
+                          </li>
+                          <li>
+                            <input type="radio" name="pay_bank" value="spdb" id="b-spdb" />
+                            <label class="spdb" for="b-spdb"></label>
+                          </li>
+                          <li>
+                            <input type="radio" name="pay_bank" value="cgb" id="b-cgb" />
+                            <label class="cgb" for="b-cgb"></label>
+                          </li>
+                        </ul>
+                      </div>
+                    <div class="pay-form">
+                        <h2>填写充值金额</h2>
+                        <form>
+                            <ul>
+                                <li>
+                                    <label>账户余额</label>
+                                    <span>0.00</span>
+                                    <span>元</span>
+                                </li>
+                                <li>
+                                    <label for="pay-num">充值金额</label>
+                                    <input type="text" id="pay-num"/>
+                                    <span>元</span>
+                                </li>
+                                <li>
+                                    <label>充值费用</label>
+                                    <span>0.00</span>
+                                    <span>元</span>
+                                </li>
+                                <li>
+                                    <label>手机号码</label>
+                                    <span>156****9658</span>
+                                </li>
+                                <li>
+                                    <label>验证码</label>
+                                    <input type="text" class="verifycode"/>
+                                    <img src="" id="randImage"/>
+                                </li>
+                            </ul>
+                        </form>
+                    </div>
                 </div>
                 <div class="find-table-content">
-                    <ul>
-                        <li>
-                            <span>借款人</span>
-                            <span>借款标题</span>
-                            <span>年利率</span>
-                            <span>还款金额</span>
-                            <span>期限</span>
-                            <span class="deadline">收益时间</span>
-                            <span class="repay">查看详情</span>
-                        </li>
-                        <li>
-                            <span><img src="#" /></span>
-                            <span>再次支持免费充值</span>
-                            <span>10.00 % </span>
-                            <span>￥25000元</span>
-                            <span>3个月</span>
-                            <span class="deadline">2013-11-15 23:59</span>
-                            <span class="repay"><a href="">查看</a></span>
-                        </li>
-                        <li>
-                            <span><img src="#" /></span>
-                            <span>再次支持免费充值</span>
-                            <span>10.00 % </span>
-                            <span>￥25000元</span>
-                            <span>3个月</span>
-                            <span class="deadline">2013-11-15 23:59</span>
-                            <span class="repay"><a href="">查看</a></span>
-                        </li>
-                    </ul>
-                </div>
-                <div class="find-table-content">
-                    <ul>
-                        <li>
-                            <span>借款人</span>
-                            <span>借款标题</span>
-                            <span>年利率</span>
-                            <span>还款金额</span>
-                            <span>期限</span>
-                            <span class="deadline">状态</span>
-                            <span class="repay">查看详情</span>
-                        </li>
-                        <li>
-                            <span><img src="#" /></span>
-                            <span>再次支持免费充值</span>
-                            <span>10.00 % </span>
-                            <span>￥25000元</span>
-                            <span>3个月</span>
-                            <span class="deadline">待转</span>
-                            <span class="repay"><a href="">查看</a></span>
-                        </li>
-                        <li>
-                            <span><img src="#" /></span>
-                            <span>再次支持免费充值</span>
-                            <span>10.00 % </span>
-                            <span>￥25000元</span>
-                            <span>3个月</span>
-                            <span class="deadline">待转</span>
-                            <span class="repay"><a href="">查看</a></span>
-                        </li>
-                    </ul>
                 </div>
             </div>
         </div>
