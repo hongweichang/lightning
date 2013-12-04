@@ -204,6 +204,6 @@ class mainConf extends ConfigBase{
 						//认证等级的查询条件
 						'authenGrade' => array('AA','AAA','HR',),
 				),
-		);
+		)
 	}
 }
