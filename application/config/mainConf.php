@@ -57,6 +57,10 @@ class mainConf extends ConfigBase{
 										'CharSet'=>'UTF-8',
 								),
 						),
+
+						'appservice' => array(
+								'class' => 'application.modules.appservice.AppserviceModule',
+						),
 				),
 				'import' => array(
 						'application.extensions.PHPExcel.PHPExcel.*'
@@ -117,12 +121,12 @@ class mainConf extends ConfigBase{
 						),
 						'cache' => array(
 								'class' => 'CMemCache',
-								'useMemcached' => false,
+								'useMemcached' => true,
 								'keyPrefix' => 'lightning',
 								'servers' => array(
 										array(
+												//'host' => 'localhost',
 												//本地memcached缓存
-//												'host' => 'localhost',
 												//阿里云外网IP
 												'host' => '115.29.186.221',
 												//阿里云内网IP，本地测试可以使用本地memcached服务器
@@ -131,9 +135,15 @@ class mainConf extends ConfigBase{
 										),
 								),
 						),
-						'session' => array(
+						/*'session' => array(
 								'class'=> 'CCacheHttpSession',
 								'cacheID' => 'cache',
+								'autoStart' => true,
+								'timeout' => 3600*24
+						),*/
+						'session' => array(
+								'class'=> 'CHttpSession',
+								//'cacheID' => 'cache',
 								'autoStart' => true,
 								'timeout' => 3600*24
 						),
