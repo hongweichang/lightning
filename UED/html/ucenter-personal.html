@@ -5,6 +5,8 @@
     <title>闪电贷</title>
     <link rel="stylesheet" type="text/css" href="../css/common.css" />
     <link rel="stylesheet" type="text/css" href="../css/detail.css" />
+    <script type="text/javascript" src="../javascript/jquery-1.8.2.min.js"></script>
+    <script type="text/javascript" src="../javascript/jquery.validate.min.js"></script>
 </head>
 <body>
     <div id="header">
@@ -80,7 +82,7 @@
             <div class="aud-find">
                 <ul id="find-table-button">
                     <a href="">
-                        <li class="find-table-0"><div class="find-table-op find-table-op-hidden"></div>我的借款</li>
+                        <li class="find-table-0"><div class="find-table-op find-table-op"></div>我的借款</li>
                     </a>
                     <a href="">
                         <li class="find-table-1"><div class="find-table-op"></div>我的投资</li>
@@ -89,134 +91,81 @@
                         <li class="find-table-2"><div class="find-table-op"></div>安全中心</li>
                     </a>
                     <a href="">
-                        <li class="find-table-3"><div class="find-table-op"></div>个人信息</li>
+                        <li class="find-table-3"><div class="find-table-op-hidden"></div>个人信息</li>
                     </a>
                     <a href="">
                         <li class="find-table-4"><div class="find-table-op"></div>资金管理</li>
                     </a>
                 </ul>
-                <div class="find-table-box find-table-box-show">
-                    <div class="tab-border tab-top"></div>
-                    <div class="tab-border tab-bottom"></div>
-                    <div class="tab-border-l tab-left"></div>
-                    <div class="tab-border-l tab-right"></div>
-                    <div class="table-content">
-                        <div class="tab-content-l">
-                            <div class="tab-border-l tab-right"></div>
-                            <p>借款总金额<span>0.00<span>元</span></span></p>
-                        </div>
-                        <div class="tab-content-r">
-                            <p><span>逾期金额</span><span>待还金额</span><span>近30天应还金额</span></p>
-                            <p class="aud-det-money"><span>0.00元</span><span>0.00元</span><span>0.00元</span></p>
-                            <p class="aud-det-prompt">您最近10天内有 0笔 借款须归还，总额 0.00元</p>
-                        </div>
-                    </div>
-                </div>
-                <ul id="find-table-detail">
-                    <li class="find-selected">还款中借款</li>
-                    <li>已还清借款</li>
-                    <li>借款申请查询</li>
-                </ul>
-                <div class="find-table-content find-table-content-show">
-                    <ul>
-                        <li>
-                            <span>借款人</span>
-                            <span>借款标题</span>
-                            <span>年利率</span>
-                            <span>还款金额</span>
-                            <span>期限</span>
-                            <span class="deadline">结束时间</span>
-                            <span class="repay">还款</span>
-                        </li>
-                        <li>
-                            <span><img src="#" /></span>
-                            <span>再次支持免费充值</span>
-                            <span>10.00 % </span>
-                            <span>￥25000元</span>
-                            <span>3个月</span>
-                            <span class="deadline">2013-11-15 23:59</span>
-                            <span class="repay">
-                                <a href="">
-                                    <img src="../images/repay.png" />
-                                </a>
-                            </span>
-                        </li>
-                        <li>
-                            <span><img src="#" /></span>
-                            <span>再次支持免费充值</span>
-                            <span>10.00 % </span>
-                            <span>￥25000元</span>
-                            <span>3个月</span>
-                            <span class="deadline">2013-11-15 23:59</span>
-                            <span class="repay">
-                                <a href="">
-                                    <img src="../images/repay.png" />
-                                </a>
-                            </span>
-                        </li>
+                <div class="tab-list">
+                    <ul id="find-table-detail">
+                        <li class="find-selected">基本信息</li>
+                        <li>认证信息</li>
+                        <li>银行卡</li>
                     </ul>
                 </div>
-                <div class="find-table-content">
-                    <ul>
-                        <li>
-                            <span>借款人</span>
-                            <span>借款标题</span>
-                            <span>年利率</span>
-                            <span>还款金额</span>
-                            <span>期限</span>
-                            <span class="deadline">还清时间</span>
-                            <span class="repay">合同</span>
-                        </li>
-                        <li>
-                            <span><img src="#" /></span>
-                            <span>再次支持免费充值</span>
-                            <span>10.00 % </span>
-                            <span>￥25000元</span>
-                            <span>3个月</span>
-                            <span class="deadline">2013-11-15 23:59</span>
-                            <span class="repay"><a href="">查看</a></span>
-                        </li>
-                        <li>
-                            <span><img src="#" /></span>
-                            <span>再次支持免费充值</span>
-                            <span>10.00 % </span>
-                            <span>￥25000元</span>
-                            <span>3个月</span>
-                            <span class="deadline">2013-11-15 23:59</span>
-                            <span class="repay"><a href="">查看</a></span>
-                        </li>
-                    </ul>
+                <div class="basic-info find-table-content find-table-content-show">
+                    <a href="javascript:;"  class="user-avatar">
+                        <img src="../images/user-avatar.png" />
+                        <p>点击修改头像</p>
+                    </a>
+                    <form>
+                        <ul class="personal-info">
+                            <li class="clearfix">
+                                <label class="personal-name">昵称</label>
+                                <div class="personal-ico personal-nick"></div>
+                                <p>37727423</p>
+                            </li>
+                            <li class="clearfix">
+                                <label class="personal-name">真实姓名</label>
+                                <div class="personal-ico personal-realname"></div>
+                                <p>王晓亮</p>
+                                <p class="ico-status pass">已认证<p>
+                            </li>
+                            <li class="clearfix">
+                                <label class="personal-name">身份证号</label>
+                                <div class="personal-ico personal-id"></div>
+                                <p>3434324*******</p>
+                                <p class="ico-status unpass">已认证</p>
+                            </li>
+                            <li class="clearfix">
+                                <label class="personal-name">手机号码</label>
+                                <div class="personal-ico personal-phone"></div>
+                                <p>156****4344</p>
+                                <p class="ico-status pass">已绑定</p>
+                            </li>
+                            <li class="clearfix">
+                                <label class="personal-name">邮箱地址</label>
+                                <div class="personal-ico personal-mail"></div>
+                                <p>156****4344</p>
+                                <p class="ico-status pass">已绑定</p>
+                            </li>
+                            <li class="clearfix">
+                                <label class="personal-name">性别</label>
+                                <div class="personal-ico personal-sex"></div>
+                                <p>男</p>
+                            </li>
+                            <li class="clearfix">
+                                <label class="personal-name">出生日期</label>
+                                <div class="personal-ico personal-birth"></div>
+                                <p>1993-01-01</p>
+                            </li>
+                            <li class="clearfix">
+                                <label class="personal-name">居住地址</label>
+                                <div class="personal-ico personal-address"></div>
+                                <p>天堂街18号</p>
+                            </li>
+                            <li class="clearfix">
+                                <label class="personal-name">社会角色</label>
+                                <div class="personal-ico personal-role"></div>
+                                <p>经理</p>
+                            </li>
+                        </ul>
+                    </form>
                 </div>
                 <div class="find-table-content">
-                    <ul>
-                        <li>
-                            <span>借款人</span>
-                            <span>借款标题</span>
-                            <span>年利率</span>
-                            <span>还款金额</span>
-                            <span>期限</span>
-                            <span class="deadline">状态</span>
-                            <span class="repay">操作</span>
-                        </li>
-                        <li>
-                            <span><img src="#" /></span>
-                            <span>再次支持免费充值</span>
-                            <span>10.00 % </span>
-                            <span>￥25000元</span>
-                            <span>3个月</span>
-                            <span class="deadline">正在审核</span>
-                            <span class="repay"><a href="">查看</a></span>
-                        </li>
-                        <li>
-                            <span><img src="#" /></span>
-                            <span>再次支持免费充值</span>
-                            <span>10.00 % </span>
-                            <span>￥25000元</span>
-                            <span>3个月</span>
-                            <span class="deadline">已流标</span>
-                            <span class="repay"><a href="">查看</a></span>
-                        </li>
-                    </ul>
+                </div>
+                <div class="find-table-content">
                 </div>
             </div>
         </div>
@@ -284,7 +233,7 @@
             </div>
         </div>
     </div>
-<script type="text/javascript" src="../javascript/jquery-1.8.2.min.js"></script>
 <script type="text/javascript" src="../javascript/tableChange.js"></script>
+<script type="text/javascript" src="../javascript/update.js"></script>
 </body>
 </html>

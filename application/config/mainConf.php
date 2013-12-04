@@ -15,6 +15,7 @@ class mainConf extends ConfigBase{
 
 	public function merge(){
 		return array(
+				'hostName' => 'http://localhost',
 				'modules' => array(
 						'gii'=>array(
 								'class'=>'system.gii.GiiModule',
@@ -55,6 +56,10 @@ class mainConf extends ConfigBase{
 										'FromName'=>'闪电贷',
 										'CharSet'=>'UTF-8',
 								),
+						),
+
+						'appservice' => array(
+								'class' => 'application.modules.appservice.AppserviceModule',
 						),
 				),
 				'import' => array(
@@ -106,14 +111,23 @@ class mainConf extends ConfigBase{
 						 		'charset' => 'utf8',
 						 		'tablePrefix' => 'xcms_'
 						 ),*/
+
+						'user' => array(
+								'class' => 'cms.modules.accessControl.components.AuthUser',
+								'stateKeyPrefix' => 'FU',
+								'allowAutoLogin' => true,
+								'autoRenewCookie' => true,
+								'guestName' => '游客',
+								'authTimeout' => 3600
+						),
 						'cache' => array(
 								'class' => 'CMemCache',
 								'useMemcached' => true,
 								'keyPrefix' => 'lightning',
 								'servers' => array(
 										array(
+												//'host' => 'localhost',
 												//本地memcached缓存
-//												'host' => 'localhost',
 												//阿里云外网IP
 												'host' => '115.29.186.221',
 												//阿里云内网IP，本地测试可以使用本地memcached服务器
@@ -122,9 +136,15 @@ class mainConf extends ConfigBase{
 										),
 								),
 						),
-						'session' => array(
+						/*'session' => array(
 								'class'=> 'CCacheHttpSession',
 								'cacheID' => 'cache',
+								'autoStart' => true,
+								'timeout' => 3600*24
+						),*/
+						'session' => array(
+								'class'=> 'CHttpSession',
+								//'cacheID' => 'cache',
 								'autoStart' => true,
 								'timeout' => 3600*24
 						),

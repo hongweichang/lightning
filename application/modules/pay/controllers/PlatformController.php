@@ -9,16 +9,20 @@ class PlatformController extends Controller{
 	//number_format(10000,2);
 	public function actionIndex(){
 		$userManager = Yii::app()->getModule('user')->userManager;
-		
+		$tenderManager = Yii::app()->getModule('tender')->bidManager;
+
 		$this->render('index',array(
-			'mine' => $userManager->getUserInfo(Yii::app()->user->getId()),
+			'user' => $userManager->getUserInfo($this->app->user->getId()),
+			'tender' => $tenderManager->getBidInfo($this->request->getPost('bidid',1)),
+			'sum' => $this->request->getPost('money',1000)
 		));
 	}
 	
 	public function actionBill(){
 		$userManager = Yii::app()->getModule('user')->userManager;
+		
 		$this->render('bill',array(
-			'mine' => $userManager->getUserInfo(Yii::app()->user->getId()),
+			'user' => $userManager->getUserInfo(Yii::app()->user->getId()),
 		));
 	}
 }
