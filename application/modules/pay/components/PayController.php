@@ -5,7 +5,7 @@
  * date: 2013-11-16
  * desc: 支付基础模块
  */
-class PayController extends CmsController{
+class PayController extends Controller{
 	protected $platform; // 支付平台
 	protected $trade_no; // 平台订单号
 	protected $subject;	 // 订单名

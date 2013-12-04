@@ -7,10 +7,10 @@
  */
 class FundManager extends CApplicationComponent{
 	/**
-	 * 表单提交地址 - 进入支付阶段
+	 * 跳转地址，进入支付阶段
 	 */
-	public function pay(){
-		return Yii::app()->createUrl('pay/platform/index');
+	public function pay($meta_id,$payment){
+		return Yii::app()->createUrl('pay/'.$payment.'/index',array('meta_no' => $meta_id));
 	}
 	
 	/**
@@ -20,9 +20,10 @@ class FundManager extends CApplicationComponent{
 	 * @return boolean
 	 */
 	public function raiseWithdraw($uid,$sum,$charge){
+		$user = Yii::app()->getModule('user')->userManager->findByPk($uid);
+		
 		$transaction = Yii::app()->db->beginTransaction();
 		try{
-			$user = Yii::app()->getModule('user')->userManager->findByPk($uid);
 			$user->updateCounters(array(
 				'balance' => -($sum + charge) * 100
 			));
@@ -68,15 +69,12 @@ class FundManager extends CApplicationComponent{
 	 */
 	public function revokeWithdraw($trade_no){
 		$record = Withdraw::model()->findByPk($trade_no);
-		$sum = $record->getAttribute('sum') / 100;
-		$charge = $record->getAttribute('fee') / 100;
-		$uid = $record->getAttribute('user_id');
+		$user = Yii::app()->getModule('user')->userManager->findByPk($record->getAttribute('user_id'));
 		
 		$transaction = Yii::app()->db->beginTransaction();
 		try{
-			$user = Yii::app()->getModule('user')->userManager->findByPk($uid);
 			$user->updateCounters(array(
-				'balance' => ($sum + charge) * 100
+				'balance' => $record->getAttribute('sum') + $record->getAttribute('fee')
 			));
 			
 			$record->attributes = array(
