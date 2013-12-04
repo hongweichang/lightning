@@ -88,8 +88,8 @@ class mainConf extends ConfigBase{
 								'tablePrefix' => 'xcms_'
 						),
 						//internal database.ip 10.161.180.53
-						/*
-						'db' =>array(
+						
+						/*'db' =>array(
 								'class' => 'system.db.CDbConnection',
 								'autoConnect' => false,
 								'connectionString' => 'mysql:host=10.161.180.53;dbname=lightning',
@@ -110,7 +110,6 @@ class mainConf extends ConfigBase{
 						 		'charset' => 'utf8',
 						 		'tablePrefix' => 'xcms_'
 						 ),*/
-
 						'user' => array(
 								'class' => 'cms.modules.accessControl.components.AuthUser',
 								'stateKeyPrefix' => 'FU',
@@ -140,7 +139,7 @@ class mainConf extends ConfigBase{
 								'cacheID' => 'cache',
 								'autoStart' => true,
 								'timeout' => 3600*24
-						),/*
+						),
 						/*'session' => array(
 								'class'=> 'CHttpSession',
 								//'cacheID' => 'cache',
@@ -182,7 +181,7 @@ class mainConf extends ConfigBase{
 								'index' => '/site',
 								'useHelp' => '#',
 						),
-						'bidsPerPage' => 10,//默认的每次请求的标段条数
+						'bidsPerPage' => 2,//默认的每次请求的标段条数
 						
 						//标段选择条件参数
 						'selectorMap' => array(

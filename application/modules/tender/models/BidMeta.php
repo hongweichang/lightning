@@ -13,7 +13,7 @@ class BidMeta extends CActiveRecord
 	{
 	
 		return array(
-			array('user_id,bid_id,sum', 'required'),
+			array('user_id,bid_id,sum,buy_time', 'required'),
 			array('user_id,bid_id,sum', 'numerical','integerOnly'=>true),
 		);
 	}

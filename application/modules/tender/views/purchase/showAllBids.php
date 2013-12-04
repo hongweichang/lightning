@@ -1,7 +1,6 @@
 <?php 
 $this->cs->registerCssFile($this->cssUrl.'lend.css');
 $this->cs->registerScriptFile($this->scriptUrl.'lend.js',CClientScript::POS_END);
-
 //echo Yii::app()->getModule('credit')->getComponent('userCreditManager')->getUserCreditLevel($val['user_id']);
 
 //echo "<pre>";
@@ -105,18 +104,36 @@ $this->cs->registerScriptFile($this->scriptUrl.'lend.js',CClientScript::POS_END)
                             <img src="<?php echo $this->imageUrl;?>intro-pic_1.png" />
                             <span>信</span>
                         </div>
-                        <div class="loan-title"><a href="#"><?php echo $val['title'];?></a></div>
+                        <div class="loan-title"><a href="<?php 
+                        	echo $this->createUrl($purchaseUrl,array(
+                        		 'bidId'=>$val['id'],
+                        		 'userId'=>$val['user_id'])
+                        	);?>">
+                        <?php echo $val['title'];?></a></div>
                         <div class="loan-rate loan-num"><?php echo $val['month_rate'];?>%</div>
-                        <div class="loan-rank"><div class="rankA">A</div></div>
+                        <div class="loan-rank">
+                        	<?php $rank = Yii::app()->getModule('credit')->
+                        			getComponent('userCreditManager')->getUserCreditLevel($val['user_id']);?>
+                        	<div class="rank<?php echo $rank;?>"><?php echo $rank;?></div>
+                        </div>
 
                         <div class="loan-amount loan-num">￥<?php echo $val['sum'];?>元</div>
                         <div class="loan-time loan-num"><?php echo $val['deadline'];?>个月</div>
-                        <!-- 进度这个要作关联查询。。。待定 -->
+                        <!-- 进度这个要作关联查询 累加总计的sum  -->
+                        <!-- 自己写了半天，原来数据库里面就有个字段是progress来表示进度。。。。吐血啊~~~ -->
+                        <?php 
+                       				/*$bidInfo = $val->bidMeta;
+                                    $sum = 0;
+                                    foreach ($bidInfo as $valIn){
+                                    $sum += $valIn->sum;
+                                    }
+                                    $percent = ($sum / $val['sum']) * 100;*/
+                        ?>
                         <div class="loan-progress">
                             <div class="bar-out">
                                 <div class="bar-in">
-                                    <span class="bar-complete" style="width:30%"></span>
-                                    <span class="bar-num">30%</span>
+                                    <span class="bar-complete" style="width:<?php echo $val['progress'];?>%"></span>
+                                    <span class="bar-num"><?php echo $val['progress'];?>%</span>
                                 </div>
                             </div>
                         </div>

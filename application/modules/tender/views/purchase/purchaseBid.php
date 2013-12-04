@@ -1,4 +1,5 @@
-<?php $this->cs->registerCssFile($this->cssUrl.'lend.css'); ?>
+<?php $this->cs->registerCssFile($this->cssUrl.'lend.css');?>
+<?php $this->cs->registerScriptFile($this->scriptUrl.'lend.js',CClientScript::POS_END);?>
 <div class="wd1002">
         <div class="breadcrumb">
           <ul>
@@ -7,94 +8,193 @@
             </li>
             <li class="breadcrumb-separator"> 
             </li>
-            <li class="breadcrumb-item active">
+            <li class="breadcrumb-item">
               <a href="#">投资中心</a>
+            </li>
+            <li class="breadcrumb-separator"> 
+            </li>
+            <li class="breadcrumb-item active">
+              <a href="#">标段详情</a>
             </li>
           </ul>
         </div>
-        <div id="borrow-info">
-          <p id="borrow-brief" class="text-overflow">借款人信息：王果冻，借款10000元，月利率10%，结束时间19日23点，期限3个月期限3个月</p>
-          <div id="borrow-details">
-            <p>借款人：王国栋，男，淘宝主</p>
-            <p>身份证号码：**************,现居地:重庆南岸</p>
-            <p>借款金额：10000元，标段月利率10%，期限3个月，完成30%招募</p>
-            <p>招标开始时间：2013年16日0点，结束时间：2013年19日23点</p>
+        <div id="lend-details" class="clearfix">
+          <div class="details-head clearfix">
+            <div class="return"><a href="#">←返回</a></div>
+            <div class="name">标段详情</div>
+            <div class="balance">
+              <a href="#">账户余额¥<span><?php echo $currentUserInfo->balance;?></span><img src="<?php echo $this->imageUrl;?>topup_ico.png" /></a></div>
           </div>
-          <div id="borrow-num">投标金额：<span>1,000元</span></div>
-          <div id="borrow-avatar">
-            <img src="../images/intro-pic_1.png" />
-            <span>信</span>
-          </div>
-        </div>
-        <div id="view-detail"></div>
-        <div class="paycenter paymethod">
-          <form method="post" action="#" id="pay-method">
-            <div class="paymethod-item userinfo">
-              <div class="paymethod-manage">
-                <a href="#">管理我的账户 |</a>
-                <a href="#">使用帮助</a>
-              </div>  
-              <div>王国栋<span>15683128505</span></div>
-            </div>
-            <div class="paymethod-item method">
-              <input type="radio" checked="checked" name="pay_method" value="ssd" id="pay-ssd"/>
-              <label for="pay-ssd">闪电贷账户余额支付</label>
-              <span>可支付余额： 0.00元</span>
-              <p class="paycenter-hint question">您需要保证余额足够支付，余额不足可在此<a href="#">充值</a></p>
-            </div>
-            <div class="paymethod-item">
-              <div class="paymethod-title">使用银行卡支付</div>
-              <div class="paymethod-bank clearfix">
-                <ul>
-                  <li>
-                    <input type="radio" name="pay_bank" value="icbc" id="b-icbc" />
-                    <label class="icbc" for="b-icbc"></label>
-                  </li>
-                  <li>
-                    <input type="radio" name="pay_bank" value="abc" id="b-abc" />
-                    <label class="abc" for="b-abc"></label>
-                  </li>
-                  <li>
-                    <input type="radio" name="pay_bank" value="cmb" id="b-cmb" />
-                    <label class="cmb" for="b-cmb"></label>
-                  </li>
-                  <li>
-                    <input type="radio" name="pay_bank" value="ccb" id="b-ccb" />
-                    <label class="ccb" for="b-ccb"></label>
-                  </li>
-                  <li>
-                    <input type="radio" name="pay_bank" value="boc" id="b-boc" />
-                    <label class="boc" for="b-boc"></label>
-                  </li>
-                  <li>
-                    <input type="radio" name="pay_bank" value="post" id="b-post" />
-                    <label class="post" for="b-post"></label>
-                  </li>
-                  <li>
-                    <input type="radio" name="pay_bank" value="spdb" id="b-spdb" />
-                    <label class="spdb" for="b-spdb"></label>
-                  </li>
-                  <li>
-                    <input type="radio" name="pay_bank" value="cgb" id="b-cgb" />
-                    <label class="cgb" for="b-cgb"></label>
-                  </li>
-                </ul>
+          <div class="details-info">
+            <div class="info-title"><?php echo $bidInfo->title;?></div>
+            <div class="info-content clearfix">
+              <div class="info-content-l">
+                <p>借款金额</p>
+                <p class="info-content-val"><span>¥</span><?php echo $bidInfo->sum;?></p>
+              </div>
+              <div class="info-content-r">
+                <p>信用等级</p>
+                <div class="rank<?php echo $authGrade;?> info-content-rank"><?php echo $authGrade;?></div>
+              </div>
+              <div class="info-content-l small">
+                <p>标段期限</p>
+                <p class="info-content-val"><?php echo $bidInfo->deadline;?><span>个月</span></p>
+              </div>
+              <div class="info-content-l small">
+                <p>月利率</p>
+                <p class="info-content-val"><?php echo $bidInfo->month_rate;?><span>%</span></p>
+              </div>
+              <div class="info-content-r">
+                <div class="info-content-term">
+                  <div class="term-start">
+                    <div class="term-ico">始</div>
+                    <p><?php echo date('Y-m-d h:i',$bidInfo->start);?></p>
+                  </div>
+                  <div class="term-end">
+                    <div class="term-ico">终</div>
+                    <p><?php echo date('Y-m-d h:i',$bidInfo->end);?></p>
+                  </div>  
+                </div>
               </div>
             </div>
-            <div>
-              <input type="submit" value="下一步" class="paycenter-button" id="paycenter-next"/>
+            <div class="info-progress">
+              <div class="loan-progress">
+                  <div class="bar-in">
+                    <span class="bar-complete" style="width:<?php echo $bidInfo->progress;?>%"></span>
+                  </div>
+                  <span>完成<?php echo $bidInfo->progress;?>%</span>
+              </div>
+              <div class="loan-progress"><span class="tick">√</span><span>100%安全认证，确保交易有效</span></div>
             </div>
-          </form>
-        </div>
-        <div id="helpcenter">
-          <h3>充值时遇到的问题</h3>
-          <p class="help-title">1. 我可以如何充值？没有第三方支付的账户是否也可以充值？</p>
-          <p class="help-answer">答：您在"我的账户"首页可看到"充值"按钮，点击充值，会自动弹出充值页面，按照操作提示一步步进行即可。</p>
-          <p class="help-title">2. 为什么网上银行充值成功，但是闪电贷帐号里面的余额却没有增加？</p>
-          <p class="help-answer">答：由于在同一时间使用同一个第三方充值账户端口充值的人可能非常多，在某些时候会造成网银显示与闪电贷
-账号金额不同步的情况。如果遇到这种情况请您将网银付款成功的页面截图，然后刷新闪电贷账户页面。如果刷
-新未能解决问题，请您致电客服400 890 3890，客服专员会指导发送截图并马上处理您的问题。</p>
-          <a href="#">更多帮助</a>
-          <a href="#">进入闪电贷账户</a>
+          </div>
+          <div class="details-lend">
+            <div class="info-title">投资金额<span class="info-subtitle">投资有风险，请谨慎考虑</span></div>
+            <form method="post" action="<?php 
+            	echo $this->createUrl($formAction,array(
+            			'bidId'=>$bidInfo->id,
+            			'userId'=>$currentUserInfo->id)
+            		);?>" id="lend-form">
+              <input type="text" name="writeBidMeta[sum]" id="lend-num" /><span>元</span>
+              <p>到期总收益 ¥<span>0.00元</span></p>
+              <p>标段利率 <span>0.00%</span></p>
+              <p class="lend-verify">
+                <label for="verifycode">验证码</label>
+                <input type="text" id="verifycode"/>
+                <img src="" id="randImage" title="点击刷新验证码" alt="验证码"/>
+              </p>
+              <div>
+                <input type="checkbox" checked="checked" name="protocal" id="protocal" />
+                <div class="fakeCheck"><span></span></div>
+                <label for="protocal" id="protocal-label">我同意<a href="#">《投资人投资协议》</a></label>
+              </div>
+              <input type="submit" value="加入" id="lend-confirm" />
+            </form>
+          </div>
+          <ul class="details-tab">
+            <li id="tab-borrower" class="tab-on">借款人详情</li>
+            <li id="tab-record">购买记录</li>
+            <li id="tab-info">标段详情</li>
+          </ul>
+          <div class="tab-body">
+            <div class="tab-content borrower-content tab-show">
+              <ul>
+                <li>
+                  <span class="borrower-name">昵称</span>
+                  <span class="borrower-val"><?php echo $borrowUserInfo['nickname'];?></span>
+                </li>
+                <li>
+                  <span class="borrower-name">真实姓名</span>
+                  <span class="borrower-val"><?php echo $borrowUserInfo['realname'];?></span>
+                </li>
+                <li>
+                  <span class="borrower-name">性别</span>
+                  <span class="borrower-val"><?php echo ($borrowUserInfo['gender']== 1)? '男':'女';?></span>
+                </li>
+                <li>
+                  <span class="borrower-name">年龄</span>
+                  <span class="borrower-val"><?php echo $borrowUserInfo['age'];?></span>
+                </li>
+                <li>
+                  <span class="borrower-name"></span>
+                  <span class="borrower-val separation">以下是选填项目</span>
+                </li>
+                <li>
+                  <span class="borrower-name">房产证</span>
+                  <span class="borrower-val"><img src="<?php echo $this->imageUrl;?>auth.png" /></span>
+                </li>
+                <li>
+                  <span class="borrower-name">月收入证明</span>
+                  <span class="borrower-val"><img src="<?php echo $this->imageUrl;?>auth.png" /></span>
+                </li>
+              </ul>
+            </div>
+            <div class="tab-content record-content">
+              <table>
+                <colgroup>
+                  <col class="tb-col-buyer"></col>
+                  <col class="tb-col-title"></col>
+                  <col class="tb-col-num"></col>
+                  <col class="tb-col-time"></col>
+                  <col class="tb-col-status"></col>
+                </colgroup>
+                <thead>
+                  <tr>
+                    <th class="tb-col-buyer">买家</th>
+                    <th class="tb-col-title">标段名字</th>
+                    <th class="tb-col-num">投资金额</th>
+                    <th class="tb-col-time">成交时间</th>
+                    <th class="tb-col-status">状态</th>
+                  </tr>
+                </thead>
+                <tbody>
+                	<?php 
+                		$bidMeta = $bidInfo->bidMeta;
+                		foreach ($bidMeta as $key => $val) {
+                	?>
+		                  <tr>
+		                    <td><?php echo $val->user_id;?></td>
+		                    <td><?php echo $bidInfo->title;?></td>
+		                    <td><?php echo $val->sum;?></td>
+		                    <td><?php echo date('Y-m-d h:i:s',$val->buy_time);?></td>
+		                    <td>什么意思？？</td>
+		                  </tr>
+                  	<?php 
+                		}
+                  	?>
+                </tbody>
+              </table>
+            </div>
+            <div class="tab-content info-content">
+              <h1 class="adu-d-nav"><?php echo $bidInfo->title;?></h1>
+              <ul>
+                <li>借款金额 :  <span><?php echo $bidInfo->sum;?></span>元</li>
+                <li>年利率 :  <span><?php echo $bidInfo->month_rate;?></span>%</li>
+                <li>借款期限 :  <span><?php echo $bidInfo->deadline;?></span>个月</li>
+                <li>信用等级 :  <span><?php echo $authGrade;?></span></li>
+              </ul>
+              <ul class="adu-img-bar">
+                <li>
+                  <img src="<?php echo $this->imageUrl;?>id-card.png" />
+                  <p>身份证正反面</p>
+                </li>
+                <li>
+                  <img src="<?php echo $this->imageUrl;?>adu-blank.png" />
+                  <p>工资卡存折/银行流水</p>
+                </li>
+                <li>
+                  <img src="<?php echo $this->imageUrl;?>adu-believe.png" />
+                  <p>个人信用报告</p>
+                </li>
+                <li>
+                  <img src="<?php echo $this->imageUrl;?>adu-address.png" />
+                  <p>常驻地址证明</p>
+                </li>
+              </ul>
+              <div class="adu-intro">
+                <h3>【标段介绍】</h3>
+                <p><?php echo $bidInfo->description;?></p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
