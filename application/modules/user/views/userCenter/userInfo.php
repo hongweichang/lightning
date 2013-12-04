@@ -1,7 +1,6 @@
 <?php
 $this->cs->registerScriptFile($this->scriptUrl.'jquery-1.8.2.min.js',CClientScript::POS_END);
 $this->cs->registerScriptFile($this->scriptUrl.'jquery.validate.min.js',CClientScript::POS_END);
-
 $this->cs->registerCssFile($this->cssUrl.'common.css');
 $this->cs->registerCssFile($this->cssUrl.'detail.css');
 ?>
@@ -18,7 +17,7 @@ $this->cs->registerCssFile($this->cssUrl.'detail.css');
                     <img src="<?php echo $this->imageUrl.'user-avatar.png'?>" class="det-img" />
                     <p>
                         <span class="aud-time">晚上好，</span>
-                        <span class="aud-det-name">王国栋 </span>
+                        <span class="aud-det-name"><?php echo Yii::app()->user->name;?> </span>
                         现在是属于你自己的时间，好好休息吧
                     </p>
                     <p class="aud-st-serve">
@@ -57,10 +56,10 @@ $this->cs->registerCssFile($this->cssUrl.'detail.css');
                     <a href="">
                         <li class="find-table-0"><div class="find-table-op find-table-op"></div>我的借款</li>
                     </a>
-                    <a href="">
+                    <a href="<?php echo Yii::app()->createUrl('user/userCenter/myLend');?>">
                         <li class="find-table-1"><div class="find-table-op"></div>我的投资</li>
                     </a>
-                    <a href="">
+                    <a href="<?php echo Yii::app()->createUrl('user/userCenter/userSecurity');?>">
                         <li class="find-table-2"><div class="find-table-op"></div>安全中心</li>
                     </a>
                     <a href="">
@@ -158,31 +157,35 @@ $this->cs->registerCssFile($this->cssUrl.'detail.css');
                             <li class="clearfix">
                                 <label class="personal-name">真实姓名</label>
                                 <div class="personal-ico personal-realname"></div>
-                                <p>王晓亮</p>
+                                <p><?php echo $userData->realname;?></p>
                                 <p class="ico-status pass">已认证</p>
                             </li>
                             <li class="clearfix">
                                 <label class="personal-name">身份证号</label>
                                 <div class="personal-ico personal-id"></div>
-                                <p>3434324*******</p>
+                                <p><?php echo $userData->identity_id;?></p>
                                 <p class="ico-status unpass">未认证</p>
                             </li>
                             <li class="clearfix">
                                 <label class="personal-name">手机号码</label>
                                 <div class="personal-ico personal-phone"></div>
-                                <p>156****4344</p>
+                                <p><?php echo $userData->mobile;?></p>
                                 <p class="ico-status pass">已绑定</p>
                             </li>
                             <li class="clearfix">
                                 <label class="personal-name">邮箱地址</label>
                                 <div class="personal-ico personal-mail"></div>
-                                <p>156****4344</p>
+                                <p><?php echo $userData->email;?></p>
                                 <p class="ico-status pass">已绑定</p>
                             </li>
                             <li class="clearfix">
                                 <label class="personal-name">性别</label>
                                 <div class="personal-ico personal-sex"></div>
-                                <p>男</p>
+                                <?php echo $form->dropDownList($userData,'role',array(
+                                			'0'=>'女',
+                                			'1'=>'男',
+                                			
+                                ));?>
                             </li>
                             <li class="clearfix">
                                 <label class="personal-name">年龄</label>
