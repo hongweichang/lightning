@@ -89,7 +89,7 @@ class AppUserController extends Controller{
 			if($userLevel !== null)
 				$this->response(200,'获取成功',$userLevel);
 			else
-				$this->response(400,'获取失败，该用户不存在或其他错误','')
+				$this->response(400,'获取失败，该用户不存在或其他错误','');
 		}
 		
 
