@@ -103,6 +103,7 @@ class mainConf extends ConfigBase{
 												'port' => 11211
 										),
 								),
+						),
 						'session' => array(
 								'class'=> 'CCacheHttpSession',
 								'cacheID' => 'cache',
