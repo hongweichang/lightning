@@ -77,7 +77,6 @@ class mainConf extends ConfigBase{
 								'avatarPath' => '/upload/avatar/'
 						),
 						//remote database on aliyun.remote ip
-						
 						'db' => array(
 						 		'class' => 'system.db.CDbConnection',
 								'autoConnect' => false,
@@ -133,6 +132,7 @@ class mainConf extends ConfigBase{
 												'port' => 11211
 										),
 								),
+						),
 						'session' => array(
 								'class'=> 'CCacheHttpSession',
 								'cacheID' => 'cache',
@@ -204,6 +204,6 @@ class mainConf extends ConfigBase{
 						//认证等级的查询条件
 						'authenGrade' => array('AA','AAA','HR',),
 				),
-		)
+		);
 	}
 }
