@@ -25,10 +25,6 @@ class PurchaseController extends Controller {
 		);
 	}
 	
-	public function filters() {
-		return '';
-	}
-	
 	public function noneLoginRequired(){
 		return '';
 	}
@@ -153,7 +149,7 @@ class PurchaseController extends Controller {
 		$authGrade = $this->getUserAuthGrade($userId);//得到发标人的认证等级
 		$borrowUserInfo = $this->getUserInfo($userId);//得到发布标段的人的信息
 		$currentUserInfo = $this->getUserInfo($this->user->getId());//得到当前登录用户的信息
-
+		
 		$this->render("purchaseBid",array(
 				'bidInfo' => $bidInfo,
 				'borrowUserInfo' => $borrowUserInfo,
