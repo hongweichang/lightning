@@ -4,6 +4,11 @@
   }
   color: $color;
 }
+@mixin block ($width,$height,$border:none){
+  width: $width;
+  height: $height;
+  border: $border;
+}
 @mixin radius($value){
   -webkit-border-radius: $value;
   -moz-border-radius: $value;
@@ -226,7 +231,7 @@
     .find-table-box{
       position: relative;
       width: 95%;
-      height: 0;
+      //height: 0;
       margin: 0 auto;
       background: #fff;
       opacity: 0;
@@ -719,17 +724,46 @@ input:focus{
     font-size: 14px;
     text-align: right;
   }
+  p{
+    padding-left: 150px;
+  }
+  .number{
+    font-size: 22px;
+  }
+  #protocal{
+    display: none;
+  }
+  #protocal-label{
+    width: auto;
+    font-size: 12px;
+    a{
+      color: #2d9194;
+    }
+    a:visited{
+      color: #2d9194;
+    }
+  }
+  .fakeCheck{
+    position: relative;
+    float: left;
+    margin: 10px 5px 0 60px;
+    @include block(13px,13px,1px solid #c9c9c9);
+  }
 }
 #container .aud-find div.find-table-content .pay-form span{
   display: inline;
 }
-#pay-num{
+#pay-num,
+#withdraw-num,
+#withdraw-passwd{
   width: 148px;
   height: 20px;
   padding: 4px 6px;
   @include radius(5px);
 }
 .randImage{
+  position: relative;
+  top: 7px;
   width: 72px;
   height: 24px;
   border: 0;
@@ -737,5 +771,84 @@ input:focus{
 .verifycode{
   width: 55px;
   height: 24px;
+  padding: 0 5px;
   @include radius(5px);
+}
+#container #tick{
+  position: absolute;
+  left: 0;
+  top: -4px;
+  width: 15px;
+  height: 15px;
+  background: url("../images/tick.png") no-repeat;
+}
+#container #fund-pay{
+  margin-bottom: 40px;
+  li{
+    height: 32px;
+    line-height: 32px;
+    padding-left: 80px;
+  }
+}
+#fund-pay-submit,
+#fund-withdraw-submit{
+  margin-left: 110px;
+  width: 70px;
+  font-size: 16px;
+}
+.withdraw{
+  h2{
+    margin-bottom: 10px;
+    color:#555;
+    font-size: 20px;
+    font-weight: normal;
+  }
+  .bank{
+    padding: 10px 40px;
+  }
+}
+#container #fund-withdraw{
+  margin-bottom: 40px;
+  span{
+    display: inline;
+  }
+  li{
+    height: 32px;
+    line-height: 32px;
+    padding-left:80px;
+    a{
+      font-size: 12px;
+      color: #27d0fb;
+    }
+    a:visited{
+      color: #27d0fb;
+    }
+  }
+}
+.hint{
+  position: relative;
+  display: inline-block;
+  img{
+    cursor: pointer;
+    border:0;
+  }
+  p{
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 20px;
+    border: 1px solid #27d0fb;
+    padding: 4px 6px;
+    height: 14px;
+    line-height: 14px;
+    font-size: 12px;
+  }
+}
+.hint:hover p{
+  display: block;
+}
+.mask{
+  position: absolute;
+  display: none;
+  z-index: 999;
 }
