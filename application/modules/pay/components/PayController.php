@@ -58,7 +58,7 @@ class PayController extends Controller{
 			$record->save();
 			
 			$user = Yii::app()->getModule('user')->userManager->findByPk(Yii::app()->user->getId());
-			$user->updateCounters(array(
+			$user->saveCounters(array(
 				'balance' => $record->getAttribute('sum') * 100
 			));
 			$transaction->commit();

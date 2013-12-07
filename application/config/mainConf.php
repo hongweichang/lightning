@@ -16,6 +16,7 @@ class mainConf extends ConfigBase{
 	public function merge(){
 		return array(
 				'hostName' => 'http://115.29.186.221',
+				'preloadModels' => array(),
 				'modules' => array(
 						'gii'=>array(
 								'class'=>'system.gii.GiiModule',
@@ -65,6 +66,9 @@ class mainConf extends ConfigBase{
 				'import' => array(
 						'application.extensions.PHPExcel.PHPExcel.*',
 						'application.modules.user.models.*'
+				),
+				'preload' => array(
+						'asyncEventRunner'
 				),
 				'components' => array(
 						'user' => array(
@@ -119,14 +123,14 @@ class mainConf extends ConfigBase{
 						),
 						'cache' => array(
 								'class' => 'CMemCache',
-								'useMemcached' => true,
+								'useMemcached' => false,
 								'keyPrefix' => 'lightning',
 								'servers' => array(
 										array(
-												//'host' => 'localhost',
+												'host' => 'localhost',
 												//本地memcached缓存
 												//阿里云外网IP
-												'host' => '115.29.186.221',
+												//'host' => '115.29.186.221',
 												//阿里云内网IP，本地测试可以使用本地memcached服务器
 												//'host' => '10.161.138.206',
 												'port' => 11211
@@ -134,8 +138,14 @@ class mainConf extends ConfigBase{
 								),
 						),
 						'session' => array(
-								'class'=> 'CCacheHttpSession',
-								'cacheID' => 'cache',
+								'class'=> 'CHttpSession',
+								//'cacheID' => 'cache',
+								'autoStart' => true,
+								'timeout' => 3600*24
+						),
+						'session' => array(
+								'class'=> 'CHttpSession',
+								//'cacheID' => 'cache',
 								'autoStart' => true,
 								'timeout' => 3600*24
 						),
@@ -148,7 +158,7 @@ class mainConf extends ConfigBase{
 						),
 						'urlManager'=>array(
 								'urlFormat'=>'path',
-								'cacheID' => 'cache',
+								'cacheID' => false,
 								'urlSuffix' => '',
 								'showScriptName' => false,
 								'rules' => require dirname(__FILE__).'/RestApiRules.php',
@@ -162,9 +172,32 @@ class mainConf extends ConfigBase{
 										),
 								),
 						),
+						'zmqClient' => array(
+								'class' => 'cms.components.asyncEvent.ZMQClient',
+								'zmqServer' => 'tcp://localhost:5555',
+								'sendTimeout' => 3000,
+								'reciveTimeout' => 3000,
+								'socketType' => ZMQ::SOCKET_REQ
+						),
+						'asyncEventRunner' => array(
+								'class' => 'cms.components.asyncEvent.AsyncEventRunner',
+								'zmqClientId' => 'zmqClient',
+								'events' => array(
+										'onEndRequest' => array(
+												'command' => array('sendMail','success')
+										),
+										'onRegisterSuccess' => array(
+												'command' => array('sendSMS','success')
+										),
+								),
+						),
 				),
 				'params' => array(
 						'copyright' => '<p>重庆闪电贷金融信息服务有限公司 版权所有 2007-2013<p><p>Copyright Reserved 2007-2013&copy;闪电贷（www.sddai.com） | 渝ICP备05063398号</p>',
+						'commands' => array(//命令行程序目录
+								'application.commands',
+						),
+						'asyncEvent' => array(),
 						'roleMap' =>array(
 								'gxjc' => '工薪阶层',
 								'qyz' => '企业主',

@@ -57,7 +57,7 @@ class AlipayController extends PayController{
 			"exter_invoke_ip"	=> "",
 			"_input_charset"	=> trim(strtolower($alipay['input_charset']))
 		);
-		//print_r($parameter);Yii::app()->end();
+		
 		$alipaySubmit = new AlipaySubmit($alipay);
 		$html_text = $alipaySubmit->buildRequestForm($parameter,"get", "");
 		echo $html_text;

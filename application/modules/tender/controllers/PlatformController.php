@@ -80,7 +80,7 @@ class PlatformController extends Controller{
 		
 		if($user->getAttribute('id') == $this->user->getId()){
 			if($this->getModule()->bidManager->payPurchaseBid($this->getQuery('meta_no'))){
-				//$this->render('');
+				$this->render('success');
 			}else{
 				//$this->render();//失败
 			}

@@ -1,4 +1,5 @@
 <?php $this->cs->registerCssFile($this->cssUrl.'cuskind.css'); ?>
+<div id="container">
         <div class="wd1002">
             <h1 class="con-nav">闪电贷借款 - 产品介绍</h1>
             <div id="aud-check" class="aud-common">
@@ -76,3 +77,4 @@
                 <a href="<?php echo $this->createUrl("borrow/writeBorrowInfo"); ?>" class="borrow-button" id="borrow-next">下一步</a>
             </div>
         </div>
+    </div>
