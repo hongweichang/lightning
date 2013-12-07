@@ -14,10 +14,25 @@ class UserCenterController extends Controller{
 		echo "i 'm your center";
 	}
 
+	/*
+	*个人信息获取
+	*/
 	public function actionUserInfo(){
 		$uid = Yii::app()->user->id;
-		//$uid = 23;
 		$userData = $this->app->getModule('user')->getComponent('userManager')->getUserInfo($uid);
+		$role = $userData->role;
+		$creditData= $this->getUserCredit($role);
+
+		
+		$model = new FrontCredit();
+		$post = $this->getPost();
+		var_dump($post);
+		//die();
+		if(isset($_POST['FrontCredit'])){
+			$file=CUploadedFile::getInstance($model,'filename'); 
+			var_dump($file);
+			die();
+		}
 
 		if(isset($_POST['FrontUser'])){
 			$attributes = $_POST['FrontUser'];
@@ -32,7 +47,20 @@ class UserCenterController extends Controller{
 			}
 		}
 		if(!empty($userData)){
-			$this->render('userInfo',array('userData'=>$userData));
+			$this->render('userInfo',array('userData'=>$userData,'model'=>$model,'creditData'=>$creditData));
+		}
+	}
+
+	public function getUserCredit($role){
+		if(!empty($role)){
+			$userCredit = CreditRole::model()->with('verification')->findAll('role =:role',array(':role'=>$role));
+			foreach($userCredit as $value){
+				$creditSetting[] = array(
+						$value->getRelated('verification')
+					);
+			}
+			
+			return $creditSetting;
 		}
 	}
 

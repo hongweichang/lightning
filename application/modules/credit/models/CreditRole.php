@@ -1,26 +1,26 @@
 <?php
 
 /**
- * This is the model class for table "{{front_credit}}".
+ * This is the model class for table "{{credit_role}}".
  *
- * The followings are the available columns in table '{{front_credit}}':
+ * The followings are the available columns in table '{{credit_role}}':
  * @property string $id
- * @property string $user_id
+ * @property string $role
  * @property string $verification_id
- * @property string $file_type
- * @property string $content
- * @property integer $submit_time
- * @property integer $status
- * @property string $description
+ * @property integer $optional
+ * @property integer $grade
+ *
+ * The followings are the available model relations:
+ * @property CreditSettings $verification
  */
-class FrontCredit extends CActiveRecord
+class CreditRole extends CActiveRecord
 {
 	/**
 	 * @return string the associated database table name
 	 */
 	public function tableName()
 	{
-		return '{{front_credit}}';
+		return '{{credit_role}}';
 	}
 
 	/**
@@ -31,13 +31,13 @@ class FrontCredit extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('user_id, verification_id, file_type, content, submit_time, status', 'required'),
-			array('submit_time, status', 'numerical', 'integerOnly'=>true),
-			array('user_id, verification_id', 'length', 'max'=>11),
-			array('description', 'safe'),
+			array('role, verification_id, grade', 'required'),
+			array('optional, grade', 'numerical', 'integerOnly'=>true),
+			array('role', 'length', 'max'=>15),
+			array('verification_id', 'length', 'max'=>11),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, user_id, verification_id, file_type, content, submit_time, status, description', 'safe', 'on'=>'search'),
+			array('id, role, verification_id, optional, grade', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -49,8 +49,7 @@ class FrontCredit extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'user'=>array(self::BELONGS_TO, 'FrontUser','user_id'),
-			'creditSetting'=>array(self::BELONGS_TO,'CreditSettings','verification_id'),
+			'verification' => array(self::BELONGS_TO, 'CreditSettings', 'verification_id'),
 		);
 	}
 
@@ -61,13 +60,10 @@ class FrontCredit extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'user_id' => 'User',
+			'role' => 'Role',
 			'verification_id' => 'Verification',
-			'file_type' => 'File Type',
-			'content' => 'Content',
-			'submit_time' => 'Submit Time',
-			'status' => 'Status',
-			'description' => 'Description',
+			'optional' => 'Optional',
+			'grade' => 'Grade',
 		);
 	}
 
@@ -90,13 +86,10 @@ class FrontCredit extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id,true);
-		$criteria->compare('user_id',$this->user_id,true);
+		$criteria->compare('role',$this->role,true);
 		$criteria->compare('verification_id',$this->verification_id,true);
-		$criteria->compare('file_type',$this->file_type,true);
-		$criteria->compare('content',$this->content,true);
-		$criteria->compare('submit_time',$this->submit_time);
-		$criteria->compare('status',$this->status);
-		$criteria->compare('description',$this->description,true);
+		$criteria->compare('optional',$this->optional);
+		$criteria->compare('grade',$this->grade);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
@@ -107,7 +100,7 @@ class FrontCredit extends CActiveRecord
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!
 	 * @param string $className active record class name.
-	 * @return Credit the static model class
+	 * @return CreditRole the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{

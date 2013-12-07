@@ -94,14 +94,14 @@ class mainConf extends ConfigBase{
 
 						'cache' => array(
 								'class' => 'CMemCache',
-								'useMemcached' => true,
+								'useMemcached' => false,
 								'keyPrefix' => 'lightning',
 								'servers' => array(
 										array(
-												//'host' => 'localhost',
+												'host' => 'localhost',
 												//本地memcached缓存
 												//阿里云外网IP
-												'host' => '115.29.186.221',
+												//'host' => '115.29.186.221',
 												//阿里云内网IP，本地测试可以使用本地memcached服务器
 												//'host' => '10.161.138.206',
 												'port' => 11211
@@ -109,8 +109,8 @@ class mainConf extends ConfigBase{
 								),
 						),
 						'session' => array(
-								'class'=> 'CCacheHttpSession',
-								'cacheID' => 'cache',
+								'class'=> 'CHttpSession',
+								//'cacheID' => 'cache',
 								'autoStart' => true,
 								'timeout' => 3600*24
 						),

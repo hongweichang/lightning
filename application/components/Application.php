@@ -52,7 +52,7 @@ class Application extends CmsApplication{
 	 * 格式为http[s]://foo.bar.com
 	 * @var string
 	 */
-	public $hostName = 'http://localhost';
+	public $hostName = 'http://127.0.0.1';
 	/**
 	 * 网站基地址
 	 * 值为 $hostName + UrlManager::getBaseUrl()
