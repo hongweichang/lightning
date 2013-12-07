@@ -135,7 +135,7 @@ class FundManager extends CApplicationComponent{
 		return array('list' => $list, 'pager' => $pager);
 	}
 	
-	public function getPayList($status){
+	public function getPayList($condition,$param){
 		$pager = new CPagination(Recharge::model()->count());
 		$pager->setPageSize(20);
 		
@@ -143,8 +143,8 @@ class FundManager extends CApplicationComponent{
 			'offset' => $pager->getOffset(),
 			'limit' => $pager->getLimit(),
 			'order' => 'raise_time desc, pay_time desc, finish_time desc',
-			'condition' => 'status=:s',
-			'param' => array('s' => $status)
+			'condition' => $condition,
+			'param' => $param
 		));
 		
 		return array('list' => $list, 'pager' => $pager);

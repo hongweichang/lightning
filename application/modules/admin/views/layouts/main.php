@@ -21,7 +21,7 @@ $this->cs->registerCssFile($this->cssUrl.'common.css');
             <div class="wd1002">
                 <p class="he-lo">
                     <span>你好欢迎登陆，[<a href="<?php echo $this->createUrl('index/logout'); ?>">注销</a>]</span>
-                    <a href="<?php echo Yii::app()->homeUrl; ?>" class="he-where">前台首页</a>
+                    <a href="<?php echo $this->app->homeUrl; ?>" class="he-where">前台首页</a>
                     <a href="#">缓存更新</a>
                 </p>
             </div>
@@ -30,14 +30,14 @@ $this->cs->registerCssFile($this->cssUrl.'common.css');
             <div class="wd1002">
                 <img src="<?php echo $this->imageUrl; ?>logo.png" id="logo" />
                 <ul id="main-nav">
-                    <li><a href="userManage.html">用户和管理员</a></li>
-                    <li><a href="tenders.html">标段信息</a></li>
-                    <li><a href="informationCheck.html">信息审核</a></li>
-                    <li><a href="secrity.html">安全卫士</a></li>
-                    <li><a href="#" class="now-page">充值提现</a></li>
-                    <li><a href="notify.html">通知消息</a></li>
-                    <li><a href="fund.html">资金统计</a></li>
-                    <li><a href="content.html">内容管理</a></li>
+                    <li><a href="<?php echo $this->createUrl('user/index'); ?>">用户和管理员</a></li>
+                    <li><a href="<?php echo $this->createUrl('tender/index'); ?>">标段信息</a></li>
+                    <li><a href="<?php echo $this->createUrl('information/index'); ?>">信息审核</a></li>
+                    <li><a href="<?php echo $this->createUrl('secript/index'); ?>">安全卫士</a></li>
+                    <li><a href="<?php echo $this->createUrl('pay/index'); ?>">充值提现</a></li>
+                    <li><a href="<?php echo $this->createUrl('notify/index'); ?>">通知消息</a></li>
+                    <li><a href="<?php echo $this->createUrl('fund/index'); ?>">资金统计</a></li>
+                    <li><a href="<?php echo $this->createUrl('content/index'); ?>">内容管理</a></li>
                 </ul>
             </div>
         </div>
