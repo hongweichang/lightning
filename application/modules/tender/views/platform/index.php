@@ -55,7 +55,7 @@ $recharge = $user->getAttribute('balance') < $meta->getAttribute('sum');
             	<?php if($recharge){ ?>
               	<input type="checkbox" name="in-pay" value="<?php echo $user->getAttribute('balance') / 100; ?>" id="pay-ssd"/>
               	<?php } else { ?>
-              	<input type="checkbox" checked="checked" name="in-pay" value="<?php echo $user->getAttribute('balance') / 100; ?>" id="pay-ssd"/>
+              	<input type="checkbox" disabled="disabled" checked="checked" name="in-pay" value="<?php echo $user->getAttribute('balance') / 100; ?>" id="pay-ssd"/>
               	<?php } ?>
               <label for="pay-ssd">闪电贷账户余额支付</label>
               <span>可支付余额： <?php echo number_format($user->getAttribute('balance') / 100,2); ?>元</span>
@@ -67,7 +67,7 @@ $recharge = $user->getAttribute('balance') < $meta->getAttribute('sum');
               <div class="paymethod-bank clearfix">
                 <ul>
                   <li>
-                    <input type="radio" name="payment" value="alipay" id="b-icbc" checked="checked" />
+                    <input type="radio" name="payment" value="ips" id="b-icbc" checked="checked" />
                     <label class="icbc" for="b-icbc"></label>
                   </li>
                 </ul>

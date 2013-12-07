@@ -1,14 +1,18 @@
-<?php $this->cs->registerCssFile($this->cssUrl.'message.css'); ?>
-<?php $this->cs->registerCssFile($this->cssUrl.'datepicker.css'); ?>
-<?php $this->cs->registerScriptFile($this->scriptUrl.'jquery.validate.min.js',CClientScript::POS_END);?>
-<?php $this->cs->registerScriptFile($this->scriptUrl.'datepicker.js',CClientScript::POS_END);?>
-<script type="text/javascript">
-	$('.input-daterange').datepicker({
-		startDate: "today",
-	    language: "zh-CN",    
-	    todayHighlight: true
-	});
-</script>
+<?php 
+$this->cs->registerCssFile($this->cssUrl.'message.css');
+$this->cs->registerCssFile($this->cssUrl.'datepicker.css');
+$this->cs->registerScriptFile($this->scriptUrl.'jquery.validate.min.js',CClientScript::POS_END);
+$this->cs->registerScriptFile($this->scriptUrl.'datepicker.js',CClientScript::POS_END);
+$this->cs->registerScript('datepicker',"
+$('.input-daterange').datepicker({
+	startDate: 'today',
+	language: 'zh-CN',    
+	todayHighlight: true
+});	
+",CClientScript::POS_END);
+?>
+
+<div id="container">
         <div class="wd1002">
             <h1 class="aud-nav">
                 <a href="#">我要借贷 ></a>
@@ -96,7 +100,7 @@
                         </li>
                         <li class="message-item">
                             <label>标段期限:</label>
-                            <input type="text" name="writeBidInfoForm[month_rate]" />
+                            <input type="text" name="writeBidInfoForm[deadline]" />
                             <span class="unit">月</span>
                         </li>
                         <li class="message-item">
@@ -121,4 +125,4 @@
                 </form>
             </div>
         </div>
-        
+</div>

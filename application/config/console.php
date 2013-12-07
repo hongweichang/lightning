@@ -9,20 +9,12 @@ class console extends ConfigBase{
 	public function merge(){
 		return array(
 				'modules' => array(
-						'gii'=>array(
-								'class'=>'system.gii.GiiModule',
-								'password'=>'admin',
-								'ipFilters'=>array('127.0.0.1','::1'),
-						),
-
 						'pay' => array(
 								'class' => 'application.modules.pay.PayModule'
 						),
-						
 						'admin' => array(
 							'class' => 'application.modules.admin.AdminModule'
 						),
-						
 						'user' => array(
 								'class' => 'application.modules.user.UserModule'
 						),
@@ -49,29 +41,12 @@ class console extends ConfigBase{
 										'CharSet'=>'UTF-8',
 								),
 						),
-
-						'appservice' => array(
-								'class' => 'application.modules.appservice.AppserviceModule',
-						),
 				),
 				'import' => array(
-						'application.extensions.PHPExcel.PHPExcel.*',
-						'application.modules.user.models.*'
-				),
-				'preload' => array(
-						'asyncEventRunner'
+						'application.modules.user.models.*',
+						'cms.components.asyncEvent.zmqCommand.*',//导入zmq命令
 				),
 				'components' => array(
-						'user' => array(
-								'class' => 'application.modules.user.components.LightningUser',
-								'stateKeyPrefix' => 'FU',
-								'allowAutoLogin' => true,
-								'autoRenewCookie' => true,
-								'guestName' => '游客',
-								'authTimeout' => 3600,
-								'avatarPath' => '/upload/avatar/'
-						),
-						//remote database on aliyun.remote ip
 						'db' => array(
 						 		'class' => 'system.db.CDbConnection',
 								'autoConnect' => false,
@@ -82,7 +57,6 @@ class console extends ConfigBase{
 								'charset' => 'utf8',
 								'tablePrefix' => 'xcms_'
 						),
-
 						'cache' => array(
 								'class' => 'CMemCache',
 								'useMemcached' => true,
@@ -99,32 +73,6 @@ class console extends ConfigBase{
 										),
 								),
 						),
-						'session' => array(
-								'class'=> 'CCacheHttpSession',
-								'cacheID' => 'cache',
-								'autoStart' => true,
-								'timeout' => 3600*24
-						),
-						'session' => array(
-								'class'=> 'CHttpSession',
-								//'cacheID' => 'cache',
-								'autoStart' => true,
-								'timeout' => 3600*24
-						),
-						'clientScript' => array(
-								'scriptMap' => array(
-										'jquery.js' => false,
-										'jquery.min.js' => false,
-										'jquery.ba-bbq.js' => false
-								)
-						),
-						'urlManager'=>array(
-								'urlFormat'=>'path',
-								'cacheID' => false,
-								'urlSuffix' => '',
-								'showScriptName' => false,
-								'rules' => require dirname(__FILE__).'/RestApiRules.php',
-						),
 						'log'=>array(
 								'class'=>'CLogRouter',
 								'routes'=>array(
@@ -134,70 +82,16 @@ class console extends ConfigBase{
 										),
 								),
 						),
-						'zmqClient' => array(
-								'class' => 'cms.components.asyncEvent.ZMQClient',
-								'zmqServer' => 'tcp://localhost:5555',
-								'sendTimeout' => 3000,
-								'reciveTimeout' => 3000,
-								'socketType' => ZMQ::SOCKET_REQ
-						),
-						'asyncEventRunner' => array(
-								'class' => 'cms.components.asyncEvent.AsyncEventRunner',
-								'zmqClientId' => 'zmqClient',
-								'events' => array(
-										'onEndRequest' => array(
-												'command' => array('sendMail','success')
-										),
-										'onRegisterSuccess' => array(
-												'command' => array('sendSMS','success')
-										),
-								),
-						),
 				),
-				'params' => array(
-						'copyright' => '<p>重庆闪电贷金融信息服务有限公司 版权所有 2007-2013<p><p>Copyright Reserved 2007-2013&copy;闪电贷（www.sddai.com） | 渝ICP备05063398号</p>',
-						'commands' => array(//命令行程序目录
-								'application.commands',
+				'commandMap' => array(
+						'notifyWorkerBroker' => array(
+								'class' => 'cms.components.asyncEvent.zmqCommands.broker',
+								'frontendBindAddress' => 'tcp://*:5556',
+								'backendBindAddress' => 'tcp://*:5557'
 						),
-						'asyncEvent' => array(),
-						'roleMap' =>array(
-								'gxjc' => '工薪阶层',
-								'qyz' => '企业主',
-								'wddz' => '网店店主',
+						'notifyWorkerRouter' => array(
+								'class' => 'cms.components.asyncEvent.EventRouter'
 						),
-						'commonUrls' =>array(
-								'index' => '/site',
-								'useHelp' => '#',
-						),
-						'bidsPerPage' => 2,//默认的每次请求的标段条数
-						
-						//标段选择条件参数
-						'selectorMap' => array(
-								'monthRate' => array(//月利率条件
-										'all' => 'all',
-										'5%-10%' => ' month_rate between 5 and 10 ',
-										'11%-15%' => ' month_rate between 11 and 15 ',
-										'16%-20%' => ' month_rate between 16 and 20 ',
-								),
-								'deadline' => array(//借款期限条件
-										'all' => 'all',
-										'3-6' => ' deadline between 3 and 6 ',
-										'7-9' => ' deadline between 7 and 9 ',
-										'10-12' => ' deadline between 10 and 12 ',
-								),
-								'authenGrade' => array(//认证等级条件
-										'all' => 'all',
-										'AA' => " authenGrade = 'AA' ",
-										'AAA' => " authenGrade = 'AAA' ",
-										'HR' => " authenGrade = 'HR' ",
-								),
-						),
-						//月利率的查询条件
-						'monthRate' => array('5%-10%','11%-15%','16%-20%',),
-						//借款期限的查询条件
-						'deadline' => array('3-6','7-9','10-12',),
-						//认证等级的查询条件
-						'authenGrade' => array('AA','AAA','HR',),
 				),
 		);
 	}
