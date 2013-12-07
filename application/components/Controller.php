@@ -63,9 +63,9 @@ class Controller extends CmsController{
 		$this->user = $this->app->getUser();
 		$this->cs = $this->app->getClientScript();
 		
-		$this->cssUrl = $this->app->getCssUrl();
-		$this->scriptUrl = $this->app->getJsUrl();
-		$this->imageUrl = $this->app->getImageUrl();
+		$this->cssUrl = $this->app->getPartedUrl('css');
+		$this->scriptUrl = $this->app->getPartedUrl('js');
+		$this->imageUrl = $this->app->getPartedUrl('image');
 	}
 	
 	public function filterPublicClientScript($filterChain){

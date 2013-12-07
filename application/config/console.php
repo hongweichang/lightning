@@ -1,22 +1,13 @@
 <?php
 /**
- * @name mainConf.php
+ * @name console.php
  * @author lancelot <lancelot1215@gmail.com>
- * Date 2013-11-14 
+ * Date 2013-12-5 
  * Encoding UTF-8
  */
-class mainConf extends ConfigBase{
-	public function init($owner){
-		parent::init($owner);
-		$this->debug = true;
-		$this->traceLevel = 3;
-	}
-	
-
+class console extends ConfigBase{
 	public function merge(){
 		return array(
-				'hostName' => 'http://localhost',
-				'preloadModels' => array(),
 				'modules' => array(
 						'gii'=>array(
 								'class'=>'system.gii.GiiModule',
