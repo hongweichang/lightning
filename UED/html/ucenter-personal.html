@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>闪电贷</title>
+    <link rel="stylesheet" type="text/css" href="../css/common.css" />
+    <link rel="stylesheet" type="text/css" href="../css/detail.css" />
+    <script type="text/javascript" src="../javascript/jquery-1.8.2.min.js"></script>
+    <script type="text/javascript" src="../javascript/jquery.validate.min.js"></script>
+</head>
+<body>
+    <div id="header">
+        <div id="he-login">
+            <div class="wd1002">
+                <p class="he-lo">
+                    <a href="#">登陆</a>
+                    <a href="#">注册中心</a>
+                    <a href="#">帮助中心</a>
+                </p>
+                <p class="he-wl">您好，欢迎你来到闪电贷！</p>
+            </div>
+        </div>
+        <div id="he-nav">
+            <div class="wd1002">
+                <img src="../images/logo.png" id="logo" />
+                <ul>
+                    <li class="origin"><a href="#">首页</a></li>
+                    <li class="yellow where"><a href="#">我要借贷</a></li>
+                    <li class="green"><a href="#">我要投资</a></li>
+                    <li class="deepGreen"><a href="#">债权转让</a></li>
+                    <li class="pink"><a href="#">安全保障</a></li>
+                    <li class="violet"><a href="#">关于我们</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div id="container">
+        <div class="wd989">
+            <h1 class="aud-nav">
+                <a href="#">个人中心 ></a>
+                <a href="#">我的闪电贷</a>
+            </h1>
+            <div class="aud-detail">
+                <div class="det-per-inf">
+                    <img src="#" class="det-img" />
+                    <p>
+                        <span class="aud-time">晚上好，</span>
+                        <span class="aud-det-name">王国栋 </span>
+                        现在是属于你自己的时间，好好休息吧
+                    </p>
+                    <p class="aud-st-serve">
+                        <img src="../images/det-person.png" />
+                        <img src="../images/det-pro.png" />
+                        <img src="../images/det-email.png" />
+                        <img src="../images/det-cal.png" />
+                        <img src="../images/det-bank.png" />
+                        <span>安全等级 :  <span class="det-rank">高</span></span>
+                        <span>上次登陆 :  <span class="det-ip"> 重庆市 2013.1116.19:35:35</span></span>
+                    </p>
+                </div>
+                <div class="aud-money">
+                    <div class="mon-show">
+                        <p>
+                            <span>账户余额</span>
+                            <span>我的投资</span>
+                            <span>我的借贷</span>
+                        </p>
+                        <p class="det-mon">
+                            <span>0.00</span>
+                            <span>=</span>
+                            <span>0.00</span>
+                            <span>+</span>
+                            <span class="mon-out">-0.00</span>
+                        </p>
+                        <div>
+                            <a href="#" id="int">充值</a>
+                            <a href="#" id="out">提现</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="aud-find">
+                <ul id="find-table-button">
+                    <a href="">
+                        <li class="find-table-0"><div class="find-table-op find-table-op"></div>我的借款</li>
+                    </a>
+                    <a href="">
+                        <li class="find-table-1"><div class="find-table-op"></div>我的投资</li>
+                    </a>
+                    <a href="">
+                        <li class="find-table-2"><div class="find-table-op"></div>安全中心</li>
+                    </a>
+                    <a href="">
+                        <li class="find-table-3"><div class="find-table-op-hidden"></div>个人信息</li>
+                    </a>
+                    <a href="">
+                        <li class="find-table-4"><div class="find-table-op"></div>资金管理</li>
+                    </a>
+                </ul>
+                <div class="tab-list">
+                    <ul id="find-table-detail">
+                        <li class="find-selected">基本信息</li>
+                        <li>认证信息</li>
+                        <li>银行卡</li>
+                    </ul>
+                </div>
+                <div class="basic-info find-table-content find-table-content-show">
+                    <a href="javascript:;"  class="user-avatar">
+                        <img src="../images/user-avatar.png" />
+                        <p>点击修改头像</p>
+                    </a>
+                    <form>
+                        <ul class="personal-info">
+                            <li class="clearfix">
+                                <label class="personal-name">昵称</label>
+                                <div class="personal-ico personal-nick"></div>
+                                <p>37727423</p>
+                            </li>
+                            <li class="clearfix">
+                                <label class="personal-name">真实姓名</label>
+                                <div class="personal-ico personal-realname"></div>
+                                <p>王晓亮</p>
+                                <p class="ico-status pass">已认证<p>
+                            </li>
+                            <li class="clearfix">
+                                <label class="personal-name">身份证号</label>
+                                <div class="personal-ico personal-id"></div>
+                                <p>3434324*******</p>
+                                <p class="ico-status unpass">已认证</p>
+                            </li>
+                            <li class="clearfix">
+                                <label class="personal-name">手机号码</label>
+                                <div class="personal-ico personal-phone"></div>
+                                <p>156****4344</p>
+                                <p class="ico-status pass">已绑定</p>
+                            </li>
+                            <li class="clearfix">
+                                <label class="personal-name">邮箱地址</label>
+                                <div class="personal-ico personal-mail"></div>
+                                <p>156****4344</p>
+                                <p class="ico-status pass">已绑定</p>
+                            </li>
+                            <li class="clearfix">
+                                <label class="personal-name">性别</label>
+                                <div class="personal-ico personal-sex"></div>
+                                <p>男</p>
+                            </li>
+                            <li class="clearfix">
+                                <label class="personal-name">出生日期</label>
+                                <div class="personal-ico personal-birth"></div>
+                                <p>1993-01-01</p>
+                            </li>
+                            <li class="clearfix">
+                                <label class="personal-name">居住地址</label>
+                                <div class="personal-ico personal-address"></div>
+                                <p>天堂街18号</p>
+                            </li>
+                            <li class="clearfix">
+                                <label class="personal-name">社会角色</label>
+                                <div class="personal-ico personal-role"></div>
+                                <p>经理</p>
+                            </li>
+                        </ul>
+                    </form>
+                </div>
+                <div class="find-table-content">
+                </div>
+                <div class="find-table-content">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="footer">
+        <div class="wd1002">
+            <ul id="fo-nav">
+                <li><img src="../images/wl.png" />新手入门
+                    <ul>
+                        <li><a href="#">免费注册</a></li>
+                        <li><a href="#">我的闪电袋</a></li>
+                        <li><a href="#">如何借入</a></li>
+                    </ul>
+                </li>
+                <li><img src="../images/out.png" />我要借出
+                	<ul>
+                        <li><a href="#">浏览借款</a></li>
+                        <li><a href="#">自动投票</a></li>
+                        <li><a href="#">成为VIP</a></li>
+                    </ul>
+                </li>
+                <li><img src="../images/int.png" />我要借入
+                    <ul>
+                        <li><a href="#">发布借款</a></li>
+                        <li><a href="#">优先计划</a></li>
+                        <li><a href="#">诚信认证</a></li>
+                    </ul>
+                </li>
+                <li><img src="../images/belief.png" />诚信保障
+                    <ul>
+                        <li><a href="#">本金保障</a></li>
+                        <li><a href="#">法律政策</a></li>
+                    </ul>
+                </li>
+                <li><img src="../images/about_p2p.png" />关于闪电贷
+                    <ul>
+                        <li><a href="#">闪电贷团队</a></li>
+                        <li><a href="#">闪电贷论坛</a></li>
+                        <li><a href="#">媒体报道</a></li>
+                        <li><a href="#">招贤纳士</a></li>
+                    </ul>
+                </li>
+                <li><img src="../images/about.png" />关于我们
+                    <ul>
+                        <li><a href="#">新浪微博</a></li>
+                        <li><a href="#">腾讯微博</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <div id="fo-contact">
+                <img src="../images/phone-ico.png" />
+                <p><span class="con-number">400-181-081</span>
+                    (工作日：9:30-11:30 13:00-17:30)</p>
+                <div class="con-center">
+                    <a href="#"><img src="../images/con-img_0.png" /></a>
+                    <a href="#"><img src="../images/con-img_1.png" /></a>
+                    <a href="#"><img src="../images/con-img_4.png" /></a>
+                    <a href="#"><img src="../images/con-img_3.png" /></a>
+                    <a href="#"><img src="../images/con-img_2.png" /></a>
+                </div>
+            </div>
+            <div id="copyright">
+                <p>重庆闪电贷金融信息服务有限公司 版权所有 2007-2013<p>
+                <p>Copyright Reserved 2007-2013©闪电贷（www.sddai.com） | 渝ICP备05063398号</p>
+            </div>
+        </div>
+    </div>
+<script type="text/javascript" src="../javascript/tableChange.js"></script>
+<script type="text/javascript" src="../javascript/update.js"></script>
+</body>
+</html>

@@ -15,6 +15,7 @@ class mainConf extends ConfigBase{
 
 	public function merge(){
 		return array(
+				'hostName' => 'http://localhost',
 				'modules' => array(
 						'gii'=>array(
 								'class'=>'system.gii.GiiModule',
@@ -56,9 +57,14 @@ class mainConf extends ConfigBase{
 										'CharSet'=>'UTF-8',
 								),
 						),
+
+						'appservice' => array(
+								'class' => 'application.modules.appservice.AppserviceModule',
+						),
 				),
 				'import' => array(
-						'application.extensions.PHPExcel.PHPExcel.*'
+						'application.extensions.PHPExcel.PHPExcel.*',
+						'application.modules.user.models.*'
 						
 				),
 				'components' => array(
@@ -73,7 +79,7 @@ class mainConf extends ConfigBase{
 						),
 						//remote database on aliyun.remote ip
 						'db' => array(
-						 'class' => 'system.db.CDbConnection',
+						 		'class' => 'system.db.CDbConnection',
 								'autoConnect' => false,
 								'connectionString' => 'mysql:host=115.29.240.98;dbname=lightning',
 								'emulatePrepare' => true,
@@ -84,35 +90,14 @@ class mainConf extends ConfigBase{
 						),
 						//internal database.ip 10.161.180.53
 						
-						/*'db' =>array(
-								'class' => 'system.db.CDbConnection',
-								'autoConnect' => false,
-								'connectionString' => 'mysql:host=10.161.180.53;dbname=lightning',
-								'emulatePrepare' => true,
-								'username' => 'lancelot',
-								'password' => 'lancelot@lightningdbmysqladmin',
-								'charset' => 'utf8',
-								'tablePrefix' => 'xcms_'
-						),*/
-						//local database
-						/*'db' =>array(
-						 		'class' => 'system.db.CDbConnection',
-						 		'autoConnect' => false,
-						 		'connectionString' => 'mysql:host=localhost;dbname=lightning',
-						 		'emulatePrepare' => true,
-						 		'username' => 'root',
-						 		'password' => '123456',
-						 		'charset' => 'utf8',
-						 		'tablePrefix' => 'xcms_'
-						 ),*/
 						/*'cache' => array(
 								'class' => 'CMemCache',
-								'useMemcached' => false,
+								'useMemcached' => true,
 								'keyPrefix' => 'lightning',
 								'servers' => array(
 										array(
+												//'host' => 'localhost',
 												//本地memcached缓存
-//												'host' => 'localhost',
 												//阿里云外网IP
 												'host' => '115.29.186.221',
 												//阿里云内网IP，本地测试可以使用本地memcached服务器
@@ -121,12 +106,13 @@ class mainConf extends ConfigBase{
 										),
 								),
 						),*/
-						/*'session' => array(
-								'class'=> 'CCacheHttpSession',
-								'cacheID' => 'cache',
+
+						'session' => array(
+								'class'=> 'CHttpSession',
+								//'cacheID' => 'cache',
 								'autoStart' => true,
 								'timeout' => 3600*24
-						),*/
+						),
 						'clientScript' => array(
 								'scriptMap' => array(
 										'jquery.js' => false,

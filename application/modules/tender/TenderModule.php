@@ -8,9 +8,8 @@ class TenderModule extends CmsModule{
 	
 	
 		$this->setComponents(array(
-					'BidManager' => array(
+					'bidManager' => array(
 							'class' => 'BidManager',
-							'cookieTimeout' => 864000
 					),
 		));
 	}

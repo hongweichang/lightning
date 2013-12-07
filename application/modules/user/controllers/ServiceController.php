@@ -54,25 +54,18 @@ class ServiceController extends Controller{
 	**用户登陆接口
 	*/
 	public function actionLogin(){
-		if($this->app->getUser()->getIsGuest()){
-			$account = $this->getPost('account',null);
-			$password = $this->getPost('password',null);
-
-			if(!empty($account) && !empty($password)){
-				$info  = array(
-							'account'=>$account,
-							'password'=>$password,
-						);
-
-				$login = $this->getModule()->getComponent('userManager')->login($info);
-
-				if($login === true)
-					$this->response(200,'登陆成功','');
-				else
-					$this->response(400,'登陆失败，用户名或密码错误','');
+		if($this->app->getUser()->getIsGuest()){	
+			$post = $this->getPost();
+			if( $post !== null ){
+				$login = $this->getModule()->getComponent('userManager')->login($post);
+				if($login === true){
+					$this->response(200,'登录成功','');
+				}else{
+					$this->response(400,'登录失败，用户名或密码错误',$login->getErrors());
+				}
 			}
 		}else
-			$this->response(401,'登陆失败，请不要重复登陆','');
+			$this->response(401,'登录失败，请不要重复登录');
 		
 	}
 
@@ -89,27 +82,20 @@ class ServiceController extends Controller{
 	**用户注册接口
 	*/
 	public function actionRegister(){
-		$account = $this->getPost('account',null);
-		$email = $this->getPost('email',null);
-		$mobile = $this->getPost('mobile',null);
-		$password = $this->getPost('password',null);
-		$repassword = $this->getPost('repassword',null);
+		$post = $this->getPost();
 		
-		if(!empty($account) && !empty($email) && !empty($mobile) && !empty($password) && !empty($repassword)){
-			$info = array(
-						'nickname'=>$account,
-						'email'=>$email,
-						'mobile'=>$mobile,
-						'password'=>$password,
-						'confirm'=>$repassword,
-					);
+		if( $post !== null ){
 			
-			$register = $this->getModule()->getComponent('userManager')->register($info,'appRegister');
-			if($register === true)
+			$register = $this->getModule()->getComponent('userManager')->register($post,'appRegister');
+			if($register === true){
+				$userManager->login(array(
+						'account' => $post['email'],
+						'password' => $post['password'],
+						'rememberMe' => 'on'
+				));
 				$this->response(200,'注册成功','');
-			else{
-				var_dump($register->getErrors());
-				$this->response(400,'注册失败','');
+			}else{
+				$this->response(400,'注册失败',$register->getErrors());
 			}
 
 		}else

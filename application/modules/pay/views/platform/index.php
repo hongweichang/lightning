@@ -22,14 +22,19 @@ $this->cs->registerCssFile($this->cssUrl.'lend.css');
           </ul>
         </div>
         <div id="borrow-info">
-          <p id="borrow-brief" class="text-overflow">借款人信息：王果冻，借款10000元，月利率10%，结束时间19日23点，期限3个月期限3个月</p>
+          <p id="borrow-brief" class="text-overflow">
+          	借款人信息：<?php echo $tender->getRelated('user')->getAttribute('realname'); ?>，
+          	借款<?php echo number_format($tender->getAttribute('sum') / 100,2);?>元，
+          	月利率<?php echo $tender->getAttribute('month_rate'); ?>%，
+          	结束时间<?php echo date('n日H时',$tender->getAttribute('end')); ?>，
+          	期限<?php echo $tender->getAttribute('deadline'); ?>个月</p>
           <div id="borrow-details">
-            <p>借款人：王国栋，男，淘宝主</p>
-            <p>身份证号码：**************,现居地:重庆南岸</p>
-            <p>借款金额：10000元，标段月利率10%，期限3个月，完成30%招募</p>
-            <p>招标开始时间：2013年16日0点，结束时间：2013年19日23点</p>
+            <p>借款人：<?php echo $tender->getRelated('user')->getAttribute('realname'); ?>，<?php echo $tender->getRelated('user')->getAttribute('gender') ? '先生' : '女士'; ?>，<?php echo $tender->getRelated('user')->getAttribute('role'); ?></p>
+            <p>身份证号码：<?php $tender->getRelated('user')->getAttribute('identity_id'); ?>,现居地:<?php echo $tender->getRelated('user')->getAttribute('address'); ?></p>
+            <p>借款金额：<?php echo number_format($tender->getAttribute('sum') / 100,2);?>元，标段月利率<?php echo $tender->getAttribute('month_rate'); ?>%，期限<?php echo $tender->getAttribute('deadline'); ?>个月，完成<?php echo $tender->getAttribute('progress'); ?>%招募</p>
+            <p>招标开始时间：<?php echo date('Y年j月n日H时',$tender->getAttribute('start')); ?>，结束时间：<?php echo date('Y年j月n日H时',$tender->getAttribute('end')); ?></p>
           </div>
-          <div id="borrow-num">投标金额：<span>1,000元</span></div>
+          <div id="borrow-num">投标金额：<span><?php echo number_format($sum / 100,2);?>元</span></div>
           <div id="borrow-avatar">
             <img src="<?php echo $this->imageUrl; ?>intro-pic_1.png" />
             <span>信</span>
@@ -43,12 +48,12 @@ $this->cs->registerCssFile($this->cssUrl.'lend.css');
                 <a href="#">管理我的账户 |</a>
                 <a href="#">使用帮助</a>
               </div>  
-              <div><?php echo $mine->getAttribute('nickname'); ?><span><?php echo $mine->getAttribute('mobile'); ?></span></div>
+              <div><?php echo $user->getAttribute('nickname'); ?><span><?php echo $user->getAttribute('mobile'); ?></span></div>
             </div>
             <div class="paymethod-item method">
               <input type="radio" checked="checked" name="pay_method" value="ssd" id="pay-ssd"/>
               <label for="pay-ssd">闪电贷账户余额支付</label>
-              <span>可支付余额： <?php echo number_format($mine->getAttribute('balance') / 100,2); ?>元</span>
+              <span>可支付余额： <?php echo number_format($user->getAttribute('balance') / 100,2); ?>元</span>
               <p class="paycenter-hint question">您需要保证余额足够支付，余额不足可在此充值</p>
             </div>
             <div class="paymethod-item">

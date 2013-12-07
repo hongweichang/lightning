@@ -7,9 +7,9 @@
 class BorrowController extends Controller {
 	public $defaultAction = "roleChoose"; // 更改默认的action,默认要选择社会角色：工薪阶层，企业主，网店店主
 	
-	/*public function noneLoginRequired(){
+	public function noneLoginRequired(){
 		return '';
-	}*/
+	}
 	
 	public function init() {
 		parent::init();
@@ -24,12 +24,13 @@ class BorrowController extends Controller {
 	 */
 	function actionRoleChoose() {
 		//检查信息是否完善
-		$role = $this->user->getState("role");
-		$roleName = '还未填写角色名字';//角色名字
+		$roleName = $this->user->getState("role");
+		/*$roleName = '还未填写角色名字';//角色名字
 		$map = $this->app['roleMap'];
+		$this->wxweven($map);
 		if ( isset($map[$role]) ){
 			$roleName = $map[$role];
-		}
+		}*/
 		
 		$this->render("roleChoose",array('roleName'=>$roleName));
 	}
@@ -70,7 +71,7 @@ class BorrowController extends Controller {
 	 * 将标段信息插入数据库的action
 	 */
 	public function actionBorrowInfoToDB() {
-		$model = new BidInfo;
+		$model = new BidInfo();//如果是向数据库插入记录，需要用 new modelClass
 		if(isset($_POST['writeBidInfoForm'])) {
 			$_POST['writeBidInfoForm']['user_id'] = $this->user->getId();//测试用户的id：21
 			/**
@@ -83,7 +84,7 @@ class BorrowController extends Controller {
 			$_POST['writeBidInfoForm']['authenGrade'] = Yii::app()->getModule('credit')->
 					getComponent('userCreditManager')->getUserCreditLevel($this->user->getId());
 			$model->attributes = $_POST['writeBidInfoForm'];//利用表单来填充
-			
+//			$this->wxweven($model->attributes);
 			if($model->save()){//如果发标成功
 				$id = $model->getDbConnection()->getLastInsertID();//获得最后一次插入记录的id
 				

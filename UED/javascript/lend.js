@@ -94,7 +94,7 @@ List = function(){
 			$(".loan-list",loan).remove();
 		},
 		createList: function(list){
-			var node = $('<li class="loan-list"><div class="loan-avatar"><img src="'+(list.avatarSrc || "../images/intro-pic_1.png")+'" /><span>信</span></div><div class="loan-title"><a href="'+list.titleHref+'">'+list.title+'</a></div><div class="loan-rate loan-num">'+list.month_rate+'%</div><div class="loan-rank"><div class="rank'+list.authGrade+'">'+list.authGrade+'</div></div><div class="loan-amount loan-num">￥'+list.sum+'</div><div class="loan-time loan-num">'+list.deadline+'个月</div><div class="loan-progress"><div class="bar-out"><div class="bar-in"><span class="bar-complete" style="width:'+list.progress+'%"></span><span class="bar-num">'+list.progress+'%</span></div></div></div></li>');
+			var node = $('<li class="loan-list"><div class="loan-avatar"><img src="'+(list.avatarSrc || baseUrl+ "UED/images/intro-pic_1.png")+'" /><span>信</span></div><div class="loan-title"><a href="'+list.titleHref+'">'+list.title+'</a></div><div class="loan-rate loan-num">'+list.month_rate+'%</div><div class="loan-rank"><div class="rank'+list.authGrade+'">'+list.authGrade+'</div></div><div class="loan-amount loan-num">￥'+list.sum+'</div><div class="loan-time loan-num">'+list.deadline+'个月</div><div class="loan-progress"><div class="bar-out"><div class="bar-in"><span class="bar-complete" style="width:'+list.progress+'%"></span><span class="bar-num">'+list.progress+'%</span></div></div></div></li>');
 			return node;
 		},
 		insertList: function(list){
@@ -159,11 +159,11 @@ $("#viewMore").bind("click",function(){
 $("#view-detail").toggle(
 	function(){
 		Lend.viewDetails($("#borrow-brief"),$("#borrow-details"));
-		$("#view-detail").css({background:"url('/lightning/UED/images/viewBrief.png')"});
+		$("#view-detail").css({background:"url('"+baseUrl+"UED/images/viewBrief.png')"});
 	},
 	function(){
 		Lend.viewDetails($("#borrow-details"),$("#borrow-brief"));
-		$("#view-detail").css({background:"url('/lightning/UED/images/viewDetail.png')"})
+		$("#view-detail").css({background:"url('"+baseUrl+"UED/images/viewDetail.png')"})
 	}
 );
 Lend.placeholder($("#pay-verify"));

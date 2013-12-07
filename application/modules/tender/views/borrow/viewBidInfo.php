@@ -36,15 +36,15 @@
             </div>
             <div id="aud-detail">
                 <div class="aud-ucenter">
-                    <a href="#">进入个人中心 |</a>
-                    <a href="#">使用帮助</a>
+                    <a href="<?php echo $this->createUrl('/user',array('user_id'=>$model->user_id));?>">进入个人中心 |</a>
+                    <a href="<?php echo $this->createUrl('/help');?>">使用帮助</a>
                 </div>
                 <div class="aud-warning">
                     <img src="<?php echo $this->imageUrl;?>adu-warning.png" class="adu-img-waring" />
                     <p class="adu-p-warning">您的申请已经提交，我们正在审核之中</p>
                     <div class="aud-link">
-                        <a href="#" class="borrow-button">进入个人中心</a>
-                        <a href="#" class="borrow-button">返回首页</a>
+                        <a href="<?php echo $this->createUrl('/user',array('user_id'=>$model->user_id));?>" class="borrow-button">进入个人中心</a>
+                        <a href="<?php echo $this->createUrl('/site');?>" class="borrow-button">返回首页</a>
                     </div>
                 </div>
                 <h1 class="adu-d-nav"><?php echo $model->title;?></h1>
@@ -74,10 +74,7 @@
                 </ul>
                 <div class="adu-intro">
                     <h3>【标段介绍】</h3>
-                    <p><?php echo $model->description;?>
-                    然没有聚光灯的华丽瞩目，你的矫健身影同样令人难忘；即使面对日以继夜的考验历练，你的动人身姿一
-样夺人眼球；紧身款型轻盈舒适，顶级面料干爽舒适，助你在训练中事半功倍，全新NIKE PRO 紧身长袖
-针织衫，只为专心训练的你所打造。</p>
+                    <p><?php echo $model->description;?></p>
                 </div>
             </div>
         </div>
