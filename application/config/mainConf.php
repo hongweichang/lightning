@@ -94,7 +94,7 @@ class mainConf extends ConfigBase{
 
 						'cache' => array(
 								'class' => 'CMemCache',
-								'useMemcached' => false,
+								'useMemcached' => true,
 								'keyPrefix' => 'lightning',
 								'servers' => array(
 										array(
@@ -145,7 +145,7 @@ class mainConf extends ConfigBase{
 						),
 						'zmqClient' => array(
 								'class' => 'cms.components.asyncEvent.ZMQClient',
-								'zmqServer' => 'tcp://localhost:5555',
+								'zmqServer' => 'tcp://localhost:5556',
 								'sendTimeout' => 3000,
 								'reciveTimeout' => 3000,
 								'socketType' => ZMQ::SOCKET_REQ
@@ -165,9 +165,6 @@ class mainConf extends ConfigBase{
 				),
 				'params' => array(
 						'copyright' => '<p>重庆闪电贷金融信息服务有限公司 版权所有 2007-2013<p><p>Copyright Reserved 2007-2013&copy;闪电贷（www.sddai.com） | 渝ICP备05063398号</p>',
-						'commands' => array(//命令行程序目录
-								'application.commands',
-						),
 						'asyncEvent' => array(),
 						'roleMap' =>array(
 								'gxjc' => '工薪阶层',
