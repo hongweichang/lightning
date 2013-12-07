@@ -1,29 +1,26 @@
 <?php
 
 /**
- * This is the model class for table "{{bid_meta}}".
+ * This is the model class for table "{{credit_role}}".
  *
- * The followings are the available columns in table '{{bid_meta}}':
+ * The followings are the available columns in table '{{credit_role}}':
  * @property string $id
- * @property string $user_id
- * @property string $bid_id
- * @property string $sum
- * @property string $buy_time
- * @property integer $finish_time
- * @property integer $status
+ * @property string $role
+ * @property string $verification_id
+ * @property integer $optional
+ * @property integer $grade
  *
  * The followings are the available model relations:
- * @property Bid $bid
- * @property FrontUser $user
+ * @property CreditSettings $verification
  */
-class BidMeta extends CActiveRecord
+class CreditRole extends CActiveRecord
 {
 	/**
 	 * @return string the associated database table name
 	 */
 	public function tableName()
 	{
-		return '{{bid_meta}}';
+		return '{{credit_role}}';
 	}
 
 	/**
@@ -34,12 +31,13 @@ class BidMeta extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('user_id, bid_id, sum, buy_time', 'required'),
-			array('finish_time, status', 'numerical', 'integerOnly'=>true),
-			array('user_id, bid_id, sum, buy_time', 'length', 'max'=>11),
+			array('role, verification_id, grade', 'required'),
+			array('optional, grade', 'numerical', 'integerOnly'=>true),
+			array('role', 'length', 'max'=>15),
+			array('verification_id', 'length', 'max'=>11),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, user_id, bid_id, sum, buy_time, finish_time, status', 'safe', 'on'=>'search'),
+			array('id, role, verification_id, optional, grade', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -51,8 +49,7 @@ class BidMeta extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'bid' => array(self::BELONGS_TO, 'BidInfo', 'bid_id'),
-			'user' => array(self::BELONGS_TO, 'FrontUser', 'user_id'),
+			'verification' => array(self::BELONGS_TO, 'CreditSettings', 'verification_id'),
 		);
 	}
 
@@ -63,12 +60,10 @@ class BidMeta extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'user_id' => 'User',
-			'bid_id' => 'Bid',
-			'sum' => 'Sum',
-			'buy_time' => 'Buy Time',
-			'finish_time' => 'Finish Time',
-			'status' => 'Status',
+			'role' => 'Role',
+			'verification_id' => 'Verification',
+			'optional' => 'Optional',
+			'grade' => 'Grade',
 		);
 	}
 
@@ -91,12 +86,10 @@ class BidMeta extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id,true);
-		$criteria->compare('user_id',$this->user_id,true);
-		$criteria->compare('bid_id',$this->bid_id,true);
-		$criteria->compare('sum',$this->sum,true);
-		$criteria->compare('buy_time',$this->buy_time,true);
-		$criteria->compare('finish_time',$this->finish_time);
-		$criteria->compare('status',$this->status);
+		$criteria->compare('role',$this->role,true);
+		$criteria->compare('verification_id',$this->verification_id,true);
+		$criteria->compare('optional',$this->optional);
+		$criteria->compare('grade',$this->grade);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
@@ -107,7 +100,7 @@ class BidMeta extends CActiveRecord
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!
 	 * @param string $className active record class name.
-	 * @return BidMeta the static model class
+	 * @return CreditRole the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{

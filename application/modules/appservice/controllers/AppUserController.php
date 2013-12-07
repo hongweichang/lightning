@@ -27,6 +27,7 @@ class AppUserController extends Controller{
 				$info  = array(
 							'account'=>$account,
 							'password'=>$password,
+							'rememberMe' => 'on'
 						);
 
 				$login = $this->app->getModule('user')->getComponent('userManager')->login($info);
@@ -75,9 +76,8 @@ class AppUserController extends Controller{
 		$post = $this->getPost();
 		
 		if( $post !== null ){
-			
-			$register = $this->app->getModule('user')->getComponent('userManager')->register($post,'appRegister');
 			$userManager = $this->app->getModule('user')->getComponent('userManager');
+			$register = $userManager->register($post,'appRegister');
 			if($register === true){
 				$userManager->login(array(
 						'account' => $post['email'],

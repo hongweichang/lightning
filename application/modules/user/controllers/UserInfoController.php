@@ -19,32 +19,20 @@ class UserInfoController extends Controller{
 		$criteria ->select = 'id,user_id,verification_id,file_type,submit_time,status,description';
 		$criteria ->order = 'submit_time DESC';
 
-		$userInfoData = FrontCredit::model()->findAll($criteria);
-		$dataArray = array();
+		$userInfoData = FrontCredit::model()->with('user','creditSetting')->findAll($criteria);
+		foreach($userInfoData as $value){
+			$userCreditData[] = array(
+								'nickname'=>$value->getRelated('user')->attributes['nickname'],
+								'realname'=>$value->getRelated('user')->attributes['realname'],
+								'mobile'=>$value->getRelated('user')->attributes['mobile'],
+								'verificatoin_name'=>$value->getRelated('creditSetting')->attributes['verification_name'],
+								'id'=>$value->attributes['id'],
+								'submit_time'=>date('Y-m-d H:i:s',$value->attributes['submit_time'])
 
-		if(!empty($userInfoData)){
-			foreach($userInfoData as $key=>$value){
-				$infoData[$key] = $value->getAttributes();
-			}
-
-			foreach ($infoData as $value){
-				$dataArray[] = array(
-									'0'=>$value['id'],
-									'1'=>$value['user_id'],
-									'2'=>$value['verification_id'],
-									'3'=>$value['content'],
-									'4'=>$value['submit_time'],
-									'5'=>$value['status'],
-								);
-			}
-			
+							);
 			
 		}
-		
-
-		$userInfoData = FrontCredit::model()->findAll($criteria);
-
-		$this->render('index',array('userInfo'=>$userInfoData));
+		$this->render('index',array('userCreditData'=>$userCreditData));
 
 	}
 

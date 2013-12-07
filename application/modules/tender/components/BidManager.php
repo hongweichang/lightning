@@ -16,6 +16,10 @@ class BidManager extends CApplicationComponent{
 		return BidInfo::model()->with('user')->findByPk( $bidId ,$condition,$params); // 通过标段id来获取标段信息
 	}
 	
+	public function getBidMetaInfo($metaId,$condition='',$params=array()){
+		return BidMeta::model()->with(array('user','bid'))->findByPk($metaId,$condition,$params);
+	}
+	
 	/**
 	 * 标段列表
 	 * @param string $condition
@@ -31,7 +35,7 @@ class BidManager extends CApplicationComponent{
 	 * @param array $params
 	 */
 	public function getBidMetaList($condition, $params = array()){
-		return BidMeta::model()->with('user','bid')->findAll($condition,$params);
+		return BidMeta::model()->with(array('user','bid'))->findAll($condition,$params);
 	}
 	
 	/**
@@ -64,33 +68,91 @@ class BidManager extends CApplicationComponent{
 	}
 	
 	/**
-	 * 投标
+	 * 投标 - 同时锁定标段进度。
 	 * @param integer $user_id
 	 * @param integer $bid_id
 	 * @param integer $sum
 	 * @return boolean
 	 */
 	public function purchaseBid($user_id,$bid_id,$sum){
+		//修改标段进度
+		$bid = BidInfo::model()->findByPk($bid_id);
+		
 		$transaction = Yii::app()->db->beginTransaction();
 		try{
-			//修改标段进度
-			$bid = BidInfo::model()->findByPk($bid_id);
-			$bid->attributes = array(
-				'progress' => $bid->getAttribute('progress') + ($sum * 100) / $bid->getAttribute('sum')
-			);
-			$bid->save();
+			$bid->saveCounters(array(
+				'progress' => ($sum * 100) / $bid->getAttribute('sum')
+			));
 			
 			$meta = new BidMeta();
 			$meta->attributes = array(
-					'user_id' => $user_id,
-					'bid_id' => $bid_id,
-					'sum' => $sum * 100,
-					'buy_time' => time()
+				'user_id' => $user_id,
+				'bid_id' => $bid_id,
+				'sum' => $sum * 100,
+				'buy_time' => time(),
+				'status' => 0
+			);
+			$meta->save();
+			$transaction->commit();
+			return $meta->getPrimaryKey();
+		}catch(Exception $e){
+			$transaction->rollback();
+			return 0;
+		}
+	}
+	
+	/**
+	 * 
+	 * @param integer $meta_no
+	 * @return boolean
+	 */
+	public function payPurchaseBid($meta_no){
+		$meta = BidMeta::model()->with('user','bid')->findByPk($meta_no);
+		$user = $meta->getRelated('user');
+		
+		$transaction = Yii::app()->db->beginTransaction();
+		try{
+			$user->saveCounters(array(
+				'balance' => - $meta->getAttribute('sum')
+			));
+			
+			$meta->attributes = array(
+				'finish_time' => time(),
+				'status' => 1
 			);
 			$meta->save();
 			$transaction->commit();
 			return true;
-		}catch(Exception $e){
+		}catch (Exception $e){
+			$transaction->rollback();
+			return false;
+		}
+	}
+	
+	/**
+	 * 
+	 * @param integer $meta_no
+	 * @return boolean
+	 */
+	public function revokePurchaseBid($meta_no){
+		$meta = BidMeta::model()->with(array('user','bid'))->findByPk($meta_no);
+		$user = $meta->getRelated('user');
+		$bid = $meta->getRelated('bid');
+		
+		$transaction = Yii::app()->db->beginTransaction();
+		try{
+			$bid->saveCounters(array(
+				'progress' => - $meta->getAttribute('sum') / $bid->getAttribute('sum')
+			));
+		
+			$meta->attributes = array(
+				'finish_time' => time(),
+				'status' => 2
+			);
+			$meta->save();
+			$transaction->commit();
+			return true;
+		}catch (Exception $e){
 			$transaction->rollback();
 			return false;
 		}

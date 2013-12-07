@@ -22,14 +22,19 @@ $this->cs->registerCssFile($this->cssUrl.'lend.css');
           </ul>
         </div>
         <div id="borrow-info">
-          <p id="borrow-brief" class="text-overflow">借款人信息：王果冻，借款10000元，月利率10%，结束时间19日23点，期限3个月期限3个月</p>
+          <p id="borrow-brief" class="text-overflow">
+          	借款人信息：<?php echo $bider->getAttribute('realname'); ?>，
+          	借款<?php echo number_format($bid->getAttribute('sum') / 100,2);?>元，
+          	月利率<?php echo $bid->getAttribute('month_rate'); ?>%，
+          	结束时间<?php echo date('n日H时',$bid->getAttribute('end')); ?>，
+          	期限<?php echo $bid->getAttribute('deadline'); ?>个月</p>
           <div id="borrow-details">
-            <p>借款人：王国栋，男，淘宝主</p>
-            <p>身份证号码：**************,现居地:重庆南岸</p>
-            <p>借款金额：10000元，标段月利率10%，期限3个月，完成30%招募</p>
-            <p>招标开始时间：2013年16日0点，结束时间：2013年19日23点</p>
+            <p>借款人：<?php echo $bider->getAttribute('realname'); ?>，<?php echo $bider->getAttribute('gender') ? '先生' : '女士'; ?>，<?php echo $bider->getAttribute('role'); ?></p>
+            <p>身份证号码：<?php $bider->getAttribute('identity_id'); ?>,现居地:<?php echo $bider->getAttribute('address'); ?></p>
+            <p>借款金额：<?php echo number_format($bid->getAttribute('sum') / 100,2);?>元，标段月利率<?php echo $bid->getAttribute('month_rate'); ?>%，期限<?php echo $bid->getAttribute('deadline'); ?>个月，完成<?php echo $bid->getAttribute('progress'); ?>%招募</p>
+            <p>招标开始时间：<?php echo date('Y年j月n日H时',$bid->getAttribute('start')); ?>，结束时间：<?php echo date('Y年j月n日H时',$bid->getAttribute('end')); ?></p>
           </div>
-          <div id="borrow-num">投标金额：<span>1,000元</span></div>
+          <div id="borrow-num"><span><?php echo number_format($meta->getAttribute('sum') / 100,2);?>元</span></div>
           <div id="borrow-avatar">
             <img src="<?php echo $this->imageUrl; ?>intro-pic_1.png" />
             <span>信</span>
@@ -37,22 +42,22 @@ $this->cs->registerCssFile($this->cssUrl.'lend.css');
         </div>
         <div id="view-detail"></div>
         <div class="paycenter">
-          <form method="post" action="#" id="pay">
+          <form method="post" action="<?php echo $this->createUrl('platform/check',array('meta_no' => $meta->getAttribute('id'))); ?>" id="pay">
             <div class="paycenter-item">
               <label>付款方式：</label>
               <img src="<?php echo $this->imageUrl; ?>pay_ssd.png" />
-              <div>支付： <span>1,000</span>元</div>
+              <div>支付： <span><?php echo number_format($meta->getAttribute('sum') / 100,2);?></span>元</div>
               <p class="check-security">检查用户的安全性成功，保护已开启,请放心付款</p>
             </div>
             <div class="paycenter-item">
               <label for="pay-pw">支付密码：</label>
-              <input type="password" name="pay_pw" id="pay-pw"/>
+              <input type="password" name="pay_pwd" id="pay-pw"/>
               <a href="#" class="paycenter-tips">忘记密码?</a>
               <p class="paycenter-alert">您已经开通短信服务，每次交易需要输入密码</p>
             </div>
             <div class="paycenter-item">
               <label>手机号码：</label>
-              <div><?php echo $mine->getAttribute('mobile'); ?></div>
+              <div><?php echo $user->getAttribute('mobile'); ?></div>
             </div>
             <div class="paycenter-item">
               <label for="pay-verfiy">校验码： </label>

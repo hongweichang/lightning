@@ -202,6 +202,27 @@
         background: #f9bdea;
       }
     }
+    .find-table-box.fund{
+      .tab-border-l{
+        background: url("../images/fund-border-l.png") repeat-y;
+      }
+      .tab-border{
+        background: url("../images/fund-border-top.png") repeat-x;
+      }
+      .table-content .tab-content-l p{
+        color: #833202;
+        span span{
+          color: #833202;
+        }
+      }
+      .table-content .tab-content-r p{
+        margin-left: 75px;
+        line-height: 40px;
+        span{
+          width: 280px;
+        }
+      }
+    }
     .find-table-box{
       position: relative;
       width: 95%;
@@ -327,10 +348,13 @@
         border-bottom-width: 4px;
       }
     }
+    .find-table-content.fund{
+      padding-top: 10px;
+    }
     div.find-table-content{
       position: relative;
       height: 0;
-      opacity: 0;
+      display: none;
       @include fontSet(#585858,16px);
       @include transition-1(opacity,1s,ease,0s);
       ul{
@@ -382,7 +406,7 @@
     }
     div.find-table-content-show{
       height: 100%;
-      opacity: 1;
+      display: block;
     }
   }
   &:after{
@@ -483,6 +507,10 @@ input:focus{
   margin:20px 0 0 48px;
   text-align: center;
   color: #267b7e;
+  img{
+    width: 97px;
+    height: 97px;
+  }
 }
 .basic-info{
   padding: 10px 40px;
@@ -534,3 +562,180 @@ input:focus{
 .personal-birth{background:url("../images/personal-ico.png") no-repeat 0px -238px;}
 .personal-address{background:url("../images/personal-ico.png") no-repeat 0px -278px;}
 .personal-role{background:url("../images/personal-ico.png") no-repeat 0px -318px;}
+
+#personal-modify{
+  position: absolute;
+  top: 25px;
+  right: 90px;
+  padding: 0;
+  width:95px;
+  height: 35px;
+  line-height: 35px;
+  text-align: center;
+}
+.hidden{
+  display: none;
+}
+.show{
+  display: block;
+}
+
+
+//personal verify
+.verify{
+  padding-top: 10px;
+  table{
+    width: 100%;
+    padding: 0 40px;
+    border-spacing: 0;
+    td{
+      border-bottom: 1px solid #e4e4e4;
+      height: 30px;
+      line-height: 30px;
+    }
+  }
+  .score{
+    text-align: center;
+  }
+  .upload{
+    position: absolute;
+    right: 70px;
+    opacity: 0;
+    filter: alpha(opacity=0);
+    cursor: pointer;
+  }
+  .upload-button{
+    vertical-align: middle;
+    cursor: pointer;
+  }
+}
+.bankcard{
+  padding: 40px 40px;
+}
+.bankcard-box{
+  float: left;
+  width: 266px;
+  margin-right: 45px;
+  border: 2px dashed #cbcbcb;
+  color: #555;
+  text-align: center;
+  div{
+    height: 65px;
+    padding: 20px 33px;
+  }
+  .bankcard-op{
+    height: 28px;
+    line-height: 28px;
+    border-top: 2px dashed #cbcbcb;
+    color: #2d9194;
+    text-align: center;
+  }
+}
+.bankcard-box.add{
+  div{
+    height: 72px;
+    padding: 17px 33px;
+  }
+}
+.bankcard-box.last{
+  margin-right: 0;
+}
+
+//fund
+#container #fund-record-query{
+  padding: 0 40px;
+  span{
+    display: inline-block;
+    font-size: 14px;
+    width: 80px;
+    height: inherit;
+    line-height: 1;
+  }
+  a.form-button{
+    display: inline-block;
+    margin-left: 10px;
+    padding: 3px 10px;
+    width:50px;
+    height: 18px;
+    font-size: 16px;
+    text-align: center;
+  }
+}
+#export-record{
+  float: right;
+  color:#2d9194;
+}
+.record-table{
+  width:100%;
+  padding: 20px 40px;
+  text-align: center;
+  td{
+    height: 40px;
+  }
+}
+.paymethod-bank{
+  padding: 0 40px;
+  h2{
+    margin-bottom: 10px;
+    color:#555;
+    font-size: 20px;
+    font-weight: normal;
+  }
+  label{
+    display: inline-block;
+    width: 130px;
+    height: 33px;
+    border: 1px solid #ddd;
+  }
+  li{
+    float: left;
+    margin: 0 45px 0 0;
+    height: 33px;
+    line-height: 33px;
+    input{
+      float: left;
+      margin:10px 5px 0 0;
+    }
+  }
+  .icbc{ background: url("../images/bank.jpg") no-repeat 0px -99px;}
+  .abc{ background: url("../images/bank.jpg") no-repeat 0px 0px;}
+  .cmb{ background: url("../images/bank.jpg") no-repeat 0px -33px;}
+  .ccb{ background: url("../images/bank.jpg") no-repeat 0px -66px;}
+  .boc{ background: url("../images/bank.jpg") no-repeat 0px -198px;}
+  .post{ background: url("../images/bank.jpg") no-repeat 0px -231px;}
+  .spdb{ background: url("../images/bank.jpg") no-repeat 0px -132px;}
+  .cgb{ background: url("../images/bank.jpg") no-repeat 0px -165px;}
+}
+.pay-form{
+  padding: 0 40px;
+  h2{
+    color:#555;
+    font-size: 20px;
+    font-weight: normal;
+  }
+  label{
+    display: inline-block;
+    width:100px;
+    font-size: 14px;
+    text-align: right;
+  }
+}
+#container .aud-find div.find-table-content .pay-form span{
+  display: inline;
+}
+#pay-num{
+  width: 148px;
+  height: 20px;
+  padding: 4px 6px;
+  @include radius(5px);
+}
+.randImage{
+  width: 72px;
+  height: 24px;
+  border: 0;
+}
+.verifycode{
+  width: 55px;
+  height: 24px;
+  @include radius(5px);
+}
