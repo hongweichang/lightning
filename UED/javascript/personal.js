@@ -12,15 +12,29 @@ $(document).ready(function(){
 				_this.show(mask);
 			}
 		});
+		$(mask).bind("click",function(e){
+			var t = $(e.target);
+			if(t.hasClass('mask-close')){
+				_this.close(mask);
+			}
+		});
+		$(".wrapMask").bind("click",function(){
+			_this.close(mask);
+		})
 	};
 	Mask.prototype.resize = function(mask){
 		$(mask).css({
 			left: ($(window).width() - $(mask).outerWidth())/2,
 			top: ($(window).height()- $(mask).outerHeight())/2 + $(document).scrollTop()
 		});
-	}
+	};
 	Mask.prototype.show = function(mask){
+		$(".wrapMask").fadeIn();
 		$(mask).fadeIn();
+	};
+	Mask.prototype.close = function(mask){
+		$(".wrapMask").fadeOut();
+		$(mask).fadeOut();
 	};
 	new Mask(".bankcard-op","#m-bankcard");
 	$(".fakeCheck,label[for='keepSignIn'],label[for='protocal']").toggle(function(){

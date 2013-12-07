@@ -12,6 +12,9 @@ $(document).ready(function(){
 		$(this).children("p").css({display:"none"});
 		$(this).children('.form-input').focus();
 	});
+	$(".form-item input").bind("focus",function(){
+		$(this).siblings("p").css({display: "none"});
+	});
 	$(".form-item input").bind("blur",function(){
 		if(!$(this).val())
 			$(this).siblings("p").css({display: "block"});
