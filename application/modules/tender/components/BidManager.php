@@ -52,7 +52,7 @@ class BidManager extends CApplicationComponent{
 	 */
 	public function raiseBid($user,$title,$description,$sum,$rate,$start,$end,$deadline){
 		$bid = new BidInfo();
-		$bid->attribute = array(
+		$bid->attributes = array(
 			'user_id' => $user,
 			'title' => $title,
 			'description' => $description,
@@ -64,6 +64,7 @@ class BidManager extends CApplicationComponent{
 			'progress' => 0,
 			'verify_progress' => 0
 		);
+		
 		return $bid->save();
 	}
 	

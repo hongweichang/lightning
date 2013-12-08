@@ -124,6 +124,32 @@ class AppTenderController extends Controller{
 			$this->response('401','查询失败，参数错误','');
 	}
 
+	
+	/*
+	**发布标段
+	*/
+	public function actionRaiseBid(){
+		$post = $this->getPost();
+
+		if(!empty($post)){
+			$uid = Yii::app()->user->id;
+			//$uid = 23;
+			$title = $post['title'];
+			$description = $post['description'];
+			$sum= $post['sum'];
+			$month_rate = $post['rate'];
+			$start = $post['start'];
+			$end = $post['end'];
+			$deadline = $post['deadline'];
+
+			$raiseBid = $this->app->getModule('tender')->getComponent('bidManager')->raiseBid($uid,$title,$description,$sum,
+				$month_rate,$start,$end,$deadline);
+			if($raiseBid === true)
+				$this->response('200','投标成功','');
+			else
+				$this->response('400','投标失败','');
+		}
+	}
 
 }
 ?>

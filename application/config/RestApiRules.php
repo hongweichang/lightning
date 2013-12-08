@@ -29,5 +29,10 @@ return array(
 				'<_m>/appTender/get<_a>',
 				'verb'=>'post'
 			),
+		array(
+				'pattern'=>'<_m:(appservice)>/<_a:(raiseBid)>',
+				'<_m>/appTender/<_a>',
+				'verb'=>'post'
+			),
 	);
 ?>

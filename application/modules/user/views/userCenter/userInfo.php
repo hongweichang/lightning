@@ -3,16 +3,18 @@ $this->cs->registerScriptFile($this->scriptUrl.'jquery-1.8.2.min.js',CClientScri
 $this->cs->registerScriptFile($this->scriptUrl.'jquery.validate.min.js',CClientScript::POS_END);
 $this->cs->registerCssFile($this->cssUrl.'common.css');
 $this->cs->registerCssFile($this->cssUrl.'detail.css');
-
+if(Yii::app()->user->hasFlash('success')){
+    echo Yii::app()->user->getFlash('success');
+}
 $this->widget('application.extensions.swfupload.CSwfUpload', array(
     'jsHandlerUrl'=>Yii::app()->request->baseUrl."/plugins/swfupload/js/handlers.js", //配置swfupload事件的js文件
     'postParams'=>array('PHPSESSID'=>Yii::app()->session->sessionID),//由于flash上传不可以传递cookie只能将session_id用POST方式传递
      'config'=>array(
         //'debug'=>true,//是否开启调试模式
         'use_query_string'=>true,
-        'upload_url'=>$this->createUrl('userInfo/upload'), //对应处理图片上传的controller/action
+        'upload_url'=>$this->createUrl('userCenter/iconUpload'), //对应处理图片上传的controller/action
         'file_size_limit'=>'30 MB',//文件大小限制
-        'file_types'=>'*.jpg;*.png;*.gif;*.jpeg;*.pdf;*.zip;*.rar',//文件格式限制
+        'file_types'=>'*.jpg;*.png;*.gif;*.jpeg,'//文件格式限制
         'file_types_description'=>'Files',
         'file_upload_limit'=>1,
         'file_queue_limit'=>0,//一次上传文件个数
@@ -186,7 +188,7 @@ $this->widget('application.extensions.swfupload.CSwfUpload', array(
                             <li class="clearfix">
                                 <label class="personal-name">昵称</label>
                                 <div class="personal-ico personal-nick"></div>
-                                <p>37727423</p>
+                                <p><?php echo $userData->nickname;?></p>
                             </li>
                             <li class="clearfix">
                                 <label class="personal-name">真实姓名</label>
@@ -259,60 +261,51 @@ $this->widget('application.extensions.swfupload.CSwfUpload', array(
                     <table>
                         <tr>
                             <td>&nbsp</td>
-                            <td width="500">项目</td>
+                            <td width="200">项目</td>
+                            <td width="300"></td>
                             <td>状态</td>
                             <td class="score">信用分数</td>
                         </tr>
                         <tr>
-                            <td>基本信息</td>
-                           
+                            <td rowspan="3">必要信息</td>
+                            <td></td>
+                            <td></td>
                             <td>
-                                <img src="../images/upload_tick.png" class="upload-button" title="已认证"/>
+                                
                             </td>
-                            <td class="score">10分</td>
+                            <td class="score" rowspan="3">10分</td>
                         </tr>
                         <?php foreach($creditData as $value){
                             $form=$this->beginWidget('CActiveForm', array(
                                             'id'=>'FrontCredit-form',
                                             'enableAjaxValidation'=>true,
+                                            'action'=>'verificationAdd?type='.$value[0]->id.'',
                                             'htmlOptions' => array(
                                                         //'class' => 'hidden'
-                                                        'enctype'=>'multipart/form-data'
+                                                        'name'=>'file',
+                                                        'enctype'=>'multipart/form-data',
+
                                                         )
                             ));
                             ?>
                         <tr>
-                            <td><?php echo $value[0]->verification_name?></td>
+                            <td>
+                                <?php echo $value[0]->verification_name?>
+                            </td>
                             <td>
                                 <?php echo $form->FileField($model,'filename'); ?>
                                 <?php echo CHtml::submitButton('提交',array(
-                                                'id'=>'reply',
-                                                'name'=>'submit',
+                                                'name'=>$value[0]->verification_name,
                                                 'class'=>'form-button')
                                             ); 
                                      ?>
                             </td>
-                            <td rowspan="6" class="score">10</td>
+                            <td> 状态
+                            </td>
                         </tr>
                         <?php
                             $this->endWidget();
-                        }?>
-                        
-                       
-                        
-                        <tr> 
-                            <td>银行流水</td>
-                            <td><?php echo $form->FileField($model,'filename'); ?>
-                                <?php echo CHtml::submitButton('提交',array(
-                                                'id'=>'reply',
-                                                'name'=>'submit',
-                                                'class'=>'form-button')
-                                            ); 
-                                     ?>
-                            </td>
-                        </tr>
-                        
-                       
+                        }?>  
                     </table>
                 </div>
 
