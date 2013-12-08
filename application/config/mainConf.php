@@ -18,28 +18,18 @@ class mainConf extends ConfigBase{
 				'hostName' => 'http://localhost',
 				'preloadModels' => array(),
 				'modules' => array(
+						'pay',
+						'user',
+						'credit',
+						'tender',
 						'gii'=>array(
 								'class'=>'system.gii.GiiModule',
 								'password'=>'admin',
 								'ipFilters'=>array('127.0.0.1','::1'),
 						),
-
-						'pay' => array(
-								'class' => 'application.modules.pay.PayModule'
-						),
-						
 						'adminnogateway' => array(
-							'class' => 'application.modules.admin.AdminModule'
-						),
-						
-						'user' => array(
-								'class' => 'application.modules.user.UserModule'
-						),
-						'credit' =>array(
-								'class' => 'application.modules.credit.CreditModule'
-						),
-						'tender' =>array(
-								'class' => 'application.modules.tender.TenderModule'
+							'class' => 'application.modules.admin.AdminModule',
+							'name' => 'adminnogateway'
 						),
 						'notify' => array(
 								'class' => 'application.modules.notify.NotifyModule',
@@ -58,7 +48,6 @@ class mainConf extends ConfigBase{
 										'CharSet'=>'UTF-8',
 								),
 						),
-
 						'appservice' => array(
 								'class' => 'application.modules.appservice.AppserviceModule',
 						),
@@ -91,7 +80,6 @@ class mainConf extends ConfigBase{
 								'charset' => 'utf8',
 								'tablePrefix' => 'xcms_'
 						),
-
 						'cache' => array(
 								'class' => 'CMemCache',
 								'useMemcached' => true,
@@ -107,12 +95,6 @@ class mainConf extends ConfigBase{
 												'port' => 11211
 										),
 								),
-						),
-						'session' => array(
-								'class'=> 'CHttpSession',
-								//'cacheID' => 'cache',
-								'autoStart' => true,
-								'timeout' => 3600*24
 						),
 						'session' => array(
 								'class'=> 'CHttpSession',
@@ -154,7 +136,7 @@ class mainConf extends ConfigBase{
 								'zmqClientId' => 'zmqClient',
 								'events' => array(
 										'onRegisterSuccess' => array(
-												'command' => array('sendSMS','success')
+												'command' => array('sendMail','test')
 										),
 								),
 						),

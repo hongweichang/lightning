@@ -3,8 +3,8 @@ return array (
   'template' => 'default',
   'connectionId' => 'db',
   'tablePrefix' => 'xcms_',
-  'modelPath' => 'application.modules.credit.models',
-  'baseClass' => 'CActiveRecord',
+  'modelPath' => 'application.modules.admin.models',
+  'baseClass' => 'CmsActiveRecord',
   'buildRelations' => '1',
   'commentsAsLabels' => '0',
 );
