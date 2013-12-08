@@ -9,6 +9,7 @@
  * @property string $title
  * @property string $description
  * @property string $sum
+ * @property integer $refund
  * @property string $month_rate
  * @property string $start
  * @property string $end
@@ -39,15 +40,15 @@ class BidInfo extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('user_id, title, description, sum, month_rate, start, end, deadline', 'required'),
-			array('verify_progress', 'numerical', 'integerOnly'=>true),
+			array('user_id, title, description, sum, refund, month_rate, start, end, deadline', 'required'),
+			array('refund, verify_progress', 'numerical', 'integerOnly'=>true),
 			array('user_id, sum, start, end, deadline', 'length', 'max'=>11),
 			array('title', 'length', 'max'=>50),
 			array('month_rate, progress', 'length', 'max'=>5),
 			array('failed_description', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, user_id, title, description, sum, month_rate, start, end, deadline, progress, verify_progress, failed_description', 'safe', 'on'=>'search'),
+			array('id, user_id, title, description, sum, refund, month_rate, start, end, deadline, progress, verify_progress, failed_description', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -60,7 +61,7 @@ class BidInfo extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'user' => array(self::BELONGS_TO, 'FrontUser', 'user_id'),
-			'bidMeta' => array(self::HAS_MANY, 'BidMeta', 'bid_id'),
+			'bidMetas' => array(self::HAS_MANY, 'BidMeta', 'bid_id'),
 		);
 	}
 
@@ -75,6 +76,7 @@ class BidInfo extends CActiveRecord
 			'title' => 'Title',
 			'description' => 'Description',
 			'sum' => 'Sum',
+			'refund' => 'Refund',
 			'month_rate' => 'Month Rate',
 			'start' => 'Start',
 			'end' => 'End',
@@ -108,6 +110,7 @@ class BidInfo extends CActiveRecord
 		$criteria->compare('title',$this->title,true);
 		$criteria->compare('description',$this->description,true);
 		$criteria->compare('sum',$this->sum,true);
+		$criteria->compare('refund',$this->refund);
 		$criteria->compare('month_rate',$this->month_rate,true);
 		$criteria->compare('start',$this->start,true);
 		$criteria->compare('end',$this->end,true);

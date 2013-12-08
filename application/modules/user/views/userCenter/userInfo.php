@@ -4,7 +4,9 @@ $this->cs->registerScriptFile($this->scriptUrl.'jquery.validate.min.js',CClientS
 $this->cs->registerCssFile($this->cssUrl.'common.css');
 $this->cs->registerCssFile($this->cssUrl.'detail.css');
 if(Yii::app()->user->hasFlash('success')){
-    echo Yii::app()->user->getFlash('success');
+?>
+<script>alert('上传成功！');</script>
+<?php
 }
 $this->widget('application.extensions.swfupload.CSwfUpload', array(
     'jsHandlerUrl'=>Yii::app()->request->baseUrl."/plugins/swfupload/js/handlers.js", //配置swfupload事件的js文件
@@ -14,7 +16,7 @@ $this->widget('application.extensions.swfupload.CSwfUpload', array(
         'use_query_string'=>true,
         'upload_url'=>$this->createUrl('userCenter/iconUpload'), //对应处理图片上传的controller/action
         'file_size_limit'=>'30 MB',//文件大小限制
-        'file_types'=>'*.jpg;*.png;*.gif;*.jpeg,'//文件格式限制
+        'file_types'=>'*.jpg;*.png;*.gif;*.jpeg',//文件格式限制
         'file_types_description'=>'Files',
         'file_upload_limit'=>1,
         'file_queue_limit'=>0,//一次上传文件个数
@@ -28,8 +30,8 @@ $this->widget('application.extensions.swfupload.CSwfUpload', array(
         'button_placeholder_id'=>'swfupload',
         'button_width'=>140,
         'button_height'=>28,
-        'button_image_url'=> $this->imageUrl.'upload_button.png',
-        //'button_text'=>'<span class="button">上传(Max 30 MB)</span>',
+        //'button_image_url'=> $this->imageUrl.'upload_button.png',
+        'button_text'=>'<span class="button">点击修改头像</span>',
         'button_text_style'=>'.button { font-family:"微软雅黑", sans-serif; font-size: 15px; text-align: center;color: #666666; }',
         'button_text_top_padding'=>0,
         'button_text_left_padding'=>0,
@@ -50,7 +52,11 @@ $this->widget('application.extensions.swfupload.CSwfUpload', array(
             </h1>
             <div class="aud-detail">
                 <div class="det-per-inf">
+                    <?php if(!empty($IconUrl)){?>
+                    <img src="<?php echo $IconUrl;?>" class="det-img"/>
+                    <?php }else{?>
                     <img src="<?php echo $this->imageUrl.'user-avatar.png'?>" class="det-img" />
+                    <?php }?>
                     <p>
                         <span class="aud-time">晚上好，</span>
                         <span class="aud-det-name"><?php echo Yii::app()->user->name;?> </span>
@@ -114,8 +120,13 @@ $this->widget('application.extensions.swfupload.CSwfUpload', array(
                 </div>
                 <div class="basic-info find-table-content find-table-content-show">
                     <a href="javascript:;"  class="user-avatar">
+                    <?php if(!empty($IconUrl)){?>
+                        <img src="<?php echo $IconUrl;?>"/>
+                    <?php }else{?>
                         <img src="<?php echo $this->imageUrl.'user-avatar.png'?>" />
-                        <p>点击修改头像</p>
+                    <?php }?>
+                         <div class="swfupload" style="display:inline-block"><span id="swfupload"></span>
+                         </div>
                     </a>
                     <form class="show">
                         <ul class="personal-info">
