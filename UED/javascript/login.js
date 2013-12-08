@@ -80,6 +80,22 @@ $(document).ready(function(){
 			}
 		}
 	});
+	$("#verify-form").validate({
+		rules:{
+			verify_code:{
+				required: true,
+				digits: true,
+				length4: true
+			}
+		},
+		messages:{
+			verify_code:{
+				required: "验证码不能为空",
+				digits: "请输入数字",
+				length4: "验证码长度为4位"
+			}
+		}
+	});
 	$.validator.addMethod("phoneOrMail",function(value,element){
 		var tel = /^13\d{9}|14[57]\d{8}|15[012356789]\d{8}|18[01256789]\d{8}$/;
 		var len = value.length;
@@ -95,5 +111,28 @@ $(document).ready(function(){
 		var len = value.length;
 		return this.optional(element) || (tel.test(value) && len == 11);
 	});
+	$.validator.addMethod("length4",function(value,element){
+		var len = value.length;
+		return this.optional(element) || (len == 4);
+	});
 	
+	$("#getVerifycode").bind("click",function(){
+		var time;
+		if(!$(this).hasClass("disabled")){
+			$(this).addClass("disabled");
+			$.ajax({
+
+			});
+			time = 30;
+			changeVal();
+		}
+		function changeVal(){
+			if(time>0){
+				$("#getVerifycode").text(time+"秒重新获取");
+				setTimeout(changeVal,1000);
+				time--;
+			}else
+				$("#getVerifycode").removeClass("disabled").text("获取验证码");
+		}
+	});
 });

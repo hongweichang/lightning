@@ -103,11 +103,10 @@
           <div class="details-lend">
             <div class="info-title">投资金额<span class="info-subtitle">投资有风险，请谨慎考虑</span></div>
             <form method="post" action="#" id="lend-form">
-              <input type="text" name="lend_num" id="lend-num" />
+              <input type="text" name="lend_num" id="lend-num" data-info="1000;12;1;30%" />
               <p class="placeholder">请输入投资金额</p>
               <span>元</span>
-              <p>到期总收益 ¥<span>0.00元</span></p>
-              <p>标段利率 <span>0.00%</span></p>
+              <p>到期总收益 ¥<span id="lend-income">0.00元</span></p>
               <p class="lend-verify">
                 <label for="verifycode">验证码</label>
                 <input type="text" id="verifycode"/>
@@ -296,6 +295,7 @@
       </div>
     </div>
     <script type="text/javascript" src="../javascript/jquery.validate.min.js"></script>
+    <script type="text/javascript" src="../javascript/calculator.js"></script>
     <script type="text/javascript" src="../javascript/lend.js"></script>
 </body>
 </html>
