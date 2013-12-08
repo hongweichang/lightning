@@ -76,8 +76,8 @@ class BidManager extends CApplicationComponent{
 	 * @return boolean
 	 */
 	public function purchaseBid($user_id,$bid_id,$sum){
-		//修改标段进度
 		$bid = BidInfo::model()->findByPk($bid_id);
+		if($bid->getAttribute('progress') >= 100) return false;
 		
 		$transaction = Yii::app()->db->beginTransaction();
 		try{

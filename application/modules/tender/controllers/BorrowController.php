@@ -89,6 +89,7 @@ class BorrowController extends Controller {
 				
 				$this->redirect($this->createUrl('borrow/viewInfo',array('id'=>$id)));//跳转到显示详情页面
 			} else {
+				print_r($model->getErrors());exit;
 				$this->redirect("errorUrl",array("errMes"=>"出错了"));
 			}
 		} else {

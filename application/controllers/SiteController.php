@@ -7,13 +7,18 @@
  */
 class SiteController extends Controller{
 	public function noneLoginRequired(){
-		return 'index';
+		return 'index,test';
 	}
 	
 	public function actionIndex(){
-		
-		$this->cs->registerCssFile($this->app->getCssUrl().'index.css');
-		$this->cs->registerScriptFile($this->app->getJsUrl().'slide_fade.js',CClientScript::POS_END);
+		$this->cs->registerCssFile($this->cssUrl.'index.css');
+		$this->cs->registerScriptFile($this->scriptUrl.'slide_fade.js',CClientScript::POS_END);
 		$this->render('index');
+	}
+	
+	public function actionTest(){
+		//var_dump($this->app->getEventHandlers('onEndRequest'));
+		$async = $this->app->getComponent('asyncEventRunner');
+		//$async->raiseAsyncEvent('onRegisterSuccess',array('data'=>'sasa'));
 	}
 }
