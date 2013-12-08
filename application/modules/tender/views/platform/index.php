@@ -7,6 +7,7 @@
  */
 $this->cs->registerScriptFile($this->scriptUrl.'lend.js',CClientScript::POS_END);
 $this->cs->registerCssFile($this->cssUrl.'lend.css');
+$recharge = $user->getAttribute('balance') < $meta->getAttribute('sum'); 
 ?>
       <div class="wd1002">
         <div class="breadcrumb">
@@ -23,18 +24,18 @@ $this->cs->registerCssFile($this->cssUrl.'lend.css');
         </div>
         <div id="borrow-info">
           <p id="borrow-brief" class="text-overflow">
-          	借款人信息：<?php echo $tender->getRelated('user')->getAttribute('realname'); ?>，
-          	借款<?php echo number_format($tender->getAttribute('sum') / 100,2);?>元，
-          	月利率<?php echo $tender->getAttribute('month_rate'); ?>%，
-          	结束时间<?php echo date('n日H时',$tender->getAttribute('end')); ?>，
-          	期限<?php echo $tender->getAttribute('deadline'); ?>个月</p>
+          	借款人信息：<?php echo $bider->getAttribute('realname'); ?>，
+          	借款<?php echo number_format($bid->getAttribute('sum') / 100,2);?>元，
+          	月利率<?php echo $bid->getAttribute('month_rate'); ?>%，
+          	结束时间<?php echo date('n日H时',$bid->getAttribute('end')); ?>，
+          	期限<?php echo $bid->getAttribute('deadline'); ?>个月</p>
           <div id="borrow-details">
-            <p>借款人：<?php echo $tender->getRelated('user')->getAttribute('realname'); ?>，<?php echo $tender->getRelated('user')->getAttribute('gender') ? '先生' : '女士'; ?>，<?php echo $tender->getRelated('user')->getAttribute('role'); ?></p>
-            <p>身份证号码：<?php $tender->getRelated('user')->getAttribute('identity_id'); ?>,现居地:<?php echo $tender->getRelated('user')->getAttribute('address'); ?></p>
-            <p>借款金额：<?php echo number_format($tender->getAttribute('sum') / 100,2);?>元，标段月利率<?php echo $tender->getAttribute('month_rate'); ?>%，期限<?php echo $tender->getAttribute('deadline'); ?>个月，完成<?php echo $tender->getAttribute('progress'); ?>%招募</p>
-            <p>招标开始时间：<?php echo date('Y年j月n日H时',$tender->getAttribute('start')); ?>，结束时间：<?php echo date('Y年j月n日H时',$tender->getAttribute('end')); ?></p>
+            <p>借款人：<?php echo $bider->getAttribute('realname'); ?>，<?php echo $bider->getAttribute('gender') ? '先生' : '女士'; ?>，<?php echo $bider->getAttribute('role'); ?></p>
+            <p>身份证号码：<?php $bider->getAttribute('identity_id'); ?>,现居地:<?php echo $bider->getAttribute('address'); ?></p>
+            <p>借款金额：<?php echo number_format($bid->getAttribute('sum') / 100,2);?>元，标段月利率<?php echo $bid->getAttribute('month_rate'); ?>%，期限<?php echo $bid->getAttribute('deadline'); ?>个月，完成<?php echo $bid->getAttribute('progress'); ?>%招募</p>
+            <p>招标开始时间：<?php echo date('Y年j月n日H时',$bid->getAttribute('start')); ?>，结束时间：<?php echo date('Y年j月n日H时',$bid->getAttribute('end')); ?></p>
           </div>
-          <div id="borrow-num">投标金额：<span><?php echo number_format($sum / 100,2);?>元</span></div>
+          <div id="borrow-num"><span><?php echo number_format($meta->getAttribute('sum') / 100,2);?>元</span></div>
           <div id="borrow-avatar">
             <img src="<?php echo $this->imageUrl; ?>intro-pic_1.png" />
             <span>信</span>
@@ -42,7 +43,7 @@ $this->cs->registerCssFile($this->cssUrl.'lend.css');
         </div>
         <div id="view-detail"></div>
         <div class="paycenter paymethod">
-          <form method="post" action="#" id="pay-method">
+          <form method="post" action="<?php echo $this->createUrl('platform/process',array('meta_no' => $meta->getAttribute('id'))); ?>" id="pay-method">
             <div class="paymethod-item userinfo">
               <div class="paymethod-manage">
                 <a href="#">管理我的账户 |</a>
@@ -51,21 +52,29 @@ $this->cs->registerCssFile($this->cssUrl.'lend.css');
               <div><?php echo $user->getAttribute('nickname'); ?><span><?php echo $user->getAttribute('mobile'); ?></span></div>
             </div>
             <div class="paymethod-item method">
-              <input type="radio" checked="checked" name="pay_method" value="ssd" id="pay-ssd"/>
+            	<?php if($recharge){ ?>
+              	<input type="checkbox" name="in-pay" value="<?php echo $user->getAttribute('balance') / 100; ?>" id="pay-ssd"/>
+              	<?php } else { ?>
+              	<input type="checkbox" checked="checked" name="in-pay" value="<?php echo $user->getAttribute('balance') / 100; ?>" id="pay-ssd"/>
+              	<?php } ?>
               <label for="pay-ssd">闪电贷账户余额支付</label>
               <span>可支付余额： <?php echo number_format($user->getAttribute('balance') / 100,2); ?>元</span>
-              <p class="paycenter-hint question">您需要保证余额足够支付，余额不足可在此充值</p>
+              <p class="paycenter-hint question">您需要保证余额足够支付</p>
             </div>
             <div class="paymethod-item">
+            <?php if($recharge){ ?>
               <div class="paymethod-title">选择支付平台</div>
               <div class="paymethod-bank clearfix">
                 <ul>
                   <li>
-                    <input type="radio" name="pay_bank" value="icbc" id="b-icbc" checked="checked" />
+                    <input type="radio" name="payment" value="alipay" id="b-icbc" checked="checked" />
                     <label class="icbc" for="b-icbc"></label>
                   </li>
                 </ul>
               </div>
+              <?php } else { ?>
+              <div class="paymethod-title"></div>
+              <?php } ?>
             </div>
             <div>
               <input type="submit" value="下一步" class="paycenter-button" id="paycenter-next"/>

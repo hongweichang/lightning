@@ -56,13 +56,13 @@ $this->cs->registerCssFile($this->cssUrl.'detail.css');
                     <a href="">
                         <li class="find-table-0"><div class="find-table-op find-table-op"></div>我的借款</li>
                     </a>
-                    <a href="">
+                    <a href="<?php echo Yii::app()->createUrl('user/userCenter/myLend');?>">
                         <li class="find-table-1"><div class="find-table-op"></div>我的投资</li>
                     </a>
                     <a href="">
                         <li class="find-table-2"><div class="find-table-op-hidden"></div>安全中心</li>
                     </a>
-                    <a href="">
+                    <a href="<?php echo Yii::app()->createUrl('user/userCenter/userInfo');?>">
                         <li class="find-table-3"><div class="find-table-op"></div>个人信息</li>
                     </a>
                     <a href="">

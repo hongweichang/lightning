@@ -11,11 +11,20 @@ class PurchaseController extends Controller {
 	private $_authenGrade;//认证等级
 	private $_selectorMap;//标段选择条件
 	private $_bidsPerPage;//每页显示的标段数量
+	private $StartTime = 0; 
+    private $StopTime = 0; 
 	
 	public $defaultAction = "showAllBids"; // 更改默认的action,默认显示所有的标段
 	
-	public function filters() {
-		return '';
+	public function actions(){
+		return array(
+			'captcha'=>array(
+				'class'=>'CCaptchaAction',
+				'backColor'=>0xFFFFFF,
+				'maxLength' => 4,
+				'minLength' => 4
+			),
+		);
 	}
 	
 	public function noneLoginRequired(){
@@ -49,11 +58,12 @@ class PurchaseController extends Controller {
 	 */
 	function actionShowAllBids() {
 		$criteria = new CDbCriteria();
+		
 		//初始化条件：审核通过，招标已经开始，按时间降序排列
 		$criteria->condition = 'verify_progress=1 AND start < '.time();
 		$criteria->order = 'start DESC';
-		$criteria->with = 'bidMeta';//调用relations   
-		//还要获得购买信息，这里是否要做关联查询？？
+//		$criteria->with = 'bidMeta';//用关联查询,取得购买的信息 
+		
 		$dataProvider = new CActiveDataProvider('BidInfo',array(
 				'criteria' => $criteria,
 				'countCriteria' => array(
@@ -74,7 +84,7 @@ class PurchaseController extends Controller {
 	}
 	
 	/**
-	 * 用于获取Ajax请求
+	 * 用于获取Ajax请求来对标段列表进行筛选
 	 */
 	function actionAjaxBids() {
 		$pageSize = (int)$this->getQuery('pageSize',$this->_bidsPerPage);
@@ -128,7 +138,6 @@ class PurchaseController extends Controller {
 	
 	/**
 	 * 购买标段的action
-	 * Enter description here ...
 	 * @param $bidId：标段id
 	 * @param $userId：借款人的id
 	 */
@@ -141,8 +150,16 @@ class PurchaseController extends Controller {
 		//当前登录用户的id是：$this->user->getId()
 		$authGrade = $this->getUserAuthGrade($userId);//得到发标人的认证等级
 		$borrowUserInfo = $this->getUserInfo($userId);//得到发布标段的人的信息
+		
+		if(!array_key_exists($borrowUserInfo['role'],$this->app['roleMap'])) {
+			//如果用户还没有填写角色，那么他的角色就不在预设定的角色数组里面，此时设置他的角色为unknown
+			$borrowUserInfo['role'] = $this->app['roleMap']['unknown'];
+		} else {
+			$borrowUserInfo['role'] = $this->app['roleMap'][$borrowUserInfo['role']];
+		}
+		
 		$currentUserInfo = $this->getUserInfo($this->user->getId());//得到当前登录用户的信息
-
+		
 		$this->render("purchaseBid",array(
 				'bidInfo' => $bidInfo,
 				'borrowUserInfo' => $borrowUserInfo,
@@ -153,6 +170,39 @@ class PurchaseController extends Controller {
 	}
 	
 	/**
+	 * 购买标段的Ajax请求
+	 */
+	function actionPurchaseBidAjax() {
+		$bidId = $this->getQuery('bidId',null);//标段id
+		$lendNum = $this->getQuery('lendNum');//投资金额
+		
+		if(is_numric($lendNum)) {//判断输入的金额是不是数字
+			$lendNum = (int) $lendNum;
+		} else {
+			$errMsg = '请输入正确的数字金额';
+		}
+		
+		$bidInfo = $this->getBidDetail($bidId);
+		//从数据库里面取出来的金额要除以100
+		$leftMoney = ($bidInfo->sum / 100) * ( 1 - ($bidInfo->progress / 100));//剩余的投标金额
+		
+		
+		if($lendNum <= 0 || $lendNum > $leftMoney) {//投资的金额不对
+			$errMsg = "错误金额,请输入 0——".$leftMoney." 之间的金额";
+		} else {
+			/**
+			 * 返回到期总收益和标段利率，这里的标段利率是买标人的利率，而不是发表人发布的利率（存在中间差价）
+			 */
+			$arr = array();
+			$arr['bidRate'] = '10';//买标人的利率
+			$arr['totalProfit'] = $lendNum * $bidInfo->deadline * $arr['bidRate'];
+			
+			$arr = array("state"=> 1 ,"data"=> $arr );//state=1,表示结果正常返回
+			echo json_encode($arr);//利用php的jsonencode()返回json格式的数据
+		}
+	}
+	
+	/**
 	 * 将购买的标段信息插入数据库
 	 * Enter description here ...
 	 */
@@ -160,29 +210,25 @@ class PurchaseController extends Controller {
 		//利用传递过来的参数
 		$bidId = $this->getQuery('bidId',null);//要购买的标段的id
 		$userId = $this->getQuery('userId',null);//购买人，即当前用户的id
+		$code = $_POST['writeBidMeta']['code'];//验证码
+		$sum = (int)trim($_POST['writeBidMeta']['sum']);
 		
-		$model = new BidMeta();	//购买标段对应的表
+		if($_SESSION['Yii.CCaptchaAction.Powered By XCms.tender/purchase.captcha'] != $code){
+			$this->redirect($this->createUrl('purchase/purchaseBid',array(
+				'bidId' => $bidId,
+				'userId' => $userId
+			)));
+		}
 		
-		$_POST['writeBidMeta']['user_id'] = $userId;
-		$_POST['writeBidMeta']['bid_id'] = $bidId;
-		$_POST['writeBidMeta']['buy_time'] = time();
-		
-		$model->attributes = $_POST['writeBidMeta'];//利用表单来填充
-		
-		$meta_id = $this->getModule()->bidManager->purchaseBid($this->user->getId(),$bidId,$_POST['writeBidMeta']['sum']);
+		//调用接口，将买标信息插入数据库，返回插入记录的id
+		$meta_id = $this->getModule()->bidManager->purchaseBid($this->user->getId(),$bidId,$sum);
 		if($meta_id != 0){//如果插入数据库成功
 			/**
 			 * 插入数据库后 ，跳转到付款界面，调用接口
 			 */
-			//Yii::app()->getModule('pay')->fundManager->pay($meta_id);
+//			Yii::app()->getModule('pay')->fundManager->pay($meta_id);
 //			Yii::app()->redirect('pay/platform/index',array('no'=>$meta_id));
 			$this->redirect($this->createUrl('platform/index',array('meta_no' => $meta_id)));
-			
-			/**
-			 * 付款成功后:
-			 * （1）将bid_meta表的status改为1
-			 * （2）同时更新bid表的招标进度:progress = progress + (lend_sum/sum*100)
-			 */
 		}
 	}
 	
@@ -193,7 +239,13 @@ class PurchaseController extends Controller {
 	private function getBidDetail($bidId,$related = false) {
 		$model = BidInfo::model(); // 标段信息对应的表
 		if($related === true)
-			$bidDetail = $model->with('bidMeta')->findByPk( $bidId ); // 通过标段id来获取标段信息,同时做关联查询
+			//条件:付款完成 status=1，完成时间降序
+			$bidDetail = $model->with(array(
+					'bidMeta'=>array(
+							'condition' => 'status=1',
+							'order' => 'finish_time desc',
+					)
+			))->findByPk( $bidId ); // 通过标段id来获取标段信息,同时做关联查询
 		else//不做关联查询
 			$bidDetail = $model->findByPk( $bidId );
 		
@@ -229,5 +281,28 @@ class PurchaseController extends Controller {
 		if($die)
 			die();
 	}
+ 
+    function get_microtime() 
+    { 
+        list($usec, $sec) = explode(' ', microtime()); 
+        return ((float)$usec + (float)$sec); 
+    } 
+ 
+    function start() 
+    { 
+        $this->StartTime = $this->get_microtime(); 
+    } 
+ 
+    function stop() 
+    { 
+        $this->StopTime = $this->get_microtime(); 
+    } 
+ 
+    function spent() 
+    { 
+        return round(($this->StopTime - $this->StartTime) * 1000, 1); 
+    } 
+ 
+ 
 	
 }

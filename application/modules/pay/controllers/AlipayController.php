@@ -21,9 +21,9 @@ class AlipayController extends PayController{
 	
 	public function actionIndex(){
 		//付款金额
-		$charge = 1;//$_POST['charge'];
+		$charge = $this->getPost('sum');
 		//手续费
-		$fee = $charge * 0.05;
+		$fee = round($charge * 0.05,2);
 		
 		$alipay = $this->module->alipay;
 		//构造要请求的参数数组，无需改动
@@ -57,7 +57,7 @@ class AlipayController extends PayController{
 			"exter_invoke_ip"	=> "",
 			"_input_charset"	=> trim(strtolower($alipay['input_charset']))
 		);
-		
+		//print_r($parameter);Yii::app()->end();
 		$alipaySubmit = new AlipaySubmit($alipay);
 		$html_text = $alipaySubmit->buildRequestForm($parameter,"get", "");
 		echo $html_text;

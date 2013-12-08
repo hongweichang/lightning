@@ -23,14 +23,14 @@
             <div class="return"><a href="#">←返回</a></div>
             <div class="name">标段详情</div>
             <div class="balance">
-              <a href="#">账户余额¥<span><?php echo $currentUserInfo->balance;?></span><img src="<?php echo $this->imageUrl;?>topup_ico.png" /></a></div>
+              <a href="#">账户余额¥<span><?php echo $currentUserInfo->balance / 100;?></span><img src="<?php echo $this->imageUrl;?>topup_ico.png" /></a></div>
           </div>
           <div class="details-info">
             <div class="info-title"><?php echo $bidInfo->title;?></div>
             <div class="info-content clearfix">
               <div class="info-content-l">
                 <p>借款金额</p>
-                <p class="info-content-val"><span>¥</span><?php echo $bidInfo->sum;?></p>
+                <p class="info-content-val"><span>¥</span><?php echo $bidInfo->sum / 100;?></p>
               </div>
               <div class="info-content-r">
                 <p>信用等级</p>
@@ -41,7 +41,7 @@
                 <p class="info-content-val"><?php echo $bidInfo->deadline;?><span>个月</span></p>
               </div>
               <div class="info-content-l small">
-                <p>月利率</p>
+                <p>年利率</p>
                 <p class="info-content-val"><?php echo $bidInfo->month_rate;?><span>%</span></p>
               </div>
               <div class="info-content-r">
@@ -74,14 +74,27 @@
             			'bidId'=>$bidInfo->id,
             			'userId'=>$currentUserInfo->id)
             		);?>" id="lend-form">
-              <input type="text" name="writeBidMeta[sum]" id="lend-num" /><span>元</span>
+              <input type="text" name="writeBidMeta[sum]" id="lend-num" data-info="<?php 
+              	echo ($bidInfo->sum / 100).";".$bidInfo->deadline.";".$bidInfo->month_rate.";".$bidInfo->progress;
+              ?>" /><span>元</span>
               <p>到期总收益 ¥<span>0.00元</span></p>
               <p>标段利率 <span>0.00%</span></p>
+              <?php if(CCaptcha::checkRequirements()){ ?>
               <p class="lend-verify">
                 <label for="verifycode">验证码</label>
-                <input type="text" id="verifycode"/>
-                <img src="" id="randImage" title="点击刷新验证码" alt="验证码"/>
+                <input type="text" name="writeBidMeta[code]" id="verifycode"/>
+                <?php $this->widget('CCaptcha',array(
+					'id' => 'randImage',
+					'showRefreshButton' => false,
+					'clickableImage' => true,
+					'imageOptions' => array(
+						'name' => 'randImage',
+						'title' => '点击刷新验证码',
+						'alt' => '验证码',
+					),
+				)); ?>
               </p>
+              <?php } ?>
               <div>
                 <input type="checkbox" checked="checked" name="protocal" id="protocal" />
                 <div class="fakeCheck"><span></span></div>
@@ -104,15 +117,15 @@
                 </li>
                 <li>
                   <span class="borrower-name">真实姓名</span>
-                  <span class="borrower-val"><?php echo $borrowUserInfo['realname'];?></span>
+                  <span class="borrower-val"><?php echo$borrowUserInfo['realname'];?></span>
                 </li>
                 <li>
-                  <span class="borrower-name">性别</span>
-                  <span class="borrower-val"><?php echo ($borrowUserInfo['gender']== 1)? '男':'女';?></span>
+                  <span class="borrower-name">手机号码</span>
+                  <span class="borrower-val"><?php echo preg_replace('/(1[358]{1}[0-9])[0-9]{4}([0-9]{4})/i','$1****$2',$borrowUserInfo['mobile']);;?></span>
                 </li>
                 <li>
-                  <span class="borrower-name">年龄</span>
-                  <span class="borrower-val"><?php echo $borrowUserInfo['age'];?></span>
+                  <span class="borrower-name">社会角色</span>
+                  <span class="borrower-val"><?php echo $borrowUserInfo['role'];?></span>
                 </li>
                 <li>
                   <span class="borrower-name"></span>
@@ -154,7 +167,7 @@
 		                  <tr>
 		                    <td><?php echo $val->user_id;?></td>
 		                    <td><?php echo $bidInfo->title;?></td>
-		                    <td><?php echo $val->sum;?></td>
+		                    <td><?php echo $val->sum / 100;?></td>
 		                    <td><?php echo date('Y-m-d h:i:s',$val->buy_time);?></td>
 		                    <td>什么意思？？</td>
 		                  </tr>
@@ -167,7 +180,7 @@
             <div class="tab-content info-content">
               <h1 class="adu-d-nav"><?php echo $bidInfo->title;?></h1>
               <ul>
-                <li>借款金额 :  <span><?php echo $bidInfo->sum;?></span>元</li>
+                <li>借款金额 :  <span><?php echo $bidInfo->sum /100 ;?></span>元</li>
                 <li>年利率 :  <span><?php echo $bidInfo->month_rate;?></span>%</li>
                 <li>借款期限 :  <span><?php echo $bidInfo->deadline;?></span>个月</li>
                 <li>信用等级 :  <span><?php echo $authGrade;?></span></li>

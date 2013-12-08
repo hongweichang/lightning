@@ -49,7 +49,7 @@
                 </div>
                 <h1 class="adu-d-nav"><?php echo $model->title;?></h1>
                 <ul>
-                    <li>借款金额 :  <span><?php echo $model->sum;?></span>元</li>
+                    <li>借款金额 :  <span><?php echo $model->sum / 100;?></span>元</li>
                     <li>年利率 :  <span><?php echo $model->month_rate;?></span>%</li>
                     <li>借款期限 :  <span><?php echo $model->deadline;?></span>个月</li>
                     <li>信用等级 :  <span>HR</span></li>

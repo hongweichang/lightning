@@ -90,7 +90,7 @@ $this->cs->registerScriptFile($this->scriptUrl.'lend.js',CClientScript::POS_END)
                 <div class="list-head">
                     <span>借款人</span>
                     <span>借款标题</span>
-                    <span>月利率</span>
+                    <span>年利率</span>
                     <span>信用等级</span>
                     <span>金额</span>
                     <span>期限</span>
@@ -117,7 +117,7 @@ $this->cs->registerScriptFile($this->scriptUrl.'lend.js',CClientScript::POS_END)
                         	<div class="rank<?php echo $rank;?>"><?php echo $rank;?></div>
                         </div>
 
-                        <div class="loan-amount loan-num">￥<?php echo $val['sum'];?>元</div>
+                        <div class="loan-amount loan-num">￥<?php echo $val['sum'] / 100;?>元</div>
                         <div class="loan-time loan-num"><?php echo $val['deadline'];?>个月</div>
                         <!-- 进度这个要作关联查询 累加总计的sum  -->
                         <!-- 自己写了半天，原来数据库里面就有个字段是progress来表示进度。。。。吐血啊~~~ -->

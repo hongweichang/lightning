@@ -65,7 +65,6 @@ class mainConf extends ConfigBase{
 				'import' => array(
 						'application.extensions.PHPExcel.PHPExcel.*',
 						'application.modules.user.models.*'
-						
 				),
 				'components' => array(
 						'user' => array(
@@ -143,6 +142,7 @@ class mainConf extends ConfigBase{
 								'gxjc' => '工薪阶层',
 								'qyz' => '企业主',
 								'wddz' => '网店店主',
+								'unknown' => '还未填写角色',
 						),
 						'commonUrls' =>array(
 								'index' => '/site',
