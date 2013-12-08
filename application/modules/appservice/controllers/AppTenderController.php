@@ -52,6 +52,28 @@ class AppTenderController extends Controller{
 	}
 
 	/*
+	**获取当前用户标段列表
+	*/
+	public function actionGetBidListById(){
+		$uid = Yii::app()->user->id;
+
+		$BidData = $this->app->getModule('tender')->getComponent('bidManager')->getBidList('user_id =:uid',
+			array(':uid'=>$uid));
+
+		if(empty($BidData))
+			$this->response('400','该用户无标段','');
+		else{
+			foreach($BidData as $value){
+				$BidList[] = array(
+						'data'=>$value->attributes,
+					);
+			}
+			$this->response('200','查询成功',$BidList);
+		}
+
+	}
+
+	/*
 	**生成查询条件
 	*/
 	public function CriteriaMake($condition,$order,$page){

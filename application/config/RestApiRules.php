@@ -25,7 +25,7 @@ return array(
 			),
 
 		array(
-				'pattern'=>'<_m:(appservice)>/<_a:(BidList|BidById)>',
+				'pattern'=>'<_m:(appservice)>/<_a:(BidList|BidById|BidListById)>',
 				'<_m>/appTender/get<_a>',
 				'verb'=>'post'
 			),
