@@ -5,7 +5,8 @@
  * Date 2013-12-1 
  * Encoding UTF-8
  * 
- * 提供静态文件URL管理方案
+ * 1.提供静态文件URL管理方案
+ * 
  * 分区是为了防止某一文件夹下过多文件，尤其是有很多小文件，导致硬盘查找时间增加
  * 目前提供一层分区
  * 分区之后目录结构为  存放目录/分区号/文件
@@ -46,20 +47,12 @@ class Application extends CmsApplication{
 	 * @var string
 	 */
 	public $timePartitionFormat = 'Ymd';
-	
-	private $_partitionMethod = array(
-			'siteBanner' => self::PARTITION_METHOD_TIME,
-			'appBanner' => self::PARTITION_METHOD_TIME,
-			'avatar' => self::PARTITION_METHOD_ID,
-			'creditFile' => self::PARTITION_METHOD_ID,
-			'bidFile' => self::PARTITION_METHOD_ID
-	);
 	/**
 	 * 网站域名
 	 * 格式为http[s]://foo.bar.com
 	 * @var string
 	 */
-	public $hostName = 'http://localhost';
+	public $hostName = 'http://127.0.0.1';
 	/**
 	 * 网站基地址
 	 * 值为 $hostName + UrlManager::getBaseUrl()
@@ -69,157 +62,129 @@ class Application extends CmsApplication{
 	 * @var string
 	 */
 	private $_siteBaseUrl = 'http://localhost';
-	/**
-	 * js地址
-	 * @var string
-	 */
-	private $_jsUrl = 'UED/javascript/';
-	/**
-	 * css地址
-	 * @var string
-	 */
-	private $_cssUrl = 'UED/css/';
-	/**
-	 * 网站静态图片地址
-	 * @var string
-	 */
-	private $_imageUrl = 'UED/images/';
-	/**
-	 * 上传到网站上的图片的地址
-	 * @var string
-	 */
-	private $_uploadUrl = 'upload/';
-	/**
-	 * 网站banner存放地址
-	 * @var string
-	 */
-	private $_siteBannerUrl = 'upload/banners/site/';
-	/**
-	 * app端banner存放地址
-	 * @var string
-	 */
-	private $_appBannerUrl = 'upload/banners/app/';
-	/**
-	 * 用户头像地址
-	 * @var string
-	 */
-	private $_avatarUrl = 'upload/avatar/';
-	/**
-	 * 信用资料文件地址
-	 * @var string
-	 */
-	private $_creditFileUrl = 'upload/credit/';
-	/**
-	 * 标段资料文件地址
-	 * @var string
-	 */
-	private $_bidFileUrl = 'upload/bid/';
+	
+	private $_nameMap = array(
+			'js' => array(
+					'path' => 'UED/javascript/'
+			),
+			'css' => array(
+					'path' => 'UED/css/'
+			),
+			'image' => array(
+					'path' => 'UED/images/'
+			),
+			'upload' => array(
+					'path' => 'upload/'
+			),
+			'avatar' => array(
+					'partitionMethod' => self::PARTITION_METHOD_ID,
+					'path' => 'upload/avatar/'
+			),
+			'siteBanner' => array(
+					'partitionMethod' => self::PARTITION_METHOD_TIME,
+					'path' => 'upload/banners/site/'
+			),
+			'appBanner' => array(
+					'partitionMethod' => self::PARTITION_METHOD_TIME,
+					'path' => 'upload/banners/app/'
+			),
+			'creditFile' => array(
+					'partitionMethod' => self::PARTITION_METHOD_ID,
+					'path' => 'upload/credit/'
+			),
+			'bidFile' => array(
+					'partitionMethod' => self::PARTITION_METHOD_ID,
+					'path' => 'upload/bid/'
+			),
+	);
+	
+	public $urlManagerBaseUrl = null;
 	
 	public function init(){
 		parent::init();
-		$this->_siteBaseUrl = $this->hostName.$this->getUrlManager()->getBaseUrl().'/';
+		$url = $this->getUrlManager();
+		if ( $this->urlManagerBaseUrl !== null ){
+			$url->setBaseUrl($this->urlManagerBaseUrl);
+		}
+		$this->_siteBaseUrl = $this->hostName.$url->getBaseUrl().'/';
 	}
 	
-	public function setJsUrl($url){
-		$this->_jsUrl = $url;
+	/**
+	 * 设置某个项目的路径
+	 * @param string $name
+	 * @param string $value
+	 */
+	public function setPath($name,$value){
+		if ( isset($this->_nameMap[$name]) ){
+			$this->_nameMap[$name]['path'] = $value;
+		}
 	}
 	
-	public function setCssUrl($url){
-		$this->_cssUrl = $url;
-	}
-	
-	public function setImageUrl($url){
-		$this->_imageUrl = $url;
-	}
-	
-	public function setUploadUrl($url){
-		$this->_uploadUrl = $url;
-	}
-	
-	public function setSiteBannerUrl($url){
-		$this->_siteBannerUrl = $url;
-	}
-	
-	public function setAppBannerUrl($url){
-		$this->_appBannerUrl = $url;
-	}
-	
-	public function setAvatarUrl($url){
-		$this->_avatarUrl = $url;
-	}
-	
-	public function setCreditFileUrl($url){
-		$this->_creditFileUrl = $url;
-	}
-	
-	public function setBidFileUrl($url){
-		$this->_bidFileUrl = $url;
-	}
-	
-	public function setPartitionMethod($config){
+	/**
+	 * 设置某个项目的配置，包括分区方案等
+	 * @param array $config
+	 */
+	public function setNameMap($config){
 		foreach ( $config as $key => $c ){
-			if ( isset($this->_partitionMethod[$key]) && $c === null ){
-				unset($this->_partitionMethod[$key]);
+			if ( isset($this->_nameMap[$key]) && $c === null ){
+				unset($this->_nameMap[$key]);
 			}else {
-				$this->_partitionMethod[$key] = $c;
+				$this->_nameMap[$key] = $c;
 			}
 		}
 	}
 	
+	/**
+	 * 获取网站基地址
+	 * @return string
+	 */
 	public function getSiteBaseUrl(){
 		return $this->_siteBaseUrl;
 	}
 	
-	public function getJsUrl(){
-		return $this->_siteBaseUrl.$this->_jsUrl;
+	/**
+	 * 获取某以项目路径
+	 * @param string $name
+	 * @return string
+	 */
+	public function getPath($name){
+		if ( isset($this->_nameMap[$name]) && isset($this->_nameMap[$name]['path']) ){
+			return $this->_nameMap[$name]['path'];
+		}else {
+			return null;
+		}
 	}
 	
-	public function getCssUrl(){
-		return $this->_siteBaseUrl.$this->_cssUrl;
+	/**
+	 * 根据分区输入参数和分区方案，返回项目分区后的地址
+	 * @param string $name
+	 * @param mixed $partIn
+	 * @return string|NULL
+	 */
+	public function getPartedUrl($name,$partIn=null){
+		if ( isset($this->_nameMap[$name]) && isset($this->_nameMap[$name]['path']) ){
+			$part = $this->partition($partIn,$name);
+			return $this->_siteBaseUrl.$this->_nameMap[$name]['path'].$part;
+		}else {
+			return null;
+		}
 	}
 	
-	public function getImageUrl(){
-		return $this->_siteBaseUrl.$this->_imageUrl;
-	}
-	
-	public function getUploadUrl(){
-		return $this->_siteBaseUrl.$this->_uploadUrl;
-	}
-	
-	public function getSiteBannerUrl($partIn=null){
-		$part = $this->partition($partIn,'siteBanner');
-		return $this->_siteBaseUrl.$part.$this->_siteBannerUrl;
-	}
-	
-	public function getAppBannerUrl($partIn=null){
-		$part = $this->partition($partIn,'appBanner');
-		return $this->_siteBaseUrl.$part.$this->_appBannerUrl;
-	}
-	
-	public function getAvatarUrl($partIn=null){
-		$part = $this->partition($partIn,'avatar');
-		return $this->_siteBaseUrl.$part.$this->_avatarUrl;
-	}
-	
-	public function getCreditFileUrl($partIn=null){
-		$part = $this->partition($partIn,'creditFile');
-		return $this->_siteBaseUrl.$part.$this->_creditFileUrl;
-	}
-	
-	public function getBidFileUrl($partIn=null){
-		$part = $this->partition($partIn,'bidFile');
-		return $this->_siteBaseUrl.$part.$this->_bidFileUrl;
-	}
-	
+	/**
+	 * 根据项目分区配置对项目选用分区方案
+	 * @param mixed $partIn
+	 * @param string $from
+	 * @return NULL|string
+	 */
 	public function partition($partIn,$from){
 		if ( $partIn === null ){
 			return null;
 		}
-		if ( isset($this->_partitionMethod[$from]) === false ){
+		if ( !isset($this->_nameMap[$from]) || !isset($this->_nameMap[$from]['partitionMethod']) ){
 			return null;
 		}
 		
-		$func = $this->_partitionMethod[$from];
+		$func = $this->_nameMap[$from]['partitionMethod'];
 		if ( is_string($func) ){//使用自带分区方案
 			$part = call_user_func_array(array($this,$func),array('partIn'=>$partIn));
 		}elseif ( is_array($partIn) ) {//使用用户自定义分区方案
@@ -234,10 +199,20 @@ class Application extends CmsApplication{
 		return $part.'/';
 	}
 	
+	/**
+	 * 根据ID分区
+	 * @param int $partIn
+	 * @return number
+	 */
 	public function partitionById($partIn){
 		return $partIn % $this->partitionNum;
 	}
 	
+	/**
+	 * 根据时间分区
+	 * @param number $partIn
+	 * @return NULL|number
+	 */
 	public function partitionByTime($partIn=null){
 		$time = empty($partIn) ? time() : $partIn;
 		if ( is_numeric($time) === false ){
