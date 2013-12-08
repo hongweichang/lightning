@@ -154,9 +154,6 @@ class mainConf extends ConfigBase{
 								'class' => 'cms.components.asyncEvent.AsyncEventRunner',
 								'zmqClientId' => 'zmqClient',
 								'events' => array(
-										'onEndRequest' => array(
-												'command' => array('sendMail','success')
-										),
 										'onRegisterSuccess' => array(
 												'command' => array('sendSMS','success')
 										),
