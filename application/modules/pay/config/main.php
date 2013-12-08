@@ -26,11 +26,11 @@ return array(
 		//卖家支付宝帐户
 		'seller_email' => '295395100@qq.com',
 		//服务器异步通知页面路径
-		'notify_url' => 'http://127.0.0.1:8080'.Yii::app()->createUrl("pay/alipay/notify"),
+		'notify_url' => Yii::app()->hostName.Yii::app()->createUrl("pay/alipay/notify"),
 		//页面跳转同步通知页面路径
-		'return_url' => 'http://127.0.0.1:8080'.Yii::app()->createUrl("pay/alipay/return"),
+		'return_url' => Yii::app()->hostName.Yii::app()->createUrl("pay/alipay/return"),
 		//商品展示地址
-		'show_url' => 'http://127.0.0.1:8080'.Yii::app()->createUrl("pay/platform/bill"),
+		'show_url' => Yii::app()->hostName.Yii::app()->createUrl("pay/platform/bill"),
 	),
 	
 	'ips' => array(
@@ -43,11 +43,11 @@ return array(
 		//支付卡种
 		'Gateway_Type' => '01', // 人民币储蓄卡
 		//支付结果成功返回的商户URL
-		'Merchanturl' => 'http://127.0.0.1:8080'.Yii::app()->createUrl("pay/ips/return"),
+		'Merchanturl' => Yii::app()->hostName.Yii::app()->createUrl("pay/ips/return"),
 		//支付结果失败返回的商户URL
-		//'Failurl' => 'http://127.0.0.1:8080'.Yii::app()->createUrl("pay/ips/return"),
+		//'Failurl' => Yii::app()->hostName.Yii::app()->createUrl("pay/ips/return"),
 		//商户数据包,该数据包会被原封不动的返回
-		'Attach' => '',
+		//'Attach' => '',
 		//订单支付接口加密方式
 		'OrderEncodeType' => '5', //MD5
 		//交易返回加密方式
@@ -55,6 +55,6 @@ return array(
 		//是否提供Server返回方式
 		'Rettype' => 1,
 		//Server to Server返回页面
-		'ServerUrl' => 'http://127.0.0.1:8080'.Yii::app()->createUrl("pay/ips/notify"),
+		'ServerUrl' => Yii::app()->hostName.Yii::app()->createUrl("pay/ips/notify"),
 	),
 );

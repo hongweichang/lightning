@@ -7,7 +7,6 @@
  */
 $this->cs->registerScriptFile($this->scriptUrl.'lend.js',CClientScript::POS_END);
 $this->cs->registerCssFile($this->cssUrl.'lend.css');
-$recharge = $user->getAttribute('balance') < $meta->getAttribute('sum'); 
 ?>
       <div class="wd1002">
         <div class="breadcrumb">
@@ -52,17 +51,12 @@ $recharge = $user->getAttribute('balance') < $meta->getAttribute('sum');
               <div><?php echo $user->getAttribute('nickname'); ?><span><?php echo $user->getAttribute('mobile'); ?></span></div>
             </div>
             <div class="paymethod-item method">
-            	<?php if($recharge){ ?>
-              	<input type="checkbox" name="in-pay" value="<?php echo $user->getAttribute('balance') / 100; ?>" id="pay-ssd"/>
-              	<?php } else { ?>
-              	<input type="checkbox" disabled="disabled" checked="checked" name="in-pay" value="<?php echo $user->getAttribute('balance') / 100; ?>" id="pay-ssd"/>
-              	<?php } ?>
+              <input type="checkbox" checked="checked" name="in-pay" value="<?php echo $user->getAttribute('balance') / 100; ?>" id="pay-ssd"/>
               <label for="pay-ssd">闪电贷账户余额支付</label>
               <span>可支付余额： <?php echo number_format($user->getAttribute('balance') / 100,2); ?>元</span>
               <p class="paycenter-hint question">您需要保证余额足够支付</p>
             </div>
             <div class="paymethod-item">
-            <?php if($recharge){ ?>
               <div class="paymethod-title">选择支付平台</div>
               <div class="paymethod-bank clearfix">
                 <ul>
@@ -72,9 +66,6 @@ $recharge = $user->getAttribute('balance') < $meta->getAttribute('sum');
                   </li>
                 </ul>
               </div>
-              <?php } else { ?>
-              <div class="paymethod-title"></div>
-              <?php } ?>
             </div>
             <div>
               <input type="submit" value="下一步" class="paycenter-button" id="paycenter-next"/>
