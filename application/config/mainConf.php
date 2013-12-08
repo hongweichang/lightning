@@ -28,7 +28,7 @@ class mainConf extends ConfigBase{
 								'class' => 'application.modules.pay.PayModule'
 						),
 						
-						'admin' => array(
+						'adminnogateway' => array(
 							'class' => 'application.modules.admin.AdminModule'
 						),
 						
@@ -148,7 +148,6 @@ class mainConf extends ConfigBase{
 								'zmqServer' => 'tcp://localhost:5556',
 								'sendTimeout' => 3000,
 								'reciveTimeout' => 3000,
-								'socketType' => ZMQ::SOCKET_REQ
 						),
 						'asyncEventRunner' => array(
 								'class' => 'cms.components.asyncEvent.AsyncEventRunner',

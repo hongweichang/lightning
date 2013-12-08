@@ -1,6 +1,10 @@
 <?php
 
-class IndexController extends Controller{	
+class IndexController extends Admin{
+	public function noneLoginRequired(){
+		return 'index,login';
+	}
+	
 	public function actionIndex(){
 		$this->render('index');
 	}
