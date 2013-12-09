@@ -2,23 +2,24 @@
 
 class IndexController extends Admin{
 	public function noneLoginRequired(){
-		return 'index,login';
+		return 'index,login,menu,welcome';
 	}
 	
 	public function actionIndex(){
+		$this->layout = 'main';
 		$this->render('index');
 	}
 	
-	public function actionLogin(){
-		$this->layout = '/layouts/login';
-		$this->render('login');
-	}
-	
-	public function actionLogout(){
+	public function actionMenu(){
+		$authMenu = $this->app->getAuthManager()->getMenu();
 		
+		$this->menu = $authMenu->generateUserMenu($this->user->getId());
+		$this->layout = false;
+		$this->render('menu');
 	}
 	
-	public function actionError(){
-		$this->render('index');
+	public function actionWelcome(){
+		$this->pageTitle = '欢迎使用';
+		$this->render('welcome');
 	}
 }
