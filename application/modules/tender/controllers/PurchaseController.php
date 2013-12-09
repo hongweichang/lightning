@@ -145,7 +145,10 @@ class PurchaseController extends Controller {
 		$bidId = $this->getQuery('bidId',null);//标段id
 		$userId = $this->getQuery('userId',null);//发标人id
 		
-		$bidInfo = $this->getBidDetail($bidId,true);
+		$bidInfo = $this->getBidDetail($bidId,true);//关联查询
+		if(!$bidInfo)
+			$bidInfo = $this->getBidDetail($bidId);//关联查询没有数据，就不作关联查询
+			
 		//这里的userId是发标用户的id，而不是当前登录用户的id
 		//当前登录用户的id是：$this->user->getId()
 		$authGrade = $this->getUserAuthGrade($userId);//得到发标人的认证等级
@@ -238,17 +241,19 @@ class PurchaseController extends Controller {
 	 */
 	private function getBidDetail($bidId,$related = false) {
 		$model = BidInfo::model(); // 标段信息对应的表
-		if($related === true)
+		if($related === true) {
 			//条件:付款完成 status=1，完成时间降序
+			//这里需要注意的是，如果with关联的数据没有的话，则$bidDetail也会是null
 			$bidDetail = $model->with(array(
 					'bidMeta'=>array(
 							'condition' => 'status=1',
 							'order' => 'finish_time desc',
 					)
 			))->findByPk( $bidId ); // 通过标段id来获取标段信息,同时做关联查询
+		}
 		else//不做关联查询
 			$bidDetail = $model->findByPk( $bidId );
-		
+			
 		return $bidDetail;
 	}
 	

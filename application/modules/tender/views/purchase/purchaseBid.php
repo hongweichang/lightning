@@ -162,7 +162,9 @@
                 <tbody>
                 	<?php 
                 		$bidMeta = $bidInfo->bidMeta;
-                		foreach ($bidMeta as $key => $val) {
+                		//如果有购买记录
+                		if($bidMeta) {
+                			foreach ($bidMeta as $key => $val) {
                 	?>
 		                  <tr>
 		                    <td><?php echo $val->user_id;?></td>
@@ -172,7 +174,8 @@
 		                    <td>什么意思？？</td>
 		                  </tr>
                   	<?php 
-                		}
+                			}//end foreach
+                		}//end if
                   	?>
                 </tbody>
               </table>
