@@ -11,7 +11,7 @@ class PurchaseController extends Controller {
 	private $_deadline;//借款期限
 	private $_authenGrade;//认证等级
 	private $_selectorMap;//标段选择条件
-	private $_bidsPerPage;//每页显示的标段数量
+	private $_bidsPerPage;
 
 	public function actions(){
 		return array(
@@ -41,13 +41,13 @@ class PurchaseController extends Controller {
 	function actionIndex() {
 		$this->setPageTitle($this->name.' - '.$this->app->name);
 		
-		$pager = new CPagination(BidInfo::model()->count());
-		$pager->setPageSize(10);
+		$pager = new CPagination(BidInfo::model()->count("verify_progress=1 AND start<='".strtotime(date('Y-m-d'))."'"));
+		$pager->setPageSize($this->_bidsPerPage);
 		
 		$bidInfo = BidInfo::model()->with('user')->findAll(array(
 			'offset' => $pager->getOffset(),
 			'limit' => $pager->getLimit(),
-			'condition' => "verify_progress=1 AND start<'".strtotime(date('Y-m-d'))."'",
+			'condition' => "verify_progress=1 AND start<='".strtotime(date('Y-m-d'))."'",
 			'order' => 'pub_time DESC'
 		));
 		
@@ -66,7 +66,7 @@ class PurchaseController extends Controller {
 	 * @param $userId：借款人的id
 	 */
 	function actionInfo() {
-		$bid = BidInfo::model()->with('user','bidMeta')->findByPk($this->getQuery('id'));
+		$bid = BidInfo::model()->with('user')->findByPk($this->getQuery('id'));
 		
 		if(!empty($bid)){
 			$this->setPageTitle($bid->getAttribute('title').' - '.$this->name.' - '.$this->app->name);
@@ -81,18 +81,27 @@ class PurchaseController extends Controller {
 				);
 				
 				if($model->validate()){
-					$this->redirect($this->createUrl('platform/index',array(
-						'meta_no' => $model->save()
-					)));
+					if(($meta_no = $model->save()) !== false){
+						$this->redirect($this->createUrl('platform/order',array(
+							'meta_no' => $meta_no
+						)));
+					}else{
+						 // 已满标
+					}
 				}
 			}
+			
+			$meta = BidMeta::model()->with('user')->findAll(array(
+				'order' => 'buy_time DESC',
+				'condition' => 'bid_id='.$bid->getAttribute('id')
+			));
 			
 			$bider = $bid->getRelated('user');
 			$this->render("info",array(
 				'bid' => $bid,
 				'bider' => $bider,
 				'form' => $model,
-				'meta' => new CArrayDataProvider($bid->getRelated('bidMeta')),
+				'meta' => new CArrayDataProvider($meta),
 				'user' => $this->app->getModule('user')->userManager->getUserInfo($this->user->getId()),
 				'authGrade' => $this->app->getModule('credit')->getComponent('userCreditManager')->getUserCreditLevel($bider->getAttribute('id')),
 			));
@@ -105,52 +114,38 @@ class PurchaseController extends Controller {
 	 * 用于获取Ajax请求
 	 */
 	function actionAjaxBids() {
-		$pageSize = (int)$this->getQuery('pageSize',$this->_bidsPerPage);
-		$page = (int)$this->getQuery('page');
-		
-		$model = BidInfo::model();
-		$criteria = new CDbCriteria();
-		$criteria->condition = 'verify_progress=1 AND start < '.time();
-		$criteria->order = 'start DESC';
-		$criteria->with = 'bidMeta';
-
 		/**
 		 * 下面这个利用foreach来遍历二维数组
 		 * 获取Ajax请求的参数
 		 * 并根据Ajax请求的参数，来设置相应的查询条件
 		 */
+		$criteria = new CDbCriteria();
+		$criteria->addCondition('verify_progress=1');
+		$criteria->addCondition('start<='.strtotime(date('Y-m-d')));
+		$criteria->order = 'pub_time DESC';
+		$criteria->with = 'user';
+		
 		foreach ($this->_selectorMap as $key => $value) {
 			if(isset($_GET[$key]) && $_GET[$key] != 'all' && $_GET[$key] != '') {
 				$criteria->addCondition($value[$_GET[$key]]);
 			}
 		}
 		
-		$count = $model->count($criteria);//获取总记录数
-		//有viewmore参数的请求时点击查看更多发起的ajax请求
-		if(isset($_GET['viewmore']) && $_GET['viewmore'] == 1) {
-			$totalPages = ceil($count / $pageSize);//获得总页数
-			if (  $page > $totalPages ){//当前页大于总页数，就没有更多了	
-				$this->response(0);
-			}
-		}
-		$pager = new CPagination($count);
-		$pager->pageVar = 'page';
-		$pager->pageSize = $pageSize;
+		$pager = new CPagination(BidInfo::model()->count($criteria));
+		$pager->setPageSize($this->_bidsPerPage);
+		$pager->setCurrentPage($this->getQuery('page',1));
 		$pager->applyLimit($criteria);
-		$data = $model->findAll($criteria);
+		$data = BidInfo::model()->findAll($criteria);
 		
 		//把从数据库获取到的数据，处理后返回给前台
-		$arr = array();
-		foreach($data as $keyOut => $valueOut) {
-			foreach ($valueOut as $keyIn => $valIn) {
-				$arr[$keyOut][$keyIn] = $valIn;
-				//拼接购买该标段的链接
-				$arr[$keyOut]['titleHref'] = "purchase/purchaseBid/bidId/".$valueOut['id']."/userId/".$valueOut['user_id'];
-				$arr[$keyOut]['authGrade'] = $this->getUserAuthGrade($valueOut['user_id']);//得到用户的认证等级
-			}
+		$return = array();
+		foreach($data as $key => $value) {
+			$return[$key] = $value->getAttributes();
+			$return[$key]['titleHref'] = $this->createUrl('purchase/info', array('id' => $value->getAttribute('id')));
+			$return[$key]['authGrade'] = Yii::app()->getModule('credit')->getComponent('userCreditManager')->getUserCreditLevel($value->getAttribute('user_id'));
 		}
 		
-		$arr = array("state"=> 1 ,"data"=> $arr );//state=1,表示结果正常返回
-		echo json_encode($arr);//利用php的jsonencode()返回json格式的数据
+		$return = array("state"=> 1 ,"data"=> $return );//state=1,表示结果正常返回
+		echo CJSON::encode($return);//利用php的jsonencode()返回json格式的数据
 	}
 }

@@ -16,14 +16,14 @@
         	<?php echo $data['title'];?>
         </a>
 	</div>
-	<div class="loan-rate loan-num"><?php echo $data['month_rate'];?>%</div>
+	<div class="loan-rate loan-num"><?php echo $data['month_rate'] / 100;?>%</div>
 	<div class="loan-rank">
 		<?php																								
 			$rank = Yii::app()->getModule('credit')->getComponent('userCreditManager')->getUserCreditLevel($data ['user_id']);
 		?>
 		<div class="rank<?php echo $rank;?>"><?php echo $rank;?></div>
 	</div>
-	<div class="loan-amount loan-num">￥<?php echo $data['sum'];?>元</div>
+	<div class="loan-amount loan-num">￥<?php echo number_format($data['sum'] / 100,2);?>元</div>
 	<div class="loan-time loan-num"><?php echo $data['deadline'];?>个月</div>
 	<div class="loan-progress">
 		<div class="bar-out">

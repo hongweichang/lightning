@@ -2,16 +2,14 @@
 $this->cs->registerCssFile($this->cssUrl.'lend.css');
 $this->cs->registerScriptFile($this->scriptUrl.'lend.js',CClientScript::POS_END);
 ?>
+<script type="text/javascript">
+	var ajaxBids='<?php echo $this->createUrl('purchase/ajaxBids'); ?>'
+</script>
 <div class="wd1002">
     		<div class="breadcrumb">
     			<ul>
     				<li class="breadcrumb-item">
     					<a href="<?php echo $this->createUrl('purchase/index'); ?>">我要投资</a>
-    				</li>
-    				<li class="breadcrumb-separator"> >
-    				</li>
-    				<li class="breadcrumb-item active">
-    					<a>投资中心</a>
     				</li>
     			</ul>
     		</div>
@@ -90,13 +88,15 @@ $this->cs->registerScriptFile($this->scriptUrl.'lend.js',CClientScript::POS_END)
                     <span>期限</span>
                     <span>进度</span>
                 </div>
-                <ul>
-					<?php $this->widget('zii.widgets.CListView',array(
-						'dataProvider' => $data,
-						'itemView' => '_bidList',
-						'template' => '{items}'
-					)); ?>
-                </ul>
+				<?php $this->widget('zii.widgets.CListView',array(
+					'dataProvider' => $data,
+					'itemView' => '_bidList',
+					'template' => '{items}',
+					'itemsTagName' => 'ul',
+					'ajaxUpdate' => false,
+					'cssFile' => false,
+					'baseScriptUrl' => null,
+				)); ?>
                 <div id="viewMore">
                 	<img src="<?php echo $this->imageUrl;?>more_ico.png" />
                 	<span>查看更多</span>

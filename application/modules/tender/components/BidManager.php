@@ -95,13 +95,13 @@ class BidManager extends CApplicationComponent{
 	 * @return boolean
 	 */
 	public function purchaseBid($user_id,$bid_id,$sum){
-		$bid = BidInfo::model()->findByPk($bid_id);
-		if($bid->getAttribute('progress') + ($sum * 10000) / $bid->getAttribute('sum') > 100) return false;
-		
 		$transaction = Yii::app()->db->beginTransaction();
 		try{
+			$bid = BidInfo::model()->findByPk($bid_id);
+			$progress = ($sum * 10000) / $bid->getAttribute('sum');
+			if($bid->getAttribute('progress') + $progress > 100) return false;
 			$bid->saveCounters(array(
-				'progress' => ($sum * 10000) / $bid->getAttribute('sum')
+				'progress' => $progress  // 锁定进度
 			));
 			
 			$meta = new BidMeta();
@@ -109,9 +109,9 @@ class BidManager extends CApplicationComponent{
 				'user_id' => $user_id,
 				'bid_id' => $bid_id,
 				'sum' => $sum * 100,
-				'refund' => $this->calculateRefund($sum, $bid->getAttribute('month_rate') / 12, $bid->getAttribute('deadline')) * 100,
+				'refund' => $this->calculateRefund($sum, $bid->getAttribute('month_rate') / 1200, $bid->getAttribute('deadline')) * 100,
 				'buy_time' => time(),
-				'status' => 0
+				'status' => 0 // 订单未支付
 			);
 			$meta->save();
 			$transaction->commit();
@@ -140,7 +140,7 @@ class BidManager extends CApplicationComponent{
 			
 			$meta->attributes = array(
 				'finish_time' => time(),
-				'status' => 1
+				'status' => 1 //订单已支付
 			);
 			$meta->save();
 			$transaction->commit();

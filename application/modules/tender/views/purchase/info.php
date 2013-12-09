@@ -8,11 +8,6 @@
             </li>
             <li class="breadcrumb-separator"> >
             </li>
-            <li class="breadcrumb-item">
-              <a href="<?php echo $this->createUrl('purchase/index'); ?>">投资中心</a>
-            </li>
-            <li class="breadcrumb-separator"> >
-            </li>
             <li class="breadcrumb-item active">
               <a>标段详情</a>
             </li>
@@ -45,7 +40,7 @@
               </div>
               <div class="info-content-l small">
                 <p>年利率</p>
-                <p class="info-content-val"><?php echo $bid->getAttribute('month_rate');?><span>%</span></p>
+                <p class="info-content-val"><?php echo $bid->getAttribute('month_rate') / 100;?><span>%</span></p>
               </div>
               <div class="info-content-r">
                 <div class="info-content-term">
@@ -156,13 +151,17 @@
                    	<!--<th class="tb-col-status">状态</th>-->
                   </tr>
                 </thead>
-                <tbody>
-                	<?php $this->widget('zii.widgets.CListView',array(
-						'dataProvider' => $meta,
-						'itemView' => '_metaList',
-						'template' => '{items}'
-					)); ?>
-                </tbody>
+                <?php 
+                $meta->pagination = false;
+                $this->widget('zii.widgets.CListView',array(
+					'dataProvider' => $meta,
+					'itemView' => '_metaList',
+					'template' => '{items}',
+                	'itemsTagName' => 'tbody',
+                	'ajaxUpdate' => false,
+                	'cssFile' => false,
+                	'baseScriptUrl' => null,
+				)); ?>
               </table>
             </div>
             <div class="tab-content info-content">

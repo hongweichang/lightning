@@ -18,7 +18,7 @@ class MetaForm extends CFormModel{
 			// email has to be a valid email address
 			array('sum','checkSum'),
 			'captcha' => array('code', 'captcha' ,'allowEmpty'=>!CCaptcha::checkRequirements(),'message'=>'验证码错误'),
-			'protocal' => array('protocal','confirm','message'=>'请同意网站服务协议'),
+			'protocal' => array('protocal','confirm','message'=>'请同意投资者协议'),
 			// verifyCode needs to be entered correctly
 		);
 		return $rules;

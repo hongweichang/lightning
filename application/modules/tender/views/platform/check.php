@@ -12,12 +12,17 @@ $this->cs->registerCssFile($this->cssUrl.'lend.css');
         <div class="breadcrumb">
           <ul>
             <li class="breadcrumb-item">
-              <a href="#">我要投资</a>
+              <a href="<?php echo $this->createUrl('purchase/index'); ?>">我要投资</a>
             </li>
             <li class="breadcrumb-separator"> >
             </li>
             <li class="breadcrumb-item active">
-              <a href="#">投资中心</a>
+              <a href="<?php echo $this->createUrl('purchase/info',array('id' => $bid->getAttribute('id'))); ?>"><?php echo $bid->getAttribute('title'); ?></a>
+            </li>
+            <li class="breadcrumb-separator"> >
+            </li>
+            <li class="breadcrumb-item active">
+              <a>结算中心</a>
             </li>
           </ul>
         </div>
@@ -26,13 +31,13 @@ $this->cs->registerCssFile($this->cssUrl.'lend.css');
           	借款人信息：<?php echo $bider->getAttribute('realname'); ?>，
           	借款<?php echo number_format($bid->getAttribute('sum') / 100,2);?>元，
           	月利率<?php echo $bid->getAttribute('month_rate'); ?>%，
-          	结束时间<?php echo date('n日H时',$bid->getAttribute('end')); ?>，
+          	结束时间<?php echo date('j日H时',$bid->getAttribute('end')); ?>，
           	期限<?php echo $bid->getAttribute('deadline'); ?>个月</p>
           <div id="borrow-details">
             <p>借款人：<?php echo $bider->getAttribute('realname'); ?>，<?php echo $bider->getAttribute('gender') ? '先生' : '女士'; ?>，<?php echo $bider->getAttribute('role'); ?></p>
             <p>身份证号码：<?php $bider->getAttribute('identity_id'); ?>,现居地:<?php echo $bider->getAttribute('address'); ?></p>
             <p>借款金额：<?php echo number_format($bid->getAttribute('sum') / 100,2);?>元，标段月利率<?php echo $bid->getAttribute('month_rate'); ?>%，期限<?php echo $bid->getAttribute('deadline'); ?>个月，完成<?php echo $bid->getAttribute('progress'); ?>%招募</p>
-            <p>招标开始时间：<?php echo date('Y年j月n日H时',$bid->getAttribute('start')); ?>，结束时间：<?php echo date('Y年j月n日H时',$bid->getAttribute('end')); ?></p>
+            <p>招标开始时间：<?php echo date('Y年n月j日H时',$bid->getAttribute('start')); ?>，结束时间：<?php echo date('Y年n月j日H时',$bid->getAttribute('end')); ?></p>
           </div>
           <div id="borrow-num"><span><?php echo number_format($meta->getAttribute('sum') / 100,2);?>元</span></div>
           <div id="borrow-avatar">
@@ -52,7 +57,7 @@ $this->cs->registerCssFile($this->cssUrl.'lend.css');
             <div class="paycenter-item">
               <label for="pay-pw">支付密码：</label>
               <input type="password" name="pay_pwd" id="pay-pw"/>
-              <a href="#" class="paycenter-tips">忘记密码?</a>
+              <a href="<?php echo $this->app->createUrl('user/account/forgot')?>" class="paycenter-tips">忘记密码?</a>
               <p class="paycenter-alert">您已经开通短信服务，每次交易需要输入密码</p>
             </div>
             <div class="paycenter-item">
