@@ -6,9 +6,6 @@ design By HJtianling_LXY,<2507073658@qq.com>
 */
 
 class UserCenterController extends Controller{
-	public function filters(){
-		return array();
-	}
 
 	public function actionIndex(){
 		echo "i 'm your center";
@@ -52,7 +49,7 @@ class UserCenterController extends Controller{
 
 			if(!empty($userIcon)){
 				$userIconName = $userIcon[0]->attributes['file_name'];
-				$uploadUrl = $this->app->getPartedUrl('avatar',$uid);
+				echo $uploadUrl = $this->app->getPartedUrl('avatar',$uid);
 				$IconUrl = $uploadUrl.$userIconName;
 			}
 			
