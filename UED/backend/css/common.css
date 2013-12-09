@@ -1,0 +1,179 @@
+* {
+	margin:0px;
+	padding: 0px;
+	
+}
+
+body {
+	background-color: #EEF2FB;
+}
+body, html, input {
+	font: 12px/1.5 tahoma,arial,sans-serif;
+}
+
+ul li {
+	list-style: none;
+}
+
+a {
+	text-decoration: none;
+}
+
+.floatL{
+	float:left;
+}
+.floatR{
+	float:right;
+}
+.clear{
+	clear:both;
+}
+.mt10{
+	margin-top:10px;
+}
+
+.content-menu a {
+	cursor: pointer;
+}
+
+.blue,.blue a {
+	color: #049;
+}
+
+.line-x {
+	border-bottom: 1px solid #EEE;
+}
+
+
+
+.content-menu a.on {
+	color: white;
+}
+
+.subnav{
+	padding: 10px;
+}
+
+.pad-10{
+	padding:10px;
+	overflow: hidden;
+}
+.blue, .blue a {
+	color: #049;
+}
+fieldset.blue {
+	border: 1px solid #DCE3ED;
+}
+fieldset.blue legend {
+	padding: 3px 8px;
+	font-weight: 700;
+	color: #347ADD;
+	background: none;
+	border: none;
+}
+fieldset ul li{
+	line-height:21px;
+	height:21px;
+}
+.ml-10{
+	margin-left:10px;
+}
+.pad-5{
+	padding:5px;
+}
+.measure-input {
+
+	background: url("../../images/background/ruler.gif") repeat-x scroll 0 9px;
+}
+
+.button_outterLine{display:inline-block; border-width:1px 0; border-color:#bbbbbb; border-style:solid; vertical-align:middle; *display:inline; zoom:1;}
+.button_innerLine{height:22px; border-width:0 1px; border-color:#bbbbbb; border-style:solid; margin:0 -1px; background:#e3e3e3; position:relative; _float:left;}
+.button_topBg{line-height:10px; background:#f9f9f9; border-bottom:2px solid #eeeeee;}
+.button_text{padding:0 8px; line-height:22px; color:#000000; margin-top:-12px; cursor:pointer;}
+
+/*
+
+<!-- btn start -->
+<div class="button_outterLine"><div class="button_innerLine">
+<div class="button_topBg">&nbsp;</div><div class="button_text">
+	<a href="">��Ӳ˵�</a>
+</div></div></div>
+<!-- btn end -->
+*/
+
+.inputText{
+	line-height:21px;
+	width:300px;
+	height:21px;
+	margin-top:2px;
+}
+
+.textareaText{
+	line-height:21px;
+	width:300px;
+	height:200px;
+	margin-top:2px;
+}
+
+.inputTip{
+	line-height:24px;
+	height:24px;
+	display:inline-block;
+	 *display:inline; zoom:1;
+	 float:right;
+}
+#info{
+	width:95%;
+	float:left;
+}
+
+/**
+ *	Box style
+ */
+ .box{
+ 	border: 1px solid #C7D8EA;
+	zoom: 1;
+	margin:0 auto;
+ }
+.box h6{
+	border-bottom: 1px solid #C7D8EA;
+	color: #3A6EA5;
+	background: url(../../images/box/x_bg.png) repeat-x left -42px;
+	height: 26px;
+	line-height: 28px;
+	padding: 0 10px;
+	font-size:12px;
+}
+.box .boxContent{
+	padding: 9px 10px;
+}
+
+
+
+.deleteIcon{
+	background: url(../../images/icon/x.gif);
+	width:16px;
+	height:16px;
+	cursor:pointer;
+	border:0px;
+	display:block;
+	float:left;
+}
+
+
+.admin_btn{
+	background-color:#eee;
+	cursor:pointer;
+	padding:2px 4px;
+	font-family: "΢���ź� ����";
+}
+
+
+/*
+color
+*/
+
+.emphasisRed{
+	color:red !important;
+	font-weight:bold;
+}
