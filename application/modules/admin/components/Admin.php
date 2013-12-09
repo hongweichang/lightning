@@ -9,6 +9,7 @@ class Admin extends Controller{
 	public $layout='main';
 	public $defaultAction = 'index';
 	public $subNavs = array();
+	public $subTabs = array();
 	public $pluginUrl;
 	
 	public function init(){
@@ -18,7 +19,7 @@ class Admin extends Controller{
 		$app->setPath('image','UED/backend/images/');
 		parent::init();
 		$this->pluginUrl = $this->app->getSiteBaseUrl().'plugins/';
-		$this->addToSubNav('首页','/'.$this->getModule()->name);
+		//$this->addToSubNav('首页','/'.$this->getModule()->name);
 		parent::setPageTitle('闪电贷后台管理系统');
 	}
 	
@@ -40,17 +41,14 @@ class Admin extends Controller{
 		$this->redirect($this->createUrl('account/login'));
 	}
 	
-	public function addToSubNav($text,$route,$title='',$urlParams=array()){
-		$viewPath = $this->viewPath;
-		$this->getModule()->setViewPath(dirname(__FILE__).DS.'..'.DS.'views');
-		$html = $this->renderPartial('/common/subNavButton',array('text'=>$text,'url'=>$this->createUrl($route,$urlParams),'title'=>$title),true);
-		$this->getModule()->setViewPath(substr($viewPath,0,strrpos($viewPath,DS)));
-		$this->subNavs[] = $html;
+	public function addToSubTab($text,$route,$title='',$urlParams=array()){
+		$url = $this->createUrl($route,$urlParams);
+		$this->subTabs[] = "<li><a href='{$url}' class='default-tab' title='{$title}'>{$text}</a></li>";
 	}
 	
 	public function filterPublicClientScript($filterChain){
-		$this->cs->registerCssFile($this->cssUrl.'reset.css');
-		$this->cs->registerCssFile($this->cssUrl.'style.css');
+		//$this->cs->registerCssFile($this->cssUrl.'reset.css');
+		//$this->cs->registerCssFile($this->cssUrl.'style.css');
 		
 		$filterChain->run();
 	}

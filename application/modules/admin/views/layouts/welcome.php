@@ -33,8 +33,14 @@ body {
 	</style>
 </head>
 
+
+
 <body >
 	<div id="main-content">
+		<h2>你好，<?php echo $this->user->getName()?></h2>
+		<p id="page-intro">欢迎进入闪电贷后台管理系统</p>
+		
+		<div class="clear"></div>
 		<div class="content-box">
 			<div class="content-box-header">
 				<ul class="content-box-tabs">

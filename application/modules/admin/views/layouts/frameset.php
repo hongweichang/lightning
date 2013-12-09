@@ -1,8 +1,3 @@
-<?php 
-$jsUrl = Yii::app()->controller->module->jsUrl;
-$cssUrl = Yii::app()->controller->module->cssUrl;
-$moduleId = Yii::app()->controller->module->id;
-?>
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -13,8 +8,8 @@ $moduleId = Yii::app()->controller->module->id;
 	</head>
 	
 	<frameset cols="245,*"  frameborder="NO" border="0" framespacing="0">
-		<frame src="<?php echo Yii::app()->createUrl($moduleId.'/index/menu');?>" name="leftFrame" noresize="noresize" marginwidth="0" marginheight="0" frameborder="0" scrolling="no" target="mainFrame" />
-		<frame src="<?php echo Yii::app()->createUrl($moduleId.'/index/welcome');?>" name="mainFrame" marginwidth="0" marginheight="0" frameborder="0" scrolling="auto" target="_self" />
+		<frame src="<?php echo $this->createUrl('index/menu');?>" name="leftFrame" noresize="noresize" marginwidth="0" marginheight="0" frameborder="0" scrolling="no" target="mainFrame" />
+		<frame src="<?php echo $this->createUrl('index/welcome');?>" name="mainFrame" marginwidth="0" marginheight="0" frameborder="0" scrolling="auto" target="_self" />
 	</frameset>
 	
 	<noframes>
