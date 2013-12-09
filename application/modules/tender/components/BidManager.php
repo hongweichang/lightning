@@ -76,10 +76,15 @@ class BidManager extends CApplicationComponent{
 			'start' => $start,
 			'end' => $end,
 			'deadline' => $deadline,
+			'pub_time' => time(),
 			'progress' => 0,
 			'verify_progress' => 0
 		);
-		return $bid->save();
+		if($bid->save()){
+			return $bid->getPrimaryKey();
+		}else{
+			return 0;
+		}
 	}
 	
 	/**

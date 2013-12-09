@@ -5,7 +5,7 @@ class UserModule extends CmsModule{
 		parent::init();
 		Yii::import('user.models.*');
 		Yii::import('user.components.*');
-		Yii::import('application.modules.credit.models.*');
+		Yii::import('credit.models.*');
 		
 		$this->setComponents(array(
 				'userManager' => array(

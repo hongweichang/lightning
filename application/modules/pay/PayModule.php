@@ -14,6 +14,7 @@ class PayModule extends CmsModule
 		$this->configure($config);
 		// import the module-level models and components
 		$this->setImport(array(
+			'user.models.*',
 			'pay.models.*',
 			'pay.components.*',
 		));
