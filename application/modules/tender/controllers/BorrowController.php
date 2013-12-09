@@ -76,6 +76,7 @@ class BorrowController extends Controller {
 		$id = $this->getQuery('id',0);
 		// 根据主键来取出刚刚插入的记录
 		$model = BidInfo::model()->findByPk($id);
+		//print_r($model);
 		//只能查看自己的信息，将session里面的user_id和数据库里面的user_id作比较
 		if(!empty($model) && $this->user->getId() === $model->user_id){
 			$this->setPageTitle($model->getAttribute('title').' - '.$this->role.' - '.$this->name.' - '.$this->app->name);

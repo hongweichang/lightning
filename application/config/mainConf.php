@@ -90,7 +90,7 @@ class mainConf extends ConfigBase{
 								'charset' => 'utf8',
 								'tablePrefix' => 'xcms_'
 						),
-						'cache' => array(
+						/*'cache' => array(
 								'class' => 'CMemCache',
 								'useMemcached' => false,
 								'keyPrefix' => 'lightning',
@@ -111,7 +111,7 @@ class mainConf extends ConfigBase{
 								//'cacheID' => 'cache',
 								'autoStart' => true,
 								'timeout' => 3600*24
-						),
+						),*/
 						'clientScript' => array(
 								'scriptMap' => array(
 										'jquery.js' => false,
@@ -135,7 +135,7 @@ class mainConf extends ConfigBase{
 										),
 								),
 						),
-						'zmqClient' => array(
+						/*'zmqClient' => array(
 								'class' => 'cms.components.asyncEvent.ZMQClient',
 								'zmqServer' => 'tcp://localhost:5556',
 								'sendTimeout' => 3000,
@@ -146,14 +146,14 @@ class mainConf extends ConfigBase{
 								'class' => 'cms.components.asyncEvent.AsyncEventRunner',
 								'zmqClientId' => 'zmqClient',
 								'events' => array(
-										/*'onEndRequest' => array(
+										'onEndRequest' => array(
 												'command' => array('sendMail','success')
-										),*/
+										),
 										'onRegisterSuccess' => array(
 												'command' => array('sendSMS','success')
 										),
 								),
-						),
+						),*/
 						'image'=>array(
 								'class'=>'ext.image.CImageComponent',
 								'driver'=>'GD',
