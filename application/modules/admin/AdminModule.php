@@ -1,37 +1,29 @@
 <?php
-
-class AdminModule extends CWebModule
+class AdminModule extends CmsModule
 {
+	public $name = 'admin';
 	public function init()
 	{
-		
-		// this method is called when the module is being created
-		// you may place code here to customize the module or the application
-		$this->defaultController = "index";
-		// import the module-level models and components
+		parent::init();
+		$this->defaultController = 'index';
 		$this->setImport(array(
-			'admin.components.*',
-			'admin.models.*',
-			'admin.models.forms.*',
+			$this->name.'.components.*',
+			$this->name.'.models.*',
+			$this->name.'.models.forms.*',
 		));
-		
-		Yii::app()->setComponents(array(
-			'errorHandler' => array(
-				'errorAction' => 'admin/index/error',
-			),
+		Yii::app()->setComponent('user',array(
+				'class' => $this->name.'.components.AdminUser',
+				'stateKeyPrefix' => 'AU',
+				'allowAutoLogin' => false,
+				'autoRenewCookie' => false,
+				'guestName' => '游客',
+				'authTimeout' => 3600,
 		));
-		
-	}
-
-	public function beforeControllerAction($controller, $action)
-	{
-		if(parent::beforeControllerAction($controller, $action))
-		{
-			// this method is called before any module controller action is performed
-			// you may place customized code here
-			return true;
-		}
-		else
-			return false;
+		Yii::setPathOfAlias('accessManage',dirname(__FILE__).DS.'modules'.DS.'accessManage');
+		$this->setModules(array(
+				'accessManage' => array(
+						'class' => $this->name.'.modules.accessManage.AccessManageModule'
+				),
+		));
 	}
 }

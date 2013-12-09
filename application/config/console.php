@@ -44,7 +44,7 @@ class console extends ConfigBase{
 				),
 				'import' => array(
 						'application.modules.user.models.*',
-						'cms.components.asyncEvent.zmqCommand.*',//导入zmq命令
+						'cms.components.asyncEvent.zmqCommands.*',//导入zmq命令
 				),
 				'components' => array(
 						'db' => array(
@@ -82,15 +82,34 @@ class console extends ConfigBase{
 										),
 								),
 						),
+						'zmqClient' => array(
+								'class' => 'cms.components.asyncEvent.ZMQClient',
+								'zmqServer' => 'tcp://localhost:5556',
+								'sendTimeout' => 3000,
+								'reciveTimeout' => 3000,
+						),
+						'asyncEventRunner' => array(
+								'class' => 'cms.components.asyncEvent.AsyncEventRunner',
+								'zmqClientId' => 'zmqClient',
+								'events' => array(
+										'onRegisterSuccess' => array(
+												'command' => array('sendMail','test')
+										),
+								),
+						),
 				),
 				'commandMap' => array(
 						'notifyWorkerBroker' => array(
-								'class' => 'cms.components.asyncEvent.zmqCommands.broker',
+								'class' => 'cms.components.asyncEvent.zmqCommands.Broker',
 								'frontendBindAddress' => 'tcp://*:5556',
 								'backendBindAddress' => 'tcp://*:5557'
 						),
 						'notifyWorkerRouter' => array(
-								'class' => 'cms.components.asyncEvent.EventRouter'
+								'class' => 'cms.components.asyncEvent.zmqCommands.BrokerEventRouter',
+								'brokerAddress' => 'tcp://localhost:5557'
+						),
+						'sendMail' => array(
+								'class' => 'application.commands.SendMailCommand'
 						),
 				),
 		);
