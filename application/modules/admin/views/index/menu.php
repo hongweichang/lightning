@@ -68,7 +68,7 @@ $cssUrl = $this->cssUrl;
 				if ( $menu['parent'] === null ):
 			?>
 			<li>
-			<a href="#" class="nav-top-item"><?php echo $menu['operation_name	'];?></a>
+			<a href="#" class="nav-top-item"><?php echo $record->operation_name;?></a>
 				<?php
 				else:
 					echo '<ul>';

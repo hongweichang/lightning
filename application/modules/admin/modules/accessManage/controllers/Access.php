@@ -20,6 +20,10 @@ class Access extends Admin{
 		$this->imageUrl = $this->app->getPartedUrl('image');
 	}
 	
+	public function loginRequired(){
+		$this->redirect($this->createUrl('/'.$this->getModule()->getParentModule()->id));
+	}
+	
 	public function addToSubNav($text,$route,$title='',$urlParams=array()){
 		$html = $this->renderPartial('/common/subNavButton',array('text'=>$text,'url'=>$this->createUrl($route,$urlParams),'title'=>$title),true);
 		$this->subNavs[] = $html;

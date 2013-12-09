@@ -1,9 +1,6 @@
 <?php
 
 class IndexController extends Admin{
-	public function noneLoginRequired(){
-		return 'index,login,menu,welcome';
-	}
 	
 	public function actionIndex(){
 		$this->layout = 'frameset';
