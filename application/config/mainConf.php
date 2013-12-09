@@ -28,8 +28,9 @@ class mainConf extends ConfigBase{
 								'class' => 'application.modules.pay.PayModule'
 						),
 						
-						'admin' => array(
-							'class' => 'application.modules.admin.AdminModule'
+						'adminnogateway' => array(
+							'class' => 'application.modules.admin.AdminModule',
+							'name' => 'adminnogateway'
 						),
 						
 						'user' => array(
@@ -90,16 +91,26 @@ class mainConf extends ConfigBase{
 								'charset' => 'utf8',
 								'tablePrefix' => 'xcms_'
 						),
+						'db' => array(
+								'class' => 'system.db.CDbConnection',
+								'autoConnect' => false,
+								'connectionString' => 'mysql:host=localhost;dbname=lightning',
+								'emulatePrepare' => true,
+								'username' => 'root',
+								'password' => 'lancelot!410',
+								'charset' => 'utf8',
+								'tablePrefix' => 'xcms_'
+						),
 						'cache' => array(
 								'class' => 'CMemCache',
-								'useMemcached' => false,
+								'useMemcached' => true,
 								'keyPrefix' => 'lightning',
 								'servers' => array(
 										array(
-												'host' => 'localhost',
+												//'host' => 'localhost',
 												//本地memcached缓存
 												//阿里云外网IP
-												//'host' => '115.29.186.221',
+												'host' => '115.29.186.221',
 												//阿里云内网IP，本地测试可以使用本地memcached服务器
 												//'host' => '10.161.138.206',
 												'port' => 11211

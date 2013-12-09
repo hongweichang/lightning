@@ -11,6 +11,7 @@ class IndexController extends Admin{
 		$authMenu = $this->app->getAuthManager()->getMenu();
 		
 		$this->menu = $authMenu->generateUserMenu($this->user->getId());
+		
 		$this->layout = false;
 		$this->render('menu');
 	}
