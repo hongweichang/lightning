@@ -118,7 +118,7 @@ class BidManager extends CApplicationComponent{
 	}
 	
 	/**
-	 * 
+	 * 投标付款 - 完成投标过程
 	 * @param integer $meta_no
 	 * @return boolean
 	 */
@@ -147,7 +147,7 @@ class BidManager extends CApplicationComponent{
 	}
 	
 	/**
-	 * 
+	 * 撤销投标 - 交易关闭
 	 * @param integer $meta_no
 	 * @return boolean
 	 */
