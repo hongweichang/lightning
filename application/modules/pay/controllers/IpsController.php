@@ -21,14 +21,15 @@ class IpsController extends PayController{
 	
 	public function actionIndex(){
 		//付款金额
-		$charge = 1;//$_POST['charge'];
+		$charge = $this->getPost('sum');
 		//手续费
-		$fee = $charge * 0.05;
+		$fee = round($charge * 0.05,2);
 		
 		$ips = $this->module->ips;
 		
 		$ips['mercode'] = $this->raiseOrder($charge, $fee);
-		$ips['amount'] = $charge;
+		$ips['amount'] = $charge + $fee;
+		$ips['Attach'] = '闪电贷：'.($charge + $fee).'元（含手续费：'.$fee.'元）';
 		$ips['date'] = date('Ymd');
 		
 		$submit = new IpsSubmit($ips);
@@ -58,11 +59,11 @@ class IpsController extends PayController{
 				end if
 				**/
 				$this->trade_no = $this->getQuery('ipsbillno');
-				$this->subject = $this->getQuery('subject');
+				$this->subject = $this->getQuery('Attach');
 				$this->buyer = $this->getQuery('msg');
 				$this->buyer_id = $this->getQuery('bankbillno');
-				$this->beginPay($this->getQuery('mercode'));
-				if($this->afterPay($this->getQuery('mercode'))){
+				//;
+				if($this->beginPay($this->getQuery('mercode')) && $this->afterPay($this->getQuery('mercode'))){
 					
 				}else{
 					
@@ -97,11 +98,11 @@ class IpsController extends PayController{
 				end if
 				**/
 				$this->trade_no = $this->getQuery('ipsbillno');
-				$this->subject = $this->getQuery('subject');
+				$this->subject = $this->getQuery('Attach');
 				$this->buyer = $this->getQuery('msg');
 				$this->buyer_id = $this->getQuery('bankbillno');
-				$this->beginPay($this->getQuery('mercode'));
-				if($this->afterPay($this->getQuery('mercode'))){
+				//;
+				if($this->beginPay($this->getQuery('mercode')) && $this->afterPay($this->getQuery('mercode'))){
 					
 				}else{
 					

@@ -19,6 +19,6 @@ class SiteController extends Controller{
 	public function actionTest(){
 		//var_dump($this->app->getEventHandlers('onEndRequest'));
 		$async = $this->app->getComponent('asyncEventRunner');
-		//$async->raiseAsyncEvent('onRegisterSuccess',array('data'=>'sasa'));
+		$async->raiseAsyncEvent('onRegisterSuccess',array('data'=>'sasa'));
 	}
 }

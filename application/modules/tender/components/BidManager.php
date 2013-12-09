@@ -17,7 +17,7 @@ class BidManager extends CApplicationComponent{
 	}
 	
 	public function getBidMetaInfo($metaId,$condition='',$params=array()){
-		return BidMeta::model()->with(array('user','bid'))->findByPk($metaId,$condition,$params);
+		return BidMeta::model()->with('user','bid')->findByPk($metaId,$condition,$params);
 	}
 	
 	/**
@@ -35,7 +35,7 @@ class BidManager extends CApplicationComponent{
 	 * @param array $params
 	 */
 	public function getBidMetaList($condition, $params = array()){
-		return BidMeta::model()->with(array('user','bid'))->findAll($condition,$params);
+		return BidMeta::model()->with('user','bid')->findAll($condition,$params);
 	}
 	
 	/**
@@ -82,7 +82,7 @@ class BidManager extends CApplicationComponent{
 		$transaction = Yii::app()->db->beginTransaction();
 		try{
 			$bid->saveCounters(array(
-				'progress' => ($sum * 100) / $bid->getAttribute('sum')
+				'progress' => ($sum * 10000) / $bid->getAttribute('sum')
 			));
 			
 			$meta = new BidMeta();
@@ -109,6 +109,7 @@ class BidManager extends CApplicationComponent{
 	 */
 	public function payPurchaseBid($meta_no){
 		$meta = BidMeta::model()->with('user','bid')->findByPk($meta_no);
+		if($meta->getAttribute('status') >= 1) return false;
 		$user = $meta->getRelated('user');
 		
 		$transaction = Yii::app()->db->beginTransaction();
@@ -136,14 +137,15 @@ class BidManager extends CApplicationComponent{
 	 * @return boolean
 	 */
 	public function revokePurchaseBid($meta_no){
-		$meta = BidMeta::model()->with(array('user','bid'))->findByPk($meta_no);
+		$meta = BidMeta::model()->with('user','bid')->findByPk($meta_no);
+		if($meta->getAttribute('status') >= 1) return false;
 		$user = $meta->getRelated('user');
 		$bid = $meta->getRelated('bid');
 		
 		$transaction = Yii::app()->db->beginTransaction();
 		try{
 			$bid->saveCounters(array(
-				'progress' => - $meta->getAttribute('sum') / $bid->getAttribute('sum')
+				'progress' => - $meta->getAttribute('sum') * 100 / $bid->getAttribute('sum')
 			));
 		
 			$meta->attributes = array(

@@ -7,18 +7,18 @@
  */
 ?>
 <h1>搜索</h1>
-<form>
+<form id="search" action="<?php echo $this->createUrl('pay/recharge'); ?>">
     <fieldset>
         <label for="nick-name">昵称</label>
-        <input type="text" id="nick-name" name="nick-name" />
+        <input type="text" id="nick-name" name="nickname" />
         <label for="user-name">姓名</label>
-        <input type="text" id="user-name" name="user-name" />
+        <input type="text" id="user-name" name="username" />
         <label for="mobile-number">手机</label>
-        <input type="text" id="mobile-number" name="mobile-number" />
+        <input type="text" id="mobile-number" name="mobile" />
         <label for="email">邮箱</label>
         <input type="text" id="email" name="email" />
         <label for="money-balance-0">金额(元)</label>
-        <input type="text" id="money-balance-0" name="money-balance-0" />
+        <input type="text" id="money-balance-0" name="balance" />
         <label for="money-balance-1">---</label>
         <input type="text" id="money-balance-1" name="money-balance-1" />
         <label for="apply-time-0">申请时间</label>

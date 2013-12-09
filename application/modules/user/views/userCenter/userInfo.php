@@ -144,8 +144,16 @@ $this->widget('application.extensions.swfupload.CSwfUpload', array(
                             <li class="clearfix">
                                 <label class="personal-name">身份证号</label>
                                 <div class="personal-ico personal-id"></div>
-                                <p><?php echo $userData->identity_id;?></p>
-                                <p class="ico-status unpass">已认证</p>
+                                <p>
+                                <?php
+                                    if(!empty($userData->identity_id)) 
+                                        echo $userData->identity_id;
+                                    else
+                                        echo "暂未填写";
+
+                                ?>
+                                </p>
+                                <p class="ico-status unpass">未认证</p>
                             </li>
                             <li class="clearfix">
                                 <label class="personal-name">手机号码</label>
@@ -183,7 +191,7 @@ $this->widget('application.extensions.swfupload.CSwfUpload', array(
                             <li class="clearfix">
                                 <label class="personal-name">社会角色</label>
                                 <div class="personal-ico personal-role"></div>
-                                <p><?php echo $userData->role;?></p>
+                                <p><?php echo FrontUser::getRoleName($userData->role);?></p>
                             </li>
                         </ul>
                     </form>
@@ -210,7 +218,9 @@ $this->widget('application.extensions.swfupload.CSwfUpload', array(
                             <li class="clearfix">
                                 <label class="personal-name">身份证号</label>
                                 <div class="personal-ico personal-id"></div>
-                                <p><?php echo $userData->identity_id;?></p>
+                                <p>
+                                <?php echo $form->textField($userData,'identity_id'); ?>
+                                </p>
                                 <p class="ico-status unpass">未认证</p>
                             </li>
                             <li class="clearfix">
@@ -248,9 +258,9 @@ $this->widget('application.extensions.swfupload.CSwfUpload', array(
                                 <label class="personal-name">社会角色</label>
                                 <div class="personal-ico personal-role"></div>
                                 <?php echo $form->dropDownList($userData,'role',array(
-                                			'0'=>'个人',
-                                			'1'=>'企业',
-                                			'2'=>'淘宝店主'
+                                			'gxjc'=>'工薪阶层',
+                                			'qyz'=>'企业主',
+                                			'wddz'=>'网店店主'
 
                                 ));?>
                             </li>
@@ -286,8 +296,10 @@ $this->widget('application.extensions.swfupload.CSwfUpload', array(
                             </td>
                             <td class="score" rowspan="3">10分</td>
                         </tr>
-                        <?php foreach($creditData as $value){
-                            $form=$this->beginWidget('CActiveForm', array(
+                        <?php
+                            if(!empty($creditData)){ 
+                            foreach($creditData as $value){
+                                $form=$this->beginWidget('CActiveForm', array(
                                             'id'=>'FrontCredit-form',
                                             'enableAjaxValidation'=>true,
                                             'action'=>'verificationAdd?type='.$value[0]->id.'',
@@ -298,7 +310,7 @@ $this->widget('application.extensions.swfupload.CSwfUpload', array(
 
                                                         )
                             ));
-                            ?>
+                        ?>
                         <tr>
                             <td>
                                 <?php echo $value[0]->verification_name?>
@@ -316,11 +328,30 @@ $this->widget('application.extensions.swfupload.CSwfUpload', array(
                         </tr>
                         <?php
                             $this->endWidget();
-                        }?>  
+                        }}?>  
                     </table>
                 </div>
 
-                <div class="find-table-content">
+                <div class="find-table-content bankcard">
+                    <a href="#" class="bankcard-box">
+                        <div>
+                            <img src="<?php echo $this->imageUrl.'psbc.png'?>"/>
+                            <p>尾号6236</p>
+                        </div>
+                        <p class="bankcard-op">删除银行卡</p>
+                    </a>
+                    <a href="#" class="bankcard-box add">
+                        <div>
+                            <img src="../images/bankcard_add.png" />
+                        </div>
+                        <p class="bankcard-op">新增银行卡</p>
+                    </a>
+                    <a href="#" class="bankcard-box add last">
+                        <div>
+                            <img src="../images/bankcard_add.png" />
+                        </div>
+                        <p class="bankcard-op">新增银行卡</p>
+                    </a>
                 </div>
             </div>
         </div>

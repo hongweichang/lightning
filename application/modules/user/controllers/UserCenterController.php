@@ -34,11 +34,13 @@ class UserCenterController extends Controller{
 		}
 
 		if(isset($_POST['FrontUser'])){
-			$userInfo = FrontUser::model()->findByPk($uid);
+			$userInfo = FrontUser::model()->with('baseUser')->findByPk($uid);
+			//Utils::dump($userInfo);
 			$attributes = $_POST['FrontUser'];
-			$userInfo->gender = $attributes['gender'];
-			$userInfo->address = $attributes['address'];
-			$userInfo->role = $attributes['role'];
+			// $userInfo->gender = $attributes['gender'];
+			// $userInfo->address = $attributes['address'];
+			// $userInfo->role = $attributes['role'];
+			$userInfo->attributes = $attributes;
 			if($userData->save())
 				echo "ok";
 			else{

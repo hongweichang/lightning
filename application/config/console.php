@@ -82,6 +82,21 @@ class console extends ConfigBase{
 										),
 								),
 						),
+						'zmqClient' => array(
+								'class' => 'cms.components.asyncEvent.ZMQClient',
+								'zmqServer' => 'tcp://localhost:5556',
+								'sendTimeout' => 3000,
+								'reciveTimeout' => 3000,
+						),
+						'asyncEventRunner' => array(
+								'class' => 'cms.components.asyncEvent.AsyncEventRunner',
+								'zmqClientId' => 'zmqClient',
+								'events' => array(
+										'onRegisterSuccess' => array(
+												'command' => array('sendMail','test')
+										),
+								),
+						),
 				),
 				'commandMap' => array(
 						'notifyWorkerBroker' => array(
@@ -94,7 +109,7 @@ class console extends ConfigBase{
 								'brokerAddress' => 'tcp://localhost:5557'
 						),
 						'sendMail' => array(
-								'class' => 'application.commands.asyncEvents.SendMailCommand'
+								'class' => 'application.commands.SendMailCommand'
 						),
 				),
 		);
