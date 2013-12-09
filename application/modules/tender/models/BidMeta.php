@@ -91,7 +91,6 @@ class BidMeta extends CActiveRecord
 		// @todo Please modify the following code to remove attributes that should not be searched.
 
 		$criteria=new CDbCriteria;
-
 		$criteria->compare('id',$this->id,true);
 		$criteria->compare('user_id',$this->user_id,true);
 		$criteria->compare('bid_id',$this->bid_id,true);

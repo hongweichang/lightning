@@ -25,6 +25,7 @@ class AccountController extends Admin{
 				$this->redirect($this->createUrl('index/index'));
 			}
 		}
+		$this->pageTitle = '登录';
 		$model->password = '';
 		$this->render('login',array('model'=>$model));
 	}
