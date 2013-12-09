@@ -25,5 +25,8 @@ class AdminModule extends CmsModule
 						'class' => $this->name.'.modules.accessManage.AccessManageModule'
 				),
 		));
+
+		Yii::import('application.modules.credit.models.*');
+		Yii::import('application.modules.user.models.*');
 	}
 }

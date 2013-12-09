@@ -15,6 +15,7 @@ class UserCenterController extends Controller{
 	*个人信息获取
 	*/
 	public function actionUserInfo(){
+		$this->pageTitle = '闪电贷';
 		$uid = Yii::app()->user->id;
 		$userData = $this->app->getModule('user')->getComponent('userManager')->getUserInfo($uid);
 
@@ -129,7 +130,7 @@ class UserCenterController extends Controller{
 						$model->user_id = Yii::app()->user->id;
 						$model->verification_id = $type;
 						$model->file_type = $TypeVerify;
-						$model->content = $saveUrl;
+						$model->content = $newName;
 						$model->submit_time = time();
 						$model->status = 0;
 
@@ -178,6 +179,7 @@ class UserCenterController extends Controller{
 	**安全中心
 	*/
 	public function actionUserSecurity(){
+		$this->pageTitle = '闪电贷';
 		$uid = Yii::app()->user->id;
 		
 
@@ -194,6 +196,7 @@ class UserCenterController extends Controller{
 	**投资列表
 	*/
 	public function actionMyLend(){
+		$this->pageTitle = '闪电贷';
 		$uid = Yii::app()->user->id;
 		$MyLend = array();
 		$waitingForBuy = array();
@@ -241,6 +244,7 @@ class UserCenterController extends Controller{
 	**我的借款
 	*/
 	public function actionMyBorrow(){
+		$this->pageTitle = '闪电贷';
 		$uid = Yii::app()->user->id;
 		$waitingForPay = array();
 		$waitingForBuy = array();
@@ -363,6 +367,7 @@ class UserCenterController extends Controller{
 
 
 	public function actionUserFund(){
+		$this->pageTitle = '闪电贷';
 		$uid = $this->id;
 		$userData = FrontUser::model()->findByPk($uid);
 		$IconUrl = null;
