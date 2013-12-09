@@ -42,6 +42,7 @@ if(!empty($userCreditData)){
         <td><?php echo $value['submit_time'];?></td>
         <td>
             <a href="#" class="check" data-method="check-pass">审核</a>
+            <a href="<?php echo Yii::app()->createUrl('user/userInfo/outputInfoByExcel');?>">导出</a>
         </td>
     </tr>
  <?php }
