@@ -3,7 +3,17 @@ $this->cs->registerScriptFile($this->scriptUrl.'jquery-1.8.2.min.js',CClientScri
 $this->cs->registerScriptFile($this->scriptUrl.'jquery.validate.min.js',CClientScript::POS_END);
 $this->cs->registerCssFile($this->cssUrl.'common.css');
 $this->cs->registerCssFile($this->cssUrl.'detail.css');
+if(Yii::app()->user->hasFlash('error')){
+    $error = Yii::app()->user->getFlash('error');
+    var_dump($error);
+    die();
 ?>
+<script>alert('<?php echo $error;?>');</script>
+<?php
+}elseif(Yii::app()->user->hasFlash('success')){
+?>
+<script>alert('修改成功');</script>
+<?php }?>
 <html>
 <body>
     <div id="container">
@@ -14,7 +24,11 @@ $this->cs->registerCssFile($this->cssUrl.'detail.css');
             </h1>
             <div class="aud-detail">
                 <div class="det-per-inf">
+                    <?php if(!empty($IconUrl)){?>
+                    <img src="<?php echo $IconUrl;?>" class="det-img"/>
+                    <?php }else{?>
                     <img src="<?php echo $this->imageUrl.'user-avatar.png'?>" class="det-img" />
+                    <?php }?>  
                     <p>
                         <span class="aud-time">晚上好，</span>
                         <span class="aud-det-name"><?php echo $userData['nickname'];?> </span>
@@ -65,7 +79,7 @@ $this->cs->registerCssFile($this->cssUrl.'detail.css');
                     <a href="<?php echo Yii::app()->createUrl('user/userCenter/userInfo');?>">
                         <li class="find-table-3"><div class="find-table-op"></div>个人信息</li>
                     </a>
-                    <a href="">
+                    <a href="<?php echo Yii::app()->createUrl('user/userCenter/userFund');?>">
                         <li class="find-table-4"><div class="find-table-op"></div>资金管理</li>
                     </a>
                 </ul>
@@ -92,7 +106,7 @@ $this->cs->registerCssFile($this->cssUrl.'detail.css');
                             <p class="sec-status">
                             	<?php
                             		if($userData->identity_id === null)
-                            			echo "未设置";
+                            			echo "未认证";
                             		else
                             			echo $userData->identity_id; 
                             	?>
@@ -117,18 +131,18 @@ $this->cs->registerCssFile($this->cssUrl.'detail.css');
                             </div>
                         </div>
                         <div class="sec-unfold">
-                            <form>
+                            <form name = "passwordChange" method = "post" action = "passwordChange">
                                 <div class="form-item">
                                     <label>当前密码</label>
-                                    <input type="password" />
+                                    <input type="password" name = "oldPassword"/>
                                 </div>
                                 <div class="form-item">
                                     <label>新密码</label>
-                                    <input type="password" />
+                                    <input type="password" name = "newPassword"/>
                                 </div>
                                 <div class="form-item">
                                     <label>确认密码</label>
-                                    <input type="password" />
+                                    <input type="password"  name = "rePassword"/>
                                 </div>
                                 <div class="form-item">
                                     <input type="submit" class="form-button" value="保存修改"/>
@@ -136,43 +150,21 @@ $this->cs->registerCssFile($this->cssUrl.'detail.css');
                             </form>
                         </div>
                     </li>
-                    <li>
+                    <li> 
                         <div class="clearfix sec-fold">
-                            <div class="sec-img ico-mail"></div>
-                            <p class="sec-val">绑定邮箱</p>
-                            <p class="sec-status">未设置</p>
-                            <div class="sec-update">
-                                <a href="javascript:;">设置</a>
+                           <div class="sec-img ico-mail"></div>
+                            <p class="sec-val">邮箱</p>
+                            <p class="sec-status">
+                            <?php echo $userData->email;?>
+                            </p>
+                            <div class="sec-update"></div>
                             </div>
-                        </div>
-                        <div class="sec-unfold">
-                            <form>
-                                <div class="form-item">
-                                    <label>当前密码</label>
-                                    <input type="password" />
-                                </div>
-                                <div class="form-item">
-                                    <label>新密码</label>
-                                    <input type="password" />
-                                </div>
-                                <div class="form-item">
-                                    <label>确认密码</label>
-                                    <input type="password" />
-                                </div>
-                                <div class="form-item">
-                                    <input type="submit" class="form-button" value="保存修改"/>
-                                </div>
-                            </form>
-                        </div>
                     </li>
                     <li>
                         <div class="clearfix sec-fold">
                             <div class="sec-img ico-phone"></div>
                             <p class="sec-val">绑定手机</p>
                             <p class="sec-status">136****9982</p>
-                            <div class="sec-update">
-                                <a href="javascript:;">修改</a>
-                            </div>
                         </div>
                     </li>
                     <li>

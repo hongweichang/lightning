@@ -18,18 +18,28 @@ class mainConf extends ConfigBase{
 				'hostName' => 'http://localhost',
 				'preloadModels' => array(),
 				'modules' => array(
-						'pay',
-						'user',
-						'credit',
-						'tender',
 						'gii'=>array(
 								'class'=>'system.gii.GiiModule',
 								'password'=>'admin',
 								'ipFilters'=>array('127.0.0.1','::1'),
 						),
-						'adminnogateway' => array(
-							'class' => 'application.modules.admin.AdminModule',
-							'name' => 'adminnogateway'
+
+						'pay' => array(
+								'class' => 'application.modules.pay.PayModule'
+						),
+						
+						'admin' => array(
+							'class' => 'application.modules.admin.AdminModule'
+						),
+						
+						'user' => array(
+								'class' => 'application.modules.user.UserModule'
+						),
+						'credit' =>array(
+								'class' => 'application.modules.credit.CreditModule'
+						),
+						'tender' =>array(
+								'class' => 'application.modules.tender.TenderModule'
 						),
 						'notify' => array(
 								'class' => 'application.modules.notify.NotifyModule',
@@ -48,6 +58,7 @@ class mainConf extends ConfigBase{
 										'CharSet'=>'UTF-8',
 								),
 						),
+
 						'appservice' => array(
 								'class' => 'application.modules.appservice.AppserviceModule',
 						),
@@ -56,7 +67,7 @@ class mainConf extends ConfigBase{
 						'application.extensions.PHPExcel.PHPExcel.*',
 				),
 				'preload' => array(
-						'asyncEventRunner'
+						//'asyncEventRunner'
 				),
 				'components' => array(
 						'user' => array(
@@ -79,9 +90,9 @@ class mainConf extends ConfigBase{
 								'charset' => 'utf8',
 								'tablePrefix' => 'xcms_'
 						),
-						/*'cache' => array(
+						'cache' => array(
 								'class' => 'CMemCache',
-								'useMemcached' => true,
+								'useMemcached' => false,
 								'keyPrefix' => 'lightning',
 								'servers' => array(
 										array(
@@ -100,7 +111,7 @@ class mainConf extends ConfigBase{
 								//'cacheID' => 'cache',
 								'autoStart' => true,
 								'timeout' => 3600*24
-						),*/
+						),
 						'clientScript' => array(
 								'scriptMap' => array(
 										'jquery.js' => false,
@@ -124,22 +135,30 @@ class mainConf extends ConfigBase{
 										),
 								),
 						),
-						/*'zmqClient' => array(
+						'zmqClient' => array(
 								'class' => 'cms.components.asyncEvent.ZMQClient',
 								'zmqServer' => 'tcp://localhost:5556',
 								'sendTimeout' => 3000,
 								'reciveTimeout' => 3000,
-								'socketType' => ZMQ::SOCKET_REQ
-						),*/
-						/*'asyncEventRunner' => array(
+								//'socketType' => ZMQ::SOCKET_REQ
+						),
+						'asyncEventRunner' => array(
 								'class' => 'cms.components.asyncEvent.AsyncEventRunner',
 								'zmqClientId' => 'zmqClient',
 								'events' => array(
+										/*'onEndRequest' => array(
+												'command' => array('sendMail','success')
+										),*/
 										'onRegisterSuccess' => array(
-												'command' => array('sendMail','test')
+												'command' => array('sendSMS','success')
 										),
 								),
-						),*/
+						),
+						'image'=>array(
+								'class'=>'ext.image.CImageComponent',
+								'driver'=>'GD',
+								'params'=>array('directory'=>'/opt/local/bin'),
+						),
 				),
 				'params' => array(
 						'copyright' => '<p>重庆闪电贷金融信息服务有限公司 版权所有 2007-2013<p><p>Copyright Reserved 2007-2013&copy;闪电贷（www.sddai.com） | 渝ICP备05063398号</p>',

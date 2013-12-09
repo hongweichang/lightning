@@ -41,16 +41,14 @@ class BidInfo extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('user_id, title, description, sum, refund, month_rate, start, end, deadline, pub_time', 'required'),
+			array('user_id, title, description, sum, refund, month_rate, start, end, deadline', 'required'),
 			array('refund, verify_progress', 'numerical', 'integerOnly'=>true),
 			array('user_id, sum, start, end, deadline', 'length', 'max'=>11),
 			array('title', 'length', 'max'=>50),
 			array('month_rate, progress', 'length', 'max'=>5),
 			array('pub_time', 'length', 'max'=>10),
 			array('failed_description', 'safe'),
-			// The following rule is used by search().
-			// @todo Please remove those attributes that should not be searched.
-			array('id, user_id, title, description, sum, refund, month_rate, start, end, deadline, progress, pub_time, verify_progress, failed_description', 'safe', 'on'=>'search'),
+			array('id, user_id, title, description, sum, refund, month_rate, start, end, deadline, progress, verify_progress, failed_description', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -63,7 +61,7 @@ class BidInfo extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'user' => array(self::BELONGS_TO, 'FrontUser', 'user_id'),
-			'bidMeta' => array(self::HAS_MANY, 'BidMeta', 'bid_id'),
+			'bidMetas' => array(self::HAS_MANY, 'BidMeta', 'bid_id'),
 		);
 	}
 
@@ -131,6 +129,7 @@ class BidInfo extends CActiveRecord
 	/**
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!
+>>>>>>> 90ccca1b7c8e788f5337d677f565300ba41efc05
 	 * @param string $className active record class name.
 	 * @return BidInfo the static model class
 	 */
