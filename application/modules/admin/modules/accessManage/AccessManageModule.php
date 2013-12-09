@@ -9,6 +9,6 @@
 class AccessManageModule extends CmsModule{
 	public function init(){
 		Yii::import('accessManage.components.*');
-		$this->setLayoutPath($this->getParentModule()->getLayoutPath());
+		Yii::import('accessManage.controllers.*');
 	}
 }

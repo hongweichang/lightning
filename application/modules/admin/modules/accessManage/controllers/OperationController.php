@@ -6,7 +6,7 @@
  * Date 2013-10-2
  * Encoding UTF-8
  */
-class OperationController extends Admin{
+class OperationController extends Access{
 	public $defaultAction = 'view';
 	public $actionClassPathAlias = 'accessManage.controllers';
 	

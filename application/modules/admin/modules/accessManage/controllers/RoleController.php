@@ -6,7 +6,7 @@
  * Date 2013-10-4
  * Encoding UTF-8
  */
-class RoleController extends Admin{
+class RoleController extends Access{
 	public $defaultAction = 'view';
 	public $actionClassPathAlias = 'accessManage.controllers';
 	
