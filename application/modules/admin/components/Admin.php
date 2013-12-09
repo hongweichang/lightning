@@ -6,7 +6,7 @@
  * Encoding UTF-8
  */
 class Admin extends Controller{
-	public $layout='right';
+	public $layout='main';
 	public $defaultAction = 'index';
 	public $subNavs = array();
 	public $pluginUrl;
@@ -49,10 +49,9 @@ class Admin extends Controller{
 	}
 	
 	public function filterPublicClientScript($filterChain){
-		$this->cs->registerCssFile($this->cssUrl.'skin.css');
-		$this->cs->registerCssFile($this->cssUrl.'common.css');
-		$this->cs->registerCssFile($this->cssUrl.'adminList.css');
-		$this->cs->registerScriptFile($this->scriptUrl.'jquery-1.8.2.min.js',CClientScript::POS_END);
+		$this->cs->registerCssFile($this->cssUrl.'reset.css');
+		$this->cs->registerCssFile($this->cssUrl.'style.css');
+		
 		$filterChain->run();
 	}
 	
