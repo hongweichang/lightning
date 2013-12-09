@@ -47,13 +47,13 @@ $cssUrl = $this->cssUrl;
 			<a href="#"><?php echo $this->getPageTitle()?></a>
 		</h1>
 
-		<a href="<?php echo Yii::app()->createUrl('admin/index/index');?>" target="_blank">
+		<a href="<?php echo Yii::app()->createUrl('index/index');?>" target="_blank">
 		<img id="logo" src="<?php echo $this->imageUrl;?>logo.png" alt="<?php echo $this->getPageTitle()?>" />
 		</a>
 
 		<div id="profile-links">
 			你好，管理员 
-			<a href="#" title="编辑个人信息" target="mainFrame">
+			<a href="<?php echo $this->createUrl('mine/info')?>" title="编辑个人信息" target="mainFrame">
 			<?php echo $this->user->getName();?>
 			</a>
 			<br />
@@ -68,10 +68,10 @@ $cssUrl = $this->cssUrl;
 				if ( $menu['parent'] === null ):
 			?>
 			<li>
-			<a href="#" class="nav-top-item"><?php echo $menu['operation_name	'];?></a>
+			<a href="#" class="nav-top-item"><?php echo $record->operation_name;?></a>
+			<ul>
 				<?php
 				else:
-					echo '<ul>';
 					if ( $record->module === null )
 						$url = '/'.$record->controller.'/'.$record->action;
 					else

@@ -8,8 +8,8 @@
 class Admin extends Controller{
 	public $layout='main';
 	public $defaultAction = 'index';
-	public $subNavs = array();
 	public $subTabs = array();
+	public $notifications = array();
 	public $pluginUrl;
 	
 	public function init(){
@@ -41,9 +41,20 @@ class Admin extends Controller{
 		$this->redirect($this->createUrl('account/login'));
 	}
 	
+	/**
+	 * 添加三级菜单
+	 */
 	public function addToSubTab($text,$route,$title='',$urlParams=array()){
 		$url = $this->createUrl($route,$urlParams);
 		$this->subTabs[] = "<li><a href='{$url}' class='default-tab' title='{$title}'>{$text}</a></li>";
+	}
+	
+	/**
+	 * 添加注意消息
+	 * 可选的type有attention,information,success,error
+	 */
+	public function addNotifications($content,$type='attention'){
+		$this->notifications[] = $this->renderPartial('/public/notification',array('content'=>$content,'type'=>$type),true);
 	}
 	
 	public function filterPublicClientScript($filterChain){
@@ -53,12 +64,13 @@ class Admin extends Controller{
 		$filterChain->run();
 	}
 	
-	public function showMessage($message,$redirectUrl,$wait=5,$terminate=true){
-		$url = $this->createUrl($redirectUrl);
-		$this->renderPartial('/common/flashMessage',array(
+	public function showMessage($message,$redirectUrl='',$wait=5,$terminate=true){
+		$url = $redirectUrl === '' ? $this->createUrl('index/welcome') : $this->createUrl($redirectUrl);
+		
+		$this->renderPartial('/public/flash',array(
 				'waitSeconds' => $wait,
 				'jumpUrl' => $url,
-				'msg' => $message
+				'message' => $message
 		));
 		if ( $terminate === true ){
 			$this->app->end();

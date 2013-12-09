@@ -1,9 +1,6 @@
 <?php
 
 class IndexController extends Admin{
-	public function noneLoginRequired(){
-		return 'index,login,menu,welcome';
-	}
 	
 	public function actionIndex(){
 		$this->layout = 'frameset';
@@ -14,6 +11,7 @@ class IndexController extends Admin{
 		$authMenu = $this->app->getAuthManager()->getMenu();
 		
 		$this->menu = $authMenu->generateUserMenu($this->user->getId());
+		
 		$this->layout = false;
 		$this->render('menu');
 	}

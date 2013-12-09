@@ -13,6 +13,7 @@ class addAction extends CmsAction{
 		$className = get_class($model);
 		$post = $this->getPost($className,null);
 		if ( $post !== null ){
+			$post['module'] = $this->controller->module->parentModule->id;
 			$model->attributes = $post;
 			
 			if ( $model->save() ){

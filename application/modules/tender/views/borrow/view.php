@@ -1,10 +1,10 @@
 <?php $this->cs->registerCssFile($this->cssUrl.'audit.css'); ?>
-<<div id="container">
+<div id="container">
 		<div class="wd1002">
             <h1 class="aud-nav">
-                <a href="#">我要借贷 ></a>
-                <a href="#">工薪贷 > </a>
-                <a href="#">审核 </a>
+                <a href="<?php echo $this->createUrl('borrow/index'); ?>">我要借贷 ></a>
+                <a href="<?php echo $this->createUrl('borrow/info'); ?>"><?php echo $role; ?> ></a>
+                <a>审核</a>
             </h1>
             <div id="aud-check" class="aud-common">
                 <div class="aud-warning">
@@ -37,24 +37,28 @@
             </div>
             <div id="aud-detail">
                 <div class="aud-ucenter">
-                    <a href="#">进入个人中心 |</a>
-                    <a href="#">使用帮助</a>
+                    <a href="<?php echo $this->app->createUrl('user/userCenter'); ?>">进入个人中心 |</a>
+                    <a href="<?php echo $this->app->createUrl('help'); ?>">使用帮助</a>
                 </div>
                 <div class="aud-warning">
                     <img src="<?php echo $this->imageUrl;?>adu-warning.png" class="adu-img-waring" />
                     <p class="adu-p-warning">您的申请已经提交，我们正在审核之中</p>
                     <div class="aud-link">
-                        <a href="<?php echo $this->app->createUrl('user/userCenter/userInfo'); ?>" class="borrow-button">进入个人中心</a>
+                        <a href="<?php echo $this->app->createUrl('user/userCenter'); ?>" class="borrow-button">进入个人中心</a>
                         <a href="<?php echo $this->app->homeUrl; ?>" class="borrow-button">返回首页</a>
                     </div>
                 </div>
-                <h1 class="adu-d-nav"><?php echo $model->title;?></h1>
+                <h1 class="adu-d-nav"><?php echo $model->getAttribute('title'); ?></h1>
                 <ul>
-                    <li>借款金额 :  <span><?php echo $model->sum;?></span>元</li>
-                    <li>年利率 :  <span><?php echo $model->month_rate;?></span>%</li>
-                    <li>借款期限 :  <span><?php echo $model->deadline;?></span>个月</li>
-                    <li>信用等级 :  <span>HR</span></li>
+                    <li>借款金额 :  <span><?php echo number_format($model->getAttribute('sum') / 100,2); ?></span>元</li>
+                    <li>年利率 :  <span><?php echo $model->getAttribute('month_rate') / 100; ?></span>%</li>
+                    <li>借款期限 :  <span><?php echo $model->getAttribute('deadline'); ?></span>个月</li>
+                    <li>信用等级 :  <span><?php echo Yii::app()->getModule('credit')->getComponent('userCreditManager')->getUserCreditLevel($model->getAttribute('user_id')); ?></span></li>
                 </ul>
+                <div class="adu-intro">
+                    <h3>【标段介绍】</h3>
+                    <p><?php echo $model->getAttribute('description');?></p>
+                </div>
                 <ul class="adu-img-bar">
                     <li>
                         <img src="<?php echo $this->imageUrl;?>id-card.png" />
@@ -73,13 +77,6 @@
                         <p>常驻地址证明</p>
                     </li>
                 </ul>
-                <div class="adu-intro">
-                    <h3>【标段介绍】</h3>
-                    <p><?php echo $model->description;?>
-                    然没有聚光灯的华丽瞩目，你的矫健身影同样令人难忘；即使面对日以继夜的考验历练，你的动人身姿一
-样夺人眼球；紧身款型轻盈舒适，顶级面料干爽舒适，助你在训练中事半功倍，全新NIKE PRO 紧身长袖
-针织衫，只为专心训练的你所打造。</p>
-                </div>
             </div>
         </div>
 </div>

@@ -31,7 +31,13 @@
                     </div>
                 </div>
             </div>
-            <div class="con-hint">您已经选择"<?php echo $roleName; ?>"类型,请点击下一步</div>
+            <div class="con-hint">
+            	<?php if($roleName !== false){ ?>
+            	您的社会角色为： <?php echo $roleName; ?>, 请点击下一步
+            	<?php }else{ ?>
+            	请到<a href="<?php echo $this->app->createUrl('user/userCenter'); ?>">个人中心</a>完善您的信用资料
+            	<?php } ?>
+            </div>
             <div class="con-cuskind">
                 <div class="cuskind cuskind-color-0">
                     <p>工薪族</p>
@@ -44,7 +50,7 @@
                     <li><span class="kind_list">在现单位工作满3个月</span></li>
                     <li><span class="kind_list">月收入2000以上</span></li>
                 </ul>
-                <a href="#">查看详细信息</a>
+                
             </div>
             <div class="con-cuskind">
                 <div class="cuskind cuskind-color-1">
@@ -57,7 +63,7 @@
                     <li><span class="kind_list">22-55周岁的中国公民</span></li>
                     <li><span class="kind_list">企业经营时间满1年</span></li>
                 </ul>
-                <a href="#">查看详细信息</a>
+                
             </div>
             <div class="con-cuskind">
                 <div class="cuskind cuskind-color-2">
@@ -71,10 +77,12 @@
                     <li><span class="kind_list">在淘宝或天猫平台经营网店半年以上</span></li>
                     <li><span class="kind_list">近3个月交易总额满3万元，并且交易笔数超过50笔</span></li>
                 </ul>
-                <a href="#">查看详细信息</a>
+                
             </div>
             <div class="next">
-                <a href="<?php echo $this->createUrl("borrow/writeBorrowInfo"); ?>" class="borrow-button" id="borrow-next">下一步</a>
+            	<?php if($roleName !== false){ ?>
+                <a href="<?php echo $this->createUrl("borrow/info"); ?>" class="borrow-button" id="borrow-next">下一步</a>
+            	<?php } ?>
             </div>
         </div>
     </div>

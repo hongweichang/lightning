@@ -6,9 +6,6 @@ design By HJtianling_LXY,<2507073658@qq.com>
 */
 
 class UserCenterController extends Controller{
-	public function filters(){
-		return array();
-	}
 
 	public function actionIndex(){
 		echo "i 'm your center";

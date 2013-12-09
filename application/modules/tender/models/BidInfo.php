@@ -15,6 +15,7 @@
  * @property string $end
  * @property string $deadline
  * @property string $progress
+ * @property string $pub_time
  * @property integer $verify_progress
  * @property string $failed_description
  *
@@ -45,9 +46,8 @@ class BidInfo extends CActiveRecord
 			array('user_id, sum, start, end, deadline', 'length', 'max'=>11),
 			array('title', 'length', 'max'=>50),
 			array('month_rate, progress', 'length', 'max'=>5),
+			array('pub_time', 'length', 'max'=>10),
 			array('failed_description', 'safe'),
-			// The following rule is used by search().
-			// @todo Please remove those attributes that should not be searched.
 			array('id, user_id, title, description, sum, refund, month_rate, start, end, deadline, progress, verify_progress, failed_description', 'safe', 'on'=>'search'),
 		);
 	}
@@ -61,7 +61,7 @@ class BidInfo extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'user' => array(self::BELONGS_TO, 'FrontUser', 'user_id'),
-			'bidMetas' => array(self::HAS_MANY, 'BidMeta', 'bid_id'),
+			'bidMeta' => array(self::HAS_MANY, 'BidMeta', 'bid_id'),
 		);
 	}
 
@@ -82,6 +82,7 @@ class BidInfo extends CActiveRecord
 			'end' => 'End',
 			'deadline' => 'Deadline',
 			'progress' => 'Progress',
+			'pub_time' => 'Pub Time',
 			'verify_progress' => 'Verify Progress',
 			'failed_description' => 'Failed Description',
 		);
@@ -116,6 +117,7 @@ class BidInfo extends CActiveRecord
 		$criteria->compare('end',$this->end,true);
 		$criteria->compare('deadline',$this->deadline,true);
 		$criteria->compare('progress',$this->progress,true);
+		$criteria->compare('pub_time',$this->pub_time,true);
 		$criteria->compare('verify_progress',$this->verify_progress);
 		$criteria->compare('failed_description',$this->failed_description,true);
 

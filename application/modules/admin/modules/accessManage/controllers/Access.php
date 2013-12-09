@@ -7,6 +7,7 @@
  */
 class Access extends Admin{
 	public $layout='right';
+	public $subNavs = array();
 	
 	public function init(){
 		parent::init();
@@ -18,6 +19,10 @@ class Access extends Admin{
 		$this->cssUrl = $this->app->getPartedUrl('css');
 		$this->scriptUrl = $this->app->getPartedUrl('js');
 		$this->imageUrl = $this->app->getPartedUrl('image');
+	}
+	
+	public function loginRequired(){
+		$this->redirect($this->createUrl('/'.$this->getModule()->getParentModule()->id));
 	}
 	
 	public function addToSubNav($text,$route,$title='',$urlParams=array()){

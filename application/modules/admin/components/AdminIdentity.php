@@ -16,6 +16,12 @@ class AdminIdentity extends CUserIdentity{
 			$this->errorMessage = '管理员不存在';
 			return false;
 		}
+		
+		if ( $user->getAttribute('locked') == 1 ){
+			$this->errorCode = self::ERROR_USER_LOCKED;
+			$this->errorMessage = '该帐号被锁定，请与管理员联系';
+			return false;
+		}
 	
 		$security = Yii::app()->getSecurityManager();
 		if ( $security->verifyPassword($this->password,$user->getAttribute('password')) ){
