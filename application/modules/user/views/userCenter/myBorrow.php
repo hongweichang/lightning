@@ -2,8 +2,6 @@
 $this->cs->registerCssFile($this->cssUrl.'common.css');
 $this->cs->registerCssFile($this->cssUrl.'detail.css');
 ?>
-<html>
-<body>
     <div id="container">
         <div class="wd989">
             <h1 class="aud-nav">
@@ -12,7 +10,11 @@ $this->cs->registerCssFile($this->cssUrl.'detail.css');
             </h1>
             <div class="aud-detail">
                 <div class="det-per-inf">
+                    <?php if(!empty($IconUrl)){?>
+                    <img src="<?php echo $IconUrl;?>" class="det-img"/>
+                    <?php }else{?>
                     <img src="<?php echo $this->imageUrl.'user-avatar.png'?>" class="det-img" />
+                    <?php }?>            
                     <p>
                         <span class="aud-time">晚上好，</span>
                         <span class="aud-det-name"><?php echo Yii::app()->user->name;?> </span>
@@ -197,5 +199,3 @@ $this->cs->registerCssFile($this->cssUrl.'detail.css');
 $this->cs->registerScriptFile($this->scriptUrl.'jquery-1.8.2.min.js',CClientScript::POS_END);
 $this->cs->registerScriptFile($this->scriptUrl.'tableChange.js',CClientScript::POS_END);
 ?>
-</body>
-<html>

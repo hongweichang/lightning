@@ -14,8 +14,7 @@ if(Yii::app()->user->hasFlash('error')){
 ?>
 <script>alert('修改成功');</script>
 <?php }?>
-<html>
-<body>
+
     <div id="container">
         <div class="wd989">
             <h1 class="aud-nav">
@@ -186,5 +185,3 @@ if(Yii::app()->user->hasFlash('error')){
 $this->cs->registerScriptFile($this->scriptUrl.'/update.js',CClientScript::POS_END);
 $this->cs->registerScriptFile($this->scriptUrl.'tableChange.js',CClientScript::POS_END);
 ?>
-</body>
-</html>

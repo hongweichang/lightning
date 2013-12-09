@@ -59,4 +59,23 @@ class UserManager extends CApplicationComponent{
 	public function getUserInfo($uid,$condition='',$params=array()){
 		return FrontUser::model()->with('baseUser')->findByPk($uid,$condition,$params);
 	}
+
+	/*
+	**获取用户头像
+	*/
+	public function getUserIcon($id){
+		if(is_numeric($id)){
+			$userIcon = FrontUserIcon::model()->findAll('user_id =:uid',array('uid'=>$id));
+
+			if(!empty($userIcon)){
+				$userIconName = end($userIcon)->attributes['file_name'];
+				$uploadUrl = Yii::app()->getPartedUrl('avatar',$id);
+				$IconUrl = $uploadUrl.$userIconName;
+				return $IconUrl;
+			}else{
+				$IconUrl = Yii::app()->getPartedUrl('image').'user-avatar.png';
+				return $IconUrl;
+			}
+		}
+	}
 }

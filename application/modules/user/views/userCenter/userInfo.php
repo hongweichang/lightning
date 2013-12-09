@@ -41,9 +41,6 @@ $this->widget('application.extensions.swfupload.CSwfUpload', array(
     )
 );
 ?>
-
-<html>
-<body>
     <div id="container">
         <div class="wd989">
             <h1 class="aud-nav">
@@ -360,5 +357,4 @@ $this->widget('application.extensions.swfupload.CSwfUpload', array(
 $this->cs->registerScriptFile($this->scriptUrl.'/update.js',CClientScript::POS_END);
 $this->cs->registerScriptFile($this->scriptUrl.'tableChange.js',CClientScript::POS_END);
 ?>
-</body>
-</html>
+

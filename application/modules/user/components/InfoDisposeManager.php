@@ -36,7 +36,7 @@ class InfoDisposeManager extends CApplicationComponent{
 				$titleNumber++;
 
 				foreach($value as $key){
-					$excelData->getActiveSheet()->setCellValue($titleLevelPointer.$titleNumber,$key);
+					$excelData->getActiveSheet()->setCellValue($titleLevelPointer.$titleNumber,' '.$key);
 					$titleLevelPointer++;
 				}
 			
