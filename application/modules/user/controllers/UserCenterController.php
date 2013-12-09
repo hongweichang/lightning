@@ -35,7 +35,6 @@ class UserCenterController extends Controller{
 
 		if(isset($_POST['FrontUser'])){
 			$userInfo = FrontUser::model()->with('baseUser')->findByPk($uid);
-			//Utils::dump($userInfo);
 			$attributes = $_POST['FrontUser'];
 			// $userInfo->gender = $attributes['gender'];
 			// $userInfo->address = $attributes['address'];
@@ -374,6 +373,25 @@ class UserCenterController extends Controller{
 					var_dump($userData->getErrors());
 			}	
 		}
+	}
+
+
+	public function actionUserFund(){
+		$uid = $this->id;
+		$userData = FrontUser::model()->findByPk($uid);
+		$IconUrl = null;
+
+		if(!empty($userData)){
+			$userIcon = FrontUserIcon::model()->findAll('user_id =:uid',array('uid'=>$uid));
+
+			if(!empty($userIcon)){
+				$userIconName = $userIcon[0]->attributes['file_name'];
+				$uploadUrl = $this->app->getPartedUrl('avatar',$uid);
+				$IconUrl = $uploadUrl.$userIconName;
+			}
+		}
+
+		$this->render('userFund',array('userData'=>$userData,'IconUrl'=>$IconUrl));
 	}
 
 }
