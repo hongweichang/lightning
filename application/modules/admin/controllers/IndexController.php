@@ -1,12 +1,9 @@
 <?php
 
 class IndexController extends Admin{
-	public function noneLoginRequired(){
-		return 'index,login,menu,welcome';
-	}
 	
 	public function actionIndex(){
-		$this->layout = 'main';
+		$this->layout = 'frameset';
 		$this->render('index');
 	}
 	
@@ -20,6 +17,7 @@ class IndexController extends Admin{
 	
 	public function actionWelcome(){
 		$this->pageTitle = '欢迎使用';
+		$this->layout = 'welcome';
 		$this->render('welcome');
 	}
 }

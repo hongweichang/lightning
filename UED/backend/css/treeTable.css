@@ -1,0 +1,4 @@
+@CHARSET "UTF-8";
+table#tree tr.line{
+	cursor: pointer;
+}

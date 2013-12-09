@@ -9,11 +9,13 @@
  * @property string $title
  * @property string $description
  * @property string $sum
+ * @property integer $refund
  * @property string $month_rate
  * @property string $start
  * @property string $end
  * @property string $deadline
  * @property string $progress
+ * @property string $pub_time
  * @property integer $verify_progress
  * @property string $failed_description
  *
@@ -39,15 +41,14 @@ class BidInfo extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('user_id, title, description, sum, month_rate, start, end, deadline', 'required'),
-			array('verify_progress', 'numerical', 'integerOnly'=>true),
+			array('user_id, title, description, sum, refund, month_rate, start, end, deadline', 'required'),
+			array('refund, verify_progress', 'numerical', 'integerOnly'=>true),
 			array('user_id, sum, start, end, deadline', 'length', 'max'=>11),
 			array('title', 'length', 'max'=>50),
 			array('month_rate, progress', 'length', 'max'=>5),
+			array('pub_time', 'length', 'max'=>10),
 			array('failed_description', 'safe'),
-			// The following rule is used by search().
-			// @todo Please remove those attributes that should not be searched.
-			array('id, user_id, title, description, sum, month_rate, start, end, deadline, progress, verify_progress, failed_description', 'safe', 'on'=>'search'),
+			array('id, user_id, title, description, sum, refund, month_rate, start, end, deadline, progress, verify_progress, failed_description', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -60,7 +61,7 @@ class BidInfo extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'user' => array(self::BELONGS_TO, 'FrontUser', 'user_id'),
-			'bidMeta' => array(self::HAS_MANY, 'BidMeta', 'bid_id'),
+			'bidMetas' => array(self::HAS_MANY, 'BidMeta', 'bid_id'),
 		);
 	}
 
@@ -75,11 +76,13 @@ class BidInfo extends CActiveRecord
 			'title' => 'Title',
 			'description' => 'Description',
 			'sum' => 'Sum',
+			'refund' => 'Refund',
 			'month_rate' => 'Month Rate',
 			'start' => 'Start',
 			'end' => 'End',
 			'deadline' => 'Deadline',
 			'progress' => 'Progress',
+			'pub_time' => 'Pub Time',
 			'verify_progress' => 'Verify Progress',
 			'failed_description' => 'Failed Description',
 		);
@@ -108,11 +111,13 @@ class BidInfo extends CActiveRecord
 		$criteria->compare('title',$this->title,true);
 		$criteria->compare('description',$this->description,true);
 		$criteria->compare('sum',$this->sum,true);
+		$criteria->compare('refund',$this->refund);
 		$criteria->compare('month_rate',$this->month_rate,true);
 		$criteria->compare('start',$this->start,true);
 		$criteria->compare('end',$this->end,true);
 		$criteria->compare('deadline',$this->deadline,true);
 		$criteria->compare('progress',$this->progress,true);
+		$criteria->compare('pub_time',$this->pub_time,true);
 		$criteria->compare('verify_progress',$this->verify_progress);
 		$criteria->compare('failed_description',$this->failed_description,true);
 
@@ -124,6 +129,7 @@ class BidInfo extends CActiveRecord
 	/**
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!
+>>>>>>> 90ccca1b7c8e788f5337d677f565300ba41efc05
 	 * @param string $className active record class name.
 	 * @return BidInfo the static model class
 	 */

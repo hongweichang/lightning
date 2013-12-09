@@ -6,7 +6,7 @@
  * Date 2013-10-5
  * Encoding UTF-8
  */
-class AssignmentController extends Admin{
+class AssignmentController extends Access{
 	public $actionClassPathAlias = 'accessManage.controllers';
 	
 	public function getActionClass(){

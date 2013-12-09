@@ -18,18 +18,28 @@ class mainConf extends ConfigBase{
 				'hostName' => 'http://115.29.186.221',
 				'preloadModels' => array(),
 				'modules' => array(
-						'pay',
-						'user',
-						'credit',
-						'tender',
 						'gii'=>array(
 								'class'=>'system.gii.GiiModule',
 								'password'=>'admin',
 								'ipFilters'=>array('127.0.0.1','::1'),
 						),
-						'adminnogateway' => array(
-							'class' => 'application.modules.admin.AdminModule',
-							'name' => 'adminnogateway'
+
+						'pay' => array(
+								'class' => 'application.modules.pay.PayModule'
+						),
+						
+						'admin' => array(
+							'class' => 'application.modules.admin.AdminModule'
+						),
+						
+						'user' => array(
+								'class' => 'application.modules.user.UserModule'
+						),
+						'credit' =>array(
+								'class' => 'application.modules.credit.CreditModule'
+						),
+						'tender' =>array(
+								'class' => 'application.modules.tender.TenderModule'
 						),
 						'notify' => array(
 								'class' => 'application.modules.notify.NotifyModule',
@@ -48,16 +58,16 @@ class mainConf extends ConfigBase{
 										'CharSet'=>'UTF-8',
 								),
 						),
+
 						'appservice' => array(
 								'class' => 'application.modules.appservice.AppserviceModule',
 						),
 				),
 				'import' => array(
 						'application.extensions.PHPExcel.PHPExcel.*',
-						'application.modules.user.models.*'
 				),
 				'preload' => array(
-						'asyncEventRunner'
+						//'asyncEventRunner'
 				),
 				'components' => array(
 						'user' => array(
@@ -82,7 +92,7 @@ class mainConf extends ConfigBase{
 						),
 						'cache' => array(
 								'class' => 'CMemCache',
-								'useMemcached' => true,
+								'useMemcached' => false,
 								'keyPrefix' => 'lightning',
 								'servers' => array(
 										array(
@@ -130,15 +140,24 @@ class mainConf extends ConfigBase{
 								'zmqServer' => 'tcp://localhost:5556',
 								'sendTimeout' => 3000,
 								'reciveTimeout' => 3000,
+								//'socketType' => ZMQ::SOCKET_REQ
 						),
 						'asyncEventRunner' => array(
 								'class' => 'cms.components.asyncEvent.AsyncEventRunner',
 								'zmqClientId' => 'zmqClient',
 								'events' => array(
+										/*'onEndRequest' => array(
+												'command' => array('sendMail','success')
+										),*/
 										'onRegisterSuccess' => array(
-												'command' => array('sendMail','test')
+												'command' => array('sendSMS','success')
 										),
 								),
+						),
+						'image'=>array(
+								'class'=>'ext.image.CImageComponent',
+								'driver'=>'GD',
+								'params'=>array('directory'=>'/opt/local/bin'),
 						),
 				),
 				'params' => array(
@@ -153,21 +172,21 @@ class mainConf extends ConfigBase{
 								'index' => '/site',
 								'useHelp' => '#',
 						),
-						'bidsPerPage' => 2,//默认的每次请求的标段条数
+						'bidsPerPage' => 10,//默认的每次请求的标段条数
 						
 						//标段选择条件参数
 						'selectorMap' => array(
 								'monthRate' => array(//月利率条件
 										'all' => 'all',
-										'5%-10%' => ' month_rate between 5 and 10 ',
-										'11%-15%' => ' month_rate between 11 and 15 ',
-										'16%-20%' => ' month_rate between 16 and 20 ',
+										'5%-10%' => ' month_rate BETWEEN 500 AND 1000 ',
+										'11%-15%' => ' month_rate BETWEEN 1100 AND 1500 ',
+										'16%-20%' => ' month_rate BETWEEN 1600 AND 2000 ',
 								),
 								'deadline' => array(//借款期限条件
 										'all' => 'all',
-										'3-6' => ' deadline between 3 and 6 ',
-										'7-9' => ' deadline between 7 and 9 ',
-										'10-12' => ' deadline between 10 and 12 ',
+										'6-12' => ' deadline BETWEEN 6 AND 12 ',
+										'12-24' => ' deadline BETWEEN 12 AND 24 ',
+										'24-36' => ' deadline BETWEEN 24 AND 36 ',
 								),
 								'authenGrade' => array(//认证等级条件
 										'all' => 'all',
@@ -179,7 +198,7 @@ class mainConf extends ConfigBase{
 						//月利率的查询条件
 						'monthRate' => array('5%-10%','11%-15%','16%-20%',),
 						//借款期限的查询条件
-						'deadline' => array('3-6','7-9','10-12',),
+						'deadline' => array('6-12','12-24','24-36',),
 						//认证等级的查询条件
 						'authenGrade' => array('AA','AAA','HR',),
 				),
