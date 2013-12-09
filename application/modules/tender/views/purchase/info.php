@@ -4,33 +4,31 @@
         <div class="breadcrumb">
           <ul>
             <li class="breadcrumb-item">
-              <a href="#">我要投资</a>
+              <a href="<?php echo $this->createUrl('purchase/index'); ?>">我要投资</a>
             </li>
-            <li class="breadcrumb-separator"> 
-            </li>
-            <li class="breadcrumb-item">
-              <a href="#">投资中心</a>
-            </li>
-            <li class="breadcrumb-separator"> 
+            <li class="breadcrumb-separator"> >
             </li>
             <li class="breadcrumb-item active">
-              <a href="#">标段详情</a>
+              <a>标段详情</a>
             </li>
           </ul>
         </div>
         <div id="lend-details" class="clearfix">
           <div class="details-head clearfix">
-            <div class="return"><a href="#">←返回</a></div>
+            <div class="return"><a href="<?php echo $this->createUrl('purchase/index'); ?>">←返回</a></div>
             <div class="name">标段详情</div>
             <div class="balance">
-              <a href="#">账户余额¥<span><?php echo $currentUserInfo->balance;?></span><img src="<?php echo $this->imageUrl;?>topup_ico.png" /></a></div>
+              <a href="<?php echo $this->app->createUrl('user/userCenter') ?>">
+				账户余额¥<span><?php echo number_format($user->getAttribute('balance') / 100,2);?></span><img src="<?php echo $this->imageUrl;?>topup_ico.png" />
+              </a>
+            </div>
           </div>
           <div class="details-info">
-            <div class="info-title"><?php echo $bidInfo->title;?></div>
+            <div class="info-title"><?php echo $bid->getAttribute('title');?></div>
             <div class="info-content clearfix">
               <div class="info-content-l">
                 <p>借款金额</p>
-                <p class="info-content-val"><span>¥</span><?php echo $bidInfo->sum;?></p>
+                <p class="info-content-val"><span>¥</span><?php echo number_format($bid->getAttribute('sum') / 100,2);?></p>
               </div>
               <div class="info-content-r">
                 <p>信用等级</p>
@@ -38,21 +36,21 @@
               </div>
               <div class="info-content-l small">
                 <p>标段期限</p>
-                <p class="info-content-val"><?php echo $bidInfo->deadline;?><span>个月</span></p>
+                <p class="info-content-val"><?php echo $bid->getAttribute('deadline');?><span>个月</span></p>
               </div>
               <div class="info-content-l small">
-                <p>月利率</p>
-                <p class="info-content-val"><?php echo $bidInfo->month_rate;?><span>%</span></p>
+                <p>年利率</p>
+                <p class="info-content-val"><?php echo $bid->getAttribute('month_rate') / 100;?><span>%</span></p>
               </div>
               <div class="info-content-r">
                 <div class="info-content-term">
                   <div class="term-start">
                     <div class="term-ico">始</div>
-                    <p><?php echo date('Y-m-d h:i',$bidInfo->start);?></p>
+                    <p><?php echo date('Y-n-j H:i',$bid->getAttribute('start'));?></p>
                   </div>
                   <div class="term-end">
                     <div class="term-ico">终</div>
-                    <p><?php echo date('Y-m-d h:i',$bidInfo->end);?></p>
+                    <p><?php echo date('Y-n-j H:i',$bid->getAttribute('end'));?></p>
                   </div>  
                 </div>
               </div>
@@ -60,27 +58,23 @@
             <div class="info-progress">
               <div class="loan-progress">
                   <div class="bar-in">
-                    <span class="bar-complete" style="width:<?php echo $bidInfo->progress;?>%"></span>
+                    <span class="bar-complete" style="width:<?php echo $bid->getAttribute('progress');?>%"></span>
                   </div>
-                  <span>完成<?php echo $bidInfo->progress;?>%</span>
+                  <span>完成<?php echo $bid->getAttribute('progress');?>%</span>
               </div>
               <div class="loan-progress"><span class="tick">√</span><span>100%安全认证，确保交易有效</span></div>
             </div>
           </div>
           <div class="details-lend">
             <div class="info-title">投资金额<span class="info-subtitle">投资有风险，请谨慎考虑</span></div>
-            <form method="post" action="<?php 
-            	echo $this->createUrl($formAction,array(
-            			'bidId'=>$bidInfo->id,
-            			'userId'=>$currentUserInfo->id)
-            		);?>" id="lend-form">
-              <input type="text" name="writeBidMeta[sum]" id="lend-num" /><span>元</span>
+            <form method="post" id="lend-form" action="<?php echo $this->createUrl('purchase/info',array('id' => $bid->getAttribute('id')));?>">
+              <input type="text" name="sum" id="lend-num" /><span>元</span>
               <p>到期总收益 ¥<span>0.00元</span></p>
               <p>标段利率 <span>0.00%</span></p>
               <?php if(CCaptcha::checkRequirements()){ ?>
               <p class="lend-verify">
                 <label for="verifycode">验证码</label>
-                <input type="text" name="writeBidMeta[code]" id="verifycode"/>
+                <input type="text" name="code" id="verifycode"/>
                 <?php $this->widget('CCaptcha',array(
 					'id' => 'randImage',
 					'showRefreshButton' => false,
@@ -111,19 +105,19 @@
               <ul>
                 <li>
                   <span class="borrower-name">昵称</span>
-                  <span class="borrower-val"><?php echo $borrowUserInfo['nickname'];?></span>
+                  <span class="borrower-val"><?php echo $bider->getAttribute('nickname');?></span>
                 </li>
                 <li>
                   <span class="borrower-name">真实姓名</span>
-                  <span class="borrower-val"><?php echo $borrowUserInfo['realname'];?></span>
+                  <span class="borrower-val"><?php echo $bider->getAttribute('realname');?></span>
                 </li>
                 <li>
                   <span class="borrower-name">性别</span>
-                  <span class="borrower-val"><?php echo ($borrowUserInfo['gender']== 1)? '男':'女';?></span>
+                  <span class="borrower-val"><?php echo ($bider->getAttribute('gender')== 1) ? '男' : '女';?></span>
                 </li>
                 <li>
                   <span class="borrower-name">年龄</span>
-                  <span class="borrower-val"><?php echo $borrowUserInfo['age'];?></span>
+                  <span class="borrower-val"><?php echo $bider->getAttribute('age');?></span>
                 </li>
                 <li>
                   <span class="borrower-name"></span>
@@ -151,36 +145,31 @@
                 <thead>
                   <tr>
                     <th class="tb-col-buyer">买家</th>
-                    <th class="tb-col-title">标段名字</th>
-                    <th class="tb-col-num">投资金额</th>
+                    <th class="tb-col-title">投资金额</th>
+                    <th class="tb-col-num">每期获利</th>
                     <th class="tb-col-time">成交时间</th>
-                    <th class="tb-col-status">状态</th>
+                   	<!--<th class="tb-col-status">状态</th>-->
                   </tr>
                 </thead>
-                <tbody>
-                	<?php 
-                		$bidMeta = $bidInfo->bidMeta;
-                		foreach ($bidMeta as $key => $val) {
-                	?>
-		                  <tr>
-		                    <td><?php echo $val->user_id;?></td>
-		                    <td><?php echo $bidInfo->title;?></td>
-		                    <td><?php echo $val->sum;?></td>
-		                    <td><?php echo date('Y-m-d h:i:s',$val->buy_time);?></td>
-		                    <td>什么意思？？</td>
-		                  </tr>
-                  	<?php 
-                		}
-                  	?>
-                </tbody>
+                <?php 
+                $meta->pagination = false;
+                $this->widget('zii.widgets.CListView',array(
+					'dataProvider' => $meta,
+					'itemView' => '_metaList',
+					'template' => '{items}',
+                	'itemsTagName' => 'tbody',
+                	'ajaxUpdate' => false,
+                	'cssFile' => false,
+                	'baseScriptUrl' => null,
+				)); ?>
               </table>
             </div>
             <div class="tab-content info-content">
-              <h1 class="adu-d-nav"><?php echo $bidInfo->title;?></h1>
+              <h1 class="adu-d-nav"><?php echo $bid->getAttribute('title');?></h1>
               <ul>
-                <li>借款金额 :  <span><?php echo $bidInfo->sum;?></span>元</li>
-                <li>年利率 :  <span><?php echo $bidInfo->month_rate;?></span>%</li>
-                <li>借款期限 :  <span><?php echo $bidInfo->deadline;?></span>个月</li>
+                <li>借款金额 :  <span><?php echo number_format($bid->getAttribute('sum') / 100,2);?></span>元</li>
+                <li>年利率 :  <span><?php echo $bid->getAttribute('month_rate') / 100;?></span>%</li>
+                <li>借款期限 :  <span><?php echo $bid->getAttribute('deadline');?></span>个月</li>
                 <li>信用等级 :  <span><?php echo $authGrade;?></span></li>
               </ul>
               <ul class="adu-img-bar">
@@ -203,7 +192,7 @@
               </ul>
               <div class="adu-intro">
                 <h3>【标段介绍】</h3>
-                <p><?php echo $bidInfo->description;?></p>
+                <p><?php echo $bid->getAttribute('description');?></p>
               </div>
             </div>
           </div>

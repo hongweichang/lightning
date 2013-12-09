@@ -8,6 +8,7 @@
  * @property string $user_id
  * @property string $bid_id
  * @property string $sum
+ * @property integer $refund
  * @property string $buy_time
  * @property integer $finish_time
  * @property integer $status
@@ -34,12 +35,12 @@ class BidMeta extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('user_id, bid_id, sum, buy_time', 'required'),
-			array('finish_time, status', 'numerical', 'integerOnly'=>true),
+			array('user_id, bid_id, sum, refund, buy_time', 'required'),
+			array('refund, finish_time, status', 'numerical', 'integerOnly'=>true),
 			array('user_id, bid_id, sum, buy_time', 'length', 'max'=>11),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, user_id, bid_id, sum, buy_time, finish_time, status', 'safe', 'on'=>'search'),
+			array('id, user_id, bid_id, sum, refund, buy_time, finish_time, status', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -66,6 +67,7 @@ class BidMeta extends CActiveRecord
 			'user_id' => 'User',
 			'bid_id' => 'Bid',
 			'sum' => 'Sum',
+			'refund' => 'Refund',
 			'buy_time' => 'Buy Time',
 			'finish_time' => 'Finish Time',
 			'status' => 'Status',
@@ -94,6 +96,7 @@ class BidMeta extends CActiveRecord
 		$criteria->compare('user_id',$this->user_id,true);
 		$criteria->compare('bid_id',$this->bid_id,true);
 		$criteria->compare('sum',$this->sum,true);
+		$criteria->compare('refund',$this->refund);
 		$criteria->compare('buy_time',$this->buy_time,true);
 		$criteria->compare('finish_time',$this->finish_time);
 		$criteria->compare('status',$this->status);

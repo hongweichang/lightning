@@ -3,8 +3,8 @@ return array (
   'template' => 'default',
   'connectionId' => 'db',
   'tablePrefix' => 'xcms_',
-  'modelPath' => 'application.modules.admin.models',
-  'baseClass' => 'CmsActiveRecord',
+  'modelPath' => 'application.modules.tender.models',
+  'baseClass' => 'CActiveRecord',
   'buildRelations' => '1',
   'commentsAsLabels' => '0',
 );
