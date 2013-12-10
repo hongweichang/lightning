@@ -66,7 +66,7 @@ $this->widget('application.extensions.swfupload.CSwfUpload', array(
                         <img src="<?php echo $this->imageUrl.'det-cal.png'?>" />
                         <img src="<?php echo $this->imageUrl.'det-bank.png'?>" />
                         <span>安全等级 :  <span class="det-rank">高</span></span>
-                        <span>上次登陆 :  <span class="det-ip"> 重庆市 2013.1116.19:35:35</span></span>
+                        <span>上次登陆 :  <span class="det-ip"> 重庆市 <?php echo date('Y-m-d H:i:s',$userData['last_login_time'])?></span></span>
                     </p>
                 </div>
                 <div class="aud-money">
@@ -77,7 +77,16 @@ $this->widget('application.extensions.swfupload.CSwfUpload', array(
                             <span>我的借贷</span>
                         </p>
                         <p class="det-mon">
-                            <span>0.00</span>
+                            <span>
+                            <?php
+                            $balance = $userData['balance']/100;
+                            if($balance >= 100000){
+                                $highBalance = $balance/10000;
+                                echo $highBalance."万元";
+                            }else 
+                                echo $balance."元";
+                            ?>
+                            </span>
                             <span>=</span>
                             <span>0.00</span>
                             <span>+</span>
