@@ -65,6 +65,9 @@ class BidManager extends CApplicationComponent{
 	 * @return boolean
 	 */
 	public function raiseBid($user,$title,$description,$sum,$rate,$start,$end,$deadline){
+		$sum = round($sum,2);
+		$rate = round($rate,2);
+		
 		$bid = new BidInfo();
 		$bid->attributes = array(
 			'user_id' => $user,
@@ -96,6 +99,8 @@ class BidManager extends CApplicationComponent{
 	 * @return boolean
 	 */
 	public function purchaseBid($user_id,$bid_id,$sum){
+		$sum = round($sum,2);
+		
 		$transaction = Yii::app()->db->beginTransaction();
 		try{
 			$bid = BidInfo::model()->findByPk($bid_id);
@@ -104,6 +109,12 @@ class BidManager extends CApplicationComponent{
 			$bid->saveCounters(array(
 				'progress' => $progress  // 锁定进度
 			));
+			
+			//改progress为已投资金
+			/*if($bid->getAttribute('progress') + $sum * 100 > $bid->getAttribute('sum')) return false;
+			$bid->saveCounters(array(
+				'progress' => $sum * 100  // 锁定进度
+			));*/
 			
 			$meta = new BidMeta();
 			$meta->attributes = array(
@@ -168,6 +179,11 @@ class BidManager extends CApplicationComponent{
 			$bid->saveCounters(array(
 				'progress' => - $meta->getAttribute('sum') * 100 / $bid->getAttribute('sum')
 			));
+			
+			//改progress为已投资金
+			/*$bid->saveCounters(array(
+				'progress' => - $meta->getAttribute('sum')
+			));*/
 		
 			$meta->attributes = array(
 				'finish_time' => time(),
