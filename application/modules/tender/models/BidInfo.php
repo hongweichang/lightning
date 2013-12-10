@@ -39,16 +39,15 @@ class BidInfo extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('user_id, title, description, sum, month_rate, start, end, deadline', 'required'),
-			array('verify_progress,deadline,month_rate,sum', 'numerical', 'integerOnly'=>true),
-			array('user_id, sum, start, end, deadline', 'length', 'max'=>11),
+			array('user_id, title, description, sum', 'required'),
+			array('month_rate,start,end,pub_time,deadline,progress,sum', 'numerical', 'integerOnly'=>true),
 			array('title', 'length', 'max'=>50),
 			//month_rate 5-20
 			//deadline:1-36
-			array('month_rate, progress', 'length', 'max'=>5),
-			array('failed_description', 'safe'),
+			array('month_rate','numerical','max'=>20,'min'=>5),
+			array('deadline','numerical','max'=>36,'min'=>1),
+			array('failed_description,refund', 'safe'),
 			// The following rule is used by search().
-			// @todo Please remove those attributes that should not be searched.
 			array('id, user_id, title, description, sum, month_rate, start, end, deadline, progress, verify_progress, failed_description', 'safe', 'on'=>'search'),
 		);
 	}
@@ -101,7 +100,6 @@ class BidInfo extends CActiveRecord
 	 */
 	public function search()
 	{
-		// @todo Please modify the following code to remove attributes that should not be searched.
 
 		$criteria=new CDbCriteria;
 

@@ -9,8 +9,12 @@ class FundManager extends CApplicationComponent{
 	/**
 	 * 跳转地址，进入支付阶段
 	 */
-	public function pay($meta_id,$payment){
-		return Yii::app()->createUrl('pay/'.$payment.'/index',array('meta_no' => $meta_id));
+	public function pay($payment,$meta_id = null){
+		if($meta_id == null){
+			return Yii::app()->createUrl('pay/'.$payment.'/index');
+		}else{
+			return Yii::app()->createUrl('pay/'.$payment.'/index',array('meta_no' => $meta_id));
+		}
 	}
 	
 	/**
@@ -135,7 +139,7 @@ class FundManager extends CApplicationComponent{
 		return array('list' => $list, 'pager' => $pager);
 	}
 	
-	public function getPayList($status){
+	public function getPayList($condition,$param){
 		$pager = new CPagination(Recharge::model()->count());
 		$pager->setPageSize(20);
 		
@@ -143,8 +147,8 @@ class FundManager extends CApplicationComponent{
 			'offset' => $pager->getOffset(),
 			'limit' => $pager->getLimit(),
 			'order' => 'raise_time desc, pay_time desc, finish_time desc',
-			'condition' => 'status=:s',
-			'param' => array('s' => $status)
+			'condition' => $condition,
+			'param' => $param
 		));
 		
 		return array('list' => $list, 'pager' => $pager);

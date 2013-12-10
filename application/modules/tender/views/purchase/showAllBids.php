@@ -113,7 +113,7 @@ $this->cs->registerScriptFile($this->scriptUrl.'lend.js',CClientScript::POS_END)
                         <div class="loan-rate loan-num"><?php echo $val['month_rate'];?>%</div>
                         <div class="loan-rank">
                         	<?php $rank = Yii::app()->getModule('credit')->
-                        			getComponent('userCreditManager')->getUserCreditLevel($val['user_id']);?>
+                        			getComponent('userCreditManager')->getsUserCreditLevel($val['user_id']);?>
                         	<div class="rank<?php echo $rank;?>"><?php echo $rank;?></div>
                         </div>
 
@@ -132,8 +132,8 @@ $this->cs->registerScriptFile($this->scriptUrl.'lend.js',CClientScript::POS_END)
                         <div class="loan-progress">
                             <div class="bar-out">
                                 <div class="bar-in">
-                                    <span class="bar-complete" style="width:<?php echo $val['progress'];?>%"></span>
-                                    <span class="bar-num"><?php echo $val['progress'];?>%</span>
+                                    <span class="bar-complete" style="width:<?php echo $val['progress']/$val['sum']*100;?>%"></span>
+                                    <span class="bar-num"><?php echo $val['progress']/$val['sum']*100;?>%</span>
                                 </div>
                             </div>
                         </div>

@@ -16,29 +16,20 @@ class mainConf extends ConfigBase{
 	public function merge(){
 		return array(
 				'hostName' => 'http://localhost',
+				'preloadModels' => array(),
 				'modules' => array(
+						'pay',
+						'user',
+						'credit',
+						'tender',
 						'gii'=>array(
 								'class'=>'system.gii.GiiModule',
 								'password'=>'admin',
 								'ipFilters'=>array('127.0.0.1','::1'),
 						),
-
-						'pay' => array(
-								'class' => 'application.modules.pay.PayModule'
-						),
-						
-						'admin' => array(
-							'class' => 'application.modules.admin.AdminModule'
-						),
-						
-						'user' => array(
-								'class' => 'application.modules.user.UserModule'
-						),
-						'credit' =>array(
-								'class' => 'application.modules.credit.CreditModule'
-						),
-						'tender' =>array(
-								'class' => 'application.modules.tender.TenderModule'
+						'adminnogateway' => array(
+							'class' => 'application.modules.admin.AdminModule',
+							'name' => 'adminnogateway'
 						),
 						'notify' => array(
 								'class' => 'application.modules.notify.NotifyModule',
@@ -57,7 +48,6 @@ class mainConf extends ConfigBase{
 										'CharSet'=>'UTF-8',
 								),
 						),
-
 						'appservice' => array(
 								'class' => 'application.modules.appservice.AppserviceModule',
 						),
@@ -65,6 +55,9 @@ class mainConf extends ConfigBase{
 				'import' => array(
 						'application.extensions.PHPExcel.PHPExcel.*',
 						'application.modules.user.models.*'
+				),
+				'preload' => array(
+						'asyncEventRunner'
 				),
 				'components' => array(
 						'user' => array(
@@ -95,10 +88,10 @@ class mainConf extends ConfigBase{
 								'keyPrefix' => 'lightning',
 								'servers' => array(
 										array(
-												//'host' => 'localhost',
+												'host' => 'localhost',
 												//本地memcached缓存
 												//阿里云外网IP
-												'host' => '115.29.186.221',
+												//'host' => '115.29.186.221',
 												//阿里云内网IP，本地测试可以使用本地memcached服务器
 												//'host' => '10.161.138.206',
 												'port' => 11211
@@ -121,7 +114,7 @@ class mainConf extends ConfigBase{
 						),
 						'urlManager'=>array(
 								'urlFormat'=>'path',
-								'cacheID' => 'cache',
+								'cacheID' => false,
 								'urlSuffix' => '',
 								'showScriptName' => false,
 								'rules' => require dirname(__FILE__).'/RestApiRules.php',
@@ -135,9 +128,25 @@ class mainConf extends ConfigBase{
 										),
 								),
 						),
+						'zmqClient' => array(
+								'class' => 'cms.components.asyncEvent.ZMQClient',
+								'zmqServer' => 'tcp://localhost:5556',
+								'sendTimeout' => 3000,
+								'reciveTimeout' => 3000,
+						),
+						/*'asyncEventRunner' => array(
+								'class' => 'cms.components.asyncEvent.AsyncEventRunner',
+								'zmqClientId' => 'zmqClient',
+								'events' => array(
+										'onRegisterSuccess' => array(
+												'command' => array('sendMail','test')
+										),
+								),
+						),*/
 				),
 				'params' => array(
 						'copyright' => '<p>重庆闪电贷金融信息服务有限公司 版权所有 2007-2013<p><p>Copyright Reserved 2007-2013&copy;闪电贷（www.sddai.com） | 渝ICP备05063398号</p>',
+						'asyncEvent' => array(),
 						'roleMap' =>array(
 								'gxjc' => '工薪阶层',
 								'qyz' => '企业主',

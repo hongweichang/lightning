@@ -36,15 +36,15 @@
             </div>
             <div id="aud-detail">
                 <div class="aud-ucenter">
-                    <a href="<?php echo $this->createUrl('/user',array('user_id'=>$model->user_id));?>">进入个人中心 |</a>
-                    <a href="<?php echo $this->createUrl('/help');?>">使用帮助</a>
+                    <a href="<?php echo $this->app->createUrl('user/userCenter/userInfo'); ?>">进入个人中心 |</a>
+                    <a href="<?php echo $this->app->createUrl('/help');?>">使用帮助</a>
                 </div>
                 <div class="aud-warning">
                     <img src="<?php echo $this->imageUrl;?>adu-warning.png" class="adu-img-waring" />
                     <p class="adu-p-warning">您的申请已经提交，我们正在审核之中</p>
                     <div class="aud-link">
-                        <a href="<?php echo $this->createUrl('/user',array('user_id'=>$model->user_id));?>" class="borrow-button">进入个人中心</a>
-                        <a href="<?php echo $this->createUrl('/site');?>" class="borrow-button">返回首页</a>
+                        <a href="<?php echo $this->app->createUrl('user/userCenter/userInfo'); ?>" class="borrow-button">进入个人中心</a>
+                        <a href="<?php echo $this->app->homeUrl; ?>" class="borrow-button">返回首页</a>
                     </div>
                 </div>
                 <h1 class="adu-d-nav"><?php echo $model->title;?></h1>
@@ -78,3 +78,4 @@
                 </div>
             </div>
         </div>
+

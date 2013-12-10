@@ -6,7 +6,7 @@
  * desc: 支付平台选择
  */
 class PlatformController extends Controller{
-	//number_format(10000,2);
+	
 	public function actionIndex(){
 		$userManager = Yii::app()->getModule('user')->userManager;
 		
@@ -28,7 +28,7 @@ class PlatformController extends Controller{
 	}
 	
 	public function actionProcess(){
-		$payment = $this->getPost('payment'); // empty => in-pay
+		$payment = $this->getPost('payment','ips');
 		$in_pay = $this->getPost('in-pay',0);
 
 		$userManager = Yii::app()->getModule('user')->userManager;
@@ -38,10 +38,10 @@ class PlatformController extends Controller{
 		$bid = $meta->getRelated('bid');
 		$bider = $userManager->getUserInfo($bid->getAttribute('user_id'));
 		
-		if(!$in_pay != 0) $in_pay = $user->getAttribute('balance') / 100;
+		if($in_pay != 0) $in_pay = $user->getAttribute('balance') / 100;
 		
 		if($user->getAttribute('id') == $this->user->getId()){
-			if(empty($payment) && $in_pay - $meta->getAttribute('sum') / 100 >= 0){ // 账户余额充足
+			if($in_pay - $meta->getAttribute('sum') / 100 >= 0){ // 账户余额付款
 				$this->render('check',array(
 					'user' => $meta->getRelated('user'),
 					'bid' => $bid,
@@ -50,7 +50,7 @@ class PlatformController extends Controller{
 				));
 			}else{
 				$this->render('process',array(
-					'action' => Yii::app()->getModule('pay')->fundManager->pay($meta->getAttribute('id'),$payment),
+					'action' => Yii::app()->getModule('pay')->fundManager->pay($payment,$meta->getAttribute('id')),
 					'sum' => $meta->getAttribute('sum') / 100 - $in_pay,
 				));
 			}
@@ -80,7 +80,7 @@ class PlatformController extends Controller{
 		
 		if($user->getAttribute('id') == $this->user->getId()){
 			if($this->getModule()->bidManager->payPurchaseBid($this->getQuery('meta_no'))){
-				//$this->render('');
+				$this->render('success');
 			}else{
 				//$this->render();//失败
 			}
