@@ -57,6 +57,9 @@ class console extends ConfigBase{
 								'charset' => 'utf8',
 								'tablePrefix' => 'xcms_'
 						),
+						'request' => array(
+								'class' => 'application.components.Request'
+						),
 						'cache' => array(
 								'class' => 'CMemCache',
 								'useMemcached' => true,

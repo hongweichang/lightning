@@ -37,6 +37,16 @@ $this->addNotifications($form->errorSummary($model),'error');
 </p>
 
 <p>
+	<label>选择角色</label>
+<?php echo $form->checkBoxList($model,'roles',$model->allRoles,array(
+		'template' => '{label} {input}',
+		'separator' => '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'
+))?>
+	<br>
+	<small>请选择角色</small>
+</p>
+
+<p>
 	<?php echo CHtml::submitButton(' 确 定 ',array('class'=>'button'))?>&nbsp;&nbsp;&nbsp;&nbsp;
 	<?php echo '';//CHtml::link(CHtml::button(' 返 回 ',array('class'=>'button')),Yii::app()->createUrl('admin/index/welcome'))?>
 </p>

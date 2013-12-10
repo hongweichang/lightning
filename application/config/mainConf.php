@@ -90,9 +90,12 @@ class mainConf extends ConfigBase{
 								'charset' => 'utf8',
 								'tablePrefix' => 'xcms_'
 						),
+						'request' => array(
+								'class' => 'application.components.Request'
+						),
 						'cache' => array(
 								'class' => 'CMemCache',
-								'useMemcached' => false,
+								'useMemcached' => true,
 								'keyPrefix' => 'lightning',
 								'servers' => array(
 										array(
@@ -132,6 +135,7 @@ class mainConf extends ConfigBase{
 										array(
 												'class'=>'CWebLogRoute',
 												//'levels'=>'error, warning',
+												'except' => 'access.*'
 										),
 								),
 						),
@@ -146,7 +150,7 @@ class mainConf extends ConfigBase{
 								'zmqClientId' => 'zmqClient',
 								'logRouterID' => 'log',
 								'asyncLogRoutes' => array(
-										array(
+										'accessLog' => array(
 												'class' => 'cms.components.asyncEvent.logging.AccessLogRoute',
 												'categories' => 'access.*'
 										),
