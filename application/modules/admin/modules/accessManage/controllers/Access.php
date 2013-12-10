@@ -25,6 +25,18 @@ class Access extends Admin{
 		$this->redirect($this->createUrl('/'.$this->getModule()->getParentModule()->id));
 	}
 	
+	public function showMessage($message,$redirectUrl='',$wait=5,$terminate=true){
+		$url = $this->createUrl($redirectUrl);
+		$this->renderPartial('/common/flashMessage',array(
+				'waitSeconds' => $wait,
+				'jumpUrl' => $url,
+				'msg' => $message
+		));
+		if ( $terminate === true ){
+			$this->app->end();
+		}
+	}
+	
 	public function addToSubNav($text,$route,$title='',$urlParams=array()){
 		$html = $this->renderPartial('/common/subNavButton',array('text'=>$text,'url'=>$this->createUrl($route,$urlParams),'title'=>$title),true);
 		$this->subNavs[] = $html;

@@ -1,5 +1,9 @@
 $(document).ready(function($){
         "use strict";
+        
+        $("a.deleteLink").click(function(){
+        	return confirm("确定要删除吗？");
+      });
 	//Sidebar Accordion Menu:
 		
 		$("#main-nav li ul").hide(); // Hide all sub menus
