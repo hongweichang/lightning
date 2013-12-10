@@ -6,9 +6,6 @@ design By HJtianling_LXY,<2507073658@qq.com>
 */
 
 class UserCenterController extends Controller{
-	public function filters(){
-		return array();
-	}
 
 	public function actionIndex(){
 		echo "i 'm your center";
@@ -48,15 +45,7 @@ class UserCenterController extends Controller{
 			}
 		}
 		if(!empty($userData)){
-			$userIcon = FrontUserIcon::model()->findAll('user_id =:uid',array('uid'=>$uid));
-
-			if(!empty($userIcon)){
-				$userIconName = $userIcon[0]->attributes['file_name'];
-				$uploadUrl = $this->app->getPartedUrl('avatar',$uid);
-				$IconUrl = $uploadUrl.$userIconName;
-			}
-			
-			
+			$IconUrl = Yii::app()->getModule('user')->userManager->getUserIcon($uid);
 			$this->render('userInfo',array('userData'=>$userData,'creditData'=>$creditData,'model'=>$model,'IconUrl'=>$IconUrl));
 		}
 	}
@@ -185,30 +174,29 @@ class UserCenterController extends Controller{
 	}
 
 
+	/*
+	**安全中心
+	*/
 	public function actionUserSecurity(){
 		$uid = Yii::app()->user->id;
 		
 
 		$userData = $this->app->getModule('user')->getComponent('userManager')->getUserInfo($uid);
+
 		if(!empty($userData)){
-			$userIcon = FrontUserIcon::model()->findAll('user_id =:uid',array('uid'=>$uid));
-
-			if(!empty($userIcon)){
-				$userIconName = $userIcon[0]->attributes['file_name'];
-				$uploadUrl = $this->app->getPartedUrl('avatar',$uid);
-				$IconUrl = $uploadUrl.$userIconName;		
-			}
-
+			$IconUrl = Yii::app()->getModule('user')->userManager->getUserIcon($uid);
 			$this->render('userSecurity',array('userData'=>$userData,'IconUrl'=>$IconUrl));
 		}
 	}
 
+	
 	/*
 	**投资列表
 	*/
 	public function actionMyLend(){
 		$uid = Yii::app()->user->id;
 		$MyLend = array();
+		$waitingForBuy = array();
 
 		$criteria = new CDbCriteria;
 		$criteria->alias = "meta";
@@ -244,13 +232,7 @@ class UserCenterController extends Controller{
 			
 		}
 
-		$userIcon = FrontUserIcon::model()->findAll('user_id =:uid',array('uid'=>$uid));
-
-		if(!empty($userIcon)){
-			$userIconName = $userIcon[0]->attributes['file_name'];
-			$uploadUrl = $this->app->getPartedUrl('avatar',$uid);
-			$IconUrl = $uploadUrl.$userIconName;		
-		}
+		$IconUrl = Yii::app()->getModule('user')->userManager->getUserIcon($uid);
 		$this->render('myLend',array('waitingForBuy'=>$waitingForBuy,'IconUrl'=>$IconUrl));
 		
 	}
@@ -280,10 +262,12 @@ class UserCenterController extends Controller{
 				}
 			}
 		}
+		$IconUrl = Yii::app()->getModule('user')->userManager->getUserIcon($uid);
 		$this->render('myBorrow',array(
 									'waitingForPay'=>$waitingForPay,
 									'waitingForBuy'=>$waitingForBuy,
-									'borrowSum'=>$borrowSum
+									'borrowSum'=>$borrowSum,
+									'IconUrl'=>$IconUrl
 									));
 	}
 
@@ -319,6 +303,8 @@ class UserCenterController extends Controller{
 				$saveThumb = $uploadDir.$thumbName;
 				$thumbUrl = Tool::getThumb($saveUrl,300,300,$saveThumb);//制作缩略图并放回缩略图存储路径
 				$thumbUrl = str_replace(dirname(Yii::app()->basePath),"",$thumbUrl);
+				if(!$thumbUrl)
+					$thumbName = $newName;
 
 				$Icon = new FrontUserIcon();
 				$Icon->user_id = $uid;
@@ -381,15 +367,7 @@ class UserCenterController extends Controller{
 		$userData = FrontUser::model()->findByPk($uid);
 		$IconUrl = null;
 
-		if(!empty($userData)){
-			$userIcon = FrontUserIcon::model()->findAll('user_id =:uid',array('uid'=>$uid));
-
-			if(!empty($userIcon)){
-				$userIconName = $userIcon[0]->attributes['file_name'];
-				$uploadUrl = $this->app->getPartedUrl('avatar',$uid);
-				$IconUrl = $uploadUrl.$userIconName;
-			}
-		}
+		$IconUrl = Yii::app()->getModule('user')->userManager->getUserIcon($uid);
 
 		$this->render('userFund',array('userData'=>$userData,'IconUrl'=>$IconUrl));
 	}

@@ -3,7 +3,7 @@ $this->cs->registerCssFile($this->cssUrl.'common.css');
 $this->cs->registerCssFile($this->cssUrl.'detail.css');
 ?>
 
-<body>
+
     <div id="container">
         <div class="wd989">
             <h1 class="aud-nav">
@@ -190,6 +190,4 @@ $this->cs->registerScriptFile($this->scriptUrl.'jquery-1.8.2.min.js',CClientScri
 $this->cs->registerScriptFile($this->scriptUrl.'tableChange.js',CClientScript::POS_END);
 ?>
 
-<script type="text/javascript" src="../javascript/tableChange.js"></script>
-</body>
-</html>
+

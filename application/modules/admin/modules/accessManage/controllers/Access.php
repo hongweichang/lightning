@@ -7,6 +7,7 @@
  */
 class Access extends Admin{
 	public $layout='right';
+	public $subNavs = array();
 	
 	public function init(){
 		parent::init();

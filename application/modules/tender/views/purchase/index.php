@@ -93,6 +93,7 @@ $this->cs->registerScriptFile($this->scriptUrl.'lend.js',CClientScript::POS_END)
 					'itemView' => '_bidList',
 					'template' => '{items}',
 					'itemsTagName' => 'ul',
+					'emptyText' => '',
 					'ajaxUpdate' => false,
 					'cssFile' => false,
 					'baseScriptUrl' => null,

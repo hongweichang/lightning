@@ -46,11 +46,11 @@
                 <div class="info-content-term">
                   <div class="term-start">
                     <div class="term-ico">始</div>
-                    <p><?php echo date('Y-n-j H:i',$bid->getAttribute('start'));?></p>
+                    <p><?php echo date('Y年n月j日',$bid->getAttribute('start'));?></p>
                   </div>
                   <div class="term-end">
                     <div class="term-ico">终</div>
-                    <p><?php echo date('Y-n-j H:i',$bid->getAttribute('end'));?></p>
+                    <p><?php echo date('Y年n月j日',$bid->getAttribute('end'));?></p>
                   </div>  
                 </div>
               </div>
@@ -60,7 +60,7 @@
                   <div class="bar-in">
                     <span class="bar-complete" style="width:<?php echo $bid->getAttribute('progress');?>%"></span>
                   </div>
-                  <span>完成<?php echo $bid->getAttribute('progress');?>%</span>
+                  <span><?php echo number_format($progress,2);?>元</span>
               </div>
               <div class="loan-progress"><span class="tick">√</span><span>100%安全认证，确保交易有效</span></div>
             </div>
@@ -158,6 +158,7 @@
 					'itemView' => '_metaList',
 					'template' => '{items}',
                 	'itemsTagName' => 'tbody',
+					'emptyText' => '',
                 	'ajaxUpdate' => false,
                 	'cssFile' => false,
                 	'baseScriptUrl' => null,

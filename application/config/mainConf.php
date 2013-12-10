@@ -30,7 +30,7 @@ class mainConf extends ConfigBase{
 						
 						'adminnogateway' => array(
 							'class' => 'application.modules.admin.AdminModule',
-							'name' => 'adminnogateway',
+							'name' => 'adminnogateway'
 						),
 						
 						'user' => array(
@@ -142,15 +142,14 @@ class mainConf extends ConfigBase{
 								'zmqServer' => 'tcp://localhost:5556',
 								'sendTimeout' => 3000,
 								'reciveTimeout' => 3000,
-								//'socketType' => ZMQ::SOCKET_REQ
 						),
 						'asyncEventRunner' => array(
 								'class' => 'cms.components.asyncEvent.AsyncEventRunner',
 								'zmqClientId' => 'zmqClient',
 								'events' => array(
-										/*'onEndRequest' => array(
+										'onEndRequest' => array(
 												'command' => array('sendMail','success')
-										),*/
+										),
 										'onRegisterSuccess' => array(
 												'command' => array('sendSMS','success')
 										),

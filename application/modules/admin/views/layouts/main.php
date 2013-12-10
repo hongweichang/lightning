@@ -45,7 +45,10 @@ body {
 				<div class="clear"></div>
 			</div>
 			<div class="content-box-content">
-				<?php echo $content;?>
+				<?php foreach ( $this->notifications as $notification ):
+						echo $notification;
+					endforeach;
+				echo $content;?>
 			</div>
 		</div>
 		<div class="clear"></div>

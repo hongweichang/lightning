@@ -81,7 +81,11 @@ class BidManager extends CApplicationComponent{
 			'verify_progress' => 0
 		);
 		
-		return $bid->save();
+		if($bid->save()){
+			return $bid->getPrimaryKey();
+		}else{
+			return 0;
+		}
 	}
 	
 	/**
