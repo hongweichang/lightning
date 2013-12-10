@@ -6,6 +6,7 @@
  * Encoding UTF-8
  */
 class AdminIdentity extends CUserIdentity{
+	const ERROR_USER_LOCKED = 5;
 	public $id;
 	public function authenticate(){
 		$condition = '`account`=:account';

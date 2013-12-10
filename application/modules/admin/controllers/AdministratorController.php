@@ -74,6 +74,7 @@ class AdministratorController extends Admin{
 			}
 		}
 		
+		$form->loadRoles();
 		$this->tabTitle = '添加管理员';
 		$this->render('form',array('model'=>$form,'action'=>$this->createUrl('administrator/add')));
 	}
@@ -90,7 +91,7 @@ class AdministratorController extends Admin{
 		$post = $this->getPost('AdministratorForm');
 		$form = new AdministratorForm();
 		if ( $post !== null ){
-			$form->model = $model;
+			$post['model'] = $model;
 			$form->attributes = $post;
 			if ( $form->update() ){
 				$this->showMessage('修改成功',$redirect,false);
@@ -99,7 +100,7 @@ class AdministratorController extends Admin{
 			$form->attributes = $model->attributes;
 			$form->password = null;
 		}
-		
+		$form->loadRoles($id);
 		$this->tabTitle = '修改信息';
 		$this->render('form',array('model'=>$form,'action'=>$this->createUrl('administrator/edit',array('id'=>$id,'redirect'=>urlencode($redirect)) )));
 	}
