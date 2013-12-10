@@ -502,6 +502,9 @@ form .wysiwyg {
 form .small-input {
                 width: 25% !important;
                 }
+form .tiny-input {
+                width: 8% !important;
+                }
                 
 form .medium-input {
                 width: 50% !important;

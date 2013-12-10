@@ -15,16 +15,18 @@ class MineController extends Admin{
 	public function actionInfo(){
 		$post = $this->getPost('PersonalInfoForm');
 		$model = new PersonalInfoForm();
+		$user = Administrators::model()->find('id=:id',array(':id'=>$this->user->getId()));
 		if ( $post !== null ){
+			$post['model'] = $user;
 			$model->attributes = $post;
-			if ( $model->validate() ){
-				
+			if ( $model->validate() && $model->save() ){
+				$this->showMessage('修改成功','mine/info');
 			}
 		}else {
-			$user = Administrators::model()->find('id=:id',array(':id'=>$this->user->getId()));
 			$model->attributes = $user->attributes;
 			$model->password = null;
 		}
+		$this->tabTitle = '修改信息';
 		
 		$this->render('info',array('model'=>$model));
 	}

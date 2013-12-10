@@ -111,6 +111,9 @@ class console extends ConfigBase{
 						'sendMail' => array(
 								'class' => 'application.commands.SendMailCommand'
 						),
+						'logger' => array(
+								'class' => 'cms.components.asyncEvent.logging.LoggerCommand'
+						),
 				),
 		);
 	}

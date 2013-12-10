@@ -26,4 +26,13 @@ class AdminModule extends CmsModule
 				),
 		));
 	}
+	
+	public function beforeControllerAction($controller, $action){
+		if ( parent::beforeControllerAction($controller, $action) ){
+			Yii::log("entering into [administrator module]. running [{$controller->id} controller].[{$action->id} action]",'admin','access.system');
+			return true;
+		}else {
+			return false;
+		}
+	}
 }

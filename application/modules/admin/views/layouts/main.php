@@ -37,6 +37,7 @@ body {
 	<div id="main-content">
 		<div class="content-box">
 			<div class="content-box-header">
+				<?php echo '<h3>'.$this->tabTitle.'</h3>'?>
 				<ul class="content-box-tabs">
 					<?php foreach ( $this->subTabs as $subTab ):
 						echo $subTab;

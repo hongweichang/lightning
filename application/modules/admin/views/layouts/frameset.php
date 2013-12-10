@@ -4,7 +4,7 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<meta name="language" content="en" />
-		<title>BT后台管理系统</title>
+		<title><?php echo CHtml::encode($this->getPageTitle())?></title>
 	</head>
 	
 	<frameset cols="245,*"  frameborder="NO" border="0" framespacing="0">
