@@ -471,7 +471,13 @@ form label {
 				font-size:18px;
                 font-weight: bold;
                 }
-             
+form span label {
+                display: inline;
+                padding: 0 0 10px;
+				font-size:14px;
+                font-weight: bold;
+                }
+                
 form fieldset legend {
                 font-weight: bold;
                 margin-bottom: 10px;
@@ -501,6 +507,9 @@ form .wysiwyg {
             
 form .small-input {
                 width: 25% !important;
+                }
+form .tiny-input {
+                width: 8% !important;
                 }
                 
 form .medium-input {

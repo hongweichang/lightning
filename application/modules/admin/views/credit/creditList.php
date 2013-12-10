@@ -31,7 +31,6 @@ if(!empty($creditData)){
             'id'=>$value['id']))?>" 
             class="check" data-method="check-pass">删除
             </a>
-            <a href="<?php echo Yii::app()->createUrl('user/userInfo/outputInfoByExcel');?>">导出</a>
         </td>
     </tr>
  <?php }

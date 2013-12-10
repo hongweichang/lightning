@@ -57,6 +57,9 @@ class console extends ConfigBase{
 								'charset' => 'utf8',
 								'tablePrefix' => 'xcms_'
 						),
+						'request' => array(
+								'class' => 'application.components.Request'
+						),
 						'cache' => array(
 								'class' => 'CMemCache',
 								'useMemcached' => true,
@@ -110,6 +113,9 @@ class console extends ConfigBase{
 						),
 						'sendMail' => array(
 								'class' => 'application.commands.SendMailCommand'
+						),
+						'logger' => array(
+								'class' => 'cms.components.asyncEvent.logging.LoggerCommand'
 						),
 				),
 		);
