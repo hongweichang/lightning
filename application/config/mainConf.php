@@ -93,7 +93,7 @@ class mainConf extends ConfigBase{
 						),
 						'cache' => array(
 								'class' => 'CMemCache',
-								'useMemcached' => false,
+								'useMemcached' => true,
 								'keyPrefix' => 'lightning',
 								'servers' => array(
 										array(
