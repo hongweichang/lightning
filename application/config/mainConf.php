@@ -143,6 +143,7 @@ class mainConf extends ConfigBase{
 										array(
 												'class'=>'CWebLogRoute',
 												//'levels'=>'error, warning',
+												'except' => 'access.*'
 										),
 								),
 						),
@@ -155,6 +156,11 @@ class mainConf extends ConfigBase{
 						'asyncEventRunner' => array(
 								'class' => 'cms.components.asyncEvent.AsyncEventRunner',
 								'zmqClientId' => 'zmqClient',
+								'asyncLogRoutes' => array(
+										'accessLog' => array(
+												'class' => 'cms.components.asyncEvent.logging.AccessLogRoute'
+										),
+								),
 								'events' => array(
 										'onEndRequest' => array(
 												'command' => array('sendMail','success')
