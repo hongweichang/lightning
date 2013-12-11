@@ -35,7 +35,7 @@ class CreditGradeSettings extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('level, end, on_recharge, on_withdraw, on_pay_back, on_over6, on_below6, on_loan, loanable, label', 'required'),
+			array('start, on_recharge, on_withdraw, on_pay_back, on_over6, on_below6, on_loan, loanable, label', 'required'),
 			array('level, start, end, loanable', 'numerical', 'integerOnly'=>true),
 			array('on_recharge, on_withdraw, on_pay_back, on_over6, on_below6, on_loan', 'length', 'max'=>5),
 			array('label', 'length', 'max'=>25),

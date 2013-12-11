@@ -1,4 +1,3 @@
-
 <?php
 /*
 **信用项以及信用系统配置
@@ -42,7 +41,7 @@ class CreditController extends Admin{
 
 					$Rolemodel->save();
 				}
-				$this->redirect(Yii::app()->createUrl('adminnogateway/credit/creditlist'));
+				$this->redirect($this->createUrl('credit/creditlist'));
 
 				
 			}else
@@ -52,11 +51,13 @@ class CreditController extends Admin{
 		$this->render('creditAdd',array('Creditmodel'=>$Creditmodel,'Rolemodel'=>$Rolemodel));
 	}
 
+
 /*
 **信用项列表
 */
 	public function actionCreditList(){
 		$criteria = new CDbCriteria;
+		$this->addToSubTab('添加信用项','credit/creditAdd');
 		$criteria->alias = 'credit';
 		$criteria->select = 'credit.id,verification_name,description,verification_type';
 		$criteria->order = 'credit.id DESC';
@@ -83,6 +84,7 @@ class CreditController extends Admin{
 		}
 
 	}
+
 
 /*
 **信用项编辑
@@ -135,7 +137,7 @@ class CreditController extends Admin{
 
 						$Rolemodel->save();
 					}
-					$this->redirect(Yii::app()->createUrl('adminnogateway/credit/creditlist'));
+					$this->redirect($this->createUrl('credit/creditlist'));
 
 				}
 
@@ -154,14 +156,85 @@ class CreditController extends Admin{
 	public function actionCreditDelete($id){
 		if(is_numeric($id)){
 			$creditData = CreditSettings::model()->findByPk($id);
-			
+
 			if(!empty($creditData)){
 				$creditData->delete();
 			}
-			$this->redirect(Yii::app()->createUrl('adminnogateway/credit/creditlist'));
+			$this->redirect($this->createUrl('credit/creditlist'));
 		}
 	}
 
+
+/*
+**添加会员级别
+*/
+	public function actionCreditLevelAdd(){
+		$this->pageTitle = "添加会员等级";
+		$model = new CreditGradeSettings();
+
+		$post = $this->getPost();
+		if(!empty($post)){
+			$model->attributes = $post['CreditGradeSettings'];
+			if($model->save()){
+				$this->createUrl('credit/creditLevelList');
+			}else
+				var_dump($model->getErrors());
+		}
+
+		$this->render('creditLevelAdd',array('model'=>$model));
+	}
+
+
+/*
+**会员级别列表
+*/
+	public function actionCreditLevelList(){
+		$this->addToSubTab('添加会员级别','credit/creditLevelAdd');
+		$criteria = new CDbCriteria;
+		$criteria->order = 'start DESC';
+
+		$LevelData = CreditGradeSettings::model()->findAll($criteria);
+
+		if(!empty($LevelData)){
+			$this->render('creditLevelList',array('LevelData'=>$LevelData));
+		}
+	}
+
+
+/*
+**编辑会员级别
+*/
+	public function actionCreditLevelUpdate($id){
+		if(is_numeric($id)){
+			$levelData = CreditGradeSettings::model()->findByPk($id);
+			$post = $this->getPost();
+
+			if(!empty($post)){
+				$levelData->attributes = $post['CreditGradeSettings'];
+				if($levelData->save())
+					$this->redirect($this->createUrl('credit/creditLevelList'));
+			}
+
+			if(!empty($levelData)){
+				$this->render('creditLevelUpdate',array('model'=>$levelData));
+			}
+		}
+	}
+
+
+/*删除会员级别*/
+	public function actionCreditLevelDelete($id){
+		if(is_numeric($id)){
+			$levelData = CreditGradeSettings::model()->findByPk($id);
+
+			if(!empty($levelData)){
+				if($levelData->delete()){
+					$this->redirect($this->createUrl('credit/creditLevelList'));
+				}
+				
+			}
+		}
+	}
 	
 }
 
