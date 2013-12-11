@@ -1,25 +1,35 @@
 <table class="userMessage">
     <tbody>
     <tr>
-        <td>信用项标题</td>
-        <td>信用项内容</td>
-        <td>操作</td>
+        <td><label>信用项标题</label></td>
+        <td><label>信用项内容</label></td>
+        <td><label>对应角色</label></td>
+        <td><label>操作</label></td>
     </tr>
 <?php
 if(!empty($creditData)){
 	foreach($creditData as $value){
 ?>
     <tr>
-        <td><?php echo $value['verification_name'];?></td>
+        <td><?php echo $value['title'];?></td>
         <td><?php echo $value['description'];?></td>
         <td>
-            <a href="<?php echo Yii::app()->createUrl('adminnogateway/verify/creditVerify',array(
-            'action'=>'pass','id'=>$value['id']))?>"  
-            class="check" data-method="check-pass">审核通过
+            <?php
+                if(!empty($value['roleData'])){
+                    foreach($value['roleData'] as $roleValue){
+                        echo FrontUser::getRoleName($roleValue->role)." ";
+                    }
+                }
+            ?>
+        </td>
+        <td>
+            <a href="<?php echo Yii::app()->createUrl('adminnogateway/credit/creditUpdate',array(
+            'id'=>$value['id']))?>"  
+            class="check" data-method="check-pass">编辑
             </a>
-            <a href="<?php echo Yii::app()->createUrl('adminnogateway/verify/creditVerify',array(
-            'action'=>'unpass','id'=>$value['id']))?>" 
-            class="check" data-method="check-pass">审核不通过
+            <a href="<?php echo Yii::app()->createUrl('adminnogateway/credit/creditDelete',array(
+            'id'=>$value['id']))?>" 
+            class="check" data-method="check-pass">删除
             </a>
             <a href="<?php echo Yii::app()->createUrl('user/userInfo/outputInfoByExcel');?>">导出</a>
         </td>

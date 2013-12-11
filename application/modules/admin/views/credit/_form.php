@@ -20,8 +20,9 @@ $form=$this->beginWidget('CActiveForm', array(
 					'qyz'=>'企业主'
 
 			),array(
-			'template'=>'<span class="check">{input}{label}</span>',
-			'separator'=>' ',
+			'template'=>'{label} {input}',
+			'separator'=>'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;',
+			//'class'=>'labelForRadio'
 			));?>
 
 

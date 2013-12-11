@@ -1,0 +1,56 @@
+<?php
+/**
+ * @name PlaceholderManager.php
+ * @author lancelot <lancelot1215@gmail.com>
+ * Date 2013-12-12 
+ * Encoding UTF-8
+ */
+class PlaceholderManager{
+	public static $placeholders = array(
+			'{userName}' => array(
+					'label' => '用户名',
+			),
+			'{code}' => array(
+					'label' => '验证码',
+			),
+			'{codeLiftTime}' => array(
+					'label' => '验证码有效时间'
+			),
+			'{activatingLink}' => array(
+					'label' => '帐号激活链接',
+			),
+			'{credit}' => array(
+					'label' => '上传的信用资料',
+			),
+			'{creditFailedReason}' => array(
+					'label' => '信用资料审核失败原因',
+			),
+			'{bid}' => array(
+					'label' => '标段名称'
+			),
+			'{bidFailedReason}' => array(
+					'label' => '标段审核失败原因'
+			),
+			'{withdrawalDate}' => array(
+					'label' => '申请提现时间'
+			),
+	);
+	
+	public static function getPlaceholderLables($names=array()){
+		$data = array();
+		
+		if ( $names === array() ){
+			foreach ( self::$placeholders as $name => $value ){
+				$data[$name] = $value['label'];
+			}
+		}else {
+			foreach ( $names as $name ){
+					if ( isset(self::$placeholders[$name]) ){
+						$data[$name] = self::$placeholders[$name]['label'];
+					}
+			}
+		}
+		
+		return $data;
+	}
+}
