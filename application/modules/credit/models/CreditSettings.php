@@ -24,6 +24,8 @@ class CreditSettings extends CActiveRecord
 	{
 		
 		return array(
+			'CreditRole'=>array(self::HAS_MANY,'CreditRole','verification_id'),
+			'FrontCredit'=>array(self::HAS_MANY,'FrontCredit','verification_id')
 		);
 	}
 

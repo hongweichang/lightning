@@ -35,12 +35,7 @@ body {
 
 <body >
 	<div id="main-content">
-		<?php $this->renderPartial('/public/contentBox',array(
-				'tabTitle' => $this->tabTitle,
-				'subTabs' => $this->subTabs,
-				'notifications' => $this->notifications,
-				'content' => $content
-		))?>
+		<?php echo $content?>
 		<div class="clear"></div>
 	</div>
 	
