@@ -68,7 +68,7 @@ class mainConf extends ConfigBase{
 						'application.extensions.PHPExcel.PHPExcel.*',
 				),
 				'preload' => array(
-						'asyncEventRunner'
+						//'asyncEventRunner'
 				),
 				'components' => array(
 						'user' => array(
@@ -80,6 +80,7 @@ class mainConf extends ConfigBase{
 								'authTimeout' => 3600,
 								'avatarPath' => '/upload/avatar/'
 						),
+						//remote database on aliyun.remote ip
 						'db' => array(
 						 		'class' => 'system.db.CDbConnection',
 								'autoConnect' => false,
@@ -95,7 +96,7 @@ class mainConf extends ConfigBase{
 						),
 						/*'cache' => array(
 								'class' => 'CMemCache',
-								'useMemcached' => true,
+								'useMemcached' => false,
 								'keyPrefix' => 'lightning',
 								'servers' => array(
 										array(
@@ -110,8 +111,8 @@ class mainConf extends ConfigBase{
 								),
 						),
 						'session' => array(
-								'class'=> 'CCacheHttpSession',
-								'cacheID' => 'cache',
+								'class'=> 'CHttpSession',
+								//'cacheID' => 'cache',
 								'autoStart' => true,
 								'timeout' => 3600*24
 						),*/
@@ -124,7 +125,7 @@ class mainConf extends ConfigBase{
 						),
 						'urlManager'=>array(
 								'urlFormat'=>'path',
-								'cacheID' => 'cache',
+								'cacheID' => false,
 								'urlSuffix' => '',
 								'showScriptName' => false,
 								'rules' => require dirname(__FILE__).'/RestApiRules.php',
@@ -148,19 +149,20 @@ class mainConf extends ConfigBase{
 						'asyncEventRunner' => array(
 								'class' => 'cms.components.asyncEvent.AsyncEventRunner',
 								'zmqClientId' => 'zmqClient',
-								'logRouterID' => 'log',
 								'asyncLogRoutes' => array(
 										'accessLog' => array(
-												'class' => 'cms.components.asyncEvent.logging.AccessLogRoute',
-												'categories' => 'access.*'
+												'class' => 'cms.components.asyncEvent.logging.AccessLogRoute'
+										),
+								),
+								'events' => array(
+										'onEndRequest' => array(
+												'command' => array('sendMail','success')
+										),
+										'onRegisterSuccess' => array(
+												'command' => array('sendSMS','success')
 										),
 								),
 						),*/
-//								'events' => array(
-// 										'onRegisterSuccess' => array(
-// 												'command' => array('sendSMS','success')
-// 										),
-//								),
 						'image'=>array(
 								'class'=>'ext.image.CImageComponent',
 								'driver'=>'GD',
