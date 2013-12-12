@@ -7,8 +7,10 @@
  */
 ?>
 <div class="notification <?php echo $type ?> png_bg">
+	<?php if ( $noClose === false ):?>
 	<a href="#" class="close">
 	<img src="<?php echo $this->imageUrl;?>icons/cross_grey_small.png" title="Close this notification" alt="close" />
 	</a>
+	<?php endif;?>
 	<div><?php echo $content?></div>
 </div>

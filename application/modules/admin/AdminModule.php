@@ -4,6 +4,7 @@ class AdminModule extends CmsModule
 	public $name = 'admin';
 	public function init()
 	{
+		$app = Yii::app();
 		parent::init();
 		$this->defaultController = 'index';
 		$this->setImport(array(
@@ -11,7 +12,7 @@ class AdminModule extends CmsModule
 			$this->name.'.models.*',
 			$this->name.'.models.forms.*',
 		));
-		Yii::app()->setComponent('user',array(
+		$app->setComponent('user',array(
 				'class' => $this->name.'.components.AdminUser',
 				'stateKeyPrefix' => 'AU',
 				'allowAutoLogin' => false,
@@ -25,5 +26,17 @@ class AdminModule extends CmsModule
 						'class' => $this->name.'.modules.accessManage.AccessManageModule'
 				),
 		));
+		
+		$app->getModule('credit');
+		$app->getModule('user');
+	}
+	
+	public function beforeControllerAction($controller, $action){
+		if ( parent::beforeControllerAction($controller, $action) ){
+			Yii::log("entering into [administrator module]. running [{$controller->id} controller].[{$action->id} action]",'admin','access.system');
+			return true;
+		}else {
+			return false;
+		}
 	}
 }

@@ -68,7 +68,7 @@ class mainConf extends ConfigBase{
 						'application.extensions.PHPExcel.PHPExcel.*',
 				),
 				'preload' => array(
-						//'asyncEventRunner'
+						'asyncEventRunner'
 				),
 				'components' => array(
 						'user' => array(
@@ -80,7 +80,6 @@ class mainConf extends ConfigBase{
 								'authTimeout' => 3600,
 								'avatarPath' => '/upload/avatar/'
 						),
-						//remote database on aliyun.remote ip
 						'db' => array(
 						 		'class' => 'system.db.CDbConnection',
 								'autoConnect' => false,
@@ -90,6 +89,9 @@ class mainConf extends ConfigBase{
 								'password' => 'lancelot@lightningdbmysqladmin',
 								'charset' => 'utf8',
 								'tablePrefix' => 'xcms_'
+						),
+						'request' => array(
+								'class' => 'application.components.Request'
 						),
 						/*'cache' => array(
 								'class' => 'CMemCache',
@@ -108,8 +110,8 @@ class mainConf extends ConfigBase{
 								),
 						),
 						'session' => array(
-								'class'=> 'CHttpSession',
-								//'cacheID' => 'cache',
+								'class'=> 'CCacheHttpSession',
+								'cacheID' => 'cache',
 								'autoStart' => true,
 								'timeout' => 3600*24
 						),*/
@@ -122,7 +124,7 @@ class mainConf extends ConfigBase{
 						),
 						'urlManager'=>array(
 								'urlFormat'=>'path',
-								'cacheID' => false,
+								'cacheID' => 'cache',
 								'urlSuffix' => '',
 								'showScriptName' => false,
 								'rules' => require dirname(__FILE__).'/RestApiRules.php',
@@ -133,6 +135,7 @@ class mainConf extends ConfigBase{
 										array(
 												'class'=>'CWebLogRoute',
 												//'levels'=>'error, warning',
+												'except' => 'access.*'
 										),
 								),
 						),
@@ -145,15 +148,19 @@ class mainConf extends ConfigBase{
 						'asyncEventRunner' => array(
 								'class' => 'cms.components.asyncEvent.AsyncEventRunner',
 								'zmqClientId' => 'zmqClient',
-								'events' => array(
-										'onEndRequest' => array(
-												'command' => array('sendMail','success')
-										),
-										'onRegisterSuccess' => array(
-												'command' => array('sendSMS','success')
+								'logRouterID' => 'log',
+								'asyncLogRoutes' => array(
+										'accessLog' => array(
+												'class' => 'cms.components.asyncEvent.logging.AccessLogRoute',
+												'categories' => 'access.*'
 										),
 								),
 						),*/
+//								'events' => array(
+// 										'onRegisterSuccess' => array(
+// 												'command' => array('sendSMS','success')
+// 										),
+//								),
 						'image'=>array(
 								'class'=>'ext.image.CImageComponent',
 								'driver'=>'GD',

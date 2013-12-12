@@ -39,6 +39,7 @@ class AppUserController extends Controller{
 					/*将部分用户信息提供给app*/
 					$userInfo = array(
 								'uid' => $attributes['id'],
+								'nickname'=>$attributes['nickname'],
 								'email' => $attributes['email'],
 								'mobile' => $attributes['mobile'],
 								'sex' => $attributes['gender'],
