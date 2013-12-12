@@ -9,21 +9,12 @@ class console extends ConfigBase{
 	public function merge(){
 		return array(
 				'modules' => array(
-						'pay' => array(
-								'class' => 'application.modules.pay.PayModule'
-						),
-						'admin' => array(
-							'class' => 'application.modules.admin.AdminModule'
-						),
-						'user' => array(
-								'class' => 'application.modules.user.UserModule'
-						),
-						'credit' =>array(
-								'class' => 'application.modules.credit.CreditModule'
-						),
-						'tender' =>array(
-								'class' => 'application.modules.tender.TenderModule'
-						),
+						'pay',
+						'user',
+						'credit',
+						'tender',
+						'appservice',
+						'content',
 						'notify' => array(
 								'class' => 'application.modules.notify.NotifyModule',
 								'email' => array(

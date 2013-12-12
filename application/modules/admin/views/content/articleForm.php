@@ -8,7 +8,7 @@
 $this->widget('cms.extensions.kindeditor.KindEditorWidget',array(
 		'id' => 'artContent',
 		'items' => array(
-				'height' => '450px'
+				'height' => '450px',
 		),
 		'assets' => 'cms.extensions.kindeditor.assets'
 ));

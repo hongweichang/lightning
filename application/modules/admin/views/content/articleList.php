@@ -23,7 +23,7 @@ $typeName = $type == 0 ? 'article' : 'officialHelp';
 	?>
 		<tr>
 			<td><?php echo $data->title;?></td>
-			<td><?php echo date('Y/m/d H:s',$data->add_time)?></td>
+			<td><?php echo date('Y/m/d H:i',$data->add_time)?></td>
 			<td><?php echo $data->admin_name?></td>
 			<td><?php echo $data->getRelated('category')->category_name?></td>
 			<td><a href="<?php echo $this->createUrl('/content/article/view',array('id'=>$data->id))?>" target="_blank">点击查看</a></td>
