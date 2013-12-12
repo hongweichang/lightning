@@ -29,7 +29,7 @@ class ContentController extends Admin{
 	}
 	
 	public function getContentManager(){
-		return $this->getModule()->getComponent('contentManager');
+		return $this->app->getModule('content')->getComponent('contentManager');
 	}
 	
 	public function artList($type){
@@ -74,7 +74,7 @@ class ContentController extends Admin{
 			$this->showMessage('编辑失败，文章不存在',$redirect,false);
 		}
 		
-		$postUrl = $type == 0 ? 'articleEdit' : 'offcialHelpEdit';
+		$postUrl = $type == 0 ? 'articleEdit' : 'officialHelpEdit';
 		$action = $this->createUrl('content/'.$postUrl,array('id'=>$id,'redirect'=>urlencode($redirect)) );
 		$this->render('articleForm',array('model'=>$result,'action'=>$action ));
 	}
