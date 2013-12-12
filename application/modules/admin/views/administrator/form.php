@@ -9,28 +9,26 @@ $form=$this->beginWidget('CActiveForm',array(
 		'focus' => array($model,'account'),
 		'action' => $action
 ));
-?>
-<?php 
 if ( $model->hasErrors() )
 $this->addNotifications($form->errorSummary($model),'error');
 ?>
 
 <p>
-	<label>帐号</label>
+	<label>帐号*</label>
 	<?php echo $form->textField($model,'account',array('class'=>'text-input small-input'));?>
 	<br />
 	<small>填写登录帐号</small>
 </p>
 
 <p>
-	<label>昵称</label>
+	<label>昵称*</label>
 	<?php echo $form->textField($model,'nickname',array('class'=>'text-input small-input'));?>
 	<br />
 	<small>填写昵称</small>
 </p>
 
 <p>
-	<label>密码</label>
+	<label>密码*</label>
 	<?php echo $form->passwordField($model,'password',array('class'=>'text-input small-input'));?>
 	<br />
 	<small>填写密码</small>
