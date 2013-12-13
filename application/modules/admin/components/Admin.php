@@ -20,8 +20,8 @@ class Admin extends Controller{
 		$app->setPath('image','UED/backend/images/');
 		parent::init();
 		$this->pluginUrl = $this->app->getSiteBaseUrl().'plugins/';
-		//$this->addToSubNav('首页','/'.$this->getModule()->name);
 		parent::setPageTitle('闪电贷后台管理系统');
+		$this->actionClassPathAlias = $this->getModule()->name.'.controllers';
 	}
 	
 	public function setPageTitle($value){

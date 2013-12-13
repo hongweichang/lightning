@@ -20,6 +20,7 @@ class AdminModule extends CmsModule
 				'guestName' => '游客',
 				'authTimeout' => 3600,
 		));
+		
 		Yii::setPathOfAlias('accessManage',dirname(__FILE__).DS.'modules'.DS.'accessManage');
 		$this->setModules(array(
 				'accessManage' => array(

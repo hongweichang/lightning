@@ -24,14 +24,14 @@ if ( $model->hasErrors() )
 ?>
 
 <p>
-	<label>事件</label>
+	<label>事件*</label>
 	<?php echo $form->textField($model,'event',array('class'=>'text-input small-input'));?>
 	<br />
 	<small>填写事件</small>
 </p>
 
 <p>
-	<label>事件名称</label>
+	<label>事件名称*</label>
 	<?php echo $form->textField($model,'event_name',array('class'=>'text-input small-input'));?>
 	<br />
 	<small>填写事件名称</small>
@@ -50,7 +50,7 @@ if ( $model->hasErrors() )
 </p>
 
 <p>
-	<label>通知内容</label>
+	<label>通知内容*</label>
 	<?php echo $form->textArea($model,'content',array('class'=>'text-input textarea wysiwyg','id'=>'notifyContent'));?>
 	<br />
 	<small>请输入通知内容</small>

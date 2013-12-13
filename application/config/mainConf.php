@@ -18,14 +18,16 @@ class mainConf extends ConfigBase{
 				'hostName' => 'http://localhost',
 				'preloadModels' => array(),
 				'modules' => array(
+						'pay',
+						'user',
+						'credit',
+						'tender',
+						'appservice',
+						'content',
 						'gii'=>array(
 								'class'=>'system.gii.GiiModule',
 								'password'=>'admin',
 								'ipFilters'=>array('127.0.0.1','::1'),
-						),
-
-						'pay' => array(
-								'class' => 'application.modules.pay.PayModule'
 						),
 						
 						'adminnogateway' => array(
@@ -33,15 +35,7 @@ class mainConf extends ConfigBase{
 							'name' => 'adminnogateway'
 						),
 						
-						'user' => array(
-								'class' => 'application.modules.user.UserModule'
-						),
-						'credit' =>array(
-								'class' => 'application.modules.credit.CreditModule'
-						),
-						'tender' =>array(
-								'class' => 'application.modules.tender.TenderModule'
-						),
+						
 						'notify' => array(
 								'class' => 'application.modules.notify.NotifyModule',
 								'email' => array(
@@ -58,10 +52,6 @@ class mainConf extends ConfigBase{
 										'FromName'=>'闪电贷',
 										'CharSet'=>'UTF-8',
 								),
-						),
-
-						'appservice' => array(
-								'class' => 'application.modules.appservice.AppserviceModule',
 						),
 				),
 				'import' => array(

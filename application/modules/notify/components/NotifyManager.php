@@ -12,25 +12,9 @@ class NotifyManager extends CApplicationComponent{
 	}
 	
 	public function getSettingProviderByType($type,$config){
-		if ( isset($config['criteria']) ){
-			$criteria = $config['criteria'];
-			if ( is_array($criteria) ){
-				$criteria = new CDbCriteria($criteria);
-			}
-		}else {
-			$criteria = new CDbCriteria();
-		}
-		$config['criteria'] = $criteria;
-		
-		if ( isset($config['countCriteria']) ){
-			$countCriteria = $config['countCriteria'];
-			if ( is_array($countCriteria) ){
-				$countCriteria = new CDbCriteria($countCriteria);
-			}
-		}else {
-			$countCriteria = new CDbCriteria();
-		}
-		$config['countCriteria'] = $countCriteria;
+		Utils::resovleProviderConfigCriteria($config);
+		$criteria = $config['criteria'];
+		$countCriteria = $config['countCriteria'];
 		
 		$criteria->addCondition('notify_type=:type');
 		$criteria->params[':type'] = $type;
