@@ -12,20 +12,21 @@ class mainConf extends ConfigBase{
 		$this->traceLevel = 3;
 	}
 	
-
 	public function merge(){
 		return array(
 				'hostName' => 'http://localhost',
 				'preloadModels' => array(),
 				'modules' => array(
+						'pay',
+						'user',
+						'credit',
+						'tender',
+						'appservice',
+						'content',
 						'gii'=>array(
 								'class'=>'system.gii.GiiModule',
 								'password'=>'admin',
 								'ipFilters'=>array('127.0.0.1','::1'),
-						),
-
-						'pay' => array(
-								'class' => 'application.modules.pay.PayModule'
 						),
 						
 						'adminnogateway' => array(
@@ -33,15 +34,7 @@ class mainConf extends ConfigBase{
 							'name' => 'adminnogateway'
 						),
 						
-						'user' => array(
-								'class' => 'application.modules.user.UserModule'
-						),
-						'credit' =>array(
-								'class' => 'application.modules.credit.CreditModule'
-						),
-						'tender' =>array(
-								'class' => 'application.modules.tender.TenderModule'
-						),
+						
 						'notify' => array(
 								'class' => 'application.modules.notify.NotifyModule',
 								'email' => array(
@@ -59,13 +52,10 @@ class mainConf extends ConfigBase{
 										'CharSet'=>'UTF-8',
 								),
 						),
-
-						'appservice' => array(
-								'class' => 'application.modules.appservice.AppserviceModule',
-						),
 				),
 				'import' => array(
 						'application.extensions.PHPExcel.PHPExcel.*',
+						'application.modules.user.models.*'
 				),
 				'preload' => array(
 						//'asyncEventRunner'
@@ -143,6 +133,7 @@ class mainConf extends ConfigBase{
 										array(
 												'class'=>'CWebLogRoute',
 												//'levels'=>'error, warning',
+												'except' => 'access.*'
 										),
 								),
 						),
@@ -155,6 +146,11 @@ class mainConf extends ConfigBase{
 						'asyncEventRunner' => array(
 								'class' => 'cms.components.asyncEvent.AsyncEventRunner',
 								'zmqClientId' => 'zmqClient',
+								'asyncLogRoutes' => array(
+										'accessLog' => array(
+												'class' => 'cms.components.asyncEvent.logging.AccessLogRoute'
+										),
+								),
 								'events' => array(
 										'onEndRequest' => array(
 												'command' => array('sendMail','success')

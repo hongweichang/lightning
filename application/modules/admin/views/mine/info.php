@@ -15,21 +15,21 @@ $this->addNotifications($form->errorSummary($model),'error');
 ?>
 
 <p>
-	<label>帐号</label>
+	<label>帐号*</label>
 	<?php echo $form->textField($model,'account',array('class'=>'text-input small-input'));?>
 	<br />
 	<small>修改登录帐号</small>
 </p>
 
 <p>
-	<label>昵称</label>
+	<label>昵称*</label>
 	<?php echo $form->textField($model,'nickname',array('class'=>'text-input small-input'));?>
 	<br />
 	<small>修改您的昵称</small>
 </p>
 
 <p>
-	<label>密码</label>
+	<label>密码*</label>
 	<?php echo $form->passwordField($model,'password',array('class'=>'text-input small-input'));?>
 	<br />
 	<small>若不修改密码，请留空</small>

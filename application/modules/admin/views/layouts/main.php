@@ -35,23 +35,12 @@ body {
 
 <body >
 	<div id="main-content">
-		<div class="content-box">
-			<div class="content-box-header">
-				<?php echo '<h3>'.$this->tabTitle.'</h3>'?>
-				<ul class="content-box-tabs">
-					<?php foreach ( $this->subTabs as $subTab ):
-						echo $subTab;
-					endforeach;?>
-				</ul>
-				<div class="clear"></div>
-			</div>
-			<div class="content-box-content">
-				<?php foreach ( $this->notifications as $notification ):
-						echo $notification;
-					endforeach;
-				echo $content;?>
-			</div>
-		</div>
+		<?php $this->renderPartial('/public/contentBox',array(
+				'tabTitle' => $this->tabTitle,
+				'subTabs' => $this->subTabs,
+				'notifications' => $this->notifications,
+				'content' => $content
+		))?>
 		<div class="clear"></div>
 	</div>
 	
