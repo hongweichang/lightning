@@ -66,6 +66,7 @@ class BidManager extends CApplicationComponent{
 	 */
 	public function raiseBid($user,$title,$description,$sum,$rate,$start,$end,$deadline){
 		$bid = new BidInfo();
+		$refund = $this->calculateRefund($sum, $rate / 1200, $deadline) * 100;
 		$bid->attributes = array(
 			'user_id' => $user,
 			'title' => $title,
@@ -78,13 +79,14 @@ class BidManager extends CApplicationComponent{
 			'deadline' => $deadline,
 			'pub_time' => time(),
 			'progress' => 0,
-			'verify_progress' => 0
+			'verify_progress' => 0,
+			'refund'=>$refund
 		);
 		
 		if($bid->save()){
 			return $bid->getPrimaryKey();
 		}else{
-			return 0;
+			var_dump($bid->getErrors());
 		}
 	}
 	

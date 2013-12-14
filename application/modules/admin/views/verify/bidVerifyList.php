@@ -9,6 +9,7 @@
         <td>用户昵称</td>
         <td>用户真实姓名</td>
         <td>用户手机号码</td>
+        <td>用户信用级别</td>
         <td>操作</td>
     </tr>
 <?php
@@ -24,6 +25,7 @@ if(!empty($bidList)){
         <td><?php echo $value['nickname'];?></td>
         <td><?php echo $value['realname'];?></td>
         <td><?php echo $value['mobile'];?></td>
+        <td><?php echo $value['level'];?></td>
         <td>
             <a href="<?php echo Yii::app()->createUrl('adminnogateway/verify/bidVerify',array(
             'action'=>'pass','id'=>$value['id']))?>"  

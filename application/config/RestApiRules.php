@@ -30,7 +30,7 @@ return array(
 				'verb'=>'post'
 			),
 		array(
-				'pattern'=>'<_m:(appservice)>/<_a:(raiseBid)>',
+				'pattern'=>'<_m:(appservice)>/<_a:(raiseBid|purchaseBid)>',
 				'<_m>/appTender/<_a>',
 				'verb'=>'post'
 			),

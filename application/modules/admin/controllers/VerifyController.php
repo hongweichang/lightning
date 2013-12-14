@@ -347,7 +347,7 @@ class VerifyController extends Admin{
 
 		if(!empty($bidData)){
 			foreach($bidData as $value){
-				
+				$userLevel = Yii::app()->getModule('credit')->userCreditManager->getUserCreditLevel($value->getRelated('user')->id);
 				$bidList[] = array(
 							'id'=>$value->id,
 							'title'=>$value->attributes['title'],
@@ -358,6 +358,7 @@ class VerifyController extends Admin{
 							'sum'=>$value->sum/100,
 							'deadline'=>$value->deadline,
 							'rate'=>$value->month_rate/100,
+							'level'=>$userLevel
 
 						);
 			}
@@ -403,7 +404,7 @@ class VerifyController extends Admin{
 
 			$bidData = Yii::app()->getModule('tender')->bidManager->getBidInfo($id);
 			if(!empty($post)){
-				
+
 				$bidData->failed_description = $post['BidInfo']['failed_description'];
 
 				if($bidData->save()){

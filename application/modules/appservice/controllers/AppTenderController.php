@@ -166,10 +166,34 @@ class AppTenderController extends Controller{
 
 			$raiseBid = $this->app->getModule('tender')->getComponent('bidManager')->raiseBid($uid,$title,$description,$sum,
 				$month_rate,$start,$end,$deadline);
-			if($raiseBid === true)
+
+			if($raiseBid !== 0)
 				$this->response('200','投标成功','');
 			else
 				$this->response('400','投标失败','');
+		}
+	}
+
+
+	/*
+	**投标接口
+	*/
+
+	public function actionPurchaseBid(){
+		$post = $this->getPost();
+
+		if(!empty($post)){
+			$bidId = $post['id'];
+			$sum = $post['sum'];
+			$user_id = Yii::app()->user->id;
+
+			$purchaseBid = $this->app->getModule('tender')->getComponent('bidManager')->purchaseBid($user_id,$bidId,$sum);
+			if($purchaseBid === false)
+				$this->response('401','金额超过该标段限制','');
+			elseif($purchaseBid == 0)
+				$this->response('400','投标失败，参数错误','');
+			else
+				$this->response('200','投标成功','');
 		}
 	}
 
