@@ -16,7 +16,10 @@ class ContentController extends Admin{
 				'articleEdit',//编辑文章
 				'articleAdd',//添加文章
 				'articleDelete',//删除文章
-				'adBanner',//广告banner
+				'adBanner',//广告banner方案
+				'adBannerAdd',//添加广告banner方案
+				'adBannerEnable',//启用广告banner方案
+				'adBannerDetail',//广告banner详情查看
 				'officialHelp',//官方宝典列表
 				'officialHelpAdd',//添加官方宝典
 				'officialHelpEdit',//编辑官方宝典

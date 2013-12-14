@@ -477,7 +477,24 @@ form span label {
 				font-size:14px;
                 font-weight: bold;
                 }
-                
+
+form .bannerFile label {
+		   display: inline;
+				}
+form .bannerFile .file {
+		   width: 150px;
+				}
+form #bannerButton #addBannerButton {
+		   height: 32px;
+		   cursor: pointer;
+				}
+form #bannerButton label{
+		   display: inline-block;
+		   position: relative;
+		   top: -10px;
+		   padding-bottom: 0px;
+		   font-size: 14px;
+		 		}
 form fieldset legend {
                 font-weight: bold;
                 margin-bottom: 10px;

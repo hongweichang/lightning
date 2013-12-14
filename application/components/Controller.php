@@ -60,12 +60,17 @@ class Controller extends CmsController{
 	public function init(){
 		parent::init();
 		
+		parent::setPageTitle('闪电贷');
 		$this->user = $this->app->getUser();
 		$this->cs = $this->app->getClientScript();
 		
 		$this->cssUrl = $this->app->getPartedUrl('css');
 		$this->scriptUrl = $this->app->getPartedUrl('js');
 		$this->imageUrl = $this->app->getPartedUrl('image');
+	}
+	
+	public function setPageTitle($value){
+		parent::setPageTitle($value.' - 闪电贷');
 	}
 	
 	public function filterPublicClientScript($filterChain){

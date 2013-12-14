@@ -5,16 +5,8 @@
  * Date 2013-12-12 
  * Encoding UTF-8
  */
-$this->widget('cms.extensions.kindeditor.KindEditorWidget',array(
-		'id' => 'artContent',
-		'items' => array(
-				'height' => '450px',
-		),
-		'assets' => 'cms.extensions.kindeditor.assets'
-));
-
 $form=$this->beginWidget('CActiveForm',array(
-		'focus' => array($model,'category_name'),
+		'focus' => array($model,'title'),
 		'action' => $action
 ));
 if ( $model->hasErrors() )
@@ -25,7 +17,7 @@ if ( $model->hasErrors() )
 	<label>标题*</label>
 	<?php echo $form->textField($model,'title',array('class'=>'text-input small-input'));?>
 	<br />
-	<small>填写分标题</small>
+	<small>填写标题</small>
 </p>
 
 <p>
@@ -38,7 +30,11 @@ if ( $model->hasErrors() )
 <p>
 	<label>内容*</label>
 	<small>填写文章内容</small>
-	<?php echo $form->textArea($model,'content',array('class'=>'text-input textarea wysiwyg','id'=>'artContent'));?>
+	<?php 
+	$this->widget('cms.extensions.eckeditor.ECKEditor', array(
+			'model'=>$model,
+			'attribute'=>'content'));
+	?>
 </p>
 
 <p>
