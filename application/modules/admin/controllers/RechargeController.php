@@ -6,62 +6,104 @@
  * desc: 
  */
 class RechargeController extends Admin{
-	
-	private $fund;
-	
 	public function init(){
 		parent::init();
-		
-		$this->fund = Yii::app()->getModule('pay')->fundManager;
+		$this->app->getModule('pay');
 	}
 	
 	public function actionWaitting(){
-		$pager = new CPagination(Withdraw::model()->count());
-		$pager->setPageSize(20);
+		$criteria = new CDbCriteria();
+		$criteria->addCondition('status=0');
 		
-		$rawData = $this->fund->getWithdrawList(array(
-			'offset' => $pager->getOffset(),
-			'limit' => $pager->getLimit(),
-			'order' => 'raise_time desc, finish_time desc',
-			'condition' => 'status=0',
+		$selector = Selector::load('RechargeSelector',$this->getQuery('RechargeSelector'),$criteria);
+		
+		$dataProvider = new CActiveDataProvider('Withdraw',array(
+			'criteria' => $criteria,
+			'countCriteria' => array(
+				'condition' => $criteria->condition,
+				'params' => $criteria->params
+			),
+			'pagination' => array(
+				'pageSize' => 20
+			),
 		));
-		
+		$this->tabTitle = '提现审核列表';
+		$this->addNotifications('搜索','information',true);
 		$this->render('waitting',array(
-			'data' => new CArrayDataProvider($rawData),
-			'pager' => $pager
+			'dataProvider' => $dataProvider,
+			'selector' => $selector
 		));
 	}
 	
 	public function actionVerifyFailed(){
-		$pager = new CPagination(Withdraw::model()->count());
-		$pager->setPageSize(20);
-	
-		$rawData = $this->fund->getWithdrawList(array(
-				'offset' => $pager->getOffset(),
-				'limit' => $pager->getLimit(),
-				'order' => 'raise_time desc, finish_time desc',
-				'condition' => 'status=2',
+		$criteria = new CDbCriteria();
+		$criteria->addCondition('status=1');
+		
+		$selector = Selector::load('RechargeSelector',$this->getQuery('RechargeSelector'),$criteria);
+		
+		$dataProvider = new CActiveDataProvider('Withdraw',array(
+			'criteria' => $criteria,
+			'countCriteria' => array(
+				'condition' => $criteria->condition,
+				'params' => $criteria->params
+			),
+			'pagination' => array(
+				'pageSize' => 20
+			),
 		));
-	
+		$this->tabTitle = '提现未成功列表';
+		$this->addNotifications('搜索','information',true);
 		$this->render('waitting',array(
-				'data' => new CArrayDataProvider($rawData),
-				'pager' => $pager
+			'dataProvider' => $dataProvider,
+			'selector' => $selector
 		));
 	}
 	
 	public function actionWithdraw(){
-		$pager = new CPagination(Withdraw::model()->count());
-		$pager->setPageSize(20);
+		$criteria = new CDbCriteria();
+		//$criteria->addCondition('status=0');
 		
-		$rawData = $this->fund->getWithdrawList(array(
-				'offset' => $pager->getOffset(),
-				'limit' => $pager->getLimit(),
-				'order' => 'raise_time desc, finish_time desc',
+		$selector = Selector::load('RechargeSelector',$this->getQuery('RechargeSelector'),$criteria);
+		
+		$dataProvider = new CActiveDataProvider('Withdraw',array(
+			'criteria' => $criteria,
+			'countCriteria' => array(
+				'condition' => $criteria->condition,
+				'params' => $criteria->params
+			),
+			'pagination' => array(
+				'pageSize' => 20
+			),
 		));
-		
+		$this->tabTitle = '提现列表';
+		$this->addNotifications('搜索','information',true);
 		$this->render('waitting',array(
-				'data' => new CArrayDataProvider($rawData),
-				'pager' => $pager
+			'dataProvider' => $dataProvider,
+			'selector' => $selector
+		));
+	}
+	
+	public function actionView(){
+		$criteria = new CDbCriteria();
+		//$criteria->addCondition('status=0');
+		
+		$selector = Selector::load('RechargeSelector',$this->getQuery('RechargeSelector'),$criteria);
+		
+		$dataProvider = new CActiveDataProvider('Recharge',array(
+				'criteria' => $criteria,
+				'countCriteria' => array(
+						'condition' => $criteria->condition,
+						'params' => $criteria->params
+				),
+				'pagination' => array(
+						'pageSize' => 20
+				),
+		));
+		$this->tabTitle = '充值列表';
+		$this->addNotifications('搜索','information',true);
+		$this->render('waitting',array(
+				'dataProvider' => $dataProvider,
+				'selector' => $selector
 		));
 	}
 

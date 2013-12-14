@@ -5,7 +5,20 @@
  * date: 2013-12-12
  * desc: 
  */
+$form=$this->beginWidget('CActiveForm',array(
+	'focus' => array($selector,'nickname'),
+	'method' => 'get'
+));
 ?>
+用户名：<?php echo $form->textField($selector,'nickname',array('class'=>'text-input tiny-input'));?>&nbsp;
+姓名：<?php echo $form->textField($selector,'realname',array('class'=>'text-input tiny-input'));?>&nbsp;
+电话：<?php echo $form->textField($selector,'mobile',array('class'=>'text-input tiny-input'));?>&nbsp;
+银行卡：<?php echo $form->textField($selector,'bank',array('class'=>'text-input tiny-input'));?>&nbsp;
+提现金额：<?php echo $form->textField($selector,'sum[]',array('class'=>'text-input tiny-input'));?>&nbsp;-&nbsp;
+<?php echo $form->textField($selector,'sum[]',array('class'=>'text-input tiny-input'));?>&nbsp;
+<?php echo CHtml::submitButton(' 搜 索 ',array('class'=>'button'))?>
+<?php $this->endWidget()?>
+
 <table>
 	<thead>
 		<th>用户名</th>
@@ -20,7 +33,7 @@
 	</thead>
 	
 	<tbody>
-	<?php foreach ( $data->getData() as $data ):
+	<?php foreach ( $dataProvider->getData() as $data ):
 		$gender = $data->user->gender;
 		if ( empty($gender) )
 			$g = '';
@@ -44,5 +57,5 @@
 	</tbody>
 </table>
 <div class="pagination">
-	<?php $this->renderPartial('/public/pager',array('pager'=>$pager))?>
+	<?php $this->renderPartial('/public/pager',array('pager'=>$dataProvider->getPagination()))?>
 </div>
