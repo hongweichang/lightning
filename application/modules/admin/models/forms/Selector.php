@@ -33,7 +33,13 @@ class Selector extends CFormModel{
 		foreach ( $this->_config as $column => $value ){
 			if ( isset($value) ){
 				if ( is_array($value) ){
-					$criteria->addBetweenCondition($column,$value[0],$value[1],'OR');
+					if ( empty($value[1]) ){
+						$criteria->compare($column, '>='.$value[0]);
+					}elseif( empty($value[0]) ){
+						$criteria->compare($column, '<='.$value[1]);
+					}else {
+						$criteria->addBetweenCondition($column,$value[0],$value[1],'OR');
+					}
 				}else {
 					$criteria->addSearchCondition($column,$value,true,'OR');
 				}

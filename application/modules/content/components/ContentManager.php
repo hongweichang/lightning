@@ -102,4 +102,54 @@ class ContentManager extends CApplicationComponent{
 	public function deleteArticle($id,$condition='',$params=array()){
 		return Article::model()->deleteByPk($id,$condition,$params);
 	}
+	
+	public function getBannerProvider($config,$enablePagination=true,$enableSort=true){
+		Utils::resovleProviderConfigCriteria($config,$enablePagination,$enableSort);
+		return new CActiveDataProvider('BannerScheme',$config);
+	}
+	
+	public function saveBanner($data,$type){
+		$form = new BannerSchemeForm();
+		if ( $data === null ){
+			return $form;
+		}
+		
+		$data['banner_type'] = $type;
+		$form->attributes = $data;
+		if ( $form->validate() && $form->save() ){
+			return true;
+		}else {
+			return $form;
+		}
+	}
+	
+	public function enableBanner($id,$type){
+		$model = BannerScheme::model();
+		$banner = $model->findByPk($id);
+		if ( $banner === null ){
+			return null;
+		}
+		
+		$exist = $model->find('is_using=1 AND banner_type=:type',array(':type'=>$type));
+		if ( $exist !== null ){
+			$exist->is_using = $exist->is_using ^ 1;
+			$exist->update();
+		}
+		
+		$isUsing = $banner->is_using;
+		$banner->is_using = $isUsing ^ 1;
+		return $banner->update();
+	}
+	
+	public function getInUsingBanner($type){
+		$provider = $this->getBannerProvider(array(
+				'criteria' => array(
+						'condition' => 'is_using=1 AND type=:type',
+						'params' => array(
+								':type' => $type
+						)
+				)
+		),false,false);
+		return $provider->getData();
+	}
 }

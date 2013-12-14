@@ -12,7 +12,6 @@ class mainConf extends ConfigBase{
 		$this->traceLevel = 3;
 	}
 	
-
 	public function merge(){
 		return array(
 				'hostName' => 'http://115.29.186.221',
@@ -56,7 +55,7 @@ class mainConf extends ConfigBase{
 				),
 				'import' => array(
 						'application.extensions.PHPExcel.PHPExcel.*',
-						'application.modules.user.models.*',
+						'application.modules.user.models.*'
 				),
 				'preload' => array(
 						//'asyncEventRunner'

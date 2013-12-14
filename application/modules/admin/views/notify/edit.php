@@ -5,15 +5,6 @@
  * Date 2013-12-11 
  * Encoding UTF-8
  */
-if ( $type === 'email' ){
-	$this->widget('cms.extensions.kindeditor.KindEditorWidget',array(
-			'id' => 'notifyContent',
-			'items' => array(
-					'height' => '250px'
-			),
-			'assets' => 'cms.extensions.kindeditor.assets'
-	));
-}
 $form=$this->beginWidget('CActiveForm',array(
 		'focus' => array($model,'account'),
 		'action' => $this->createUrl('notify/edit'.ucfirst($type),$urlParams)
@@ -42,7 +33,14 @@ $this->addNotifications($form->errorSummary($model),'error');
 
 <p>
 	<label>通知内容*</label>
-	<?php echo $form->textArea($model,'content',array('class'=>'text-input textarea wysiwyg','id'=>'notifyContent'));?>
+	<?php 
+	if ( $type === 'email' ){
+		$this->widget('cms.extensions.eckeditor.ECKEditor', array(
+				'model'=>$model,
+				'attribute'=>'content', ));
+	}else {
+		echo $form->textArea($model,'content',array('class'=>'text-input textarea','id'=>'notifyContent'));
+	}?>
 	<br />
 	<small>请输入通知内容</small>
 </p>

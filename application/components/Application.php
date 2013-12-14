@@ -171,6 +171,21 @@ class Application extends CmsApplication{
 	}
 	
 	/**
+	 * 根据分区输入参数和分区方案，返回项目分区后的路径
+	 * @param string $name
+	 * @param mixed $partIn
+	 * @return string|NULL
+	 */
+	public function getPartedPath($name,$partIn=null){
+		if ( isset($this->_nameMap[$name]) && isset($this->_nameMap[$name]['path']) ){
+			$part = $this->partition($partIn,$name);
+			return dirname($this->basePath).DS.$this->_nameMap[$name]['path'].$part;
+		}else {
+			return null;
+		}
+	}
+	
+	/**
 	 * 根据项目分区配置对项目选用分区方案
 	 * @param mixed $partIn
 	 * @param string $from
@@ -187,8 +202,8 @@ class Application extends CmsApplication{
 		$func = $this->_nameMap[$from]['partitionMethod'];
 		if ( is_string($func) ){//使用自带分区方案
 			$part = call_user_func_array(array($this,$func),array('partIn'=>$partIn));
-		}elseif ( is_array($partIn) ) {//使用用户自定义分区方案
-			$part = call_user_func_array($func,$partIn);
+		}elseif ( is_array($func) ) {//使用用户自定义分区方案
+			$part = call_user_func_array($func,array('partIn'=>$partIn));
 		}else {
 			return null;
 		}
