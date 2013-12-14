@@ -65,7 +65,7 @@ class Admin extends Controller{
 		$filterChain->run();
 	}
 	
-	public function showMessage($message,$redirectUrl='',$createUrl=true,$wait=5,$terminate=true){
+	public function showMessage($message,$redirectUrl='',$createUrl=true,$wait=5,$terminate=true,$htmlOptions=array()){
 		if ( $createUrl === true ){
 			$url = $redirectUrl === '' ? $this->createUrl('index/welcome') : $this->createUrl($redirectUrl);
 		}else {
@@ -75,7 +75,8 @@ class Admin extends Controller{
 		$this->renderPartial('/public/flash',array(
 				'waitSeconds' => $wait,
 				'jumpUrl' => $url,
-				'message' => $message
+				'message' => $message,
+				'htmlOptions' => $htmlOptions
 		));
 		if ( $terminate === true ){
 			$this->app->end();

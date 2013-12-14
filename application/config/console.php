@@ -41,7 +41,7 @@ class console extends ConfigBase{
 						'db' => array(
 						 		'class' => 'system.db.CDbConnection',
 								'autoConnect' => false,
-								'connectionString' => 'mysql:host=115.29.240.98;dbname=lightning',
+								'connectionString' => 'mysql:host=115.29.173.40;dbname=lightning',
 								'emulatePrepare' => true,
 								'username' => 'lancelot',
 								'password' => 'lancelot@lightningdbmysqladmin',

@@ -29,7 +29,7 @@ body {
 				<?php echo $message;?>
 			</h4>
 			<h4>
-				<?php echo CHtml::link(' 返 回 ',$jumpUrl)?>
+				<?php echo CHtml::link(' 返 回 ',$jumpUrl,$htmlOptions)?>
 			</h4>
 		</div>
 	</div>

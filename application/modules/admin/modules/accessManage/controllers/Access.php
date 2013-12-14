@@ -25,7 +25,7 @@ class Access extends Admin{
 		$this->redirect($this->createUrl('/'.$this->getModule()->getParentModule()->id));
 	}
 	
-	public function showMessage($message,$redirectUrl='',$createUrl=true,$wait=5,$terminate=true){
+	public function showMessage($message,$redirectUrl='',$createUrl=true,$wait=5,$terminate=true,$htmlOptions=array()){
 		$url = $this->createUrl($redirectUrl);
 		$this->renderPartial('/common/flashMessage',array(
 				'waitSeconds' => $wait,
