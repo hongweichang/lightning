@@ -339,7 +339,7 @@ class VerifyController extends Admin{
 		$criteria = new CDbCriteria;
 		$criteria->condition = 'verify_progress =:progress';
 		$criteria->params = array(
-						'progress'=>'0'
+						':progress'=>'0'
 					);
 		$criteria->order = 'pub_time DESC';
 
@@ -366,6 +366,55 @@ class VerifyController extends Admin{
 		}
 	}
 
+
+/*
+**The action of bid verify
+*/
+
+	public function actionBidVerify($id,$action){
+		if(is_numeric($id) && !empty($action)){
+
+			$bidData = Yii::app()->getModule('tender')->bidManager->getBidInfo($id);
+			if($action == 'pass'){
+				$bidData->verify_progress = '1';
+
+				if($bidData->save()){
+					$this->redirect(Yii::app()->createUrl('adminnogateway/verify/bidVerifyList'));
+				}
+			}elseif($action == 'unpass' ){
+				$bidData->verify_progress = '2';
+
+				if($bidData->save()){
+					$this->redirect(Yii::app()->createUrl('adminnogateway/verify/bidVerifyReasonInput',array('id'=>$id)));
+				}
+			}
+		}
+	}
+
+
+/*
+**To input the reason why bid unpassed verify
+*/
+
+	public function actionBidVerifyReasonInput($id){
+		$post = $this->getPost();
+
+		if(is_numeric($id)){
+
+			$bidData = Yii::app()->getModule('tender')->bidManager->getBidInfo($id);
+			if(!empty($post)){
+				
+				$bidData->failed_description = $post['BidInfo']['failed_description'];
+
+				if($bidData->save()){
+					$this->redirect(Yii::app()->createUrl('adminnogateway/verify/bidVerifyList'));
+				}
+			}
+
+			$this->render('bidReason',array('model'=>$bidData));
+		}
+
+	}
 	
 
 }

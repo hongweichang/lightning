@@ -25,11 +25,11 @@ if(!empty($bidList)){
         <td><?php echo $value['realname'];?></td>
         <td><?php echo $value['mobile'];?></td>
         <td>
-            <a href="<?php echo Yii::app()->createUrl('adminnogateway/verify/creditVerify',array(
+            <a href="<?php echo Yii::app()->createUrl('adminnogateway/verify/bidVerify',array(
             'action'=>'pass','id'=>$value['id']))?>"  
             class="check" data-method="check-pass">审核通过
             </a>
-            <a href="<?php echo Yii::app()->createUrl('adminnogateway/verify/creditVerify',array(
+            <a href="<?php echo Yii::app()->createUrl('adminnogateway/verify/bidVerify',array(
             'action'=>'unpass','id'=>$value['id']))?>" 
             class="check" data-method="check-pass">审核不通过
             </a>
