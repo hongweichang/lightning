@@ -69,7 +69,7 @@ class FundManager extends CApplicationComponent{
 	 */
 	public function revokeWithdraw($trade_no){
 		$record = Withdraw::model()->findByPk($trade_no);
-		$user = Yii::app()->getModule('user')->userManager->findByPk($record->getAttribute('user_id'));
+		$user = Yii::app()->getModule('user')->userManager->getUserInfo($record->getAttribute('user_id'));
 		
 		$transaction = Yii::app()->db->beginTransaction();
 		try{

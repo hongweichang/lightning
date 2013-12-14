@@ -35,9 +35,35 @@ class RechargeController extends Admin{
 		));
 	}
 	
+	public function actionPass(){
+		$redirect = urldecode($this->getQuery('redirect',$this->createUrl('recharge/waitting')));
+		$id = $this->getQuery('id',null);
+		$fund = Yii::app()->getModule('pay')->fundManager;
+		
+		$result = $fund->handleWithdraw($id);
+		if ( $result ){
+			$this->showMessage('提现处理完成',$redirect,false);
+		}else {
+			$this->showMessage('提现处理失败，管理员不存在',$redirect,false);
+		}
+	}
+	
+	public function actionNpass(){
+		$redirect = urldecode($this->getQuery('redirect',$this->createUrl('recharge/waitting')));
+		$id = $this->getQuery('id',null);
+		$fund = Yii::app()->getModule('pay')->fundManager;
+		
+		$result = $fund->revokeWithdraw($id);
+		if ( $result ){
+			$this->showMessage('提现撤销完成',$redirect,false);
+		}else {
+			$this->showMessage('提现撤销失败，管理员不存在',$redirect,false);
+		}
+	}
+	
 	public function actionVerifyFailed(){
 		$criteria = new CDbCriteria();
-		$criteria->addCondition('status=1');
+		$criteria->addCondition('status=2');
 		
 		$selector = Selector::load('RechargeSelector',$this->getQuery('RechargeSelector'),$criteria);
 		
@@ -53,7 +79,7 @@ class RechargeController extends Admin{
 		));
 		$this->tabTitle = '提现未成功列表';
 		$this->addNotifications('搜索','information',true);
-		$this->render('waitting',array(
+		$this->render('verifyFailed',array(
 			'dataProvider' => $dataProvider,
 			'selector' => $selector
 		));
@@ -77,7 +103,7 @@ class RechargeController extends Admin{
 		));
 		$this->tabTitle = '提现列表';
 		$this->addNotifications('搜索','information',true);
-		$this->render('waitting',array(
+		$this->render('withdraw',array(
 			'dataProvider' => $dataProvider,
 			'selector' => $selector
 		));
@@ -101,7 +127,7 @@ class RechargeController extends Admin{
 		));
 		$this->tabTitle = '充值列表';
 		$this->addNotifications('搜索','information',true);
-		$this->render('waitting',array(
+		$this->render('view',array(
 				'dataProvider' => $dataProvider,
 				'selector' => $selector
 		));

@@ -29,7 +29,7 @@ $form=$this->beginWidget('CActiveForm',array(
 		<th>提现金额</th>
 		<th>手续费</th>
 		<th>订单时间</th>
-		<th>操作</th>
+		<th>完成时间</th>
 	</thead>
 	
 	<tbody>
@@ -51,10 +51,7 @@ $form=$this->beginWidget('CActiveForm',array(
 			<td><?php echo $data->sum / 100; ?></td>
 			<td><?php echo $data->fee / 100; ?></td> 
 			<td><?php echo date('Y-n-j H:i:s',$data->raise_time); ?></td>
-			<td>
-				<a class="passLink" href="<?php echo $this->createUrl('recharge/pass',array('id' => $data->id)); ?>">完成</a> | 
-				<a class="npassLink" href="<?php echo $this->createUrl('recharge/npass',array('id' => $data->id)); ?>">失败</a>
-			</td>
+			<td><?php echo date('Y-n-j H:i:s',$data->finish_time); ?></td>
 		</tr>
 	<?php endforeach;?>
 	</tbody>
