@@ -104,6 +104,7 @@ class BidManager extends CApplicationComponent{
 		$transaction = Yii::app()->db->beginTransaction();
 		try{
 			$bid = BidInfo::model()->findByPk($bid_id);
+			if(empty($bid)) return false;
 			$progress = ($sum * 10000) / $bid->getAttribute('sum');
 			if($bid->getAttribute('progress') + $progress > 100) return false;
 			$bid->saveCounters(array(
@@ -141,7 +142,7 @@ class BidManager extends CApplicationComponent{
 	 */
 	public function payPurchasedBid($meta_no){
 		$meta = BidMeta::model()->with('user','bid')->findByPk($meta_no);
-		if($meta->getAttribute('status') >= 1) return false;
+		if(empty($meta) || $meta->getAttribute('status') >= 1) return false;
 		$user = $meta->getRelated('user');
 		
 		$transaction = Yii::app()->db->beginTransaction();
@@ -170,7 +171,7 @@ class BidManager extends CApplicationComponent{
 	 */
 	public function revokePurchasedBid($meta_no){
 		$meta = BidMeta::model()->with('user','bid')->findByPk($meta_no);
-		if($meta->getAttribute('status') >= 1) return false;
+		if(empty($meta) || $meta->getAttribute('status') >= 1) return false;
 		$user = $meta->getRelated('user');
 		$bid = $meta->getRelated('bid');
 		

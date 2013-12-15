@@ -107,7 +107,9 @@ class AlipayController extends PayController{
 				$this->subject = $this->getQuery('subject');
 				$this->buyer = $this->getQuery('buyer_email');
 				$this->buyer_id = $this->getQuery('buyer_id');
-				$this->beginPay($this->getQuery('out_trade_no'));
+				if($this->beginPay($this->getQuery('out_trade_no'))){
+					
+				}
 			}
 		}else{ //验证失败
 			
