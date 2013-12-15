@@ -6,7 +6,7 @@ design By HJtianling_LXY,<2507073658@qq.com>
 */
 class AppTenderController extends Controller{
 
-	private $tenderPageSize = 4;
+	private $tenderPageSize = 10;
 
 	public function filters(){
 		return array();
@@ -30,17 +30,31 @@ class AppTenderController extends Controller{
 			$criteria = $this->CriteriaMake($condition,$order,$page);
 
 			if(!is_object($criteria)){
+
 				$this->response('401','查询失败，参数错误','');
 			}
 
 			$BidData = $this->app->getModule('tender')->getComponent('bidManager')->getBidList($criteria);
+
 			if(!empty($BidData)){
 				foreach($BidData as $value){
+					$Icon = $this->app->getModule('user')->userManager->getUserIcon($value->getRelated('user')->id);
+					$Credit = $this->app->getModule('credit')->userCreditManager->getUserCreditLevel($value->getRelated('user')->id);
+
 					$BidInfo[] = array(
 							'id'=>$value->attributes['id'],
+							'uid'=>$value->getRelated('user')->id,
+							'nickname'=>$value->getRelated('user')->nickname,
 							'title'=>$value->attributes['title'],
-							'description'=>$value->attributes['description'],
-							'sum'=>$value->attributes['sum']
+							'Content'=>$value->attributes['description'],
+							'sum'=>$value->attributes['sum'],
+							'rate'=>$value->attributes['month_rate'],
+							'TimeLimit'=>$value->attributes['deadline'],
+							'Start'=>$value->attributes['start'],
+							'Over'=>$value->attributes['end'],
+							'Icon'=>$Icon,
+							'creditLevel'=>$Credit
+
 						);
 				}
 				
@@ -113,7 +127,7 @@ class AppTenderController extends Controller{
 
 			if($criteria_order !== null && $criteria_condition !== null){
 				$criteria->order = $criteria_condition.' '.$criteria_order;
-				$criteria->offset = $page - 1;
+				$criteria->offset = ($page - 1)* $this->tenderPageSize;
 				$criteria->limit = $this->tenderPageSize;
 
 				return $criteria;
