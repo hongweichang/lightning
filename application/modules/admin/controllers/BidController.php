@@ -52,7 +52,7 @@ class BidController extends Admin{
 						'pageSize' => 20
 				),
 		));
-		$this->tabTitle = '正在招标';
+		$this->tabTitle = '正在还款';
 		$this->addNotifications('搜索','information',true);
 		$this->render('view',array(
 				'dataProvider' => $dataProvider,
@@ -76,7 +76,7 @@ class BidController extends Admin{
 						'pageSize' => 20
 				),
 		));
-		$this->tabTitle = '正在招标';
+		$this->tabTitle = '已完成';
 		$this->addNotifications('搜索','information',true);
 		$this->render('view',array(
 				'dataProvider' => $dataProvider,
@@ -100,7 +100,7 @@ class BidController extends Admin{
 						'pageSize' => 20
 				),
 		));
-		$this->tabTitle = '正在招标';
+		$this->tabTitle = '流标';
 		$this->addNotifications('搜索','information',true);
 		$this->render('view',array(
 				'dataProvider' => $dataProvider,

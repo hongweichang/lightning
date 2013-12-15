@@ -18,7 +18,7 @@ $form=$this->beginWidget('CActiveForm',array(
 期限：<?php echo $form->textField($selector,'deadline',array('class'=>'text-input tiny-input'));?>&nbsp;
 进度：<?php echo $form->textField($selector,'progress',array('class'=>'text-input tiny-input'));?>&nbsp;
 <?php echo CHtml::submitButton(' 搜 索 ',array('class'=>'button'))?>
-<?php $this->endWidget()?>
+<?php $this->endWidget(); ?>
 
 <table>
 	<thead>
@@ -42,8 +42,8 @@ $form=$this->beginWidget('CActiveForm',array(
 			<td><?php echo $data->sum / 100; ?></td>
 			<td><?php echo $data->month_rate / 100; ?></td> 
 			<td><?php echo $data->deadline; ?></td>
-			<td><?php echo date('Y-n-j H:i:s',$data->start); ?></td>
-			<td><?php echo date('Y-n-j H:i:s',$data->end); ?></td>
+			<td><?php echo date('Y-n-j',$data->start); ?></td>
+			<td><?php echo date('Y-n-j',$data->end); ?></td>
 			<td><?php echo $data->progress; ?></td>
 			<td><?php echo date('Y-n-j H:i:s',$data->pub_time); ?></td>
 			<td><?php echo $status[$data->verify_progress];?></td>

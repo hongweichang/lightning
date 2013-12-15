@@ -139,7 +139,7 @@ class BidManager extends CApplicationComponent{
 	 * @param integer $meta_no
 	 * @return boolean
 	 */
-	public function payPurchaseBid($meta_no){
+	public function payPurchasedBid($meta_no){
 		$meta = BidMeta::model()->with('user','bid')->findByPk($meta_no);
 		if($meta->getAttribute('status') >= 1) return false;
 		$user = $meta->getRelated('user');
@@ -168,7 +168,7 @@ class BidManager extends CApplicationComponent{
 	 * @param integer $meta_no
 	 * @return boolean
 	 */
-	public function revokePurchaseBid($meta_no){
+	public function revokePurchasedBid($meta_no){
 		$meta = BidMeta::model()->with('user','bid')->findByPk($meta_no);
 		if($meta->getAttribute('status') >= 1) return false;
 		$user = $meta->getRelated('user');

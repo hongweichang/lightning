@@ -27,7 +27,7 @@ class FundController extends Admin{
 						'pageSize' => 20
 				),
 		));
-		$this->tabTitle = '提现审核列表';
+		$this->tabTitle = '站内资金流动记录';
 		//$this->addNotifications('搜索','information',true);
 		$this->render('waitting',array(
 				'dataProvider' => $dataProvider,
