@@ -35,6 +35,7 @@ class AppUserController extends Controller{
 				if($login === true){
 					$uid = Yii::app()->user->id;
 					$userData = $this->app->getModule('user')->getComponent('userManager')->getUserInfo($uid);
+					$userIcon = $this->app->getModule('user')->userManager->getUserIcon($uid);
 					$attributes = $userData->attributes;
 					/*将部分用户信息提供给app*/
 					$userInfo = array(
@@ -45,7 +46,8 @@ class AppUserController extends Controller{
 								'sex' => $attributes['gender'],
 								'balance' => $attributes['balance'],
 								'realName' => $attributes['realname'],
-								'age' => $attributes['age']
+								'age' => $attributes['age'],
+								'userIcon'=>$userIcon
 							);
 					$this->response(200,'登陆成功',$userInfo);
 				}else
