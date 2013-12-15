@@ -113,5 +113,23 @@ class AppUserController extends Controller{
 
 	}
 
+
+	
+	/*
+	**用户余额查询接口
+	*/
+	public function actionGetBalance(){
+		$uid = $this->user->id;
+		$userInfo = FrontUser::model()->findByPk($uid);
+
+		if(!empty($userInfo)){
+			$userBalance = $userInfo->balance/100;
+			$this->response(200,'查询成功',$userBalance);
+		}else
+			$this->response(400,'查询失败,用户不存在','');
+		
+	}
+
+
 }
 ?>
