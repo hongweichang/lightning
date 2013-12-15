@@ -207,8 +207,98 @@ class AppTenderController extends Controller{
 			elseif($purchaseBid == 0)
 				$this->response('400','投标失败，参数错误','');
 			else
-				$this->response('200','投标成功','');
+				$this->response('200','投标成功',$purchaseBid);
 		}
+	}
+
+
+	/*
+	**获取用户投标信息
+	*/
+	public function actionGetMetaList(){
+		$uid = $this->user->id;
+		$post = $this->getPost();
+
+		if(!empty($post)){
+			$action = $post['action'];
+			$criteria = new CDbCriteria;
+			$criteria->alias = 'meta';
+
+			if($action == 'unfull'){
+				
+				$criteria->condition = 'progress < :progress AND meta.user_id =:uid AND finish_time != 0';
+							$criteria->params = array(
+								':progress'=>100,
+								'uid'=>$uid,
+							);
+				$metaData = BidMeta::model()->with('bid','user')->findAll($criteria);
+
+				if(!empty($metaData)){
+					foreach($metaData as $value){
+						$bidUser_id = $value->getRelated('user')->id;
+						$userIcon =  $this->app->getModule('user')->userManager->getUserIcon($bidUser_id);
+
+						$meataList[] = array(
+									'id'=>$value->getRelated('bid')->id,
+									'title'=>$value->getRelated('bid')->title,
+									'description'=>$value->getRelated('bid')->description,
+									'TimeLimit'=>$value->getRelated('bid')->deadline,
+									'sum'=>$value->getRelated('bid')->sum,
+									'investMoney'=>$value->sum,
+									'uid'=>$value->getRelated('user')->id,
+									'nickname'=>$value->getRelated('user')->nickname,
+									'userIcon'=>$userIcon
+
+								);
+					}
+
+					$this->response('200','查询成功',$meataList);
+
+				}else{
+					$this->response('400','暂无投标记录','');
+				}
+
+			}elseif($action == 'full'){
+				
+				$criteria->condition = 'progress =:progress AND meta.user_id =:uid AND finish_time != 0';
+				$criteria->params = array(
+								':progress'=>100,
+								'uid'=>$uid,
+							);
+				$metaData = BidMeta::model()->with('bid','user')->findAll($criteria);
+
+				if(!empty($metaData)){
+					foreach($metaData as $value){
+						$bidUser_id = $value->getRelated('user')->id;
+						$userIcon =  $this->app->getModule('user')->userManager->getUserIcon($bidUser_id);
+
+						$meataList[] = array(
+									'id'=>$value->getRelated('bid')->id,
+									'title'=>$value->getRelated('bid')->title,
+									'description'=>$value->getRelated('bid')->description,
+									'TimeLimit'=>$value->getRelated('bid')->deadline,
+									'sum'=>$value->getRelated('bid')->sum,
+									'investMoney'=>$value->sum,
+									'uid'=>$value->getRelated('user')->id,
+									'nickname'=>$value->getRelated('user')->nickname,
+									'userIcon'=>$userIcon
+
+								);
+					}
+					$this->response('200','查询成功',$meataList);
+
+				}else{
+					$this->response('400','暂无投标记录','');
+				}
+
+			}else{
+				$this->response('401','参数不合法','');
+			}
+
+
+		}
+
+		
 	}
 
 }
