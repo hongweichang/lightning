@@ -7,7 +7,7 @@
  */
 class adBannerEnableAction extends CmsAction{
 	public function run(){
-		$redirect = urldecode($this->getQuery('redirect',$this->createUrl('administrator/view')));
+		$redirect = urldecode($this->getQuery('redirect',$this->createUrl('index/welcome')));
 		$id = $this->getQuery('id',null);
 		$controller = $this->getController();
 		if ( $id === null ){
