@@ -80,11 +80,20 @@ class mainConf extends ConfigBase{
 								'password' => 'lancelot@lightningdbmysqladmin',
 								'charset' => 'utf8',
 								'tablePrefix' => 'xcms_'
-						),
+						),/*
+						'db' => array(
+								'class' => 'system.db.CDbConnection',
+								'autoConnect' => false,
+								'connectionString' => 'mysql:host=localhost;dbname=lightning',
+								'emulatePrepare' => true,
+								'username' => 'root',
+								'password' => 'lancelot!410',
+								'charset' => 'utf8',
+								'tablePrefix' => 'xcms_'
+						),*/
 						'request' => array(
 								'class' => 'application.components.Request'
 						),
-
 						'cache' => array(
 								'class' => 'CMemCache',
 								'useMemcached' => true,
