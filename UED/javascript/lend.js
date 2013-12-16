@@ -68,7 +68,7 @@ var Filter = function(){
 	};
 }(),
 List = function(){
-	var loan = $(".loan>ul");
+	var loan = $(".loan ul");
 	return{
 		showMore: function(str){
 			$.ajax({

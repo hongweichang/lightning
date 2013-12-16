@@ -147,6 +147,8 @@ class PurchaseController extends Controller {
 		$return = array();
 		foreach($data as $key => $value) {
 			$return[$key] = $value->getAttributes();
+			$return[$key]['month_rate'] = $return[$key]['month_rate'] / 100;
+			$return[$key]['sum'] = number_format($return[$key]['sum'] / 100,2).'元';
 			$return[$key]['titleHref'] = $this->createUrl('purchase/info', array('id' => $value->getAttribute('id')));
 			$return[$key]['authGrade'] = Yii::app()->getModule('credit')->getComponent('userCreditManager')->getUserCreditLevel($value->getAttribute('user_id'));
 		}
