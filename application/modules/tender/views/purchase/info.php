@@ -18,17 +18,25 @@
             <div class="return"><a href="<?php echo $this->createUrl('purchase/index'); ?>">←返回</a></div>
             <div class="name">标段详情</div>
             <div class="balance">
+<<<<<<< HEAD:application/modules/tender/views/purchase/info.php
               <a href="<?php echo $this->app->createUrl('user/userCenter') ?>">
 				账户余额¥<span><?php echo number_format($user->getAttribute('balance') / 100,2);?></span><img src="<?php echo $this->imageUrl;?>topup_ico.png" />
               </a>
             </div>
+=======
+              <a href="#">账户余额¥<span><?php echo $currentUserInfo->balance / 100;?></span><img src="<?php echo $this->imageUrl;?>topup_ico.png" /></a></div>
+>>>>>>> 5090046a912fa1fe968d285a457f39a2580d80ed:application/modules/tender/views/purchase/purchaseBid.php
           </div>
           <div class="details-info">
             <div class="info-title"><?php echo $bid->getAttribute('title');?></div>
             <div class="info-content clearfix">
               <div class="info-content-l">
                 <p>借款金额</p>
+<<<<<<< HEAD:application/modules/tender/views/purchase/info.php
                 <p class="info-content-val"><span>¥</span><?php echo number_format($bid->getAttribute('sum') / 100,2);?></p>
+=======
+                <p class="info-content-val"><span>¥</span><?php echo $bidInfo->sum / 100;?></p>
+>>>>>>> 5090046a912fa1fe968d285a457f39a2580d80ed:application/modules/tender/views/purchase/purchaseBid.php
               </div>
               <div class="info-content-r">
                 <p>信用等级</p>
@@ -40,7 +48,11 @@
               </div>
               <div class="info-content-l small">
                 <p>年利率</p>
+<<<<<<< HEAD:application/modules/tender/views/purchase/info.php
                 <p class="info-content-val"><?php echo $bid->getAttribute('month_rate') / 100;?><span>%</span></p>
+=======
+                <p class="info-content-val"><?php echo $bidInfo->month_rate;?><span>%</span></p>
+>>>>>>> 5090046a912fa1fe968d285a457f39a2580d80ed:application/modules/tender/views/purchase/purchaseBid.php
               </div>
               <div class="info-content-r">
                 <div class="info-content-term">
@@ -67,8 +79,19 @@
           </div>
           <div class="details-lend">
             <div class="info-title">投资金额<span class="info-subtitle">投资有风险，请谨慎考虑</span></div>
+<<<<<<< HEAD:application/modules/tender/views/purchase/info.php
             <form method="post" id="lend-form" action="<?php echo $this->createUrl('purchase/info',array('id' => $bid->getAttribute('id')));?>">
               <input type="text" name="sum" id="lend-num" /><span>元</span>
+=======
+            <form method="post" action="<?php 
+            	echo $this->createUrl($formAction,array(
+            			'bidId'=>$bidInfo->id,
+            			'userId'=>$currentUserInfo->id)
+            		);?>" id="lend-form">
+              <input type="text" name="writeBidMeta[sum]" id="lend-num" data-info="<?php 
+              	echo ($bidInfo->sum / 100).";".$bidInfo->deadline.";".$bidInfo->month_rate.";".$bidInfo->progress;
+              ?>" /><span>元</span>
+>>>>>>> 5090046a912fa1fe968d285a457f39a2580d80ed:application/modules/tender/views/purchase/purchaseBid.php
               <p>到期总收益 ¥<span>0.00元</span></p>
               <p>标段利率 <span>0.00%</span></p>
               <?php if(CCaptcha::checkRequirements()){ ?>
@@ -109,6 +132,7 @@
                 </li>
                 <li>
                   <span class="borrower-name">真实姓名</span>
+<<<<<<< HEAD:application/modules/tender/views/purchase/info.php
                   <span class="borrower-val"><?php echo $bider->getAttribute('realname');?></span>
                 </li>
                 <li>
@@ -118,6 +142,17 @@
                 <li>
                   <span class="borrower-name">年龄</span>
                   <span class="borrower-val"><?php echo $bider->getAttribute('age');?></span>
+=======
+                  <span class="borrower-val"><?php echo$borrowUserInfo['realname'];?></span>
+                </li>
+                <li>
+                  <span class="borrower-name">手机号码</span>
+                  <span class="borrower-val"><?php echo preg_replace('/(1[358]{1}[0-9])[0-9]{4}([0-9]{4})/i','$1****$2',$borrowUserInfo['mobile']);;?></span>
+                </li>
+                <li>
+                  <span class="borrower-name">社会角色</span>
+                  <span class="borrower-val"><?php echo $borrowUserInfo['role'];?></span>
+>>>>>>> 5090046a912fa1fe968d285a457f39a2580d80ed:application/modules/tender/views/purchase/purchaseBid.php
                 </li>
                 <li>
                   <span class="borrower-name"></span>
@@ -151,6 +186,7 @@
                    	<!--<th class="tb-col-status">状态</th>-->
                   </tr>
                 </thead>
+<<<<<<< HEAD:application/modules/tender/views/purchase/info.php
                 <?php 
                 $meta->pagination = false;
                 $this->widget('zii.widgets.CListView',array(
@@ -163,14 +199,41 @@
                 	'cssFile' => false,
                 	'baseScriptUrl' => null,
 				)); ?>
+=======
+                <tbody>
+                	<?php 
+                		$bidMeta = $bidInfo->bidMeta;
+                		//如果有购买记录
+                		if($bidMeta) {
+                			foreach ($bidMeta as $key => $val) {
+                	?>
+		                  <tr>
+		                    <td><?php echo $val->user_id;?></td>
+		                    <td><?php echo $bidInfo->title;?></td>
+		                    <td><?php echo $val->sum / 100;?></td>
+		                    <td><?php echo date('Y-m-d h:i:s',$val->buy_time);?></td>
+		                    <td>什么意思？？</td>
+		                  </tr>
+                  	<?php 
+                			}//end foreach
+                		}//end if
+                  	?>
+                </tbody>
+>>>>>>> 5090046a912fa1fe968d285a457f39a2580d80ed:application/modules/tender/views/purchase/purchaseBid.php
               </table>
             </div>
             <div class="tab-content info-content">
               <h1 class="adu-d-nav"><?php echo $bid->getAttribute('title');?></h1>
               <ul>
+<<<<<<< HEAD:application/modules/tender/views/purchase/info.php
                 <li>借款金额 :  <span><?php echo number_format($bid->getAttribute('sum') / 100,2);?></span>元</li>
                 <li>年利率 :  <span><?php echo $bid->getAttribute('month_rate') / 100;?></span>%</li>
                 <li>借款期限 :  <span><?php echo $bid->getAttribute('deadline');?></span>个月</li>
+=======
+                <li>借款金额 :  <span><?php echo $bidInfo->sum /100 ;?></span>元</li>
+                <li>年利率 :  <span><?php echo $bidInfo->month_rate;?></span>%</li>
+                <li>借款期限 :  <span><?php echo $bidInfo->deadline;?></span>个月</li>
+>>>>>>> 5090046a912fa1fe968d285a457f39a2580d80ed:application/modules/tender/views/purchase/purchaseBid.php
                 <li>信用等级 :  <span><?php echo $authGrade;?></span></li>
               </ul>
               <ul class="adu-img-bar">

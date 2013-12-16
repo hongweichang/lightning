@@ -14,7 +14,7 @@ class mainConf extends ConfigBase{
 	
 	public function merge(){
 		return array(
-				'hostName' => 'http://localhost',
+				'hostName' => 'http://115.29.186.221',
 				'preloadModels' => array(),
 				'modules' => array(
 						'pay',
@@ -84,7 +84,8 @@ class mainConf extends ConfigBase{
 						'request' => array(
 								'class' => 'application.components.Request'
 						),
-						/*'cache' => array(
+
+						'cache' => array(
 								'class' => 'CMemCache',
 								'useMemcached' => false,
 								'keyPrefix' => 'lightning',
@@ -100,12 +101,13 @@ class mainConf extends ConfigBase{
 										),
 								),
 						),
+
 						'session' => array(
 								'class'=> 'CHttpSession',
 								//'cacheID' => 'cache',
 								'autoStart' => true,
 								'timeout' => 3600*24
-						),*/
+						),
 						'clientScript' => array(
 								'scriptMap' => array(
 										'jquery.js' => false,
@@ -130,7 +132,7 @@ class mainConf extends ConfigBase{
 										),
 								),
 						),
-						/*'zmqClient' => array(
+						'zmqClient' => array(
 								'class' => 'cms.components.asyncEvent.ZMQClient',
 								'zmqServer' => 'tcp://localhost:5556',
 								'sendTimeout' => 3000,
@@ -152,7 +154,7 @@ class mainConf extends ConfigBase{
 												'command' => array('sendSMS','success')
 										),
 								),
-						),*/
+						),
 						'image'=>array(
 								'class'=>'ext.image.CImageComponent',
 								'driver'=>'GD',
@@ -166,6 +168,7 @@ class mainConf extends ConfigBase{
 								'gxjc' => '工薪阶层',
 								'qyz' => '企业主',
 								'wddz' => '网店店主',
+								'unknown' => '还未填写角色',
 						),
 						'commonUrls' =>array(
 								'index' => '/site',
