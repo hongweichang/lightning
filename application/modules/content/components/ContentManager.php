@@ -183,6 +183,24 @@ class ContentManager extends CApplicationComponent{
 		return new CActiveDataProvider('ArticleFaq',$config);
 	}
 	
+	public function replyFaq($id,$data,$type){
+		$form = new ArticleFaqReplyForm();
+		if ( $data === null || $id === null || $type === null ){
+			return $form;
+		}
+		
+		$data['id'] = $id;
+		$data['type'] = $type;
+		$data['user_id'] = Yii::app()->getUser()->getId();
+		
+		$form->attributes = $data;
+		if ( $form->validate() && $form->save() ){
+			return true;
+		}else {
+			return $form;
+		}
+	}
+	
 	public function deleteFaq($id){
 		return ArticleFaq::model()->deleteAll('id=:id OR fid=:id',array(':id'=>$id));
 	}

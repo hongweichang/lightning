@@ -74,7 +74,7 @@ class ContentController extends Admin{
 	}
 	
 	public function artEdit($type){
-		$redirect = urldecode($this->getQuery('redirect',$this->createUrl('administrator/view')));
+		$redirect = urldecode($this->getQuery('redirect',$this->createUrl('index/welcome')));
 		$id = $this->getQuery('id',null);
 		$data = $this->getPost('ArticleForm');
 		$result = $this->getContentManager()->updateArticle($id,$data);
@@ -91,7 +91,7 @@ class ContentController extends Admin{
 	}
 	
 	public function artDelete(){
-		$redirect = urldecode($this->getQuery('redirect',$this->createUrl('administrator/view')));
+		$redirect = urldecode($this->getQuery('redirect',$this->createUrl('index/welcome')));
 		$id = $this->getQuery('id',null);
 		$content = $this->getContentManager();
 		
@@ -131,7 +131,7 @@ class ContentController extends Admin{
 	}
 	
 	public function bannerDetail($type,$viewName){
-		$redirect = urldecode($this->getQuery('redirect',$this->createUrl('administrator/view')));
+		$redirect = urldecode($this->getQuery('redirect',$this->createUrl('index/welcome')));
 		$id = $this->getQuery('id',null);
 		if ( $id === null ){
 			$this->showMessage('目标不存在',$redirect,false);
@@ -178,14 +178,46 @@ class ContentController extends Admin{
 		$this->render('faq',array('dataProvider'=>$dataProvider,'type'=>$type));
 	}
 	
-	public function faqEditView($type){
-		$redirect = urldecode($this->getQuery('redirect',$this->createUrl('administrator/view')));
+	public function faqReplyView($type){
+		$redirect = urldecode($this->getQuery('redirect',$this->createUrl('index/welcome')));
 		$id = $this->getQuery('id',null);
 		$content = $this->getContentManager();
+		
+		$userDataProvider = $content->getFaqProvider(array(
+				'criteria' => array(
+						'alias' => 'faq',
+						'condition' => 'faq.id=:id',
+						'params' => array(
+								':id' => $id
+						),
+				),
+		),$type,true,false);
+		$userData = $userDataProvider->getData();
+		if ( empty($userData) ){
+			$this->showMessage('目标不存在',$redirect);
+		}
+		
+		$replyData = $this->getPost('ArticleFaqReplyForm');
+		$result = $content->replyFaq($id,$replyData,$type);
+		if ( $result === true ){
+			$this->showMessage('回复成功',$redirect,false);
+		}
+		
+		$dataProvider = $content->getFaqProvider(array(
+				'criteria' => array(
+						'condition' => 'fid=:fid',
+						'params' => array(
+								':fid' => $id
+						),
+				),
+		),$type+1,true,false);
+		
+		$action = $this->createUrl('',array('id'=>$id,'redirect'=>urlencode($redirect)));
+		$this->render('faqReplyView',array('model'=>$result,'dataProvider' => $dataProvider,'userDataProvider'=>$userDataProvider,'action'=>$action));
 	}
 	
 	public function faqDelete(){
-		$redirect = urldecode($this->getQuery('redirect',$this->createUrl('administrator/view')));
+		$redirect = urldecode($this->getQuery('redirect',$this->createUrl('index/welcome')));
 		$id = $this->getQuery('id',null);
 		$content = $this->getContentManager();
 		

@@ -7,6 +7,10 @@
  */
 class faqReplyAction extends CmsAction{
 	public function run(){
+		$controller = $this->getController();
 		
+		$controller->tabTitle = '提问回复与查看';
+		$controller->addToSubTab('提问列表','content/faq');
+		$controller->faqReplyView(0);
 	}
 }
