@@ -1,0 +1,1 @@
+<?php echo $this->renderPartial('_reasonForm',array('model'=>$model));?>

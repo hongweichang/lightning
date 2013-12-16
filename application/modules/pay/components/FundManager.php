@@ -69,7 +69,7 @@ class FundManager extends CApplicationComponent{
 	 */
 	public function revokeWithdraw($trade_no){
 		$record = Withdraw::model()->findByPk($trade_no);
-		$user = Yii::app()->getModule('user')->userManager->findByPk($record->getAttribute('user_id'));
+		$user = Yii::app()->getModule('user')->userManager->getUserInfo($record->getAttribute('user_id'));
 		
 		$transaction = Yii::app()->db->beginTransaction();
 		try{
@@ -116,19 +116,8 @@ class FundManager extends CApplicationComponent{
 	 * @param unknown $status
 	 * @return array()
 	 */
-	public function getWithdrawList($status){
-		$pager = new CPagination(Withdraw::model()->count());
-		$pager->setPageSize(20);
-		
-		$list = Withdraw::model()->with('user')->findAll(array(
-			'offset' => $pager->getOffset(),
-			'limit' => $pager->getLimit(),
-			'order' => 'raise_time desc, finish_time desc',
-			'condition' => 'status=:s',
-			'param' => array('s' => $status)
-		));
-		
-		return array('list' => $list, 'pager' => $pager);
+	public function getWithdrawList($condition,$params = array()){
+		return Withdraw::model()->with('user')->findAll($condition,$params);
 	}
 	
 	public function getPayList($condition,$param){

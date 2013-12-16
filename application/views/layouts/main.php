@@ -34,7 +34,9 @@
         </div>
       </div>
     </div>
+   <div id="container">
     <?php echo $content; ?>
+    </div>
     <div id="footer">
       <div class="wd1002">
         <ul id="fo-nav">
