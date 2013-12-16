@@ -103,8 +103,18 @@ class ContentManager extends CApplicationComponent{
 		return Article::model()->deleteByPk($id,$condition,$params);
 	}
 	
-	public function getBannerProvider($config,$enablePagination=true,$enableSort=true){
+	public function getBannerProvider($config,$type=null,$enablePagination=true,$enableSort=true){
 		Utils::resovleProviderConfigCriteria($config,$enablePagination,$enableSort);
+		$criteria = $config['criteria'];
+		$countCriteria = $config['countCriteria'];
+		
+		if ( $type !== null ){
+			$criteria->addCondition('banner_type=:type');
+			$criteria->params[':type'] = $type;
+			$countCriteria->addCondition('banner_type=:type');
+			$countCriteria->params[':type'] = $criteria->params[':type'];
+		}
+		
 		return new CActiveDataProvider('BannerScheme',$config);
 	}
 	
@@ -144,12 +154,36 @@ class ContentManager extends CApplicationComponent{
 	public function getInUsingBanner($type){
 		$provider = $this->getBannerProvider(array(
 				'criteria' => array(
-						'condition' => 'is_using=1 AND type=:type',
-						'params' => array(
-								':type' => $type
-						)
+						'condition' => 'is_using=1',
 				)
-		),false,false);
+		),$type,false,false);
 		return $provider->getData();
+	}
+	
+	public function getFaqProvider($config,$type=null,$withUser=true,$enablePagination=true,$enableSort=true){
+		Utils::resovleProviderConfigCriteria($config,$enablePagination,$enableSort);
+		$criteria = $config['criteria'];
+		$countCriteria = $config['countCriteria'];
+		
+		if ( $type !== null ){
+			$criteria->addCondition('faq_type=:type');
+			$criteria->params[':type'] = $type;
+			$countCriteria->addCondition('faq_type=:type');
+			$countCriteria->params[':type'] = $criteria->params[':type'];
+		}
+		
+		if ( $withUser === true ){
+			if ( $type === 0 || $type === 2 ){
+				$criteria->with[] = 'publisher';
+			}elseif ( $type === 1 || $type === 3 ){
+				$criteria->with[] = 'replier';
+			}
+		}
+		
+		return new CActiveDataProvider('ArticleFaq',$config);
+	}
+	
+	public function deleteFaq($id){
+		return ArticleFaq::model()->deleteAll('id=:id OR fid=:id',array(':id'=>$id));
 	}
 }

@@ -395,7 +395,46 @@ ul.content-box-tabs li a.current {
                 padding: 4px;
 				border: 1px solid #ccc;
                 }      
+      
+.banner-container {
+			width: 100%;
+            	border: 1px solid #000;
+				}
+
+..banner-detail-left {
+			float:none;
+			display:inline-block;
+				}
+.banner-detail-right {
+			float:none;
+			display:inline-block;
+			position: relative;
+			left: 4%;
+				}
 				
+.banner-container .banner-title-under-img {
+			background: rgb(190,190,190);
+			text-align: center;
+			height: 30px;
+			line-height: 30px;
+			margin-top: -2px;
+				}
+				
+.banner-container .banner-title-above-img {
+			background: rgb(190,190,190);
+			text-align: center;
+			height: 30px;
+			line-height: 30px;
+			margin-bottom: 20px;
+				}
+				
+.banner-container .banner-description-under-img {
+			margin: 20px 0px;
+			border-top: 1px solid #000;
+			border-bottom: 1px solid #000;
+			text-align: center;
+			background: rgb(240,240,240);
+				}
 /*************** Pagination ***************/
 
 #main-content .pagination {
