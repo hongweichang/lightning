@@ -81,16 +81,10 @@ class mainConf extends ConfigBase{
 								'charset' => 'utf8',
 								'tablePrefix' => 'xcms_'
 						),
-						/*'db' => array(
-								'class' => 'system.db.CDbConnection',
-								'autoConnect' => false,
-								'connectionString' => 'mysql:host=localhost;dbname=lightning',
-								'emulatePrepare' => true,
-								'username' => 'root',
-								'password' => 'lancelot!410',
-								'charset' => 'utf8',
-								'tablePrefix' => 'xcms_'
-						),*/
+						'request' => array(
+								'class' => 'application.components.Request'
+						),
+
 						'cache' => array(
 								'class' => 'CMemCache',
 								'useMemcached' => true,
@@ -107,6 +101,7 @@ class mainConf extends ConfigBase{
 										),
 								),
 						),
+
 						'session' => array(
 								'class'=> 'CHttpSession',
 								//'cacheID' => 'cache',
@@ -173,6 +168,7 @@ class mainConf extends ConfigBase{
 								'gxjc' => '工薪阶层',
 								'qyz' => '企业主',
 								'wddz' => '网店店主',
+								'unknown' => '还未填写角色',
 						),
 						'commonUrls' =>array(
 								'index' => '/site',
