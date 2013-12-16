@@ -7,8 +7,9 @@
  * @property string $id
  * @property string $user_id
  * @property string $sum
- * @property string $time
  * @property string $fee
+ * @property string $raise_time
+ * @property string $finish_time
  * @property integer $status
  *
  * The followings are the available model relations:
@@ -32,13 +33,14 @@ class Withdraw extends CmsActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('id, user_id, sum, time, fee', 'required'),
+			array('user_id, sum, fee, raise_time', 'required'),
 			array('status', 'numerical', 'integerOnly'=>true),
-			array('id, user_id, sum, time', 'length', 'max'=>11),
+			array('user_id, sum, raise_time', 'length', 'max'=>11),
 			array('fee', 'length', 'max'=>5),
+			array('finish_time', 'length', 'max'=>10),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, user_id, sum, time, fee, status', 'safe', 'on'=>'search'),
+			array('id, user_id, sum, fee, raise_time, finish_time, status', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -63,8 +65,9 @@ class Withdraw extends CmsActiveRecord
 			'id' => 'ID',
 			'user_id' => 'User',
 			'sum' => 'Sum',
-			'time' => 'Time',
 			'fee' => 'Fee',
+			'raise_time' => 'Raise Time',
+			'finish_time' => 'Finish Time',
 			'status' => 'Status',
 		);
 	}
@@ -90,8 +93,9 @@ class Withdraw extends CmsActiveRecord
 		$criteria->compare('id',$this->id,true);
 		$criteria->compare('user_id',$this->user_id,true);
 		$criteria->compare('sum',$this->sum,true);
-		$criteria->compare('time',$this->time,true);
 		$criteria->compare('fee',$this->fee,true);
+		$criteria->compare('raise_time',$this->raise_time,true);
+		$criteria->compare('finish_time',$this->finish_time,true);
 		$criteria->compare('status',$this->status);
 
 		return new CActiveDataProvider($this, array(
