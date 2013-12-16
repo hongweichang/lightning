@@ -1,6 +1,6 @@
 <?php
 /*
-**用户个人信息管理及审核
+**用户个人信息审核及标段审核
 design By HJtianling_LXY,<2507073658@qq.com>
 2013.11.16
 */
@@ -329,6 +329,93 @@ class VerifyController extends Admin{
 		echo $output;
 	}
 
+
+/*
+**标段审核列表
+*/
+	public function actionBidVerifyList(){
+		$bidList = array();
+
+		$criteria = new CDbCriteria;
+		$criteria->condition = 'verify_progress =:progress';
+		$criteria->params = array(
+						':progress'=>'0'
+					);
+		$criteria->order = 'pub_time DESC';
+
+		$bidData = BidInfo::model()->with('user')->findAll($criteria);
+
+		if(!empty($bidData)){
+			foreach($bidData as $value){
+				$userLevel = Yii::app()->getModule('credit')->userCreditManager->getUserCreditLevel($value->getRelated('user')->id);
+				$bidList[] = array(
+							'id'=>$value->id,
+							'title'=>$value->attributes['title'],
+							'description'=>$value->attributes['description'],
+							'nickname'=>$value->getRelated('user')->nickname,
+							'realname'=>$value->getRelated('user')->realname,
+							'mobile'=>$value->getRelated('user')->mobile,
+							'sum'=>$value->sum/100,
+							'deadline'=>$value->deadline,
+							'rate'=>$value->month_rate/100,
+							'level'=>$userLevel
+
+						);
+			}
+			
+			$this->render('bidVerifyList',array('bidList'=>$bidList));
+		}
+	}
+
+
+/*
+**The action of bid verify
+*/
+
+	public function actionBidVerify($id,$action){
+		if(is_numeric($id) && !empty($action)){
+
+			$bidData = Yii::app()->getModule('tender')->bidManager->getBidInfo($id);
+			if($action == 'pass'){
+				$bidData->verify_progress = '1';
+
+				if($bidData->save()){
+					$this->redirect(Yii::app()->createUrl('adminnogateway/verify/bidVerifyList'));
+				}
+			}elseif($action == 'unpass' ){
+				$bidData->verify_progress = '2';
+
+				if($bidData->save()){
+					$this->redirect(Yii::app()->createUrl('adminnogateway/verify/bidVerifyReasonInput',array('id'=>$id)));
+				}
+			}
+		}
+	}
+
+
+/*
+**To input the reason why bid unpassed verify
+*/
+
+	public function actionBidVerifyReasonInput($id){
+		$post = $this->getPost();
+
+		if(is_numeric($id)){
+
+			$bidData = Yii::app()->getModule('tender')->bidManager->getBidInfo($id);
+			if(!empty($post)){
+
+				$bidData->failed_description = $post['BidInfo']['failed_description'];
+
+				if($bidData->save()){
+					$this->redirect(Yii::app()->createUrl('adminnogateway/verify/bidVerifyList'));
+				}
+			}
+
+			$this->render('bidReason',array('model'=>$bidData));
+		}
+
+	}
 	
 
 }
