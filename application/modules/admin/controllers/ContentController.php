@@ -154,8 +154,9 @@ class ContentController extends Admin{
 		$data = $data[0];
 		$files = json_decode($data->file_names,true);
 		$addTime = $data->add_time;
+		$bannerName = $type === 0 ? 'siteBanner' : 'appBanner';
 		foreach ( $files as $i => $file ){
-			$files[$i]['filename'] = $this->app->getPartedUrl('siteBanner',$addTime).$file['filename'];
+			$files[$i]['filename'] = $this->app->getPartedUrl($bannerName,$addTime).$file['filename'];
 		}
 		
 		$this->tabTitle = '方案配置详情';
