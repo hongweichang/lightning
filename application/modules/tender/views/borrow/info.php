@@ -12,6 +12,7 @@ $('.input-daterange').datepicker({
 ",CClientScript::POS_END);
 ?>
 
+<div id="container">
         <div class="wd1002">
             <h1 class="aud-nav">
                 <a href="<?php echo $this->createUrl('borrow/index'); ?>">我要借贷 ></a>
@@ -149,4 +150,4 @@ $('.input-daterange').datepicker({
                 </form>
             </div>
         </div>
-
+</div>
