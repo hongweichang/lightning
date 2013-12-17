@@ -29,10 +29,16 @@ return array(
 				'<_m>/appTender/get<_a>',
 				'verb'=>'post'
 			),
-		
+
 		array(
 				'pattern'=>'<_m:(appservice)>/<_a:(raiseBid|purchaseBid)>',
 				'<_m>/appTender/<_a>',
+				'verb'=>'post'
+			),
+
+		array(
+				'pattern'=>'<_m:(appservice)>/<_a:(payPurchasedBid)>',
+				'<_m>/AppPay/<_a>',
 				'verb'=>'post'
 			),
 
