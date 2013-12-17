@@ -14,12 +14,15 @@ class SiteController extends Controller{
 		$content = $this->app->getModule('content')->getComponent('contentManager');
 		$cache = $this->app->cache;
 		
+		Yii::beginProfile('banner');
 		$banner = $cache->get('SITE_BANNER');
 		if ( $banner === false ){
 			$banner = $content->getInUsingBanner(0);
 			$cache->set('SITE_BANNER',$banner,24*3600);                                                                           
 		}
+		Yii::endProfile('banner');
 		
+		Yii::beginProfile('articles');
 		$articles = $cache->get('INDEX_ARTICLES');
 		if ( $articles === false ){
 			$articlesProvider = $content->getArticleProvider(array(
@@ -35,7 +38,9 @@ class SiteController extends Controller{
 			}
 			$cache->set('INDEX_ARTICLES',$articles,6*3600);
 		}
+		Yii::endProfile('articles');
 		
+		Yii::beginProfile('bids');
 		$bidData = $cache->get('INDEX_BIDS');
 		if ( empty($bidData) ){
 			$bidManager = $this->app->getModule('tender')->getComponent('bidManager');
@@ -79,10 +84,13 @@ class SiteController extends Controller{
 			}
 			$cache->set('INDEX_BIDS',$bidData,300);
 		}
+		Yii::endProfile('bids');
 		
+		Yii::beginProfile('render');
 		$this->cs->registerCssFile($this->cssUrl.'index.css');
 		$this->cs->registerScriptFile($this->scriptUrl.'slide_fade.js',CClientScript::POS_END);
 		$this->render('index',array('banner'=>$banner,'articles'=>&$articles,'bids'=>$bidData));
+		Yii::endProfile('render');
 	}
 	
 	public function actionTest(){
