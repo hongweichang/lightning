@@ -35,12 +35,14 @@ ModelAjax.prototype.getAjax = function (e) {
         _this.alert.notify(e);
     }
     if(e.method === "list"){
-        if(e.url){
+        var url = $(e.e).attr("data-url");
+        if(url){
             $.ajax({
-                url: e.url,
+                url: url,
                 success:function(data){
-                    e.data = data;
-                    _this.getContent.notify(e);
+                    console.log(data);
+                    /*e.data = data;
+                    _this.getContent.notify(e);*/
                 }
             });
         }else{
@@ -94,32 +96,32 @@ ViewAjax.prototype = {
         }
         else{
             $(e.e).addClass("back-nav-list-1");
-        }
+        };
     },
     showAlert: function (e) {
         if(e === "check-credit"){
-           alert(e);
+
         }
         if(e === "check-account"){
-            alert(e);
+
         }
         if(e === "check-pass"){
-            alert(e);
+
         }
         if(e === "delete"){
-            alert(e);
+
         }
         if(e === "freeze"){
-            alert(e);
+
         }
         if(e === "modify"){
-            alert(e);
+
         }
         if(e === "smart-lists"){
-            alert(e);
+
         }
         if(e === "operation-detail"){
-            alert(e);
+
         }
         if(e === "check-tender"){
 

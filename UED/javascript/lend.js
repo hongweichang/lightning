@@ -52,7 +52,7 @@ var Filter = function(){
 		},
 		send: function(str){
 			$.ajax({
-				url: "purchase/ajaxBids",
+				url: ajaxBids,
 				type: 'GET',
 				data: str,
 				dataType: 'json',
@@ -72,7 +72,7 @@ List = function(){
 	return{
 		showMore: function(str){
 			$.ajax({
-				url:'purchase/ajaxBids',
+				url:ajaxBids,
 				type:'GET',
 				data: str,
 				dataType:'json',

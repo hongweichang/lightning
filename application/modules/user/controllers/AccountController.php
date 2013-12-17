@@ -9,7 +9,7 @@ class AccountController extends Controller{
 	public $layout='//layouts/login';
 	
 	public function noneLoginRequired(){
-		return 'register,login,captcha';
+		return 'register,login,captcha,test';
 	}
 	
 	public function actions(){

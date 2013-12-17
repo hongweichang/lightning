@@ -9,12 +9,8 @@ class FundManager extends CApplicationComponent{
 	/**
 	 * 跳转地址，进入支付阶段
 	 */
-	public function pay($payment,$meta_id = null){
-		if($meta_id == null){
-			return Yii::app()->createUrl('pay/'.$payment.'/index');
-		}else{
-			return Yii::app()->createUrl('pay/'.$payment.'/index',array('meta_no' => $meta_id));
-		}
+	public function pay($payment,$param = array()){
+		return Yii::app()->createUrl('pay/'.$payment,$param);
 	}
 	
 	/**
@@ -113,10 +109,6 @@ class FundManager extends CApplicationComponent{
 			'status' => 1 // 暂时不分过程
 		);
 		return $db->save();
-	}
-	
-	public function calculate($sum){
-		return $sum;
 	}
 
 	/**

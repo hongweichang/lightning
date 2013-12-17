@@ -1,12 +1,14 @@
 <?php 
-$jsUrl = Yii::app()->controller->module->jsUrl;
-$cssUrl = Yii::app()->controller->module->cssUrl;
+$jsUrl = $this->scriptUrl;
+$cssUrl = $this->cssUrl;
 ?>
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<link rel="stylesheet" type="text/css" href=<?php echo $cssUrl?>reset.css>
+	<link rel="stylesheet" type="text/css" href=<?php echo $cssUrl?>style.css>
 	<script type="text/javascript" src="<?php echo $jsUrl;?>jquery.min.js"></script>
 	<script type="text/javascript" src="<?php echo $jsUrl;?>simpla.jquery.configuration.js"></script>
 	<script type="text/javascript" src="<?php echo $jsUrl;?>jquery.wysiwyg.js"></script>
@@ -31,12 +33,31 @@ body {
 	</style>
 </head>
 
-
-
 <body >
 	<div id="main-content">
-	<?php echo $content;?>
+		<div class="content-box">
+			<div class="content-box-header">
+				<ul class="content-box-tabs">
+					<?php foreach ( $this->subTabs as $subTab ):
+						echo $subTab;
+					endforeach;?>
+				</ul>
+				<div class="clear"></div>
+			</div>
+			<div class="content-box-content">
+				<?php foreach ( $this->notifications as $notification ):
+						echo $notification;
+					endforeach;
+				echo $content;?>
+			</div>
+		</div>
+		<div class="clear"></div>
 	</div>
+	
+	<div id="footer">
+	<?php echo $this->app['copyright']?>
+	</small>
+</div>
 </body>
 
 </html>

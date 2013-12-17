@@ -56,7 +56,7 @@ class UserInfoController extends Controller{
 									'1'=>$value['user_id'],
 									'2'=>$value['verification_id'],
 									'3'=>$value['content'],
-									'4'=>date('Y-m-d H:i:s',$value['submit_time']),
+									'4'=>$value['submit_time'],
 									'5'=>$value['status'],
 								);
 			}

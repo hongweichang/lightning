@@ -3,7 +3,7 @@ $this->cs->registerCssFile($this->cssUrl.'common.css');
 $this->cs->registerCssFile($this->cssUrl.'detail.css');
 ?>
 
-<body>
+
     <div id="container">
         <div class="wd989">
             <h1 class="aud-nav">
@@ -12,10 +12,14 @@ $this->cs->registerCssFile($this->cssUrl.'detail.css');
             </h1>
             <div class="aud-detail">
                 <div class="det-per-inf">
+                    <?php if(!empty($IconUrl)){?>
+                    <img src="<?php echo $IconUrl;?>" class="det-img"/>
+                    <?php }else{?>
                     <img src="<?php echo $this->imageUrl.'user-avatar.png'?>" class="det-img" />
+                    <?php }?>                    
                     <p>
                         <span class="aud-time">晚上好，</span>
-                        <span class="aud-det-name">王国栋 </span>
+                        <span class="aud-det-name"><?php echo Yii::app()->user->name;?></span>
                         现在是属于你自己的时间，好好休息吧
                     </p>
                     <p class="aud-st-serve">
@@ -54,7 +58,7 @@ $this->cs->registerCssFile($this->cssUrl.'detail.css');
                     <a href="<?php echo Yii::app()->createUrl('user/userCenter/myBorrow');?>">
                         <li class="find-table-0"><div class="find-table-op find-table-op"></div>我的借款</li>
                     </a>
-                    <a href="">
+                    <a href="<?php echo Yii::app()->createUrl('user/userCenter/myLend');?>">
                         <li class="find-table-1"><div class="find-table-op-hidden"></div>我的投资</li>
                     </a>
                     <a href="<?php echo Yii::app()->createUrl('user/userCenter/userSecurity');?>">
@@ -126,29 +130,25 @@ $this->cs->registerCssFile($this->cssUrl.'detail.css');
                             <span>借款人</span>
                             <span>借款标题</span>
                             <span>年利率</span>
-                            <span>还款金额</span>
+                            <span>投资金额</span>
                             <span>期限</span>
-                            <span class="deadline">收益时间</span>
+                            <span class="deadline">成立时间</span>
                             <span class="repay">查看详情</span>
                         </li>
+                        <?php if(!empty($waitingForBuy)){
+                            foreach($waitingForBuy as $value){
+                        ?>
                         <li>
-                            <span><img src="#" /></span>
-                            <span>再次支持免费充值</span>
-                            <span>10.00 % </span>
-                            <span>￥25000元</span>
-                            <span>3个月</span>
-                            <span class="deadline">2013-11-15 23:59</span>
+                            <span><?php echo $value['nickname'];?></span>
+                            <span><?php echo $value['bidTitle'];?></span>
+                            <span><?php echo $value['rate'].'%';?></span>
+                            <span><?php echo '￥'.$value['sum'].'元'?></span>
+                            <span><?php echo $value['deadline']?>个月</span>
+                            <span class="deadline"><?php echo $value['buyTime'];?></span>
                             <span class="repay"><a href="">查看</a></span>
                         </li>
-                        <li>
-                            <span><img src="#" /></span>
-                            <span>再次支持免费充值</span>
-                            <span>10.00 % </span>
-                            <span>￥25000元</span>
-                            <span>3个月</span>
-                            <span class="deadline">2013-11-15 23:59</span>
-                            <span class="repay"><a href="">查看</a></span>
-                        </li>
+                        <?php  }
+                            }?>
                     </ul>
                 </div>
                 <div class="find-table-content">
@@ -190,6 +190,4 @@ $this->cs->registerScriptFile($this->scriptUrl.'jquery-1.8.2.min.js',CClientScri
 $this->cs->registerScriptFile($this->scriptUrl.'tableChange.js',CClientScript::POS_END);
 ?>
 
-<script type="text/javascript" src="../javascript/tableChange.js"></script>
-</body>
-</html>
+

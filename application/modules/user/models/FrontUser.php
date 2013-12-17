@@ -125,4 +125,27 @@ class FrontUser extends SingleInheritance
 	{
 		return parent::model($className);
 	}
+
+
+	public static function getRoleName($role){
+		if(isset($role)){
+			switch ($role) {
+				case 'wddz':
+					return '网店店主';
+					break;
+				
+				case 'gxjc':
+					return '工薪阶层';
+					break;
+
+				case 'qyz':
+					return '企业主';
+					break;
+
+				default:
+					return '暂未设置';
+					break;
+			}
+		}
+	}
 }

@@ -47,14 +47,14 @@ $cssUrl = $this->cssUrl;
 			<a href="#"><?php echo $this->getPageTitle()?></a>
 		</h1>
 
-		<a href="<?php echo Yii::app()->createUrl('admin/index/index');?>" target="_blank">
-		<img id="logo" src="<?php echo $imgUrl;?>logo.png" alt="<?php echo $this->getPageTitle()?>" />
+		<a href="<?php echo Yii::app()->createUrl('index/index');?>" target="_blank">
+		<img id="logo" src="<?php echo $this->imageUrl;?>logo.png" alt="<?php echo $this->getPageTitle()?>" />
 		</a>
 
 		<div id="profile-links">
 			你好，管理员 
-			<a href="#" title="编辑个人信息" target="mainFrame">
-			<?php echo Yii::app()->user->getState('userName');?>
+			<a href="<?php echo $this->createUrl('mine/info')?>" title="编辑个人信息" target="mainFrame">
+			<?php echo $this->user->getName();?>
 			</a>
 			<br />
 			<a href="<?php echo $this->app->getSiteBaseUrl()?>" target="_blank" title="浏览网站前台">浏览网站</a> | 
@@ -64,27 +64,34 @@ $cssUrl = $this->cssUrl;
 		<ul id="main-nav">
 			<?php
 				foreach ( $this->menu as $i => $menu ):
-					$record = $menu['record'];
-					if ( $menu['parent'] === null ):
+				$record = $menu['record'];
+				if ( $menu['parent'] === null ):
 			?>
 			<li>
-			<a href="<?php echo Yii::app()->createUrl($url)?>" class="nav-top-item">
-					<?php echo $m['parent']->getName();?>
-			</a>
-				<?php if ($m['children'] ){
-					echo '<ul>';
-					foreach( $m['children'] as $child){
-					$url = 'admin/'.$child->getController().'/'.$child->getAction()
+			<a href="#" class="nav-top-item"><?php echo $record->operation_name;?></a>
+			<ul>
+				<?php
+				else:
+					if ( $record->module === null )
+						$url = '/'.$record->controller.'/'.$record->action;
+					else
+						$url = '/'.$record->module.'/'.$record->controller.'/'.$record->action;
 				?>
 					<li>
-						<a href="<?php echo Yii::app()->createUrl($url)?>" target="mainFrame">
-						<?php echo $child->getName();?>
+						<a href="<?php echo $this->createUrl($url)?>" target="mainFrame">
+						<?php echo $record->operation_name?>
 						</a>
 					</li>
-				<?php }
-					echo '</ul>';
-				}?>
-			</li>
+				<?php 
+				endif;
+				
+				if ( isset($this->menu[$i+1]) )
+					$next = $this->menu[$i+1];
+				else
+					$next = false;
+				if ( ($next===false) || ($menu['parent']!==null&&$next['parent']!==$menu['parent']) || ($next['parent']===null) )
+					echo '</ul></li>';
+				?>
 			<?php endforeach;?>
 		</ul>
 
