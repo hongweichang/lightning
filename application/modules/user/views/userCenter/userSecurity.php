@@ -5,14 +5,13 @@ $this->cs->registerCssFile($this->cssUrl.'common.css');
 $this->cs->registerCssFile($this->cssUrl.'detail.css');
 if(Yii::app()->user->hasFlash('error')){
     $error = Yii::app()->user->getFlash('error');
-    var_dump($error);
-    die();
 ?>
 <script>alert('<?php echo $error;?>');</script>
 <?php
 }elseif(Yii::app()->user->hasFlash('success')){
+    $info = Yii::app()->user->getFlash('success');
 ?>
-<script>alert('修改成功');</script>
+<script>alert('<?php echo $info?>');</script>
 <?php }?>
 
     <div id="container">
@@ -163,19 +162,42 @@ if(Yii::app()->user->hasFlash('error')){
                         <div class="clearfix sec-fold">
                             <div class="sec-img ico-phone"></div>
                             <p class="sec-val">绑定手机</p>
-                            <p class="sec-status">136****9982</p>
+                            <p class="sec-status"><?php echo $userData->mobile;?></p>
                         </div>
                     </li>
                     <li>
                         <div class="clearfix sec-fold">
                             <div class="sec-img ico-paywd"></div>
                             <p class="sec-val">交易密码</p>
-                            <p class="sec-status">已设置</p>
+                            <p class="sec-status">
+                                <?php
+                                    if(!empty($userData->pay_password)){
+                                        echo "已设置";
+                                    }else{
+                                        echo "未设置"
+                                ?>
+
+                            </p>
                             <div class="sec-update">
-                                <a href="javascript:;">修改 |</a>
-                                <a href="javascript:;">找回</a>
+                                <a href="javascript:;">设置</a>
                             </div>
                         </div>
+                        <div class="sec-unfold">
+                            <form name = "payPasssword" method = "post" action = "payPasswordCreate">
+                                <div class="form-item">
+                                    <label>支付密码</label>
+                                    <input type="password" name = "password"/>
+                                </div>
+                                <div class="form-item">
+                                    <label>确认密码</label>
+                                    <input type="password"  name = "rePassword"/>
+                                </div>
+                                <div class="form-item">
+                                    <input type="submit" class="form-button" value="确认提交"/>
+                                </div>
+                            </form>
+                        </div>
+                        <?php }?>
                     </li>
                 </ul>
             </div>
