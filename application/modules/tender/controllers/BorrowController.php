@@ -10,7 +10,9 @@ class BorrowController extends Controller {
 	
 	public function init(){
 		parent::init();
-		
+	}
+	
+	public function beforeAction($action){
 		$this->role = $this->app['roleMap'][$this->user->getState("role")];
 	}
 	
@@ -20,7 +22,7 @@ class BorrowController extends Controller {
 	 * 用户角色从user里面取得
 	 */
 	function actionIndex() {
-		$this->setPageTitle($this->name.' - '.$this->app->name);
+		$this->setPageTitle($this->name);
 		
 		$user = $this->app->getModule('user');
 		//检查信息是否完善
