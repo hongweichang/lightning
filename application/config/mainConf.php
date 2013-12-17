@@ -80,8 +80,8 @@ class mainConf extends ConfigBase{
 								'password' => 'lancelot@lightningdbmysqladmin',
 								'charset' => 'utf8',
 								'tablePrefix' => 'xcms_'
-						),
-						/*'db' => array(
+						),/*
+						'db' => array(
 								'class' => 'system.db.CDbConnection',
 								'autoConnect' => false,
 								'connectionString' => 'mysql:host=localhost;dbname=lightning',
@@ -91,9 +91,12 @@ class mainConf extends ConfigBase{
 								'charset' => 'utf8',
 								'tablePrefix' => 'xcms_'
 						),*/
+						'request' => array(
+								'class' => 'application.components.Request'
+						),
 						'cache' => array(
 								'class' => 'CMemCache',
-								'useMemcached' => false,
+								'useMemcached' => true,
 								'keyPrefix' => 'lightning',
 								'servers' => array(
 										array(
@@ -107,6 +110,7 @@ class mainConf extends ConfigBase{
 										),
 								),
 						),
+
 						'session' => array(
 								'class'=> 'CHttpSession',
 								//'cacheID' => 'cache',
@@ -173,6 +177,7 @@ class mainConf extends ConfigBase{
 								'gxjc' => '工薪阶层',
 								'qyz' => '企业主',
 								'wddz' => '网店店主',
+								'unknown' => '还未填写角色',
 						),
 						'commonUrls' =>array(
 								'index' => '/site',

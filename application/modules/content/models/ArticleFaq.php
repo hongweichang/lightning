@@ -1,28 +1,35 @@
 <?php
 
 /**
- * This is the model class for table "{{withdraw}}".
+ * This is the model class for table "{{article_faq}}".
  *
- * The followings are the available columns in table '{{withdraw}}':
+ * The followings are the available columns in table '{{article_faq}}':
  * @property string $id
+ * @property string $fid
+ * @property string $title
+ * @property string $content
  * @property string $user_id
- * @property string $sum
- * @property string $fee
- * @property string $raise_time
- * @property string $finish_time
- * @property integer $status
- *
- * The followings are the available model relations:
- * @property FrontUser $user
+ * @property string $add_ip
+ * @property integer $faq_type
+ * @property string $add_time
  */
-class Withdraw extends CmsActiveRecord
+class ArticleFaq extends CmsActiveRecord
 {
+	public function getUser(){
+		$type = intval($this->faq_type);
+		if ( $type === 0 || $type === 2 ){
+			return $this->getRelated('publisher');
+		}elseif ( $type === 1 || $type === 3 ){
+			return $this->getRelated('replier');
+		}
+		return null;
+	}
 	/**
 	 * @return string the associated database table name
 	 */
 	public function tableName()
 	{
-		return '{{withdraw}}';
+		return '{{article_faq}}';
 	}
 
 	/**
@@ -30,17 +37,9 @@ class Withdraw extends CmsActiveRecord
 	 */
 	public function rules()
 	{
-		// NOTE: you should only define rules for those attributes that
-		// will receive user inputs.
 		return array(
-			array('user_id, sum, fee, raise_time', 'required'),
-			array('status', 'numerical', 'integerOnly'=>true),
-			array('user_id, sum, raise_time', 'length', 'max'=>11),
-			array('fee', 'length', 'max'=>5),
-			array('finish_time', 'length', 'max'=>10),
-			// The following rule is used by search().
-			// @todo Please remove those attributes that should not be searched.
-			array('id, user_id, sum, fee, raise_time, finish_time, status', 'safe', 'on'=>'search'),
+			array('content, user_id, add_ip, faq_type, add_time', 'required'),
+			array('fid','safe'),
 		);
 	}
 
@@ -49,10 +48,9 @@ class Withdraw extends CmsActiveRecord
 	 */
 	public function relations()
 	{
-		// NOTE: you may need to adjust the relation name and the related
-		// class name for the relations automatically generated below.
 		return array(
-			'user' => array(self::BELONGS_TO, 'FrontUser', 'user_id'),
+				'publisher' => array(self::BELONGS_TO,'FrontUser','user_id'),
+				'replier' => array(self::BELONGS_TO,'Administrators','user_id')
 		);
 	}
 
@@ -63,12 +61,13 @@ class Withdraw extends CmsActiveRecord
 	{
 		return array(
 			'id' => 'ID',
+			'fid' => 'Fid',
+			'title' => 'Title',
+			'content' => 'Content',
 			'user_id' => 'User',
-			'sum' => 'Sum',
-			'fee' => 'Fee',
-			'raise_time' => 'Raise Time',
-			'finish_time' => 'Finish Time',
-			'status' => 'Status',
+			'add_ip' => 'Add Ip',
+			'faq_type' => 'Faq Type',
+			'add_time' => 'Add Time',
 		);
 	}
 
@@ -91,12 +90,13 @@ class Withdraw extends CmsActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id,true);
+		$criteria->compare('fid',$this->fid,true);
+		$criteria->compare('title',$this->title,true);
+		$criteria->compare('content',$this->content,true);
 		$criteria->compare('user_id',$this->user_id,true);
-		$criteria->compare('sum',$this->sum,true);
-		$criteria->compare('fee',$this->fee,true);
-		$criteria->compare('raise_time',$this->raise_time,true);
-		$criteria->compare('finish_time',$this->finish_time,true);
-		$criteria->compare('status',$this->status);
+		$criteria->compare('add_ip',$this->add_ip,true);
+		$criteria->compare('faq_type',$this->faq_type);
+		$criteria->compare('add_time',$this->add_time,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
@@ -107,7 +107,7 @@ class Withdraw extends CmsActiveRecord
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!
 	 * @param string $className active record class name.
-	 * @return Withdraw the static model class
+	 * @return ArticleFaq the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{
