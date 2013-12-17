@@ -1,4 +1,5 @@
 <?php $this->cs->registerCssFile($this->cssUrl.'cuskind.css'); ?>
+<div id="container">
         <div class="wd1002">
             <h1 class="con-nav">闪电贷借款 - 产品介绍</h1>
             <div id="aud-check" class="aud-common">
@@ -84,3 +85,4 @@
             	<?php } ?>
             </div>
         </div>
+    </div>
