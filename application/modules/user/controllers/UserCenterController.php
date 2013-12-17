@@ -15,7 +15,7 @@ class UserCenterController extends Controller{
 	*个人信息获取
 	*/
 	public function actionUserInfo(){
-		$this->pageTitle = '闪电贷';
+		$this->pageTitle = '个人中心';
 		$uid = Yii::app()->user->id;
 		$userData = $this->app->getModule('user')->getComponent('userManager')->getUserInfo($uid);
 
@@ -362,6 +362,38 @@ class UserCenterController extends Controller{
 				}else
 					var_dump($userData->getErrors());
 			}	
+		}
+	}
+
+	/*
+	**支付密码设置
+	*/
+	public function actionPayPasswordCreate(){
+		$post = $this->getPost();
+
+		if(!empty($post)){
+			$password = $post['password'];
+			$rePassword = $post['rePassword'];
+
+			if($password != $rePassword){
+				Yii::app()->setFlash('error','密码和重复密码不对应');
+				$this->redirect(Yii::app()->createUrl('user/userCenter/userSecurity'));
+				exit();
+			}
+
+			$uid = $this->user->id;
+			$userData = FrontUser::model()->findByPk($uid);
+
+			if(!empty($userData)){
+				$security = Yii::app()->getSecurityManager();
+				$payPassword = $security->generatePassword($password);//调用加密组建对密码进行加密
+				$userData->pay_password = $payPassword;
+
+				if($userData->save()){
+					Yii::app()->user->setFlash('success','支付密码设置成功');
+					$this->redirect(Yii::app()->createUrl('user/userCenter/userSecurity'));
+				}
+			}
 		}
 	}
 

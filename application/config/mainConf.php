@@ -68,7 +68,6 @@ class mainConf extends ConfigBase{
 								'autoRenewCookie' => true,
 								'guestName' => '游客',
 								'authTimeout' => 3600,
-								'avatarPath' => '/upload/avatar/'
 						),
 						//remote database on aliyun.remote ip
 						'db' => array(
@@ -80,23 +79,13 @@ class mainConf extends ConfigBase{
 								'password' => 'lancelot@lightningdbmysqladmin',
 								'charset' => 'utf8',
 								'tablePrefix' => 'xcms_'
-						),/*
-						'db' => array(
-								'class' => 'system.db.CDbConnection',
-								'autoConnect' => false,
-								'connectionString' => 'mysql:host=localhost;dbname=lightning',
-								'emulatePrepare' => true,
-								'username' => 'root',
-								'password' => 'lancelot!410',
-								'charset' => 'utf8',
-								'tablePrefix' => 'xcms_'
-						),*/
+						),
 						'request' => array(
 								'class' => 'application.components.Request'
 						),
 						'cache' => array(
 								'class' => 'CMemCache',
-								'useMemcached' => true,
+								'useMemcached' => false,
 								'keyPrefix' => 'lightning',
 								'servers' => array(
 										array(

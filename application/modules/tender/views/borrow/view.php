@@ -1,8 +1,5 @@
 <?php $this->cs->registerCssFile($this->cssUrl.'audit.css'); ?>
-<<<<<<< HEAD:application/modules/tender/views/borrow/view.php
 <div id="container">
-=======
->>>>>>> 5090046a912fa1fe968d285a457f39a2580d80ed:application/modules/tender/views/borrow/viewBidInfo.php
 		<div class="wd1002">
             <h1 class="aud-nav">
                 <a href="<?php echo $this->createUrl('borrow/index'); ?>">我要借贷 ></a>
@@ -40,13 +37,8 @@
             </div>
             <div id="aud-detail">
                 <div class="aud-ucenter">
-<<<<<<< HEAD:application/modules/tender/views/borrow/view.php
                     <a href="<?php echo $this->app->createUrl('user/userCenter'); ?>">进入个人中心 |</a>
                     <a href="<?php echo $this->app->createUrl('help'); ?>">使用帮助</a>
-=======
-                    <a href="<?php echo $this->app->createUrl('user/userCenter/userInfo'); ?>">进入个人中心 |</a>
-                    <a href="<?php echo $this->app->createUrl('/help');?>">使用帮助</a>
->>>>>>> 5090046a912fa1fe968d285a457f39a2580d80ed:application/modules/tender/views/borrow/viewBidInfo.php
                 </div>
                 <div class="aud-warning">
                     <img src="<?php echo $this->imageUrl;?>adu-warning.png" class="adu-img-waring" />
@@ -58,17 +50,10 @@
                 </div>
                 <h1 class="adu-d-nav"><?php echo $model->getAttribute('title'); ?></h1>
                 <ul>
-<<<<<<< HEAD:application/modules/tender/views/borrow/view.php
                     <li>借款金额 :  <span><?php echo number_format($model->getAttribute('sum') / 100,2); ?></span>元</li>
                     <li>年利率 :  <span><?php echo $model->getAttribute('month_rate') / 100; ?></span>%</li>
                     <li>借款期限 :  <span><?php echo $model->getAttribute('deadline'); ?></span>个月</li>
                     <li>信用等级 :  <span><?php echo Yii::app()->getModule('credit')->getComponent('userCreditManager')->getUserCreditLevel($model->getAttribute('user_id')); ?></span></li>
-=======
-                    <li>借款金额 :  <span><?php echo $model->sum / 100;?></span>元</li>
-                    <li>年利率 :  <span><?php echo $model->month_rate;?></span>%</li>
-                    <li>借款期限 :  <span><?php echo $model->deadline;?></span>个月</li>
-                    <li>信用等级 :  <span>HR</span></li>
->>>>>>> 5090046a912fa1fe968d285a457f39a2580d80ed:application/modules/tender/views/borrow/viewBidInfo.php
                 </ul>
                 <div class="adu-intro">
                     <h3>【标段介绍】</h3>
@@ -92,13 +77,6 @@
                         <p>常驻地址证明</p>
                     </li>
                 </ul>
-<<<<<<< HEAD:application/modules/tender/views/borrow/view.php
-=======
-                <div class="adu-intro">
-                    <h3>【标段介绍】</h3>
-                    <p><?php echo $model->description;?></p>
-                </div>
->>>>>>> 5090046a912fa1fe968d285a457f39a2580d80ed:application/modules/tender/views/borrow/viewBidInfo.php
             </div>
         </div>
-
+</div>

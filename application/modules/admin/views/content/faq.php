@@ -11,8 +11,8 @@ $action = $type == 0 ? 'faq' : 'userMessage';
 ?>
 <table>
 	<thead>
-		<th>提问内容</th>
-		<th>提问时间</th>
+		<th>内容</th>
+		<th>时间</th>
 		<th>用户昵称</th>
 		<th>留言IP</th>
 		<th>操作</th>
