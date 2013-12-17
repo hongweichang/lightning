@@ -38,10 +38,6 @@ class Admin extends Controller{
 		return array_merge($ipAllow,parent::accessRules());
 	}
 	
-	public function loginRequired(){
-		$this->redirect($this->createUrl('account/login'));
-	}
-	
 	/**
 	 * 添加三级菜单
 	 */
@@ -101,6 +97,18 @@ class Admin extends Controller{
 	
 	public function accessDenied(){
 		$this->showMessage('您无权访问此页面','index/welcome');
+	}
+	
+	public function loginRequired(){
+		$url = $this->request->urlReferrer;
+		$loginUrl = $this->createAbsoluteUrl('account/login');
+		if ( $url !== $loginUrl ){
+			$this->redirect($loginUrl);
+		}else {
+			$this->layout = false;
+			$this->render('/public/loginRedirect',array('url'=>$loginUrl));
+			$this->app->end();
+		}
 	}
 	
 	public function actionIndex(){
