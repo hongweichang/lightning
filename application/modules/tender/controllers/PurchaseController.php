@@ -39,7 +39,7 @@ class PurchaseController extends Controller {
 	 * 利用CListview和CActiveDataProvider
 	 */
 	function actionIndex() {
-		$this->setPageTitle($this->name.' - '.$this->app->name);
+		$this->setPageTitle($this->name);
 		
 		$pager = new CPagination(BidInfo::model()->count("verify_progress=1 AND start<='".strtotime(date('Y-m-d'))."'"));
 		$pager->setPageSize($this->_bidsPerPage);
@@ -148,6 +148,8 @@ class PurchaseController extends Controller {
 		$return = array();
 		foreach($data as $key => $value) {
 			$return[$key] = $value->getAttributes();
+			$return[$key]['month_rate'] /= 100;
+			$return[$key]['sum'] = number_format($return[$key]['sum'],2).'元';
 			$return[$key]['titleHref'] = $this->createUrl('purchase/info', array('id' => $value->getAttribute('id')));
 			$return[$key]['authGrade'] = Yii::app()->getModule('credit')->getComponent('userCreditManager')->getUserCreditLevel($value->getAttribute('user_id'));
 		}

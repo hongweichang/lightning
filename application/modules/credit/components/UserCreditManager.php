@@ -10,15 +10,11 @@ class UserCreditManager extends CApplicationComponent{
 			$level = null;
 			
 			$userCredit = FrontUser::model()->findByPk($uid);
-			if(!empty($userCredit)){
-				$userCreditPoint = $userCredit['attributes']['credit_grade'];
-				$userLevel = $this->UserLevelCaculator($userCreditPoint);
-				if(!empty($userLevel))
-					$level = $userLevel[0]->label;
-
-				return $level;
+			if( $userCredit !== null ){
+				return $this->UserLevelCaculator($userCredit->credit_grade);
+			}else {
+				return null;
 			}
-
 		}
 	}
 
@@ -34,7 +30,11 @@ class UserCreditManager extends CApplicationComponent{
 
 			$levelData = CreditGradeSettings::model()->findAll($criteria);
 
-			return $levelData;
+			if(!empty($levelData)){
+				$levelData[0]->label;
+			}else {
+				return null;
+			}
 		}else
 			return 401;
 	}

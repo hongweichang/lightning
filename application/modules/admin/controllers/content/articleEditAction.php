@@ -8,9 +8,9 @@
 class articleEditAction extends CmsAction{
 	public function run(){
 		$controller = $this->getController();
-		$controller->tabTitle = '编辑文章';
-		$controller->addToSubTab('文章列表','content/articleList');
-		$controller->addToSubTab('添加文章','content/articleAdd');
+		$controller->tabTitle = '编辑公告';
+		$controller->addToSubTab('公告列表','content/articleList');
+		$controller->addToSubTab('添加公告','content/articleAdd');
 		$controller->artEdit(0);
 	}
 }

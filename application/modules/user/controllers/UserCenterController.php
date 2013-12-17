@@ -15,7 +15,7 @@ class UserCenterController extends Controller{
 	*个人信息获取
 	*/
 	public function actionUserInfo(){
-		$this->pageTitle = '闪电贷';
+		$this->pageTitle = '个人中心';
 		$uid = Yii::app()->user->id;
 		$userData = $this->app->getModule('user')->getComponent('userManager')->getUserInfo($uid);
 

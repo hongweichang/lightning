@@ -102,7 +102,9 @@ class Admin extends Controller{
 	public function loginRequired(){
 		$url = $this->request->urlReferrer;
 		$loginUrl = $this->createAbsoluteUrl('account/login');
-		if ( $url !== $loginUrl ){
+		$compare = $this->createAbsoluteUrl('index/menu');
+		
+		if ( $url !== $compare ){
 			$this->redirect($loginUrl);
 		}else {
 			$this->layout = false;

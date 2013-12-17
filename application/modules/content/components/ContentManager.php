@@ -157,7 +157,12 @@ class ContentManager extends CApplicationComponent{
 						'condition' => 'is_using=1',
 				)
 		),$type,false,false);
-		return $provider->getData();
+		$data = $provider->getData();
+		if ( empty($data) ){
+			return null;
+		}else {
+			return $data[0];
+		}
 	}
 	
 	public function getFaqProvider($config,$type=null,$withUser=true,$enablePagination=true,$enableSort=true){

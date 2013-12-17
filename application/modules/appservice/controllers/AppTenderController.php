@@ -34,6 +34,7 @@ class AppTenderController extends Controller{
 				$this->response('401','查询失败，参数错误','');
 			}
 
+			$criteria->with = array('user');
 			$BidData = $this->app->getModule('tender')->getComponent('bidManager')->getBidList($criteria);
 
 			if(!empty($BidData)){

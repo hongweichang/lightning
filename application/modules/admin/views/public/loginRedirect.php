@@ -32,7 +32,7 @@
 			</div>
 			<div class="content-box-content">
 				<h4>
-					您还未登录，请登录后操作
+					登录超时，请重新登录
 				</h4>
 				<h4>
 					<a href="<?php echo $url;?>" target="_top">返 回 </a>
