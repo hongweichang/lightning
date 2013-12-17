@@ -10,7 +10,7 @@ class FundManager extends CApplicationComponent{
 	 * 跳转地址，进入支付阶段
 	 */
 	public function pay($payment,$param = array()){
-		return Yii::app()->createUrl('pay/'.$payment,$param);
+		return Yii::app()->createUrl('pay/'.$payment.'/index',$param);
 	}
 	
 	/**

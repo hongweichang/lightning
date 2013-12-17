@@ -61,7 +61,7 @@ class PlatformController extends Controller{
 			$password = $this->getPost('pay_pwd');
 			$verify = $this->getPost('pay_verify');
 			
-			if($this->getModule()->bidManager->payPurchaseBid($this->getQuery('meta_no'))){
+			if($this->getModule()->bidManager->payPurchasedBid($this->getQuery('meta_no'))){
 				$this->render('success');
 			}else{
 				//$this->render();//失败 - 账户余额补足  或 重复付款
