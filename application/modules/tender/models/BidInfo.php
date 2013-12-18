@@ -41,27 +41,16 @@ class BidInfo extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-<<<<<<< HEAD
 			array('user_id, title, description, sum', 'required'),
 			array('month_rate,start,end,pub_time,deadline,progress,sum', 'numerical', 'integerOnly'=>true),
 			array('title', 'length', 'max'=>50),
 			//month_rate 5-20
 			//deadline:1-36
-			array('month_rate','numerical','max'=>20,'min'=>5),
+			array('month_rate','numerical','max'=>2000,'min'=>500),
 			array('deadline','numerical','max'=>36,'min'=>1),
 			array('failed_description,refund', 'safe'),
 			// The following rule is used by search().
 			array('id, user_id, title, description, sum, month_rate, start, end, deadline, progress, verify_progress, failed_description', 'safe', 'on'=>'search'),
-=======
-			array('user_id, title, description, sum, refund, month_rate, start, end, deadline', 'required'),
-			array('refund, verify_progress', 'numerical', 'integerOnly'=>true),
-			array('user_id, sum, start, end, deadline', 'length', 'max'=>11),
-			array('title', 'length', 'max'=>50),
-			array('month_rate, progress', 'length', 'max'=>5),
-			array('pub_time', 'length', 'max'=>10),
-			array('failed_description', 'safe'),
-			array('id, user_id, title, description, sum, refund, month_rate, start, end, deadline, progress, verify_progress, failed_description', 'safe', 'on'=>'search'),
->>>>>>> b0a08ba33c2a6a4fd06423954cc5e404a49ce847
 		);
 	}
 
@@ -115,6 +104,7 @@ class BidInfo extends CActiveRecord
 	 */
 	public function search()
 	{
+		// @todo Please modify the following code to remove attributes that should not be searched.
 
 		$criteria=new CDbCriteria;
 

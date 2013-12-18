@@ -10,6 +10,7 @@ class Admin extends Controller{
 	public $defaultAction = 'index';
 	public $subTabs = array();
 	public $notifications = array();
+	public $tabTitle = '';
 	public $pluginUrl;
 	
 	public function init(){
@@ -19,8 +20,8 @@ class Admin extends Controller{
 		$app->setPath('image','UED/backend/images/');
 		parent::init();
 		$this->pluginUrl = $this->app->getSiteBaseUrl().'plugins/';
-		//$this->addToSubNav('首页','/'.$this->getModule()->name);
 		parent::setPageTitle('闪电贷后台管理系统');
+		$this->actionClassPathAlias = $this->getModule()->name.'.controllers';
 	}
 	
 	public function setPageTitle($value){
@@ -53,8 +54,8 @@ class Admin extends Controller{
 	 * 添加注意消息
 	 * 可选的type有attention,information,success,error
 	 */
-	public function addNotifications($content,$type='attention'){
-		$this->notifications[] = $this->renderPartial('/public/notification',array('content'=>$content,'type'=>$type),true);
+	public function addNotifications($content,$type='information',$noClose=false){
+		$this->notifications[] = $this->renderPartial('/public/notification',array('content'=>$content,'type'=>$type,'noClose'=>$noClose),true);
 	}
 	
 	public function filterPublicClientScript($filterChain){
@@ -64,13 +65,18 @@ class Admin extends Controller{
 		$filterChain->run();
 	}
 	
-	public function showMessage($message,$redirectUrl='',$wait=5,$terminate=true){
-		$url = $redirectUrl === '' ? $this->createUrl('index/welcome') : $this->createUrl($redirectUrl);
+	public function showMessage($message,$redirectUrl='',$createUrl=true,$wait=5,$terminate=true,$htmlOptions=array()){
+		if ( $createUrl === true ){
+			$url = $redirectUrl === '' ? $this->createUrl('index/welcome') : $this->createUrl($redirectUrl);
+		}else {
+			$url = $redirectUrl;
+		}
 		
 		$this->renderPartial('/public/flash',array(
 				'waitSeconds' => $wait,
 				'jumpUrl' => $url,
-				'message' => $message
+				'message' => $message,
+				'htmlOptions' => $htmlOptions
 		));
 		if ( $terminate === true ){
 			$this->app->end();
@@ -95,5 +101,9 @@ class Admin extends Controller{
 	
 	public function accessDenied(){
 		$this->showMessage('您无权访问此页面','index/welcome');
+	}
+	
+	public function actionIndex(){
+		$this->redirect($this->createUrl('index/welcome'));
 	}
 }

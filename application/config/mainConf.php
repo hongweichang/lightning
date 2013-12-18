@@ -12,20 +12,22 @@ class mainConf extends ConfigBase{
 		$this->traceLevel = 3;
 	}
 	
-
 	public function merge(){
 		return array(
 				'hostName' => 'http://localhost',
 				'preloadModels' => array(),
 				'modules' => array(
+						'pay',
+						'user',
+						'credit',
+						'tender',
+						'help',
+						'appservice',
+						'content',
 						'gii'=>array(
 								'class'=>'system.gii.GiiModule',
 								'password'=>'admin',
 								'ipFilters'=>array('127.0.0.1','::1'),
-						),
-
-						'pay' => array(
-								'class' => 'application.modules.pay.PayModule'
 						),
 						
 						'adminnogateway' => array(
@@ -33,15 +35,7 @@ class mainConf extends ConfigBase{
 							'name' => 'adminnogateway'
 						),
 						
-						'user' => array(
-								'class' => 'application.modules.user.UserModule'
-						),
-						'credit' =>array(
-								'class' => 'application.modules.credit.CreditModule'
-						),
-						'tender' =>array(
-								'class' => 'application.modules.tender.TenderModule'
-						),
+						
 						'notify' => array(
 								'class' => 'application.modules.notify.NotifyModule',
 								'email' => array(
@@ -59,13 +53,10 @@ class mainConf extends ConfigBase{
 										'CharSet'=>'UTF-8',
 								),
 						),
-
-						'appservice' => array(
-								'class' => 'application.modules.appservice.AppserviceModule',
-						),
 				),
 				'import' => array(
 						'application.extensions.PHPExcel.PHPExcel.*',
+						'application.modules.user.models.*'
 				),
 				'preload' => array(
 						//'asyncEventRunner'
@@ -84,30 +75,17 @@ class mainConf extends ConfigBase{
 						'db' => array(
 						 		'class' => 'system.db.CDbConnection',
 								'autoConnect' => false,
-								'connectionString' => 'mysql:host=115.29.240.98;dbname=lightning',
+								'connectionString' => 'mysql:host=115.29.173.40;dbname=lightning',
 								'emulatePrepare' => true,
 								'username' => 'lancelot',
 								'password' => 'lancelot@lightningdbmysqladmin',
 								'charset' => 'utf8',
 								'tablePrefix' => 'xcms_'
 						),
-<<<<<<< HEAD
-						//internal database.ip 10.161.180.53
-						
-						/*'cache' => array(
-=======
-						'db' => array(
-								'class' => 'system.db.CDbConnection',
-								'autoConnect' => false,
-								'connectionString' => 'mysql:host=localhost;dbname=lightning',
-								'emulatePrepare' => true,
-								'username' => 'root',
-								'password' => 'lancelot!410',
-								'charset' => 'utf8',
-								'tablePrefix' => 'xcms_'
+						'request' => array(
+								'class' => 'application.components.Request'
 						),
-						'cache' => array(
->>>>>>> b0a08ba33c2a6a4fd06423954cc5e404a49ce847
+						/*'cache' => array(
 								'class' => 'CMemCache',
 								'useMemcached' => true,
 								'keyPrefix' => 'lightning',
@@ -150,6 +128,7 @@ class mainConf extends ConfigBase{
 										array(
 												'class'=>'CWebLogRoute',
 												//'levels'=>'error, warning',
+												'except' => 'access.*'
 										),
 								),
 						),
@@ -159,9 +138,14 @@ class mainConf extends ConfigBase{
 								'sendTimeout' => 3000,
 								'reciveTimeout' => 3000,
 						),
-						/*'asyncEventRunner' => array(
+						'asyncEventRunner' => array(
 								'class' => 'cms.components.asyncEvent.AsyncEventRunner',
 								'zmqClientId' => 'zmqClient',
+								'asyncLogRoutes' => array(
+										'accessLog' => array(
+												'class' => 'cms.components.asyncEvent.logging.AccessLogRoute'
+										),
+								),
 								'events' => array(
 										'onEndRequest' => array(
 												'command' => array('sendMail','success')
@@ -170,16 +154,12 @@ class mainConf extends ConfigBase{
 												'command' => array('sendSMS','success')
 										),
 								),
-<<<<<<< HEAD
-						),*/
-=======
 						),
 						'image'=>array(
 								'class'=>'ext.image.CImageComponent',
 								'driver'=>'GD',
 								'params'=>array('directory'=>'/opt/local/bin'),
 						),
->>>>>>> b0a08ba33c2a6a4fd06423954cc5e404a49ce847
 				),
 				'params' => array(
 						'copyright' => '<p>重庆闪电贷金融信息服务有限公司 版权所有 2007-2013<p><p>Copyright Reserved 2007-2013&copy;闪电贷（www.sddai.com） | 渝ICP备05063398号</p>',

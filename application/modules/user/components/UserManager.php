@@ -77,4 +77,8 @@ class UserManager extends CApplicationComponent{
 			}
 		}
 	}
+	
+	public function findUsers($criteira='',$params=array()){
+		return FrontUser::model()->findAll($criteira,$params);
+	}
 }

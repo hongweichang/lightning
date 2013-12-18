@@ -60,7 +60,7 @@ class PlatformController extends Controller{
 			$user = $meta->getRelated('user');
 			$password = $this->getPost('pay_pwd');
 			$verify = $this->getPost('pay_verify');
-				
+			
 			if($this->getModule()->bidManager->payPurchaseBid($this->getQuery('meta_no'))){
 				$this->render('success');
 			}else{

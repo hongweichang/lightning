@@ -14,12 +14,27 @@ class PersonalInfoForm extends CFormModel{
 	public function rules(){
 		return array(
 				array('account,nickname','required','message'=>'请填写{attribute}'),
-				array('model','safe')
+				array('model,password','safe')
 		);
 	}
 	
 	public function save(){
+		$attributes = $this->attributes;
+		if ( isset($attributes['password']) && empty($attributes['password']) ){
+			unset($attributes['password']);
+		}
+		$this->model->attributes = $attributes;
 		
+		if ( $this->model->validate() ){
+			if ( isset($attributes['password']) ){
+				$this->model->setPassword($attributes['password']);
+			}
+			$this->model->save(false);
+			return true;
+		}else {
+			$this->addErrors($this->model->getErrors());
+			return false;
+		}
 	}
 	
 	public function attributeLabels(){

@@ -11,17 +11,13 @@ class PurchaseController extends Controller {
 	private $_deadline;//借款期限
 	private $_authenGrade;//认证等级
 	private $_selectorMap;//标段选择条件
-<<<<<<< HEAD
+
 	private $_bidsPerPage;//每页显示的标段数量
 	private $StartTime = 0; 
     private $StopTime = 0; 
 	
-	public $defaultAction = "showAllBids"; // 更改默认的action,默认显示所有的标段
-	
-=======
-	private $_bidsPerPage;
+//	public $defaultAction = "showAllBids"; // 更改默认的action,默认显示所有的标段
 
->>>>>>> b0a08ba33c2a6a4fd06423954cc5e404a49ce847
 	public function actions(){
 		return array(
 			'captcha'=>array(
@@ -47,7 +43,7 @@ class PurchaseController extends Controller {
 	 * 默认action，显示所有的标段
 	 * 利用CListview和CActiveDataProvider
 	 */
-<<<<<<< HEAD
+
 	function actionShowAllBids() {
 		$criteria = new CDbCriteria();
 		
@@ -64,7 +60,9 @@ class PurchaseController extends Controller {
 				'pagination'=>array(
 						'pageSize' => $this->_bidsPerPage,
 				)
-=======
+		));
+	}
+	
 	function actionIndex() {
 		$this->setPageTitle($this->name.' - '.$this->app->name);
 		
@@ -76,7 +74,6 @@ class PurchaseController extends Controller {
 			'limit' => $pager->getLimit(),
 			'condition' => "verify_progress=1 AND start<='".strtotime(date('Y-m-d'))."'",
 			'order' => 'pub_time DESC'
->>>>>>> b0a08ba33c2a6a4fd06423954cc5e404a49ce847
 		));
 		
   		$this->render('index',array(
@@ -88,9 +85,7 @@ class PurchaseController extends Controller {
 	}
 	
 	/**
-<<<<<<< HEAD
 	 * 用于获取Ajax请求来对标段列表进行筛选
-=======
 	 * 购买标段的action
 	 * Enter description here ...
 	 * @param $bidId：标段id
@@ -149,7 +144,6 @@ class PurchaseController extends Controller {
 	
 	/**
 	 * 用于获取Ajax请求
->>>>>>> b0a08ba33c2a6a4fd06423954cc5e404a49ce847
 	 */
 	function actionAjaxBids() {
 		/**
@@ -186,8 +180,7 @@ class PurchaseController extends Controller {
 		$return = array("state"=> 1 ,"data"=> $return );//state=1,表示结果正常返回
 		echo CJSON::encode($return);//利用php的jsonencode()返回json格式的数据
 	}
-<<<<<<< HEAD
-	
+
 	/**
 	 * 购买标段的action
 	 * @param $bidId：标段id
@@ -359,9 +352,4 @@ class PurchaseController extends Controller {
     { 
         return round(($this->StopTime - $this->StartTime) * 1000, 1); 
     } 
- 
- 
-	
-=======
->>>>>>> b0a08ba33c2a6a4fd06423954cc5e404a49ce847
 }
