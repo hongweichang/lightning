@@ -15,7 +15,7 @@ class PurchaseController extends Controller {
 	private $StartTime = 0; 
 	private $StopTime = 0; 
 	
-	public $defaultAction = "showAllBids"; // 更改默认的action,默认显示所有的标段
+	public $defaultAction = 'index'; // 更改默认的action,默认显示所有的标段
 	
 	public function actions(){
 		return array(
