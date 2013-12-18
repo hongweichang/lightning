@@ -64,6 +64,7 @@ class mainConf extends ConfigBase{
 								'class' => 'application.components.Request'
 						),
 						'cache' => array(
+						//internal database.ip 10.161.180.53
 								'class' => 'CMemCache',
 								'useMemcached' => true,
 								'keyPrefix' => 'lightning',

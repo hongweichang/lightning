@@ -7,17 +7,15 @@ design By HJtianling_LXY,<2507073658@qq.com>
 
 class UserCenterController extends Controller{
 
-	public function actionIndex(){
-		echo "i 'm your center";
-	}
+	public $defaultAction = 'userInfo';
 
 	/*
 	*个人信息获取
 	*/
 	public function actionUserInfo(){
 		$this->pageTitle = '个人中心';
-		$uid = Yii::app()->user->id;
-		$userData = $this->app->getModule('user')->getComponent('userManager')->getUserInfo($uid);
+		$uid = $this->app->user->id;
+		$userData = $this->getModule()->getComponent('userManager')->getUserInfo($uid);
 
 		$role = $userData['role'];
 		$creditData= $this->getUserCredit($role);
@@ -38,7 +36,7 @@ class UserCenterController extends Controller{
 			// $userInfo->address = $attributes['address'];
 			// $userInfo->role = $attributes['role'];
 			$userInfo->attributes = $attributes;
-			if($userData->save())
+			if($userInfo->save())
 				echo "ok";
 			else{
 				var_dump($userData->getErrors());
