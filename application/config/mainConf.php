@@ -129,7 +129,7 @@ class mainConf extends ConfigBase{
 												'command' => array('sendMail','success')
 										),
 										'onRegisterSuccess' => array(
-												'command' => array('sendSMS','success')
+												'command' => array('sendSMS','verifyMobile')
 										),
 								),
 						),

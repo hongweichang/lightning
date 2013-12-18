@@ -113,13 +113,14 @@ Lend = function(){
 		placeholder: function(o){
 			var defaultV = o.val();
 			o.bind("focus",function(){
-				o.val("").css({color:"#000;"});
+				o.val("");
+				o.css({color:"#000"});
 				//ajax
 				o.siblings('.paycenter-hint').show();
 			});
 			o.bind("blur",function(){
 				if(!$(this).val())
-					$(this).val(defaultV);
+					$(this).val(defaultV).css({color:"#ccc"});
 			});
 		}
 	}
@@ -170,14 +171,58 @@ Lend.placeholder($("#pay-verify"));
 
 //lend-details
 $(".fakeCheck,label[for='keepSignIn'],label[for='protocal']").toggle(function(){
-		$(this).parent().find("span").css({display: "none"});
-		$(this).siblings("input").removeAttr('checked');
-	},function(){
-		$(this).parent().find("span").css({display: "block"});
-		$(this).siblings("input").attr("checked","checked");
-	});
+	$(this).parent().find("span").css({display: "none"});
+	$(this).siblings("input").removeAttr('checked');
+},function(){
+	$(this).parent().find("span").css({display: "block"});
+	$(this).siblings("input").attr("checked","checked");
+});
 $(".details-tab li").bind("click",function(){
-		var i = $(this).index();
-		$(this).addClass("tab-on").siblings().removeClass("tab-on");
-		$(".tab-content").eq(i).addClass("tab-show").siblings().removeClass("tab-show");
+	var i = $(this).index();
+	$(this).addClass("tab-on").siblings().removeClass("tab-on");
+	$(".tab-content").eq(i).addClass("tab-show").siblings().removeClass("tab-show");
+});
+
+(function(){
+	var info = $("#lend-num").data("info");
+	info = info.split(";");
+	var total = info[0],
+		month = info[1],
+		rate = info[2],
+		progress = parseInt(info[3])/100;
+	$("#lend-form").validate({
+		success: function(){
+			var capital = $("#lend-num").val(),
+				income;
+			income = month*calculator.month(month,capital,rate);
+			$("#lend-income").text((income-capital).toFixed(2));
+		},
+		rules:{
+			lend_num:{
+				required: true,
+				range: true,
+			}
+		},
+		messages:{
+			lend_num:{
+				required: "不能为空",
+				range: "请输入0到"+total*(1-progress).toFixed(2)+"的数字,最多两位小数"
+			}
+		}
 	});
+	$.validator.addMethod("range",function(value,element){
+		var range = /^(?!0+(?:\.0+)?$)\d+(?:\.\d{1,2})?$/;
+		var len = value.length;
+		return this.optional(element) || (range.test(value) && value > 0 && value <= total*(1-progress));
+	});
+})();
+$(".placeholder").bind("click",function(){
+	$(this).siblings("#lend-num").focus();
+});
+$("#lend-num").bind("focus",function(){
+	$(this).siblings(".placeholder").hide();
+});
+$("#lend-num").bind("blur",function(){
+	if(!$(this).val())
+		$(this).siblings('.placeholder').show();
+});

@@ -6,5 +6,7 @@
  * Encoding UTF-8
  */
 class SendSmsCommand extends CConsoleCommand{
-	
+	public function actionVerifyMobile($params=''){
+		
+	}
 }
