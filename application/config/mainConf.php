@@ -28,29 +28,9 @@ class mainConf extends ConfigBase{
 								'password'=>'admin',
 								'ipFilters'=>array('127.0.0.1','::1'),
 						),
-						
 						'adminnogateway' => array(
 							'class' => 'application.modules.admin.AdminModule',
 							'name' => 'adminnogateway'
-						),
-						
-						
-						'notify' => array(
-								'class' => 'application.modules.notify.NotifyModule',
-								'email' => array(
-										'pathViews' => 'application.views.email',
-										'pathLayouts' => 'application.views.email.layouts',
-										'ccEmail'=>'',//抄送
-										'Mailer' => 'smtp',
-										'Host'=>'smtp.qq.com',
-										'Port'=>'25',
-										'SMTPAuth'=>true,
-										'Username'=>'574891711',
-										'Password'=>'lancelot@410',
-										'From'=>'574891711@qq.com',
-										'FromName'=>'闪电贷',
-										'CharSet'=>'UTF-8',
-								),
 						),
 				),
 				'import' => array(

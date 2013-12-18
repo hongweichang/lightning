@@ -43,7 +43,7 @@ class BorrowController extends Controller {
 	 * 填写借款信息
 	 */
 	function actionInfo() {
-		$this->setPageTitle($this->role.' - '.$this->name.' - '.$this->app->name);
+		$this->setPageTitle($this->role.' - '.$this->name);
 		
 		$model = new BidForm();
 		if(!empty($_POST)){

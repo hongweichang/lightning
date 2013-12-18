@@ -25,24 +25,30 @@ class AppTenderController extends Controller{
 			$condition = $post['condition'];
 			$order = $post['order'];
 			$page = $post['page'];
-			$BidInfo = array();
+			$bidInfo = array();
 
+			$cache = $this->app->cache;
+			$cacheKey = 'APP_GET_BID_LIST'.$condition.$order.$page;
+			if ( $cache !== null ){
+				$bidInfo = $cache->get($cacheKey);
+				if ( $bidInfo !== false ){//cache response
+					$this->response('200','查询成功',$bidInfo);
+				}
+			}
+			
 			$criteria = $this->CriteriaMake($condition,$order,$page);
-
 			if(!is_object($criteria)){
-
 				$this->response('401','查询失败，参数错误','');
 			}
-
 			$criteria->with = array('user');
-			$BidData = $this->app->getModule('tender')->getComponent('bidManager')->getBidList($criteria);
-
-			if(!empty($BidData)){
-				foreach($BidData as $value){
+			
+			$bidData = $this->app->getModule('tender')->getComponent('bidManager')->getBidList($criteria);
+			if(!empty($bidData)){
+				foreach($bidData as $value){
 					$Icon = $this->app->getModule('user')->userManager->getUserIcon($value->getRelated('user')->id);
-					$Credit = $this->app->getModule('credit')->userCreditManager->getUserCreditLevel($value->getRelated('user')->id);
+					$Credit = $this->app->getModule('credit')->userCreditManager->UserLevelCaculator($value->getRelated('user')->credit_grade);
 
-					$BidInfo[] = array(
+					$bidInfo[] = array(
 							'id'=>$value->attributes['id'],
 							'uid'=>$value->getRelated('user')->id,
 							'nickname'=>$value->getRelated('user')->nickname,
@@ -59,9 +65,14 @@ class AppTenderController extends Controller{
 						);
 				}
 				
-				$this->response('200','查询成功',$BidInfo);
-			}else
+				if ( $cache !== null ){
+					$cache->set($cacheKey,$bidInfo,300);
+				}
+				
+				$this->response('200','查询成功',$bidInfo);
+			}else{
 				$this->response('400','暂无标段信息','');
+			}
 			
 		}
 	}
@@ -72,18 +83,29 @@ class AppTenderController extends Controller{
 	public function actionGetBidListById(){
 		$uid = Yii::app()->user->id;
 
-		$BidData = $this->app->getModule('tender')->getComponent('bidManager')->getBidList('user_id =:uid',
-			array(':uid'=>$uid));
-
-		if(empty($BidData))
+		$cache = $this->app->cache;
+		$cacheKey = 'APP_GET_USER_BID_LIST'.$uid;
+		if ( $cache !== null ){
+			$bidList = $cache->get($cacheKey);
+			if ( $bidList !== false ){
+				$this->response('200','查询成功',$bidList);
+			}
+		}
+		
+		$bidData = $this->app->getModule('tender')->getComponent('bidManager')->getBidList('user_id =:uid',array(':uid'=>$uid));
+		if(empty($bidData)){
 			$this->response('400','该用户无标段','');
-		else{
-			foreach($BidData as $value){
-				$BidList[] = array(
+		}else{
+			foreach($bidData as $value){
+				$bidList[] = array(
 						'data'=>$value->attributes,
 					);
 			}
-			$this->response('200','查询成功',$BidList);
+			
+			if ( $cache !== null ){
+				$bidList = $cache->set($cacheKey,$bidList,600);
+			}
+			$this->response('200','查询成功',$bidList);
 		}
 
 	}
@@ -148,17 +170,30 @@ class AppTenderController extends Controller{
 
 		if(!empty($post)){
 			$id = $post['id'];
-			$BidData = $this->app->getModule('tender')->getComponent('bidManager')->getBidInfo($id);
-
-			if(!empty($BidData)){
-				$BidInfo = $BidData->attributes;
-				$this->response('200','查询成功',$BidInfo);
-			}else
-				$this->response('400','查询失败,该标段不存在','');
-
 			
-		}else
+			$cache = $this->app->cache;
+			$cacheKey = 'APP_GET_BID_BY_ID'.$id;
+			if ( $cache !== null ){
+				$bidInfo = $cache->get($cacheKey);
+				if ( $bidInfo !== false ){
+					$this->response('200','查询成功',$bidInfo);
+				}
+			}
+			
+			$bidData = $this->app->getModule('tender')->getComponent('bidManager')->getBidInfo($id);
+
+			if(!empty($bidData)){
+				$bidInfo = $bidData->attributes;
+				if ( $cache !== null ){
+					$cache->set($cacheKey,$bidInfo,600);
+				}
+				$this->response('200','查询成功',$bidInfo);
+			}else{
+				$this->response('400','查询失败,该标段不存在','');
+			}
+		}else{
 			$this->response('401','查询失败，参数错误','');
+		}
 	}
 
 	
@@ -219,85 +254,64 @@ class AppTenderController extends Controller{
 	public function actionGetMetaList(){
 		$uid = $this->user->id;
 		$post = $this->getPost();
-
-		if(!empty($post)){
+		
+		if(!empty($post)):
 			$action = $post['action'];
+			
+			$cache = $this->app->cache;
+			$cacheKey = 'APP_GET_BID_META_BY_UID_ACTION'.$action.$uid;
+			if ( $cache !== null ){
+				$metaList = $cache->get($cacheKey);
+				if ( $metaList !== false ){
+					$this->response('200','查询成功',$metaList);
+				}
+			}
+			
 			$criteria = new CDbCriteria;
 			$criteria->alias = 'meta';
-
-			if($action == 'unfull'){
-				
-				$criteria->condition = 'progress < :progress AND meta.user_id =:uid AND finish_time != 0';
-							$criteria->params = array(
-								':progress'=>100,
-								'uid'=>$uid,
-							);
-				$metaData = BidMeta::model()->with('bid','user')->findAll($criteria);
-
-				if(!empty($metaData)){
-					foreach($metaData as $value){
-						$bidUser_id = $value->getRelated('user')->id;
-						$userIcon =  $this->app->getModule('user')->userManager->getUserIcon($bidUser_id);
-
-						$meataList[] = array(
-									'id'=>$value->getRelated('bid')->id,
-									'title'=>$value->getRelated('bid')->title,
-									'description'=>$value->getRelated('bid')->description,
-									'TimeLimit'=>$value->getRelated('bid')->deadline,
-									'sum'=>$value->getRelated('bid')->sum,
-									'investMoney'=>$value->sum,
-									'uid'=>$value->getRelated('user')->id,
-									'nickname'=>$value->getRelated('user')->nickname,
-									'userIcon'=>$userIcon
-
-								);
-					}
-
-					$this->response('200','查询成功',$meataList);
-
-				}else{
-					$this->response('400','暂无投标记录','');
-				}
-
-			}elseif($action == 'full'){
-				
-				$criteria->condition = 'progress =:progress AND meta.user_id =:uid AND finish_time != 0';
-				$criteria->params = array(
-								':progress'=>100,
-								'uid'=>$uid,
-							);
-				$metaData = BidMeta::model()->with('bid','user')->findAll($criteria);
-
-				if(!empty($metaData)){
-					foreach($metaData as $value){
-						$bidUser_id = $value->getRelated('user')->id;
-						$userIcon =  $this->app->getModule('user')->userManager->getUserIcon($bidUser_id);
-
-						$meataList[] = array(
-									'id'=>$value->getRelated('bid')->id,
-									'title'=>$value->getRelated('bid')->title,
-									'description'=>$value->getRelated('bid')->description,
-									'TimeLimit'=>$value->getRelated('bid')->deadline,
-									'sum'=>$value->getRelated('bid')->sum,
-									'investMoney'=>$value->sum,
-									'uid'=>$value->getRelated('user')->id,
-									'nickname'=>$value->getRelated('user')->nickname,
-									'userIcon'=>$userIcon
-
-								);
-					}
-					$this->response('200','查询成功',$meataList);
-
-				}else{
-					$this->response('400','暂无投标记录','');
-				}
-
-			}else{
+			
+			if ( $action === 'unfull' ){
+				$criteria->condition = 'progress < 100 AND meta.user_id =:uid AND finish_time != 0';
+			}elseif ( $action === 'full' ){
+				$criteria->condition = 'progress = 100 AND meta.user_id =:uid AND finish_time != 0';
+			}else{//action not match
 				$this->response('401','参数不合法','');
 			}
-
-
-		}
+			
+			$criteria->params = array(
+					':uid'=>$uid,
+			);
+			$metaData = BidMeta::model()->with('bid','user')->findAll($criteria);
+			
+			if(!empty($metaData)){
+				foreach($metaData as $value){
+					$bid = $value->getRelated('bid');
+					$user = $value->getRelated('user');
+					$bidUser_id = $user->id;
+					$userIcon =  $this->app->getModule('user')->userManager->getUserIcon($bidUser_id);
+					
+					$metaList[] = array(
+							'id'=>$bid->id,
+							'title'=>$bid->title,
+							'description'=>$bid->description,
+							'TimeLimit'=>$bid->deadline,
+							'sum'=>$bid->sum,
+							'investMoney'=>$value->sum,
+							'uid'=>$user->id,
+							'nickname'=>$user->nickname,
+							'userIcon'=>$userIcon
+			
+					);
+				}
+			
+				if ( $cache !== null ){
+					$cache->set($cacheKey,$metaList,300);
+				}
+				$this->response('200','查询成功',$metaList);
+			}else{
+				$this->response('400','暂无投标记录','');
+			}
+		endif;
 
 		
 	}
