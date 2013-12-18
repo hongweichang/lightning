@@ -109,15 +109,15 @@
                 </li>
                 <li>
                   <span class="borrower-name">真实姓名</span>
-                  <span class="borrower-val"><?php echo$borrowUserInfo['realname'];?></span>
+                  <span class="borrower-val"><?php echo $bider->getAttribute('realname');?></span>
                 </li>
                 <li>
                   <span class="borrower-name">手机号码</span>
-                  <span class="borrower-val"><?php echo preg_replace('/(1[358]{1}[0-9])[0-9]{4}([0-9]{4})/i','$1****$2',$borrowUserInfo['mobile']);;?></span>
+                  <span class="borrower-val"><?php echo preg_replace('/(1[358]{1}[0-9])[0-9]{4}([0-9]{4})/i','$1****$2',$bider->getAttribute('mobile'));?></span>
                 </li>
                 <li>
                   <span class="borrower-name">社会角色</span>
-                  <span class="borrower-val"><?php echo $borrowUserInfo['role'];?></span>
+                  <span class="borrower-val"><?php echo $this->app['roleMap'][$bider->getAttribute('role')];?></span>
                 </li>
                 <li>
                   <span class="borrower-name">性别</span>
@@ -159,25 +159,6 @@
                    	<!--<th class="tb-col-status">状态</th>-->
                   </tr>
                 </thead>
-                <tbody>
-                	<?php 
-                		$bidMeta = $bidInfo->bidMeta;
-                		//如果有购买记录
-                		if($bidMeta) {
-                			foreach ($bidMeta as $key => $val) {
-                	?>
-		                  <tr>
-		                    <td><?php echo $val->user_id;?></td>
-		                    <td><?php echo $bidInfo->title;?></td>
-		                    <td><?php echo $val->sum / 100;?></td>
-		                    <td><?php echo date('Y-m-d h:i:s',$val->buy_time);?></td>
-		                    <td>什么意思？？</td>
-		                  </tr>
-                  	<?php 
-                			}//end foreach
-                		}//end if
-                  	?>
-                </tbody>
                 <?php 
                 $meta->pagination = false;
                 $this->widget('zii.widgets.CListView',array(

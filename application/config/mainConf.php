@@ -14,7 +14,7 @@ class mainConf extends ConfigBase{
 	
 	public function merge(){
 		return array(
-				'hostName' => 'http://115.29.186.221',
+				'hostName' => 'http://localhost',
 				'preloadModels' => array(),
 				'modules' => array(
 						'pay',
@@ -31,6 +31,23 @@ class mainConf extends ConfigBase{
 						'adminnogateway' => array(
 							'class' => 'application.modules.admin.AdminModule',
 							'name' => 'adminnogateway'
+						),
+						'notify' => array(
+								'class' => 'application.modules.notify.NotifyModule',
+								'email' => array(
+										'pathViews' => 'application.views.email',
+										'pathLayouts' => 'application.views.email.layouts',
+										'ccEmail'=>'',//抄送
+										'Mailer' => 'smtp',
+										'Host'=>'smtp.qq.com',
+										'Port'=>'25',
+										'SMTPAuth'=>true,
+										'Username'=>'574891711',
+										'Password'=>'lancelot@410',
+										'From'=>'574891711@qq.com',
+										'FromName'=>'闪电贷',
+										'CharSet'=>'UTF-8',
+								),
 						),
 				),
 				'import' => array(

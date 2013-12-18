@@ -6,9 +6,8 @@ design By HJtianling_LXY,<2507073658@qq.com>
 */
 
 class UserCenterController extends Controller{
-
 	public $defaultAction = 'userInfo';
-
+	
 	/*
 	*个人信息获取
 	*/
@@ -21,20 +20,19 @@ class UserCenterController extends Controller{
 		$creditData= $this->getUserCredit($role);
 		$IconUrl = null;
 
-		$model = new FrontCredit();
+ 		$model = new FrontCredit();
 
-		if(isset($_POST['FrontCredit'])){
-			$file=CUploadedFile::getInstance($model,'filename'); 
-			var_dump($file);
-			die();
-		}
+// 		if(isset($_POST['FrontCredit'])){
+// 			$file=CUploadedFile::getInstance($model,'filename'); 
+// 			var_dump($file);
+// 			die();
+// 		}
 
 		if(isset($_POST['FrontUser'])){
-			$userInfo = FrontUser::model()->with('baseUser')->findByPk($uid);
-			$userInfo->attributes = $_POST['FrontUser'];
-			if($userInfo->save())
+			$userData->attributes = $_POST['FrontUser'];
+			if($userData->update()){
 				echo "ok";
-			else{
+			}else{
 				var_dump($userData->getErrors());
 				die();
 			}

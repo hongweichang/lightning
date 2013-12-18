@@ -71,10 +71,10 @@ class PurchaseController extends Controller {
 	 * @param $userId：借款人的id
 	 */
 	function actionInfo() {
-		$bid = BidInfo::model()->with('user')->findByPk($this->getQuery('id'));
+		$bid = BidInfo::model()->with('user','bidMeta')->findByPk($this->getQuery('id'));
 		
 		if(!empty($bid)){
-			$this->setPageTitle($bid->getAttribute('title').' - '.$this->name.' - '.$this->app->name);
+			$this->setPageTitle($bid->getAttribute('title').' - '.$this->name);
 			
 			$model = new MetaForm();
 			if(!empty($_POST)){
