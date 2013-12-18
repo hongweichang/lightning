@@ -64,6 +64,7 @@ class mainConf extends ConfigBase{
 								'class' => 'application.components.Request'
 						),
 						'cache' => array(
+						//internal database.ip 10.161.180.53
 								'class' => 'CMemCache',
 								'useMemcached' => true,
 								'keyPrefix' => 'lightning',
@@ -129,7 +130,7 @@ class mainConf extends ConfigBase{
 												'command' => array('sendMail','success')
 										),
 										'onRegisterSuccess' => array(
-												'command' => array('sendSMS','success')
+												'command' => array('sendSMS','verifyMobile')
 										),
 								),
 						),

@@ -49,6 +49,10 @@ body {
 #header {
   overflow: hidden; }
 
+.wd989 {
+  width: 989px;
+  margin: 0 auto; }
+
 #he-login {
   height: 25px;
   background: url("../images/h_bg.png"); }
@@ -847,6 +851,7 @@ body {
 
 #lend-form,
 #creditor-form {
+  position: relative;
   padding: 30px 10px 0 28px;
   font-size: 14px;
   line-height: 45px;
@@ -857,6 +862,19 @@ body {
     #lend-form p span,
     #creditor-form p span {
       color: #fc8936; }
+  #lend-form label.error,
+  #creditor-form label.error {
+    color: red;
+    display: inline;
+    position: absolute;
+    top: 65px;
+    left: 40px; }
+  #lend-form .placeholder,
+  #creditor-form .placeholder {
+    position: absolute;
+    top: 40px;
+    left: 40px;
+    color: #ccc; }
 
 #creditor-form p {
   line-height: 35px; }
@@ -866,7 +884,7 @@ body {
   height: 20px;
   margin-bottom: 25px;
   padding: 10px 5px;
-  line-height: 40px;
+  line-height: 20px;
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
   border-radius: 5px; }
