@@ -1,7 +1,5 @@
 <?php
-$this->cs->registerScriptFile($this->scriptUrl.'jquery-1.8.2.min.js',CClientScript::POS_END);
 $this->cs->registerScriptFile($this->scriptUrl.'jquery.validate.min.js',CClientScript::POS_END);
-$this->cs->registerCssFile($this->cssUrl.'common.css');
 $this->cs->registerCssFile($this->cssUrl.'detail.css');
 if(Yii::app()->user->hasFlash('success')){
 ?>
@@ -40,6 +38,9 @@ $this->widget('application.extensions.swfupload.CSwfUpload', array(
         ),
     )
 );
+$qqwry = new qqwry(Yii::getPathOfAlias('application.data.qqwry').'.dat');
+list($lastLoginAddress,$yys) = $qqwry->q($userData->last_login_ip);
+$lastLoginAddress = iconv('GB2312','UTF-8',$lastLoginAddress);
 ?>
     <div id="container">
         <div class="wd989">
@@ -49,15 +50,10 @@ $this->widget('application.extensions.swfupload.CSwfUpload', array(
             </h1>
             <div class="aud-detail">
                 <div class="det-per-inf">
-                    <?php if(!empty($IconUrl)){?>
-                    <img src="<?php echo $IconUrl;?>" class="det-img"/>
-                    <?php }else{?>
-                    <img src="<?php echo $this->imageUrl.'user-avatar.png'?>" class="det-img" />
-                    <?php }?>
+                    <img src="<?php echo $this->user->getState('avatar')?>" class="det-img" />
                     <p>
                         <span class="aud-time">晚上好，</span>
                         <span class="aud-det-name"><?php echo Yii::app()->user->name;?> </span>
-                        现在是属于你自己的时间，好好休息吧
                     </p>
                     <p class="aud-st-serve">
                         <img src="<?php echo $this->imageUrl.'det-person.png'?>" />
@@ -66,7 +62,7 @@ $this->widget('application.extensions.swfupload.CSwfUpload', array(
                         <img src="<?php echo $this->imageUrl.'det-cal.png'?>" />
                         <img src="<?php echo $this->imageUrl.'det-bank.png'?>" />
                         <span>安全等级 :  <span class="det-rank">高</span></span>
-                        <span>上次登陆 :  <span class="det-ip"> 重庆市 <?php echo date('Y-m-d H:i:s',$userData['last_login_time'])?></span></span>
+                        <span>上次登录 :  <span class="det-ip"> <?php echo $lastLoginAddress.' '.date('Y-m-d H:i:s',$userData['last_login_time'])?></span></span>
                     </p>
                 </div>
                 <div class="aud-money">
