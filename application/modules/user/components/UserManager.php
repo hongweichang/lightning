@@ -70,7 +70,7 @@ class UserManager extends CApplicationComponent{
 				$userIconName = end($userIcon)->attributes['file_name'];
 				return $this->resolveIconUrl($userIconName,$id);
 			}else{
-				return $this->resolveIconUrl($userIconName);
+				return $this->resolveIconUrl(null);
 			}
 		}
 	}
