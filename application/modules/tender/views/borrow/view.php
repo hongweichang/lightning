@@ -77,10 +77,6 @@
                         <p>常驻地址证明</p>
                     </li>
                 </ul>
-                <div class="adu-intro">
-                    <h3>【标段介绍】</h3>
-                    <p><?php echo $model->description;?></p>
-                </div>
             </div>
         </div>
 </div>
