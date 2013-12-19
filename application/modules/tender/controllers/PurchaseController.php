@@ -11,21 +11,15 @@ class PurchaseController extends Controller {
 	private $_deadline;//借款期限
 	private $_authenGrade;//认证等级
 	private $_selectorMap;//标段选择条件
-<<<<<<< HEAD
 
-=======
->>>>>>> d422edd5dac7e79228e1e3ba22e259ffc4b84401
 	private $_bidsPerPage;//每页显示的标段数量
 	private $StartTime = 0; 
-	private $StopTime = 0; 
+	private $StopTime = 0;
 	
-<<<<<<< HEAD
+
 //	public $defaultAction = "showAllBids"; // 更改默认的action,默认显示所有的标段
 
-=======
-	public $defaultAction = 'index'; // 更改默认的action,默认显示所有的标段
-	
->>>>>>> d422edd5dac7e79228e1e3ba22e259ffc4b84401
+
 	public function actions(){
 		return array(
 			'captcha'=>array(
@@ -51,29 +45,6 @@ class PurchaseController extends Controller {
 	 * 默认action，显示所有的标段
 	 * 利用CListview和CActiveDataProvider
 	 */
-<<<<<<< HEAD
-
-	function actionShowAllBids() {
-		$criteria = new CDbCriteria();
-		
-		//初始化条件：审核通过，招标已经开始，按时间降序排列
-		$criteria->condition = 'verify_progress=1 AND start < '.time();
-		$criteria->order = 'start DESC';
-//		$criteria->with = 'bidMeta';//用关联查询,取得购买的信息 
-		
-		$dataProvider = new CActiveDataProvider('BidInfo',array(
-				'criteria' => $criteria,
-				'countCriteria' => array(
-						'condition' => $criteria->condition,
-				),
-				'pagination'=>array(
-						'pageSize' => $this->_bidsPerPage,
-				)
-		));
-	}
-	
-=======
->>>>>>> d422edd5dac7e79228e1e3ba22e259ffc4b84401
 	function actionIndex() {
 		$this->setPageTitle($this->name.' - '.$this->app->name);
 		
@@ -194,11 +165,7 @@ class PurchaseController extends Controller {
 		$return = array("state"=> 1 ,"data"=> $return );//state=1,表示结果正常返回
 		echo CJSON::encode($return);//利用php的jsonencode()返回json格式的数据
 	}
-<<<<<<< HEAD
 
-=======
-	
->>>>>>> d422edd5dac7e79228e1e3ba22e259ffc4b84401
 	/**
 	 * 购买标段的action
 	 * @param $bidId：标段id
@@ -369,9 +336,5 @@ class PurchaseController extends Controller {
     function spent() 
     { 
         return round(($this->StopTime - $this->StartTime) * 1000, 1); 
-<<<<<<< HEAD
     } 
-=======
-    }
->>>>>>> d422edd5dac7e79228e1e3ba22e259ffc4b84401
 }

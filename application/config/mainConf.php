@@ -81,10 +81,6 @@ class mainConf extends ConfigBase{
 								'class' => 'application.components.Request'
 						),
 						'cache' => array(
-<<<<<<< HEAD
-=======
-						//internal database.ip 10.161.180.53
->>>>>>> d422edd5dac7e79228e1e3ba22e259ffc4b84401
 								'class' => 'CMemCache',
 								'useMemcached' => false,
 								'keyPrefix' => 'lightning',

@@ -41,7 +41,6 @@ class BidInfo extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-<<<<<<< HEAD
 			array('user_id, title, description, sum', 'required'),
 			array('month_rate,start,end,pub_time,deadline,progress,sum', 'numerical', 'integerOnly'=>true),
 			array('title', 'length', 'max'=>50),
@@ -52,16 +51,6 @@ class BidInfo extends CActiveRecord
 			array('failed_description,refund', 'safe'),
 			// The following rule is used by search().
 			array('id, user_id, title, description, sum, month_rate, start, end, deadline, progress, verify_progress, failed_description', 'safe', 'on'=>'search'),
-=======
-			array('user_id, title, description, sum, refund, month_rate, start, end, deadline', 'required'),
-			array('refund, verify_progress', 'numerical', 'integerOnly'=>true),
-			array('user_id, sum, start, end, deadline', 'length', 'max'=>11),
-			array('title', 'length', 'max'=>50),
-			array('month_rate, progress', 'length', 'max'=>5),
-			array('pub_time', 'length', 'max'=>10),
-			array('failed_description', 'safe'),
-			array('id, user_id, title, description, sum, refund, month_rate, start, end, deadline, progress, verify_progress, failed_description', 'safe', 'on'=>'search'),
->>>>>>> d422edd5dac7e79228e1e3ba22e259ffc4b84401
 		);
 	}
 
