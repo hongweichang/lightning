@@ -137,9 +137,16 @@ class PurchaseController extends Controller {
 		$criteria->addCondition('verify_progress=1');
 		$criteria->addCondition('start<='.strtotime(date('Y-m-d')));
 		$criteria->order = 'pub_time DESC';
-		$criteria->with = 'user';
+
 		
 		foreach ($this->_selectorMap as $key => $value) {
+			if($key == 'authenGrade'){
+				$criteria->with = array(
+					'user' => array(
+						'condition' => $value[$_GET[$key]]
+					)
+				);
+			}
 			if(isset($_GET[$key]) && $_GET[$key] != 'all' && $_GET[$key] != '') {
 				$criteria->addCondition($value[$_GET[$key]]);
 			}
@@ -148,7 +155,6 @@ class PurchaseController extends Controller {
 		$pager = new CPagination(BidInfo::model()->count($criteria));
 		$pager->validateCurrentPage = false;
 		$pager->setPageSize($this->_bidsPerPage);
-		//$pager->setCurrentPage($this->getQuery('page',1));
 		$pager->applyLimit($criteria);
 		$data = BidInfo::model()->findAll($criteria);
 		
@@ -171,7 +177,7 @@ class PurchaseController extends Controller {
 	 * @param $bidId：标段id
 	 * @param $userId：借款人的id
 	 */
-	function actionPurchaseBid() {
+	/*function actionPurchaseBid() {
 		$bidId = $this->getQuery('bidId',null);//标段id
 		$userId = $this->getQuery('userId',null);//发标人id
 		
@@ -200,7 +206,7 @@ class PurchaseController extends Controller {
 				'authGrade' => $authGrade,
 				'formAction' => 'purchase/purchaseBidToDb',
 		));
-	}
+	}*/
 	
 	/**
 	 * 购买标段的Ajax请求
@@ -209,7 +215,7 @@ class PurchaseController extends Controller {
 		$bidId = $this->getQuery('bidId',null);//标段id
 		$lendNum = $this->getQuery('lendNum');//投资金额
 		
-		if(is_numric($lendNum)) {//判断输入的金额是不是数字
+		if(is_numeric($lendNum)) {//判断输入的金额是不是数字
 			$lendNum = (int) $lendNum;
 		} else {
 			$errMsg = '请输入正确的数字金额';
@@ -236,36 +242,6 @@ class PurchaseController extends Controller {
 	}
 	
 	/**
-	 * 将购买的标段信息插入数据库
-	 * Enter description here ...
-	 */
-	function actionPurchaseBidToDb() {
-		//利用传递过来的参数
-		$bidId = $this->getQuery('bidId',null);//要购买的标段的id
-		$userId = $this->getQuery('userId',null);//购买人，即当前用户的id
-		$code = $_POST['writeBidMeta']['code'];//验证码
-		$sum = (int)trim($_POST['writeBidMeta']['sum']);
-		
-		if($_SESSION['Yii.CCaptchaAction.Powered By XCms.tender/purchase.captcha'] != $code){
-			$this->redirect($this->createUrl('purchase/purchaseBid',array(
-				'bidId' => $bidId,
-				'userId' => $userId
-			)));
-		}
-		
-		//调用接口，将买标信息插入数据库，返回插入记录的id
-		$meta_id = $this->getModule()->bidManager->purchaseBid($this->user->getId(),$bidId,$sum);
-		if($meta_id != 0){//如果插入数据库成功
-			/**
-			 * 插入数据库后 ，跳转到付款界面，调用接口
-			 */
-//			Yii::app()->getModule('pay')->fundManager->pay($meta_id);
-//			Yii::app()->redirect('pay/platform/index',array('no'=>$meta_id));
-			$this->redirect($this->createUrl('platform/index',array('meta_no' => $meta_id)));
-		}
-	}
-	
-	/**
 	 * 根据bidId得到标段详细信息
 	 * @param $bidId:标段id
 	 */
@@ -286,55 +262,5 @@ class PurchaseController extends Controller {
 			
 		return $bidDetail;
 	}
-	
-	/**
-	 * 根据userId得到用户认证等级
-	 * @param $userId:用户id
-	 */
-	private function getUserAuthGrade($userId) {
-		$authGrade = Yii::app()->getModule('credit')->getComponent('userCreditManager')->getUserCreditLevel($userId);
-		if($authGrade != "")
-			return $authGrade;//返回用户认证等级
-		else
-			return "信用等级未知";
-	}
-	
-	/**
-	 * 根据userId得到详细信息
-	 * @param $userId:用户id
-	 */
-	private function getUserInfo($userId) {
-		$userInfo = Yii::app()->getModule('user')->userManager->getUserInfo($userId);
-		return $userInfo;//返回用户信息数组
-	}
-	
-	public function wxweven($data,$die = true) {
-		echo "<meta charset='utf-8'>";
-		echo time();
-		echo "<pre>";
-		print_r($data);
-		if($die)
-			die();
-	}
- 
-    function get_microtime() 
-    { 
-        list($usec, $sec) = explode(' ', microtime()); 
-        return ((float)$usec + (float)$sec); 
-    } 
- 
-    function start() 
-    { 
-        $this->StartTime = $this->get_microtime(); 
-    } 
- 
-    function stop() 
-    { 
-        $this->StopTime = $this->get_microtime(); 
-    } 
- 
-    function spent() 
-    { 
-        return round(($this->StopTime - $this->StartTime) * 1000, 1); 
-    } 
+
 }

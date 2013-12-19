@@ -48,6 +48,10 @@ $(document).ready(function(){
 				required: true,
 				uname: true
 			},
+			"Register[email]":{
+				required: true,
+				email: true
+			},
 			"Register[mobile]":{
 				required: true,
 				phone: true
@@ -73,6 +77,10 @@ $(document).ready(function(){
 			"Register[nickname]":{
 				required: "用户名不能为空",
 				uname: "可由4-16个中英文、数字、下划线字符构成"
+			},
+			"Register[email]":{
+				required: "请输入邮箱",
+				email: "请输入正确的邮箱格式"
 			},
 			"Register[mobile]":{
 				required: "手机号不能为空",

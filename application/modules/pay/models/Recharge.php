@@ -21,7 +21,7 @@
  * The followings are the available model relations:
  * @property FrontUser $user
  */
-class Recharge extends CActiveRecord
+class Recharge extends CmsActiveRecord
 {
 	/**
 	 * @return string the associated database table name
@@ -41,11 +41,10 @@ class Recharge extends CActiveRecord
 		return array(
 			array('user_id, sum, fee, raise_time', 'required'),
 			array('status', 'numerical', 'integerOnly'=>true),
-			array('user_id, sum, raise_time, finish_time', 'length', 'max'=>11),
+			array('user_id, sum, raise_time, pay_time, finish_time', 'length', 'max'=>11),
 			array('fee', 'length', 'max'=>5),
 			array('platform, subject, buyer, buyer_id', 'length', 'max'=>255),
 			array('trade_no', 'length', 'max'=>64),
-			array('pay_time', 'length', 'max'=>10),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('id, user_id, sum, fee, raise_time, platform, trade_no, subject, buyer, buyer_id, pay_time, finish_time, status', 'safe', 'on'=>'search'),

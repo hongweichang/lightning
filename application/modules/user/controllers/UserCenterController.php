@@ -402,12 +402,66 @@ class UserCenterController extends Controller{
 		$this->pageTitle = '闪电贷';
 		$uid = $this->id;
 		$userData = $this->userData;
-		$IconUrl = null;
-
 		$IconUrl = Yii::app()->getModule('user')->userManager->getUserIcon($uid);
+		
+		$p2p = $this->app->getModule('pay')->fundManager->getP2pList(array(
+			'condition' => '(from_user=:uid OR to_user=:uid) AND `time`>=:t',
+			'order' => '`time` DESC',
+			'params' => array(
+				'uid' => $this->user->getId(),
+				't' => mktime(0,0,0) - 2592000,
+			)
+		));
+		
+		$this->render('userFund',array(
+			'userData'=>$userData,
+			'IconUrl'=>$IconUrl,
+			'p2p' => new CArrayDataProvider($p2p),
+		));
+	}
+	
+	public function actionAjaxFund(){
+		$type = $this->getPost('type','p2p');
+		$date = $this->getPost('date','1');
+		
+		if($type == 'p2p'){
+			$p2p = $this->app->getModule('pay')->fundManager->getP2pList(array(
+				'condition' => '(from_user=:uid OR to_user=:uid) AND `time`>=:t',
+				'order' => '`time` DESC',
+				'params' => array(
+					'uid' => $this->user->getId(),
+					't' => mktime(0,0,0) - $date * 2592000,
+				)
+			));
+		}elseif($type == 'withdraw'){
+			$p2p = $this->app->getModule('pay')->fundManager->getWithdrawList(array(
+				'condition' => 'user_id=:uid AND raise_time>=:t',
+				'order' => '`raise_time` DESC',
+				'params' => array(
+					'uid' => $this->user->getId(),
+					't' => mktime(0,0,0) - $date * 2592000,
+				)
+			));
+		}elseif($type == "recharge"){
+			$p2p = $this->app->getModule('pay')->fundManager->getPayList(array(
+				'condition' => 'user_id=:uid AND `raise_time`>=:t',
+				'order' => '`raise_time` DESC',
+				'params' => array(
+					'uid' => $this->user->getId(),
+					't' => mktime(0,0,0) - $date * 2592000,
+				)
+			));
+		}
 
-		$this->render('userFund',array('userData'=>$userData,'IconUrl'=>$IconUrl));
+		$this->renderPartial("_p2p",array(
+			'p2p' => new CArrayDataProvider($p2p),
+			'view' => "_".$type."List"
+		));
 	}
 
+	public function actionAjaxReport(){
+		$type = $this->getPost('type','p2p');
+		$date = $this->getPost('date','1');
+	}
 }
 ?>
