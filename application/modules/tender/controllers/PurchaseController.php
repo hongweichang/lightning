@@ -138,8 +138,9 @@ class PurchaseController extends Controller {
 		}
 		
 		$pager = new CPagination(BidInfo::model()->count($criteria));
+		$pager->validateCurrentPage = false;
 		$pager->setPageSize($this->_bidsPerPage);
-		$pager->setCurrentPage($this->getQuery('page',1));
+		//$pager->setCurrentPage();
 		$pager->applyLimit($criteria);
 		$data = BidInfo::model()->findAll($criteria);
 		
