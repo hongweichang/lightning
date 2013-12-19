@@ -8,6 +8,12 @@ class BorrowController extends Controller {
 	private $name = '我要借贷';
 	private $role;
 	
+	public function filters(){
+		$filters = parent::filters();
+		$filters[] = 'roleCheck - index';
+		return $filters;
+	}
+	
 	public function init() {
 		parent::init();
 		Yii::import( 'application.modules.tender.models.*' );
@@ -21,8 +27,13 @@ class BorrowController extends Controller {
 		}
 	}
 	
-	public function noneLoginRequired(){
-		return '';
+	public function filterRoleCheck($filterChain){
+		if ( $this->role === null ){
+			$this->redirect('index');
+			$this->app->end();
+		}else {
+			$filterChain->run();
+		}
 	}
 	
 	/**
