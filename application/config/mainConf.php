@@ -21,7 +21,6 @@ class mainConf extends ConfigBase{
 						'user',
 						'credit',
 						'tender',
-						'help',
 						'appservice',
 						'content',
 						'gii'=>array(
@@ -85,9 +84,9 @@ class mainConf extends ConfigBase{
 						'request' => array(
 								'class' => 'application.components.Request'
 						),
-						/*'cache' => array(
+						'cache' => array(
 								'class' => 'CMemCache',
-								'useMemcached' => true,
+								'useMemcached' => false,
 								'keyPrefix' => 'lightning',
 								'servers' => array(
 										array(
@@ -100,7 +99,7 @@ class mainConf extends ConfigBase{
 												'port' => 11211
 										),
 								),
-						),*/
+						),
 
 						'session' => array(
 								'class'=> 'CHttpSession',
