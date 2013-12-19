@@ -32,7 +32,9 @@
                 </div>
             </div>
             <div class="con-hint">
-            	<?php if($roleName !== false){ ?>
+            
+            	<?php 
+            	if($roleName){ ?>
             	您的社会角色为： <?php echo $roleName; ?>, 请点击下一步
             	<?php }else{ ?>
             	请到<a href="<?php echo $this->app->createUrl('user/userCenter'); ?>">个人中心</a>完善您的信用资料
@@ -80,7 +82,7 @@
                 
             </div>
             <div class="next">
-            	<?php if($roleName !== false){ ?>
+            	<?php if($roleName){ ?>
                 <a href="<?php echo $this->createUrl("borrow/info"); ?>" class="borrow-button" id="borrow-next">下一步</a>
             	<?php } ?>
             </div>

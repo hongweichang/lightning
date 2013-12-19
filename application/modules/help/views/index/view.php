@@ -1,5 +1,4 @@
 <?php $this->cs->registerCssFile($this->cssUrl.'audit.css'); ?>
-<div id="container">
 		<div class="wd1002">
             <h1 class="aud-nav">
                 <a href="<?php echo $this->createUrl('borrow/index'); ?>">我要借贷 ></a>
@@ -37,8 +36,8 @@
             </div>
             <div id="aud-detail">
                 <div class="aud-ucenter">
-                    <a href="<?php echo $this->app->createUrl('user/userCenter'); ?>">进入个人中心 |</a>
-                    <a href="<?php echo $this->app->createUrl('help'); ?>">使用帮助</a>
+                    <a href="<?php echo $this->app->createUrl('user/userCenter/userInfo'); ?>">进入个人中心 |</a>
+                    <a href="<?php echo $this->app->createUrl('/help');?>">使用帮助</a>
                 </div>
                 <div class="aud-warning">
                     <img src="<?php echo $this->imageUrl;?>adu-warning.png" class="adu-img-waring" />
@@ -77,6 +76,10 @@
                         <p>常驻地址证明</p>
                     </li>
                 </ul>
+                <div class="adu-intro">
+                    <h3>【标段介绍】</h3>
+                    <p><?php echo $model->description;?></p>
+                </div>
             </div>
         </div>
-</div>
+

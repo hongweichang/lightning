@@ -21,6 +21,7 @@ class mainConf extends ConfigBase{
 						'user',
 						'credit',
 						'tender',
+						'help',
 						'appservice',
 						'content',
 						'gii'=>array(
@@ -97,7 +98,6 @@ class mainConf extends ConfigBase{
 										),
 								),
 						),
-
 						'session' => array(
 								'class'=> 'CHttpSession',
 								//'cacheID' => 'cache',
