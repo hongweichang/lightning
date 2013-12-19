@@ -106,6 +106,10 @@
   padding-bottom: 20px;
   overflow: hidden;
   background: #fff; }
+#container .aud-find-menu {
+	margin-bottom: -14px;
+	padding-bottom: 0px;
+}
   #container .aud-find ul#find-table-button {
     height: 59px; }
     #container .aud-find ul#find-table-button li {
@@ -160,7 +164,6 @@
   #container .aud-find .find-table-box {
     position: relative;
     width: 95%;
-    height: 0;
     margin: 0 auto;
     background: #fff;
     opacity: 0;
@@ -615,11 +618,33 @@ input:focus {
     width: 100px;
     font-size: 14px;
     text-align: right; }
+  .pay-form p {
+    padding-left: 150px; }
+  .pay-form .number {
+    font-size: 22px; }
+  .pay-form #protocal {
+    display: none; }
+  .pay-form #protocal-label {
+    width: auto;
+    font-size: 12px; }
+    .pay-form #protocal-label a {
+      color: #2d9194; }
+    .pay-form #protocal-label a:visited {
+      color: #2d9194; }
+  .pay-form .fakeCheck {
+    position: relative;
+    float: left;
+    margin: 10px 5px 0 60px;
+    width: 13px;
+    height: 13px;
+    border: 1px solid #c9c9c9; }
 
 #container .aud-find div.find-table-content .pay-form span {
   display: inline; }
 
-#pay-num {
+#pay-num,
+#withdraw-num,
+#withdraw-passwd {
   width: 148px;
   height: 20px;
   padding: 4px 6px;
@@ -628,6 +653,8 @@ input:focus {
   border-radius: 5px; }
 
 .randImage {
+  position: relative;
+  top: 7px;
   width: 72px;
   height: 24px;
   border: 0; }
@@ -635,6 +662,99 @@ input:focus {
 .verifycode {
   width: 55px;
   height: 24px;
+  padding: 0 5px;
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
   border-radius: 5px; }
+
+#container #tick {
+  position: absolute;
+  left: 0;
+  top: -4px;
+  width: 15px;
+  height: 15px;
+  background: url("../images/tick.png") no-repeat; }
+
+#container #fund-pay {
+  margin-bottom: 40px; }
+  #container #fund-pay li {
+    height: 32px;
+    line-height: 32px;
+    padding-left: 80px; }
+
+#fund-pay-submit,
+#fund-withdraw-submit {
+  margin-left: 110px;
+  width: 70px;
+  font-size: 16px; }
+
+.withdraw h2 {
+  margin-bottom: 10px;
+  color: #555;
+  font-size: 20px;
+  font-weight: normal; }
+.withdraw .bank {
+  padding: 10px 40px; }
+
+#container #fund-withdraw {
+  margin-bottom: 40px; }
+  #container #fund-withdraw span {
+    display: inline; }
+  #container #fund-withdraw li {
+    height: 32px;
+    line-height: 32px;
+    padding-left: 80px; }
+    #container #fund-withdraw li a {
+      font-size: 12px;
+      color: #27d0fb; }
+    #container #fund-withdraw li a:visited {
+      color: #27d0fb; }
+
+.hint {
+  position: relative;
+  display: inline-block; }
+  .hint img {
+    cursor: pointer;
+    border: 0; }
+  .hint p {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 20px;
+    border: 1px solid #27d0fb;
+    padding: 4px 6px;
+    height: 14px;
+    line-height: 14px;
+    font-size: 12px; }
+
+.hint:hover p {
+  display: block; }
+
+.wrapMask {
+  position: fixed;
+  display: none;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 998;
+  background-color: rgba(255, 255, 255, 0.85); }
+
+.mask {
+  position: absolute;
+  display: none;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  box-shadow: 0 0 2px 1px #ccc;
+  z-index: 999; }
+
+.mask-close {
+  float: right;
+  cursor: pointer; }
+
+.mask-pay-wait {
+  padding: 15px;
+  line-height: 1.8; }
+  .mask-pay-wait h2 {
+    font-family: "Microsoft Yahei";
+    color: #555; }

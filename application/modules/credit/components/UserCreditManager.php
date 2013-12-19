@@ -7,36 +7,42 @@ design By HJtianling_LXY,<2507073658@qq.com>
 class UserCreditManager extends CApplicationComponent{
 	public function getUserCreditLevel($uid){
 		if(!empty($uid) && is_numeric($uid)){
-
+			$level = null;
+			
 			$userCredit = FrontUser::model()->findByPk($uid);
-			if(!empty($userCredit)){
-				$userCreditPoint = $userCredit['attributes']['credit_grade'];
-				$userLevel = $this->UserLevelCaculator($userCreditPoint);
-				return $userLevel;
+			if( $userCredit !== null ){
+				return $this->UserLevelCaculator($userCredit->credit_grade);
+			}else {
+				return null;
 			}
-
 		}
 	}
 
-	public function UserLevelCaculator($Point){
-		if(is_numeric($Point)){
-			if('0' <= $Point && $Point <= '99' )
-				return 'HR';
-			elseif('100' <= $Point && $Point <= '109')
-				return 'E';
-			elseif('110' <= $Point && $Point <= '119')
-				return 'D';
-			elseif('120' <= $Point && $Point <= '129')
-				return 'C';
-			elseif('130' <= $Point && $Point <= '144')
-				return 'B';
-			elseif('145' <= $Point && $Point <= '159')
-				return 'A';
-			elseif($Point >= '160')
-				return 'AA';
-			else
-				return 400;
-
+	public function UserLevelCaculator($point){
+		if(is_numeric($point)){
+			$cache = Yii::app()->getCache();
+			if ( $cache !== null ){
+				$allData = $cache->get('USER_CREDIT_LEVEL_SETTINGS');
+				if ( $allData === false ){
+					$allData = (array)CreditGradeSettings::model()->findAll();
+				}
+			}else {
+				$allData = (array)CreditGradeSettings::model()->findAll();
+			}
+			
+			if ( $cache !== null ){
+				$cache->set('USER_CREDIT_LEVEL_SETTINGS',$allData,24*3600);
+			}
+			
+			$label = null;
+			foreach ( $allData as $data ){
+				if ( $point >= $data['start'] ){
+					$label = $data['label'];
+					break;
+				}
+			}
+			
+			return $label;
 		}else
 			return 401;
 	}

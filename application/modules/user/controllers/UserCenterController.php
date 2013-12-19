@@ -6,49 +6,55 @@ design By HJtianling_LXY,<2507073658@qq.com>
 */
 
 class UserCenterController extends Controller{
-
-	public function actionIndex(){
-		echo "i 'm your center";
+	public $defaultAction = 'userInfo';
+	public $userData;
+	
+	public function filters(){
+		$filters = parent::filters();
+		$filters[] = 'fetchUserData + userInfo,myLend,myBorrow,userSecurity,userFund';
+		return $filters;
 	}
-
+	
+	public function filterFetchUserData($filterChain){
+		$uid = $this->app->user->id;
+		$this->userData = $this->getModule()->getComponent('userManager')->getUserInfo($uid);
+		$filterChain->run();
+	}
+	
 	/*
 	*个人信息获取
 	*/
 	public function actionUserInfo(){
-		$this->pageTitle = '闪电贷';
-		$uid = Yii::app()->user->id;
-		$userData = $this->app->getModule('user')->getComponent('userManager')->getUserInfo($uid);
+		$this->pageTitle = '个人中心';
+		$uid = $this->app->user->id;
+		$userData = $this->userData;
 
 		$role = $userData['role'];
 		$creditData= $this->getUserCredit($role);
 		$IconUrl = null;
 
-		$model = new FrontCredit();
-
-		if(isset($_POST['FrontCredit'])){
-			$file=CUploadedFile::getInstance($model,'filename'); 
-			var_dump($file);
-			die();
-		}
-
 		if(isset($_POST['FrontUser'])){
-			$userInfo = FrontUser::model()->with('baseUser')->findByPk($uid);
 			$attributes = $_POST['FrontUser'];
-			// $userInfo->gender = $attributes['gender'];
-			// $userInfo->address = $attributes['address'];
-			// $userInfo->role = $attributes['role'];
-			$userInfo->attributes = $attributes;
-			if($userData->save())
-				echo "ok";
-			else{
-				var_dump($userData->getErrors());
-				die();
+
+			$userData->gender = $attributes['gender'];
+			$userData->address = $attributes['address'];
+			$userData->role = $attributes['role'];
+			$userData->age = $attributes['age'];
+			$userData->identity_id = $attributes['identity_id'];
+
+
+			if($userData->save()){
+				Yii::app()->user->setFlash('success','信息修改成功');
+				$this->redirect(Yii::app()->createUrl('user/userCenter/userInfo'));
+			}else{
+				Yii::app()->user->setFlash('error','信息修改失败');
+				$this->redirect(Yii::app()->createUrl('user/userCenter/userInfo'));
 			}
 		}
-		if(!empty($userData)){
-			$IconUrl = Yii::app()->getModule('user')->userManager->getUserIcon($uid);
-			$this->render('userInfo',array('userData'=>$userData,'creditData'=>$creditData,'model'=>$model,'IconUrl'=>$IconUrl));
-		}
+		
+		$IconUrl = $this->user->getState('avatar');
+		$this->render('userInfo',array('userData'=>$userData,'creditData'=>$creditData,'model'=>new FrontCredit(),'IconUrl'=>$IconUrl));
+		
 	}
 
 	/*
@@ -181,9 +187,8 @@ class UserCenterController extends Controller{
 	public function actionUserSecurity(){
 		$this->pageTitle = '闪电贷';
 		$uid = Yii::app()->user->id;
-		
 
-		$userData = $this->app->getModule('user')->getComponent('userManager')->getUserInfo($uid);
+		$userData = $this->userData;
 
 		if(!empty($userData)){
 			$IconUrl = Yii::app()->getModule('user')->userManager->getUserIcon($uid);
@@ -283,7 +288,7 @@ class UserCenterController extends Controller{
 			$uid = $this->app->user->id;
 			$fileInfo = CUploadedFile::getInstanceByName('Filedata');
 			$fileName = $fileInfo->name;
-			$fileType =  pathinfo($fileName, PATHINFO_EXTENSION);
+			$fileType =  $fileInfo->getExtensionName();
 
 			$TypeVerify = $this->TypeVerify($fileType);
 			if($TypeVerify !== 'image'){
@@ -298,32 +303,27 @@ class UserCenterController extends Controller{
 			}
 
 			$randName = Tool::getRandName();//获取一个随机名
-			$newName = "userIcon".$randName.".".$fileName;//对文件进行重命名
+			$newName = md5('userIcon'.$randName.$fileName).'.'.$fileType;//对文件进行重命名
 			$saveUrl = $uploadDir.$newName;
 			$isUp = $fileInfo->saveAs($saveUrl);//保存上传文件
 
 			if($isUp){
-				$thumbName = "thumbs".$newName;
-				$saveThumb = $uploadDir.$thumbName;
-				$thumbUrl = Tool::getThumb($saveUrl,300,300,$saveThumb);//制作缩略图并放回缩略图存储路径
-				$thumbUrl = str_replace(dirname(Yii::app()->basePath),"",$thumbUrl);
-				if(!$thumbUrl)
-					$thumbName = $newName;
+				$thumbUrl = Tool::getThumb($saveUrl,300,300,$saveUrl);//制作缩略图并放回缩略图存储路径
 
 				$Icon = new FrontUserIcon();
 				$Icon->user_id = $uid;
-				$Icon->file_name = $thumbName;
-				$Icon->size = 300*300;
+				$Icon->file_name = $newName;
+				$Icon->size = '300*300';
 				$Icon->file_size = $fileInfo->size;
 				$Icon->in_using = 1;
 
+				FrontUserIcon::model()->updateAll(array('in_using'=>0),'user_id=:uid',array(':uid'=>$uid));
 				if($Icon->save()){
 					Yii::app()->user->setFlash('success','上传成功');
+					$this->user->setState('avatar',$this->app->getPartedUrl('avatar',$uid).$newName);
 					$this->redirect(Yii::app()->createUrl('user/userCenter/userInfo'));
 				}
-
 			}
-
 		}
 	}
 
@@ -365,11 +365,43 @@ class UserCenterController extends Controller{
 		}
 	}
 
+	/*
+	**支付密码设置
+	*/
+	public function actionPayPasswordCreate(){
+		$post = $this->getPost();
+
+		if(!empty($post)){
+			$password = $post['password'];
+			$rePassword = $post['rePassword'];
+
+			if($password != $rePassword){
+				Yii::app()->setFlash('error','密码和重复密码不对应');
+				$this->redirect(Yii::app()->createUrl('user/userCenter/userSecurity'));
+				exit();
+			}
+
+			$uid = $this->user->id;
+			$userData = FrontUser::model()->findByPk($uid);
+
+			if(!empty($userData)){
+				$security = Yii::app()->getSecurityManager();
+				$payPassword = $security->generatePassword($password);//调用加密组建对密码进行加密
+				$userData->pay_password = $payPassword;
+
+				if($userData->save()){
+					Yii::app()->user->setFlash('success','支付密码设置成功');
+					$this->redirect(Yii::app()->createUrl('user/userCenter/userSecurity'));
+				}
+			}
+		}
+	}
+
 
 	public function actionUserFund(){
 		$this->pageTitle = '闪电贷';
 		$uid = $this->id;
-		$userData = FrontUser::model()->findByPk($uid);
+		$userData = $this->userData;
 		$IconUrl = null;
 
 		$IconUrl = Yii::app()->getModule('user')->userManager->getUserIcon($uid);

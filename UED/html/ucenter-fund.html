@@ -223,37 +223,115 @@
                       </div>
                     <div class="pay-form">
                         <h2>填写充值金额</h2>
-                        <form>
+                        <form id="fund-pay">
                             <ul>
                                 <li>
-                                    <label>账户余额</label>
-                                    <span>0.00</span>
+                                    <label>账户余额 </label>
+                                    <span class="number">0.00</span>
                                     <span>元</span>
                                 </li>
                                 <li>
-                                    <label for="pay-num">充值金额</label>
+                                    <label for="pay-num">充值金额 </label>
                                     <input type="text" id="pay-num"/>
                                     <span>元</span>
                                 </li>
                                 <li>
-                                    <label>充值费用</label>
-                                    <span>0.00</span>
+                                    <label>充值费用 </label>
+                                    <span class="number">0.00</span>
                                     <span>元</span>
                                 </li>
                                 <li>
-                                    <label>手机号码</label>
+                                    <label>手机号码 </label>
                                     <span>156****9658</span>
                                 </li>
                                 <li>
-                                    <label>验证码</label>
+                                    <label>验证码 </label>
                                     <input type="text" class="verifycode"/>
-                                    <img src="" id="randImage"/>
+                                    <img src="" class="randImage"/>
+                                </li>
+                                <li>
+                                    <input type="checkbox" checked="checked" name="protocal" id="protocal" />
+                                    <div class="fakeCheck"><span id="tick"></span></div>
+                                    <label for="protocal" id="protocal-label">我同意<a href="#">《投资人投资协议》</a></label>
+                                </li>
+                                <li>
+                                    <input type="submit" value="充值" class="form-button" id="fund-pay-submit"/>
                                 </li>
                             </ul>
                         </form>
+                        <p>温馨提示</p>
+                        <p>1.为了您的账户安全，请在充值前进行身份认证、手机绑定以及提现密码设置。</p>
+                        <p>2.您的账户资金将由第三方平台托管。</p>
+                        <p>3.请注意您的银行卡充值限制，以免造成不便。</p>
+                        <p>4.禁止洗钱、信用卡套现、虚假交易等行为，一经发现并确认，将终止该账户的使用。</p>
+                        <p>5.如果充值金额没有及时到账，请联系客服，400-027-8080。</p>
                     </div>
                 </div>
-                <div class="find-table-content">
+                <div class="find-table-content withdraw">
+                    <div class="bank clearfix">
+                        <h2>选择银行卡</h2>
+                        <a href="#" class="bankcard-box">
+                            <div>
+                                <img src="../images/psbc.png" />
+                                <p>尾号6236</p>
+                            </div>
+                            <p class="bankcard-op">删除银行卡</p>
+                        </a>
+                        <a href="#" class="bankcard-box add">
+                            <div>
+                                <img src="../images/bankcard_add.png" />
+                            </div>
+                            <p class="bankcard-op">新增银行卡</p>
+                        </a>
+                    </div>
+                    <div class="pay-form">
+                        <h2>填写充值金额</h2>
+                        <form id="fund-withdraw">
+                            <ul>
+                                <li>
+                                    <label>可用资金 </label>
+                                    <span class="number">0.00</span>
+                                    <span>元</span>
+                                </li>
+                                <li>
+                                    <label for="withdraw-num">提现金额 </label>
+                                    <input type="text" id="withdraw-num"/>
+                                    <span>元</span>
+                                </li>
+                                <li>
+                                    <label>提现费用 </label>
+                                    <span class="number">0.00</span>
+                                    <span>元</span>
+                                    <div class="hint">
+                                        <img src="../images/fund_hint.png" />
+                                        <p>test</p>
+                                    </div>
+                                </li>
+                                <li>
+                                    <label>实际扣除金额 </label>
+                                    <span class="number">0.00</span>
+                                    <span>元</span>
+                                </li>
+                                <li>
+                                    <label>预计到账日期 </label>
+                                    <span>2013-11-17</span>
+                                </li>
+                                <li>
+                                    <label>提现密码 </label>
+                                    <input type="password" id="withdraw-passwd" />
+                                    <a href="#">忘记密码</a>
+                                </li>
+                                <li>
+                                    <input type="submit" value="提现" class="form-button" id="fund-withdraw-submit"/>
+                                </li>
+                            </ul>
+                        </form>
+                        <p>温馨提示</p>
+                        <p>1.请确保您输入的是提现金额，以及银行账号信息准确无误。</p>
+                        <p>2.如果您填写的提现信息不正确可能会导致提现失败，由此产生的提现费用将不予返还</p>
+                        <p>3.在双休日和法定节假日期间，用户可以申请提现，闪电贷会在下一个工作日进行处理。由此造成的不便，请多多谅解！</p>
+                        <p>4.平台禁止洗钱、信用卡套现、虚假交易等行为，一经发现并确认，将终止该账户的使用。</p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -321,7 +399,19 @@
             </div>
         </div>
     </div>
+    <div class="wrapMask"></div>
+    <div class="mask" id="m-bankcard" style="width:500px;height:170px;display:none;">
+        <img src="../images/mask_close.png" class="mask-close" />
+        <div class="mask-pay-wait">
+            <h2>请你在新打开的第三方支付平台完成付款</h2>
+            <p>付款完成前请不要关闭此窗口</p>
+            <p>如果支付不成功，请点击下面按钮</p>
+            <a href="#" class="form-button">付款遇到问题</a>
+        </div>
+    </div>
+
 <script type="text/javascript" src="../javascript/jquery-1.8.2.min.js"></script>
 <script type="text/javascript" src="../javascript/tableChange.js"></script>
+<script type="text/javascript" src="../javascript/personal.js"></script>
 </body>
 </html>

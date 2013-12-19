@@ -7,7 +7,7 @@ design By HJtianling_LXY,<2507073658@qq.com>
 
 return array(
 		array(
-				'pattern'=>'<_m:(appservice)>/<_a:(CreditGrade)>/',
+				'pattern'=>'<_m:(appservice)>/<_a:(CreditGrade|Balance)>/',
 				'<_m>/appUser/get<_a>',
 				'verb'=>'POST'
 			),
@@ -25,14 +25,22 @@ return array(
 			),
 
 		array(
-				'pattern'=>'<_m:(appservice)>/<_a:(BidList|BidById|BidListById)>',
+				'pattern'=>'<_m:(appservice)>/<_a:(BidList|BidById|BidListById|MetaList)>',
 				'<_m>/appTender/get<_a>',
 				'verb'=>'post'
 			),
+
 		array(
-				'pattern'=>'<_m:(appservice)>/<_a:(raiseBid)>',
+				'pattern'=>'<_m:(appservice)>/<_a:(raiseBid|purchaseBid)>',
 				'<_m>/appTender/<_a>',
 				'verb'=>'post'
 			),
+
+		array(
+				'pattern'=>'<_m:(appservice)>/<_a:(payPurchasedBid)>',
+				'<_m>/AppPay/<_a>',
+				'verb'=>'post'
+			),
+
 	);
 ?>

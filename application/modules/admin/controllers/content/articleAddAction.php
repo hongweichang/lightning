@@ -8,8 +8,8 @@
 class articleAddAction extends CmsAction{
 	public function run(){
 		$controller = $this->getController();
-		$controller->addToSubtab('文章列表','content/articleList');
-		$controller->tabTitle = '添加文章';
+		$controller->addToSubtab('公告列表','content/articleList');
+		$controller->tabTitle = '添加公告';
 		$controller->artAdd(0);
 	}
 }

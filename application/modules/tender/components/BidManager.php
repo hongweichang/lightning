@@ -26,7 +26,7 @@ class BidManager extends CApplicationComponent{
 	 * @param array $params
 	 */
 	public function getBidList($condition, $params = array()){
-		return BidInfo::model()->with('user')->findAll($condition,$params);
+		return BidInfo::model()->findAll($condition,$params);
 	}
 	
 	/**
@@ -69,6 +69,7 @@ class BidManager extends CApplicationComponent{
 		$rate = round($rate,2);
 		
 		$bid = new BidInfo();
+		$refund = $this->calculateRefund($sum, $rate / 1200, $deadline) * 100;
 		$bid->attributes = array(
 			'user_id' => $user,
 			'title' => $title,
@@ -76,18 +77,20 @@ class BidManager extends CApplicationComponent{
 			'sum' => $sum * 100,
 			'refund' => $this->calculateRefund($sum, $rate / 12, $deadline) * 100,
 			'month_rate' => $rate * 100,
+//			'month_rate' => $rate,
 			'start' => $start,
 			'end' => $end,
 			'deadline' => $deadline,
 			'pub_time' => time(),
 			'progress' => 0,
-			'verify_progress' => 0
+			'verify_progress' => 0,
+			'refund'=>$refund
 		);
 		
 		if($bid->save()){
 			return $bid->getPrimaryKey();
 		}else{
-			return 0;
+			var_dump($bid->getErrors());
 		}
 	}
 	

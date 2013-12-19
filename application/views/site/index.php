@@ -5,19 +5,17 @@
  * Date 2013-12-1 
  * Encoding UTF-8
  */
+$bannerFiles = json_decode($banner->file_names,true);
+$bannerAddTime = $banner->add_time;
 ?>
 	<div id="banner">
         <ul>
-            <li style="background:url('<?php echo $this->imageUrl;?>slide1.jpg') 50% 50% no-repeat">
+        <?php foreach ( $bannerFiles as $file ):?>
+            <li style="background:url('<?php echo $this->app->getPartedUrl('siteBanner',$bannerAddTime).$file['filename']?>') 50% 50% no-repeat">
                 <a href="javascript:void(0);"></a>
             </li>
-            <li style="background:url('<?php echo $this->imageUrl;?>slide2.jpg') 50% 50% no-repeat">
-                <a href="javascript:void(0);"></a>
-            </li>
-            <li style="background:url('<?php echo $this->imageUrl;?>slide1.jpg') 50% 50% no-repeat">
-                <a href="javascript:void(0);"></a>
-            </li>
-        </ul>
+       <?php endforeach;?>
+       </ul>
     </div>
     <div id="container">
         <div class="wd1002">
@@ -38,53 +36,30 @@
                     <span class="intro-text">我手上有闲钱，想要拿出来理财，我要借出的具体细节。我急需要用钱，想要借款，我要借入的的具体细节。管理我的的账户，近期参与活动，账户安全管理，收益及余额查询等。</span>
                 </a>
             </div>
-            <div class="announce">闪电贷自成立起共完成交易<span>18,820.26</span> 万元人民币，为理财人赚取的利息收益超过 50,000,000万元人民币，用户表示一致好评。
-            </div>
+            
             <div class="news clearfix">
                 <div class="title">最新公告</div>
                 <ul>
+                <?php 
+           	    $today = mktime(0,0,0);     
+                foreach ( $articles as $article ):
+                $addTime = $article->add_time;
+                $content = $article->content;     
+           ?>
                     <li>
-                        <p class="news-time">2013-10-28</p>
+                        <p class="news-time"><?php echo date('Y-m-d',$addTime)?></p>
                         <p class="news-liststyle"></p>
                         <div class="news-list">
-                            <a href="#">北京市金融工作局霍学文书记莅临人人贷考察交流</a>
-                            <div class="subText text-overflow">2013年10月22日上午， 北京市金融工作局霍学文书记及相关领导一行9人莅临人人莅临</div>
+                            <a href="<?php echo $this->createUrl('content/article',array('id'=>$article->id))?>">
+                   	    <?php echo $article->title?>        
+                            </a>
+                            <div class="subText text-overflow"><?php echo $content?></div>
+                            <?php if ( $addTime >= $today ):?>
                             <div class="news-tips"></div>
+                            <?php endif;?>
                         </div>
                     </li>
-                    <li>
-                        <p class="news-time">2013-10-28</p>
-                        <p class="news-liststyle"></p>
-                        <div class="news-list">
-                            <a href="#">北京市金融工作局霍学文书记莅临人人贷考察交流</a>
-                            <div class="subText text-overflow">2013年10月22日上午， 北京市金融工作局霍学文书记及相关领导一行9人莅临人人莅临</div>
-                            <div class="news-tips"></div>
-                        </div>
-                    </li>
-                    <li>
-                        <p class="news-time">2013-10-28</p>
-                        <p class="news-liststyle"></p>
-                        <div class="news-list">
-                            <a href="#">北京市金融工作局霍学文书记莅临人人贷考察交流</a>
-                            <div class="subText text-overflow">2013年10月22日上午， 北京市金融工作局霍学文书记及相关领导一行9人莅临人人莅临</div>
-                        </div>
-                    </li>
-                    <li>
-                        <p class="news-time">2013-10-28</p>
-                        <p class="news-liststyle"></p>
-                        <div class="news-list">
-                            <a href="#">北京市金融工作局霍学文书记莅临人人贷考察交流</a>
-                            <div class="subText text-overflow">2013年10月22日上午， 北京市金融工作局霍学文书记及相关领导一行9人莅临人人莅临</div>
-                        </div>
-                    </li>
-                    <li>
-                        <p class="news-time">2013-10-28</p>
-                        <p class="news-liststyle"></p>
-                        <div class="news-list">
-                            <a href="#">北京市金融工作局霍学文书记莅临人人贷考察交流</a>
-                            <div class="subText text-overflow">2013年10月22日上午， 北京市金融工作局霍学文书记及相关领导一行9人莅临人人莅临</div>
-                        </div>
-                    </li>
+               <?php endforeach;?>
                 </ul>
             </div>
             <div class="loan">
@@ -99,44 +74,31 @@
                     <span>进度</span>
                 </div>
                 <ul>
+                <?php foreach ( $bids as $bid ):?>
                     <li class="loan-list">
                         <div class="loan-avatar">
-                            <img src="../images/intro-pic_1.png" />
+                            <img src="<?php echo $bid['userIcon']?>" />
                             <span>信</span>
                         </div>
-                        <div class="loan-title"><a href="#">再次支持免费充值</a></div>
-                        <div class="loan-rate loan-num">10.00%</div>
-                        <div class="loan-rank"><div class="rankA">A</div></div>
-                        <div class="loan-amount loan-num">￥3000元</div>
-                        <div class="loan-time loan-num">3个月</div>
+                        <div class="loan-title">
+                        	<a href="<?php echo $this->createUrl('tender/purchase/info',array('id'=>$bid['id']))?>" target="_blank">
+                        	<?php echo $bid['title']?>
+                        	</a>
+                        </div>
+                        <div class="loan-rate loan-num"><?php echo $bid['monthRate']?></div>
+                        <div class="loan-rank"><div><?php echo $bid['rank']?></div></div>
+                        <div class="loan-amount loan-num"><?php echo $bid['sum']?></div>
+                        <div class="loan-time loan-num"><?php echo $bid['deadline']?></div>
                         <div class="loan-progress">
                             <div class="bar-out">
                                 <div class="bar-in">
-                                    <span class="bar-complete" style="width:30%"></span>
-                                    <span class="bar-num">30%</span>
+                                    <span class="bar-complete" style="width:<?php echo $bid['progress']?>"></span>
+                                    <span class="bar-num"><?php echo $bid['progress']?></span>
                                 </div>
                             </div>
                         </div>
                     </li>
-                    <li class="loan-list">
-                        <div class="loan-avatar">
-                            <img src="../images/intro-pic_1.png" />
-                            <span>信</span>
-                        </div>
-                        <div class="loan-title"><a href="#">再次支持免费充值</a></div>
-                        <div class="loan-rate loan-num">10.00%</div>
-                        <div class="loan-rank"><div class="rankHR">HR</div></div>
-                        <div class="loan-amount loan-num">￥3000元</div>
-                        <div class="loan-time loan-num">3个月</div>
-                        <div class="loan-progress">
-                            <div class="bar-out">
-                                <div class="bar-in">
-                                    <span class="bar-complete" style="width:30%"></span>
-                                    <span class="bar-num">30%</span>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
+                <?php endforeach;?>
                 </ul>
             </div>
             <div class="platform">

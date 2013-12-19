@@ -52,6 +52,10 @@ class BannerSchemeForm extends CFormModel{
 				break;
 			}
 		}
+		
+		if ( $this->banner_type == 1 ){//app端不需要设置跳转地址
+			$this->redirect_urls = array('#');
+		}
 	}
 	
 	public function save(){
@@ -59,7 +63,9 @@ class BannerSchemeForm extends CFormModel{
 		$files = CUploadedFile::getInstances($this,'files');
 		$fileNames = array();
 		$now = time();
-		$savePath = Yii::app()->getPartedPath('siteBanner',$now);
+		
+		$pathName = $this->banner_type == 1 ? 'appBanner' : 'siteBanner';
+		$savePath = Yii::app()->getPartedPath($pathName,$now);
 		$saveFiles = array();
 		
 		if ( !is_dir($savePath) ){
@@ -109,7 +115,12 @@ class BannerSchemeForm extends CFormModel{
 			foreach ( $saveFiles as $saveFile ){
 				$saveFile['instance']->saveAs($saveFile['saveName']);
 				$image = Yii::app()->image->load($saveFile['saveName']);
-				$image->resize(2000,400,Image::NONE)->quality(85)->save($saveFile['saveName']);
+				if ( $this->banner_type == 1 ){//app
+					$image->resize(2000,400,Image::NONE)->quality(85)->save($saveFile['saveName']);
+				}elseif ( $this->banner_type == 0 ) {
+					//$image->resize(2000,400,Image::NONE)->quality(85)->save($saveFile['saveName']);
+				}
+				
 			}
 			return true;
 		}else {

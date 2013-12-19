@@ -68,13 +68,19 @@ class UserManager extends CApplicationComponent{
 
 			if(!empty($userIcon)){
 				$userIconName = end($userIcon)->attributes['file_name'];
-				$uploadUrl = Yii::app()->getPartedUrl('avatar',$id);
-				$IconUrl = $uploadUrl.$userIconName;
-				return $IconUrl;
+				return $this->resolveIconUrl($userIconName,$id);
 			}else{
-				$IconUrl = Yii::app()->getPartedUrl('image').'user-avatar.png';
-				return $IconUrl;
+				return $this->resolveIconUrl(null);
 			}
+		}
+	}
+	
+	public function resolveIconUrl($icon=null,$partIn=null){
+		$url = Yii::app()->getPartedUrl('avatar',$partIn);
+		if ( $icon === null ){
+			return $url.'default.png';
+		}else {
+			return $url.$icon;
 		}
 	}
 	

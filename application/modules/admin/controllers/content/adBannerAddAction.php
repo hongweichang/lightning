@@ -12,8 +12,7 @@ class adBannerAddAction extends CmsAction{
 		$controller->tabTitle = '添加banner方案';
 		$controller->addNotifications('推荐上传2000 x 400 尺寸的图片，否则可能会出现图片拉伸失真现象');
 		
-		$data = $this->getPost('BannerSchemeForm');
-		$form = $controller->getContentManager()->saveBanner($data,0);
+		$form = $controller->bannerAdd(0);
 		if ( $form === true ){
 			$controller->showMessage('添加成功','content/adBanner');
 		}

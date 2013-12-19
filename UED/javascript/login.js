@@ -12,6 +12,9 @@ $(document).ready(function(){
 		$(this).children("p").css({display:"none"});
 		$(this).children('.form-input').focus();
 	});
+	$(".form-item input").bind("focus",function(){
+		$(this).siblings("p").css({display: "none"});
+	});
 	$(".form-item input").bind("blur",function(){
 		if(!$(this).val())
 			$(this).siblings("p").css({display: "block"});
@@ -27,13 +30,13 @@ $(document).ready(function(){
 	});
 	$("#login").validate({
 		rules:{
-			username: {
+			"Login[account]": {
 				required: true,
 				phoneOrMail: true
 			}
 		},
 		messages:{
-			username:{
+			"Login[account]":{
 				required: "用户名不能为空",
 				phoneOrMail: "请输入正确的手机号或邮箱"
 			}
@@ -41,39 +44,55 @@ $(document).ready(function(){
 	});
 	$("#signup").validate({
 		rules:{
-			username:{
+			"Register[nickname]":{
 				required: true,
 				uname: true
 			},
-			signup_phone:{
+			"Register[mobile]":{
 				required: true,
 				phone: true
 			},
-			signup_password:{
+			"Register[password]":{
 				required: true,
 				minlength: 6
 			},
-			signup_password_confirm:{
+			"Reigister[confirm]":{
 				required: true,
 				equalTo: "#signup-password"
 			}
 		},
 		messages:{
-			username:{
+			"Register[nickname]":{
 				required: "用户名不能为空",
 				uname: "可由4-16个中英文、数字、下划线字符构成"
 			},
-			signup_phone:{
+			"Register[mobile]":{
 				required: "手机号不能为空",
 				phone: "请输入11位手机号码"
 			},
-			signup_password:{
+			"Register[password]":{
 				required: "请输入密码",
 				minlength: "密码至少为六位"
 			},
-			signup_password_confirm:{
+			"Reigister[confirm]":{
 				required: "请重复密码",
 				equalTo: "您输入的密码不一致"
+			}
+		}
+	});
+	$("#verify-form").validate({
+		rules:{
+			verify_code:{
+				required: true,
+				digits: true,
+				length4: true
+			}
+		},
+		messages:{
+			verify_code:{
+				required: "验证码不能为空",
+				digits: "请输入数字",
+				length4: "验证码长度为4位"
 			}
 		}
 	});
@@ -92,5 +111,28 @@ $(document).ready(function(){
 		var len = value.length;
 		return this.optional(element) || (tel.test(value) && len == 11);
 	});
+	$.validator.addMethod("length4",function(value,element){
+		var len = value.length;
+		return this.optional(element) || (len == 4);
+	});
 	
+	$("#getVerifycode").bind("click",function(){
+		var time;
+		if(!$(this).hasClass("disabled")){
+			$(this).addClass("disabled");
+			$.ajax({
+
+			});
+			time = 30;
+			changeVal();
+		}
+		function changeVal(){
+			if(time>0){
+				$("#getVerifycode").text(time+"秒重新获取");
+				setTimeout(changeVal,1000);
+				time--;
+			}else
+				$("#getVerifycode").removeClass("disabled").text("获取验证码");
+		}
+	});
 });

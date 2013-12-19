@@ -38,10 +38,6 @@ class Admin extends Controller{
 		return array_merge($ipAllow,parent::accessRules());
 	}
 	
-	public function loginRequired(){
-		$this->redirect($this->createUrl('account/login'));
-	}
-	
 	/**
 	 * 添加三级菜单
 	 */
@@ -65,7 +61,7 @@ class Admin extends Controller{
 		$filterChain->run();
 	}
 	
-	public function showMessage($message,$redirectUrl='',$createUrl=true,$wait=5,$terminate=true){
+	public function showMessage($message,$redirectUrl='',$createUrl=true,$wait=5,$terminate=true,$htmlOptions=array()){
 		if ( $createUrl === true ){
 			$url = $redirectUrl === '' ? $this->createUrl('index/welcome') : $this->createUrl($redirectUrl);
 		}else {
@@ -75,7 +71,8 @@ class Admin extends Controller{
 		$this->renderPartial('/public/flash',array(
 				'waitSeconds' => $wait,
 				'jumpUrl' => $url,
-				'message' => $message
+				'message' => $message,
+				'htmlOptions' => $htmlOptions
 		));
 		if ( $terminate === true ){
 			$this->app->end();
@@ -100,6 +97,20 @@ class Admin extends Controller{
 	
 	public function accessDenied(){
 		$this->showMessage('您无权访问此页面','index/welcome');
+	}
+	
+	public function loginRequired(){
+		$url = $this->request->urlReferrer;
+		$loginUrl = $this->createAbsoluteUrl('account/login');
+		$compare = $this->createAbsoluteUrl('index/menu');
+		
+		if ( $url !== $compare ){
+			$this->redirect($loginUrl);
+		}else {
+			$this->layout = false;
+			$this->render('/public/loginRedirect',array('url'=>$loginUrl));
+			$this->app->end();
+		}
 	}
 	
 	public function actionIndex(){

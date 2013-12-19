@@ -176,7 +176,15 @@
       position: relative;
       height: 194px;
       label{
-        @include fontSet(#8a8a8a,28px)
+        @include fontSet(#8a8a8a,28px);
+      }
+      label.error{
+        position: absolute;
+        display: inline;
+        width: auto;
+        top: 40px;
+        left: 220px;
+        @include fontSet(red,14px);
       }
       input{
         height: 28px;
@@ -257,8 +265,8 @@
     float:right;
     width:280px;
     overflow:hidden;
-    margin: 5px 0 0 0;
-    @include fontSet(#dfdfdf,12px);
+    margin: 30px 0 0 0;
+    @include fontSet(#c5c5c5,12px);
     clear: both;
   }
 }

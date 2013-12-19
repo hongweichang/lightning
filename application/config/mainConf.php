@@ -28,13 +28,10 @@ class mainConf extends ConfigBase{
 								'password'=>'admin',
 								'ipFilters'=>array('127.0.0.1','::1'),
 						),
-						
 						'adminnogateway' => array(
 							'class' => 'application.modules.admin.AdminModule',
 							'name' => 'adminnogateway'
 						),
-						
-						
 						'notify' => array(
 								'class' => 'application.modules.notify.NotifyModule',
 								'email' => array(
@@ -68,7 +65,6 @@ class mainConf extends ConfigBase{
 								'autoRenewCookie' => true,
 								'guestName' => '游客',
 								'authTimeout' => 3600,
-								'avatarPath' => '/upload/avatar/'
 						),
 						//remote database on aliyun.remote ip
 						'db' => array(
@@ -84,9 +80,9 @@ class mainConf extends ConfigBase{
 						'request' => array(
 								'class' => 'application.components.Request'
 						),
-						/*'cache' => array(
+						'cache' => array(
 								'class' => 'CMemCache',
-								'useMemcached' => false,
+								'useMemcached' => true,
 								'keyPrefix' => 'lightning',
 								'servers' => array(
 										array(
@@ -100,12 +96,13 @@ class mainConf extends ConfigBase{
 										),
 								),
 						),
+
 						'session' => array(
-								'class'=> 'CHttpSession',
-								//'cacheID' => 'cache',
+								'class'=> 'CCacheHttpSession',
+								'cacheID' => 'cache',
 								'autoStart' => true,
 								'timeout' => 3600*24
-						),*/
+						),
 						'clientScript' => array(
 								'scriptMap' => array(
 										'jquery.js' => false,
@@ -130,7 +127,7 @@ class mainConf extends ConfigBase{
 										),
 								),
 						),
-						/*'zmqClient' => array(
+						'zmqClient' => array(
 								'class' => 'cms.components.asyncEvent.ZMQClient',
 								'zmqServer' => 'tcp://localhost:5556',
 								'sendTimeout' => 3000,
@@ -149,10 +146,10 @@ class mainConf extends ConfigBase{
 												'command' => array('sendMail','success')
 										),
 										'onRegisterSuccess' => array(
-												'command' => array('sendSMS','success')
+												'command' => array('sendSMS','verifyMobile')
 										),
 								),
-						),*/
+						),
 						'image'=>array(
 								'class'=>'ext.image.CImageComponent',
 								'driver'=>'GD',
@@ -166,6 +163,7 @@ class mainConf extends ConfigBase{
 								'gxjc' => '工薪阶层',
 								'qyz' => '企业主',
 								'wddz' => '网店店主',
+								'unknown' => '还未填写角色',
 						),
 						'commonUrls' =>array(
 								'index' => '/site',
