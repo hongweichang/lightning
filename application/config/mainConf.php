@@ -190,10 +190,10 @@ class mainConf extends ConfigBase{
 										'24-36' => ' deadline BETWEEN 24 AND 36 ',
 								),
 								'authenGrade' => array(//认证等级条件
-										'all' => 'all',
-										'AA' => " authenGrade = 'AA' ",
-										'AAA' => " authenGrade = 'AAA' ",
-										'HR' => " authenGrade = 'HR' ",
+										'all' => 'credit_grade >= 0',
+										'初级' => " credit_grade BETWEEN 60 AND 80 ",
+										'普通会员' => " credit_grade BETWEEN 80 AND 100 ",
+										'牛逼会员' => " credit_grade >= 120 ",
 								),
 						),
 						//月利率的查询条件
@@ -201,7 +201,7 @@ class mainConf extends ConfigBase{
 						//借款期限的查询条件
 						'deadline' => array('6-12','12-24','24-36',),
 						//认证等级的查询条件
-						'authenGrade' => array('AA','AAA','HR',),
+						'authenGrade' => array('初级','普通会员','牛逼会员',),
 				),
 		);
 	}
