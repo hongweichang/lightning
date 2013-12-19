@@ -50,7 +50,7 @@ $bannerAddTime = $banner->add_time;
                         <p class="news-time"><?php echo date('Y-m-d',$addTime)?></p>
                         <p class="news-liststyle"></p>
                         <div class="news-list">
-                            <a href="<?php echo $this->createUrl('content/article',array('id'=>$article->id))?>">
+                            <a href="<?php echo $this->createUrl('content/article/view',array('id'=>$article->id))?>">
                    	    <?php echo $article->title?>        
                             </a>
                             <div class="subText text-overflow"><?php echo $content?></div>
