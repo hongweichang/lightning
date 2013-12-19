@@ -1,4 +1,5 @@
 <?php $this->cs->registerCssFile($this->cssUrl.'lend.css');?>
+<?php $this->cs->registerScriptFile($this->scriptUrl.'jquery.validate.min.js',CClientScript::POS_END);?>
 <?php $this->cs->registerScriptFile($this->scriptUrl.'lend.js',CClientScript::POS_END);?>
 <div class="wd1002">
         <div class="breadcrumb">

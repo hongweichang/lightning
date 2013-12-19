@@ -98,8 +98,8 @@ class mainConf extends ConfigBase{
 						),
 
 						'session' => array(
-								'class'=> 'CHttpSession',
-								//'cacheID' => 'cache',
+								'class'=> 'CCacheHttpSession',
+								'cacheID' => 'cache',
 								'autoStart' => true,
 								'timeout' => 3600*24
 						),

@@ -46,7 +46,7 @@ class PurchaseController extends Controller {
 	 * 利用CListview和CActiveDataProvider
 	 */
 	function actionIndex() {
-		$this->setPageTitle($this->name.' - '.$this->app->name);
+		$this->setPageTitle($this->name);
 		
 		$pager = new CPagination(BidInfo::model()->count("verify_progress=1 AND start<='".strtotime(date('Y-m-d'))."'"));
 		$pager->setPageSize($this->_bidsPerPage);
