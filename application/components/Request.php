@@ -13,4 +13,15 @@ class Request extends CHttpRequest{
 			return parent::getUserHostAddress();
 		}
 	}
+	
+	public function getIpLocation($ip){
+		if ( extension_loaded('qqwry') ){
+			$qqwry = new qqwry(Yii::getPathOfAlias('application.data.qqwry').'.dat');
+			list($location,$yys) = $qqwry->q($ip);
+			$location = iconv('GB2312','UTF-8',$location);
+			return $location;
+		}else {
+			return '未知地区';
+		}
+	}
 }

@@ -5,6 +5,9 @@
 	<title>闪电贷</title>
     <script type="text/javascript" src="<?php echo $this->scriptUrl; ?>jquery-1.8.2.min.js"></script>
     <script type="text/javascript" src="<?php echo $this->scriptUrl; ?>jquery.validate.min.js"></script>
+    <script type="text/javascript">
+     var baseUrl = '<?php echo $this->app->getSiteBaseUrl();?>';
+</script>  
 </head>
 <body>
 	<div class="wrapper">

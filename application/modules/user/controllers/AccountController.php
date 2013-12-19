@@ -9,28 +9,12 @@ class AccountController extends Controller{
 	public $layout='//layouts/login';
 	
 	public function noneLoginRequired(){
-		return 'register,login,captcha,test';
-	}
-	
-	public function actions(){
-		return array(
-				'captcha'=>array(
-						'class'=>'CCaptchaAction',
-						'backColor'=>0xFFFFFF,
-						'maxLength' => 4,
-						'minLength' => 4
-				),
-		);
-	}
-	
-	public function actionVerify(){
-		$cache = $this->app->getCache();
-		$this->render('verify');
+		return 'register,login,registerVerify';
 	}
 	
 	public function actionRegister(){
 		if ( $this->user->getIsGuest() === false ){
-			$this->redirect('verify');
+			$this->redirect($this->createUrl('/'));
 		}
 		
 		$post = $this->getPost('Register');
@@ -44,7 +28,7 @@ class AccountController extends Controller{
 					'password' => $post['password'],
 					'rememberMe' => 'on'
 			));
-			$this->redirect('verify');
+			$this->redirect($this->createUrl('/'));
 		}
 		
 		$this->render('layout',array(
@@ -55,9 +39,8 @@ class AccountController extends Controller{
 	}
 	
 	public function actionLogin(){
-		
 		if ( $this->user->getIsGuest() === false ){
-			$this->redirect('verify');
+			$this->redirect($this->createUrl('/'));
 		}
 		
 		$post = $this->getPost('Login');
@@ -65,7 +48,7 @@ class AccountController extends Controller{
 		
 		$form = $userManager->login($post);
 		if ( $form === true ){
-			$this->redirect('verify');
+			$this->redirect($this->createUrl('/'));
 		}
 		
 		$this->render('layout',array(
@@ -78,5 +61,13 @@ class AccountController extends Controller{
 	public function actionLogout(){
 		Yii::app()->user->logout();
 		$this->redirect($this->createUrl('account/login'));
+	}
+	
+	public function actionRegisterVerify(){
+		$mobile = $this->getQuery('mobile');
+		if ( $mobile === null ){
+			$this->response(404);
+		}else {
+		}
 	}
 }

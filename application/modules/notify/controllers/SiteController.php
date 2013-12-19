@@ -11,6 +11,8 @@ class SiteController extends Controller{
 	}
 	
 	public function actionIndex(){
-		$this->getModule()->getComponent('mailer');
+		$notify = $this->getModule()->getComponent('notifyManager');
+		//var_dump($notify->sendSms('13629731636','测试'));
+		var_dump($notify->generateCode(4));
 	}
 }
