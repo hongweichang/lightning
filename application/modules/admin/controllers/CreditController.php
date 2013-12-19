@@ -25,19 +25,41 @@ class CreditController extends Admin{
 
 		$post = $this->getPost();
 		if(!empty($post)){
-			$Creditmodel->verification_name = $post['CreditSettings']['verification_name'];
+
+			$Creditmodel->verification_name = $post['title'];
 			$Creditmodel->verification_type = 'file';
-			$Creditmodel->description = $post['CreditSettings']['description'];
+			$Creditmodel->description = $post['description'];
 
 			if($Creditmodel->save()){
 				$verification_id = $Creditmodel->attributes['id'];
 
-				foreach($post['CreditRole']['role'] as $value){
+				if($post['wddz'] != null){
 					$Rolemodel = new CreditRole();
-					$Rolemodel->role = $value;
+					$Rolemodel->role = 'wddz';
 					$Rolemodel->verification_id = $verification_id;
-					$Rolemodel->optional = 1;
-					$Rolemodel->grade = $post['CreditRole']['grade'];
+					$Rolemodel->optional = $post['wddz'];
+					$Rolemodel->grade = $post['grade'];
+
+					$Rolemodel->save();
+				}
+
+				if($post['qyz'] != null){
+					$Rolemodel = new CreditRole();
+					$Rolemodel->role = 'qyz';
+					$Rolemodel->verification_id = $verification_id;
+					$Rolemodel->optional = $post['qyz'];
+					$Rolemodel->grade = $post['grade'];
+
+					$Rolemodel->save();
+
+				}
+
+				if($post['gxjc'] != null){
+					$Rolemodel = new CreditRole();
+					$Rolemodel->role = 'gxjc';
+					$Rolemodel->verification_id = $verification_id;
+					$Rolemodel->optional = $post['gxjc'];
+					$Rolemodel->grade = $post['grade'];
 
 					$Rolemodel->save();
 				}
@@ -101,45 +123,58 @@ class CreditController extends Admin{
 
 			$creditData = CreditSettings::model()->with('CreditRole')->findAll($criteria);
 			$roleData = $creditData[0]->getRelated('CreditRole');
-			if(!empty($roleData)){
-				$roleGrade = $roleData[0]->grade;
-				$roleSum = count($roleData);
-				$Rolemodel->grade = $roleGrade;
-			}
-
 			$Creditmodel = $creditData[0];
 
 			$post = $this->getPost();
 
 			if(!empty($post)){
-				$Creditmodel->verification_name = $post['CreditSettings']['verification_name'];
+				var_dump($post);
+				$Creditmodel->verification_name = $post['title'];
 				$Creditmodel->verification_type = 'file';
-				$Creditmodel->description = $post['CreditSettings']['description'];
+				$Creditmodel->description = $post['description'];
 
 				if($Creditmodel->save()){
 					$verification_id = $id;
 
-					$updateRoleSum = count($post['CreditRole']['role']);
-					
 					if(!empty($roleData)){
 						foreach($roleData as $value){
 							$value->delete();
 						}
 					}
-					
-						
-					foreach($post['CreditRole']['role'] as $value){
+					if($post['wddz'] != null){
 						$Rolemodel = new CreditRole();
-						$Rolemodel->role = $value;
+						$Rolemodel->role = 'wddz';
 						$Rolemodel->verification_id = $verification_id;
-						$Rolemodel->optional = 1;
-						$Rolemodel->grade = $post['CreditRole']['grade'];
+						$Rolemodel->optional = $post['wddz'];
+						$Rolemodel->grade = $post['grade'];
 
 						$Rolemodel->save();
 					}
-					$this->redirect($this->createUrl('credit/creditlist'));
 
-				}
+					if($post['qyz'] != null){
+						$Rolemodel = new CreditRole();
+						$Rolemodel->role = 'qyz';
+						$Rolemodel->verification_id = $verification_id;
+						$Rolemodel->optional = $post['qyz'];
+						$Rolemodel->grade = $post['grade'];
+
+						$Rolemodel->save();
+
+					}
+
+					if($post['gxjc'] != null){
+						$Rolemodel = new CreditRole();
+						$Rolemodel->role = 'gxjc';
+						$Rolemodel->verification_id = $verification_id;
+						$Rolemodel->optional = $post['gxjc'];
+						$Rolemodel->grade = $post['grade'];
+
+						$Rolemodel->save();
+					}
+	
+					$this->redirect($this->createUrl('credit/creditlist'));
+				}else
+					var_dump($Creditmodel->getErrors());
 
 			}
 
