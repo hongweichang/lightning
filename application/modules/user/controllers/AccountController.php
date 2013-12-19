@@ -14,7 +14,7 @@ class AccountController extends Controller{
 	
 	public function actionRegister(){
 		if ( $this->user->getIsGuest() === false ){
-			$this->redirect($this->createUrl('/'));
+			$this->redirect($this->createUrl('/site'));
 		}
 		
 		$post = $this->getPost('Register');
@@ -28,7 +28,7 @@ class AccountController extends Controller{
 					'password' => $post['password'],
 					'rememberMe' => 'on'
 			));
-			$this->redirect($this->createUrl('/'));
+			$this->redirect($this->createUrl('/site'));
 		}
 		
 		$this->render('layout',array(
@@ -40,7 +40,7 @@ class AccountController extends Controller{
 	
 	public function actionLogin(){
 		if ( $this->user->getIsGuest() === false ){
-			$this->redirect($this->createUrl('/'));
+			$this->redirect($this->createUrl('/site'));
 		}
 		
 		$post = $this->getPost('Login');
@@ -48,7 +48,7 @@ class AccountController extends Controller{
 		
 		$form = $userManager->login($post);
 		if ( $form === true ){
-			$this->redirect($this->createUrl('/'));
+			$this->redirect($this->createUrl('/site'));
 		}
 		
 		$this->render('layout',array(
