@@ -52,7 +52,7 @@ class FrontUser extends SingleInheritance
 	{
 		return array(
 			array('nickname, mobile, email', 'required','message'=>'请填写{attribute}'),
-//			array('gender, age', 'numerical', 'integerOnly'=>true),
+			array('age', 'numerical', 'integerOnly'=>true),
 // 			array('balance, mobile', 'length', 'max'=>11),
 // 			array('pay_password', 'length', 'max'=>60),
 // 			array('nickname, role', 'length', 'max'=>15),

@@ -1,15 +1,16 @@
 <?php 
-$this->cs->registerCssFile($this->cssUrl.'message.css');
 $this->cs->registerCssFile($this->cssUrl.'datepicker.css');
+$this->cs->registerCssFile($this->cssUrl.'message.css');
 $this->cs->registerScriptFile($this->scriptUrl.'jquery.validate.min.js',CClientScript::POS_END);
 $this->cs->registerScriptFile($this->scriptUrl.'datepicker.js',CClientScript::POS_END);
-$this->cs->registerScript('datepicker',"
+$this->cs->registerScriptFile($this->scriptUrl.'borrow.js',CClientScript::POS_END);
+/*$this->cs->registerScript('datepicker',"
 $('.input-daterange').datepicker({
 	startDate: 'today',
 	language: 'zh-CN',    
 	todayHighlight: true
 });	
-",CClientScript::POS_END);
+",CClientScript::POS_END);*/
 ?>
 
 <div id="container">

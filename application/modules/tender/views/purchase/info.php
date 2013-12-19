@@ -1,5 +1,6 @@
 <?php $this->cs->registerCssFile($this->cssUrl.'lend.css');?>
 <?php $this->cs->registerScriptFile($this->scriptUrl.'jquery.validate.min.js',CClientScript::POS_END);?>
+<?php $this->cs->registerScriptFile($this->scriptUrl.'calculator.js',CClientScript::POS_END);?>
 <?php $this->cs->registerScriptFile($this->scriptUrl.'lend.js',CClientScript::POS_END);?>
 <div class="wd1002">
         <div class="breadcrumb">
@@ -70,10 +71,9 @@
             <div class="info-title">投资金额<span class="info-subtitle">投资有风险，请谨慎考虑</span></div>
             <form method="post" id="lend-form" action="<?php echo $this->createUrl('purchase/info',array('id' => $bid->getAttribute('id')));?>">
               <input type="text" name="sum" id="lend-num" data-info="<?php 
-              	echo ($bid->getAttribute('sum') / 100).";".$bid->getAttribute('deadline').";".$bid->getAttribute('month_rate').";".$progress;
+              	echo $bid->getAttribute('sum').";".$bid->getAttribute('deadline').";".$bid->getAttribute('month_rate').";".$progress;
               ?>" /><span>元</span>
-              <p>到期总收益 ¥<span>0.00元</span></p>
-              <p>标段利率 <span>0.00%</span></p>
+              <p>到期总收益 ¥<span id="lend-income">0.00元</span></p>
               <?php if(CCaptcha::checkRequirements()){ ?>
               <p class="lend-verify">
                 <label for="verifycode">验证码</label>
@@ -182,28 +182,7 @@
                 	'cssFile' => false,
                 	'baseScriptUrl' => null,
 				)); ?>
-
-                <!--<tbody>
-                	<?php /**
-                		$bidMeta = $bid->bidMeta;	
-                		//如果有购买记录
-                		if($bidMeta) {
-                			foreach ($bidMeta as $key => $val) {
-                	?>
-		                  <tr>
-		                    <td><?php echo $val->nickname;?></td>
-		                    <td><?php echo $bid->getAttribute('title');?></td>
-		                    <td><?php echo $val->sum / 100;?></td>
-		                    <td><?php echo date('Y-m-d h:i:s',$val->buy_time);?></td>
-		                    <td>什么意思？？</td>
-		                  </tr>
-                  	<?php 
-                			}//end foreach
-                		}//end if
-                  	*/?>
-                </tbody>
-
-              --></table>
+			</table>
             </div>
            
             <div class="tab-content info-content">

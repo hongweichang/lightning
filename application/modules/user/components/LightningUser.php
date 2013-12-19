@@ -41,7 +41,7 @@ class LightningUser extends AuthUser{
 			if ( !empty($icons) ){
 				$avatar = $this->getAvatarUrl($id).$icons[0]->getAttribute('file_name');
 			}else {
-				$avatar = Yii::app()->getModule('user')->getComponent('userManager')->resolveIconUrl(null,null);
+				$avatar = Yii::app()->getModule('user')->getComponent('userManager')->resolveIconUrl();
 			}
 			$this->setState('avatar',$avatar);
 			
