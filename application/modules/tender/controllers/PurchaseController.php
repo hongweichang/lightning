@@ -137,9 +137,16 @@ class PurchaseController extends Controller {
 		$criteria->addCondition('verify_progress=1');
 		$criteria->addCondition('start<='.strtotime(date('Y-m-d')));
 		$criteria->order = 'pub_time DESC';
-		$criteria->with = 'user';
+
 		
 		foreach ($this->_selectorMap as $key => $value) {
+			if($key == 'authenGrade'){
+				$criteria->with = array(
+					'user' => array(
+						'condition' => $value[$_GET[$key]]
+					)
+				);
+			}
 			if(isset($_GET[$key]) && $_GET[$key] != 'all' && $_GET[$key] != '') {
 				$criteria->addCondition($value[$_GET[$key]]);
 			}
