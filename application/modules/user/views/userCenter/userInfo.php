@@ -4,8 +4,14 @@ $this->cs->registerScriptFile($this->scriptUrl.'jquery.validate.min.js',CClientS
 $this->cs->registerCssFile($this->cssUrl.'common.css');
 $this->cs->registerCssFile($this->cssUrl.'detail.css');
 if(Yii::app()->user->hasFlash('success')){
+    $info = Yii::app()->user->getFlash('success');
 ?>
-<script>alert('上传成功！');</script>
+<script>alert('<?php echo $info?>');</script>
+<?php }elseif(Yii::app()->user->hasFlash('error')){
+    $info = Yii::app()->user->getFlash('error');
+
+?>
+<script>alert('<?php echo $info?>');</script>
 <?php
 }
 $this->widget('application.extensions.swfupload.CSwfUpload', array(
@@ -179,8 +185,12 @@ $this->widget('application.extensions.swfupload.CSwfUpload', array(
                                 <p><?php
                                 		if($userData->gender == ''){
                                 			echo "保密";                       
-                                		}else
-                                			echo $userData->gender; 
+                                		}else{
+                                            if($userData->gender == '1')
+                                			  echo "男";
+                                            if($userData->gender == '0')
+                                              echo "女"; 
+                                        }
                                 	?>
                                 </p>
                             </li>
@@ -244,16 +254,17 @@ $this->widget('application.extensions.swfupload.CSwfUpload', array(
                             <li class="clearfix">
                                 <label class="personal-name">性别</label>
                                 <div class="personal-ico personal-sex"></div>
-                                <?php echo $form->dropDownList($userData,'role',array(
+                                <?php echo $form->dropDownList($userData,'gender',array(
                                 			'0'=>'女',
                                 			'1'=>'男',
+                                            null=>'保密'
                                 			
                                 ));?>
                             </li>
                             <li class="clearfix">
                                 <label class="personal-name">年龄</label>
                                 <div class="personal-ico personal-birth"></div>
-                               <?php echo $form->textField($userData,'gender'); ?>
+                               <?php echo $form->textField($userData,'age'); ?>
                             </li>
                             <li class="clearfix">
                                 <label class="personal-name">居住地址</label>

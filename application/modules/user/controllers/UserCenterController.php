@@ -34,15 +34,20 @@ class UserCenterController extends Controller{
 		if(isset($_POST['FrontUser'])){
 			$userInfo = FrontUser::model()->with('baseUser')->findByPk($uid);
 			$attributes = $_POST['FrontUser'];
-			// $userInfo->gender = $attributes['gender'];
-			// $userInfo->address = $attributes['address'];
-			// $userInfo->role = $attributes['role'];
-			$userInfo->attributes = $attributes;
-			if($userData->save())
-				echo "ok";
-			else{
-				var_dump($userData->getErrors());
-				die();
+
+			$userInfo->gender = $attributes['gender'];
+			$userInfo->address = $attributes['address'];
+			$userInfo->role = $attributes['role'];
+			$userInfo->age = $attributes['age'];
+			$userInfo->identity_id = $attributes['identity_id'];
+
+
+			if($userInfo->save()){
+				Yii::app()->user->setFlash('success','信息修改成功');
+				$this->redirect(Yii::app()->createUrl('user/userCenter/userInfo'));
+			}else{
+				Yii::app()->user->setFlash('error','信息修改失败');
+				$this->redirect(Yii::app()->createUrl('user/userCenter/userInfo'));
 			}
 		}
 		if(!empty($userData)){
