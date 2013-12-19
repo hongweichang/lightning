@@ -377,7 +377,7 @@ body {
     color: #226e72; }
   .loan-list .loan-rank div {
     display: inline-block;
-    width: 30px;
+    width: auto;
     height: 30px; }
   .loan-list .loan-num {
     color: #fc7700; }

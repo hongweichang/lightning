@@ -128,14 +128,14 @@ $(".filter-choice").bind("click",function(){
 	var str = Filter.checked($(this));
 	Filter.send(str);
 });
-$(".loan-list").live("hover",function(e){
+/*$(".loan-list").live("hover",function(e){
 	if(e.type == "mouseenter"){
 		var href = $(".loan-title a",$(this)).attr("href");
 		$(this).append("<a href='"+href+"' class='lend-mask'></a>");
 	}else{
 		$(this).children(".lend-mask").remove();		
 	}
-});
+});*/
 $("#viewMore").bind("click",function(){
 	var str = Filter.checked($(this));
 	List.showMore(str);
@@ -172,7 +172,7 @@ $(".details-tab li").bind("click",function(){
 	info = info.split(";");
 	var total = parseInt(info[0])/100,
 		month = info[1],
-		rate = info[2],
+		rate = parseInt(info[2])/100,
 		progress = parseInt(info[3])/100;
 	$("#lend-form").validate({
 		success: function(){
