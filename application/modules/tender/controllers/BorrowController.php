@@ -5,6 +5,7 @@
  */
 
 class BorrowController extends Controller {
+
 	private $name = '我要借贷';
 	private $role;
 	
@@ -52,7 +53,10 @@ class BorrowController extends Controller {
 		if ( isset($map[$role]) ){
 			$roleName = $map[$role];
 		}
-		$this->render("index",array('roleName'=>$roleName));
+
+		$this->render("index",array(
+			'roleName' => $this->role
+		));
 	}
 	
 	/**
@@ -93,10 +97,6 @@ class BorrowController extends Controller {
 			}
 			$this->render("index",array('roleName' => $this->role));
 		}
-
-		$this->render("index",array(
-			'roleName' => $this->role
-		));
 	}
 	
 	/**
@@ -119,9 +119,7 @@ class BorrowController extends Controller {
 			);
 			
 			if($model->validate()){
-				$this->redirect($this->createUrl('borrow/success',array(
-					'id' => $model->save()
-				)));
+				$this->redirect( $this->createUrl('borrow/viewInfo',array('id' => $model->save(false) )));
 			}
 		}
 		
@@ -142,7 +140,7 @@ class BorrowController extends Controller {
 		
 		//只能查看自己的信息，将session里面的user_id和数据库里面的user_id作比较
 		if(!empty($model) && $this->user->getId() === $model->user_id){
-			$this->setPageTitle($model->getAttribute('title').' - '.$this->role.' - '.$this->name.' - '.$this->app->name);
+			$this->setPageTitle($model->getAttribute('title').' - '.$this->role.' - '.$this->name);
 			$this->render( 'view', array(//显示详情页
 				'role' => $this->role,
 				'model' => $model

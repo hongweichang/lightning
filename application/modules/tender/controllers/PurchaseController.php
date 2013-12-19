@@ -11,12 +11,15 @@ class PurchaseController extends Controller {
 	private $_deadline;//借款期限
 	private $_authenGrade;//认证等级
 	private $_selectorMap;//标段选择条件
+
 	private $_bidsPerPage;//每页显示的标段数量
 	private $StartTime = 0; 
 	private $StopTime = 0;
 	
-	public $defaultAction = 'index'; // 更改默认的action,默认显示所有的标段
-	
+
+//	public $defaultAction = "showAllBids"; // 更改默认的action,默认显示所有的标段
+
+
 	public function actions(){
 		return array(
 			'captcha'=>array(
@@ -162,7 +165,7 @@ class PurchaseController extends Controller {
 		$return = array("state"=> 1 ,"data"=> $return );//state=1,表示结果正常返回
 		echo CJSON::encode($return);//利用php的jsonencode()返回json格式的数据
 	}
-	
+
 	/**
 	 * 购买标段的action
 	 * @param $bidId：标段id
@@ -333,5 +336,5 @@ class PurchaseController extends Controller {
     function spent() 
     { 
         return round(($this->StopTime - $this->StartTime) * 1000, 1); 
-    }
+    } 
 }

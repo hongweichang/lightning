@@ -127,15 +127,6 @@
                 </li>
                 <li>
                   <span class="borrower-name">社会角色</span>
-                  <span class="borrower-val"><?php echo $this->app['roleMap'][$bider->getAttribute('role')];?></span>
-                </li>
-                <li>
-                  <span class="borrower-name">性别</span>
-                  <span class="borrower-val"><?php echo ($bider->getAttribute('gender')== 1) ? '男' : '女';?></span>
-                </li>
-                <li>
-                  <span class="borrower-name">年龄</span>
-                  <span class="borrower-val"><?php echo $bider->getAttribute('age');?></span>
                   <span class="borrower-val"><?php
                  if($role = $bider->getAttribute('role'))
                  	echo $this->app['roleMap'][$role];
@@ -143,6 +134,7 @@
                  	echo "还未填写角色";
                  ?></span>
                 </li>
+
                 <li>
                   <span class="borrower-name"></span>
                   <span class="borrower-val separation">以下是选填项目</span>
@@ -167,6 +159,16 @@
                   <col class="tb-col-status"></col>
                 </colgroup>
                 <thead>
+
+                  <tr>
+                    <th class="tb-col-buyer">买家</th>
+                    <th class="tb-col-title">投资金额</th>
+                    <th class="tb-col-num">每期获利</th>
+                    <th class="tb-col-time">成交时间</th>
+                   	<!--<th class="tb-col-status">状态</th>-->
+                  </tr>
+                </thead>
+
                 <?php 
                 $meta->pagination = false;
                 $this->widget('zii.widgets.CListView',array(
@@ -179,7 +181,28 @@
                 	'cssFile' => false,
                 	'baseScriptUrl' => null,
 				)); ?>
-              </table>
+
+                <!--<tbody>
+                	<?php /**
+                		$bidMeta = $bid->bidMeta;	
+                		//如果有购买记录
+                		if($bidMeta) {
+                			foreach ($bidMeta as $key => $val) {
+                	?>
+		                  <tr>
+		                    <td><?php echo $val->nickname;?></td>
+		                    <td><?php echo $bid->getAttribute('title');?></td>
+		                    <td><?php echo $val->sum / 100;?></td>
+		                    <td><?php echo date('Y-m-d h:i:s',$val->buy_time);?></td>
+		                    <td>什么意思？？</td>
+		                  </tr>
+                  	<?php 
+                			}//end foreach
+                		}//end if
+                  	*/?>
+                </tbody>
+
+              --></table>
             </div>
            
             <div class="tab-content info-content">
