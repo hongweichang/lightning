@@ -21,7 +21,6 @@ class mainConf extends ConfigBase{
 						'user',
 						'credit',
 						'tender',
-						'help',
 						'appservice',
 						'content',
 						'gii'=>array(
@@ -82,9 +81,8 @@ class mainConf extends ConfigBase{
 								'class' => 'application.components.Request'
 						),
 						'cache' => array(
-						//internal database.ip 10.161.180.53
 								'class' => 'CMemCache',
-								'useMemcached' => true,
+								'useMemcached' => false,
 								'keyPrefix' => 'lightning',
 								'servers' => array(
 										array(
@@ -98,9 +96,10 @@ class mainConf extends ConfigBase{
 										),
 								),
 						),
+
 						'session' => array(
-								'class'=> 'CHttpSession',
-								//'cacheID' => 'cache',
+								'class'=> 'CCacheHttpSession',
+								'cacheID' => 'cache',
 								'autoStart' => true,
 								'timeout' => 3600*24
 						),
