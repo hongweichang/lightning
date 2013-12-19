@@ -170,7 +170,7 @@ $(".details-tab li").bind("click",function(){
 (function(){
 	var info = $("#lend-num").data("info");
 	info = info.split(";");
-	var total = info[0],
+	var total = parseInt(info[0])/100,
 		month = info[1],
 		rate = info[2],
 		progress = parseInt(info[3])/100;
@@ -182,13 +182,13 @@ $(".details-tab li").bind("click",function(){
 			$("#lend-income").text((income-capital).toFixed(2));
 		},
 		rules:{
-			lend_num:{
+			sum:{
 				required: true,
 				range: true,
 			}
 		},
 		messages:{
-			lend_num:{
+			sum:{
 				required: "不能为空",
 				range: "请输入0到"+total*(1-progress).toFixed(2)+"的数字,最多两位小数"
 			}

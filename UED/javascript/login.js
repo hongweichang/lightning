@@ -30,13 +30,13 @@ $(document).ready(function(){
 	});
 	$("#login").validate({
 		rules:{
-			username: {
+			"Login[account]": {
 				required: true,
 				phoneOrMail: true
 			}
 		},
 		messages:{
-			username:{
+			"Login[account]":{
 				required: "用户名不能为空",
 				phoneOrMail: "请输入正确的手机号或邮箱"
 			}
@@ -44,37 +44,37 @@ $(document).ready(function(){
 	});
 	$("#signup").validate({
 		rules:{
-			username:{
+			"Register[nickname]":{
 				required: true,
 				uname: true
 			},
-			signup_phone:{
+			"Register[mobile]":{
 				required: true,
 				phone: true
 			},
-			signup_password:{
+			"Register[password]":{
 				required: true,
 				minlength: 6
 			},
-			signup_password_confirm:{
+			"Reigister[confirm]":{
 				required: true,
 				equalTo: "#signup-password"
 			}
 		},
 		messages:{
-			username:{
+			"Register[nickname]":{
 				required: "用户名不能为空",
 				uname: "可由4-16个中英文、数字、下划线字符构成"
 			},
-			signup_phone:{
+			"Register[mobile]":{
 				required: "手机号不能为空",
 				phone: "请输入11位手机号码"
 			},
-			signup_password:{
+			"Register[password]":{
 				required: "请输入密码",
 				minlength: "密码至少为六位"
 			},
-			signup_password_confirm:{
+			"Reigister[confirm]":{
 				required: "请重复密码",
 				equalTo: "您输入的密码不一致"
 			}
