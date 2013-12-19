@@ -60,46 +60,6 @@ class BorrowController extends Controller {
 	}
 	
 	/**
-	 * 填写借款信息
-	 */
-	function actionWriteBorrowInfo() {
-		$data = array();//传递给view的数据数组
-		$data['userCenter'] = "#";
-		$data['help'] = "#";
-		$data['postUrl'] = "borrow/borrowInfoToDB";
-
-		$this->render("writeBorrowInfo",array('data'=>$data));
-	}
-	
-	/**
-	 * 将标段信息插入数据库
-	 */
-	public function actionBorrowInfoToDB() {
-		$model = new BidInfo();//如果是向数据库插入记录，需要用 new modelClass
-		
-		if(isset($_POST['writeBidInfoForm'])) {
-			$_POST['writeBidInfoForm']['user_id'] = $this->user->getId();//当前登录用户的id
-			
-			//将前台提交过来的招标开始时间和结束时间转化为时间戳后存入数据库
-			$_POST['writeBidInfoForm']['start'] = strtotime($_POST['writeBidInfoForm']['start']);
-			$_POST['writeBidInfoForm']['end'] = strtotime($_POST['writeBidInfoForm']['end']);
-			//将提交的金额转化为整数后，乘以100存入数据库
-			$_POST['writeBidInfoForm']['sum'] = (int)trim($_POST['writeBidInfoForm']['sum']) * 100;
-			
-			$model->attributes = $_POST['writeBidInfoForm'];//利用表单来填充
-			
-			if($model->save()){//如果发标成功
-				$id = $model->getDbConnection()->getLastInsertID();//获得最后一次插入记录的id
-				
-				$this->redirect($this->createUrl('borrow/viewInfo',array('id'=>$id)));//跳转到显示详情页面
-			} else {
-				$this->redirect("errorUrl",array("errMes"=>"出错了"));
-			}
-			$this->render("index",array('roleName' => $this->role));
-		}
-	}
-	
-	/**
 	 * 填写借款信息之前，应该做相应的权限和金额条件检查
 	 * 填写借款信息
 	 */

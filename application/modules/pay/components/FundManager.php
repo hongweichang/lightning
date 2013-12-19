@@ -37,6 +37,8 @@ class FundManager extends CApplicationComponent{
 				'status' => 0, // 正在处理 - 等待后台处理
 			);
 			$db->save();
+			
+			//$this->p2p(0, $uid, $sum, $charge); // p2p记录
 			$transaction->commit();
 			return true;
 		}catch (Exception $e){
@@ -98,7 +100,7 @@ class FundManager extends CApplicationComponent{
 	 * @param double $fee 手续费
 	 * @return boolean
 	 */
-	public function p2p($touid,$fromuid,$sum,$charge){
+	public function p2p($touid,$fromuid,$sum,$charge,$status = 0){
 		$db = new FundFlowInternal();
 		$db->attributes = array(
 			'to_user' => $touid,
@@ -106,9 +108,13 @@ class FundManager extends CApplicationComponent{
 			'sum' => $sum * 100,
 			'fee' => $charge * 100, // 四舍五入??
 			'time' => time(),
-			'status' => 1 // 暂时不分过程
+			'status' => $status
 		);
 		return $db->save();
+	}
+	
+	public function getP2pList($condition,$params = array()){
+		return FundFlowInternal::model()->with('toUser')->findAll($condition,$params);
 	}
 
 	/**
@@ -120,18 +126,7 @@ class FundManager extends CApplicationComponent{
 		return Withdraw::model()->with('user')->findAll($condition,$params);
 	}
 	
-	public function getPayList($condition,$param){
-		$pager = new CPagination(Recharge::model()->count());
-		$pager->setPageSize(20);
-		
-		$list = Recharge::model()->with('user')->findAll(array(
-			'offset' => $pager->getOffset(),
-			'limit' => $pager->getLimit(),
-			'order' => 'raise_time desc, pay_time desc, finish_time desc',
-			'condition' => $condition,
-			'param' => $param
-		));
-		
-		return array('list' => $list, 'pager' => $pager);
+	public function getPayList($condition,$params = array()){
+		return Recharge::model()->with('user')->findAll($condition,$params);
 	}
 }

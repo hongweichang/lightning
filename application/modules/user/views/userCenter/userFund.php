@@ -2,11 +2,26 @@
 $this->cs->registerCssFile($this->cssUrl.'common.css');
 $this->cs->registerCssFile($this->cssUrl.'detail.css');
 
+$this->cs->registerScript("table","
+$('.form-button').on('click',function(){
+	$.post('".$this->createUrl('userCenter/ajaxFund')."',{type:$('#search-type').val(),date:$('#search-date').val()},function(res){
+		$('.record-table tbody').remove();
+		$('.record-table .list-view').remove();
+		console.log(res);
+		$('.record-table').html($('.record-table').html() + res);
+	});
+});
+$('#export-record').on('click',function(){
+	$.post('".$this->createUrl('userCenter/ajaxReport')."',{type:$('#search-type').val(),date:$('#search-date').val()},function(res){
+		
+	});
+});
+");
 ?>
     <div id="container">
         <div class="wd989">
             <h1 class="aud-nav">
-                <a href="#">个人中心 ></a>
+                <a href="<?php echo $this->createUrl('userCenter/userFund'); ?>">个人中心 ></a>
                 <a href="#">我的闪电贷</a>
             </h1>
             <?php $this->renderPartial('_baseInfo')?>
@@ -19,16 +34,17 @@ $this->cs->registerCssFile($this->cssUrl.'detail.css');
                     <div class="table-content">
                         <div class="tab-content-l">
                             <div class="tab-border-l tab-right"></div>
-                            <p>账户余额<span>0.00<span>元</span></span></p>
+                            <p>账户余额<span><?php echo number_format($userData->getAttribute('balance') / 100,2); ?><span>元</span></span></p>
                         </div>
                         <div class="tab-content-r">
                             <p>
-                                <span>可用资金  0.00元</span>
-                                <span>可充值总额  0.00元</span>
+                            	<?php $total = $this->app->getModule('tender')->bidManager->getLockBalance($this->user->getId()); ?>
+                                <span>总资金  <?php echo number_format($total + $userData->getAttribute('balance') / 100,2); ?>元</span>
+                                <span>可用资金  <?php echo number_format($userData->getAttribute('balance') / 100,2); ?>元</span>
                             </p>
                             <p>
-                                <span>冻结资金  0.00元</span>
-                                <span>可提现总额  0.00元</span>
+                                <span>冻结资金  <?php echo number_format($total,2); ?>元</span>
+                                <span>可提现资金  <?php echo number_format($userData->getAttribute('balance') / 100,2); ?>元</span>
                             </p>
                         </div>
                     </div>
@@ -41,62 +57,41 @@ $this->cs->registerCssFile($this->cssUrl.'detail.css');
                 <div class="find-table-content fund find-table-content-show">
                     <div id="fund-record-query">
                         <span>查询类型</span>
-                        <select>
-                            <option value="">所有</option>
-                            <option value="">投标成功</option>
-                            <option value="">招标成功</option>
+                        <select id="search-type">
+                        	<option value="p2p">即时到帐</option>
+                            <option value="recharge">充值记录</option>
+                            <option value="withdraw">提现记录</option>
                         </select>
                         <span>查询时间</span>
-                        <select>
-                            <option value="">三天以内</option>
-                            <option value="">一周以内</option>
+                        <select id="search-date">
+                        	<option value="1">一月以内</option>
+                        	<option value="3">三月以内</option>
+                        	<option value="12">一年以内</option>
                         </select>
-                        <a href="javascript:;" class="form-button">查询</a>
-                        <a href="javascript:;" id="export-record">导出查询结果</a>
+                        <a href="javascript:void(0);" class="form-button">查询</a>
+                        <a href="javascript:void(0);" id="export-record">导出查询结果</a>
                     </div>
-                    <table class="record-table">
-                        <tbody>
+                    <table class="record-table"> 
+                        <thead>
                             <tr>
                                 <td>时间</td>
-                                <td>类型明细</td>
-                                <td>收入</td>
-                                <td>支出</td>
-                                <td>结余</td>
-                                <td>备注记录</td>
+                                <td>对方 | 账号</td>
+                                <td>金额</td>
+                                <td>手续费</td>
+                                <td>状态</td>
+                                <td>操作</td>
                             </tr>
-                            <tr>
-                                <td>2013-12-01 19:30</td>
-                                <td>充值</td>
-                                <td>1,000,000,000</td>
-                                <td>1,000,000,000</td>
-                                <td>1,000,000,000</td>
-                                <td>德玛西亚！</td>
-                            </tr>
-                            <tr>
-                                <td>2013-12-01 19:30</td>
-                                <td>充值</td>
-                                <td>1,000,000,000</td>
-                                <td>1,000,000,000</td>
-                                <td>1,000,000,000</td>
-                                <td>德玛西亚！</td>
-                            </tr>
-                            <tr>
-                                <td>2013-12-01 19:30</td>
-                                <td>充值</td>
-                                <td>1,000,000,000</td>
-                                <td>1,000,000,000</td>
-                                <td>1,000,000,000</td>
-                                <td>德玛西亚！</td>
-                            </tr>
-                            <tr>
-                                <td>2013-12-01 19:30</td>
-                                <td>充值</td>
-                                <td>1,000,000,000</td>
-                                <td>1,000,000,000</td>
-                                <td>1,000,000,000</td>
-                                <td>德玛西亚！</td>
-                            </tr>
-                        </tbody>
+                        </thead>
+						<?php $this->widget('zii.widgets.CListView',array(
+							'dataProvider' => $p2p,
+							'itemView' => '_p2pList',
+							'template' => '{items}',
+							'itemsTagName' => 'tbody',
+							'emptyText' => '',
+							'ajaxUpdate' => false,
+							'cssFile' => false,
+							'baseScriptUrl' => null,
+						)); ?>
                     </table>
                 </div>
                 <div class="find-table-content fund">
@@ -104,36 +99,8 @@ $this->cs->registerCssFile($this->cssUrl.'detail.css');
                         <h2>选择充值方式</h2>
                         <ul>
                           <li>
-                            <input type="radio" name="pay_bank" value="icbc" id="b-icbc" />
-                            <label class="icbc" for="b-icbc"></label>
-                          </li>
-                          <li>
-                            <input type="radio" name="pay_bank" value="abc" id="b-abc" />
-                            <label class="abc" for="b-abc"></label>
-                          </li>
-                          <li>
-                            <input type="radio" name="pay_bank" value="cmb" id="b-cmb" />
-                            <label class="cmb" for="b-cmb"></label>
-                          </li>
-                          <li>
-                            <input type="radio" name="pay_bank" value="ccb" id="b-ccb" />
-                            <label class="ccb" for="b-ccb"></label>
-                          </li>
-                          <li>
-                            <input type="radio" name="pay_bank" value="boc" id="b-boc" />
-                            <label class="boc" for="b-boc"></label>
-                          </li>
-                          <li>
-                            <input type="radio" name="pay_bank" value="post" id="b-post" />
-                            <label class="post" for="b-post"></label>
-                          </li>
-                          <li>
-                            <input type="radio" name="pay_bank" value="spdb" id="b-spdb" />
-                            <label class="spdb" for="b-spdb"></label>
-                          </li>
-                          <li>
-                            <input type="radio" name="pay_bank" value="cgb" id="b-cgb" />
-                            <label class="cgb" for="b-cgb"></label>
+                            <input type="radio" name="pay_bank" value="ips" id="b-ips" />
+                            <label class="ips" for="b-ips"></label>
                           </li>
                         </ul>
                       </div>
@@ -143,7 +110,7 @@ $this->cs->registerCssFile($this->cssUrl.'detail.css');
                             <ul>
                                 <li>
                                     <label>账户余额</label>
-                                    <span>0.00</span>
+                                    <span><?php echo number_format($userData->getAttribute('balance') / 100,2); ?></span>
                                     <span>元</span>
                                 </li>
                                 <li>
@@ -158,7 +125,7 @@ $this->cs->registerCssFile($this->cssUrl.'detail.css');
                                 </li>
                                 <li>
                                     <label>手机号码</label>
-                                    <span>156****9658</span>
+                                    <span><?php echo $userData->getAttribute('mobile'); ?></span>
                                 </li>
                                 <li>
                                     <label>验证码</label>
