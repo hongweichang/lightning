@@ -6,10 +6,15 @@ $this->cs->registerScriptFile($this->scriptUrl.'help.js',CClientScript::POS_END)
                 <ul>
                 	<?php 
                 	$cid = $activeCategory->id;
-                	foreach ($category as $val):?>
-                    <li class="hc-side-item">
+                	foreach ($category as $val):
+                		$name = $val->category_name;
+                		if ( mb_strlen($name,'UTF-8') > 5 ){
+                			$name = mb_substr($name,0,5,'UTF-8').'...';
+                		}
+                	?>
+                    <li class="hc-side-item" title="<?php echo $val->category_name?>">
                     	<a href="<?php echo $this->createUrl('',array('cid'=>$val->id))?>" <?php if($val->id == $cid) echo ' class="active"';?>>
-                    	<?php echo $val->category_name;?><span>>></span>
+                    	<?php echo $name?><span>>></span>
                     	</a>
                     </li>
                     

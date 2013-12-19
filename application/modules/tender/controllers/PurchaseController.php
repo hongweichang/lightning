@@ -11,13 +11,21 @@ class PurchaseController extends Controller {
 	private $_deadline;//借款期限
 	private $_authenGrade;//认证等级
 	private $_selectorMap;//标段选择条件
+<<<<<<< HEAD
 
+=======
+>>>>>>> d422edd5dac7e79228e1e3ba22e259ffc4b84401
 	private $_bidsPerPage;//每页显示的标段数量
 	private $StartTime = 0; 
-    private $StopTime = 0; 
+	private $StopTime = 0; 
 	
+<<<<<<< HEAD
 //	public $defaultAction = "showAllBids"; // 更改默认的action,默认显示所有的标段
 
+=======
+	public $defaultAction = 'index'; // 更改默认的action,默认显示所有的标段
+	
+>>>>>>> d422edd5dac7e79228e1e3ba22e259ffc4b84401
 	public function actions(){
 		return array(
 			'captcha'=>array(
@@ -43,6 +51,7 @@ class PurchaseController extends Controller {
 	 * 默认action，显示所有的标段
 	 * 利用CListview和CActiveDataProvider
 	 */
+<<<<<<< HEAD
 
 	function actionShowAllBids() {
 		$criteria = new CDbCriteria();
@@ -63,6 +72,8 @@ class PurchaseController extends Controller {
 		));
 	}
 	
+=======
+>>>>>>> d422edd5dac7e79228e1e3ba22e259ffc4b84401
 	function actionIndex() {
 		$this->setPageTitle($this->name.' - '.$this->app->name);
 		
@@ -92,10 +103,10 @@ class PurchaseController extends Controller {
 	 * @param $userId：借款人的id
 	 */
 	function actionInfo() {
-		$bid = BidInfo::model()->with('user')->findByPk($this->getQuery('id'));
+		$bid = BidInfo::model()->with('user','bidMeta')->findByPk($this->getQuery('id'));
 		
 		if(!empty($bid)){
-			$this->setPageTitle($bid->getAttribute('title').' - '.$this->name.' - '.$this->app->name);
+			$this->setPageTitle($bid->getAttribute('title').' - '.$this->name);
 			
 			$model = new MetaForm();
 			if(!empty($_POST)){
@@ -164,8 +175,9 @@ class PurchaseController extends Controller {
 		}
 		
 		$pager = new CPagination(BidInfo::model()->count($criteria));
+		$pager->validateCurrentPage = false;
 		$pager->setPageSize($this->_bidsPerPage);
-		$pager->setCurrentPage($this->getQuery('page',1));
+		//$pager->setCurrentPage($this->getQuery('page',1));
 		$pager->applyLimit($criteria);
 		$data = BidInfo::model()->findAll($criteria);
 		
@@ -173,6 +185,8 @@ class PurchaseController extends Controller {
 		$return = array();
 		foreach($data as $key => $value) {
 			$return[$key] = $value->getAttributes();
+			$return[$key]['month_rate'] /= 100;
+			$return[$key]['sum'] = number_format($return[$key]['sum'],2).'元';
 			$return[$key]['titleHref'] = $this->createUrl('purchase/info', array('id' => $value->getAttribute('id')));
 			$return[$key]['authGrade'] = Yii::app()->getModule('credit')->getComponent('userCreditManager')->getUserCreditLevel($value->getAttribute('user_id'));
 		}
@@ -180,7 +194,11 @@ class PurchaseController extends Controller {
 		$return = array("state"=> 1 ,"data"=> $return );//state=1,表示结果正常返回
 		echo CJSON::encode($return);//利用php的jsonencode()返回json格式的数据
 	}
+<<<<<<< HEAD
 
+=======
+	
+>>>>>>> d422edd5dac7e79228e1e3ba22e259ffc4b84401
 	/**
 	 * 购买标段的action
 	 * @param $bidId：标段id
@@ -351,5 +369,9 @@ class PurchaseController extends Controller {
     function spent() 
     { 
         return round(($this->StopTime - $this->StartTime) * 1000, 1); 
+<<<<<<< HEAD
     } 
+=======
+    }
+>>>>>>> d422edd5dac7e79228e1e3ba22e259ffc4b84401
 }

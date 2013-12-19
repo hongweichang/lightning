@@ -12,6 +12,10 @@ class HelpController extends Controller {
 		parent::init();
 	}
 	
+	public function noneLoginRequired(){
+		return 'index';
+	}
+	
 	function actionIndex() {
 		$this->setPageTitle($this->name);
 		$cid = $this->getQuery('cid',null);

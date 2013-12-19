@@ -6,38 +6,14 @@
  * Encoding UTF-8
  */
 class LightningUser extends AuthUser{
-	public $avatarPath;
-	/**
-	 * 每有1000个用户，则将头像分为一个文件夹
-	 * @var string
-	 */
-	public $avatarPartitionSize = 1000;
-	
-	/**
-	 * 解决头像分区，线性hash
-	 * @param int $userId
-	 * @return string
-	 */
-	public function resovleAvatarPartition($userId){
-		return md5(intval($userId/$this->avatarPartitionSize));
-	}
-	
-	/**
-	 * 生成头像名称
-	 * @param int $userId
-	 * @return string
-	 */
-	public function generateAvatarFIleName($userId){
-		return md5($userId.time());
-	}
 	
 	/**
 	 * 获取头像磁盘地址
 	 * @param int $userId
 	 * @return string
 	 */
-	public function getAvatarPath($userId){
-		return Yii::app()->getBasePath().DS.$this->avatarPath.DS.$this->resovleAvatarPartition($userId).DS;
+	public function getAvatarPath($userId=null){
+		return Yii::app()->getPartedPath('avatar',$userId);
 	}
 	
 	/**
@@ -45,8 +21,8 @@ class LightningUser extends AuthUser{
 	 * @param int $userId
 	 * @return string
 	 */
-	public function getAvatarUrl($userId){
-		return Yii::app()->getHomeUrl().$this->avatarPath.$this->resovleAvatarPartition($userId).'/';
+	public function getAvatarUrl($userId=null){
+		return Yii::app()->getPartedUrl('avatar',$userId);
 	}
 	
 	protected function beforeLogin($id, $states, $fromCookie){
@@ -64,6 +40,8 @@ class LightningUser extends AuthUser{
 			$avatar = null;
 			if ( !empty($icons) ){
 				$avatar = $this->getAvatarUrl($id).$icons[0]->getAttribute('file_name');
+			}else {
+				$avatar = Yii::app()->getModule('user')->getComponent('userManager')->resolveIconUrl(null,null);
 			}
 			$this->setState('avatar',$avatar);
 			

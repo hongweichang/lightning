@@ -6,41 +6,33 @@ design By HJtianling_LXY,<2507073658@qq.com>
 */
 
 class UserCenterController extends Controller{
-
-	public function actionIndex(){
-		echo "i 'm your center";
-	}
-
+	public $defaultAction = 'userInfo';
+	
 	/*
 	*个人信息获取
 	*/
 	public function actionUserInfo(){
-		$this->pageTitle = '闪电贷';
-		$uid = Yii::app()->user->id;
-		$userData = $this->app->getModule('user')->getComponent('userManager')->getUserInfo($uid);
+		$this->pageTitle = '个人中心';
+		$uid = $this->app->user->id;
+		$userData = $this->getModule()->getComponent('userManager')->getUserInfo($uid);
 
 		$role = $userData['role'];
 		$creditData= $this->getUserCredit($role);
 		$IconUrl = null;
 
-		$model = new FrontCredit();
+ 		$model = new FrontCredit();
 
-		if(isset($_POST['FrontCredit'])){
-			$file=CUploadedFile::getInstance($model,'filename'); 
-			var_dump($file);
-			die();
-		}
+// 		if(isset($_POST['FrontCredit'])){
+// 			$file=CUploadedFile::getInstance($model,'filename'); 
+// 			var_dump($file);
+// 			die();
+// 		}
 
 		if(isset($_POST['FrontUser'])){
-			$userInfo = FrontUser::model()->with('baseUser')->findByPk($uid);
-			$attributes = $_POST['FrontUser'];
-			// $userInfo->gender = $attributes['gender'];
-			// $userInfo->address = $attributes['address'];
-			// $userInfo->role = $attributes['role'];
-			$userInfo->attributes = $attributes;
-			if($userData->save())
+			$userData->attributes = $_POST['FrontUser'];
+			if($userData->update()){
 				echo "ok";
-			else{
+			}else{
 				var_dump($userData->getErrors());
 				die();
 			}
@@ -362,6 +354,38 @@ class UserCenterController extends Controller{
 				}else
 					var_dump($userData->getErrors());
 			}	
+		}
+	}
+
+	/*
+	**支付密码设置
+	*/
+	public function actionPayPasswordCreate(){
+		$post = $this->getPost();
+
+		if(!empty($post)){
+			$password = $post['password'];
+			$rePassword = $post['rePassword'];
+
+			if($password != $rePassword){
+				Yii::app()->setFlash('error','密码和重复密码不对应');
+				$this->redirect(Yii::app()->createUrl('user/userCenter/userSecurity'));
+				exit();
+			}
+
+			$uid = $this->user->id;
+			$userData = FrontUser::model()->findByPk($uid);
+
+			if(!empty($userData)){
+				$security = Yii::app()->getSecurityManager();
+				$payPassword = $security->generatePassword($password);//调用加密组建对密码进行加密
+				$userData->pay_password = $payPassword;
+
+				if($userData->save()){
+					Yii::app()->user->setFlash('success','支付密码设置成功');
+					$this->redirect(Yii::app()->createUrl('user/userCenter/userSecurity'));
+				}
+			}
 		}
 	}
 

@@ -28,13 +28,10 @@ class mainConf extends ConfigBase{
 								'password'=>'admin',
 								'ipFilters'=>array('127.0.0.1','::1'),
 						),
-						
 						'adminnogateway' => array(
 							'class' => 'application.modules.admin.AdminModule',
 							'name' => 'adminnogateway'
 						),
-						
-						
 						'notify' => array(
 								'class' => 'application.modules.notify.NotifyModule',
 								'email' => array(
@@ -68,7 +65,6 @@ class mainConf extends ConfigBase{
 								'autoRenewCookie' => true,
 								'guestName' => '游客',
 								'authTimeout' => 3600,
-								'avatarPath' => '/upload/avatar/'
 						),
 						//remote database on aliyun.remote ip
 						'db' => array(
@@ -85,6 +81,10 @@ class mainConf extends ConfigBase{
 								'class' => 'application.components.Request'
 						),
 						'cache' => array(
+<<<<<<< HEAD
+=======
+						//internal database.ip 10.161.180.53
+>>>>>>> d422edd5dac7e79228e1e3ba22e259ffc4b84401
 								'class' => 'CMemCache',
 								'useMemcached' => false,
 								'keyPrefix' => 'lightning',
@@ -150,7 +150,7 @@ class mainConf extends ConfigBase{
 												'command' => array('sendMail','success')
 										),
 										'onRegisterSuccess' => array(
-												'command' => array('sendSMS','success')
+												'command' => array('sendSMS','verifyMobile')
 										),
 								),
 						),

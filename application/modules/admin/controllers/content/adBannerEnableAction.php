@@ -14,7 +14,16 @@ class adBannerEnableAction extends CmsAction{
 			$controller->showMessage('操作失败，banner不存在',$redirect,false);
 		}
 		
-		$result = $controller->getContentManager()->enableBanner($id,0);
+		$content = $controller->getContentManager();
+		$result = $content->enableBanner($id,0);
+		
+		$cache = Yii::app()->getCache();
+		if ( $cache !== null ){
+			$siteBanner = $content->getInUsingBanner(0);
+			$appBanner = $content->getInUsingBanner(1);
+			$cache->set('SITE_BANNER',$siteBanner,24*3600);
+			$cache->set('APP_BANNER',$appBanner,24*3600);
+		}
 		
 		if ( $result === true ){
 			$controller->showMessage('操作成功',$redirect,false);

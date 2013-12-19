@@ -1,4 +1,8 @@
 <?php $this->cs->registerCssFile($this->cssUrl.'audit.css'); ?>
+<<<<<<< HEAD
+=======
+<div id="container">
+>>>>>>> d422edd5dac7e79228e1e3ba22e259ffc4b84401
 		<div class="wd1002">
             <h1 class="aud-nav">
                 <a href="<?php echo $this->createUrl('borrow/index'); ?>">我要借贷 ></a>
@@ -36,8 +40,13 @@
             </div>
             <div id="aud-detail">
                 <div class="aud-ucenter">
+<<<<<<< HEAD
                     <a href="<?php echo $this->app->createUrl('user/userCenter/userInfo'); ?>">进入个人中心 |</a>
                     <a href="<?php echo $this->app->createUrl('/help');?>">使用帮助</a>
+=======
+                    <a href="<?php echo $this->app->createUrl('user/userCenter'); ?>">进入个人中心 |</a>
+                    <a href="<?php echo $this->app->createUrl('help'); ?>">使用帮助</a>
+>>>>>>> d422edd5dac7e79228e1e3ba22e259ffc4b84401
                 </div>
                 <div class="aud-warning">
                     <img src="<?php echo $this->imageUrl;?>adu-warning.png" class="adu-img-waring" />
@@ -53,7 +62,11 @@
                     <li>年利率 :  <span><?php echo $model->getAttribute('month_rate') / 100; ?></span>%</li>
                     <li>借款期限 :  <span><?php echo $model->getAttribute('deadline'); ?></span>个月</li>
                     <li>信用等级 :  <span><?php echo Yii::app()->getModule('credit')->getComponent('userCreditManager')->getUserCreditLevel($model->getAttribute('user_id')); ?></span></li>
+<<<<<<< HEAD
                 </ul>
+=======
+               </ul>
+>>>>>>> d422edd5dac7e79228e1e3ba22e259ffc4b84401
                 <div class="adu-intro">
                     <h3>【标段介绍】</h3>
                     <p><?php echo $model->getAttribute('description');?></p>
@@ -76,10 +89,13 @@
                         <p>常驻地址证明</p>
                     </li>
                 </ul>
+<<<<<<< HEAD
                 <div class="adu-intro">
                     <h3>【标段介绍】</h3>
                     <p><?php echo $model->description;?></p>
                 </div>
+=======
+>>>>>>> d422edd5dac7e79228e1e3ba22e259ffc4b84401
             </div>
         </div>
-
+</div>

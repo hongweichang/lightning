@@ -10,31 +10,39 @@ class UserCreditManager extends CApplicationComponent{
 			$level = null;
 			
 			$userCredit = FrontUser::model()->findByPk($uid);
-			if(!empty($userCredit)){
-				$userCreditPoint = $userCredit['attributes']['credit_grade'];
-				$userLevel = $this->UserLevelCaculator($userCreditPoint);
-				if(!empty($userLevel))
-					$level = $userLevel[0]->label;
-
-				return $level;
+			if( $userCredit !== null ){
+				return $this->UserLevelCaculator($userCredit->credit_grade);
+			}else {
+				return null;
 			}
-
 		}
 	}
 
-	public function UserLevelCaculator($Point){
-		if(is_numeric($Point)){
-			$criteria = new CDbCriteria;
-			$criteria->condition = 'start<=:Point';
-			$criteria->params = array(
-								':Point'=>$Point
-							);
-			$criteria->order = 'start DESC';
-			$criteria->limit = 1;
-
-			$levelData = CreditGradeSettings::model()->findAll($criteria);
-
-			return $levelData;
+	public function UserLevelCaculator($point){
+		if(is_numeric($point)){
+			$cache = Yii::app()->getCache();
+			if ( $cache !== null ){
+				$allData = $cache->get('USER_CREDIT_LEVEL_SETTINGS');
+				if ( $allData === false ){
+					$allData = (array)CreditGradeSettings::model()->findAll();
+				}
+			}else {
+				$allData = (array)CreditGradeSettings::model()->findAll();
+			}
+			
+			if ( $cache !== null ){
+				$cache->set('USER_CREDIT_LEVEL_SETTINGS',$allData,24*3600);
+			}
+			
+			$label = null;
+			foreach ( $allData as $data ){
+				if ( $point >= $data['start'] ){
+					$label = $data['label'];
+					break;
+				}
+			}
+			
+			return $label;
 		}else
 			return 401;
 	}
