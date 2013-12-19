@@ -7,6 +7,19 @@ design By HJtianling_LXY,<2507073658@qq.com>
 
 class UserCenterController extends Controller{
 	public $defaultAction = 'userInfo';
+	public $userData;
+	
+	public function filters(){
+		$filters = parent::filters();
+		$filters[] = 'fetchUserData + userInfo,myLend,myBorrow,userSecurity,userFund';
+		return $filters;
+	}
+	
+	public function filterFetchUserData($filterChain){
+		$uid = $this->app->user->id;
+		$this->userData = $this->getModule()->getComponent('userManager')->getUserInfo($uid);
+		$filterChain->run();
+	}
 	
 	/*
 	*个人信息获取
@@ -14,7 +27,7 @@ class UserCenterController extends Controller{
 	public function actionUserInfo(){
 		$this->pageTitle = '个人中心';
 		$uid = $this->app->user->id;
-		$userData = $this->getModule()->getComponent('userManager')->getUserInfo($uid);
+		$userData = $this->userData;
 
 		$role = $userData['role'];
 		$creditData= $this->getUserCredit($role);
@@ -174,9 +187,8 @@ class UserCenterController extends Controller{
 	public function actionUserSecurity(){
 		$this->pageTitle = '闪电贷';
 		$uid = Yii::app()->user->id;
-		
 
-		$userData = $this->app->getModule('user')->getComponent('userManager')->getUserInfo($uid);
+		$userData = $this->userData;
 
 		if(!empty($userData)){
 			$IconUrl = Yii::app()->getModule('user')->userManager->getUserIcon($uid);
@@ -389,7 +401,7 @@ class UserCenterController extends Controller{
 	public function actionUserFund(){
 		$this->pageTitle = '闪电贷';
 		$uid = $this->id;
-		$userData = FrontUser::model()->findByPk($uid);
+		$userData = $this->userData;
 		$IconUrl = null;
 
 		$IconUrl = Yii::app()->getModule('user')->userManager->getUserIcon($uid);

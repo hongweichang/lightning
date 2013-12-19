@@ -44,9 +44,6 @@ $this->widget('application.extensions.swfupload.CSwfUpload', array(
         ),
     )
 );
-$qqwry = new qqwry(Yii::getPathOfAlias('application.data.qqwry').'.dat');
-list($lastLoginAddress,$yys) = $qqwry->q($userData->last_login_ip);
-$lastLoginAddress = iconv('GB2312','UTF-8',$lastLoginAddress);
 ?>
     <div id="container">
         <div class="wd989">
@@ -54,71 +51,9 @@ $lastLoginAddress = iconv('GB2312','UTF-8',$lastLoginAddress);
                 <a href="#">个人中心 ></a>
                 <a href="#">我的闪电贷</a>
             </h1>
-            <div class="aud-detail">
-                <div class="det-per-inf">
-                    <img src="<?php echo $this->user->getState('avatar')?>" class="det-img" />
-                    <p>
-                        <span class="aud-time">晚上好，</span>
-                        <span class="aud-det-name"><?php echo Yii::app()->user->name;?> </span>
-                    </p>
-                    <p class="aud-st-serve">
-                        <img src="<?php echo $this->imageUrl.'det-person.png'?>" />
-                        <img src="<?php echo $this->imageUrl.'det-pro.png'?>" />
-                        <img src="<?php echo $this->imageUrl.'det-email.png'?>" />
-                        <img src="<?php echo $this->imageUrl.'det-cal.png'?>" />
-                        <img src="<?php echo $this->imageUrl.'det-bank.png'?>" />
-                        <span>安全等级 :  <span class="det-rank">高</span></span>
-                        <span>上次登录 :  <span class="det-ip"> <?php echo $lastLoginAddress.' '.date('Y-m-d H:i:s',$userData['last_login_time'])?></span></span>
-                    </p>
-                </div>
-                <div class="aud-money">
-                    <div class="mon-show">
-                        <p>
-                            <span>账户余额</span>
-                            <span>我的投资</span>
-                            <span>我的借贷</span>
-                        </p>
-                        <p class="det-mon">
-                            <span>
-                            <?php
-                            $balance = $userData['balance']/100;
-                            if($balance >= 100000){
-                                $highBalance = $balance/10000;
-                                echo $highBalance."万元";
-                            }else 
-                                echo $balance."元";
-                            ?>
-                            </span>
-                            <span>=</span>
-                            <span>0.00</span>
-                            <span>+</span>
-                            <span class="mon-out">-0.00</span>
-                        </p>
-                        <div>
-                            <a href="#" id="int">充值</a>
-                            <a href="#" id="out">提现</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <?php $this->renderPartial('_baseInfo')?>
             <div class="aud-find">
-                <ul id="find-table-button">
-                    <a href="<?php echo Yii::app()->createUrl('user/userCenter/myBorrow');?>">
-                        <li class="find-table-0"><div class="find-table-op find-table-op"></div>我的借款</li>
-                    </a>
-                    <a href="<?php echo Yii::app()->createUrl('user/userCenter/myLend');?>">
-                        <li class="find-table-1"><div class="find-table-op"></div>我的投资</li>
-                    </a>
-                    <a href="<?php echo Yii::app()->createUrl('user/userCenter/userSecurity');?>">
-                        <li class="find-table-2"><div class="find-table-op"></div>安全中心</li>
-                    </a>
-                    <a href="<?php echo Yii::app()->createUrl('user/userCenter/userInfo');?>">
-                        <li class="find-table-3"><div class="find-table-op-hidden"></div>个人信息</li>
-                    </a>
-                    <a href="<?php echo $this->createUrl('userCenter/userFund')?>">
-                        <li class="find-table-4"><div class="find-table-op"></div>资金管理</li>
-                    </a>
-                </ul>
+                
                 <div class="tab-list">
                     <ul id="find-table-detail">
                         <li class="find-selected">基本信息</li>
