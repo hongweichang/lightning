@@ -13,7 +13,7 @@ class PurchaseController extends Controller {
 	private $_selectorMap;//标段选择条件
 	private $_bidsPerPage;//每页显示的标段数量
 	private $StartTime = 0; 
-	private $StopTime = 0; 
+	private $StopTime = 0;
 	
 	public $defaultAction = 'index'; // 更改默认的action,默认显示所有的标段
 	

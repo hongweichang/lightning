@@ -26,7 +26,7 @@ class BidManager extends CApplicationComponent{
 	 * @param array $params
 	 */
 	public function getBidList($condition, $params = array()){
-		return BidInfo::model()->findAll($condition,$params);
+		return BidInfo::model()->with('user')->findAll($condition,$params);
 	}
 	
 	/**

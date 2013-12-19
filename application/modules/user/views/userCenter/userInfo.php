@@ -106,10 +106,10 @@ $lastLoginAddress = iconv('GB2312','UTF-8',$lastLoginAddress);
                     <a href="<?php echo Yii::app()->createUrl('user/userCenter/userSecurity');?>">
                         <li class="find-table-2"><div class="find-table-op"></div>安全中心</li>
                     </a>
-                    <a href="">
+                    <a href="<?php echo Yii::app()->createUrl('user/userCenter/userInfo');?>">
                         <li class="find-table-3"><div class="find-table-op-hidden"></div>个人信息</li>
                     </a>
-                    <a href="">
+                    <a href="<?php echo $this->createUrl('userCenter/userFund')?>">
                         <li class="find-table-4"><div class="find-table-op"></div>资金管理</li>
                     </a>
                 </ul>

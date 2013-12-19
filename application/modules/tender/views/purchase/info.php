@@ -68,7 +68,9 @@
           <div class="details-lend">
             <div class="info-title">投资金额<span class="info-subtitle">投资有风险，请谨慎考虑</span></div>
             <form method="post" id="lend-form" action="<?php echo $this->createUrl('purchase/info',array('id' => $bid->getAttribute('id')));?>">
-              <input type="text" name="sum" id="lend-num" /><span>元</span>
+              <input type="text" name="sum" id="lend-num" data-info="<?php 
+              	echo ($bid->getAttribute('sum') / 100).";".$bid->getAttribute('deadline').";".$bid->getAttribute('month_rate').";".$progress;
+              ?>" /><span>元</span>
               <p>到期总收益 ¥<span>0.00元</span></p>
               <p>标段利率 <span>0.00%</span></p>
               <?php if(CCaptcha::checkRequirements()){ ?>
@@ -112,6 +114,14 @@
                   <span class="borrower-val"><?php echo $bider->getAttribute('realname');?></span>
                 </li>
                 <li>
+                  <span class="borrower-name">性别</span>
+                  <span class="borrower-val"><?php echo ($bider->getAttribute('gender')== 1) ? '男' : '女';?></span>
+                </li>
+                <li>
+                  <span class="borrower-name">年龄</span>
+                  <span class="borrower-val"><?php echo $bider->getAttribute('age');?></span>
+                </li>
+                <li>
                   <span class="borrower-name">手机号码</span>
                   <span class="borrower-val"><?php echo preg_replace('/(1[358]{1}[0-9])[0-9]{4}([0-9]{4})/i','$1****$2',$bider->getAttribute('mobile'));?></span>
                 </li>
@@ -126,6 +136,12 @@
                 <li>
                   <span class="borrower-name">年龄</span>
                   <span class="borrower-val"><?php echo $bider->getAttribute('age');?></span>
+                  <span class="borrower-val"><?php
+                 if($role = $bider->getAttribute('role'))
+                 	echo $this->app['roleMap'][$role];
+                 else 
+                 	echo "还未填写角色";
+                 ?></span>
                 </li>
                 <li>
                   <span class="borrower-name"></span>
@@ -151,14 +167,6 @@
                   <col class="tb-col-status"></col>
                 </colgroup>
                 <thead>
-                  <tr>
-                    <th class="tb-col-buyer">买家</th>
-                    <th class="tb-col-title">投资金额</th>
-                    <th class="tb-col-num">每期获利</th>
-                    <th class="tb-col-time">成交时间</th>
-                   	<!--<th class="tb-col-status">状态</th>-->
-                  </tr>
-                </thead>
                 <?php 
                 $meta->pagination = false;
                 $this->widget('zii.widgets.CListView',array(
@@ -173,6 +181,7 @@
 				)); ?>
               </table>
             </div>
+           
             <div class="tab-content info-content">
               <h1 class="adu-d-nav"><?php echo $bid->getAttribute('title');?></h1>
               <ul>

@@ -23,14 +23,14 @@
  * @property FrontUser $user
  * @property BidMeta[] $bidMetas
  */
-class BidInfo extends CActiveRecord
+class HelpInfo extends CActiveRecord
 {
 	/**
 	 * @return string the associated database table name
 	 */
 	public function tableName()
 	{
-		return '{{bid}}';
+		return '{{article}}';
 	}
 
 	/**
@@ -40,7 +40,7 @@ class BidInfo extends CActiveRecord
 	{
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
-		return array(
+		/*return array(
 			array('user_id, title, description, sum', 'required'),
 			array('month_rate,start,end,pub_time,deadline,progress,sum', 'numerical', 'integerOnly'=>true),
 			array('title', 'length', 'max'=>50),
@@ -52,12 +52,13 @@ class BidInfo extends CActiveRecord
 			// The following rule is used by search().
 			array('id, user_id, title, description, sum, month_rate, start, end, deadline, progress, verify_progress, failed_description', 'safe', 'on'=>'search'),
 		);
+		return array();*/
 	}
 
 	/**
 	 * @return array relational rules.
 	 */
-	public function relations()
+	/*public function relations()
 	{
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
@@ -65,7 +66,7 @@ class BidInfo extends CActiveRecord
 			'user' => array(self::BELONGS_TO, 'FrontUser', 'user_id'),
 			'bidMeta' => array(self::HAS_MANY, 'BidMeta', 'bid_id'),
 		);
-	}
+	}*/
 
 	/**
 	 * @return array customized attribute labels (name=>label)

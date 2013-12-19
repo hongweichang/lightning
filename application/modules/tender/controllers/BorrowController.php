@@ -7,7 +7,6 @@
 class BorrowController extends Controller {
 	private $name = '我要借贷';
 	private $role;
-	public $defaultAction = "roleChoose"; // 更改默认的action,默认要选择社会角色
 	
 	public function init() {
 		parent::init();
@@ -22,12 +21,16 @@ class BorrowController extends Controller {
 		}
 	}
 	
+	public function noneLoginRequired(){
+		return '';
+	}
+	
 	/**
 	 * 默认action，进行社会角色选择
 	 * 社会角色默认有3种：工薪阶层，企业主，网店店主
 	 * 用户角色从user里面取得
 	 */
-	function actionRoleChoose() {
+	function actionIndex() {
 		$this->setPageTitle($this->name);
 		
 		$user = $this->app->getModule('user');
@@ -79,6 +82,10 @@ class BorrowController extends Controller {
 			}
 			$this->render("index",array('roleName' => $this->role));
 		}
+
+		$this->render("index",array(
+			'roleName' => $this->role
+		));
 	}
 	
 	/**
@@ -101,7 +108,9 @@ class BorrowController extends Controller {
 			);
 			
 			if($model->validate()){
-				$this->redirect( $this->createUrl('borrow/viewInfo',array('id' => $model->save(false) )));
+				$this->redirect($this->createUrl('borrow/success',array(
+					'id' => $model->save()
+				)));
 			}
 		}
 		
@@ -119,7 +128,7 @@ class BorrowController extends Controller {
 		$id = $this->getQuery('id',0);
 		// 根据主键来取出刚刚插入的记录
 		$model = BidInfo::model()->findByPk($id);
-		//print_r($model);
+		
 		//只能查看自己的信息，将session里面的user_id和数据库里面的user_id作比较
 		if(!empty($model) && $this->user->getId() === $model->user_id){
 			$this->setPageTitle($model->getAttribute('title').' - '.$this->role.' - '.$this->name.' - '.$this->app->name);
@@ -128,7 +137,7 @@ class BorrowController extends Controller {
 				'model' => $model
 			));
 		}else{
-			//404
+			echo "错误";
 		}
 	}
 }

@@ -67,7 +67,7 @@ $this->cs->registerCssFile($this->cssUrl.'detail.css');
                   	<a href="<?php echo Yii::app()->createUrl('user/userCenter/userInfo');?>">
                         <li class="find-table-3"><div class="find-table-op"></div>个人信息</li>
                     </a>
-                    <a href="">
+                    <a href="<?php echo $this->createUrl('userCenter/userFund')?>">
                         <li class="find-table-4"><div class="find-table-op"></div>资金管理</li>
                     </a>
                 </ul>
