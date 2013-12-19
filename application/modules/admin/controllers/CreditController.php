@@ -211,7 +211,8 @@ class CreditController extends Admin{
 		if(!empty($post)){
 			$model->attributes = $post['CreditGradeSettings'];
 			if($model->save()){
-				$this->createUrl('credit/creditLevelList');
+				$this->redirect($this->createUrl('credit/creditLevelList'));
+
 			}else
 				var_dump($model->getErrors());
 		}
