@@ -6,6 +6,13 @@
  * Encoding UTF-8
  */
 class NotifyManager extends CApplicationComponent{
+	public $smsAPI;//第三方短信接口地址
+	public $cacheID;
+	
+	public function init(){
+		$this->attachBehavior('curl','CurlBehavior');
+		$this->attachBehavior('curlMulti','CurlMultiBehavior');
+	}
 	
 	public function getSettingProvider($config){
 		return new CActiveDataProvider('NotificationSettings',$config);
@@ -40,5 +47,37 @@ class NotifyManager extends CApplicationComponent{
 	
 	public function getInstance($id){
 		return NotificationSettings::model()->findByPk($id);
+	}
+	
+	public function sendSms($target,$content){
+		$curl = $this->curl;
+		$curl->setMethod('GET');
+		$url = $this->smsAPI.'&mobile='.$target.'&content='.$content;
+		$url = mb_convert_encoding($url,'GB2312','UTF-8');
+		$curl->curlSend($url);
+		if ( $curl->getHasError() ){
+			return $curl->getError();
+		}else {
+			return true;
+		}
+	}
+	
+	public function generateCode($length=4){
+		$letters = 'bcdfghjklmnpqrstvwxyz';
+		$vowels = 'aeiou';
+		$code = '';
+		for($i = 0; $i < $length; ++$i)
+		{
+			if($i % 2 && mt_rand(0,10) > 2 || !($i % 2) && mt_rand(0,10) > 9)
+				$code.=$vowels[mt_rand(0,4)];
+			else
+				$code.=$letters[mt_rand(0,20)];
+		}
+		
+		return $code;
+	}
+	
+	public function verifyMobileCode($mobile,$code){
+		$cache = Yii::app()->getComponent($this->cacheID);
 	}
 }

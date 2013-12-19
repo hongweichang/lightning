@@ -48,6 +48,10 @@ class mainConf extends ConfigBase{
 										'FromName'=>'闪电贷',
 										'CharSet'=>'UTF-8',
 								),
+								'manager' => array(
+										'smsAPI' => 'http://sdk105.entinfo.cn/z_mdsmssend.aspx?sn=SDK-CSL-010-00245&pwd=69C90CB4B5E98574108BB62974EB0DF4',
+										'cacheID' => 'cache'								
+								)
 						),
 				),
 				'import' => array(
@@ -145,7 +149,7 @@ class mainConf extends ConfigBase{
 										'onEndRequest' => array(
 												'command' => array('sendMail','success')
 										),
-										'onRegisterSuccess' => array(
+										'onRegister' => array(
 												'command' => array('sendSMS','verifyMobile')
 										),
 								),

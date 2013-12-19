@@ -52,6 +52,10 @@ $(document).ready(function(){
 				required: true,
 				phone: true
 			},
+			"Register[email]":{
+				required: true,
+				email: true
+			},
 			"Register[password]":{
 				required: true,
 				minlength: 6
@@ -59,6 +63,10 @@ $(document).ready(function(){
 			"Reigister[confirm]":{
 				required: true,
 				equalTo: "#signup-password"
+			},
+			"Register[code]":{
+				digits: true,
+				length4: true
 			}
 		},
 		messages:{
@@ -70,6 +78,10 @@ $(document).ready(function(){
 				required: "手机号不能为空",
 				phone: "请输入11位手机号码"
 			},
+			"Register[email]":{
+				required: "邮箱不能为空",
+				email: "请输入您的常用邮箱"
+			},
 			"Register[password]":{
 				required: "请输入密码",
 				minlength: "密码至少为六位"
@@ -77,23 +89,12 @@ $(document).ready(function(){
 			"Reigister[confirm]":{
 				required: "请重复密码",
 				equalTo: "您输入的密码不一致"
-			}
-		}
-	});
-	$("#verify-form").validate({
-		rules:{
-			verify_code:{
-				required: true,
-				digits: true,
-				length4: true
-			}
-		},
-		messages:{
-			verify_code:{
+			},
+			"Reigister[code]":{
 				required: "验证码不能为空",
 				digits: "请输入数字",
 				length4: "验证码长度为4位"
-			}
+			},
 		}
 	});
 	$.validator.addMethod("phoneOrMail",function(value,element){
@@ -118,12 +119,15 @@ $(document).ready(function(){
 	
 	$("#getVerifycode").bind("click",function(){
 		var time;
+		var text;
 		if(!$(this).hasClass("disabled")){
 			$(this).addClass("disabled");
 			$.ajax({
-
+				url: baseUrl + 'user/account/registerVerify?mobile=' + $('#signup-phone').val(),
+				type: 'GET',
 			});
 			time = 30;
+			text = $("#getVerifycode").text();
 			changeVal();
 		}
 		function changeVal(){
@@ -132,7 +136,7 @@ $(document).ready(function(){
 				setTimeout(changeVal,1000);
 				time--;
 			}else
-				$("#getVerifycode").removeClass("disabled").text("获取验证码");
+				$("#getVerifycode").removeClass("disabled").text(text);
 		}
 	});
 });

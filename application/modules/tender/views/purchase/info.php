@@ -71,7 +71,7 @@
             <div class="info-title">投资金额<span class="info-subtitle">投资有风险，请谨慎考虑</span></div>
             <form method="post" id="lend-form" action="<?php echo $this->createUrl('purchase/info',array('id' => $bid->getAttribute('id')));?>">
               <input type="text" name="sum" id="lend-num" data-info="<?php 
-              	echo $bid->getAttribute('sum').";".$bid->getAttribute('deadline').";".$bid->getAttribute('month_rate').";".$progress;
+              	echo $bid->getAttribute('sum').";".$bid->getAttribute('deadline').";".$bid->getAttribute('month_rate').";".$bid->getAttribute('progress');;
               ?>" /><span>元</span>
               <p>到期总收益 ¥<span id="lend-income">0.00元</span></p>
               <?php if(CCaptcha::checkRequirements()){ ?>

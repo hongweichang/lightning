@@ -13,7 +13,7 @@ class PlaceholderManager{
 			'{code}' => array(
 					'label' => '验证码',
 			),
-			'{codeLiftTime}' => array(
+			'{codeLifeTime}' => array(
 					'label' => '验证码有效时间'
 			),
 			'{activatingLink}' => array(
