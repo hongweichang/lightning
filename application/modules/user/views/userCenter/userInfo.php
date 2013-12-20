@@ -236,21 +236,21 @@ $this->widget('application.extensions.swfupload.CSwfUpload', array(
                             <td class="score">信用分数</td>
                         </tr>
                         <tr>
-                            <td rowspan="3">必要信息</td>
+                            <td rowspan="<?php echo $necessaryNum +1;?>">必要信息</td>
                             <td></td>
                             <td></td>
                             <td>
                                 
                             </td>
-                            <td class="score" rowspan="3">10分</td>
+                            <td class="score" rowspan="<?php echo $necessaryNum +1;?>">60分</td>
                         </tr>
                         <?php
-                            if(!empty($creditData)){ 
-                            foreach($creditData as $value){
+                            if(!empty($necessaryCreditData)){ 
+                            foreach($necessaryCreditData as $value){
                                 $form=$this->beginWidget('CActiveForm', array(
                                             'id'=>'FrontCredit-form',
                                             'enableAjaxValidation'=>true,
-                                            'action'=>'verificationAdd?type='.$value[0]->id.'',
+                                            'action'=>'verificationAdd?type='.$value['id'].'',
                                             'htmlOptions' => array(
                                                         //'class' => 'hidden'
                                                         'name'=>'file',
@@ -261,22 +261,91 @@ $this->widget('application.extensions.swfupload.CSwfUpload', array(
                         ?>
                         <tr>
                             <td>
-                                <?php echo $value[0]->verification_name?>
+                                <?php echo $value['verification_name']?>
                             </td>
+                           <?php if($value['status'] != '1'){?>
                             <td>
                                 <?php echo $form->FileField($model,'filename'); ?>
                                 <?php echo CHtml::submitButton('提交',array(
-                                                'name'=>$value[0]->verification_name,
+                                                'name'=>$value['verification_name'],
                                                 'class'=>'form-button')
                                             ); 
                                      ?>
                             </td>
-                            <td> 状态
+                            <?php }?>
+                            <td>
+                            <?php
+                                if($value['status'] == '400')
+                                    echo "未上传";
+                                elseif($value['status'] == '0')
+                                    echo "等待审核";
+                                elseif($value['status'] == '1')
+                                    echo "审核通过";
+                                elseif($value['stauts'] == '2')
+                                    echo "未通过审核";
+                            ?> 
                             </td>
+
                         </tr>
                         <?php
                             $this->endWidget();
-                        }}?>  
+                        }}?> 
+                        <tr>
+                            <td rowspan="<?php echo $unnecessaryNum +1;?>">选填信息</td>
+                            <td></td>
+                            <td></td>
+                            <td>
+                                
+                            </td>
+                            <td class="score" rowspan="<?php echo $unnecessaryNum +1;?>"></td>
+                        </tr>
+                         <?php
+                            if(!empty($unnecessaryCreditData)){ 
+                            foreach($unnecessaryCreditData as $value){
+                                $form=$this->beginWidget('CActiveForm', array(
+                                            'id'=>'FrontCredit-form',
+                                            'enableAjaxValidation'=>true,
+                                            'action'=>'verificationAdd?type='.$value['id'].'',
+                                            'htmlOptions' => array(
+                                                        //'class' => 'hidden'
+                                                        'name'=>'file',
+                                                        'enctype'=>'multipart/form-data',
+
+                                                        )
+                            ));
+                        ?> 
+                        <tr>
+                            <td>
+                                <?php echo $value['verification_name']?>
+                            </td>
+                           <?php if($value['status'] != '1'){?>
+                            <td>
+                                <?php echo $form->FileField($model,'filename'); ?>
+                                <?php echo CHtml::submitButton('提交',array(
+                                                'name'=>$value['verification_name'],
+                                                'class'=>'form-button')
+                                            ); 
+                                     ?>
+                            </td>
+                            <?php }?>
+                            <td>
+                            <?php
+                                if($value['status'] == '400')
+                                    echo "未上传";
+                                elseif($value['status'] == '0')
+                                    echo "等待审核";
+                                elseif($value['status'] == '1')
+                                    echo "审核通过";
+                                elseif($value['stauts'] == '2')
+                                    echo "未通过审核";
+                            ?> 
+                            </td>
+
+                        </tr> 
+                        <?php
+                            $this->endWidget();
+                        }}?>                                              
+ 
                     </table>
                 </div>
 
