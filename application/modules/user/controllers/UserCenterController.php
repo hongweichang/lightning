@@ -38,6 +38,7 @@ class UserCenterController extends Controller{
 		// 	$dataId[] = $value['credit']->id;
 		// }
 
+		$finishedId = array();
 		$finishedData = $this->getFnishedCreditData($uid);
 		foreach($finishedData as $i => $value){
 			$finishedId[$i] = $value->verification_id;
