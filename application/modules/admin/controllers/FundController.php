@@ -9,9 +9,11 @@ class FundController extends Admin{
 	public function init(){
 		parent::init();
 		$this->app->getModule('pay');
+		$this->app->getModule('tender');
+		$this->app->getModule('user');
 	}
 	
-	public function actionSite(){
+	public function actionInvestment(){
 		$criteria = new CDbCriteria();
 		//$criteria->addCondition('status=0');
 		
@@ -32,6 +34,20 @@ class FundController extends Admin{
 		$this->render('waitting',array(
 				'dataProvider' => $dataProvider,
 				//'selector' => $selector
+		));
+	}
+	
+	public function actionSite(){
+
+		$this->render('site',array(
+			'sum' => FrontUser::model()->sum('balance') / 100,
+			'recharge' => Recharge::model()->sum('sum') / 100,
+			'withdraw' => Withdraw::model()->sum('sum') / 100,
+			'view' => BidInfo::model()->sum('sum','verify_progress=0') / 100,
+			'biding' => BidInfo::model()->sum('sum','verify_progress=1') / 100,
+			'repaying' => BidInfo::model()->sum('sum','verify_progress=3') / 100,
+			'done' => BidInfo::model()->sum('sum','verify_progress=4') / 100,
+			'lose' => BidInfo::model()->sum('sum','verify_progress=5') / 100,
 		));
 	}
 }

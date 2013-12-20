@@ -34,7 +34,7 @@ $this->cs->registerCssFile($this->cssUrl.'lend.css');
           	期限：<?php echo $bid->getAttribute('deadline'); ?>期</p>
           <div id="borrow-details">
             <p>借款人：<?php echo $bider->getAttribute('realname'); ?><?php echo $bider->getAttribute('gender') ? '先生' : '女士'; ?></p>
-           	<p>社会角色：<?php echo $bider->getAttribute('role'); ?></p>
+           	<p>社会角色：<?php echo $this->app['roleMap'][$bider->getAttribute('role')]?></p>
             <p>身份证号码：<?php $bider->getAttribute('identity_id'); ?></p>
             <p>现居地:<?php echo $bider->getAttribute('address'); ?></p>
             <p>借款金额：<?php echo number_format($bid->getAttribute('sum') / 100,2);?>元</p>
@@ -45,7 +45,7 @@ $this->cs->registerCssFile($this->cssUrl.'lend.css');
           </div>
           <div id="borrow-num"><span><?php echo number_format($meta->getAttribute('sum') / 100,2);?>元</span></div>
           <div id="borrow-avatar">
-            <img src="<?php echo $this->imageUrl; ?>intro-pic_1.png" />
+            <img src="<?php echo $this->app->getModule('user')->userManager->getUserIcon($bider->id); ?>" />
             <span>信</span>
           </div>
         </div>

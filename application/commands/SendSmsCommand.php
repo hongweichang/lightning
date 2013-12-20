@@ -7,6 +7,10 @@
  */
 class SendSmsCommand extends CConsoleCommand{
 	public function actionVerifyMobile($params=''){
+		$data = json_decode($params,true);
+		$event = $data['eventName'];
+		$parameters = $data['params'];
+		
 		
 	}
 }

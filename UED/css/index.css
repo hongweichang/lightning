@@ -50,6 +50,10 @@ body {
 #header {
   overflow: hidden; }
 
+.wd989 {
+  width: 989px;
+  margin: 0 auto; }
+
 #he-login {
   height: 25px;
   background: url("../images/h_bg.png"); }
@@ -111,6 +115,9 @@ body {
 
 .violet {
   border-color: #ddc4f7; }
+
+#he-nav ul li.active {
+  border-top-width: 4px; }
 
 #footer {
   height: 303px;
@@ -194,6 +201,7 @@ body {
   font-size: 16px;
   font-family: "Microsoft Yahei";
   font-weight: normal;
+  text-align: center;
   font-weight: bold; }
 
 .rankA {
@@ -379,7 +387,7 @@ body {
   color: #226e72; }
 .loan-list .loan-rank div {
   display: inline-block;
-  width: 30px;
+  width: auto;
   height: 30px; }
 .loan-list .loan-num {
   color: #fc7700; }

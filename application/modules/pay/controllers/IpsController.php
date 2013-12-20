@@ -21,7 +21,9 @@ class IpsController extends PayController{
 	
 	public function actionIndex(){
 		//付款金额
-		$charge = $this->getPost('sum');
+		$meta_no = $this->getQuery('meta_no');
+		$in_pay = $this->getQuery('inpay','');
+		
 		//手续费
 		$fee = round($charge * 0.05,2);
 		

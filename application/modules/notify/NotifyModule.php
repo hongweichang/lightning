@@ -6,7 +6,8 @@
  * Encoding UTF-8
  */
 class NotifyModule extends CmsModule{
-	public $email = array();
+	public $email;
+	public $manager = array();
 	
 	public function init(){
 		parent::init();
@@ -14,11 +15,10 @@ class NotifyModule extends CmsModule{
 		Yii::import('notify.components.*');
 		
 		$this->email['class'] = 'notify.components.EmailManager';
+		$this->manager['class'] = 'notify.components.NotifyManager';
 		$this->setComponents(array(
 				'mailer' => $this->email,
-				'notifyManager' => array(
-						'class' => 'notify.components.NotifyManager'
-				),
+				'notifyManager' => $this->manager,
 		));
 	}
 	

@@ -38,6 +38,15 @@ class BidManager extends CApplicationComponent{
 		return BidMeta::model()->with('user','bid')->findAll($condition,$params);
 	}
 	
+	public function getLockBalance($uid){
+		$progress = BidMeta::model()->find(array(
+				'select' => 'SUM(sum) AS sum',
+				'condition' => 'status=1 AND user_id='.$uid
+		));
+		
+		return $progress->getAttribute('sum') / 100;
+	}
+	
 	/**
 	 * 计算每月还款金额
 	 * @param float $sum

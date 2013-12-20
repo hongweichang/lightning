@@ -48,6 +48,10 @@ class mainConf extends ConfigBase{
 										'FromName'=>'闪电贷',
 										'CharSet'=>'UTF-8',
 								),
+								'manager' => array(
+										'smsAPI' => 'http://sdk105.entinfo.cn/z_mdsmssend.aspx?sn=SDK-CSL-010-00245&pwd=69C90CB4B5E98574108BB62974EB0DF4',
+										'cacheID' => 'cache'								
+								)
 						),
 				),
 				'import' => array(
@@ -145,7 +149,7 @@ class mainConf extends ConfigBase{
 										'onEndRequest' => array(
 												'command' => array('sendMail','success')
 										),
-										'onRegisterSuccess' => array(
+										'onRegister' => array(
 												'command' => array('sendSMS','verifyMobile')
 										),
 								),
@@ -186,10 +190,10 @@ class mainConf extends ConfigBase{
 										'24-36' => ' deadline BETWEEN 24 AND 36 ',
 								),
 								'authenGrade' => array(//认证等级条件
-										'all' => 'all',
-										'AA' => " authenGrade = 'AA' ",
-										'AAA' => " authenGrade = 'AAA' ",
-										'HR' => " authenGrade = 'HR' ",
+										'all' => 'credit_grade >= 0',
+										'初级' => " credit_grade BETWEEN 60 AND 80 ",
+										'普通会员' => " credit_grade BETWEEN 80 AND 100 ",
+										'牛逼会员' => " credit_grade >= 120 ",
 								),
 						),
 						//月利率的查询条件
@@ -197,7 +201,7 @@ class mainConf extends ConfigBase{
 						//借款期限的查询条件
 						'deadline' => array('6-12','12-24','24-36',),
 						//认证等级的查询条件
-						'authenGrade' => array('AA','AAA','HR',),
+						'authenGrade' => array('初级','普通会员','牛逼会员',),
 				),
 		);
 	}

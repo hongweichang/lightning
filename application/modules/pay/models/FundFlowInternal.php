@@ -34,9 +34,9 @@ class FundFlowInternal extends CmsActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('id, to_user, from_user, sum, time, fee', 'required'),
+			array('sum, time, fee', 'required'),
 			array('status', 'numerical', 'integerOnly'=>true),
-			array('id, to_user, from_user, sum, time', 'length', 'max'=>11),
+			array('to_user, from_user, sum, time', 'length', 'max'=>11),
 			array('fee', 'length', 'max'=>5),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.

@@ -95,12 +95,16 @@
         color: 0;
         padding-right: 183px; }
     #container .aud-detail .aud-money .mon-show p.det-mon span {
-      padding-right: 80px;
+      padding-right: 50px;
       font-size: 30px;
       color: #474747; }
     #container .aud-detail .aud-money .mon-show p.det-mon span.mon-out {
       color: red;
       margin-left: -10px; }
+    #container .aud-detail .aud-money .mon-show p.det-mon span.aud-num {
+      padding: 0;
+      display: inline-block;
+      width: 170px; }
 #container .aud-find {
   margin: 14px auto 30px;
   padding-bottom: 20px;
@@ -406,7 +410,7 @@ input:focus {
 
 .user-avatar {
   float: left;
-  width: 97px;
+  width: 140px;
   margin: 20px 0 0 48px;
   text-align: center;
   color: #267b7e; }

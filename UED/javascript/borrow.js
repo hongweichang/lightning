@@ -6,40 +6,40 @@ $(document).ready(function(){
 	});
 	$("#borrow-message").validate({
 		rules:{
-			borrow_title:{
+			title:{
 				required: true
 			},
-			borrow_num:{
+			sum:{
 				required: true,
 				digits: true,
 				range: [5000,10000000]
 			},
-			borrow_rate:{
+			rate:{
 				required: true,
 				digits: true,
 				range: [5,20]
 			},
-			borrow_month:{
+			deadline:{
 				required: true,
 				digits: true,
 				range: [1,36]
 			}
 		},
 		messages:{
-			borrow_title:{
+			title:{
 				required: "不能为空"
 			},
-			borrow_num:{
+			sum:{
 				required: "不能为空",
 				digits: "请输入整数",
 				range: "请输入不低于5000的整数"
 			},
-			borrow_rate:{
+			rate:{
 				required: "不能为空",
 				digits: "请输入整数",
 				range: "年利率介于5到12%之间"
 			},
-			borrow_month:{
+			deadline:{
 				required: "不能为空",
 				digits: "请输入整数",
 				range: "期限介于1到36个月"

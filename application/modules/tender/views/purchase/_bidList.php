@@ -5,10 +5,11 @@
  * date: 2013-12-9
  * desc: 
  */
+$userManager = $this->app->getModule('user')->userManager;
 ?>
 <li class="loan-list">
 	<div class="loan-avatar">
-		<img src="<?php echo $this->imageUrl;?>intro-pic_1.png" />
+		<img src="<?php echo $userManager->getUserIcon($data->user_id)?>" />
 		<span>信</span>
 	</div>
 	<div class="loan-title">

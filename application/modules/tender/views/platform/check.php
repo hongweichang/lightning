@@ -45,7 +45,7 @@ $this->cs->registerCssFile($this->cssUrl.'lend.css');
           </div>
           <div id="borrow-num"><span><?php echo number_format($meta->getAttribute('sum') / 100,2);?>元</span></div>
           <div id="borrow-avatar">
-            <img src="<?php echo $this->imageUrl; ?>intro-pic_1.png" />
+            <img src="<?php echo $this->app->getModule('user')->userManager->getUserIcon($bider->id); ?>" />
             <span>信</span>
           </div>
         </div>

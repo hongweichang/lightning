@@ -28,11 +28,12 @@ class RegisterForm extends CFormModel
 			array('mobile', 'checkmobile'),
 			array('password','confirmPassword'),
 			// verifyCode needs to be entered correctly
-			'captcha' => array('code', 'captcha' ,'allowEmpty'=>!CCaptcha::checkRequirements(),'message'=>'验证码错误'),
+			//'captcha' => array('code', 'captcha' ,'allowEmpty'=>!CCaptcha::checkRequirements(),'message'=>'验证码错误'),
+			'captcha' => array('code', 'verifyMobileCode'),
 			'protocal' => array('protocal','confirm','message'=>'请同意网站服务协议'),
 		);
 		if ( $this->getScenario() === 'appRegister' ){
-			unset($rules['captcha']);
+			//unset($rules['captcha']);
 			unset($rules['protocal']);
 		}
 		return $rules;
@@ -83,6 +84,13 @@ class RegisterForm extends CFormModel
 			if(!preg_match('#^13\d{9}|14[57]\d{8}|15[012356789]\d{8}|18[01256789]\d{8}$#', $this->mobile)){
 				$this->addError('mobile', '手机号码格式不正确');
 			}
+		}
+	}
+	
+	public function verifyMobileCode($attribute,$params){
+		$notify = Yii::app()->getModule('notify')->getComponent('notifyManager');
+		if ( $notify->verifyMobileCode($this->mobile,$this->code) === false ){
+			$this->addError('code','验证码错误');
 		}
 	}
 }

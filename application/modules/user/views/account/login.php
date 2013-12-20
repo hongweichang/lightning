@@ -6,10 +6,10 @@
  * Encoding UTF-8
  */
 ?>
-<form method="post"
-					action="<?php echo $this->createUrl('account/login'); ?>" id="login">
+<form method="post" action="<?php echo $this->createUrl('account/login'); ?>" id="login">
+<?php $this->renderPartial('_error',array('model'=>$model))?>
 					<div class="form-item">
-						<input type="text" name="Login[account]" class="form-input" />
+						<input type="text" name="Login[account]" class="form-input" value="<?php echo $model->account?>"/>
 						<p>请输入手机号/邮箱</p>
 						<span class="user-ico"></span>
 					</div>
