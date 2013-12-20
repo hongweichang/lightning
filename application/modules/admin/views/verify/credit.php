@@ -35,18 +35,10 @@ if(!empty($userCreditData)){
             'action'=>'unpass','id'=>$value['id']))?>" 
             class="check" data-method="check-pass">审核不通过
             </a>
-            <a href="<?php echo Yii::app()->createUrl('user/userInfo/outputInfoByExcel');?>">导出</a>
         </td>
     </tr>
  <?php }
  	}?>
     </tbody>
 </table>
-<p>
-    <span class="page">1</span>
-    <span class="page">2</span>
-    <span class="page">3</span>
-    <span class="page">4</span>
-    <span class="page">5</span>
-</p>
 

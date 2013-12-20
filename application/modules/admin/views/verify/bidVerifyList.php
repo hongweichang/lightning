@@ -35,7 +35,6 @@ if(!empty($bidList)){
             'action'=>'unpass','id'=>$value['id']))?>" 
             class="check" data-method="check-pass">审核不通过
             </a>
-            <a href="<?php echo Yii::app()->createUrl('user/userInfo/outputInfoByExcel');?>">导出</a>
         </td>
     </tr>
  <?php }

@@ -28,9 +28,62 @@ class UserCenterController extends Controller{
 		$this->pageTitle = '个人中心';
 		$uid = $this->app->user->id;
 		$userData = $this->userData;
+		$dataId = array();
+		$creditList = array();
 
 		$role = $userData['role'];
 		$creditData= $this->getUserCredit($role);
+
+		// foreach($creditData as $value){
+		// 	$dataId[] = $value['credit']->id;
+		// }
+
+		$finishedId = array();
+		$finishedData = $this->getFnishedCreditData($uid);
+		foreach($finishedData as $i => $value){
+			$finishedId[$i] = $value->verification_id;
+		}
+
+		foreach($creditData as $value){
+			$finished = $this->finishCreditCheck($value['credit']->id,$finishedId);
+			if($finished === false){
+				if($value['optional'] == '0'){
+					$necessaryList[] = array(
+									'id'=>$value['credit']->id,
+									'verification_name'=>$value['credit']->verification_name,
+									'optional'=>$value['optional'],
+									'status'=>'400'									
+								);
+				}else{
+					$unnecessaryList[] = array(
+									'id'=>$value['credit']->id,
+									'verification_name'=>$value['credit']->verification_name,
+									'optional'=>$value['optional'],
+									'status'=>'400'
+								);
+				}
+
+			}else{
+				if($value['optional'] == '0'){
+					$necessaryList[] = array(
+									'id'=>$value['credit']->id,
+									'verification_name'=>$value['credit']->verification_name,
+									'optional'=>$value['optional'],
+									'status'=>$finishedData[$finished]->status								
+								);
+				}else{
+					$unnecessaryList[] = array(
+									'id'=>$value['credit']->id,
+									'verification_name'=>$value['credit']->verification_name,
+									'optional'=>$value['optional'],
+									'status'=>$finishedData[$finished]->status
+								);
+				}
+			}
+		}
+		$necessaryNum = count($necessaryList);
+		$unnecessaryNum = count($unnecessaryList);
+
 		$IconUrl = null;
 
 		if(isset($_POST['FrontUser'])){
@@ -53,7 +106,14 @@ class UserCenterController extends Controller{
 		}
 		
 		$IconUrl = $this->user->getState('avatar');
-		$this->render('userInfo',array('userData'=>$userData,'creditData'=>$creditData,'model'=>new FrontCredit(),'IconUrl'=>$IconUrl));
+		$this->render('userInfo',array(
+						'userData'=>$userData,
+						'necessaryCreditData'=>$necessaryList,
+						'necessaryNum'=>$necessaryNum,
+						'unnecessaryCreditData'=>$unnecessaryList,
+						'unnecessaryNum'=>$unnecessaryNum,
+						'model'=>new FrontCredit(),
+						'IconUrl'=>$IconUrl));
 		
 	}
 
@@ -76,11 +136,40 @@ class UserCenterController extends Controller{
 			$userCredit = CreditRole::model()->with('verification')->findAll('role =:role',array(':role'=>$role));
 			foreach($userCredit as $value){
 				$creditSetting[] = array(
-						$value->getRelated('verification')
+						'credit'=>$value->getRelated('verification'),
+						'optional'=>$value->optional
 					);
 			}
 			
 			return $creditSetting;
+		}
+	}
+
+
+	public function getFnishedCreditData($uid){
+		if(is_numeric($uid)){
+			$finishCredit = array();
+			$criteria = new CDbCriteria;
+
+			$criteria->condition = 'user_id =:uid';
+			$criteria->params = array(
+							':uid'=>$uid
+						);
+			
+			$criteria->order = 'verification_id ASC,submit_time DESC ';
+			
+			$finishedData = FrontCredit::model()->findAll($criteria);
+			return $finishedData;
+		}
+	}
+
+	public function finishCreditCheck($id,$creditData){
+		if(is_numeric($id) && is_array($creditData)){
+			foreach($creditData as $i => $value){
+				if($value == $id)
+					return $i;
+			}
+			return false;
 		}
 	}
 
@@ -98,8 +187,9 @@ class UserCenterController extends Controller{
 			$verificationData = CreditRole::model()->with('verification')->findAll($criteria);
 
 			if(empty($verificationData)){
-				echo "用户角色与信用项目不符合";
-				die();
+				Yii::app()->user->setFlash('error','该角色无次信用项');
+				$this->redirect(Yii::app()->createUrl('user/userCenter/userInfo'));
+				exit();
 			}
 			$post = $this->getPost();
 
@@ -116,8 +206,10 @@ class UserCenterController extends Controller{
 				$TypeVerify = $this->TypeVerify($fileType);
 
 				if($TypeVerify == 400){
-					echo "文件不合法";
-					die();
+					Yii::app()->user->setFlash('error','文件类型不合法');
+					$this->redirect(Yii::app()->createUrl('user/userCenter/userInfo'));
+					exit();
+
 				}else{
 					$uploadDir = dirname(Yii::app()->basePath).DS.$this->app->getPath('creditFile').
 					                    $this->app->partition($uid,'creditFile');
@@ -139,6 +231,12 @@ class UserCenterController extends Controller{
 						$model->content = $newName;
 						$model->submit_time = time();
 						$model->status = 0;
+
+						$userCredit = FrontCredit::model()->findAll('verification_id =:id',array('id'=>$type));
+						if(!empty($userCredit)){
+							foreach($userCredit as $value)
+								$value->delete();
+						}
 
 						if($model->save()){
 							Yii::app()->user->setFlash('success','上传成功');
