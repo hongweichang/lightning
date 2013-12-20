@@ -42,5 +42,12 @@ return array(
 				'verb'=>'post'
 			),
 
+		array(
+				'pattern'=>'<_m:(appservice)>/<_a:(userMessage)>',
+				'<_m>/appUser/create<_a>',
+				'verb'=>'POST'
+
+			),
+
 	);
 ?>

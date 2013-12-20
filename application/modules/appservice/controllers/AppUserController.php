@@ -104,8 +104,17 @@ class AppUserController extends Controller{
 		$post = $this->getPost();
 		if(!empty($post['uid'])){
 			$uid = $post['uid'];
-			$userLevel = $this->app->getModule('credit')->getComponent('userCreditManager')->getUserCreditLevel($uid);
+			$userCredit = array();
 
+			$userLevel = $this->app->getModule('credit')->getComponent('userCreditManager')->getUserCreditLevel($uid);
+			$userCreditData = FrontCredit::model()->with('creditSetting')->findAll('user_id =:uid',array('uid'=>$uid));
+			if(!empty($userCreditData)){
+
+				$userCredit = array(
+								'userLevel'=>$userLevel,
+
+							);
+			}
 			if($userLevel !== null)
 				$this->response(200,'获取成功',$userLevel);
 			else
@@ -130,6 +139,26 @@ class AppUserController extends Controller{
 		}else
 			$this->response(400,'查询失败,用户不存在','');
 		
+	}
+
+	public function actionCreateUserMessage(){
+		$uid = $this->user->id;
+		$title = $this->getPost('title',null);
+		$content = $this->getPost('content',null);
+
+		if(is_numeric($uid) && !empty($title) && !empty($content)){
+			$messageData = array(
+							'user_id'=>$uid,
+							'title'=>$title,
+							'content'=>$content,
+						);
+			$messageAdd = $this->app->getModule('user')->getComponent('infoDisposeManager')->UserMessageAdd($messageData);
+
+			if($messageAdd == 200)
+				$this->response(200,'添加成功','');
+			else
+				$this->response(400,'添加失败','');
+		}
 	}
 
 
