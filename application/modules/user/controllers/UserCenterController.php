@@ -145,7 +145,10 @@ class UserCenterController extends Controller{
 		}
 	}
 
-
+	
+	/*
+	**获取用户等待后台处理的信用项
+	*/
 	public function getFnishedCreditData($uid){
 		if(is_numeric($uid)){
 			$finishCredit = array();
@@ -163,6 +166,10 @@ class UserCenterController extends Controller{
 		}
 	}
 
+
+	/*
+	**判断该信用项用户是否已经上传
+	*/
 	public function finishCreditCheck($id,$creditData){
 		if(is_numeric($id) && is_array($creditData)){
 			foreach($creditData as $i => $value){

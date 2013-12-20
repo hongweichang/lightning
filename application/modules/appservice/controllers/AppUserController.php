@@ -141,6 +141,10 @@ class AppUserController extends Controller{
 		
 	}
 
+	
+	/*
+	**用户反馈信息提交接口
+	*/
 	public function actionCreateUserMessage(){
 		$uid = $this->user->id;
 		$title = $this->getPost('title',null);
@@ -161,6 +165,71 @@ class AppUserController extends Controller{
 		}
 	}
 
+
+	public function actionCreateUserIcon(){
+		$uid = $this->user->id;
+
+		$model = new FrontUserIcon();
+		$fileInfo = CUploadedFile::getInstanceByName('Filedata');
+		$fileName = $fileInfo->name;
+		$fileType =  $fileInfo->getExtensionName();
+		$TypeVerify = $this->TypeVerify($fileType);
+
+		if($TypeVerify !== 'image'){
+			$this->response('400','文件格式不合法','');
+			exit();
+		}
+
+		$uploadDir = dirname(Yii::app()->basePath).DS.$this->app->getPath('avatar').
+					           		 $this->app->partition($uid,'avatar');
+		if(!is_dir($uploadDir)){ //若目标目录不存在，则生成该目录
+			mkdir($uploadDir,0077,true);
+		}
+
+		$randName = Tool::getRandName();//获取一个随机名
+		$newName = md5('userIcon'.$randName.$fileName).'.'.$fileType;//对文件进行重命名
+		$saveUrl = $uploadDir.$newName;
+		$isUp = $fileInfo->saveAs($saveUrl);//保存上传文件
+
+		if($isUp){
+			$thumbUrl = Tool::getThumb($saveUrl,300,300,$saveUrl);//制作缩略图并放回缩略图存储路径
+
+			$Icon = new FrontUserIcon();
+				$Icon->user_id = $uid;
+				$Icon->file_name = $newName;
+				$Icon->size = '300*300';
+				$Icon->file_size = $fileInfo->size;
+				$Icon->in_using = 1;
+
+				FrontUserIcon::model()->updateAll(array('in_using'=>0),'user_id=:uid',array(':uid'=>$uid));
+				if($Icon->save()){
+					$this->response('200','上传成功','');
+				}else
+					$this->response('401','保存失败，发生错误',$Icon->getErrors());
+		}						
+
+	}
+
+
+	public function TypeVerify($fileType){
+
+		if(isset($fileType) && !empty($fileType)){
+			$map = array(
+					'file'=>array('pdf','zip','rar'),
+					'image'=>array('jpg','jpeg','png','gif')
+				);
+
+			foreach($map as $type=>$typeData){
+				foreach($typeData as $key=> $value){
+					if(preg_match('/'.$value.'/',$fileType)){
+						return $type; 
+					}
+				}
+				
+			}
+			return 400;
+		}
+	}
 
 }
 ?>

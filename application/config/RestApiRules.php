@@ -43,7 +43,7 @@ return array(
 			),
 
 		array(
-				'pattern'=>'<_m:(appservice)>/<_a:(userMessage)>',
+				'pattern'=>'<_m:(appservice)>/<_a:(userMessage|userIcon)>',
 				'<_m>/appUser/create<_a>',
 				'verb'=>'POST'
 
