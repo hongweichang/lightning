@@ -166,6 +166,9 @@ class AppUserController extends Controller{
 	}
 
 
+	/*
+	**用户头像上传接口
+	*/
 	public function actionCreateUserIcon(){
 		$uid = $this->user->id;
 

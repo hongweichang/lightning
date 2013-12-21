@@ -29,6 +29,8 @@ class UserCenterController extends Controller{
 		$uid = $this->app->user->id;
 		$userData = $this->userData;
 		$dataId = array();
+		$unnecessaryList = array();
+		$necessaryList = array();
 		$creditList = array();
 
 		$role = $userData['role'];
@@ -44,43 +46,47 @@ class UserCenterController extends Controller{
 			$finishedId[$i] = $value->verification_id;
 		}
 
-		foreach($creditData as $value){
-			$finished = $this->finishCreditCheck($value['credit']->id,$finishedId);
-			if($finished === false){
-				if($value['optional'] == '0'){
-					$necessaryList[] = array(
+		if(!empty($creditData)){
+			foreach($creditData as $value){
+				$finished = $this->finishCreditCheck($value['credit']->id,$finishedId);
+				if($finished === false){
+					if($value['optional'] == '0'){
+						$necessaryList[] = array(
 									'id'=>$value['credit']->id,
 									'verification_name'=>$value['credit']->verification_name,
 									'optional'=>$value['optional'],
 									'status'=>'400'									
-								);
-				}else{
-					$unnecessaryList[] = array(
+									);
+					}else{
+						$unnecessaryList[] = array(
 									'id'=>$value['credit']->id,
 									'verification_name'=>$value['credit']->verification_name,
 									'optional'=>$value['optional'],
 									'status'=>'400'
-								);
-				}
+									);
+					}
 
-			}else{
-				if($value['optional'] == '0'){
-					$necessaryList[] = array(
+				}else{
+					if($value['optional'] == '0'){
+						$necessaryList[] = array(
 									'id'=>$value['credit']->id,
 									'verification_name'=>$value['credit']->verification_name,
 									'optional'=>$value['optional'],
 									'status'=>$finishedData[$finished]->status								
-								);
-				}else{
-					$unnecessaryList[] = array(
+									);
+					}else{
+						$unnecessaryList[] = array(
 									'id'=>$value['credit']->id,
 									'verification_name'=>$value['credit']->verification_name,
 									'optional'=>$value['optional'],
 									'status'=>$finishedData[$finished]->status
-								);
+									);
+					}
 				}
 			}
+
 		}
+
 		$necessaryNum = count($necessaryList);
 		$unnecessaryNum = count($unnecessaryList);
 
@@ -91,10 +97,14 @@ class UserCenterController extends Controller{
 
 			$userData->gender = $attributes['gender'];
 			$userData->address = $attributes['address'];
-			$userData->role = $attributes['role'];
-			$userData->age = $attributes['age'];
-			$userData->identity_id = $attributes['identity_id'];
-
+			if(isset($attributes['realname']))
+				$userData->realname = $attributes['realname'];
+			
+			if(isset($attributes['role']))
+				$userData->role = $attributes['role'];
+			//$userData->age = $attributes['age'];
+			if(isset($attributes['identity_id']))
+				$userData->identity_id = $attributes['identity_id'];
 
 			if($userData->save()){
 				Yii::app()->user->setFlash('success','信息修改成功');
