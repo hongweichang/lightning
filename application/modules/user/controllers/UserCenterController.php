@@ -99,11 +99,11 @@ class UserCenterController extends Controller{
 			$userData->address = $attributes['address'];
 			if(isset($attributes['realname']))
 				$userData->realname = $attributes['realname'];
-			
+
 			if(isset($attributes['role']))
 				$userData->role = $attributes['role'];
 			//$userData->age = $attributes['age'];
-			if(isset($attributes['identity_id']))
+			if(isset($attributes['identity_id']) && !empty($attributes['identity_id']))
 				$userData->identity_id = $attributes['identity_id'];
 
 			if($userData->save()){
