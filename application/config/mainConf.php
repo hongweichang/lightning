@@ -202,6 +202,12 @@ class mainConf extends ConfigBase{
 						'deadline' => array('6-12','12-24','24-36',),
 						//认证等级的查询条件
 						'authenGrade' => array('初级','普通会员','牛逼会员',),
+						'bidProgressCssClassMap' => array(
+								'100' => 'w100',
+								'99' => 'w80_99',
+								'79' => 'w50_79',
+								'49' => 'w0_49'
+						),
 				),
 		);
 	}
