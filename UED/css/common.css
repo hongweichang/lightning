@@ -66,7 +66,8 @@ body {
 
 #he-nav {
   height: 82px;
-  background: url("../images/nav_bg.png"); }
+  background: url("../images/nav_bg.png");
+  overflow: hidden; }
 
 #he-nav img {
   margin: 5px 0 0 9px;

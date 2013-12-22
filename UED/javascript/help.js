@@ -1,3 +1,4 @@
+/*
 $(document).ready(function(){
 	$("#hc-content li").bind('click',function(event) {
 		var title = $(this).children(".hc-title");
@@ -9,3 +10,4 @@ $(document).ready(function(){
 		}
 	});
 });
+*/

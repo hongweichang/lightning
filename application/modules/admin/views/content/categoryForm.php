@@ -21,7 +21,8 @@ if ( $model->hasErrors() )
 </p>
 
 <p>
-	<label></label>
+	<label>上级分类*</label>
+	<?php echo $form->dropDownList($model,'fid',$parents)?>
 </p>
 
 <p>
