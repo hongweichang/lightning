@@ -2,6 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8" />
+    <meta name="renderer" content="webkit"> 
     <title><?php echo CHtml::encode($this->pageTitle); ?></title>
     <script type="text/javascript" src="<?php echo $this->scriptUrl; ?>jquery-1.8.2.min.js"></script>
     <script type="text/javascript">

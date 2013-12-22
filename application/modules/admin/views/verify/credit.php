@@ -24,7 +24,12 @@ if(!empty($userCreditData)){
         <td><?php echo $value['realname'];?></td>
         <td><?php echo $value['mobile'];?></td>
         <td><?php echo $value['verification_name'];?></td>
-        <td><a href="<?php echo Yii::app()->createUrl('adminnogateway/verify/download',array('id'=>$value['id']));?>">下载附件</a></td>
+        <td>
+        	<a href="<?php echo Yii::app()->createUrl('adminnogateway/verify/download',array('id'=>$value['id']));?>">下载附件</a>
+        	<?php if(!empty($value['fileUrl'])){?>
+        	<a href="<?php echo Yii::app()->createUrl($value['fileUrl']);?>">查看</a>
+        	<?php }?>
+        </td>
         <td><?php echo $value['submit_time'];?></td>
         <td>
             <a href="<?php echo Yii::app()->createUrl('adminnogateway/verify/creditVerify',array(
@@ -41,4 +46,7 @@ if(!empty($userCreditData)){
  	}?>
     </tbody>
 </table>
+<div class="pagination">
+	<?php $this->renderPartial('/public/pager',array('pager'=>$pages))?>
+</div>
 

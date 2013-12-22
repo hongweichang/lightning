@@ -41,3 +41,6 @@ if(!empty($bidList)){
  	}?>
     </tbody>
 </table>
+<div class="pagination">
+    <?php $this->renderPartial('/public/pager',array('pager'=>$pages))?>
+</div>
