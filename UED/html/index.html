@@ -139,10 +139,18 @@
                         <div class="loan-rank"><div class="rankA">A</div></div>
                         <div class="loan-amount loan-num">￥3000元</div>
                         <div class="loan-time loan-num">3个月</div>
+                        <!--进度条显示规则
+                            分为4钟颜色
+                            0-49  class为w0_49
+                            50-79 class为w50_79
+                            80-99 class为w80_99
+                            100 class为w100
+                            其他规则同小乔
+                        -->
                         <div class="loan-progress">
                             <div class="bar-out">
                                 <div class="bar-in">
-                                    <span class="bar-complete" style="width:30%"></span>
+                                    <span class="bar-complete w0_49" style="width:30%"></span>
                                     <span class="bar-num">30%</span>
                                 </div>
                             </div>
@@ -161,8 +169,8 @@
                         <div class="loan-progress">
                             <div class="bar-out">
                                 <div class="bar-in">
-                                    <span class="bar-complete" style="width:30%"></span>
-                                    <span class="bar-num">30%</span>
+                                    <span class="bar-complete w50_79" style="width:50%"></span>
+                                    <span class="bar-num">50%</span>
                                 </div>
                             </div>
                         </div>
