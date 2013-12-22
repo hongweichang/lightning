@@ -93,7 +93,7 @@ class ContentController extends Admin{
 		$redirect = urldecode($this->getQuery('redirect',$this->createUrl('index/welcome')));
 		$id = $this->getQuery('id',null);
 		$data = $this->getPost('ArticleForm');
-		$result = $this->getContentManager()->updateArticle($id,$data);
+		$result = $this->getContentManager()->updateArticle($id,$data,$type);
 		
 		if ( $result === true ){
 			$this->showMessage('编辑成功',$redirect,false);

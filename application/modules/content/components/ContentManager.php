@@ -82,7 +82,7 @@ class ContentManager extends CApplicationComponent{
 		}
 	}
 	
-	public function updateArticle($id,$data){
+	public function updateArticle($id,$data,$type){
 		$form = new ArticleForm();
 		$form->id = $id;
 		$form->loadAllCategories($type);

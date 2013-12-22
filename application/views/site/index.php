@@ -77,7 +77,9 @@ $bannerAddTime = $banner->add_time;
                     <span>进度</span>
                 </div>
                 <ul>
-                <?php foreach ( $bids as $bid ):?>
+                <?php foreach ( $bids as $bid ):
+                
+           ?>
                     <li class="loan-list">
                         <div class="loan-avatar">
                             <img src="<?php echo $bid['userIcon']?>" />
@@ -95,7 +97,7 @@ $bannerAddTime = $banner->add_time;
                         <div class="loan-progress">
                             <div class="bar-out">
                                 <div class="bar-in">
-                                    <span class="bar-complete" style="width:<?php echo $bid['progress']?>"></span>
+                                    <span class="bar-complete " style="width:<?php echo $bid['progress']?>"></span>
                                     <span class="bar-num"><?php echo $bid['progress']?></span>
                                 </div>
                             </div>
