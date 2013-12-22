@@ -51,21 +51,13 @@ class NotifyManager extends CApplicationComponent{
 	
 	public function sendSms($target,$content){
 		$curl = $this->curl;
-		$curl->setMethod('POST');
-		$url = $this->smsAPI;
-		$curl->setRequestBody(array(
-				'mobile' => $target,
-				'content' => $content
-		));
-		$curl->setHeader(array(
-				'Accept-Charset: GB2312',
-				'Content-Type: application/x-www-form-urlencoded;charset:GB2312'
-		));
+		$curl->setMethod('GET');
+		$content = iconv('UTF-8','GB2312',$content);
+		$url = $this->smsAPI.'&mobile='.$target.'&content='.$content;
 		$curl->curlSend($url);
 		if ( $curl->getHasError() ){
 			return $curl->getError();
 		}else {
-			var_dump($curl->getOutput());die;
 			return true;
 		}
 	}
