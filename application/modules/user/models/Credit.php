@@ -1,24 +1,25 @@
 <?php
 
 /**
- * This is the model class for table "{{article_category}}".
+ * This is the model class for table "{{front_credit}}".
  *
- * The followings are the available columns in table '{{article_category}}':
+ * The followings are the available columns in table '{{front_credit}}':
  * @property string $id
- * @property string $category_name
+ * @property string $user_id
+ * @property string $verification_id
+ * @property string $content
+ * @property integer $submit_time
+ * @property integer $status
  * @property string $description
- *
- * The followings are the available model relations:
- * @property Article[] $articles
  */
-class ArticleCategory extends CmsActiveRecord
+class Credit extends CActiveRecord
 {
 	/**
 	 * @return string the associated database table name
 	 */
 	public function tableName()
 	{
-		return '{{article_category}}';
+		return '{{front_credit}}';
 	}
 
 	/**
@@ -29,9 +30,13 @@ class ArticleCategory extends CmsActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('category_name', 'required'),
-			array('category_name', 'length', 'max'=>30),
-			array('description,id,fid', 'safe'),
+			array('id, user_id, verification_id, content, submit_time, status', 'required'),
+			array('submit_time, status', 'numerical', 'integerOnly'=>true),
+			array('id, user_id, verification_id', 'length', 'max'=>11),
+			array('description', 'safe'),
+			// The following rule is used by search().
+			// @todo Please remove those attributes that should not be searched.
+			array('id, user_id, verification_id, content, submit_time, status, description', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -43,7 +48,6 @@ class ArticleCategory extends CmsActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'articles' => array(self::HAS_MANY, 'Article', 'category'),
 		);
 	}
 
@@ -54,7 +58,11 @@ class ArticleCategory extends CmsActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'category_name' => 'Category Name',
+			'user_id' => 'User',
+			'verification_id' => 'Verification',
+			'content' => 'Content',
+			'submit_time' => 'Submit Time',
+			'status' => 'Status',
 			'description' => 'Description',
 		);
 	}
@@ -78,7 +86,11 @@ class ArticleCategory extends CmsActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id,true);
-		$criteria->compare('category_name',$this->category_name,true);
+		$criteria->compare('user_id',$this->user_id,true);
+		$criteria->compare('verification_id',$this->verification_id,true);
+		$criteria->compare('content',$this->content,true);
+		$criteria->compare('submit_time',$this->submit_time);
+		$criteria->compare('status',$this->status);
 		$criteria->compare('description',$this->description,true);
 
 		return new CActiveDataProvider($this, array(
@@ -90,7 +102,7 @@ class ArticleCategory extends CmsActiveRecord
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!
 	 * @param string $className active record class name.
-	 * @return ArticleCategory the static model class
+	 * @return Credit the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{

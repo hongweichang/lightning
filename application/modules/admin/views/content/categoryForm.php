@@ -21,6 +21,11 @@ if ( $model->hasErrors() )
 </p>
 
 <p>
+	<label>上级分类*</label>
+	<?php echo $form->dropDownList($model,'fid',$parents)?>
+</p>
+
+<p>
 	<label>描述</label>
 	<?php echo $form->textArea($model,'description',array('class'=>'text-input textarea wysiwyg','id'=>'notifyContent'));?>
 	<br />

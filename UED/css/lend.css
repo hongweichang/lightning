@@ -243,7 +243,7 @@ body {
 
 .loan-filter {
   padding: 20px 27px;
-  border: 3px solid #a8f48b;
+  border: 3px solid #90d375;
   color: #848383; }
   .loan-filter h4 {
     font-size: 23px;
@@ -286,10 +286,13 @@ body {
     border-radius: 5px; }
     .filter .filter-item input {
       display: none; }
+    .filter .active span{
+      color: white;
+    }
   .filter .filter-choice.active {
-    background-color: #a8f48b; }
+    background-color: #90d375; }
   .filter .filter-choice:hover {
-    background-color: #a8f48b;
+    background-color: #90d375;
     cursor: pointer; }
   .filter .filter-choice.creditor.active {
     background-color: #9ed8ca; }
@@ -327,7 +330,7 @@ body {
   color: #fff; }
 
 .loan .title {
-  background-color: #a8f48b; }
+  background-color: #90d375; }
 .loan .title.creditor {
   background-color: #9ed8ca; }
 .loan li {
@@ -375,6 +378,10 @@ body {
     width: 100%;
     white-space: nowrap;
     color: #226e72; }
+     .loan-list .loan-title a:hover{
+        color: black;
+        text-decoration: underline;
+     }
   .loan-list .loan-rank div {
     display: inline-block;
     width: auto;

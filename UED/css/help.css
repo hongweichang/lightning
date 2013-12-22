@@ -67,7 +67,8 @@ body {
 
 #he-nav {
   height: 82px;
-  background: url("../images/nav_bg.png"); }
+  background: url("../images/nav_bg.png");
+  overflow: hidden; }
 
 #he-nav img {
   margin: 5px 0 0 9px;
@@ -300,10 +301,8 @@ body {
     #hc-content li p {
       font-size: 12px;
       color: #656464;
-      margin-bottom: 10px;
-      display: none; }
+      margin-bottom: 10px; }
   #hc-content .hc-title:hover {
-    color: #27a5a7;
     cursor: pointer; }
   #hc-content .hc-title.on {
     color: #27a5a7; }
