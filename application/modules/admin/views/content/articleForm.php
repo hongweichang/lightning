@@ -7,7 +7,7 @@
  */
 $form=$this->beginWidget('CActiveForm',array(
 		'focus' => array($model,'title'),
-		'action' => $action
+		'action' => $this->createUrl('')
 ));
 if ( $model->hasErrors() )
 	$this->addNotifications($form->errorSummary($model),'error');

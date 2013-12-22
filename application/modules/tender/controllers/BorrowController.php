@@ -37,6 +37,10 @@ class BorrowController extends Controller {
 		}
 	}
 	
+	public function noneLoginRequired(){
+		return 'index';
+	}
+	
 	/**
 	 * 默认action，进行社会角色选择
 	 * 社会角色默认有3种：工薪阶层，企业主，网店店主
@@ -45,7 +49,6 @@ class BorrowController extends Controller {
 	function actionIndex() {
 		$this->setPageTitle($this->name);
 		
-		$user = $this->app->getModule('user');
 		//检查信息是否完善
 		$role = $this->user->getState("role");
 		$roleName = false;

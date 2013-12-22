@@ -14,7 +14,7 @@ class mainConf extends ConfigBase{
 	
 	public function merge(){
 		return array(
-				'hostName' => 'http://115.29.186.221',
+				'hostName' => 'http://localhost',
 				'preloadModels' => array(),
 				'modules' => array(
 						'pay',
@@ -102,8 +102,8 @@ class mainConf extends ConfigBase{
 						),
 
 						'session' => array(
-								'class'=> 'CCacheHttpSession',
-								'cacheID' => 'cache',
+								'class'=> 'CHttpSession',
+								//'cacheID' => 'cache',
 								'autoStart' => true,
 								'timeout' => 3600*24
 						),

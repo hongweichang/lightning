@@ -16,6 +16,8 @@ class AccountController extends Controller{
 		$redirect = $this->getQuery('redirect',null);
 		if ( $redirect === null ){
 			$redirect = $this->request->urlReferrer;
+		}else {
+			$redirect = urldecode($redirect);
 		}
 		
 		$this->redirect($this->createUrl('account/login',array('redirect'=>urlencode($redirect))));

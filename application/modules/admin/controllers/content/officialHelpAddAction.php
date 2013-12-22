@@ -8,8 +8,8 @@
 class officialHelpAddAction extends CmsAction{
 	public function run(){
 		$controller = $this->getController();
-		$controller->addToSubtab('官方宝典','content/officialHelp');
-		$controller->tabTitle = '添加官方宝典';
+		$controller->addToSubtab('帮助列表','content/officialHelp');
+		$controller->tabTitle = '添加帮助';
 		$controller->artAdd(1);
 	}
 }

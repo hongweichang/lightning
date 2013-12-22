@@ -53,7 +53,8 @@ class Controller extends CmsController{
 		if ( $this->request->getIsAjaxRequest() === true ){
 			$this->response(403,'请登录');
 		}else {
-			$this->redirect($this->createUrl('/user/account/loginTransit'));
+			$redirect = urlencode($this->app->hostName.$this->request->requestUri);
+			$this->redirect($this->createUrl('/user/account/loginTransit',array('redirect'=>$redirect)));
 		}
 	}
 	
