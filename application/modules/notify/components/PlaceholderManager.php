@@ -14,7 +14,7 @@ class PlaceholderManager{
 					'label' => '验证码',
 			),
 			'{codeLifeTime}' => array(
-					'label' => '验证码有效时间'
+					'label' => '验证码有效时间(分钟)'
 			),
 			'{activatingLink}' => array(
 					'label' => '帐号激活链接',
@@ -52,5 +52,15 @@ class PlaceholderManager{
 		}
 		
 		return $data;
+	}
+	
+	public static function replacePlaceholders($subject,$values){
+		foreach ( $values as $placeholder => $value ){
+			$placeholder = preg_quote($placeholder);
+			$pattern = '/(.*)'.$placeholder.'(.*)/U';
+			$subject = preg_replace($pattern, '${1}'.$value.'${2}', $subject);
+		}
+		
+		return $subject;
 	}
 }

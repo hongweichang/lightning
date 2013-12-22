@@ -15,6 +15,7 @@ class NotificationAddForm extends CFormModel{
 	public function rules(){
 		return array(
 				array('event,event_name,content,enabled','required','message'=>'请填写{attribute}'),
+				array('placeholders','safe')
 		);
 	}
 	

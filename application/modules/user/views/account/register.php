@@ -35,9 +35,10 @@
 					</div>
 					<div class="form-item">
 						<label for="signup_verifycode">验证码</label>
+						<button id="getVerifycode">点击获取</button>
 						<input type="text" name="Register[code]" class="form-input" id="signup-verifycode" />
-						<span class="vc-ico"></span>
-						<button id="getVerifycode">获取手机验证码</button>
+						<span class="vc-ico code"></span>
+						
 					</div>
 					<div class="form-item clearfix">
 						<input type="checkbox" checked="checked" name="Register[protocal]" id="protocal" />
