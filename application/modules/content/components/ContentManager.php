@@ -67,7 +67,7 @@ class ContentManager extends CApplicationComponent{
 	
 	public function saveArticle($data,$type){
 		$form = new ArticleForm();
-		$form->loadAllCategories();
+		$form->loadAllCategories($type);
 		if ( $data === null ){
 			return $form;
 		}
@@ -85,7 +85,7 @@ class ContentManager extends CApplicationComponent{
 	public function updateArticle($id,$data){
 		$form = new ArticleForm();
 		$form->id = $id;
-		$form->loadAllCategories();
+		$form->loadAllCategories($type);
 		$form->loadModelData();
 		
 		if ( $data === null ){
