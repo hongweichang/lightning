@@ -31,7 +31,7 @@ class ArticleCategory extends CmsActiveRecord
 		return array(
 			array('category_name', 'required'),
 			array('category_name', 'length', 'max'=>30),
-			array('description,id', 'safe'),
+			array('description,id,fid', 'safe'),
 		);
 	}
 

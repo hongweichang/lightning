@@ -20,8 +20,9 @@ class categoryAddAction extends CmsAction{
 				'criteria' => array(
 						'condition' => 'fid=0'
 				)
-		),false);
+		),false)->getData();
 		$parents = array();
+		$parents[0] = '作为一级分类';
 		foreach ( $parentList as $parent ){
 			$parents[$parent->id] = $parent->category_name;
 		}

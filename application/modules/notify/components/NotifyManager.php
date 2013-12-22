@@ -52,8 +52,6 @@ class NotifyManager extends CApplicationComponent{
 	public function sendSms($target,$content){
 		$curl = $this->curl;
 		$curl->setMethod('POST');
-		//$content = iconv('UTF8','GB2312',$content);
-		//$url = $this->smsAPI.'&mobile='.$target.'&content='.$content;
 		$url = $this->smsAPI;
 		$curl->setRequestBody(array(
 				'mobile' => $target,
