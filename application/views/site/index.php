@@ -38,7 +38,10 @@ $bannerAddTime = $banner->add_time;
             </div>
             
             <div class="news clearfix">
-                <div class="title">最新公告</div>
+                <div class="title">
+                <h1>最新公告</h1>
+                <a href="#">More</a>
+                </div>
                 <ul>
                 <?php 
            	    $today = mktime(0,0,0);     
