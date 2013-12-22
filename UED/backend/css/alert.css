@@ -1,0 +1,73 @@
+/* line 1, ../sass/alert.scss */
+.alert {
+  display: none;
+  position: absolute;
+  width: 500px;
+  padding: 20px;
+  margin-left: -250px;
+  border: 1px solid #ccc;
+  background: #f7f6f6;
+  color: #585b66;
+  left: 50%;
+  top: 30%;
+}
+/* line 11, ../sass/alert.scss */
+.alert h1 {
+  background: #a2b4ee;
+  padding: 10px;
+  font-weight: normal;
+  font-size: 16px;
+}
+/* line 17, ../sass/alert.scss */
+.alert img {
+  display: block;
+  max-width: 300px;
+  margin: 0 auto;
+}
+/* line 22, ../sass/alert.scss */
+.alert a {
+  font-size: 12px;
+  display: block;
+  text-decoration: none;
+  padding-left: 20px;
+}
+/* line 28, ../sass/alert.scss */
+.alert p {
+  padding-left: 20px;
+}
+/* line 31, ../sass/alert.scss */
+.alert textarea {
+  width: 100%;
+  height: 50px;
+  display: block;
+}
+/* line 36, ../sass/alert.scss */
+.alert .box {
+  height: 50px;
+  margin-top: 10px;
+}
+
+/* line 42, ../sass/alert.scss */
+.box #pass {
+  float: left;
+}
+/* line 45, ../sass/alert.scss */
+.box #no_pass {
+  float: right;
+}
+/* line 48, ../sass/alert.scss */
+.box input {
+  border: 1px solid #459300;
+  height: 30px;
+  background: #459300;
+  color: #ffffff;
+}
+/* line 54, ../sass/alert.scss */
+.box input:hover {
+  background: #008800;
+}
+
+/* line 58, ../sass/alert.scss */
+#inf {
+  display: none;
+}
