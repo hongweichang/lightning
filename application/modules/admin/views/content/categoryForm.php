@@ -21,6 +21,10 @@ if ( $model->hasErrors() )
 </p>
 
 <p>
+	<label></label>
+</p>
+
+<p>
 	<label>描述</label>
 	<?php echo $form->textArea($model,'description',array('class'=>'text-input textarea wysiwyg','id'=>'notifyContent'));?>
 	<br />

@@ -1,0 +1,54 @@
+h1 {
+  font-weight: normal; }
+
+.back-right fieldset {
+  border: none; }
+  .back-right fieldset h1 {
+    font-size: 14px; }
+.back-right input[type="button"] {
+  float: left;
+  padding: 10px;
+  opacity: 0;
+  margin-left: 20px;
+  -webkit-transition: all 1s ease 0s;
+  -moz-transition: all 1s ease 0s;
+  -ms-transition: all 1s ease 0s;
+  transition: all 1s ease 0s; }
+.back-right .open-button:after {
+  content: " ";
+  display: block;
+  clear: both; }
+.back-right input[type="button"].click {
+  color: red; }
+.back-right input.box-ani, .back-right div.open-ani {
+  opacity: 1;
+  margin-left: 10px; }
+.back-right .open-content textarea, .back-right .send-right textarea {
+  float: left;
+  width: 160px;
+  height: 100px; }
+.back-right .open-content {
+  float: left;
+  width: 165px;
+  height: 0;
+  margin-left: 5px;
+  text-align: center;
+  overflow: hidden;
+  -webkit-transition: all 1s ease 0s;
+  -moz-transition: all 1s ease 0s;
+  -ms-transition: all 1s ease 0s;
+  transition: all 1s ease 0s; }
+.back-right .send-right {
+  width: 300px;
+  height: 100px;
+  margin: 0 auto;
+  text-align: center; }
+  .back-right .send-right #send-now {
+    opacity: 1; }
+.back-right div.open-ani {
+  height: 150px; }
+.back-right div.open-save {
+  clear: both;
+  text-align: center; }
+  .back-right div.open-save input {
+    padding: 10px; }
