@@ -6,7 +6,7 @@
  * Encoding UTF-8
  */
 ?>
-<form method="post" action="<?php echo $this->createUrl('account/login'); ?>" id="login">
+<form method="post" action="<?php echo $this->createUrl('account/login',array('redirect'=>$redirect)); ?>" id="login">
 <?php $this->renderPartial('_error',array('model'=>$model))?>
 					<div class="form-item">
 						<input type="text" name="Login[account]" class="form-input" value="<?php echo $model->account?>"/>

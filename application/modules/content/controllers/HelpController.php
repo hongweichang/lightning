@@ -49,7 +49,7 @@ class HelpController extends Controller {
 			$article = $cache->get($cacheArticleKey);
 			if ( $article === false ){
 				$article = $this->getModule()->getComponent('contentManager')->getArticleProvider(array(),1,$cid,false)->getData();
-				$cache->set($cacheArticleKey,$article,6*3600);
+				$cache->set($cacheArticleKey,$article,60);
 			}
 		}else {
 			$article = $this->getModule()->getComponent('contentManager')->getArticleProvider(array(),1,$cid,false)->getData();
