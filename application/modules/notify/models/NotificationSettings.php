@@ -32,6 +32,7 @@ class NotificationSettings extends CmsActiveRecord
 			array('event, event_name, notify_type, content', 'required'),
 			array('event, event_name', 'length', 'max'=>30),
 			array('notify_type', 'length', 'max'=>10),
+			array('placeholders','safe')
 		);
 	}
 

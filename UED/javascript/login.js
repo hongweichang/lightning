@@ -56,20 +56,16 @@ $(document).ready(function(){
 				required: true,
 				phone: true
 			},
-			"Register[email]":{
-				required: true,
-				email: true
-			},
 			"Register[password]":{
 				required: true,
 				minlength: 6
 			},
-			"Reigister[confirm]":{
+			"Register[confirm]":{
 				required: true,
 				equalTo: "#signup-password"
 			},
 			"Register[code]":{
-				digits: true,
+				required: true,
 				length4: true
 			}
 		},
@@ -86,21 +82,16 @@ $(document).ready(function(){
 				required: "手机号不能为空",
 				phone: "请输入11位手机号码"
 			},
-			"Register[email]":{
-				required: "邮箱不能为空",
-				email: "请输入您的常用邮箱"
-			},
 			"Register[password]":{
 				required: "请输入密码",
 				minlength: "密码至少为六位"
 			},
-			"Reigister[confirm]":{
+			"Register[confirm]":{
 				required: "请重复密码",
 				equalTo: "您输入的密码不一致"
 			},
-			"Reigister[code]":{
+			"Register[code]":{
 				required: "验证码不能为空",
-				digits: "请输入数字",
 				length4: "验证码长度为4位"
 			},
 		}
@@ -131,7 +122,7 @@ $(document).ready(function(){
 		if(!$(this).hasClass("disabled")){
 			$(this).addClass("disabled");
 			$.ajax({
-				url: baseUrl + 'user/account/registerVerify?mobile=' + $('#signup-phone').val(),
+				url: baseUrl + 'user/account/SendregisterVerify?mobile=' + $('#signup-phone').val(),
 				type: 'GET',
 			});
 			time = 30;

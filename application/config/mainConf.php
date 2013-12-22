@@ -50,7 +50,7 @@ class mainConf extends ConfigBase{
 								),
 								'manager' => array(
 										'smsAPI' => 'http://sdk105.entinfo.cn/z_mdsmssend.aspx?sn=SDK-CSL-010-00245&pwd=69C90CB4B5E98574108BB62974EB0DF4',
-										'cacheID' => 'cache'								
+										'cacheID' => 'cache'
 								)
 						),
 				),
@@ -149,8 +149,11 @@ class mainConf extends ConfigBase{
 										'onEndRequest' => array(
 												'command' => array('sendMail','success')
 										),
-										'onRegister' => array(
-												'command' => array('sendSMS','verifyMobile')
+										'onBeforeRegisterSuccess' => array(
+												'command' => array('sendSms','verifyCode')
+										),
+										'onRegisterSuccess' => array(
+												'command' => array('sendMail','registerSuccess')
 										),
 								),
 						),

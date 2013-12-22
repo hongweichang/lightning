@@ -9,7 +9,7 @@ class AccountController extends Controller{
 	public $layout='//layouts/login';
 	
 	public function noneLoginRequired(){
-		return 'register,login,registerVerify,loginTransit';
+		return 'register,login,sendRegisterVerify,loginTransit';
 	}
 	
 	public function actionLoginTransit(){
@@ -77,12 +77,15 @@ class AccountController extends Controller{
 		$this->redirect($this->createUrl('/site'));
 	}
 	
-	public function actionRegisterVerify(){
+	public function actionSendRegisterVerify(){
 		$mobile = $this->getQuery('mobile');
 		if ( $mobile === null ){
 			$this->response(404);
-		}else {
-			echo $mobile;die;
 		}
+		
+		$asyncEventRunner = $this->app->getComponent('asyncEventRunner');
+		$asyncEventRunner->raiseAsyncEvent('onBeforeRegisterSuccess',array(
+				'mobile' => $mobile
+		));
 	}
 }
