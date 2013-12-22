@@ -74,7 +74,7 @@ class SiteController extends Controller{
 						'rank' => $rank,
 						'sum' => '￥'.number_format($bid->sum / 100,2).'元',
 						'deadline' => $bid->deadline.'个月',
-						'progress' => $bid->progress.'%'
+						'progress' => $bid->progress
 				);
 			}
 			$cache->set('INDEX_BIDS',$bidData,300);
