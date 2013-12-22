@@ -7,6 +7,7 @@
  */
 class CategoryForm extends CFormModel{
 	public $id;
+	public $fid;
 	public $category_name;
 	public $description;
 	public $modelExists = false;
@@ -14,13 +15,14 @@ class CategoryForm extends CFormModel{
 	public function rules(){
 		return array(
 				array('category_name','required','message'=>'请输入分类名称'),
-				array('description,id','safe')
+				array('description,id,fid','safe')
 		);
 	}
 	
 	public function attributeLabels(){
 		return array(
 				'id' => '分类',
+				'fid' => '上级分类',
 				'category_name' => '分类名称',
 				'description' => '描述'
 		);
