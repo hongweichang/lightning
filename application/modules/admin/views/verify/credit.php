@@ -1,4 +1,6 @@
-<?php if(Yii::app()->user->hasFlash('error')){
+<?php 
+$this->cs->registerCssFile($this->cssUrl.'alert.css');
+if(Yii::app()->user->hasFlash('error')){
 ?>
 <script>alert('附件不存在！');</script>
 <?php
@@ -48,5 +50,18 @@ if(!empty($userCreditData)){
 </table>
 <div class="pagination">
 	<?php $this->renderPartial('/public/pager',array('pager'=>$pages))?>
+</div>
+<div class="alert">
+    <h1>1.身份证信息审核</h1>
+    <img src="#" />
+    <h1>2.下载链接</h1>
+    <a href="#">下载链接</a>
+    <h2>3.基本信息</h2>
+    <p>1231232131</p>
+    <div class="box">
+        <input type="button" value="审核通过" class="button" id="pass" />
+        <input type="button" value="审核不通过" class="button" id="no_pass" />
+    </div>
+    <textarea class="why_no_pass" id="inf"></textarea>
 </div>
 
