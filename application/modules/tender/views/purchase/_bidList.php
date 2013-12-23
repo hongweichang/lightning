@@ -6,6 +6,12 @@
  * desc: 
  */
 $userManager = $this->app->getModule('user')->userManager;
+$bidProgressCssClassMap = $this->app['bidProgressCssClassMap'];
+foreach ( $bidProgressCssClassMap as $key => $bidProgressCssClass ){
+	if ( $data->progress <= $key ){
+		$progressClass = $bidProgressCssClass;
+	}
+}
 ?>
 <li class="loan-list">
 	<div class="loan-avatar">
@@ -29,7 +35,7 @@ $userManager = $this->app->getModule('user')->userManager;
 	<div class="loan-progress">
 		<div class="bar-out">
 			<div class="bar-in">
-				<span class="bar-complete" style="width:<?php echo $data->getAttribute('progress');?>%"></span>
+				<span class="bar-complete <?php echo $progressClass?>" style="width:<?php echo $data->getAttribute('progress');?>%"></span>
 				<span class="bar-num"><?php echo $data->getAttribute('progress');?>%</span>
 			</div>
 		</div>

@@ -403,7 +403,6 @@ body {
     margin: 2px;
     width: 76px;
     height: 21px;
-    background-color: #226e72;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     border-radius: 5px; }
@@ -419,8 +418,7 @@ body {
     border-top-left-radius: 5px;
     border-bottom-left-radius: 5px;
     width: 0;
-    left: 0;
-    background-color: #2e989e; }
+    left: 0; }
   .loan-list .bar-num {
     left: 0; }
   .loan-list .lend-mask {
@@ -1099,3 +1097,20 @@ body {
     color: #808080;
     margin-top: 20px;
     text-align: left; }
+
+.w0_49{
+    background: #2e989e;
+}
+.w50_79{
+    background: #eea758;
+}
+.w80_99{
+    background: #efbc20;
+}
+.w100{
+    background: #90d375;
+}
+.loan-list .bar-in .bar-num{
+    color: #adadad;
+    left: 80%;
+}

@@ -21,17 +21,6 @@ class categoryEditAction extends CmsAction{
 			$controller->showMessage('编辑失败，分类不存在',$redirect,false);
 		}
 		
-		$parentList = $content->getCategoryProvider(array(
-				'criteria' => array(
-						'condition' => 'fid=0'
-				)
-		),false)->getData();
-		$parents = array();
-		$parents[0] = '作为一级分类';
-		foreach ( $parentList as $parent ){
-			$parents[$parent->id] = $parent->category_name;
-		}
-		
-		$this->render('categoryForm',array('model'=>$result,'action'=>$this->createUrl('content/categoryEdit',array('id'=>$id,'redirect'=>urlencode($redirect)) ),'parents'=>$parents ));
+		$this->render('categoryForm',array('model'=>$result,'action'=>$this->createUrl('content/categoryEdit',array('id'=>$id,'redirect'=>urlencode($redirect)) ),'parents'=>$controller->artTypeMap ));
 	}
 }

@@ -16,6 +16,9 @@ class PurchaseController extends Controller {
 	private $StartTime = 0; 
 	private $StopTime = 0;
 	
+	public function noneLoginRequired(){
+		return 'index,ajaxBids';
+	}
 
 //	public $defaultAction = "showAllBids"; // 更改默认的action,默认显示所有的标段
 

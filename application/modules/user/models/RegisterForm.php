@@ -22,7 +22,8 @@ class RegisterForm extends CFormModel
 	{
 		$rules = array(
 			// name, email, subject and body are required
-			array('nickname, email, mobile, password, confirm', 'required','message'=>'请填写{attribute}'),
+			array('nickname, email, mobile, password', 'required','message'=>'请填写{attribute}'),
+			array('confirm','required','message'=>'请重复输入一次密码'),
 			// email has to be a valid email address
 			array('email', 'email','message'=>'{attribute}格式不正确'),
 			array('mobile', 'checkmobile'),
@@ -89,7 +90,7 @@ class RegisterForm extends CFormModel
 	
 	public function verifyMobileCode($attribute,$params){
 		$notify = Yii::app()->getModule('notify')->getComponent('notifyManager');
-		if ( $notify->verifyMobileCode($this->mobile,$this->code) === false ){
+		if ( $notify->applyMobileCodeVerify($this->mobile,$this->code) === false ){
 			$this->addError('code','验证码错误');
 		}
 	}

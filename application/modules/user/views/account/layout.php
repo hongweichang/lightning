@@ -26,7 +26,7 @@ $this->cs->registerCssFile($this->cssUrl.'login.css');
 		</ul>
 		<div class="tab-body">
 			<div class="tab-content tab-show">
-				<?php $this->renderPartial($form,array('model'=>$model))?>
+				<?php $this->renderPartial($form,array('model'=>$model,'redirect'=>isset($redirect) ? $redirect : null))?>
 			</div>
 		</div>
 	</div>

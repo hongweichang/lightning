@@ -16,17 +16,6 @@ class categoryAddAction extends CmsAction{
 			$controller->showMessage('添加成功','content/categoryList');
 		}
 		
-		$parentList = $content->getCategoryProvider(array(
-				'criteria' => array(
-						'condition' => 'fid=0'
-				)
-		),false)->getData();
-		$parents = array();
-		$parents[0] = '作为一级分类';
-		foreach ( $parentList as $parent ){
-			$parents[$parent->id] = $parent->category_name;
-		}
-		
-		$this->render('categoryForm',array('model'=>$result,'action'=>$this->createUrl('content/categoryAdd'),'parents'=>$parents));
+		$this->render('categoryForm',array('model'=>$result,'action'=>$this->createUrl('content/categoryAdd'),'parents'=>$controller->artTypeMap));
 	}
 }

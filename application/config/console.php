@@ -31,10 +31,15 @@ class console extends ConfigBase{
 										'FromName'=>'闪电贷',
 										'CharSet'=>'UTF-8',
 								),
+								'manager' => array(
+										'smsAPI' => 'http://sdk105.entinfo.cn/z_mdsmssend.aspx?sn=SDK-CSL-010-00245&pwd=69C90CB4B5E98574108BB62974EB0DF4',
+										'cacheID' => 'cache'
+								)
 						),
 				),
 				'import' => array(
 						'application.modules.user.models.*',
+						'application.commands.*',
 						'cms.components.asyncEvent.zmqCommands.*',//导入zmq命令
 				),
 				'components' => array(
@@ -104,6 +109,9 @@ class console extends ConfigBase{
 						),
 						'sendMail' => array(
 								'class' => 'application.commands.SendMailCommand'
+						),
+						'sendSms' => array(
+								'class' => 'application.commands.SendSmsCommand'
 						),
 						'logger' => array(
 								'class' => 'cms.components.asyncEvent.logging.LoggerCommand'

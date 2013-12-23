@@ -50,7 +50,7 @@ class mainConf extends ConfigBase{
 								),
 								'manager' => array(
 										'smsAPI' => 'http://sdk105.entinfo.cn/z_mdsmssend.aspx?sn=SDK-CSL-010-00245&pwd=69C90CB4B5E98574108BB62974EB0DF4',
-										'cacheID' => 'cache'								
+										'cacheID' => 'cache'
 								)
 						),
 				),
@@ -86,7 +86,7 @@ class mainConf extends ConfigBase{
 						),
 						'cache' => array(
 								'class' => 'CMemCache',
-								'useMemcached' => false,
+								'useMemcached' => true,
 								'keyPrefix' => 'lightning',
 								'servers' => array(
 										array(
@@ -102,8 +102,8 @@ class mainConf extends ConfigBase{
 						),
 
 						'session' => array(
-								'class'=> 'CCacheHttpSession',
-								'cacheID' => 'cache',
+								'class'=> 'CHttpSession',
+								//'cacheID' => 'cache',
 								'autoStart' => true,
 								'timeout' => 3600*24
 						),
@@ -149,8 +149,11 @@ class mainConf extends ConfigBase{
 										'onEndRequest' => array(
 												'command' => array('sendMail','success')
 										),
-										'onRegister' => array(
-												'command' => array('sendSMS','verifyMobile')
+										'onBeforeRegisterSuccess' => array(
+												'command' => array('sendSms','verifyCode')
+										),
+										'onRegisterSuccess' => array(
+												'command' => array('sendMail','registerSuccess')
 										),
 								),
 						),
@@ -202,6 +205,12 @@ class mainConf extends ConfigBase{
 						'deadline' => array('6-12','12-24','24-36',),
 						//认证等级的查询条件
 						'authenGrade' => array('初级','普通会员','牛逼会员',),
+						'bidProgressCssClassMap' => array(
+								'100' => 'w100',
+								'99' => 'w80_99',
+								'79' => 'w50_79',
+								'49' => 'w0_49'
+						),
 				),
 		);
 	}

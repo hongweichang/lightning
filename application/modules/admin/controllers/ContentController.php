@@ -6,6 +6,18 @@
  * Encoding UTF-8
  */
 class ContentController extends Admin{
+	public $artTypeMap = array(
+			0 => '网站公告',
+			1 => '帮助中心',
+			2 => '关于我们'
+	);
+	
+	public $artTypeActionMap = array(
+			0 => 'article',
+			1 => 'officialHelp',
+			2 => 'aboutUs'
+	);
+	
 	public function getActionClass(){
 		return array(
 				'categoryList',//分类列表
@@ -24,6 +36,10 @@ class ContentController extends Admin{
 				'officialHelpAdd',//添加官方宝典
 				'officialHelpEdit',//编辑官方宝典
 				'officialHelpDelete',//删除官方宝典
+				'aboutUs',
+				'aboutUsAdd',
+				'aboutUsEdit',
+				'aboutUsDelete',
 				'faq',//提问列表
 				'faqReply',//回复提问
 				'faqDelete',//删除提问
@@ -64,20 +80,20 @@ class ContentController extends Admin{
 	public function artAdd($type){
 		$data = $this->getPost('ArticleForm');
 		$form = $this->getContentManager()->saveArticle($data,$type);
+		$action = $this->artTypeActionMap[$type];
+		
 		if ( $form === true ){
-			$action = $type == 0 ? 'articleList' : 'officialHelp';
 			$this->showMessage('添加成功','content/'.$action);
 		}
 		
-		$postAction = $type == 0 ? 'articleAdd' : 'officialHelpAdd';
-		$this->render('articleForm',array('model'=>$form,'action'=>$this->createUrl('content/'.$postAction) ) );
+		$this->render('articleForm',array('model'=>$form,'action'=>$this->createUrl('content/'.$action.'Add') ) );
 	}
 	
 	public function artEdit($type){
 		$redirect = urldecode($this->getQuery('redirect',$this->createUrl('index/welcome')));
 		$id = $this->getQuery('id',null);
 		$data = $this->getPost('ArticleForm');
-		$result = $this->getContentManager()->updateArticle($id,$data);
+		$result = $this->getContentManager()->updateArticle($id,$data,$type);
 		
 		if ( $result === true ){
 			$this->showMessage('编辑成功',$redirect,false);
@@ -85,7 +101,7 @@ class ContentController extends Admin{
 			$this->showMessage('编辑失败，文章不存在',$redirect,false);
 		}
 		
-		$postUrl = $type == 0 ? 'articleEdit' : 'officialHelpEdit';
+		$postUrl = $this->artTypeActionMap[$type].'Edit';
 		$action = $this->createUrl('content/'.$postUrl,array('id'=>$id,'redirect'=>urlencode($redirect)) );
 		$this->render('articleForm',array('model'=>$result,'action'=>$action ));
 	}
