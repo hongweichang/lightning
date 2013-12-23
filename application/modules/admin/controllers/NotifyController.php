@@ -21,14 +21,17 @@ class NotifyController extends Admin{
 	}
 	
 	public function actionAddSms(){
+		$this->addNotifications('短信内容请以 【闪电贷】 结尾');
 		$this->add('sms');
 	}
 	
 	public function actionEditSms(){
+		$this->addNotifications('短信内容请以 【闪电贷】 结尾');
 		$this->edit('sms');
 	}
 	
 	public function actionSms(){
+		$this->addNotifications('短信内容请以 【闪电贷】 结尾');
 		$this->view('sms');
 	}
 	

@@ -7,6 +7,7 @@
  */
 $bannerFiles = json_decode($banner->file_names,true);
 $bannerAddTime = $banner->add_time;
+$bidProgressCssClassMap = $this->app['bidProgressCssClassMap'];
 ?>
 	<div id="banner">
         <ul>
@@ -38,7 +39,10 @@ $bannerAddTime = $banner->add_time;
             </div>
             
             <div class="news clearfix">
-                <div class="title">最新公告</div>
+                <div class="title">
+                <h1>最新公告</h1>
+                <a href="#">More</a>
+                </div>
                 <ul>
                 <?php 
            	    $today = mktime(0,0,0);     
@@ -74,7 +78,13 @@ $bannerAddTime = $banner->add_time;
                     <span>进度</span>
                 </div>
                 <ul>
-                <?php foreach ( $bids as $bid ):?>
+                <?php foreach ( $bids as $bid ):
+                foreach ( $bidProgressCssClassMap as $key => $bidProgressCssClass ){
+					if ( $bid['progress'] <= $key ){
+							$progressClass = $bidProgressCssClass;
+					}
+			}
+           ?>
                     <li class="loan-list">
                         <div class="loan-avatar">
                             <img src="<?php echo $bid['userIcon']?>" />
@@ -92,8 +102,8 @@ $bannerAddTime = $banner->add_time;
                         <div class="loan-progress">
                             <div class="bar-out">
                                 <div class="bar-in">
-                                    <span class="bar-complete" style="width:<?php echo $bid['progress']?>"></span>
-                                    <span class="bar-num"><?php echo $bid['progress']?></span>
+                                    <span class="bar-complete <?php echo $progressClass?>" style="width:<?php echo $bid['progress']?>%"></span>
+                                    <span class="bar-num"><?php echo $bid['progress']?>%</span>
                                 </div>
                             </div>
                         </div>

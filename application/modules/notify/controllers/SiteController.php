@@ -12,7 +12,7 @@ class SiteController extends Controller{
 	
 	public function actionIndex(){
 		$notify = $this->getModule()->getComponent('notifyManager');
-		//var_dump($notify->sendSms('13629731636','测试'));
-		var_dump($notify->generateCode(4));
+		//var_dump($notify->sendSms('13629731636','测试【闪电贷】'));
+		//var_dump($notify->generateCode(4));
 	}
 }

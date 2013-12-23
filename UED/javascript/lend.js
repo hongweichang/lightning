@@ -172,9 +172,11 @@ Lend.placeholder($("#pay-verify"));
 //lend-details
 $(".fakeCheck,label[for='keepSignIn'],label[for='protocal']").toggle(function(){
 	$(this).parent().find("span").css({display: "none"});
+    $("#lend-confirm").css("background","#cbcbcd");
 	$(this).siblings("input").removeAttr('checked');
 },function(){
 	$(this).parent().find("span").css({display: "block"});
+    $("#lend-confirm").css("background","#2da9ac");
 	$(this).siblings("input").attr("checked","checked");
 });
 $(".details-tab li").bind("click",function(){
@@ -182,7 +184,6 @@ $(".details-tab li").bind("click",function(){
 	$(this).addClass("tab-on").siblings().removeClass("tab-on");
 	$(".tab-content").eq(i).addClass("tab-show").siblings().removeClass("tab-show");
 });
-
 (function(){
 	var info = $("#lend-num").data("info");
 	info = info.split(";");
@@ -226,3 +227,5 @@ $("#lend-num").bind("blur",function(){
 	if(!$(this).val())
 		$(this).siblings('.placeholder').show();
 });
+
+

@@ -9,7 +9,18 @@ class AccountController extends Controller{
 	public $layout='//layouts/login';
 	
 	public function noneLoginRequired(){
-		return 'register,login,registerVerify';
+		return 'register,login,sendRegisterVerify,loginTransit';
+	}
+	
+	public function actionLoginTransit(){
+		$redirect = $this->getQuery('redirect',null);
+		if ( $redirect === null ){
+			$redirect = $this->request->urlReferrer;
+		}else {
+			$redirect = urldecode($redirect);
+		}
+		
+		$this->redirect($this->createUrl('account/login',array('redirect'=>urlencode($redirect))));
 	}
 	
 	public function actionRegister(){
@@ -34,13 +45,14 @@ class AccountController extends Controller{
 		$this->render('layout',array(
 			'model' => $form,
 			'isLogin' => false,
-			'form' => 'register'
+			'form' => 'register',
 		));
 	}
 	
 	public function actionLogin(){
+		$redirect = urldecode($this->getQuery('redirect',$this->createUrl('/site')));
 		if ( $this->user->getIsGuest() === false ){
-			$this->redirect($this->createUrl('/site'));
+			$this->redirect($redirect);
 		}
 		
 		$post = $this->getPost('Login');
@@ -48,26 +60,32 @@ class AccountController extends Controller{
 		
 		$form = $userManager->login($post);
 		if ( $form === true ){
-			$this->redirect($this->createUrl('/site'));
+			//$this->redirect($this->createUrl('/site'));
+			$this->redirect($redirect);
 		}
 		
 		$this->render('layout',array(
 				'model' => $form,
 				'isLogin' => true,
-				'form' => 'login'
+				'form' => 'login',
+				'redirect' => urlencode($redirect)
 		));
 	}
 	
 	public function actionLogout(){
 		Yii::app()->user->logout();
-		$this->redirect($this->createUrl('account/login'));
+		$this->redirect($this->createUrl('/site'));
 	}
 	
-	public function actionRegisterVerify(){
+	public function actionSendRegisterVerify(){
 		$mobile = $this->getQuery('mobile');
 		if ( $mobile === null ){
 			$this->response(404);
-		}else {
 		}
+		
+		$asyncEventRunner = $this->app->getComponent('asyncEventRunner');
+		$asyncEventRunner->raiseAsyncEvent('onBeforeRegisterSuccess',array(
+				'mobile' => $mobile
+		));
 	}
 }

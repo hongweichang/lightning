@@ -10,6 +10,7 @@ $pageUrl = urlencode( $pager->createPageUrl($this,$pager->getCurrentPage()) );
 ?>
 <table>
 	<thead>
+		<th>所属栏目</th>
 		<th>分类名称</th>
 		<th>描述</th>
 		<th>操作</th>
@@ -20,6 +21,7 @@ $pageUrl = urlencode( $pager->createPageUrl($this,$pager->getCurrentPage()) );
 		$params = array('id'=>$data->id,'redirect'=>$pageUrl);
 		?>
 		<tr>
+			<td><?php echo $this->artTypeMap[$data->fid]?></td>
 			<td><?php echo $data->category_name?></td>
 			<td><?php echo $data->description?></td>
 			<td>

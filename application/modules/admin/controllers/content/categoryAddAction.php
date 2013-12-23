@@ -16,6 +16,6 @@ class categoryAddAction extends CmsAction{
 			$controller->showMessage('添加成功','content/categoryList');
 		}
 		
-		$this->render('categoryForm',array('model'=>$result,'action'=>$this->createUrl('content/categoryAdd')));
+		$this->render('categoryForm',array('model'=>$result,'action'=>$this->createUrl('content/categoryAdd'),'parents'=>$controller->artTypeMap));
 	}
 }

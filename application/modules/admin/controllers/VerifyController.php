@@ -17,8 +17,13 @@ class VerifyController extends Admin{
 	public function actionCredit(){
 		$this->pageTitle = '信用信息审核';
 		$userCreditData = array();
+		$fileUrl = null;
 
 		$criteria = new CDbCriteria;
+		$sum = FrontCredit::model()->count($criteria);
+		$pager = new CPagination($sum);
+		$pager->pageSize = 15;
+		$pager->applyLimit($criteria);
 		$criteria->select = 'id,user_id,verification_id,file_type,submit_time,status,description';
 		$criteria->condition = 'status =:status';
 		$criteria->params = array(
@@ -28,18 +33,25 @@ class VerifyController extends Admin{
 
 		$userInfoData = FrontCredit::model()->with('user','creditSetting')->findAll($criteria);
 		foreach($userInfoData as $value){
+			if($value->file_type =='image'){
+				$fileUrl = dirname(Yii::app()->basePath).DS.$this->app->getPath('creditFile').
+																	$this->app->partition($value->user_id,'creditFile');
+
+			}
+
 			$userCreditData[] = array(
 								'nickname'=>$value->getRelated('user')->attributes['nickname'],
 								'realname'=>$value->getRelated('user')->attributes['realname'],
 								'mobile'=>$value->getRelated('user')->attributes['mobile'],
 								'verification_name'=>$value->getRelated('creditSetting')->attributes['verification_name'],
 								'id'=>$value->attributes['id'],
-								'submit_time'=>date('Y-m-d H:i:s',$value->attributes['submit_time'])
+								'submit_time'=>date('Y-m-d H:i:s',$value->attributes['submit_time']),
+								'fileUrl'=>$fileUrl
 
 							);
 			
 		}
-		$this->render('credit',array('userCreditData'=>$userCreditData));
+		$this->render('credit',array('userCreditData'=>$userCreditData,'pages'=>$pager));
 
 	}
 
@@ -175,6 +187,11 @@ class VerifyController extends Admin{
 					);
 		$criteria->order = 'pub_time DESC';
 
+		$sum = BidInfo::model()->count($criteria);
+		$pager = new CPagination($sum);
+		$pager->pageSize = 15;
+		$pager->applyLimit($criteria);
+
 		$bidData = BidInfo::model()->with('user')->findAll($criteria);
 
 		if(!empty($bidData)){
@@ -195,7 +212,7 @@ class VerifyController extends Admin{
 						);
 			}
 			
-			$this->render('bidVerifyList',array('bidList'=>$bidList));
+			$this->render('bidVerifyList',array('bidList'=>$bidList,'pages'=>$pager));
 		}
 	}
 

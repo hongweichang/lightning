@@ -20,6 +20,7 @@ class categoryEditAction extends CmsAction{
 		}elseif ( $result->modelExists === false ){
 			$controller->showMessage('编辑失败，分类不存在',$redirect,false);
 		}
-		$this->render('categoryForm',array('model'=>$result,'action'=>$this->createUrl('content/categoryEdit',array('id'=>$id,'redirect'=>urlencode($redirect)) ) ));
+		
+		$this->render('categoryForm',array('model'=>$result,'action'=>$this->createUrl('content/categoryEdit',array('id'=>$id,'redirect'=>urlencode($redirect)) ),'parents'=>$controller->artTypeMap ));
 	}
 }

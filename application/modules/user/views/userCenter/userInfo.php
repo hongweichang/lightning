@@ -52,6 +52,25 @@ $this->widget('application.extensions.swfupload.CSwfUpload', array(
                 <a href="#">我的闪电贷</a>
             </h1>
             <?php $this->renderPartial('_baseInfo')?>
+            <div class="aud-find aud-find-menu">
+                <ul id="find-table-button">
+                    <a href="<?php echo Yii::app()->createUrl('user/userCenter/myBorrow');?>">
+                        <li class="find-table-0"><div class="find-table-op"></div>我的借款</li>
+                    </a>
+                    <a href="<?php echo Yii::app()->createUrl('user/userCenter/myLend');?>">
+                        <li class="find-table-1"><div class="find-table-op"></div>我的投资</li>
+                    </a>
+                    <a href="<?php echo Yii::app()->createUrl('user/userCenter/userSecurity');?>">
+                        <li class="find-table-2"><div class="find-table-op"></div>安全中心</li>
+                    </a>
+                    <a href="<?php echo Yii::app()->createUrl('user/userCenter/userInfo');?>">
+                        <li class="find-table-3"><div class="find-table-op-hidden"></div>个人信息</li>
+                    </a>
+                    <a href="<?php echo $this->createUrl('userCenter/userFund')?>">
+                        <li class="find-table-4"><div class="find-table-op"></div>资金管理</li>
+                    </a>
+                </ul>
+            </div>
             <div class="aud-find">
                 
                 <div class="tab-list">
@@ -82,7 +101,11 @@ $this->widget('application.extensions.swfupload.CSwfUpload', array(
                                 <label class="personal-name">真实姓名</label>
                                 <div class="personal-ico personal-realname"></div>
                                 <p><?php echo $userData->realname;?></p>
-                                <p class="ico-status pass">已认证<p>
+                                <?php if(!empty($userData->realname)){?>
+                                <p class="ico-status pass">已绑定</p>
+                                <?php }else{?>
+                                 <p class="ico-status unpass">未绑定</p>
+                                <?php }?>
                             </li>
                             <li class="clearfix">
                                 <label class="personal-name">身份证号</label>
@@ -126,11 +149,6 @@ $this->widget('application.extensions.swfupload.CSwfUpload', array(
                                 </p>
                             </li>
                             <li class="clearfix">
-                                <label class="personal-name">年龄</label>
-                                <div class="personal-ico personal-birth"></div>
-                                <p><?php echo $userData->age;?></p>
-                            </li>
-                            <li class="clearfix">
                                 <label class="personal-name">居住地址</label>
                                 <div class="personal-ico personal-address"></div>
                                 <p><?php echo $userData->address?></p>
@@ -159,14 +177,32 @@ $this->widget('application.extensions.swfupload.CSwfUpload', array(
                             <li class="clearfix">
                                 <label class="personal-name">真实姓名</label>
                                 <div class="personal-ico personal-realname"></div>
-                                <p><?php echo $userData->realname;?></p>
+                                <p>
+                                <?php
+                                    if(!empty($userData->realname)){
+                                        echo $userData->realname;
+                                    }else{
+                                        echo $form->textField($userData,'realname'); 
+                                    }  
+                                ?>
+                                </p>
+                                <?php if(!empty($userData->realname)){?>
                                 <p class="ico-status pass">已认证</p>
+                                <?php }else{?>
+                                 <p class="ico-status unpass">未认证</p>
+                                <?php }?>
                             </li>
                             <li class="clearfix">
                                 <label class="personal-name">身份证号</label>
                                 <div class="personal-ico personal-id"></div>
                                 <p>
-                                <?php echo $form->textField($userData,'identity_id'); ?>
+                                <?php
+                                if(!empty($userData->identity_id)){
+                                    echo $userData->identity_id;
+                                }else{
+                                    echo $form->textField($userData,'identity_id'); 
+                                }
+                                ?>
                                 </p>
                                 <p class="ico-status unpass">未认证</p>
                             </li>
@@ -193,11 +229,6 @@ $this->widget('application.extensions.swfupload.CSwfUpload', array(
                                 ));?>
                             </li>
                             <li class="clearfix">
-                                <label class="personal-name">年龄</label>
-                                <div class="personal-ico personal-birth"></div>
-                               <?php echo $form->textField($userData,'age'); ?>
-                            </li>
-                            <li class="clearfix">
                                 <label class="personal-name">居住地址</label>
                                 <div class="personal-ico personal-address"></div>
                                 <?php echo $form->textField($userData,'address');?>
@@ -205,12 +236,18 @@ $this->widget('application.extensions.swfupload.CSwfUpload', array(
                             <li class="clearfix">
                                 <label class="personal-name">社会角色</label>
                                 <div class="personal-ico personal-role"></div>
-                                <?php echo $form->dropDownList($userData,'role',array(
-                                			'gxjc'=>'工薪阶层',
-                                			'qyz'=>'企业主',
-                                			'wddz'=>'网店店主'
+                                <?php 
+                                    if(!empty($userData->role)){
+                                       echo FrontUser::getRoleName($userData->role);
+                                    }else{
+                                        echo $form->dropDownList($userData,'role',array(
+                                            'gxjc'=>'工薪阶层',
+                                            'qyz'=>'企业主',
+                                            'wddz'=>'网店店主'
 
-                                ));?>
+                                     ));
+                                    }
+                                    ?>
                             </li>
                             <li class="clearfix">
                                 	 <?php echo CHtml::submitButton('保存修改',array(
