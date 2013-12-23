@@ -44,4 +44,22 @@ $(document).ready(function(){
 		$(this).parent().find("span").css({display: "block"});
 		$(this).siblings("input").attr("checked","checked");
 	});
+
+	$("#query-button").on("click",function(){
+		var type = $("select[name='query_type']").val(),
+			date = $("select[name='query_date']").val(),
+			ehref = $("#export-record").attr("href");
+		$("#export-record").attr({
+			href: ehref+"/type/"+type+"/date/"+date
+		});
+		$.ajax({
+			type : "GET",
+			url : "value",
+			data : "query_type="+type+"&query_date="+date,
+			dataType: "json",
+			success: function(){
+
+			}
+		});
+	});
 });
