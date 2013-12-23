@@ -8,6 +8,8 @@ design By HJtianling_LXY,<2507073658@qq.com>
 class UserCenterController extends Controller{
 	public $defaultAction = 'userInfo';
 	public $userData;
+	public $userBidMoney =0;
+	public $userMetaBidMoney=0;
 	
 	public function filters(){
 		$filters = parent::filters();
@@ -18,6 +20,8 @@ class UserCenterController extends Controller{
 	public function filterFetchUserData($filterChain){
 		$uid = $this->app->user->id;
 		$this->userData = $this->getModule()->getComponent('userManager')->getUserInfo($uid);
+		$this->userBidMoney = BidInfo::model()->sum('sum','user_id =:uid',array('uid'=>$uid))/100;
+		$this->userMetaBidMoney = BidMeta::model()->sum('sum','user_id =:uid',array('uid'=>$uid));
 		$filterChain->run();
 	}
 	
@@ -36,9 +40,7 @@ class UserCenterController extends Controller{
 		$role = $userData['role'];
 		$creditData= $this->getUserCredit($role);
 
-		// foreach($creditData as $value){
-		// 	$dataId[] = $value['credit']->id;
-		// }
+
 
 		$finishedId = array();
 		$finishedData = $this->getFnishedCreditData($uid);
@@ -123,7 +125,9 @@ class UserCenterController extends Controller{
 						'unnecessaryCreditData'=>$unnecessaryList,
 						'unnecessaryNum'=>$unnecessaryNum,
 						'model'=>new FrontCredit(),
-						'IconUrl'=>$IconUrl));
+						'IconUrl'=>$IconUrl,
+						'BidSum'=>$this->userBidMoney,
+						'MetaSum'=>$this->userMetaBidMoney));
 		
 	}
 

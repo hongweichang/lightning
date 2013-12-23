@@ -13,7 +13,7 @@
  * The followings are the available model relations:
  * @property CreditSettings $verification
  */
-class CreditRole extends CActiveRecord
+class CreditRole extends CmsActiveRecord
 {
 	/**
 	 * @return string the associated database table name
