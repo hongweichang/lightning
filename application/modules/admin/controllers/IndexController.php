@@ -8,8 +8,12 @@ class IndexController extends Admin{
 	}
 	
 	public function actionMenu(){
+		$cache = $this->app->cache;
+		if ( $cache !== null ){
+			$cacheKey = 'ADMIN_MENU_CACHE_'.$this->user->getId();
+			$this->menu = $cache->get($cacheKey);
+		}
 		$authMenu = $this->app->getAuthManager()->getMenu();
-		
 		$this->menu = $authMenu->generateUserMenu($this->user->getId());
 		
 		$this->layout = false;

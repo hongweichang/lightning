@@ -63,7 +63,7 @@ body {
   line-height: 25px; }
 
 .he-lo a {
-  margin-left: 34px; }
+  margin-left: 10px; }
 
 #he-nav {
   height: 82px;
@@ -405,9 +405,9 @@ body {
 .loan-list .loan-title a {
   width: 100%;
   white-space: nowrap;
-  color: #226e72; }
+  color: #000; }
 .loan-list .loan-title a:hover{
-    color: #000000;
+    color: #226e72;
     text-decoration: underline;
 }
 .loan-list .loan-rank div {
@@ -415,7 +415,7 @@ body {
   width: auto;
   height: 30px; }
 .loan-list .loan-num {
-  color: #fc7700; }
+  color: #555; }
 .loan-list .bar-out {
   position: relative;
   top: 5px;

@@ -67,7 +67,7 @@ $bidProgressCssClassMap = $this->app['bidProgressCssClassMap'];
                 </ul>
             </div>
             <div class="loan">
-                <div class="title">借款推荐</div>
+                <div class="title">投资列表</div>
                 <div class="list-head">
                     <span>借款人</span>
                     <span>借款标题</span>

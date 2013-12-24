@@ -65,9 +65,7 @@
                         </p>
                         <p class="det-mon">
                             <span>0.00</span>
-                            <span>=</span>
                             <span>0.00</span>
-                            <span>+</span>
                             <span class="mon-out">-0.00</span>
                         </p>
                         <div>
@@ -125,17 +123,17 @@
                 <div class="find-table-content fund find-table-content-show">
                     <div id="fund-record-query">
                         <span>查询类型</span>
-                        <select>
-                            <option value="">所有</option>
-                            <option value="">投标成功</option>
-                            <option value="">招标成功</option>
+                        <select name="query_type">
+                            <option value="all">所有</option>
+                            <option value="lend">投标成功</option>
+                            <option value="borrow">招标成功</option>
                         </select>
                         <span>查询时间</span>
-                        <select>
-                            <option value="">三天以内</option>
-                            <option value="">一周以内</option>
+                        <select name="query_date">
+                            <option value="three">三天以内</option>
+                            <option value="week">一周以内</option>
                         </select>
-                        <a href="javascript:;" class="form-button">查询</a>
+                        <a href="javascript:;" class="form-button" id="query-button">查询</a>
                         <a href="javascript:;" id="export-record">导出查询结果</a>
                     </div>
                     <table class="record-table">
