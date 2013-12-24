@@ -62,12 +62,12 @@ body {
   line-height: 25px; }
 
 .he-lo a {
-  margin-left: 34px; }
+  margin-left: 10px; }
 
 #he-nav {
   height: 82px;
-  background: url("../images/nav_bg.png");
-  overflow: hidden; }
+  overflow: hidden;
+  background: url("../images/nav_bg.png"); }
 
 #he-nav img {
   margin: 5px 0 0 9px;
