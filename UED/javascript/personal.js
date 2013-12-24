@@ -70,6 +70,9 @@ $(document).ready(function(){
 			dataType: 'json',
 			data: "getSum="+w_num,
 			success: function(data){
+				var data = data.data;
+				$("#getSum").text(data.GetSum);
+				$("#userPaySum").text(data.userPaySum);
 
 			}
 		})

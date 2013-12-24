@@ -20,9 +20,11 @@
             <div class="return"><a href="<?php echo $this->createUrl('purchase/index'); ?>">←返回</a></div>
             <div class="name">标段详情</div>
             <div class="balance">
+            <?php if ( $user !== null) :?>
               <a href="<?php echo $this->app->createUrl('user/userCenter') ?>">
 				账户余额¥<span><?php echo number_format($user->getAttribute('balance') / 100,2);?></span><img src="<?php echo $this->imageUrl;?>topup_ico.png" />
               </a>
+           <?php endif;?>
             </div>
           </div>
           <div class="details-info">

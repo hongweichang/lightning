@@ -64,14 +64,30 @@ class VerifyController extends Admin{
 	**审核信息详情
 	*/
 	public function actionCreditDetail($id){
+		$detail = array();
+		$fileUrl = null;
+
 		if(is_numeric($id)){
 			$detailData = FrontCredit::model()->with('user','creditSetting')->findAll('user_id =:uid',array('uid'=>$id));
 
 			if(!empty($detailData)){
+				foreach($detailData as $value){
+					if($value->file_type =='image'){
+						$fileUrl = Yii::app()->getPartedUrl('creditFile',$value->user_id);
+						$file = $fileUrl.$value->content;
+					}	
+					$detail[] = array(
+							'id'=>$value->id,
+							'verification_name'=>$value->getRelated('creditSetting')->verification_name,
+							'mobile'=>$value->getRelated('user')->mobile,
+							'submit_time'=>date('Y-m-d H:i:s',$value->submit_time),
+							'fileUrl'=>$file							
+							);
+				}
 
 			}
 
-			$this->render('creditDetail',array('detailData'=>$detailData));
+			$this->render('creditDetail',array('detailData'=>$detail));
 		}
 	}
 

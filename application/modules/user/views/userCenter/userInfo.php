@@ -76,7 +76,7 @@ $this->widget('application.extensions.swfupload.CSwfUpload', array(
                 <div class="tab-list">
                     <ul id="find-table-detail">
                         <li class="find-selected">基本信息</li>
-                        <li>信用信息</li>
+                        <li>信用资料</li>
                     </ul>
                 </div>
                 <div class="basic-info find-table-content find-table-content-show">

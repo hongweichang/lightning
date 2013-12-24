@@ -157,7 +157,7 @@ $('#export-record').on('click',function(){
                 </div>
                 <div class="find-table-content withdraw">
                     <div class="pay-form">
-                        <h2>填写充值金额</h2>
+                        <h2>请填写提现数据</h2>
                         <form id="fund-withdraw">
                             <ul>
                                 <li>
@@ -170,6 +170,10 @@ $('#export-record').on('click',function(){
                                     <input type="text" id="withdraw-num"/>
                                     <span>元</span>
                                 </li>
+                                <li>
+                                    <label for="withdraw-num">银行卡号</label>
+                                    <input type="text" id="withdraw-num"/>
+                                </li>                              
                                 <li>
                                     <label>提现费用 </label>
                                     <span class="number" id="userPaySum">0.00</span>

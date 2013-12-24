@@ -17,7 +17,7 @@ class PurchaseController extends Controller {
 	private $StopTime = 0;
 	
 	public function noneLoginRequired(){
-		return 'index,ajaxBids';
+		return 'index,ajaxBids,info,captcha';
 	}
 
 //	public $defaultAction = "showAllBids"; // 更改默认的action,默认显示所有的标段
@@ -84,6 +84,10 @@ class PurchaseController extends Controller {
 			
 			$model = new MetaForm();
 			if(!empty($_POST)){
+				if ( $this->user->getIsGuest() === true ){
+					$this->loginRequired();
+				}
+				
 				$model->attributes = array(
 					'bid' => $bid->getAttribute('id'),
 					'sum' => $this->getPost('sum'),

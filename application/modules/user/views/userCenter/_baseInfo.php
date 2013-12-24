@@ -44,7 +44,7 @@ $MetaSum = $this->userMetaBidMoney;
                         <?php }
                             if(!empty($userData->pay_password)){
                         ?>
-                        <img src="<?php echo $this->imageUrl.'det-bank.png'?>" title="已绑定支付密码"/>
+                        <img src="<?php echo $this->imageUrl.'det-bank.png'?>" title="已绑定资金密码"/>
                         <?php }
                         ?>
                         <span>安全等级 :  <span class="det-rank">高</span></span>
@@ -69,14 +69,15 @@ $MetaSum = $this->userMetaBidMoney;
                                 echo $balance."元";
                             ?>
                             </span>
-                           
+
+                         
                             <span><?php echo $BidSum.'元';?></span>
                             
                             <span><?php echo $MetaSum.'元'?></span>
                         </p>
                         <div>
-                            <a href="#" id="int">充值</a>
-                            <a href="#" id="out">提现</a>
+                            <a href="<?php echo $this->createUrl('userCenter/userFund');?>" id="int">充值</a>
+                            <a href="<?php echo $this->createUrl('userCenter/userFund');?>" id="out">提现</a>
                         </div>
                     </div>
                 </div>
