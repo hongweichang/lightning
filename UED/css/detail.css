@@ -93,9 +93,11 @@
       #container .aud-detail .aud-money .mon-show p span {
         font-size: 16px;
         color: 0;
-        padding-right: 183px; }
+        padding-right: 140px; }
     #container .aud-detail .aud-money .mon-show p.det-mon span {
-      padding-right: 50px;
+      padding-right: 5px;
+      display: inline-block;
+      width: 200px;
       font-size: 30px;
       color: #474747; }
     #container .aud-detail .aud-money .mon-show p.det-mon span.mon-out {
@@ -110,10 +112,10 @@
   padding-bottom: 20px;
   overflow: hidden;
   background: #fff; }
-#container .aud-find-menu {
-	margin-bottom: -14px;
-	padding-bottom: 0px;
-}
+  #container .aud-find-menu {
+    margin-bottom: -14px;
+    padding-bottom: 0;  
+  }
   #container .aud-find ul#find-table-button {
     height: 59px; }
     #container .aud-find ul#find-table-button li {

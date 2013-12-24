@@ -11,6 +11,21 @@ class ContentManager extends CApplicationComponent{
 		return new CActiveDataProvider('ArticleCategory',$config);
 	}
 	
+	public function getCategoryProviderViaType($config,$type,$enablePagination=true,$enableSort=true){
+		Utils::resovleProviderConfigCriteria($config,$enablePagination,$enableSort);
+		$criteria = $config['criteria'];
+		$countCriteria = $config['countCriteria'];
+		
+		if ( $type !== null ){
+			$criteria->addCondition('fid=:type');
+			$criteria->params[':type'] = $type;
+			$countCriteria->addCondition('fid=:type');
+			$countCriteria->params[':type'] = $criteria->params[':type'];
+		}
+		
+		return new CActiveDataProvider('ArticleCategory',$config);
+	}
+	
 	public function saveCategory($data){
 		$form = new CategoryForm();
 		if ( $data === null ){

@@ -189,7 +189,7 @@ $(".details-tab li").bind("click",function(){
 	info = info.split(";");
 	var total = parseInt(info[0])/100;
 		month = info[1];
-		rate = info[2];
+		rate = info[2]/100/12;
 		progress = parseInt(info[3])/100;
 	$("#lend-form").validate({
 		success: function(){

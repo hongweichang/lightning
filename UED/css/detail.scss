@@ -139,12 +139,14 @@
           @extend %normalFont;
           span{
             @include fontSet(000,16px);
-            padding-right: 183px;
+            padding-right: 140px;
           }
         }
         p.det-mon{
           span{
-            padding-right: 50px;
+            padding-right: 5px;
+            display: inline-block;
+            width: 200px;
             @include fontSet(#474747,30px);
           }
           span.mon-out{
