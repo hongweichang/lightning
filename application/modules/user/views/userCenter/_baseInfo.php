@@ -42,9 +42,7 @@ $userData = $this->userData;
                                 echo $balance."元";
                             ?>
                             </span>
-                            <span>=</span>
                             <span>0.00</span>
-                            <span>+</span>
                             <span class="mon-out">-0.00</span>
                         </p>
                         <div>
