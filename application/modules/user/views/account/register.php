@@ -20,12 +20,12 @@
 					</div>
 					<div class="form-item">
 						<label for="signup-phone">手机号</label>
-						<input type="text" name="Register[mobile]" class="form-input" id="signup-phone" value="<?php echo $model->mobile?>"/>
+						<input type="text" name="Register[mobile]" class="form-input" id="signup-phone" value="<?php echo $model->mobile?>" autocomplete="off"/>
 						<span class="phone-ico"></span>
 					</div>
 					<div class="form-item">
 						<label for="signup-password">密码</label>
-						<input type="password" name="Register[password]" class="form-input" id="signup-password" />
+						<input type="password" name="Register[password]" class="form-input" id="signup-password" autocomplete="off" />
 						<span class="pw-ico"></span>
 					</div>
 					<div class="form-item">

@@ -138,4 +138,7 @@ $(document).ready(function(){
 				$("#getVerifycode").removeClass("disabled").text(text);
 		}
 	});
+	function check(){
+		$(this).siblings("p").css({display: "none"});
+	}
 });
