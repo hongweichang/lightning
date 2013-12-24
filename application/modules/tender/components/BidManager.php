@@ -125,7 +125,7 @@ class BidManager extends CApplicationComponent{
 		}
 		
 		$metas = $this->getBidMetaList(array(
-				'condition' => 'bid_id='.$bid->getAttribute('id')
+			'condition' => 'bid_id='.$bid->getAttribute('id')
 		));
 		
 		$transaction = Yii::app()->db->beginTransaction();

@@ -52,5 +52,7 @@ class BidCommand extends CConsoleCommand{
 		}
 	}
 	
-	//public function action
+	public function actionRepay(){
+		
+	}
 }

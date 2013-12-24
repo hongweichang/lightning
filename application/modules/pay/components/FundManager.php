@@ -38,7 +38,6 @@ class FundManager extends CApplicationComponent{
 			);
 			$db->save();
 			
-			//$this->p2p(0, $uid, $sum, $charge); // p2p记录
 			$transaction->commit();
 			return true;
 		}catch (Exception $e){
