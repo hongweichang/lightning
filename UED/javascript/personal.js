@@ -62,4 +62,17 @@ $(document).ready(function(){
 			}
 		});
 	});
+	$("#withdraw-num").on("change",function(){
+		var w_num = $(this).val();
+		$.ajax({
+			url: 'PayBackMoney',
+			type: 'POST',
+			dataType: 'json',
+			data: "getSum="+w_num,
+			success: function(data){
+
+			}
+		})
+		
+	});
 });

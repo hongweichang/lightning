@@ -518,8 +518,11 @@ class UserCenterController extends Controller{
 
 
 	public function actionUserFund(){
+		$uid = $this->app->user->id;
+		
+		$userRate = $this->app->getModule('credit')->getComponent('userCreditManager')->UserRateGet($uid);
 		$this->pageTitle = '闪电贷';
-		$uid = $this->id;
+	
 		$userData = $this->userData;
 		$IconUrl = Yii::app()->getModule('user')->userManager->getUserIcon($uid);
 		
@@ -581,6 +584,34 @@ class UserCenterController extends Controller{
 	public function actionAjaxReport(){
 		$type = $this->getPost('type','p2p');
 		$date = $this->getPost('date','1');
+	}
+
+
+	/*
+	**获取用户体现利率
+	*/
+	public function actionPayBackMoney(){
+		$post = $this->getPost();
+		$uid = $this->app->user->id;
+		$payBackData = array();
+
+		if(is_numeric($post['getSum'])){
+			$sum = $post['getSum'];
+			$userRate = $this->app->getModule('credit')->getComponent('userCreditManager')->UserRateGet($uid);
+			if($userRate !==400){
+				$userPaySum = $sum * $userRate['on_withdraw'];
+				$GetSum = $userPaySum + $sum;
+
+				$payBackData = array(
+								'userPaySum'=>$userPaySum,
+								'GetSum'=>$GetSum
+							);
+
+				$this->response('','',$payBackData);
+				
+			}
+
+		}
 	}
 }
 ?>
