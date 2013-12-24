@@ -9,12 +9,12 @@
 <form method="post" action="<?php echo $this->createUrl('account/login',array('redirect'=>$redirect)); ?>" id="login">
 <?php $this->renderPartial('_error',array('model'=>$model))?>
 					<div class="form-item">
-						<input type="text" name="Login[account]" class="form-input" value="<?php echo $model->account?>"/>
+						<input type="text" name="Login[account]" class="form-input" value="<?php echo $model->account?>" autocomplete="off" oninput="this.check();" onpropertychange="this.check();"/>
 						<p>请输入手机号/邮箱</p>
 						<span class="user-ico"></span>
 					</div>
 					<div class="form-item">
-						<input type="password" name="Login[password]" class="form-input" />
+						<input type="password" name="Login[password]" class="form-input" autocomplete="off" oninput="this.check();" onpropertychange="this.check();" />
 						<p>请输入密码</p>
 						<span class="pw-ico"></span>
 					</div>
