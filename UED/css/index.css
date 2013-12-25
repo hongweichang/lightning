@@ -421,7 +421,7 @@ body {
 }
 .loan-list .loan-rank div {
   display: inline-block;
-  width: auto;
+  width: 30px;
   height: 30px; }
 .loan-list .loan-num {
   color: #555; }
@@ -486,4 +486,11 @@ body {
 .loan-list .bar-in .bar-num{
     color: #adadad;
     left: 80%;
+}
+
+.intro a,
+.news,
+.loan,
+.platform{
+	
 }

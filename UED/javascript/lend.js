@@ -207,14 +207,14 @@ $(".details-tab li").bind("click",function(){
 		messages:{
 			sum:{
 				required: "不能为空",
-				range: "请输入0到"+total*(1-progress).toFixed(2)+"的数字,最多两位小数"
+				range: "请输入0到"+(total-progress).toFixed(2)+"的数字,最多两位小数"
 			}
 		}
 	});
 	$.validator.addMethod("range",function(value,element){
 		var range = /^(?!0+(?:\.0+)?$)\d+(?:\.\d{1,2})?$/;
 		var len = value.length;
-		return this.optional(element) || (range.test(value) && value > 0 && value <= total*(1-progress));
+		return this.optional(element) || (range.test(value) && value > 0 && value <= (total-progress));
 	});
 })();
 $(".placeholder").bind("click",function(){
