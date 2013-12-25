@@ -297,3 +297,27 @@ body {
 .f-text{
   color: gray;
 }
+
+#page{
+  float: right;
+}
+#page li{
+  float: left;
+  padding: 10px;
+}
+#page li a{
+  padding: 2px;
+  font-size: 12px;
+  color: #309da0;
+}
+#page a.active{
+  border: 1px solid #309da0;
+}
+#page li a:hover{
+  color: #fff;
+  background-color: #309da0;
+}
+.page-prev,
+.page-next{
+  border: 1px solid #309da0;
+}

@@ -7,7 +7,7 @@
  */
 $pager = $dataProvider->getPagination();
 $pageUrl = urlencode( $pager->createPageUrl($this,$pager->getCurrentPage()) );
-$typeName = $type == 0 ? 'article' : 'officialHelp';
+$typeName = $this->artTypeActionMap[$type];
 ?>
 <table>
 	<thead>

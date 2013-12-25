@@ -63,7 +63,6 @@ class ArticleForm extends CFormModel{
 	public function loadAllCategories($type){
 		$model = new ArticleCategory();
 		$all = $model->findAll('fid=:type',array(':type'=>$type));
-		var_dump($all);die;
 		$this->allCategories[0] = '请选择分类';
 		foreach ( $all as $data ){
 			$this->allCategories[$data->id] = $data->category_name;
