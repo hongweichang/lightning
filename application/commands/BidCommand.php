@@ -5,7 +5,7 @@
  * date: 2013-12-24
  * desc: 标段状态处理
  */
-class BidCommand extends CConsoleCommand{
+class BidCommand extends LightningCommandBase{
 	
 	/**
 	 * 流标
@@ -32,11 +32,19 @@ class BidCommand extends CConsoleCommand{
 	public function actionRepay(){
 		$db = Yii::app()->getModule('tender')->bidManager;
 		$bids = $db->getBidList(array(
-			'condition' => 'verify_progress=31',
+			'condition' => 'verify_progress=31', //@TODO 判断还款时间
 		));
 		
 		foreach($bids as $bid){
 			//@TODO 发通知哦~
 		}
+	}
+	
+	/**
+	 * 标段付款
+	 */
+	public function actionPay($params = ''){
+		$db = Yii::app()->getModule('tender')->bidManager;
+		$db->payPurchasedBid($this->parameters['metano']);
 	}
 }

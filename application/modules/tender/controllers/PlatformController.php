@@ -23,9 +23,9 @@ class PlatformController extends Controller{
 			
 			if(!empty($_POST)){
 				$payment = $this->getPost('payment','ips');
-				$in_pay = $this->getPost('in-pay');
+				$in_pay = $this->getPost('in-pay','off');
 				
-				if($in_pay == 'on'){
+				if($in_pay == 'on' && $bider->getAttribute('balance') >= $meta->getAttribute('sum')){
 					$this->render('check',array(
 						'user' => $user,
 						'bid' => $bid,
@@ -34,10 +34,10 @@ class PlatformController extends Controller{
 					));
 					$this->app->end();
 				}else{
-					$this->redirect(Yii::app()->getModule('pay')->fundManager->pay($payment,array(
-						'metano' => $meta->getAttribute('id'),
-						'inpay' => $in_pay,
-					)));
+					$this->redirect(Yii::app()->getModule('pay')->fundManager->pay($payment,
+						Utils::appendEncrypt($meta->getAttribute('id')),
+						$in_pay
+					));
 				}
 			}
 			
@@ -64,21 +64,20 @@ class PlatformController extends Controller{
 			$code = $this->getPost('pay_verify');
 			$user = $meta->getRelated('user');
 			
-			if ( $this->app->getSecurityManager()->verifyPassword() === false ){
-				$this->render('check',array(
-						'user' => $user,
-						'bid' => $bid,
-						'bider' => $bider,
-						'meta' => $meta
-				));
-				$this->app->end();
-			}
+// 			if ( $this->app->getSecurityManager()->verifyPassword() === false ){
+//
+// 			}
 			
-			if($this->getModule()->bidManager->payPurchasedBid($this->getQuery('metano'))){
+			
+			$asyncEventRunner = Yii::app()->getComponent('asyncEventRunner');
+			$asyncEventRunner->raiseAsyncEvent('onPayPurchasedBid',array(
+				'metano' => $metaId
+			));
+			/*if($this->getModule()->bidManager->payPurchasedBid()){
 				$this->render('success');
 			}else{
 				//$this->render();//失败 - 账户余额补足  或 重复付款
-			}
+			}*/
 		}else{
 			// 404
 		}

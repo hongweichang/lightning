@@ -152,6 +152,9 @@ class mainConf extends ConfigBase{
 										'onRegisterSuccess' => array(
 												'command' => array('sendMail','registerSuccess')
 										),
+										'onPayPurchasedBid' => array(
+												'command' => array('bid','pay')
+										),
 								),
 						),
 						'image'=>array(
