@@ -26,13 +26,13 @@ class HelpController extends ContentController {
 			$article = $cache->get($cacheArticleKey);
 			if ( $article === false ){
 				$article = $this->getModule()->getComponent('contentManager')->getArticleProviderViaType(array(),1,false)->getData();
-				$cache->set($cacheArticleKey,$article,60);
+				$cache->set($cacheArticleKey,$article,600);
 			}
 		}else {
 			$article = $this->getModule()->getComponent('contentManager')->getArticleProviderViaType(array(),1,false)->getData();
 		}
 		
-		$this->render("index",array(
+		$this->render('index',array(
 				'article' => $article,
 		));
 	}
