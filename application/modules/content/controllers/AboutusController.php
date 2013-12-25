@@ -25,5 +25,10 @@ class AboutusController extends ContentController{
 				$cache->set($cacheKey,$aboutus,60);
 			}
 		}
+		
+		$this->cs->registerCssFile($this->cssUrl.'help.css');
+		$this->render('index',array(
+				'article' => $abouts
+		));
 	}
 }
