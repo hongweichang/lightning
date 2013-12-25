@@ -32,7 +32,7 @@ class CreditRole extends CmsActiveRecord
 		// will receive user inputs.
 		return array(
 			array('role, verification_id, grade', 'required'),
-			array('optional, grade', 'numerical', 'integerOnly'=>true),
+			array('optional', 'numerical', 'integerOnly'=>true),
 			array('role', 'length', 'max'=>15),
 			array('verification_id', 'length', 'max'=>11),
 			// The following rule is used by search().
