@@ -18,37 +18,8 @@ class BidCommand extends CConsoleCommand{
 			)
 		));
 		
-		$transaction = Yii::app()->db->beginTransaction();
-		try{
-			foreach($bids as $bid){
-				$metas = $db->getBidMetaList(array(
-					'condition' => 'bid_id='.$bid->getAttribute('id'),
-				));
-				
-				foreach($metas as $meta){
-					if($meta->getAttribute('status') == 21){
-						$meta->getRelated('user')->saveCounters(array(
-							'balance' => $meta->getAttribute('sum')
-						));
-					}
-					$meta->attributes = array(
-						'finish_time' => time(),
-						'status' => 30 // 订单关闭
-					);
-					$meta->save();
-				}
-				
-				$bid->attributes = array(
-					'verify_progress' => 30 // 流标
-				);
-				$bid->save();
-			}
-			
-			$transaction->commit();
-			return true;
-		}catch(Exception $e){
-			$transaction->rollback();
-			return false;
+		foreach($bids as $bid){
+			$db->revokeBid($bid);
 		}
 	}
 	

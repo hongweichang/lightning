@@ -8,7 +8,7 @@
 class BidManager extends CApplicationComponent{
 	
 	/**
-	 * 获取标段相信
+	 * 获取标段详情
 	 * @param integer $bidId
 	 * @param string $condition
 	 * @param array $params
@@ -113,6 +113,22 @@ class BidManager extends CApplicationComponent{
 	}
 	
 	/**
+	 * 后台审核Bid
+	 * @param integer $bid
+	 * @param string $message
+	 */
+	public function handleBid($bid,$message = null){
+		if(empty($message)){
+			return BidInfo::model()->updateByPk($bid,array('verify_progress' => 21)); // 开始招标
+		} else {
+			return BidInfo::model()->updateByPk($bid,array(
+					'verify_progress' => 20,
+					'failed_description' => $message
+			));
+		}
+	}
+	
+	/**
 	 * 满标
 	 * @param integer $bid_id
 	 * @return boolean
@@ -129,12 +145,12 @@ class BidManager extends CApplicationComponent{
 		));
 		
 		$transaction = Yii::app()->db->beginTransaction();
-		try{			
+		try{		
 			foreach($metas as $meta){
 				switch ($meta->getAttribute('status')){
 					case 11:
 						$meta->attributes = array(
-							'finish_time' => time(),
+							//'finish_time' => time(),
 							'status' => 20
 						);
 					break;
@@ -161,6 +177,132 @@ class BidManager extends CApplicationComponent{
 	}
 	
 	/**
+	 * 流标
+	 * @param integer $bid_id
+	 * @return boolean
+	 */
+	public function revokeBid($bid_id){
+		if($bid_id instanceof CActiveRecord){
+			$bid = $bid_id;
+		}else{
+			$bid = $this->getBidInfo($bid_id);
+		}
+		
+		$metas = $this->getBidMetaList(array(
+				'condition' => 'bid_id='.$bid->getAttribute('id')
+		));
+		
+		$transaction = Yii::app()->db->beginTransaction();
+		try{
+			foreach($metas as $meta){
+				if($meta->getAttribute('status') == 21){
+					$meta->getRelated('user')->saveCounters(array(
+						'balance' => $meta->getAttribute('sum')
+					));
+				}
+				$meta->attributes = array(
+					'finish_time' => time(),
+					'status' => 30 // 订单关闭
+				);
+				$meta->save();
+			}
+	
+			$bid->attributes = array(
+				'verify_progress' => 30 // 流标
+			);
+			$bid->save();
+			
+			$transaction->commit();
+			return true;
+		}catch(Exception $e){
+			$transaction->rollback();
+			return false;
+		}
+	}
+	
+	/**
+	 * 还款
+	 * @param integer $bid_id
+	 * @return boolean
+	 */
+	public function repayBid($bid_id){
+		if($bid_id instanceof CActiveRecord){
+			$bid = $bid_id;
+		}else{
+			$bid = $this->getBidInfo($bid_id);
+		}
+		
+		$fund = $this->app->getModule('pay')->fundManager;
+		
+		$metas = $this->getBidMetaList(array(
+			'condition' => 'bid_id='.$bid->getAttribute('id')
+		));
+		
+		$transaction = Yii::app()->db->beginTransaction();
+		try{
+			$bid->getRelated('user')->saveCounters(array(
+				'balance' => - $bid->getAttribute('refund')
+			));
+			
+			foreach($metas as $meta){
+				$meta->getRelated('user')->saveCounters(array(
+					'balance' => $meta->getAttribute('refund')
+				));
+				
+				$fund->p2p($bid->getAttribute('user_id'),
+						$meta->getAttribute('user_id'),
+						$meta->getAttribute('refund'),
+						$meta->getAttribute('refund') * 0.01);
+			}
+		
+			$transaction->commit();
+			return true;
+		}catch(Exception $e){
+			$transaction->rollback();
+			return false;
+		}
+	}
+	
+	/**
+	 * 还款完成
+	 * @param integer $bid_id
+	 * @return boolean
+	 */
+	public function finishBid($bid_id){
+		if($bid_id instanceof CActiveRecord){
+			$bid = $bid_id;
+		}else{
+			$bid = $this->getBidInfo($bid_id);
+		}
+		
+		$metas = $this->getBidMetaList(array(
+			'condition' => 'bid_id='.$bid->getAttribute('id')
+		));
+		
+		$transaction = Yii::app()->db->beginTransaction();
+		try{
+			foreach($metas as $meta){
+				$meta->attributes = array(
+					'finish_time' => time(),
+					'status' => 41 // 订单完成
+				);
+				$meta->save();
+			}
+		
+			$bid->attributes = array(
+				'verify_progress' => 41 // 完成
+			);
+			$bid->save();
+				
+			$transaction->commit();
+			return true;
+		}catch(Exception $e){
+			$transaction->rollback();
+			return false;
+		}
+	}
+	
+	/**
 	 * 投标 - 同时锁定标段进度。
 	 * @param integer $user_id
 	 * @param integer $bid_id
@@ -175,7 +317,6 @@ class BidManager extends CApplicationComponent{
 			$bid = $this->getBidInfo($bid_id);
 			if(empty($bid)) return false;
 			
-			//改progress为已投资金
 			if($bid->getAttribute('progress_sum') + $sum * 100 > $bid->getAttribute('sum')) return false;
 			
 			$progress = ($sum * 10000) / $bid->getAttribute('sum');
@@ -277,22 +418,6 @@ class BidManager extends CApplicationComponent{
 		}catch (Exception $e){
 			$transaction->rollback();
 			return false;
-		}
-	}
-	
-	/**
-	 * 后台审核Bid
-	 * @param integer $bid
-	 * @param string $message
-	 */
-	public function handleBid($bid,$message = null){
-		if(empty($message)){
-			return BidInfo::model()->updateByPk($bid,array('verify_progress' => 11));
-		} else {
-			return BidInfo::model()->updateByPk($bid,array(
-				'verify_progress' => 21, // 开始招标
-				'failed_description' => $message
-			));
 		}
 	}
 }

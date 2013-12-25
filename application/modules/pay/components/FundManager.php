@@ -116,11 +116,6 @@ class FundManager extends CApplicationComponent{
 		return FundFlowInternal::model()->with('toUser')->findAll($condition,$params);
 	}
 
-	/**
-	 * 
-	 * @param unknown $status
-	 * @return array()
-	 */
 	public function getWithdrawList($condition,$params = array()){
 		return Withdraw::model()->with('user')->findAll($condition,$params);
 	}
