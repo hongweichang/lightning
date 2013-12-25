@@ -146,9 +146,6 @@ class mainConf extends ConfigBase{
 										),
 								),
 								'events' => array(
-										'onEndRequest' => array(
-												'command' => array('sendMail','success')
-										),
 										'onBeforeRegisterSuccess' => array(
 												'command' => array('sendSms','verifyCode')
 										),
