@@ -32,11 +32,15 @@ class BidCommand extends LightningCommandBase{
 	public function actionRepay(){
 		$db = Yii::app()->getModule('tender')->bidManager;
 		$bids = $db->getBidList(array(
-			'condition' => 'verify_progress=31', //@TODO 判断还款时间
+			'condition' => 'verify_progress=31',
 		));
 		
+		$time = time();
 		foreach($bids as $bid){
-			//@TODO 发通知哦~
+			$month = floor(($time - $bid->getAttribute('repay_time')) / 86400 / 30); // 怎么提前？
+			if($bid->getAttribute('repay_deadline') + $month > $bid->getAttribute('deadline')){
+				//@TODO 发通知哦~
+			}
 		}
 	}
 	
