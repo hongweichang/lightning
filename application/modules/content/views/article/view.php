@@ -9,8 +9,8 @@ $this->cs->registerCssFile($this->cssUrl.'help.css');
 ?>
 
 <div class="wd1002 hc clearfix">
-	<div id="hc-content">
-                <h2><?php echo $article->title;?></h2>
+	<div id="hc-detail-content">
+                <h2 id="title"><?php echo $article->title;?></h2>
                 <?php echo $article->content?>
 	</div>
 </div>

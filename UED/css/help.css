@@ -291,7 +291,11 @@ body {
 #hc-content {
   width: 775px;
   padding: 30px 20px; }
-  #hc-content h2 {
+#hc-detail-content {
+  padding: 30px 20px;
+}
+  #hc-detail-content #title {
+    text-align: center;
     color: #26a3a9; }
   #hc-content ul {
     margin-top: 20px; }
