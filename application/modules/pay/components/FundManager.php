@@ -38,7 +38,6 @@ class FundManager extends CApplicationComponent{
 			);
 			$db->save();
 			
-			//$this->p2p(0, $uid, $sum, $charge); // p2p记录
 			$transaction->commit();
 			return true;
 		}catch (Exception $e){
@@ -117,11 +116,6 @@ class FundManager extends CApplicationComponent{
 		return FundFlowInternal::model()->with('toUser')->findAll($condition,$params);
 	}
 
-	/**
-	 * 
-	 * @param unknown $status
-	 * @return array()
-	 */
 	public function getWithdrawList($condition,$params = array()){
 		return Withdraw::model()->with('user')->findAll($condition,$params);
 	}

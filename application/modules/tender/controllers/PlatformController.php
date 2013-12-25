@@ -6,16 +6,17 @@
  * desc: 支付平台选择
  */
 class PlatformController extends Controller{
-	private $name = "结算中心";
+	private $name = '结算中心';
 	
 	public function actionOrder(){
-		$meta = BidMeta::model()->with('user','bid')->findByPk($this->getQuery('meta_no'));
+		$metaId = Utils::appendDecrypt($this->getQuery('metano'));
+		$meta = BidMeta::model()->with('user','bid')->findByPk($metaId);
 		
 		if(!empty($meta) && $meta->getAttribute('user_id') == $this->user->getId()){
 			$user = $meta->getRelated('user');
 			$bid = $meta->getRelated('bid');
 			
-			$this->setPageTitle($bid->getAttribute('title').' - '.$this->name.' - '.$this->app->name);
+			$this->setPageTitle($bid->getAttribute('title').' - '.$this->name);
 			
 			$userManager = Yii::app()->getModule('user')->userManager;
 			$bider = $userManager->getUserInfo($bid->getAttribute('user_id'));
@@ -34,7 +35,7 @@ class PlatformController extends Controller{
 					$this->app->end();
 				}else{
 					$this->redirect(Yii::app()->getModule('pay')->fundManager->pay($payment,array(
-						'meta_no' => $meta->getAttribute('id'),
+						'metano' => $meta->getAttribute('id'),
 						'inpay' => $in_pay,
 					)));
 				}
@@ -52,16 +53,17 @@ class PlatformController extends Controller{
 	}
 	
 	public function actionCheck(){
-		$meta = BidMeta::model()->with('user','bid')->findByPk($this->getQuery('meta_no'));
+		$metaId = Utils::appendDecrypt($this->getQuery('metano'));
+		$meta = BidMeta::model()->with('user','bid')->findByPk($metaId);
 
 		if(!empty($meta) && $meta->getAttribute('user_id') == $this->user->getId()){
-			$this->setPageTitle($meta->getRelated('bid')->getAttribute('title').' - '.$this->name.' - '.$this->app->name);
+			$this->setPageTitle($meta->getRelated('bid')->getAttribute('title').' - '.$this->name);
 			
 			$user = $meta->getRelated('user');
 			$password = $this->getPost('pay_pwd');
 			$verify = $this->getPost('pay_verify');
 			
-			if($this->getModule()->bidManager->payPurchasedBid($this->getQuery('meta_no'))){
+			if($this->getModule()->bidManager->payPurchasedBid($this->getQuery('metano'))){
 				$this->render('success');
 			}else{
 				//$this->render();//失败 - 账户余额补足  或 重复付款

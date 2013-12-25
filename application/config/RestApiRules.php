@@ -19,7 +19,7 @@ return array(
 			),
 
 		array(
-				'pattern'=>'<_m:(appservice)>/<_a:(login|logout|register)>',
+				'pattern'=>'<_m:(appservice)>/<_a:(login|logout|register|registerVerifyCode)>',
 				'<_m>/appUser/<_a>',
 				'verb'=>'POST'
 			),

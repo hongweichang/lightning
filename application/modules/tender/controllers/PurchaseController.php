@@ -51,13 +51,13 @@ class PurchaseController extends Controller {
 	function actionIndex() {
 		$this->setPageTitle($this->name);
 		
-		$pager = new CPagination(BidInfo::model()->count("verify_progress=1 AND start<='".strtotime(date('Y-m-d'))."'"));
+		$pager = new CPagination(BidInfo::model()->count("verify_progress=21 AND start<='".strtotime(date('Y-m-d'))."'"));
 		$pager->setPageSize($this->_bidsPerPage);
 		
 		$bidInfo = BidInfo::model()->with('user')->findAll(array(
 			'offset' => $pager->getOffset(),
 			'limit' => $pager->getLimit(),
-			'condition' => "verify_progress=1 AND start<='".strtotime(date('Y-m-d'))."'",
+			'condition' => "verify_progress=21 AND start<='".strtotime(date('Y-m-d'))."'",
 			'order' => 'pub_time DESC'
 		));
 		
@@ -96,9 +96,9 @@ class PurchaseController extends Controller {
 				);
 				
 				if($model->validate()){
-					if(($meta_no = $model->save()) !== false){
+					if(($metano = $model->save()) !== false){
 						$this->redirect($this->createUrl('platform/order',array(
-							'meta_no' => $meta_no
+							'metano' => Utils::appendEncrypt($metano)
 						)));
 					}else{
 						 // 已满标

@@ -264,7 +264,7 @@ class VerifyController extends Admin{
 
 			$bidData = Yii::app()->getModule('tender')->bidManager->getBidInfo($id);
 			if($action == 'pass'){
-				$bidData->verify_progress = '1';
+				$bidData->verify_progress = 21;
 
 				if($bidData->save()){
 					$this->redirect($this->createUrl('verify/bidVerifyList'));
@@ -290,7 +290,7 @@ class VerifyController extends Admin{
 				if(!empty($post['BidInfo']['failed_description'])){
 
 					$bidData->failed_description = $post['BidInfo']['failed_description'];
-					$bidData->verify_progress = 2;
+					$bidData->verify_progress = 20;
 					if($bidData->save()){
 						$this->redirect(Yii::app()->createUrl('adminnogateway/verify/bidVerifyList'));
 					}

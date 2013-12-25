@@ -121,7 +121,7 @@ body {
   border-top-width: 4px; }
 
 #footer {
-  height: 303px;
+  height: 150px;
   background: url("../images/f_bg.png"); }
 
 #fo-nav {
@@ -324,11 +324,15 @@ body {
 }
 .news .title {
   background: #eea758; }
+.news ul{
+  border-left: 1px solid #dadadb;
+  border-right: 1px solid #dadadb;
+}
 .news li {
   position: relative;
   width: 930px;
   border-bottom: 1px solid #dadadb;
-  padding: 0 40px 0 32px;
+  padding: 0 38px 0 32px;
   line-height: 42px; }
 .news .news-liststyle {
   margin: 10px;
@@ -365,7 +369,12 @@ body {
   border-bottom: 1px solid #dadadb;
   padding: 20px 0; }
 .loan .list-head {
-  border-bottom: 1px solid #dadadb; }
+  border-bottom: 1px solid #dadadb;
+  border-left: 1px solid #dadadb;
+  border-right: 1px solid #dadadb; }
+.loan ul{
+  border-left: 1px solid #dadadb;
+  border-right: 1px solid #dadadb;}
 .loan .list-head span {
   display: inline-block;
   height: 40px;

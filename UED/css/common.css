@@ -97,8 +97,10 @@ body {
 
 #he-nav ul li a {
   color: #000000; }
-
-.origin {
+#he-nav ul li{
+  border-color: #226e72;
+}
+/*.origin {
   border-color: #eea758; }
 
 .yellow {
@@ -114,13 +116,13 @@ body {
   border-color: #f9bdea; }
 
 .violet {
-  border-color: #ddc4f7; }
+  border-color: #ddc4f7; }*/
 
 #he-nav ul li.active {
   border-top-width: 4px; }
 
 #footer {
-  height: 303px;
+  height: 150px;
   background: url("../images/h_bg.png"); }
 
 #fo-nav {
@@ -215,3 +217,76 @@ body {
 
 .rankHR {
   background-color: #ff001e; }
+
+.footer-sec {
+  float: left;
+  padding: 10px 0;
+}
+.footer-sec.last{
+  width: 100%;
+  padding: 10px 0;
+  border-top: 1px solid gray;
+}
+.footer-sec li{
+  float: left;
+  min-width: 85px;
+  height: 24px;
+  line-height: 24px;
+}
+.footer-sec li a{
+  font: 14px/1.5 "Microsoft Yahei";
+  color: gray;
+}
+.footer-sec li a:hover{
+  color: #9dd8ca;
+}
+.f-img{
+  display: block;
+  margin-right: 20px;
+  height: 30px;
+  font-size: 0;
+  line-height: 0;
+  background: url("../images/footer-icons.png") no-repeat;
+}
+.f-img a{
+
+}
+#f-wb{
+  width: 99px;
+  background-position: 0 0;
+}
+#f-wb:hover{
+  background-position: 0 -30px;
+}
+#f-tx{
+  width: 112px;
+  background-position: -190px 0;
+}
+#f-tx:hover{
+  background-position: -190px -30px;
+}
+#f-wx{
+  width: 91px;
+  background-position: -99px 0;
+}
+#f-wx:hover{
+  background-position: -99px -30px;
+}
+.footer-contact{
+  float: right;
+  width: 200px;
+  padding: 10px 0;
+}
+.footer-contact p{
+  color: gray;
+  margin-top: 4px;
+  text-align: right;
+}
+#f-copyright{
+  width: 700px;
+  margin: 0 auto;
+  color: gray;
+}
+.f-text{
+  color: gray;
+}

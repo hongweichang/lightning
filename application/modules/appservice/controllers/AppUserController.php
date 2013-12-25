@@ -11,10 +11,6 @@ class AppUserController extends Controller{
 		return array();
 	}
 
-	public function actionIndex(){
-		echo "ok";
-	}
-
 	/*
 	**用户登陆接口
 	*/
@@ -94,6 +90,19 @@ class AppUserController extends Controller{
 
 		}else
 			$this->response(401,'信息不完整','');
+	}
+	
+	public function actionRegisterVerifyCode(){
+		$mobile = $this->getPost('mobile');
+		if ( $mobile === null ){
+			$this->response(404);
+		}
+		
+		$asyncEventRunner = $this->app->getComponent('asyncEventRunner');
+		$asyncEventRunner->raiseAsyncEvent('onBeforeRegisterSuccess',array(
+				'mobile' => $mobile
+		));
+		$this->response(200,'ok');
 	}
 
 
