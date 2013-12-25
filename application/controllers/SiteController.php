@@ -22,7 +22,7 @@ class SiteController extends Controller{
 		
 		$articles = $cache->get('INDEX_ARTICLES');
 		if ( $articles === false ){
-			$articlesProvider = $content->getArticleProvider(array(
+			$articlesProvider = $content->getArticleProviderViaType(array(
 					'criteria' => array(
 							'order' => 'add_time DESC',
 							'limit' => 5,
