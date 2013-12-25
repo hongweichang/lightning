@@ -7,10 +7,53 @@
  */
 class FundManager extends CApplicationComponent{
 	/**
-	 * 跳转地址，进入支付阶段
+	 * 跳转地址，进入支付阶段 metaId & inpay or sum
 	 */
-	public function pay($payment,$param = array()){
-		return Yii::app()->createUrl('pay/'.$payment.'/index',$param);
+	public function pay($payment,$metano,$inpay = null){
+		$bid = Yii::app()->getModule('tender')->bidManager;
+		$credit = Yii::app()->getModule('credit')->userCreditManager;
+		$rate = $credit->userRateGet(Yii::app()->user->getId());
+		if(empty($inpay)){
+			$key = $this->raisePayOrder($metano, $metano * $rate['on_recharge']);
+		}else{
+			$key = 0;
+			$meta = $bid->getBidMetaInfo(Utils::appendDecrypt($metano));
+			if($inpay == 'on'){
+				$sum = $meta->getAttribute('sum') - $meta->getRelated('user')->getAttribute('balance');
+				if($sum > 0){
+					$key = $this->raisePayOrder($sum, $sum * $rate['on_recharge'],$metano);
+				}
+			}else{
+				$sum = $meta->getAttribute('sum') / 100;
+				$key = $this->raisePayOrder($sum, $sum * $rate['on_recharge'],$metano);
+			}
+		}
+		return Yii::app()->createUrl('pay/'.$payment.'/order',array(
+			'key'=> Utils::appendEncrypt($key)
+		));
+	}
+	
+	/**
+	 * 发起一个充值订单，并生成订单号
+	 * @param float $sum
+	 * @param float $charge
+	 * @return integer|boolean
+	 */
+	protected function raisePayOrder($sum,$charge,$meta = 0){
+		$db = new Recharge();
+		$db->attributes = array(
+			'user_id' => Yii::app()->user->getId(),
+			'meta_id' => $meta,
+			'sum' => $sum * 100,
+			'fee' => $charge * 100,
+			'raise_time' => time(),
+			'status' => 0,
+		);
+		if($db->save()){
+			return $db->getPrimaryKey();
+		}else{
+			return false;
+		}
 	}
 	
 	/**
@@ -21,7 +64,7 @@ class FundManager extends CApplicationComponent{
 	 */
 	public function raiseWithdraw($uid,$sum,$arg3 = null){
 		$user = Yii::app()->getModule('user')->userManager->findByPk($uid);
-		$credit = $this->app->getModule('credit')->userCreditManager;
+		$credit = Yii::app()->getModule('credit')->userCreditManager;
 		//费用计算
 		$rate = $credit->userRateGet($uid);
 		$fee = round($sum * $rate['on_withdraw'],2);

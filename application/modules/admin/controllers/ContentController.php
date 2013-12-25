@@ -72,7 +72,7 @@ class ContentController extends Admin{
 						'pageSize' => 20
 				),
 		);
-		$dataProvider = $content->getArticleProvider($config,$type);
+		$dataProvider = $content->getArticleProviderViaType($config,$type);
 		
 		$this->render('articleList',array('dataProvider'=>$dataProvider,'type'=>$type));
 	}

@@ -12,26 +12,9 @@ class PayController extends Controller{
 	protected $buyer;	 // 平台账号
 	protected $buyer_id; //	平台ID
 	
-	/**
-	 * 发起一个充值订单，并生成订单号
-	 * @param float $sum
-	 * @param float $charge
-	 * @return integer|boolean
-	 */
-	protected function raiseOrder($sum,$charge){
-		$db = new Recharge();
-		$db->attributes = array(
-			'user_id' => $this->user->getId(),
-			'sum' => $sum * 100,
-			'fee' => $charge * 100,
-			'raise_time' => time(),
-			'status' => 0,
-		);
-		if($db->save()){
-			return $db->getPrimaryKey();
-		}else{
-			return false;
-		}
+	protected function getPayOrder(){
+		$key = Utils::appendDecrypt($this->getQuery('key'));
+		return Recharge::model()->findByPk($key);
 	}
 
 	/**
@@ -61,7 +44,15 @@ class PayController extends Controller{
 			$user->saveCounters(array(
 				'balance' => $record->getAttribute('sum')
 			));
+			
 			$transaction->commit();
+			
+			if($record->getAttribute('meta_id') != 0){
+				$asyncEventRunner = Yii::app()->getComponent('asyncEventRunner');
+				$asyncEventRunner->raiseAsyncEvent('onPayPurchasedBid',array(
+					'metano' => $record->getAttribute('meta_id')
+				));
+			}
 			return true;
 		}catch (Exception $e){
 			$transaction->rollback();

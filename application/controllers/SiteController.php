@@ -31,7 +31,7 @@ class SiteController extends Controller{
 			),0);
 			$articles = $articlesProvider->getData();
 			foreach ( $articles as $i => $article ){
-				$articles[$i]->content = preg_replace('/(.*)<.*>(.*)/iU','$1$2',$article->content);
+				$articles[$i]->content = str_replace('&nbsp;',' ',preg_replace('/(.*)<.*>(.*)/iU','$1$2',$article->content));
 			}
 			$cache->set('INDEX_ARTICLES',$articles,6*3600);
 		}

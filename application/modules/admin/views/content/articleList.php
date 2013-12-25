@@ -14,8 +14,7 @@ $typeName = $type == 0 ? 'article' : 'officialHelp';
 		<th>标题</th>
 		<th>添加时间</th>
 		<th>发布管理员</th>
-		<th>所属栏目</th>
-		<th>查看</th>
+		<th>所属分类</th>
 		<th>操作</th>
 	</thead>
 	<?php foreach ( $dataProvider->getData() as $data ):
@@ -26,7 +25,6 @@ $typeName = $type == 0 ? 'article' : 'officialHelp';
 			<td><?php echo date('Y/m/d H:i',$data->add_time)?></td>
 			<td><?php echo $data->admin_name?></td>
 			<td><?php echo $data->getRelated('category')->category_name?></td>
-			<td><a href="<?php echo $this->createUrl('/content/article/view',array('id'=>$data->id))?>" target="_blank">点击查看</a></td>
 			<td>
 				<a href="<?php echo $this->createUrl('content/'.$typeName.'Edit',$params)?>">编辑</a>
 				&nbsp;|

@@ -13,12 +13,11 @@ class ArticleForm extends CFormModel{
 	public $add_time;
 	public $category = 0;
 	public $allCategories = array();
-	public $art_type;
 	public $modelExists = false;
 	
 	public function rules(){
 		return array(
-				array('title,content,admin_name,add_time,art_type','required','message'=>'请填写{attribute}'),
+				array('title,content,admin_name,add_time','required','message'=>'请填写{attribute}'),
 				array('category','select'),
 				array('id','safe')
 		);
@@ -32,7 +31,6 @@ class ArticleForm extends CFormModel{
 				'admin_name' => '管理员昵称',
 				'add_time' => '添加时间',
 				'category' => '分类',
-				'art_type' => '类型'//公告或官方宝典
 		);
 	}
 	
@@ -65,6 +63,7 @@ class ArticleForm extends CFormModel{
 	public function loadAllCategories($type){
 		$model = new ArticleCategory();
 		$all = $model->findAll('fid=:type',array(':type'=>$type));
+		var_dump($all);die;
 		$this->allCategories[0] = '请选择分类';
 		foreach ( $all as $data ){
 			$this->allCategories[$data->id] = $data->category_name;

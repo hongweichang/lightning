@@ -243,15 +243,14 @@ body {
 
 .loan-filter {
   padding: 20px 27px;
-  border: 3px solid #90d375;
+  border: 3px solid #309da0;
   color: #848383; }
   .loan-filter h4 {
     font-size: 23px;
     font-family: "Microsoft Yahei";
     font-weight: normal; }
 
-.loan-filter.creditor {
-  border-color: #9ed8ca; }
+
 
 .guide {
   float: left;
@@ -290,15 +289,13 @@ body {
       color: white;
     }
   .filter .filter-choice.active {
-    background-color: #90d375; }
+    background-color: #309da0; }
   .filter .filter-choice:hover {
-    background-color: #90d375;
+    background-color: #309da0;
     cursor: pointer; }
-  .filter .filter-choice.creditor.active {
-    background-color: #9ed8ca; }
-  .filter .filter-choice.creditor:hover {
+/*  .filter .filter-choice.creditor:hover {
     background-color: #9ed8ca;
-    cursor: pointer; }
+    cursor: pointer; }*/
 
 #filter-switch {
   display: block;
@@ -330,9 +327,7 @@ body {
   color: #fff; }
 
 .loan .title {
-  background-color: #90d375; }
-.loan .title.creditor {
-  background-color: #9ed8ca; }
+  background-color: #309da0; }
 .loan li {
   border-bottom: 1px solid #dadadb;
   padding: 20px 0; }
