@@ -40,7 +40,7 @@ class SiteController extends Controller{
 		if ( empty($bidData) ){
 			$bidManager = $this->app->getModule('tender')->getComponent('bidManager');
 			$bids = $bidManager->getBidList(array(
-					'condition' => 'verify_progress=1 AND start<=:start',
+					'condition' => 'verify_progress=21 AND start<=:start',
 					'limit' => 5,
 					'offset' => 0,
 					'order' => 'pub_time DESC',
