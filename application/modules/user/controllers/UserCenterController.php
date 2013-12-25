@@ -86,6 +86,8 @@ class UserCenterController extends Controller{
 					}
 				}
 			}
+			// var_dump($unnecessaryList);
+			// die();
 
 		}
 
@@ -104,7 +106,6 @@ class UserCenterController extends Controller{
 
 			if(isset($attributes['role']))
 				$userData->role = $attributes['role'];
-			//$userData->age = $attributes['age'];
 			if(isset($attributes['identity_id']) && !empty($attributes['identity_id']))
 				$userData->identity_id = $attributes['identity_id'];
 
@@ -253,7 +254,7 @@ class UserCenterController extends Controller{
 						$model->submit_time = time();
 						$model->status = 0;
 
-						$userCredit = FrontCredit::model()->findAll('verification_id =:id',array('id'=>$type));
+						$userCredit = FrontCredit::model()->findAll('verification_id =:id AND user_id =:uid',array(':id'=>$type,':uid'=>$uid));
 						if(!empty($userCredit)){
 							foreach($userCredit as $value)
 								$value->delete();
