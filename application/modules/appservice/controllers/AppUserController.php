@@ -222,7 +222,9 @@ class AppUserController extends Controller{
 
 	}
 
-
+	/*
+	**头像类型审核
+	*/
 	public function TypeVerify($fileType){
 
 		if(isset($fileType) && !empty($fileType)){
@@ -241,6 +243,39 @@ class AppUserController extends Controller{
 			}
 			return 400;
 		}
+	}
+
+	
+	/*
+	**获取用户信用资料
+	*/
+	public function actionGetUserCredit(){
+		$post = $this->getPost();
+
+		if(is_numeric($post['id'])){
+			$uid = $post['id'];
+			$CreditList = array();
+
+			$criteria = new CDbCriteria;
+			$criteria->condition = 'user_id =:uid AND status =:status';
+			$criteria->params = array(
+									':uid'=>$uid,
+									':status'=>'1'
+								);
+			$userCredit = FrontCredit::model()->with('creditSetting')->findAll($criteria);
+
+			if(!empty($userCredit)){
+				foreach($userCredit as $value){
+					$CreditList[] = array(
+									'verification_name'=>$value->getRelated('creditSetting')->verification_name,
+								);
+				}
+				$this->response('200','查询成功',$CreditList);
+			}else
+				$this->response('200','查询成功,该用户尚未上传任何信息');
+
+		}else
+			$this->response('400','查询失败,参数错误');
 	}
 
 }
