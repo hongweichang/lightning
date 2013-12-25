@@ -56,7 +56,7 @@ $MetaSum = $this->userMetaBidMoney;
                         <p>
                             <span>账户余额</span>
                             <span>我的投资</span>
-                            <span>我的借贷</span>
+                            <span>我的借款</span>
                         </p>
                         <p class="det-mon">
                             <span>

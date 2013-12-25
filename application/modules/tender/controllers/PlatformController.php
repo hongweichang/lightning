@@ -56,12 +56,23 @@ class PlatformController extends Controller{
 		$metaId = Utils::appendDecrypt($this->getQuery('metano'));
 		$meta = BidMeta::model()->with('user','bid')->findByPk($metaId);
 
-		if(!empty($meta) && $meta->getAttribute('user_id') == $this->user->getId()){
+		if( $meta !== null && $meta->getAttribute('user_id') == $this->user->getId()){
 			$this->setPageTitle($meta->getRelated('bid')->getAttribute('title').' - '.$this->name);
 			
-			$user = $meta->getRelated('user');
+			$data = $this->getPost('Check');
 			$password = $this->getPost('pay_pwd');
-			$verify = $this->getPost('pay_verify');
+			$code = $this->getPost('pay_verify');
+			$user = $meta->getRelated('user');
+			
+			if ( $this->app->getSecurityManager()->verifyPassword() === false ){
+				$this->render('check',array(
+						'user' => $user,
+						'bid' => $bid,
+						'bider' => $bider,
+						'meta' => $meta
+				));
+				$this->app->end();
+			}
 			
 			if($this->getModule()->bidManager->payPurchasedBid($this->getQuery('metano'))){
 				$this->render('success');

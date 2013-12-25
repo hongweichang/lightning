@@ -27,6 +27,9 @@ $('#export-record').on('click',function(){
             <?php $this->renderPartial('_baseInfo')?>
             <div class="aud-find aud-find-menu">
                 <ul id="find-table-button">
+                    <a href="<?php echo Yii::app()->createUrl('user/userCenter/userInfo');?>">
+                        <li class="find-table-3"><div class="find-table-op"></div>个人信息</li>
+                    </a>
                     <a href="<?php echo Yii::app()->createUrl('user/userCenter/myBorrow');?>">
                         <li class="find-table-0"><div class="find-table-op"></div>我的借款</li>
                     </a>
@@ -35,9 +38,6 @@ $('#export-record').on('click',function(){
                         </a>
                     <a href="<?php echo Yii::app()->createUrl('user/userCenter/userSecurity');?>">
                         <li class="find-table-2"><div class="find-table-op"></div>安全中心</li>
-                    </a>
-                    <a href="<?php echo Yii::app()->createUrl('user/userCenter/userInfo');?>">
-                        <li class="find-table-3"><div class="find-table-op"></div>个人信息</li>
                     </a>
                     <a href="<?php echo $this->createUrl('userCenter/userFund')?>">
                         <li class="find-table-4"><div class="find-table-op-hidden"></div>资金管理</li>

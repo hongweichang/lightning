@@ -19,6 +19,7 @@ class VerifyController extends Admin{
 		$userCreditData = array();
 		$userArray = array();
 		$fileUrl = null;
+		$file = null;
 
 		$criteria = new CDbCriteria;
 		$sum = FrontCredit::model()->count($criteria);
@@ -66,9 +67,16 @@ class VerifyController extends Admin{
 	public function actionCreditDetail($id){
 		$detail = array();
 		$fileUrl = null;
+		$file = null;
 
 		if(is_numeric($id)){
-			$detailData = FrontCredit::model()->with('user','creditSetting')->findAll('user_id =:uid',array('uid'=>$id));
+			$criteria = new CDbCriteria;
+			$criteria->condition = 'status =:status AND user_id =:uid';
+			$criteria->params = array(
+									':status'=>'0',
+									':uid'=>$id
+								);
+			$detailData = FrontCredit::model()->with('user','creditSetting')->findAll($criteria);
 
 			if(!empty($detailData)){
 				foreach($detailData as $value){
@@ -79,6 +87,7 @@ class VerifyController extends Admin{
 
 					$detail[] = array(
 							'id'=>$value->id,
+							'user_id'=>$value->user_id,
 							'verification_name'=>$value->getRelated('creditSetting')->verification_name,
 							'mobile'=>$value->getRelated('user')->mobile,
 							'submit_time'=>date('Y-m-d H:i:s',$value->submit_time),
@@ -151,8 +160,8 @@ class VerifyController extends Admin{
 	/*
 	**用户信息审核
 	*/
-	public function actionCreditVerify($id,$action){
-		if(!empty($id) && is_numeric($id) && !empty($action)){
+	public function actionCreditVerify($id,$action,$uid){
+		if(is_numeric($uid) && is_numeric($id) && !empty($action)){
 			$userData = FrontCredit::model()->findByPk($id);
 
 			if(!empty($userData)){
@@ -160,10 +169,10 @@ class VerifyController extends Admin{
 						$userData->status = 1;
 
 					if($userData->save())
-						$this->redirect($this->createUrl('verify/credit'));
+						$this->redirect($this->createUrl('verify/creditDetail/id/'.$uid.''));
 
 				}elseif($action == 'unpass' && $userData->status != 2){
-					$this->redirect($this->createUrl('verify/verifyReasonInput',array('id'=>$id)));
+					$this->redirect($this->createUrl('verify/verifyReasonInput',array('id'=>$id,'uid'=>$uid)));
 				}
 
 			}	
@@ -176,8 +185,8 @@ class VerifyController extends Admin{
 	/*
 	**审核未通过原因输入
 	*/
-	public function actionVerifyReasonInput($id){
-		if(!empty($id) && is_numeric($id)){
+	public function actionVerifyReasonInput($id,$uid){
+		if(is_numeric($uid) && is_numeric($id)){
 			$infoData = FrontCredit::model()->findByPk($id);
 
 			if(!empty($infoData)){
@@ -192,7 +201,7 @@ class VerifyController extends Admin{
 						$infoData->description = $description;
 
 						if($infoData->save())
-							$this->redirect(Yii::app()->createUrl('adminnogateway/verify/credit'));
+							$this->redirect($this->createUrl('verify/creditDetail/id/'.$uid.''));
 
 					}else
 						$this->showMessage('审核原因不得为空','verify/credit');

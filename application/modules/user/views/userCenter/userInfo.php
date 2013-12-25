@@ -54,6 +54,9 @@ $this->widget('application.extensions.swfupload.CSwfUpload', array(
             <?php $this->renderPartial('_baseInfo')?>
             <div class="aud-find aud-find-menu">
                 <ul id="find-table-button">
+                    <a href="<?php echo Yii::app()->createUrl('user/userCenter/userInfo');?>">
+                        <li class="find-table-3"><div class="find-table-op-hidden"></div>个人信息</li>
+                    </a>
                     <a href="<?php echo Yii::app()->createUrl('user/userCenter/myBorrow');?>">
                         <li class="find-table-0"><div class="find-table-op"></div>我的借款</li>
                     </a>
@@ -62,9 +65,6 @@ $this->widget('application.extensions.swfupload.CSwfUpload', array(
                     </a>
                     <a href="<?php echo Yii::app()->createUrl('user/userCenter/userSecurity');?>">
                         <li class="find-table-2"><div class="find-table-op"></div>安全中心</li>
-                    </a>
-                    <a href="<?php echo Yii::app()->createUrl('user/userCenter/userInfo');?>">
-                        <li class="find-table-3"><div class="find-table-op-hidden"></div>个人信息</li>
                     </a>
                     <a href="<?php echo $this->createUrl('userCenter/userFund')?>">
                         <li class="find-table-4"><div class="find-table-op"></div>资金管理</li>
@@ -302,11 +302,17 @@ $this->widget('application.extensions.swfupload.CSwfUpload', array(
                            <?php if($value['status'] != '1'){?>
                             <td>
                                 <?php echo $form->FileField($model,'filename'); ?>
-                                <?php echo CHtml::submitButton('提交',array(
-                                                'name'=>$value['verification_name'],
-                                                'class'=>'form-button')
-                                            ); 
-                                     ?>
+                                <?php if($value['status'] == '400') 
+                                            echo CHtml::submitButton('提交',array(
+                                                    'name'=>$value['verification_name'],
+                                                    'class'=>'form-button')
+                                                                    ); 
+                                    elseif($value['status'] == '0' || $value['status'] == '2') 
+                                            echo CHtml::submitButton('修改',array(
+                                                    'name'=>$value['verification_name'],
+                                                    'class'=>'form-button')
+                                                                    );  
+                                ?>
                             </td>
                             <?php }?>
                             <td>
@@ -317,7 +323,7 @@ $this->widget('application.extensions.swfupload.CSwfUpload', array(
                                     echo "等待审核";
                                 elseif($value['status'] == '1')
                                     echo "审核通过";
-                                elseif($value['stauts'] == '2')
+                                elseif($value['status'] == '2')
                                     echo "未通过审核";
                             ?> 
                             </td>
@@ -357,11 +363,17 @@ $this->widget('application.extensions.swfupload.CSwfUpload', array(
                            <?php if($value['status'] != '1'){?>
                             <td>
                                 <?php echo $form->FileField($model,'filename'); ?>
-                                <?php echo CHtml::submitButton('提交',array(
-                                                'name'=>$value['verification_name'],
-                                                'class'=>'form-button')
-                                            ); 
-                                     ?>
+                                <?php if($value['status'] == '400') 
+                                            echo CHtml::submitButton('提交',array(
+                                                    'name'=>$value['verification_name'],
+                                                    'class'=>'form-button')
+                                                                    ); 
+                                    elseif($value['status'] == '0' || $value['status'] == '2') 
+                                            echo CHtml::submitButton('修改',array(
+                                                    'name'=>$value['verification_name'],
+                                                    'class'=>'form-button')
+                                                                    ); 
+                                ?>
                             </td>
                             <?php }?>
                             <td>
@@ -372,7 +384,7 @@ $this->widget('application.extensions.swfupload.CSwfUpload', array(
                                     echo "等待审核";
                                 elseif($value['status'] == '1')
                                     echo "审核通过";
-                                elseif($value['stauts'] == '2')
+                                elseif($value['status'] == '2')
                                     echo "未通过审核";
                             ?> 
                             </td>
