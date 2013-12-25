@@ -90,6 +90,6 @@ class AccountController extends Controller{
 	}
 	
 	public function actionSendVerify(){
-		
+		$this->actionSendRegisterVerify();
 	}
 }

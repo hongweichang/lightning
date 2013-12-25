@@ -86,7 +86,7 @@ class mainConf extends ConfigBase{
 						),
 						'cache' => array(
 								'class' => 'CMemCache',
-								'useMemcached' => false,
+								'useMemcached' => true,
 								'keyPrefix' => 'lightning',
 								'servers' => array(
 										array(
@@ -146,9 +146,6 @@ class mainConf extends ConfigBase{
 										),
 								),
 								'events' => array(
-										'onEndRequest' => array(
-												'command' => array('sendMail','success')
-										),
 										'onBeforeRegisterSuccess' => array(
 												'command' => array('sendSms','verifyCode')
 										),
