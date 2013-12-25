@@ -157,15 +157,23 @@ class BidManager extends CApplicationComponent{
 		$credit = $this->app->getModule('credit')->userCreditManager;
 		//费用计算
 		$rate = $credit->userRateGet($bid->getAttribute('user_id'));
+		
 		if($bid->getAttribute('deadline') > 6){
-			$fee = round($bid->getAttribute('refund') * $rate['on_over6'] / 100,2);
+			$fee = round($bid->getAttribute('refund') * $rate['on_over6'],2);
+			$rate['on_bid'] = $rate['on_over6'];
 		}else{
-			$fee = round($bid->getAttribute('refund') * $rate['on_below6'] / 100,2);
+			$fee = round($bid->getAttribute('refund') * $rate['on_below6'],2);
+			$rate['on_bid'] = $rate['on_below6'];
 		}
 		
 		
 		$transaction = Yii::app()->db->beginTransaction();
 		try{
+			//借款人收款
+			$bid->getRelated('user')->saveCounters(array(
+				'balance' => $bid->getAttribute('sum') - $fee * 100
+			));
+			
 			foreach($metas as $meta){
 				//投资状态更换
 				switch ($meta->getAttribute('status')){
@@ -185,6 +193,12 @@ class BidManager extends CApplicationComponent{
 					break;
 				}
 				$meta->save();
+				
+				//借款人收款记录
+				$fund->p2p($bid->getAttribute('user_id'),
+						$meta->getAttribute('user_id'),
+						$meta->getAttribute('refund'),
+						round($meta->getAttribute('refund') * $rate['on_bid'],2));
 			}
 			
 			//标段状态更换 已满标开始还款
@@ -193,17 +207,6 @@ class BidManager extends CApplicationComponent{
 				'verify_progress' => 31
 			);
 			$bid->save();
-			
-			//借款人收款
-			$bid->getRelated('user')->saveCounters(array(
-				'balance' => $bid->getAttribute('sum') - $fee * 100
-			));
-			
-			//收款记录
-			$fund->p2p($bid->getAttribute('user_id'),
-					$meta->getAttribute('user_id'),
-					$meta->getAttribute('refund'),
-					$fee);
 			
 			//@TODO 满标通知
 			
@@ -295,16 +298,16 @@ class BidManager extends CApplicationComponent{
 			foreach($metas as $meta){				
 				//费用计算
 				$rate = $credit->userRateGet($meta->getAttribute('user_id'));
-				$fee = round($meta->getAttribute('refund') * $rate['on_pay_back'] / 100,2);
+				$fee = round($meta->getAttribute('refund') * $rate['on_pay_back'],2);
 				
 				//投资人收款
 				$meta->getRelated('user')->saveCounters(array(
 					'balance' => $meta->getAttribute('refund') - $fee * 100
 				));
 				
-				//收款记录
-				$fund->p2p($bid->getAttribute('user_id'),
-						$meta->getAttribute('user_id'),
+				//投资人收款记录
+				$fund->p2p($meta->getAttribute('user_id'),
+						$bid->getAttribute('user_id'),
 						$meta->getAttribute('refund'),
 						$fee);
 			}
