@@ -329,11 +329,8 @@ body {
 
 .loan .title {
   background-color: #309da0; }
-<<<<<<< HEAD
-=======
 .loan .title.creditor {
   background-color: #9ed8ca; }
->>>>>>> 29e93d71d9d801f7b71ce534b852b1ef06359f51
 .loan li {
   border-bottom: 1px solid #dadadb;
   padding: 20px 0; }
