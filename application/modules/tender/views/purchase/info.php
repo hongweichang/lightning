@@ -17,7 +17,7 @@
         </div>
         <div id="lend-details" class="clearfix">
           <div class="details-head clearfix">
-            <div class="return"><a href="<?php echo $this->createUrl('purchase/index'); ?>">←返回</a></div>
+            <div class="return"></div>
             <div class="name">标段详情</div>
             <div class="balance">
             <?php if ( $user !== null) :?>
