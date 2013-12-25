@@ -75,7 +75,8 @@ class VerifyController extends Admin{
 					if($value->file_type =='image'){
 						$fileUrl = Yii::app()->getPartedUrl('creditFile',$value->user_id);
 						$file = $fileUrl.$value->content;
-					}	
+					}
+
 					$detail[] = array(
 							'id'=>$value->id,
 							'verification_name'=>$value->getRelated('creditSetting')->verification_name,
@@ -237,6 +238,7 @@ class VerifyController extends Admin{
 							'id'=>$value->id,
 							'title'=>$value->attributes['title'],
 							'description'=>$value->attributes['description'],
+							'uid'=>$value->getRelated('user')->id,
 							'nickname'=>$value->getRelated('user')->nickname,
 							'realname'=>$value->getRelated('user')->realname,
 							'mobile'=>$value->getRelated('user')->mobile,
@@ -303,7 +305,44 @@ class VerifyController extends Admin{
 		}
 
 	}
+
+
+/*
+**风控信息查看
+*/
 	
+	public function actionUserDetail($uid){
+		$userCredit = array();
+		$fileUrl = null;
+
+		if(is_numeric($uid)){
+			$userData = FrontUser::model()->findAll('id =:uid',array('uid'=>$uid));
+
+			$criteria = new CDbCriteria;
+			$criteria->condition = 'user_id =:uid AND status =:status';
+
+			$userCreditData = FrontCredit::model()->with('creditSetting')->findAll(
+				'user_id =:uid',array(':uid'=>$uid));
+
+			if(!empty($userCreditData) && !empty($userData)){
+				foreach($userCreditData as $value){
+					if($value->file_type =='image'){
+						$fileUrl = Yii::app()->getPartedUrl('creditFile',$value->user_id);
+						$file = $fileUrl.$value->content;
+					}
+
+					$userCredit[] = array(
+									'id'=>$value->id,
+									'verification_name'=>$value->getRelated('creditSetting')->verification_name,
+									'fileUrl'=>$file,
+								);
+				}
+
+
+			}
+			$this->render('userDetail',array('userData'=>$userData,'userCredit'=>$userCredit));
+		}
+	}
 
 }
 ?>
