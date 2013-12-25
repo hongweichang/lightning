@@ -120,7 +120,7 @@ body {
   border-top-width: 4px; }
 
 #footer {
-  height: 303px;
+  height: 150px;
   background: url("../images/h_bg.png"); }
 
 #fo-nav {
@@ -271,13 +271,14 @@ body {
       -webkit-box-shadow: 0 0 5px 0px #c5c5c5 inset;
       -moz-box-shadow: 0 0 5px 0px #c5c5c5 inset;
       box-shadow: 0 0 5px 0px #c5c5c5 inset;
-      font-size: 14px;
+      font-size: 16px;
+      text-align: center;
       font-family: "Microsoft Yahei";
       font-weight: normal;
       color: #000; }
     .hc-side .hc-side-item a:hover {
       color: #fff;
-      background-color: #cde5df; }
+      background-color: #2881cb; }
     .hc-side .hc-side-item a:visited {
       color: #000; }
     .hc-side .hc-side-item a.active {
@@ -314,7 +315,7 @@ body {
 
 .hc-side.about-side li a:hover {
   color: #fff;
-  background-color: #c6d8d9; }
+  background-color: #278099; }
 .hc-side.about-side li a.active {
   color: #fff;
   background-color: #2b878a; }
