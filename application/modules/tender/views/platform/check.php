@@ -40,7 +40,7 @@ $this->cs->registerCssFile($this->cssUrl.'lend.css');
             <p>借款金额：<?php echo number_format($bid->getAttribute('sum') / 100,2);?>元
 				标段年利率：<?php echo $bid->getAttribute('month_rate') / 100; ?>%
 				标段期限：<?php echo $bid->getAttribute('deadline'); ?>期</p>
-			<p>招标完成度：<?php echo $bid->getAttribute('progress'); ?>%
+			<p>招标完成度：<?php echo $bid->getAttribute('progress') / 100; ?>%
 				招标时间：<?php echo date('Y年n月j日',$bid->getAttribute('start')); ?> 至 <?php echo date('Y年n月j日',$bid->getAttribute('end')); ?></p>
           </div>
           <div id="borrow-num"><span><?php echo number_format($meta->getAttribute('sum') / 100,2);?>元</span></div>

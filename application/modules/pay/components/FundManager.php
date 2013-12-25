@@ -19,20 +19,24 @@ class FundManager extends CApplicationComponent{
 	 * @param float $fee
 	 * @return boolean
 	 */
-	public function raiseWithdraw($uid,$sum,$charge){
+	public function raiseWithdraw($uid,$sum,$arg3 = null){
 		$user = Yii::app()->getModule('user')->userManager->findByPk($uid);
+		$credit = $this->app->getModule('credit')->userCreditManager;
+		//费用计算
+		$rate = $credit->userRateGet($uid);
+		$fee = round($sum * $rate['on_withdraw'],2);
 		
 		$transaction = Yii::app()->db->beginTransaction();
 		try{
 			$user->updateCounters(array(
-				'balance' => -($sum + charge) * 100
+				'balance' => -($sum + $fee) * 100
 			));
 			
 			$db = new Withdraw();
 			$db->attributes = array(
 				'user_id' => $uid,
 				'sum' => $sum * 100,
-				'fee' => $charge * 100,
+				'fee' => $fee * 100,
 				'raise_time' => time(),
 				'status' => 0, // 正在处理 - 等待后台处理
 			);
@@ -74,7 +78,7 @@ class FundManager extends CApplicationComponent{
 		
 		$transaction = Yii::app()->db->beginTransaction();
 		try{
-			$user->updateCounters(array(
+			$user->saveCounters(array(
 				'balance' => $record->getAttribute('sum') + $record->getAttribute('fee')
 			));
 			

@@ -36,7 +36,7 @@ foreach ( $bidProgressCssClassMap as $key => $bidProgressCssClass ){
 		<div class="bar-out">
 			<div class="bar-in">
 				<span class="bar-complete <?php echo $progressClass?>" style="width:<?php echo $data->getAttribute('progress');?>%"></span>
-				<span class="bar-num"><?php echo $data->getAttribute('progress');?>%</span>
+				<span class="bar-num"><?php echo $data->getAttribute('progress') / 100;?>%</span>
 			</div>
 		</div>
 	</div>
