@@ -95,13 +95,15 @@
   }
   ul{
     @extend %fl;
+    border-left: 1px solid #dadadb;
+    border-right: 1px solid #dadadb;
   }
   li{
     @extend %fl;
     position: relative;
     width:930px;
     border-bottom:1px solid #dadadb;
-    padding:0 40px 0 32px;
+    padding:0 38px 0 32px;
     line-height: 42px;
   }
   .news-liststyle{
@@ -151,12 +153,18 @@
   .title{
     background-color:#9dd8ca;
   }
-  
+  ul{
+    border-left: 1px solid #dadadb;
+    border-right: 1px solid #dadadb;
+  }
   li{ 
     border-bottom:1px solid #dadadb;
     padding: 20px 0;
   }
-  .list-head{    border-bottom:1px solid #dadadb;}
+  .list-head{
+    border-left: 1px solid #dadadb;
+    border-right: 1px solid #dadadb;  
+    border-bottom:1px solid #dadadb;}
   .list-head span{
     display: inline-block;
     height: 40px;

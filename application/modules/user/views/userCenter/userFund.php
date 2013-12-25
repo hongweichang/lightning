@@ -27,6 +27,9 @@ $('#export-record').on('click',function(){
             <?php $this->renderPartial('_baseInfo')?>
             <div class="aud-find aud-find-menu">
                 <ul id="find-table-button">
+                    <a href="<?php echo Yii::app()->createUrl('user/userCenter/userInfo');?>">
+                        <li class="find-table-3"><div class="find-table-op"></div>个人信息</li>
+                    </a>
                     <a href="<?php echo Yii::app()->createUrl('user/userCenter/myBorrow');?>">
                         <li class="find-table-0"><div class="find-table-op"></div>我的借款</li>
                     </a>
@@ -35,9 +38,6 @@ $('#export-record').on('click',function(){
                         </a>
                     <a href="<?php echo Yii::app()->createUrl('user/userCenter/userSecurity');?>">
                         <li class="find-table-2"><div class="find-table-op"></div>安全中心</li>
-                    </a>
-                    <a href="<?php echo Yii::app()->createUrl('user/userCenter/userInfo');?>">
-                        <li class="find-table-3"><div class="find-table-op"></div>个人信息</li>
                     </a>
                     <a href="<?php echo $this->createUrl('userCenter/userFund')?>">
                         <li class="find-table-4"><div class="find-table-op-hidden"></div>资金管理</li>
@@ -76,18 +76,18 @@ $('#export-record').on('click',function(){
                 <div class="find-table-content fund find-table-content-show">
                     <div id="fund-record-query">
                         <span>查询类型</span>
-                        <select id="search-type">
+                        <select name="query_type" id="search-type">
                         	<option value="p2p">即时到帐</option>
                             <option value="recharge">充值记录</option>
                             <option value="withdraw">提现记录</option>
                         </select>
                         <span>查询时间</span>
-                        <select id="search-date">
+                        <select name="query_date" id="search-date">
                         	<option value="1">一月以内</option>
                         	<option value="3">三月以内</option>
                         	<option value="12">一年以内</option>
                         </select>
-                        <a href="javascript:void(0);" class="form-button">查询</a>
+                        <a href="javascript:void(0);" class="form-button" id="query-button">查询</a>
                         <a href="javascript:void(0);" id="export-record">导出查询结果</a>
                     </div>
                     <table class="record-table"> 
@@ -155,6 +155,60 @@ $('#export-record').on('click',function(){
                         </form>
                     </div>
                 </div>
+                <div class="find-table-content withdraw">
+                    <div class="pay-form">
+                        <h2>请填写提现数据</h2>
+                        <form id="fund-withdraw">
+                            <ul>
+                                <li>
+                                    <label>可用资金 </label>
+                                    <span class="number">0.00</span>
+                                    <span>元</span>
+                                </li>
+                                <li>
+                                    <label for="withdraw-num">提现金额 </label>
+                                    <input type="text" id="withdraw-num"/>
+                                    <span>元</span>
+                                </li>
+                                <li>
+                                    <label for="withdraw-num">银行卡号</label>
+                                    <input type="text" id="withdraw-num"/>
+                                </li>                              
+                                <li>
+                                    <label>提现费用 </label>
+                                    <span class="number" id="userPaySum">0.00</span>
+                                    <span>元</span>
+                                    <div class="hint">
+                                        <img src="<?php echo $this->imageUrl.'fund_hint.png';?>" />
+                                        <p>test</p>
+                                    </div>
+                                </li>
+                                <li>
+                                    <label>实际扣除金额 </label>
+                                    <span class="number" id="getSum">0.00</span>
+                                    <span>元</span>
+                                </li>
+                                <li>
+                                    <label>预计到账日期 </label>
+                                    <span>2013-11-17</span>
+                                </li>
+                                <li>
+                                    <label>资金密码 </label>
+                                    <input type="password" id="withdraw-passwd" />
+                                    <a href="#">忘记密码</a>
+                                </li>
+                                <li>
+                                    <input type="submit" value="提现" class="form-button" id="fund-withdraw-submit"/>
+                                </li>
+                            </ul>
+                        </form>
+                        <p>温馨提示</p>
+                        <p>1.请确保您输入的是提现金额，以及银行账号信息准确无误。</p>
+                        <p>2.如果您填写的提现信息不正确可能会导致提现失败，由此产生的提现费用将不予返还</p>
+                        <p>3.在双休日和法定节假日期间，用户可以申请提现，闪电贷会在下一个工作日进行处理。由此造成的不便，请多多谅解！</p>
+                        <p>4.平台禁止洗钱、信用卡套现、虚假交易等行为，一经发现并确认，将终止该账户的使用。</p>
+                    </div>
+                </div>
                 <div class="find-table-content">
                 </div>
             </div>
@@ -163,4 +217,5 @@ $('#export-record').on('click',function(){
 <?php
 $this->cs->registerScriptFile($this->scriptUrl.'/update.js',CClientScript::POS_END);
 $this->cs->registerScriptFile($this->scriptUrl.'tableChange.js',CClientScript::POS_END);
+$this->cs->registerScriptFile($this->scriptUrl.'/personal.js',CClientScript::POS_END);
 ?>

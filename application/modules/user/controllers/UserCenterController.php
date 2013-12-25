@@ -8,6 +8,8 @@ design By HJtianling_LXY,<2507073658@qq.com>
 class UserCenterController extends Controller{
 	public $defaultAction = 'userInfo';
 	public $userData;
+	public $userBidMoney =0;
+	public $userMetaBidMoney=0;
 	
 	public function filters(){
 		$filters = parent::filters();
@@ -18,6 +20,8 @@ class UserCenterController extends Controller{
 	public function filterFetchUserData($filterChain){
 		$uid = $this->app->user->id;
 		$this->userData = $this->getModule()->getComponent('userManager')->getUserInfo($uid);
+		$this->userBidMoney = BidInfo::model()->sum('sum','user_id =:uid',array('uid'=>$uid))/100;
+		$this->userMetaBidMoney = BidMeta::model()->sum('sum','user_id =:uid',array('uid'=>$uid));
 		$filterChain->run();
 	}
 	
@@ -36,9 +40,7 @@ class UserCenterController extends Controller{
 		$role = $userData['role'];
 		$creditData= $this->getUserCredit($role);
 
-		// foreach($creditData as $value){
-		// 	$dataId[] = $value['credit']->id;
-		// }
+
 
 		$finishedId = array();
 		$finishedData = $this->getFnishedCreditData($uid);
@@ -84,6 +86,8 @@ class UserCenterController extends Controller{
 					}
 				}
 			}
+			// var_dump($unnecessaryList);
+			// die();
 
 		}
 
@@ -102,7 +106,6 @@ class UserCenterController extends Controller{
 
 			if(isset($attributes['role']))
 				$userData->role = $attributes['role'];
-			//$userData->age = $attributes['age'];
 			if(isset($attributes['identity_id']) && !empty($attributes['identity_id']))
 				$userData->identity_id = $attributes['identity_id'];
 
@@ -123,7 +126,9 @@ class UserCenterController extends Controller{
 						'unnecessaryCreditData'=>$unnecessaryList,
 						'unnecessaryNum'=>$unnecessaryNum,
 						'model'=>new FrontCredit(),
-						'IconUrl'=>$IconUrl));
+						'IconUrl'=>$IconUrl,
+						'BidSum'=>$this->userBidMoney,
+						'MetaSum'=>$this->userMetaBidMoney));
 		
 	}
 
@@ -249,7 +254,7 @@ class UserCenterController extends Controller{
 						$model->submit_time = time();
 						$model->status = 0;
 
-						$userCredit = FrontCredit::model()->findAll('verification_id =:id',array('id'=>$type));
+						$userCredit = FrontCredit::model()->findAll('verification_id =:id AND user_id =:uid',array(':id'=>$type,':uid'=>$uid));
 						if(!empty($userCredit)){
 							foreach($userCredit as $value)
 								$value->delete();
@@ -514,8 +519,11 @@ class UserCenterController extends Controller{
 
 
 	public function actionUserFund(){
+		$uid = $this->app->user->id;
+		
+		$userRate = $this->app->getModule('credit')->getComponent('userCreditManager')->UserRateGet($uid);
 		$this->pageTitle = '闪电贷';
-		$uid = $this->id;
+	
 		$userData = $this->userData;
 		$IconUrl = Yii::app()->getModule('user')->userManager->getUserIcon($uid);
 		
@@ -577,6 +585,34 @@ class UserCenterController extends Controller{
 	public function actionAjaxReport(){
 		$type = $this->getPost('type','p2p');
 		$date = $this->getPost('date','1');
+	}
+
+
+	/*
+	**获取用户体现利率
+	*/
+	public function actionPayBackMoney(){
+		$post = $this->getPost();
+		$uid = $this->app->user->id;
+		$payBackData = array();
+
+		if(is_numeric($post['getSum'])){
+			$sum = $post['getSum'];
+			$userRate = $this->app->getModule('credit')->getComponent('userCreditManager')->UserRateGet($uid);
+			if($userRate !==400){
+				$userPaySum = $sum * $userRate['on_withdraw'];
+				$GetSum = $userPaySum + $sum;
+
+				$payBackData = array(
+								'userPaySum'=>$userPaySum,
+								'GetSum'=>$GetSum
+							);
+
+				$this->response('','',$payBackData);
+				
+			}
+
+		}
 	}
 }
 ?>

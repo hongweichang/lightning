@@ -54,8 +54,8 @@ $this->cs->registerCssFile($this->cssUrl.'lend.css');
           <form method="post" id="pay-method">
             <div class="paymethod-item userinfo">
               <div class="paymethod-manage">
-                <a href="<?php echo $this->app->createUrl('user/userCenter')?>">管理我的账户 |</a>
-                <a href="<?php echo $this->app->createUrl('help')?>">使用帮助</a>
+                <a href="<?php echo $this->app->createUrl('/user/userCenter')?>">管理我的账户 |</a>
+                <a href="<?php echo $this->app->createUrl('/content/help')?>">使用帮助</a>
               </div>  
               <div><?php echo $user->getAttribute('nickname'); ?><span><?php echo $user->getAttribute('mobile'); ?></span></div>
             </div>

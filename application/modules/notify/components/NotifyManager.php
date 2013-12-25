@@ -126,6 +126,7 @@ class NotifyManager extends CApplicationComponent{
 		
 		$code = $this->generateRandomCode($length);
 		$cache->set($this->mobileCodePrefix.$mobile,$code,$duration);
+		
 		return $code;
 	}
 	

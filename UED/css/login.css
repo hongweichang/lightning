@@ -62,7 +62,7 @@ body {
   line-height: 25px; }
 
 .he-lo a {
-  margin-left: 34px; }
+  margin-left: 10px; }
 
 #he-nav {
   height: 82px;
@@ -97,7 +97,7 @@ body {
 #he-nav ul li a {
   color: #000000; }
 
-.origin {
+/*.origin {
   border-color: #eea758; }
 
 .yellow {
@@ -113,13 +113,13 @@ body {
   border-color: #f9bdea; }
 
 .violet {
-  border-color: #ddc4f7; }
+  border-color: #ddc4f7; }*/
 
 #he-nav ul li.active {
   border-top-width: 4px; }
 
 #footer {
-  height: 303px;
+  height: 150px;
   background: url("../images/h_bg.png"); }
 
 #fo-nav {

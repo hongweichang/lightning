@@ -97,7 +97,7 @@ body {
 #he-nav ul li a {
   color: #000000; }
 
-.origin {
+/*.origin {
   border-color: #eea758; }
 
 .yellow {
@@ -113,13 +113,13 @@ body {
   border-color: #f9bdea; }
 
 .violet {
-  border-color: #ddc4f7; }
+  border-color: #ddc4f7; }*/
 
 #he-nav ul li.active {
   border-top-width: 4px; }
 
 #footer {
-  height: 303px;
+  height: 150px;
   background: url("../images/h_bg.png"); }
 
 #fo-nav {
@@ -384,7 +384,7 @@ body {
      }
   .loan-list .loan-rank div {
     display: inline-block;
-    width: auto;
+    width: 30px;
     height: 30px; }
   .loan-list .loan-num {
     color: #555; }

@@ -8,7 +8,7 @@
 class BidCommand extends CConsoleCommand{
 	
 	/**
-	 * 流标监听
+	 * 流标
 	 */
 	public function actionRevoke(){
 		$db = Yii::app()->getModule('tender')->bidManager;
@@ -27,7 +27,7 @@ class BidCommand extends CConsoleCommand{
 	}
 	
 	/**
-	 * 还款监听
+	 * 还款通知
 	 */
 	public function actionRepay(){
 		$db = Yii::app()->getModule('tender')->bidManager;
@@ -36,7 +36,7 @@ class BidCommand extends CConsoleCommand{
 		));
 		
 		foreach($bids as $bid){
-			$db->revokeBid($bid);
+			//@TODO 发通知哦~
 		}
 	}
 }

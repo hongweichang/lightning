@@ -40,7 +40,7 @@ class SiteController extends Controller{
 		if ( empty($bidData) ){
 			$bidManager = $this->app->getModule('tender')->getComponent('bidManager');
 			$bids = $bidManager->getBidList(array(
-					'condition' => 'verify_progress=1 AND start<=:start',
+					'condition' => 'verify_progress=21 AND start<=:start',
 					'limit' => 5,
 					'offset' => 0,
 					'order' => 'pub_time DESC',
@@ -63,7 +63,7 @@ class SiteController extends Controller{
 				$icons = $bid->user->icons;
 				$iconName = empty($icons) ? null : $icons[0]->file_name;
 				$icon = $userManager->resolveIconUrl($iconName,$iconName === null ? null : $uid);
-				$rank = $userCreditManager->UserLevelCaculator($uid);
+				$rank = $userCreditManager->UserLevelCaculator($bid->user->credit_grade);
 				
 				$bidData[] = array(
 						'id' => $bid->id,

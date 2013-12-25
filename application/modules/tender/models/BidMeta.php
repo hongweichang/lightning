@@ -17,7 +17,7 @@
  * @property Bid $bid
  * @property FrontUser $user
  */
-class BidMeta extends CActiveRecord
+class BidMeta extends CmsActiveRecord
 {
 	/**
 	 * @return string the associated database table name

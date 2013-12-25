@@ -96,9 +96,9 @@ class PurchaseController extends Controller {
 				);
 				
 				if($model->validate()){
-					if(($meta_no = $model->save()) !== false){
+					if(($metano = $model->save()) !== false){
 						$this->redirect($this->createUrl('platform/order',array(
-							'meta_no' => $meta_no
+							'metano' => Utils::appendEncrypt($metano)
 						)));
 					}else{
 						 // 已满标
