@@ -30,7 +30,7 @@
       </div>
       <div id="he-nav">
         <div class="wd1002">
-          <a href="<?php echo $this->createUrl('/')?>"><img src="<?php echo $this->imageUrl; ?>logo.png" id="logo" /></a>
+          <a href="<?php echo $this->app->createUrl('/')?>"><img src="<?php echo $this->imageUrl; ?>logo.png" id="logo" /></a>
         </div>
       </div>
     </div>
