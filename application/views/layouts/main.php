@@ -21,15 +21,12 @@
               <a href="<?php echo $this->createUrl('/user/account/login')?>">登录</a>
               <a href="<?php echo $this->createUrl('/user/account/register')?>">注册中心</a>
               <a href="<?php echo $this->createUrl('/content/help')?>">帮助中心</a>
-              <!-- <a href="#"><img src="<?php echo $this->imageUrl; ?>top-bg.png" />关注闪电贷微博</a> -->
             </p>
             <p class="he-wl">您好，欢迎你来到闪电贷！</p>
       <?php else:?>
            <p class="he-lo">
               <a href="<?php echo $this->createUrl('/user/account/logout')?>">退出</a>
               <a href="<?php echo $this->createUrl('/content/help')?>">帮助中心</a>
-              <!-- <a href="#"><img src="<?php echo $this->imageUrl; ?>top-bg.png" />关注闪电贷微博</a> -->
-              <wb:follow-button uid="3315582810" type="red_2" width="136" height="24" ></wb:follow-button>
             </p>
             <p class="he-wl">您好 <?php echo $this->user->getName()?>，欢迎你来到闪电贷！</p>
       <?php endif;?>
