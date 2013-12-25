@@ -1,0 +1,1 @@
+<label><?php echo $userData[0]->nickname?></label>

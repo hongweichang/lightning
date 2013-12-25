@@ -7,7 +7,7 @@ design By HJtianling_LXY,<2507073658@qq.com>
 
 return array(
 		array(
-				'pattern'=>'<_m:(appservice)>/<_a:(CreditGrade|Balance)>/',
+				'pattern'=>'<_m:(appservice)>/<_a:(CreditGrade|Balance|UserCredit)>/',
 				'<_m>/appUser/get<_a>',
 				'verb'=>'POST'
 			),
