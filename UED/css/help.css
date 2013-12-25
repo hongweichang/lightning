@@ -307,18 +307,18 @@ body {
       color: #656464;
       margin-bottom: 10px;
       display: none; }
-  #hc-content .hc-title:hover {
-    color: #27a5a7;
+  .about-content .hc-title:hover {
+    color: #2d9491;
     cursor: pointer; }
-  #hc-content .hc-title.on {
-    color: #27a5a7; }
+  .about-content .hc-title.on {
+    color: #2d9491; }
 
 .hc-side.about-side li a:hover {
   color: #fff;
-  background-color: #278099; }
+  background-color: #3ec4cb; }
 .hc-side.about-side li a.active {
   color: #fff;
-  background-color: #2b878a; }
+  background-color: #309da0; }
 
 .hc-side.faq-side li a:hover {
   color: #fff;

@@ -5,8 +5,8 @@ $this->cs->registerScriptFile($this->scriptUrl.'help.js',CClientScript::POS_END)
             <div class="hc-side about-side">
                 <ul>
                 	<?php 
-                	$cid = $activeCategory->id;
-                	foreach ($category as $val):
+                	$cid = $this->activeCategory->id;
+                	foreach ($this->categories as $val):
                 		$name = $val->category_name;
                 		if ( mb_strlen($name,'UTF-8') > 6 ){
                 			$name = mb_substr($name,0,6,'UTF-8').'...';
@@ -23,7 +23,7 @@ $this->cs->registerScriptFile($this->scriptUrl.'help.js',CClientScript::POS_END)
             </div>
             <div id="hc-content">
             	<div class="about-title">
-                    <h2><?php echo $activeCategory->category_name;?></h2>
+                    <h2><?php echo $this->activeCategory->category_name;?></h2>
                 </div>
                 <ul>
                     <?php
