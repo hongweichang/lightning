@@ -45,7 +45,11 @@ class BidManager extends CApplicationComponent{
 		return BidMeta::model()->with('user','bid')->findAll($condition,$params);
 	}
 	
-	
+	/**
+	 * 获取锁定资金
+	 * @param integer $uid
+	 * @return number
+	 */
 	public function getLockBalance($uid){
 		$progress = BidMeta::model()->find(array(
 			'select' => 'SUM(sum) AS sum',
@@ -115,12 +119,19 @@ class BidManager extends CApplicationComponent{
 	 * @param string $message
 	 */
 	public function handleBid($bid,$message = null){
+		$time = time();
 		if(empty($message)){
-			return BidInfo::model()->updateByPk($bid,array('verify_progress' => 21)); // 开始招标
+			return BidInfo::model()->updateByPk($bid,array(
+				'verify_progress' => 21,
+				'begin_time' => $time
+			)); // 开始招标
 		} else {
 			return BidInfo::model()->updateByPk($bid,array(
-					'verify_progress' => 20,
-					'failed_description' => $message
+				'verify_progress' => 20,
+				'begin_time' => $time,
+				'repay_time' => $time,
+				'finish_time' => $time,
+				'failed_description' => $message
 			));
 		}
 	}
@@ -141,29 +152,63 @@ class BidManager extends CApplicationComponent{
 			'condition' => 'bid_id='.$bid->getAttribute('id')
 		));
 		
+		$time = time();
+		$fund = $this->app->getModule('pay')->fundManager;
+		$credit = $this->app->getModule('credit')->userCreditManager;
+		//费用计算
+		$rate = $credit->userRateGet($bid->getAttribute('user_id'));
+		
+		if($bid->getAttribute('deadline') > 6){
+			$fee = round($bid->getAttribute('refund') * $rate['on_over6'],2);
+			$rate['on_bid'] = $rate['on_over6'];
+		}else{
+			$fee = round($bid->getAttribute('refund') * $rate['on_below6'],2);
+			$rate['on_bid'] = $rate['on_below6'];
+		}
+		
+		
 		$transaction = Yii::app()->db->beginTransaction();
-		try{		
+		try{
+			//借款人收款
+			$bid->getRelated('user')->saveCounters(array(
+				'balance' => $bid->getAttribute('sum') - $fee * 100
+			));
+			
 			foreach($metas as $meta){
+				//投资状态更换
 				switch ($meta->getAttribute('status')){
-					case 11:
+					case 11: // 订单状态
 						$meta->attributes = array(
-							//'finish_time' => time(),
+							'pay_time' => $time,
+							'repay_time' => $time,
+							'finish_time' => $time,
 							'status' => 20
 						);
 					break;
-					case 21:
+					case 21: // 已付款
 						$meta->attributes = array(
+							'repay_time' => $time,
 							'status' => 31
 						);
 					break;
 				}
 				$meta->save();
+				
+				//借款人收款记录
+				$fund->p2p($bid->getAttribute('user_id'),
+						$meta->getAttribute('user_id'),
+						$meta->getAttribute('refund'),
+						round($meta->getAttribute('refund') * $rate['on_bid'],2));
 			}
 			
+			//标段状态更换 已满标开始还款
 			$bid->attributes = array(
-					'verify_progress' => 31
+				'repay_time' => $time,
+				'verify_progress' => 31
 			);
 			$bid->save();
+			
+			//@TODO 满标通知
 			
 			$transaction->commit();
 			return true;
@@ -185,26 +230,33 @@ class BidManager extends CApplicationComponent{
 			$bid = $this->getBidInfo($bid_id);
 		}
 		
+		$time = time();
+		
 		$metas = $this->getBidMetaList(array(
-				'condition' => 'bid_id='.$bid->getAttribute('id')
+			'condition' => 'bid_id='.$bid->getAttribute('id')
 		));
 		
 		$transaction = Yii::app()->db->beginTransaction();
 		try{
 			foreach($metas as $meta){
+				//投资状态更换
 				if($meta->getAttribute('status') == 21){
 					$meta->getRelated('user')->saveCounters(array(
 						'balance' => $meta->getAttribute('sum')
 					));
 				}
 				$meta->attributes = array(
-					'finish_time' => time(),
+					'repay_time' => $time,
+					'finish_time' => $time,
 					'status' => 30 // 订单关闭
 				);
 				$meta->save();
 			}
-	
+			
+			//标段状态更换
 			$bid->attributes = array(
+				'repay_time' => $time,
+				'finish_time' => $time,
 				'verify_progress' => 30 // 流标
 			);
 			$bid->save();
@@ -230,6 +282,7 @@ class BidManager extends CApplicationComponent{
 		}
 		
 		$fund = $this->app->getModule('pay')->fundManager;
+		$credit = $this->app->getModule('credit')->userCreditManager;
 		
 		$metas = $this->getBidMetaList(array(
 			'condition' => 'bid_id='.$bid->getAttribute('id')
@@ -237,19 +290,36 @@ class BidManager extends CApplicationComponent{
 		
 		$transaction = Yii::app()->db->beginTransaction();
 		try{
+			//借款人扣款
 			$bid->getRelated('user')->saveCounters(array(
-				'balance' => - $bid->getAttribute('refund')
+				'balance' => - $bid->getAttribute('refund'),
 			));
 			
-			foreach($metas as $meta){
+			foreach($metas as $meta){				
+				//费用计算
+				$rate = $credit->userRateGet($meta->getAttribute('user_id'));
+				$fee = round($meta->getAttribute('refund') * $rate['on_pay_back'],2);
+				
+				//投资人收款
 				$meta->getRelated('user')->saveCounters(array(
-					'balance' => $meta->getAttribute('refund')
+					'balance' => $meta->getAttribute('refund') - $fee * 100
 				));
 				
-				$fund->p2p($bid->getAttribute('user_id'),
-						$meta->getAttribute('user_id'),
+				//投资人收款记录
+				$fund->p2p($meta->getAttribute('user_id'),
+						$bid->getAttribute('user_id'),
 						$meta->getAttribute('refund'),
-						$meta->getAttribute('refund') * 0.01);
+						$fee);
+			}
+			
+			//还款期限 递减
+			$bid->saveCounters(array(
+				'repay_deadline' => -1,
+			));
+			
+			//判断还款是否全部完成
+			if(!$bid->getAttribute('repay_deadline')){
+				$this->finishBid($bid);
 			}
 		
 			$transaction->commit();
@@ -272,21 +342,26 @@ class BidManager extends CApplicationComponent{
 			$bid = $this->getBidInfo($bid_id);
 		}
 		
+		$time = time();
+		
 		$metas = $this->getBidMetaList(array(
 			'condition' => 'bid_id='.$bid->getAttribute('id')
 		));
 		
 		$transaction = Yii::app()->db->beginTransaction();
 		try{
+			//投资状态更换
 			foreach($metas as $meta){
 				$meta->attributes = array(
-					'finish_time' => time(),
+					'finish_time' => $time,
 					'status' => 41 // 订单完成
 				);
 				$meta->save();
 			}
 		
+			//标段状态更换
 			$bid->attributes = array(
+				'finish_time' => $time,
 				'verify_progress' => 41 // 完成
 			);
 			$bid->save();
@@ -309,42 +384,21 @@ class BidManager extends CApplicationComponent{
 	public function purchaseBid($user_id,$bid_id,$sum){
 		$sum = round($sum,2);
 		
-		$transaction = Yii::app()->db->beginTransaction();
-		try{
-			$bid = $this->getBidInfo($bid_id);
-			if(empty($bid)){
-				return false;
-			}
-			
-			$sum100 = $sum * 100;
-			$currentSum = $bid->getAttribute('progress_sum') + $sum100;
-			if( $currentSum > $bid->getAttribute('sum')){
-				return false;
-			}
-			
-			$progress = $sum100 * 100 / $bid->getAttribute('sum');
-			if( $currentSum == $bid->getAttribute('sum')){
-				$progress = 100;
-			}
-			$bid->saveCounters(array(
-				'progress_sum' => $sum100,  // 锁定进度
-				'progress' => $progress
-			));
-			
-			$meta = new BidMeta();
-			$meta->attributes = array(
-				'user_id' => $user_id,
-				'bid_id' => $bid_id,
-				'sum' => $sum100,
-				'refund' => $this->calculateRefund($sum, $bid->getAttribute('month_rate') / 1200, $bid->getAttribute('deadline')) * 100,
-				'buy_time' => time(),
-				'status' => 11 // 订单未支付
-			);
-			$meta->save();
-			$transaction->commit();
+		$bid = $this->getBidInfo($bid_id);
+		
+		$meta = new BidMeta();
+		$meta->attributes = array(
+			'user_id' => $user_id,
+			'bid_id' => $bid_id,
+			'sum' => $sum * 100,
+			'refund' => $this->calculateRefund($sum, $bid->getAttribute('month_rate') / 1200, $bid->getAttribute('deadline')) * 100,
+			'buy_time' => time(),
+			'status' => 11 // 订单未支付
+		);
+		
+		if($meta->save()){
 			return $meta->getPrimaryKey();
-		}catch(Exception $e){
-			$transaction->rollback();
+		}else{
 			return 0;
 		}
 	}
@@ -362,19 +416,32 @@ class BidManager extends CApplicationComponent{
 		}
 		if(empty($meta) || $meta->getAttribute('status') != 11) return false;
 		
-		$user = $meta->getRelated('user');
+		$bid = $meta->getRelated('bid');
+		
+		if($bid->getAttribute('progress_sum') + $meta->getAttribute('sum') > $bid->getAttribute('sum')) return false;
 		
 		$transaction = Yii::app()->db->beginTransaction();
 		try{
-			$user->saveCounters(array(
+			$meta->getRelated('user')->saveCounters(array(
 				'balance' => - $meta->getAttribute('sum')
+			));
+
+			$bid->saveCounters(array(
+				'progress_sum' => $meta->getAttribute('sum') * 100, 
+				'progress' => ($meta->getAttribute('sum') * 10000) / $bid->getAttribute('sum')
 			));
 			
 			$meta->attributes = array(
-				'finish_time' => time(),
+				'pay_time' => time(),
 				'status' => 21 //订单已付款
 			);
 			$meta->save();
+			
+			//满标处理
+			if($bid->getAttribute('progress_sum') + $meta->getAttribute('sum') == $bid->getAttribute('sum')){
+				$this->compeleteBid($bid);
+			}
+			
 			$transaction->commit();
 			return true;
 		}catch (Exception $e){
@@ -394,33 +461,21 @@ class BidManager extends CApplicationComponent{
 		}else{
 			$meta = $this->getBidMetaInfo($meta_no);
 		}
-		if(empty($meta) || $meta->getAttribute('status') != 11 || $meta->getAttribute('status') != 21) return false;
+		if(empty($meta) || $meta->getAttribute('status') != 11) return false;
 		
-		$bid = $meta->getRelated('bid');
+		$time = time();
 		
-		$transaction = Yii::app()->db->beginTransaction();
-		try{
-			$bid->saveCounters(array(
-				'progress' => - $meta->getAttribute('sum') * 100 / $bid->getAttribute('sum'),
-				'progress_sum' => - $meta->getAttribute('sum')
-			));
-			
-			if($meta->getAttribute('status') == 21){
-				$meta->getRelated('user')->saveCounters(array(
-					'balance' => $meta->getAttribute('sum')
-				));
-			}
+		$meta->attributes = array(
+			'pay_time' => $time,
+			'repay_time' => $time,
+			'finish_time' => $time,
+			'status' => 20 // 取消订单
+		);
 		
-			$meta->attributes = array(
-				'finish_time' => time(),
-				'status' => 20 // 取消订单
-			);
-			$meta->save();
-			$transaction->commit();
-			return true;
-		}catch (Exception $e){
-			$transaction->rollback();
-			return false;
+		if($meta->save()){
+			return $meta->getPrimaryKey();
+		}else{
+			return 0;
 		}
 	}
 }

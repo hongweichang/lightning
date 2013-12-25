@@ -304,7 +304,8 @@ body {
   font-family: "Microsoft Yahei";
   font-weight: normal;
   line-height: 40px;
-  color: #fff; }
+  color: #fff;
+  background-color: #309da0; }
 .title:after{
     content: " ";
     display: block;
@@ -322,8 +323,8 @@ body {
 .title a:hover{
     text-decoration: underline;
 }
-.news .title {
-  background: #eea758; }
+/*.news .title {
+  background: #eea758; }*/
 .news ul{
   border-left: 1px solid #dadadb;
   border-right: 1px solid #dadadb;
@@ -363,8 +364,8 @@ body {
   overflow: hidden;
   white-space: nowrap; }
 
-.loan .title {
-  background-color: #9dd8ca; }
+/*.loan .title {
+  background-color: #9dd8ca; }*/
 .loan li {
   border-bottom: 1px solid #dadadb;
   padding: 20px 0; }
@@ -460,8 +461,8 @@ body {
 .loan-list .bar-num {
   left: 0; }
 
-.platform .title {
-  background-color: #90d375; }
+/*.platform .title {
+  background-color: #90d375; }*/
 .platform #android {
   margin: 20px 45px; }
 .platform #ios {
@@ -486,11 +487,4 @@ body {
 .loan-list .bar-in .bar-num{
     color: #adadad;
     left: 80%;
-}
-
-.intro a,
-.news,
-.loan,
-.platform{
-	
 }
