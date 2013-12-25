@@ -8,6 +8,7 @@
 class ContentModule extends CmsModule{
 	public function init(){
 		parent::init();
+		$this->defaultController = 'help';
 		$this->setImport(array(
 				'content.components.*',
 				'content.models.*',
