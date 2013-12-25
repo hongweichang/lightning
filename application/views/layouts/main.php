@@ -34,7 +34,7 @@
       </div>
       <div id="he-nav">
         <div class="wd1002">
-          <a href="<?php echo $this->app->createUrl('/')?>"><img src="<?php echo $this->imageUrl; ?>logo.png" id="logo" /></a>
+          <a href="<?php echo $this->app->createUrl('/site')?>"><img src="<?php echo $this->imageUrl; ?>logo.png" id="logo" /></a>
           <ul>
             <li class="origin"><a href="<?php echo $this->app->homeUrl; ?>">首页</a></li>
             <li class="yellow"><a href="<?php echo $this->app->createUrl('tender/borrow'); ?>">我要借款</a></li>
