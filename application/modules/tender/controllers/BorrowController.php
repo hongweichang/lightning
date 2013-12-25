@@ -82,7 +82,7 @@ class BorrowController extends Controller {
 			);
 			
 			if($model->validate()){
-				$this->redirect( $this->createUrl('borrow/viewInfo',array('id' => $model->save(false) )));
+				$this->redirect( $this->createUrl('borrow/viewInfo',array('id' => $model->save())));
 			}
 		}
 		
