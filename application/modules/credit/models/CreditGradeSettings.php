@@ -17,7 +17,7 @@
  * @property integer $loanable
  * @property string $label
  */
-class CreditGradeSettings extends CActiveRecord
+class CreditGradeSettings extends CmsActiveRecord
 {
 	/**
 	 * @return string the associated database table name

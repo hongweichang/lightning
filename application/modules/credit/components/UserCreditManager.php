@@ -46,6 +46,32 @@ class UserCreditManager extends CApplicationComponent{
 		}else
 			return 401;
 	}
+
+	/*
+	**获取用户各项操作利率接口
+	*/
+	public function UserRateGet($uid){
+		if(is_numeric($uid)){
+			$userCreditLevel = $this->getUserCreditLevel($uid);
+			$rate = array();
+
+			if(!empty($userCreditLevel)){
+				$userRate = CreditGradeSettings::model()->findAll('label=:level',array(':level'=>$userCreditLevel));
+				$rate = array(
+						'on_recharge'=>$userRate[0]->on_recharge/100,
+						'on_withdraw'=>$userRate[0]->on_withdraw/100,
+						'on_pay_back'=>$userRate[0]->on_pay_back/100,
+						'on_over6'=>$userRate[0]->on_over6/100,
+						'on_blow6'=>$userRate[0]->on_below6/100
+
+							);
+				return $rate;
+
+
+			}else
+				return 400;
+		}
+	}
 }
 
 	
