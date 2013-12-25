@@ -129,7 +129,7 @@ if(Yii::app()->user->hasFlash('error')){
                     <li>
                         <div class="clearfix sec-fold">
                             <div class="sec-img ico-paywd"></div>
-                            <p class="sec-val">交易密码</p>
+                            <p class="sec-val">资金密码</p>
                             <p class="sec-status">
                                 <?php
                                     if(!empty($userData->pay_password)){
@@ -146,7 +146,7 @@ if(Yii::app()->user->hasFlash('error')){
                         <div class="sec-unfold">
                             <form name = "payPasssword" method = "post" action = "payPasswordCreate">
                                 <div class="form-item">
-                                    <label>支付密码</label>
+                                    <label>资金密码</label>
                                     <input type="password" name = "password"/>
                                 </div>
                                 <div class="form-item">

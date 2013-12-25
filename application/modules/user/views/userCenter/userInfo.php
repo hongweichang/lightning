@@ -76,8 +76,7 @@ $this->widget('application.extensions.swfupload.CSwfUpload', array(
                 <div class="tab-list">
                     <ul id="find-table-detail">
                         <li class="find-selected">基本信息</li>
-                        <li>认证信息</li>
-                        <li>银行卡</li>
+                        <li>信用资料</li>
                     </ul>
                 </div>
                 <div class="basic-info find-table-content find-table-content-show">
@@ -384,28 +383,6 @@ $this->widget('application.extensions.swfupload.CSwfUpload', array(
                         }}?>                                              
  
                     </table>
-                </div>
-
-                <div class="find-table-content bankcard">
-                    <a href="#" class="bankcard-box">
-                        <div>
-                            <img src="<?php echo $this->imageUrl.'psbc.png'?>"/>
-                            <p>尾号6236</p>
-                        </div>
-                        <p class="bankcard-op">删除银行卡</p>
-                    </a>
-                    <a href="#" class="bankcard-box add">
-                        <div>
-                            <img src="../images/bankcard_add.png" />
-                        </div>
-                        <p class="bankcard-op">新增银行卡</p>
-                    </a>
-                    <a href="#" class="bankcard-box add last">
-                        <div>
-                            <img src="../images/bankcard_add.png" />
-                        </div>
-                        <p class="bankcard-op">新增银行卡</p>
-                    </a>
                 </div>
             </div>
         </div>

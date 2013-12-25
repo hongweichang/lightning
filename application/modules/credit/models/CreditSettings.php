@@ -1,7 +1,7 @@
 <?php
 
 
-class CreditSettings extends CActiveRecord
+class CreditSettings extends CmsActiveRecord
 {
 	
 	public function tableName()

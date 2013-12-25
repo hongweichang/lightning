@@ -63,7 +63,7 @@ class SiteController extends Controller{
 				$icons = $bid->user->icons;
 				$iconName = empty($icons) ? null : $icons[0]->file_name;
 				$icon = $userManager->resolveIconUrl($iconName,$iconName === null ? null : $uid);
-				$rank = $userCreditManager->UserLevelCaculator($uid);
+				$rank = $userCreditManager->UserLevelCaculator($bid->user->credit_grade);
 				
 				$bidData[] = array(
 						'id' => $bid->id,
