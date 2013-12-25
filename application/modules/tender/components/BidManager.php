@@ -312,16 +312,22 @@ class BidManager extends CApplicationComponent{
 		$transaction = Yii::app()->db->beginTransaction();
 		try{
 			$bid = $this->getBidInfo($bid_id);
-			if(empty($bid)) return false;
+			if(empty($bid)){
+				return false;
+			}
 			
-			if($bid->getAttribute('progress_sum') + $sum * 100 > $bid->getAttribute('sum')) return false;
+			$sum100 = $sum * 100;
+			$currentSum = $bid->getAttribute('progress_sum') + $sum100;
+			if( $currentSum > $bid->getAttribute('sum')){
+				return false;
+			}
 			
-			$progress = ($sum * 10000) / $bid->getAttribute('sum');
-			if($bid->getAttribute('progress_sum') + $sum * 100 != $bid->getAttribute('sum')){
+			$progress = $sum100 * 100 / $bid->getAttribute('sum');
+			if( $currentSum == $bid->getAttribute('sum')){
 				$progress = 100;
 			}
 			$bid->saveCounters(array(
-				'progress_sum' => $sum * 100,  // 锁定进度
+				'progress_sum' => $sum100,  // 锁定进度
 				'progress' => $progress
 			));
 			
@@ -329,7 +335,7 @@ class BidManager extends CApplicationComponent{
 			$meta->attributes = array(
 				'user_id' => $user_id,
 				'bid_id' => $bid_id,
-				'sum' => $sum * 100,
+				'sum' => $sum100,
 				'refund' => $this->calculateRefund($sum, $bid->getAttribute('month_rate') / 1200, $bid->getAttribute('deadline')) * 100,
 				'buy_time' => time(),
 				'status' => 11 // 订单未支付

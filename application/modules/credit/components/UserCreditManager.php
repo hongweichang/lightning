@@ -22,7 +22,7 @@ class UserCreditManager extends CApplicationComponent{
 		if(is_numeric($point)){
 			$cache = Yii::app()->getCache();
 			if ( $cache !== null ){
-				$allData = $cache->get('USER_CREDIT_LEVEL_SETTINGS');
+				$allData = $cache->get('USER_CREDIT_LEVEL_SETTING');
 				if ( $allData === false ){
 					$allData = (array)CreditGradeSettings::model()->findAll();
 				}
@@ -31,7 +31,7 @@ class UserCreditManager extends CApplicationComponent{
 			}
 			
 			if ( $cache !== null ){
-				$cache->set('USER_CREDIT_LEVEL_SETTINGS',$allData,24*3600);
+				$cache->set('USER_CREDIT_LEVEL_SETTING',$allData,24*3600);
 			}
 			
 			$label = null;

@@ -97,7 +97,7 @@ body {
 #he-nav ul li a {
   color: #000000; }
 
-.origin {
+/*.origin {
   border-color: #eea758; }
 
 .yellow {
@@ -113,7 +113,7 @@ body {
   border-color: #f9bdea; }
 
 .violet {
-  border-color: #ddc4f7; }
+  border-color: #ddc4f7; }*/
 
 #he-nav ul li.active {
   border-top-width: 4px; }

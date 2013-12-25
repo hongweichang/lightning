@@ -50,7 +50,7 @@
     <?php echo $content; ?>
     </div>
     <div id="footer">
-      <div class="wd1002">
+      <!-- <div class="wd1002">
         <ul id="fo-nav">
           <li><img src="<?php echo $this->imageUrl; ?>wl.png" />新手入门
             <ul>
@@ -109,7 +109,40 @@
         <div id="copyright">
             <?php echo $this->app['copyright']?>
         </div>
-      </div>
+      </div> -->
+      <div class="wd1002 clearfix">
+            <div class="footer-contact">
+                <p>客服电话</p>
+                <p>023-63080933</p>
+                <p>9:00-21:00</p>
+            </div>
+            <div class="footer-sec clearfix">
+                <ul>
+                    <li><a href="#">公司介绍</a></li>
+                    <li><a href="#">借款说明</a></li>
+                    <li><a href="#">投资说明</a></li>
+                    <li><a href="#">帮助中心</a></li>
+                    <li><a href="#">联系我们</a></li>
+                    <li><a href="#">万兆投资</a></li>
+                    <li><a href="#">常见问题</a></li>
+                </ul>
+            </div>
+            <div class="footer-sec clearfix">
+                <ul>
+                    <li class="f-text">关注我们</li>
+                    <li><a href="" class="f-img" id="f-wb"></a></li>
+                    <li><a href=""  class="f-img" id="f-tx"></a></li>
+                    <li><a href=""  class="f-img" id="f-wx"></a></li>
+                </ul>
+            </div>
+            <div class="footer-sec clearfix last">
+                <div id="f-copyright">
+                    <span>渝ICP备13008004号 |</span>
+                    <span>© 2013-2014 重庆万兆投资有限公司  All rights reserved|</span>
+                    <span>闪电贷</span>
+                </div>
+            </div>
+        </div>
     </div>
 </body>
 </html>
