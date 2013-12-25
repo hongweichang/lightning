@@ -14,8 +14,13 @@
  * @property string $start
  * @property string $end
  * @property string $deadline
+ * @property integer $repay_deadline
  * @property string $progress
+ * @property integer $progress_sum
  * @property string $pub_time
+ * @property string $begin_time
+ * @property string $repay_time
+ * @property string $finish_time
  * @property integer $verify_progress
  * @property string $failed_description
  *
@@ -41,16 +46,15 @@ class BidInfo extends CmsActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('user_id, title, description, sum', 'required'),
-			array('month_rate,start,end,pub_time,deadline,progress,sum', 'numerical', 'integerOnly'=>true),
+			array('user_id, title, description, sum, refund, month_rate, start, end, deadline, repay_deadline', 'required'),
+			array('refund, repay_deadline, progress_sum, verify_progress', 'numerical', 'integerOnly'=>true),
+			array('user_id, sum, start, end, deadline, progress, pub_time, begin_time, repay_time, finish_time', 'length', 'max'=>11),
 			array('title', 'length', 'max'=>50),
-			//month_rate 5-20
-			//deadline:1-36
-			array('month_rate','numerical','max'=>2000,'min'=>500),
-			array('deadline','numerical','max'=>36,'min'=>1),
-			array('failed_description,refund', 'safe'),
+			array('month_rate', 'length', 'max'=>5),
+			array('failed_description', 'safe'),
 			// The following rule is used by search().
-			array('id, user_id, title, description, sum, month_rate, start, end, deadline, progress, verify_progress, failed_description', 'safe', 'on'=>'search'),
+			// @todo Please remove those attributes that should not be searched.
+			array('id, user_id, title, description, sum, refund, month_rate, start, end, deadline, repay_deadline, progress, progress_sum, pub_time, begin_time, repay_time, finish_time, verify_progress, failed_description', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -83,8 +87,13 @@ class BidInfo extends CmsActiveRecord
 			'start' => 'Start',
 			'end' => 'End',
 			'deadline' => 'Deadline',
+			'repay_deadline' => 'Repay Deadline',
 			'progress' => 'Progress',
+			'progress_sum' => 'Progress Sum',
 			'pub_time' => 'Pub Time',
+			'begin_time' => 'Begin Time',
+			'repay_time' => 'Repay Time',
+			'finish_time' => 'Finish Time',
 			'verify_progress' => 'Verify Progress',
 			'failed_description' => 'Failed Description',
 		);
@@ -118,8 +127,13 @@ class BidInfo extends CmsActiveRecord
 		$criteria->compare('start',$this->start,true);
 		$criteria->compare('end',$this->end,true);
 		$criteria->compare('deadline',$this->deadline,true);
+		$criteria->compare('repay_deadline',$this->repay_deadline);
 		$criteria->compare('progress',$this->progress,true);
+		$criteria->compare('progress_sum',$this->progress_sum);
 		$criteria->compare('pub_time',$this->pub_time,true);
+		$criteria->compare('begin_time',$this->begin_time,true);
+		$criteria->compare('repay_time',$this->repay_time,true);
+		$criteria->compare('finish_time',$this->finish_time,true);
 		$criteria->compare('verify_progress',$this->verify_progress);
 		$criteria->compare('failed_description',$this->failed_description,true);
 
