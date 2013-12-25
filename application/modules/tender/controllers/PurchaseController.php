@@ -111,16 +111,10 @@ class PurchaseController extends Controller {
 				'condition' => 'bid_id='.$bid->getAttribute('id')
 			));
 			
-			$progress = BidMeta::model()->find(array(
-				'select' => 'SUM(sum) AS sum',
-				'condition' => 'bid_id='.$bid->getAttribute('id')
-			));
-			
 			$bider = $bid->getRelated('user');
 			$this->render("info",array(
 				'bid' => $bid,
 				'bider' => $bider,
-				'progress' => $progress->getAttribute('sum') / 100,
 				'form' => $model,
 				'meta' => new CArrayDataProvider($meta),
 				'user' => $this->app->getModule('user')->userManager->getUserInfo($this->user->getId()),

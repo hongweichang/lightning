@@ -7,7 +7,10 @@
  */
 class BidCommand extends CConsoleCommand{
 	
-	public function actionListen(){
+	/**
+	 * 流标监听
+	 */
+	public function actionRevoke(){
 		$db = Yii::app()->getModule('tender')->bidManager;
 		$bids = $db->getBidList(array(
 			'condition' => 'verify_progress=:s and progress!=:p and end<=:e',
@@ -23,7 +26,17 @@ class BidCommand extends CConsoleCommand{
 		}
 	}
 	
+	/**
+	 * 还款监听
+	 */
 	public function actionRepay(){
+		$db = Yii::app()->getModule('tender')->bidManager;
+		$bids = $db->getBidList(array(
+			'condition' => 'verify_progress=31',
+		));
 		
+		foreach($bids as $bid){
+			$db->revokeBid($bid);
+		}
 	}
 }
