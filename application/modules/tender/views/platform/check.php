@@ -51,7 +51,7 @@ $this->cs->registerCssFile($this->cssUrl.'lend.css');
         </div>
         <div id="view-detail"></div>
         <div class="paycenter">
-          <form method="post" action="<?php echo $this->createUrl('platform/check',array('meta_no' => $meta->getAttribute('id'))); ?>" id="pay">
+          <form method="post" action="<?php echo $this->createUrl('platform/check',array('metano' => Utils::appendEncrypt($meta->getAttribute('id')))); ?>" id="pay">
             <div class="paycenter-item">
               <label>付款方式：</label>
               <img src="<?php echo $this->imageUrl; ?>pay_ssd.png" />

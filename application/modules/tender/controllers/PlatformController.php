@@ -53,10 +53,11 @@ class PlatformController extends Controller{
 	}
 	
 	public function actionCheck(){
-		$meta = BidMeta::model()->with('user','bid')->findByPk($this->getQuery('metano'));
+		$metaId = Utils::appendDecrypt($this->getQuery('metano'));
+		$meta = BidMeta::model()->with('user','bid')->findByPk($metaId);
 
 		if(!empty($meta) && $meta->getAttribute('user_id') == $this->user->getId()){
-			$this->setPageTitle($meta->getRelated('bid')->getAttribute('title').' - '.$this->name.' - '.$this->app->name);
+			$this->setPageTitle($meta->getRelated('bid')->getAttribute('title').' - '.$this->name);
 			
 			$user = $meta->getRelated('user');
 			$password = $this->getPost('pay_pwd');
