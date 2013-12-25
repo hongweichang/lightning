@@ -113,6 +113,9 @@ class console extends ConfigBase{
 						'sendSms' => array(
 								'class' => 'application.commands.SendSmsCommand'
 						),
+						'bid' => array(
+								'class' => 'application.commands.BidCommand'
+						),
 						'logger' => array(
 								'class' => 'cms.components.asyncEvent.logging.LoggerCommand'
 						),

@@ -153,9 +153,9 @@ class BidManager extends CApplicationComponent{
 		));
 		
 		$time = time();
-		$fund = $this->app->getModule('pay')->fundManager;
-		$credit = $this->app->getModule('credit')->userCreditManager;
+		$fund = Yii::app()->getModule('pay')->fundManager;
 		//费用计算
+		$credit = Yii::app()->getModule('credit')->userCreditManager;
 		$rate = $credit->userRateGet($bid->getAttribute('user_id'));
 		
 		if($bid->getAttribute('deadline') > 6){
@@ -281,8 +281,8 @@ class BidManager extends CApplicationComponent{
 			$bid = $this->getBidInfo($bid_id);
 		}
 		
-		$fund = $this->app->getModule('pay')->fundManager;
-		$credit = $this->app->getModule('credit')->userCreditManager;
+		$fund = Yii::app()->getModule('pay')->fundManager;
+		$credit = Yii::app()->getModule('credit')->userCreditManager;
 		
 		$metas = $this->getBidMetaList(array(
 			'condition' => 'bid_id='.$bid->getAttribute('id')
@@ -316,13 +316,13 @@ class BidManager extends CApplicationComponent{
 			$bid->saveCounters(array(
 				'repay_deadline' => -1,
 			));
+		
+			$transaction->commit();
 			
 			//判断还款是否全部完成
 			if(!$bid->getAttribute('repay_deadline')){
 				$this->finishBid($bid);
 			}
-		
-			$transaction->commit();
 			return true;
 		}catch(Exception $e){
 			$transaction->rollback();
@@ -437,12 +437,12 @@ class BidManager extends CApplicationComponent{
 			);
 			$meta->save();
 			
+			$transaction->commit();
+			
 			//满标处理
 			if($bid->getAttribute('progress_sum') + $meta->getAttribute('sum') == $bid->getAttribute('sum')){
 				$this->compeleteBid($bid);
 			}
-			
-			$transaction->commit();
 			return true;
 		}catch (Exception $e){
 			$transaction->rollback();

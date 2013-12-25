@@ -8,10 +8,6 @@
 class AlipayController extends PayController{
 	protected $platform = 'alipay';
 	
-	public function filters(){
-		return array();
-	}
-	
 	public function init(){
 		parent::init();
 		$this->module->setImport(array(		
@@ -19,12 +15,10 @@ class AlipayController extends PayController{
 		));
 	}
 	
-	public function actionIndex(){
-		//付款金额
-		$charge = $this->getPost('sum');
-		//手续费
-		$fee = round($charge * 0.05,2);
-		
+	public function actionOrder(){
+		$order = $this->getPayOrder();
+		$price = ($order->getAttribute('sum') + $order->getAttribute('fee')) / 100;
+
 		$alipay = $this->module->alipay;
 		//构造要请求的参数数组，无需改动
 		$parameter = array(
@@ -36,13 +30,13 @@ class AlipayController extends PayController{
 			"show_url"	=> $alipay['show_url'],
 			"seller_email"	=> $alipay['seller_email'],
 			//商户网站订单系统中唯一订单号，必填
-			"out_trade_no"	=> $this->raiseOrder($charge, $fee),
+			"out_trade_no"	=> $order->getAttribute('id'),
 			//订单名称
-			"subject"	=> '闪电贷：'.$charge.'元',
+			"subject"	=> '闪电贷：'.$price.'元',
 			//订单描述
-			"body"	=> '闪电贷：'.($charge + $fee).'元（含手续费：'.$fee.'元）',
+			"body"	=> '闪电贷：'.$price.'元（含手续费：'.($order->getAttribute('fee') / 100).'元）',
 			//"total_fee"	=> $total_fee,
-			"price" => $charge + $fee,
+			"price" => $price,
 			
 			'quantity' => 1,
 			'logistics_fee' => '0.00',
@@ -57,7 +51,7 @@ class AlipayController extends PayController{
 			"exter_invoke_ip"	=> "",
 			"_input_charset"	=> trim(strtolower($alipay['input_charset']))
 		);
-		
+
 		$alipaySubmit = new AlipaySubmit($alipay);
 		$html_text = $alipaySubmit->buildRequestForm($parameter,"get", "");
 		echo $html_text;
