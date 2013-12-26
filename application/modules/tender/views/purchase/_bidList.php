@@ -23,15 +23,15 @@ foreach ( $bidProgressCssClassMap as $key => $bidProgressCssClass ){
         	<?php echo $data->getAttribute('title');?>
         </a>
 	</div>
-	<div class="loan-rate loan-num"><?php echo $data->getAttribute('month_rate') / 100;?>%</div>
+	<div class="loan-rate loan-num"><span class="val"><?php echo $data->getAttribute('month_rate') / 100;?></span>%</div>
 	<div class="loan-rank">
 		<?php																								
 			$rank = Yii::app()->getModule('credit')->getComponent('userCreditManager')->getUserCreditLevel($data->getAttribute('user_id'));
 		?>
 		<div class="rank<?php echo $rank;?>"><?php echo $rank;?></div>
 	</div>
-	<div class="loan-amount loan-num">￥<?php echo number_format($data->getAttribute('sum') / 100,2);?>元</div>
-	<div class="loan-time loan-num"><?php echo $data->getAttribute('deadline');?>个月</div>
+	<div class="loan-amount loan-num"><span class="val">￥<?php echo number_format($data->getAttribute('sum') / 100,2);?></span>元</div>
+	<div class="loan-time loan-num"><span class="val"><?php echo $data->getAttribute('deadline');?></span>个月</div>
 	<div class="loan-progress">
 		<div class="bar-out">
 			<div class="bar-in">
