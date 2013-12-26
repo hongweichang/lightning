@@ -65,7 +65,7 @@
                             <label for="is-open-time-list">显示还款时间表</label>
                         </div>
                         <div class="calc-inf">
-                            <input type="submit" value="开始计算" id="cal-submit" />
+                            <input type="submit" value="开始计算" id="cal-submit" data-service="C;10" data-type="lend" />
                         </div>
                     </form>
                 </div>
@@ -88,6 +88,33 @@
                     </table>
                 </div>
                 <div class="calc-result">
+                    <h2>会员级别</h2>
+                    <table id="calc-rank">
+                        <tr>
+                            <td>会员级别</td>
+                            <td>AA</td>
+                            <td>A</td>
+                            <td>BB</td>
+                            <td>B</td>
+                            <td>C</td>
+                            <td>D</td>
+                        </tr>
+                        <tr>
+                            <td>标段利息利润利率</td>
+                            <td>6%</td>
+                            <td>7%</td>
+                            <td>8%</td>
+                            <td>9%</td>
+                            <td>10%</td>
+                            <td>0%</td>
+                        </tr>
+                        <tr>
+                            <td colspan="3">您的会员级别为<span id="calc-rank-show">C</span></td>
+                            <td colspan="4">总共扣除平台管理费<span id="calc-lend-service">1000</span>元</td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="calc-result">
                     <h2>本息回收时间表</h2>
                     <table id="calc-detail">
                         <tbody>
@@ -97,6 +124,7 @@
                                 <td>月收本金</td>
                                 <td>月收利息</td>
                                 <td>待收本息</td>
+                                <td>月管理费</td>
                             </tr>
                         </tbody>
                     </table>
