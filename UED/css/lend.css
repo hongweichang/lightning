@@ -188,32 +188,6 @@ body {
 .w30 {
   width: 30px; }
 
-.rankA,
-.rankAA,
-.rankAAA,
-.rankHR {
-  width: 30px;
-  height: 30px;
-  margin: 0 auto;
-  line-height: 30px;
-  color: #fff;
-  font-size: 16px;
-  font-family: "Microsoft Yahei";
-  font-weight: normal;
-  text-align: center;
-  font-weight: bold; }
-
-.rankA {
-  background-color: #00ffcc; }
-
-.rankAA {
-  background-color: #09c93b; }
-
-.rankAAA {
-  background-color: #07ee58; }
-
-.rankHR {
-  background-color: #ff001e; }
 
 .info-content .adu-d-nav, .info-content p, .info-content ul, .info-content ul.adu-img-bar li {
   font-weight: normal;
@@ -224,22 +198,6 @@ body {
 
 #container {
   padding: 1px 0 20px 0; }
-
-.breadcrumb {
-  margin: 40px 0; }
-  .breadcrumb li {
-    display: inline-block; }
-  .breadcrumb li:last-child {
-    color: #454545; }
-
-.breadcrumb-item a {
-  color: #848383;
-  font-size: 16px;
-  font-family: "Microsoft Yahei";
-  font-weight: normal; }
-
-.breadcrumb-item.active a {
-  color: #454545; }
 
 .loan-filter {
   padding: 20px 27px;
@@ -341,7 +299,7 @@ body {
   display: inline-block;
   height: 40px;
   line-height: 40px;
-  width: 140px;
+  width: 130px;
   font-size: 16px;
   text-align: center; }
 
@@ -350,7 +308,7 @@ body {
   position: relative; }
   .loan-list div {
     display: inline-block;
-    width: 141px;
+    width: 130px;
     text-align: center;
     font-size: 16px; }
   .loan-list .loan-avatar {
@@ -427,7 +385,27 @@ body {
     width: 1002px;
     height: 123px;
     background: url("../images/lend_hover.png") no-repeat; }
-
+  .loan-list .invest{
+    display: inline-block;
+    margin-left: 30px;
+    padding: 0 10px;
+    height: 30px;
+    line-height: 30px;
+    border: none;
+    background-color: #309da0;
+    color: #fff;
+    text-align: center;
+    cursor: pointer;
+    font-size: 16px;
+    font-family: "Microsoft Yahei";
+    font-weight: normal;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+  }
+  .loan-list .invest:hover{
+    background-color: #3ec4cb;
+  }
 #viewMore {
   text-align: center;
   height: 42px;
@@ -992,7 +970,12 @@ body {
   vertical-align: middle;
   color: #475058; }
 .borrower-content li {
+  float: left;
+  width: 50%;
   border-bottom: 1px solid #c7c7c7; }
+.borrower-content .separator {
+  width: 100%;
+}
 .borrower-content .borrower-name {
   width: 155px;
   border-right: 1px solid #c7c7c7;
@@ -1001,7 +984,7 @@ body {
   text-align: right;
   overflow: hidden; }
 .borrower-content .borrower-val {
-  width: 678px;
+  /*width: 678px;*/
   padding: 0 30px;
   overflow: hidden; }
   .borrower-content .borrower-val img {

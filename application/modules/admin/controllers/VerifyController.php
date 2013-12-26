@@ -7,6 +7,7 @@ design By HJtianling_LXY,<2507073658@qq.com>
 
 class VerifyController extends Admin{
 
+
 	public $WDDZnecessaryCreditNum = 0;
 	public $QYZnecessaryCreditNum = 0;
 	public $GXJCnecessaryCreditNum = 0;
@@ -298,7 +299,7 @@ class VerifyController extends Admin{
 		$criteria = new CDbCriteria;
 		$criteria->condition = 'verify_progress =:progress';
 		$criteria->params = array(
-						':progress'=>'0'
+						':progress'=>11
 					);
 		$criteria->order = 'pub_time DESC';
 

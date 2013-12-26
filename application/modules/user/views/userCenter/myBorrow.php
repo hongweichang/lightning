@@ -31,10 +31,6 @@ $this->cs->registerCssFile($this->cssUrl.'detail.css');
             </div>
             <div class="aud-find">
                 <div class="find-table-box find-table-box-show">
-                    <div class="tab-border tab-top"></div>
-                    <div class="tab-border tab-bottom"></div>
-                    <div class="tab-border-l tab-left"></div>
-                    <div class="tab-border-l tab-right"></div>
                     <div class="table-content">
                         <div class="tab-content-l">
                             <div class="tab-border-l tab-right"></div>

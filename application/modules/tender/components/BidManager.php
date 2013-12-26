@@ -46,6 +46,22 @@ class BidManager extends CApplicationComponent{
 	}
 	
 	/**
+	 * 根据标段获取投资列表
+	 * @param mixed $bid
+	 * @return array
+	 */
+	public function getBidMetaListByBid($bid){
+		if($bid_id instanceof CActiveRecord){
+			$bid_id = $bid->getAttribute('id');
+		}else{
+			$bid_id = $bid;
+		}
+		return $this->getBidMetaList(array(
+			'condition' => 'bid_id='.$bid_id
+		));
+	}
+	
+	/**
 	 * 获取锁定资金
 	 * @param integer $uid
 	 * @return number
@@ -139,7 +155,7 @@ class BidManager extends CApplicationComponent{
 	
 	/**
 	 * 满标
-	 * @param integer $bid_id
+	 * @param mixed $bid_id
 	 * @return boolean
 	 */
 	public function compeleteBid($bid_id){
@@ -148,17 +164,13 @@ class BidManager extends CApplicationComponent{
 		}else{
 			$bid = $this->getBidInfo($bid_id);
 		}
-		
-		$metas = $this->getBidMetaList(array(
-			'condition' => 'bid_id='.$bid->getAttribute('id')
-		));
-		
+		$metas = $this->getBidMetaListByBid($bid);
 		$time = time();
+		
 		$fund = Yii::app()->getModule('pay')->fundManager;
 		//费用计算
 		$credit = Yii::app()->getModule('credit')->userCreditManager;
 		$rate = $credit->userRateGet($bid->getAttribute('user_id'));
-		
 		if($bid->getAttribute('deadline') > 6){
 			$fee = round($bid->getAttribute('refund') * $rate['on_over6'],2);
 			$rate['on_bid'] = $rate['on_over6'];
@@ -166,7 +178,6 @@ class BidManager extends CApplicationComponent{
 			$fee = round($bid->getAttribute('refund') * $rate['on_below6'],2);
 			$rate['on_bid'] = $rate['on_below6'];
 		}
-		
 		
 		$transaction = Yii::app()->db->beginTransaction();
 		try{
@@ -221,7 +232,7 @@ class BidManager extends CApplicationComponent{
 	
 	/**
 	 * 流标
-	 * @param integer $bid_id
+	 * @param mixed $bid_id
 	 * @return boolean
 	 */
 	public function revokeBid($bid_id){
@@ -230,12 +241,8 @@ class BidManager extends CApplicationComponent{
 		}else{
 			$bid = $this->getBidInfo($bid_id);
 		}
-		
+		$metas = $this->getBidMetaListByBid($bid);
 		$time = time();
-		
-		$metas = $this->getBidMetaList(array(
-			'condition' => 'bid_id='.$bid->getAttribute('id')
-		));
 		
 		$transaction = Yii::app()->db->beginTransaction();
 		try{
@@ -272,50 +279,51 @@ class BidManager extends CApplicationComponent{
 	
 	/**
 	 * 还款
-	 * @param integer $bid_id
+	 * @param mixed $bid_id
 	 * @return boolean
 	 */
-	public function repayBid($bid_id){
+	public function repayBid($bid_id,$isAll = false){
 		if($bid_id instanceof CActiveRecord){
 			$bid = $bid_id;
 		}else{
 			$bid = $this->getBidInfo($bid_id);
 		}
+		$metas = $this->getBidMetaListByBid($bid);
 		
 		$fund = Yii::app()->getModule('pay')->fundManager;
 		$credit = Yii::app()->getModule('credit')->userCreditManager;
 		
-		$metas = $this->getBidMetaList(array(
-			'condition' => 'bid_id='.$bid->getAttribute('id')
-		));
+		if(($month = 1) && $isAll){
+			$month = $bid->getAttribute('repay_deadline');
+		}
 		
 		$transaction = Yii::app()->db->beginTransaction();
 		try{
 			//借款人扣款
 			$bid->getRelated('user')->saveCounters(array(
-				'balance' => - $bid->getAttribute('refund'),
+				'balance' => - $bid->getAttribute('refund') * $month,
 			));
 			
-			foreach($metas as $meta){				
+			foreach($metas as $meta){
 				//费用计算
 				$rate = $credit->userRateGet($meta->getAttribute('user_id'));
 				$fee = round($meta->getAttribute('refund') * $rate['on_pay_back'],2);
 				
 				//投资人收款
 				$meta->getRelated('user')->saveCounters(array(
-					'balance' => $meta->getAttribute('refund') - $fee * 100
+					'balance' => ($meta->getAttribute('refund') - $fee * 100) * $month
 				));
 				
 				//投资人收款记录
 				$fund->p2p($meta->getAttribute('user_id'),
 						$bid->getAttribute('user_id'),
-						$meta->getAttribute('refund'),
-						$fee);
+						$meta->getAttribute('refund') * $month,
+						$fee * $month);
 			}
 			
 			//还款期限 递减
 			$bid->saveCounters(array(
-				'repay_deadline' => -1,
+				'repay_deadline' => - $month,
 			));
 		
 			$transaction->commit();
@@ -333,21 +341,17 @@ class BidManager extends CApplicationComponent{
 	
 	/**
 	 * 还款完成
-	 * @param integer $bid_id
+	 * @param mixed $bid_id
 	 * @return boolean
 	 */
-	public function finishBid($bid_id){
+	public function finishBid($bid_id,$isBreak = false){
 		if($bid_id instanceof CActiveRecord){
 			$bid = $bid_id;
 		}else{
 			$bid = $this->getBidInfo($bid_id);
 		}
-		
+		$metas = $this->getBidMetaListByBid($bid);
 		$time = time();
-		
-		$metas = $this->getBidMetaList(array(
-			'condition' => 'bid_id='.$bid->getAttribute('id')
-		));
 		
 		$transaction = Yii::app()->db->beginTransaction();
 		try{
@@ -355,7 +359,7 @@ class BidManager extends CApplicationComponent{
 			foreach($metas as $meta){
 				$meta->attributes = array(
 					'finish_time' => $time,
-					'status' => 41 // 订单完成
+					'status' => $isBreak ? 40 : 41 // 订单逾期 / 完成
 				);
 				$meta->save();
 			}
@@ -363,7 +367,7 @@ class BidManager extends CApplicationComponent{
 			//标段状态更换
 			$bid->attributes = array(
 				'finish_time' => $time,
-				'verify_progress' => 41 // 完成
+				'verify_progress' => $isBreak ? 40 : 41 // 逾期 / 完成
 			);
 			$bid->save();
 				

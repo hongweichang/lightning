@@ -8,7 +8,7 @@ $this->cs->registerCssFile($this->cssUrl.'help.css');
     					<a href="<?php echo $this->createUrl('/site'); ?>">首页</a> > 
     				</li>
     				<li class="breadcrumb-item">
-    					<a href="<?php echo $this->createUrl('/content/help'); ?>">关于我们</a> > 
+    					<a href="<?php echo $this->createUrl('/content/aboutus'); ?>">关于我们</a> > 
     				</li>
     				<li class="breadcrumb-item">
     					<?php echo $this->activeCategory->category_name;?>
@@ -16,7 +16,6 @@ $this->cs->registerCssFile($this->cssUrl.'help.css');
     			</ul>
     		</div>
 	</div>
-    		
     		
          <div class="wd1002 hc clearfix">
             <div class="hc-side about-side">
@@ -38,7 +37,7 @@ $this->cs->registerCssFile($this->cssUrl.'help.css');
                     <?php endforeach;?>
                 </ul>
             </div>
-            <div id="hc-content">
+            <div id="hc-content" class="about">
             	<div class="about-title">
                     <h2><?php echo $this->activeCategory->category_name;?></h2>
                 </div>
@@ -48,7 +47,7 @@ $this->cs->registerCssFile($this->cssUrl.'help.css');
                     ?>
                     <li>
                         <div class="hc-title"><?php echo ($i+1).".".$val->title;?></div>
-                        <div class="hc-hidden"><?php echo $val->content;?></div>
+                        <p><?php echo $val->content;?></p>
                     </li>
                     <?php endforeach;?>
                 </ul>

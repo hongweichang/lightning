@@ -32,8 +32,8 @@ class Article extends CmsActiveRecord
 	public function rules()
 	{
 		return array(
-			array('title, content, admin_name, add_time, category, art_type', 'required'),
-			array('art_type, click', 'numerical', 'integerOnly'=>true),
+			array('title, content, admin_name, add_time, category', 'required'),
+			array('click', 'numerical', 'integerOnly'=>true),
 			array('title', 'length', 'max'=>255),
 			array('admin_name', 'length', 'max'=>30),
 			array('add_time, category', 'length', 'max'=>11),

@@ -41,7 +41,7 @@ $bidProgressCssClassMap = $this->app['bidProgressCssClassMap'];
             <div class="news clearfix">
                 <div class="title">
                 <h1>最新公告</h1>
-                <a href="#">More</a>
+                <a href="<?php echo $this->createUrl('/content/article')?>">更多</a>
                 </div>
                 <ul>
                 <?php 
@@ -96,7 +96,7 @@ $bidProgressCssClassMap = $this->app['bidProgressCssClassMap'];
                         	</a>
                         </div>
                         <div class="loan-rate loan-num"><?php echo $bid['monthRate']?></div>
-                        <div class="loan-rank"><div><?php echo $bid['rank']?></div></div>
+                        <div class="loan-rank"><div class="rank<?php echo $bid['rank']?>"><?php echo $bid['rank']?></div></div>
                         <div class="loan-amount loan-num"><?php echo $bid['sum']?></div>
                         <div class="loan-time loan-num"><?php echo $bid['deadline']?></div>
                         <div class="loan-progress">

@@ -92,12 +92,12 @@ $this->widget('application.extensions.swfupload.CSwfUpload', array(
                     <form class="show">
                         <ul class="personal-info">
                             <li class="clearfix">
-                                <label class="personal-name">昵称</label>
+                                <label class="personal-name"><span class="essential">*</span>昵称</label>
                                 <div class="personal-ico personal-nick"></div>
                                 <p><?php echo $userData->nickname;?></p>
                             </li>
                             <li class="clearfix">
-                                <label class="personal-name">真实姓名</label>
+                                <label class="personal-name"><span class="essential">*</span>真实姓名</label>
                                 <div class="personal-ico personal-realname"></div>
                                 <p><?php echo $userData->realname;?></p>
                                 <?php if(!empty($userData->realname)){?>
@@ -107,7 +107,7 @@ $this->widget('application.extensions.swfupload.CSwfUpload', array(
                                 <?php }?>
                             </li>
                             <li class="clearfix">
-                                <label class="personal-name">身份证号</label>
+                                <label class="personal-name"><span class="essential">*</span>身份证号</label>
                                 <div class="personal-ico personal-id"></div>
                                 <p>
                                 <?php
@@ -121,19 +121,19 @@ $this->widget('application.extensions.swfupload.CSwfUpload', array(
                                 <p class="ico-status unpass">未认证</p>
                             </li>
                             <li class="clearfix">
-                                <label class="personal-name">手机号码</label>
+                                <label class="personal-name"><span class="essential">*</span>手机号码</label>
                                 <div class="personal-ico personal-phone"></div>
                                 <p><?php echo $userData->mobile;?></p>
                                 <p class="ico-status pass">已绑定</p>
                             </li>
                             <li class="clearfix">
-                                <label class="personal-name">邮箱地址</label>
+                                <label class="personal-name"><span class="essential">*</span>邮箱地址</label>
                                 <div class="personal-ico personal-mail"></div>
                                 <p><?php echo $userData->email;?></p>
                                 <p class="ico-status pass">已绑定</p>
                             </li>
                             <li class="clearfix">
-                                <label class="personal-name">性别</label>
+                                <label class="personal-name"><span class="essential">*</span>性别</label>
                                 <div class="personal-ico personal-sex"></div>
                                 <p><?php
                                 		if($userData->gender == ''){
@@ -148,12 +148,12 @@ $this->widget('application.extensions.swfupload.CSwfUpload', array(
                                 </p>
                             </li>
                             <li class="clearfix">
-                                <label class="personal-name">居住地址</label>
+                                <label class="personal-name"><span class="essential">*</span>居住地址</label>
                                 <div class="personal-ico personal-address"></div>
                                 <p><?php echo $userData->address?></p>
                             </li>
                             <li class="clearfix">
-                                <label class="personal-name">社会角色</label>
+                                <label class="personal-name"><span class="essential">*</span>社会角色</label>
                                 <div class="personal-ico personal-role"></div>
                                 <p><?php echo FrontUser::getRoleName($userData->role);?></p>
                             </li>
@@ -175,12 +175,12 @@ $this->widget('application.extensions.swfupload.CSwfUpload', array(
 					)); ?>
                         <ul class="personal-info">
                             <li class="clearfix">
-                                <label class="personal-name">昵称</label>
+                                <label class="personal-name"><span class="essential">*</span>昵称</label>
                                 <div class="personal-ico personal-nick"></div>
                                 <p><?php echo $userData->nickname;?></p>
                             </li>
                             <li class="clearfix">
-                                <label class="personal-name">真实姓名</label>
+                                <label class="personal-name"><span class="essential">*</span>真实姓名</label>
                                 <div class="personal-ico personal-realname"></div>
                                 <p>
                                 <?php
@@ -198,7 +198,7 @@ $this->widget('application.extensions.swfupload.CSwfUpload', array(
                                 <?php }?>
                             </li>
                             <li class="clearfix">
-                                <label class="personal-name">身份证号</label>
+                                <label class="personal-name"><span class="essential">*</span>身份证号</label>
                                 <div class="personal-ico personal-id"></div>
                                 <p>
                                 <?php
@@ -212,19 +212,19 @@ $this->widget('application.extensions.swfupload.CSwfUpload', array(
                                 <p class="ico-status unpass">未认证</p>
                             </li>
                             <li class="clearfix">
-                                <label class="personal-name">手机号码</label>
+                                <label class="personal-name"><span class="essential">*</span>手机号码</label>
                                 <div class="personal-ico personal-phone"></div>
                                 <p><?php echo $userData->mobile;?></p>
                                 <p class="ico-status pass">已绑定</p>
                             </li>
                             <li class="clearfix">
-                                <label class="personal-name">邮箱地址</label>
+                                <label class="personal-name"><span class="essential">*</span>邮箱地址</label>
                                 <div class="personal-ico personal-mail"></div>
                                 <p><?php echo $userData->email;?></p>
                                 <p class="ico-status pass">已绑定</p>
                             </li>
                             <li class="clearfix">
-                                <label class="personal-name">性别</label>
+                                <label class="personal-name"><span class="essential">*</span>性别</label>
                                 <div class="personal-ico personal-sex"></div>
                                 <?php echo $form->dropDownList($userData,'gender',array(
                                 			'0'=>'女',
@@ -234,12 +234,12 @@ $this->widget('application.extensions.swfupload.CSwfUpload', array(
                                 ));?>
                             </li>
                             <li class="clearfix">
-                                <label class="personal-name">居住地址</label>
+                                <label class="personal-name"><span class="essential">*</span>居住地址</label>
                                 <div class="personal-ico personal-address"></div>
                                 <?php echo $form->textField($userData,'address');?>
                             </li>
                             <li class="clearfix">
-                                <label class="personal-name">社会角色</label>
+                                <label class="personal-name"><span class="essential">*</span>社会角色</label>
                                 <div class="personal-ico personal-role"></div>
                                 <?php 
                                     if(!empty($userData->role)){
@@ -345,7 +345,8 @@ $this->widget('application.extensions.swfupload.CSwfUpload', array(
                             <td>
                                 
                             </td>
-                            <td class="score" rowspan="<?php echo $unnecessaryNum +1;?>"></td>
+                            <td class="score">10分</td>
+                            <!-- <td class="score" rowspan="<?php echo $unnecessaryNum +1;?>"></td> -->
                         </tr>
                          <?php
                             if(!empty($unnecessaryCreditData)){ 
@@ -394,7 +395,7 @@ $this->widget('application.extensions.swfupload.CSwfUpload', array(
                                     echo "未通过审核";
                             ?> 
                             </td>
-
+                            <td class="score">0分</td>
                         </tr> 
                         <?php
                             $this->endWidget();
