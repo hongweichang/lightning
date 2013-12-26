@@ -14,4 +14,8 @@ class SendMailCommand extends NotifyCommandBase{
 	public function actionBidVerifySuccess($params=''){
 		
 	}
+	
+	public function actionBidVerifyFailed($params=''){
+		
+	}
 }

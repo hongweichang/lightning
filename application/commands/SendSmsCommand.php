@@ -64,4 +64,24 @@ class SendSmsCommand extends NotifyCommandBase{
 				'{userName}' => $bid->user->nickname
 		));
 	}
+	
+	public function actionBidVerifyFailed($params=''){
+		if ( isset($this->parameters['bidId']) === false ){
+			return false;
+		}
+		$notify = $this->notify;
+		
+		$bid = $this->app->getModule('tender')->getComponent('bidManager')->getBidInfo($this->parameters['bidId']);
+		
+		if ( $bid === null ){
+			return false;
+		}
+		
+		$this->parameters['mobile'] = $bid->user->mobile;
+		$this->sendSms(array(
+				'{bid}' => $bid->title,
+				'{userName}' => $bid->user->nickname,
+				'{bidFailedReason}' => $bid->failed_description
+		));
+	}
 }

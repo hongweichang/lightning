@@ -103,7 +103,7 @@ class console extends ConfigBase{
 								'frontendBindAddress' => 'tcp://*:5556',
 								'backendBindAddress' => 'tcp://*:5557'
 						),
-						'notifyWorkerRouter' => array(
+						'notifyWorkerWorker' => array(
 								'class' => 'cms.components.asyncEvent.zmqCommands.BrokerEventRouter',
 								'brokerAddress' => 'tcp://localhost:5557'
 						),

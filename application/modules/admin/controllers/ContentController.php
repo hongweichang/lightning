@@ -49,6 +49,7 @@ class ContentController extends Admin{
 				'app',//app动态列表
 				'appAdd',//添加app动态
 				'appDetail',//app动态详情
+				'appBannerEnable'
 		);
 	}
 	
