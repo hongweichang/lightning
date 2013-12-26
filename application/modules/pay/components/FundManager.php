@@ -21,11 +21,11 @@ class FundManager extends CApplicationComponent{
 			if($inpay == 'on'){
 				$sum = $meta->getAttribute('sum') - $meta->getRelated('user')->getAttribute('balance');
 				if($sum > 0){
-					$key = $this->raisePayOrder($sum, $sum * $rate['on_recharge'],$metano);
+					$key = $this->raisePayOrder($sum, $sum * $rate['on_recharge'],$meta->getAttribute('id'));
 				}
 			}else{
 				$sum = $meta->getAttribute('sum') / 100;
-				$key = $this->raisePayOrder($sum, $sum * $rate['on_recharge'],$metano);
+				$key = $this->raisePayOrder($sum, $sum * $rate['on_recharge'],$meta->getAttribute('id'));
 			}
 		}
 		return Yii::app()->createUrl('pay/'.$payment.'/order',array(
@@ -52,7 +52,7 @@ class FundManager extends CApplicationComponent{
 		if($db->save()){
 			return $db->getPrimaryKey();
 		}else{
-			return false;
+			return 0;
 		}
 	}
 	
@@ -71,14 +71,14 @@ class FundManager extends CApplicationComponent{
 		
 		$transaction = Yii::app()->db->beginTransaction();
 		try{
-			$user->updateCounters(array(
-				'balance' => -($sum + $fee) * 100
+			$user->saveCounters(array(
+				'balance' => -$sum * 100
 			));
 			
 			$db = new Withdraw();
 			$db->attributes = array(
 				'user_id' => $uid,
-				'sum' => $sum * 100,
+				'sum' => ($sum - $fee) * 100,
 				'fee' => $fee * 100,
 				'raise_time' => time(),
 				'status' => 0, // 正在处理 - 等待后台处理
