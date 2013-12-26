@@ -7,10 +7,6 @@ design By HJtianling_LXY,<2507073658@qq.com>
 
 class VerifyController extends Admin{
 
-	public function filters(){
-		return array();
-	}
-
 	/*
 	**用户信息审核列表
 	*/

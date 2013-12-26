@@ -59,6 +59,12 @@ class ContentManager extends CApplicationComponent{
 		return ArticleCategory::model()->deleteByPk($id,$condition,$params);
 	}
 	
+	public function getArticleProvider($config,$enablePagination=true,$enableSort=true){
+		Utils::resovleProviderConfigCriteria($config,$enablePagination,$enableSort);
+	
+		return new CActiveDataProvider('Article',$config);
+	}
+	
 	public function getArticleProviderViaCat($config,$category=null,$enablePagination=true,$enableSort=true){
 		Utils::resovleProviderConfigCriteria($config,$enablePagination,$enableSort);
 		$criteria = $config['criteria'];

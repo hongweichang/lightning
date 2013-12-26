@@ -102,6 +102,18 @@ List = function(){
 		}
 	}
 }(),
+Page = function(){
+	var page = 1;
+	return{
+		initial: function(o){
+			$(o).on("click",function(e){
+				var e = e.target,
+					e_class = $(e).attr("class");
+				alert(e_class);
+			});
+		}
+	}
+}(),
 Lend = function(){
 	return{
 		viewDetails: function(hide,show){
@@ -168,7 +180,7 @@ $("#view-detail").toggle(
 	}
 );
 Lend.placeholder($("#pay-verify"));
-
+Page.initial("#page");
 //lend-details
 $(".fakeCheck,label[for='keepSignIn'],label[for='protocal']").toggle(function(){
 	$(this).parent().find("span").css({display: "none"});

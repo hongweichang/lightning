@@ -5,29 +5,37 @@
  * Date 2013-12-20 
  * Encoding UTF-8
  */
-class ArticleController extends Controller{
-	public $defaultAction = 'view';
-	
+class ArticleController extends ContentController{
 	public function noneLoginRequired(){
-		return 'view';
+		return 'view,index';
+	}
+	
+	public function actionIndex(){
+		$list = $this->content->getArticleProviderViaType(array(),0);
+		$data = $list->getData();
+		$pager = $list->getPagination();
+		
+		$this->render('list',array(
+				'articles' => $data,
+				'pager' => $pager
+		));
 	}
 	
 	public function actionView(){
 		$id = $this->getQuery('id');
 		if ( $id === null ){
-			$this->redirect($this->createUrl('/'));
+			$this->redirect($this->createUrl('/site'));
 		}
 		
-		$content = $this->getModule()->getComponent('contentManager');
-		$article = $content->getArticleProvider(array(
+		$article = $this->content->getArticleProvider(array(
 				'criteria' => array(
 						'condition' => 'id=:id',
 						'params' => array(':id'=>$id)
 				),
-		),0)->getData();
+		))->getData();
 				
 		if ( empty($article) ){
-			$this->redirect($this->createUrl('/'));
+			$this->redirect($this->createUrl('/site'));
 		}
 		
 		$this->render('view',array('article'=>$article[0]));
