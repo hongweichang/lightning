@@ -996,7 +996,12 @@ body {
   vertical-align: middle;
   color: #475058; }
 .borrower-content li {
+  float: left;
+  width: 50%;
   border-bottom: 1px solid #c7c7c7; }
+.borrower-content .separator {
+  width: 100%;
+}
 .borrower-content .borrower-name {
   width: 155px;
   border-right: 1px solid #c7c7c7;
@@ -1005,7 +1010,7 @@ body {
   text-align: right;
   overflow: hidden; }
 .borrower-content .borrower-val {
-  width: 678px;
+  /*width: 678px;*/
   padding: 0 30px;
   overflow: hidden; }
   .borrower-content .borrower-val img {
