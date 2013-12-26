@@ -86,14 +86,14 @@ class mainConf extends ConfigBase{
 						),
 						'cache' => array(
 								'class' => 'CMemCache',
-								'useMemcached' => false,
+								'useMemcached' => true,
 								'keyPrefix' => 'lightning',
 								'servers' => array(
 										array(
-												'host' => 'localhost',
+												//'host' => 'localhost',
 												//本地memcached缓存
 												//阿里云外网IP
-												//'host' => '115.29.186.221',
+												'host' => '115.29.186.221',
 												//阿里云内网IP，本地测试可以使用本地memcached服务器
 												//'host' => '10.161.138.206',
 												'port' => 11211
@@ -134,7 +134,7 @@ class mainConf extends ConfigBase{
 										)
 								),
 						),
-						/*'zmqClient' => array(
+						'zmqClient' => array(
 								'class' => 'cms.components.asyncEvent.ZMQClient',
 								'zmqServer' => 'tcp://localhost:5556',
 								'sendTimeout' => 3000,
@@ -158,8 +158,24 @@ class mainConf extends ConfigBase{
 										'onPayPurchasedBid' => array(
 												'command' => array('bid','pay')
 										),
+										'onBidVerifySuccess' => array(
+												array(
+														'command' => array('sendSms','bidVerifySuccess')
+												),
+// 												array(
+// 														'command' => array('sendMail','bidVerifySuccess')
+// 												)
+										),
+										'onBidVerifyFailed' => array(
+												array(
+														'command' => array('sendSms','bidVerifyFailed')
+												),
+//												array(
+// 														'command' => array('sendMail','bidVerifyFailed')
+// 												)
+										)
 								),
-						),*/
+						),
 						'image'=>array(
 								'class'=>'ext.image.CImageComponent',
 								'driver'=>'GD',

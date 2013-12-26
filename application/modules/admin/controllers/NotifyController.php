@@ -84,7 +84,7 @@ class NotifyController extends Admin{
 						'pageSize' => 15
 				),
 		);
-		$dataProvider = $notify->getSettingProviderByType($type,$config);
+		$dataProvider = $notify->getSettingProviderByType($type,$config,true);
 		
 		$this->render('view',array('dataProvider' => $dataProvider,'type'=>$type));
 	}

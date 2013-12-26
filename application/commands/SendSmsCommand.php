@@ -4,32 +4,84 @@
  * @author lancelot <lancelot1215@gmail.com>
  * Date 2013-12-18 
  * Encoding UTF-8
+ * 
+ * 发送过来的placeholders会取代action中默认的placeholders
  */
-class SendSmsCommand extends LightningCommandBase{
+class SendSmsCommand extends NotifyCommandBase{
+	public function beforeAction($action, $params){
+		if ( parent::beforeAction($action, $params) === false ){
+			return false;
+		}
+		
+		return true;
+	}
+	
+	protected function sendSms($placeholders=array()){
+		if ( empty($this->parameters['mobile']) || $this->notify->checkMobileFormat($this->parameters['mobile']) === false ){
+			return false;
+		}
+		
+		$content = $this->notify->getSettingProviderByNameType($this->eventName,'sms')->getData();
+		$holders = array_merge($placeholders,$this->placeholders);//替换默认的占位符为程序中自定义的占位符
+		foreach ( $content as $c ){
+			$this->notify->sendSms($this->parameters['mobile'],PlaceholderManager::replacePlaceholders($c->content,$placeholders));
+		}
+	}
+	
 	/**
 	 * 发送手机短信验证码
 	 */
 	public function actionVerifyCode($params=''){
-		$notify = $this->app->getModule('notify')->getComponent('notifyManager');
-		if ( empty($this->parameters['mobile']) || $notify->checkMobileFormat($this->parameters['mobile']) === false ){
-			return false;
-		}
+		$notify = $this->notify;
 		
 		$codeLifeTime = isset($this->parameters['codeLifeTime']) ? $this->parameters['codeLifeTime'] : 1800;
 		$codeLength = isset($this->parameters['codeLength']) ? $this->parameters['codeLength'] : 4;
 		
 		$code = $notify->setMobileVerifyCode($this->parameters['mobile'],$codeLifeTime,$codeLength);
-		$content = $notify->getSettingProviderByEventName($this->eventName)->getData();
-		if ( empty($content) ){
-			return false;
-		}
-		$content = $content[0];
-		$smsContent = PlaceholderManager::replacePlaceholders($content->content,array(
+		$this->sendSms(array(
 				'{code}' => $code,
 				'{codeLifeTime}' => $codeLifeTime / 60
 		));
 		
-		$notify->sendSms($this->parameters['mobile'],$smsContent);
 		return true;
+	}
+	
+	public function actionBidVerifySuccess($params=''){
+		if ( isset($this->parameters['bidId']) === false ){
+			return false;
+		}
+		$notify = $this->notify;
+		
+		$bid = $this->app->getModule('tender')->getComponent('bidManager')->getBidInfo($this->parameters['bidId']);
+		
+		if ( $bid === null ){
+			return false;
+		}
+		
+		$this->parameters['mobile'] = $bid->user->mobile;
+		$this->sendSms(array(
+				'{bid}' => $bid->title,
+				'{userName}' => $bid->user->nickname
+		));
+	}
+	
+	public function actionBidVerifyFailed($params=''){
+		if ( isset($this->parameters['bidId']) === false ){
+			return false;
+		}
+		$notify = $this->notify;
+		
+		$bid = $this->app->getModule('tender')->getComponent('bidManager')->getBidInfo($this->parameters['bidId']);
+		
+		if ( $bid === null ){
+			return false;
+		}
+		
+		$this->parameters['mobile'] = $bid->user->mobile;
+		$this->sendSms(array(
+				'{bid}' => $bid->title,
+				'{userName}' => $bid->user->nickname,
+				'{bidFailedReason}' => $bid->failed_description
+		));
 	}
 }

@@ -28,7 +28,7 @@ class FundManager extends CApplicationComponent{
 				$key = $this->raisePayOrder($sum, $sum * $rate['on_recharge'],$meta->getAttribute('id'));
 			}
 		}
-		echo $meta->id;die;
+		
 		return Yii::app()->createUrl('pay/'.$payment.'/order',array(
 			'key'=> Utils::appendEncrypt($key)
 		));

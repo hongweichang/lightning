@@ -11,7 +11,7 @@
 
 <?php
 	if ( $pager->pageSize < $pager->itemCount ){
-		$this->widget('LinkPager', array(
+		$this->widget('AdminLinkPager', array(
 	    	'pages' => $pager,
 			'header' => '',
 			'cssFile' => false,

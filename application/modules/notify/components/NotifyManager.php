@@ -22,7 +22,7 @@ class NotifyManager extends CApplicationComponent{
 	public function getSettingProviderByEventName($name,$config=array(),$enablePagination=false,$enableSort=true){
 		Utils::resovleProviderConfigCriteria($config,$enablePagination,$enableSort);
 		$criteria = $config['criteria'];
-		$criteria->condition = 'event=:eventName';
+		$criteria->addCondition('event=:eventName');
 		$criteria->params = array(
 				':eventName' => $name
 		);
@@ -30,14 +30,30 @@ class NotifyManager extends CApplicationComponent{
 		return new CActiveDataProvider('NotificationSettings',$config);
 	}
 	
-	public function getSettingProviderByType($type,$config){
-		Utils::resovleProviderConfigCriteria($config);
+	public function getSettingProviderByType($type,$config,$enablePagination=false,$enableSort=true){
+		Utils::resovleProviderConfigCriteria($config,$enablePagination,$enableSort);
 		$criteria = $config['criteria'];
 		$countCriteria = $config['countCriteria'];
 		
 		$criteria->addCondition('notify_type=:type');
 		$criteria->params[':type'] = $type;
 		$countCriteria->addCondition('notify_type=:type');
+		$countCriteria->params[':type'] = $criteria->params[':type'];
+		
+		return new CActiveDataProvider('NotificationSettings',$config);
+	}
+	
+	public function getSettingProviderByNameType($name,$type,$config=array(),$enablePagination=false,$enableSort=true){
+		Utils::resovleProviderConfigCriteria($config,$enablePagination,$enableSort);
+		$criteria = $config['criteria'];
+		$countCriteria = $config['countCriteria'];
+	
+		$criteria->addCondition('event=:eventName AND notify_type=:type');
+		$criteria->params[':eventName'] = $name;
+		$criteria->params[':type'] = $type;
+		
+		$countCriteria->addCondition('event=:eventName AND notify_type=:type');
+		$countCriteria->params[':eventName'] = $criteria->params[':eventName'];
 		$countCriteria->params[':type'] = $criteria->params[':type'];
 		
 		return new CActiveDataProvider('NotificationSettings',$config);
