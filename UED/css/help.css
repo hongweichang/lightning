@@ -315,6 +315,9 @@ body {
     cursor: pointer; }
   .about-content .hc-title.on {
     color: #2d9491; }
+  #hc-content .hc-title {
+    font-size: 20px;
+  }
   #hc-content .hc-title:hover {
     color: #2d9491;
     cursor: pointer; }

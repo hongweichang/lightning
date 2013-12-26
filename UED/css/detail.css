@@ -294,6 +294,10 @@
       line-height: 48px;
       text-align: center;
       overflow: hidden; }
+    #container .aud-find div.find-table-content span.essential {
+      display: inline;
+      color : red;
+    }
       #container .aud-find div.find-table-content span img {
         position: absolute;
         width: 46px;
