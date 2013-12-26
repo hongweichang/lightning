@@ -510,3 +510,22 @@ body {
   float: left; }
 .news .news-time {
   float: right; }
+
+.title {
+  padding: 0 36px;
+  font-size: 20px;
+  font-family: "Microsoft Yahei";
+  font-weight: normal;
+  line-height: 40px;
+  color: #fff;
+  background-color: #309da0; }
+.title:after{
+    content: " ";
+    display: block;
+    clear: both;
+}
+.title h1{
+  float: left;
+  font-size: 20px;
+  font-weight: normal;
+}

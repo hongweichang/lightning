@@ -23,6 +23,9 @@ $this->cs->registerCssFile($this->cssUrl.'help.css');
 
 <div class="wd1002 hc clearfix">
 	<div class="news clearfix">
+		    <div class="title">
+                	<h1>最新公告</h1>
+                </div>
                 <ul>
                 <?php 
            	    $today = mktime(0,0,0);     
@@ -34,10 +37,9 @@ $this->cs->registerCssFile($this->cssUrl.'help.css');
                         <p class="news-time"><?php echo date('Y-m-d',$addTime)?></p>
                         <p class="news-liststyle"></p>
                         <div class="news-list">
-                            <a href="<?php echo $this->createUrl('content/article/view',array('id'=>$article->id))?>">
+                            <a href="<?php echo $this->createUrl('/content/article/view',array('id'=>$article->id))?>">
                    	    <?php echo $article->title?>        
                             </a>
-                            <div class="subText text-overflow"><?php echo $content?></div>
                             <?php if ( $addTime >= $today ):?>
                             <div class="news-tips"></div>
                             <?php endif;?>
@@ -46,4 +48,5 @@ $this->cs->registerCssFile($this->cssUrl.'help.css');
                <?php endforeach;?>
                 </ul>
             </div>
+            <?php $this->renderPartial('pager',array('pager'=>$pager))?>
 </div>

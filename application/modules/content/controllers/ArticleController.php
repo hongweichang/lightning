@@ -11,7 +11,11 @@ class ArticleController extends ContentController{
 	}
 	
 	public function actionIndex(){
-		$list = $this->content->getArticleProviderViaType(array(),0);
+		$list = $this->content->getArticleProviderViaType(array(
+				'pagination' => array(
+						'pageSize' => 1
+				)
+		),0);
 		$data = $list->getData();
 		$pager = $list->getPagination();
 		

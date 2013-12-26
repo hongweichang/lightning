@@ -12,19 +12,22 @@
 <?php
 	if ( $pager->pageSize < $pager->itemCount ){
 		$this->widget('LinkPager', array(
-	    	'pages' => $pager,
+	    		'pages' => $pager,
+			'htmlOptions' => array(
+					'id' => 'page'
+			),
 			'header' => '',
 			'cssFile' => false,
-			'firstPageLabel' => '首页',
-			'lastPageLabel' => '末页',
+			'firstPageLabel' => false,
+			'lastPageLabel' => false,
 			'prevPageLabel' => '上一页',
 			'nextPageLabel' => '下一页',
-			'internalPageCssClass' => 'page-button',
-			'selectedPageCssClass' => 'current page-button',
-			'previousPageCssClass' => 'previous page-button',
-			'nextPageCssClass' => 'next page-button',
-			'firstPageCssClass' => 'previous page-button',
-			'lastPageCssClass' => 'next page-button')
+			'internalPageCssClass' => '',
+			'selectedPageCssClass' => 'active',
+			'previousPageCssClass' => 'page-prev',
+			'nextPageCssClass' => 'page-next',
+			'firstPageCssClass' => '',
+			'lastPageCssClass' => '')
 		);
 	}else{
 	}
