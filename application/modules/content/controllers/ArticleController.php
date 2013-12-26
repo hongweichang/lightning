@@ -13,7 +13,7 @@ class ArticleController extends ContentController{
 	public function actionIndex(){
 		$list = $this->content->getArticleProviderViaType(array(
 				'pagination' => array(
-						'pageSize' => 1
+						'pageSize' => 15
 				)
 		),0);
 		$data = $list->getData();
