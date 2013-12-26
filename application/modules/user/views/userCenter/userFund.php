@@ -167,7 +167,7 @@ if(Yii::app()->user->hasFlash('success')){
                             <ul>
                                 <li>
                                     <label>可用资金 </label>
-                                    <span class="number"><?php echo $userData->balance?></span>
+                                    <span class="number"><?php echo $userData->balance/100?></span>
                                     <span>元</span>
                                 </li>
                                 <li>
