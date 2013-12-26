@@ -13,7 +13,7 @@ class UserCenterController extends Controller{
 	
 	public function filters(){
 		$filters = parent::filters();
-		$filters[] = 'fetchUserData + userInfo,myLend,myBorrow,userSecurity,userFund';
+		$filters[] = 'fetchUserData + userInfo,myLend,myBorrow,userSecurity,userFund,GetCash';
 		return $filters;
 	}
 	
@@ -21,7 +21,7 @@ class UserCenterController extends Controller{
 		$uid = $this->app->user->id;
 		$this->userData = $this->getModule()->getComponent('userManager')->getUserInfo($uid);
 		$this->userBidMoney = BidInfo::model()->sum('sum','user_id =:uid',array('uid'=>$uid))/100;
-		$this->userMetaBidMoney = BidMeta::model()->sum('sum','user_id =:uid',array('uid'=>$uid));
+		$this->userMetaBidMoney = BidMeta::model()->sum('sum','user_id =:uid',array('uid'=>$uid))/100;
 		$filterChain->run();
 	}
 	
@@ -29,7 +29,7 @@ class UserCenterController extends Controller{
 	*个人信息获取
 	*/
 	public function actionUserInfo(){
-		$this->pageTitle = '个人中心';
+		$this->pageTitle = '个人信息';
 		$uid = $this->app->user->id;
 		$userData = $this->userData;
 		$dataId = array();
@@ -86,8 +86,6 @@ class UserCenterController extends Controller{
 					}
 				}
 			}
-			// var_dump($unnecessaryList);
-			// die();
 
 		}
 
@@ -117,7 +115,9 @@ class UserCenterController extends Controller{
 				$this->redirect(Yii::app()->createUrl('user/userCenter/userInfo'));
 			}
 		}
-		
+
+		$userCreditLevel = $this->app->getModule('credit')->getComponent(
+								'userCreditManager')->UserLevelCaculator($userData->credit_grade);
 		$IconUrl = $this->user->getState('avatar');
 		$this->render('userInfo',array(
 						'userData'=>$userData,
@@ -127,6 +127,7 @@ class UserCenterController extends Controller{
 						'unnecessaryNum'=>$unnecessaryNum,
 						'model'=>new FrontCredit(),
 						'IconUrl'=>$IconUrl,
+						'creditLevel'=>$userCreditLevel,
 						'BidSum'=>$this->userBidMoney,
 						'MetaSum'=>$this->userMetaBidMoney));
 		
@@ -219,6 +220,11 @@ class UserCenterController extends Controller{
 
 				$model = new FrontCredit;
 				$file=CUploadedFile::getInstance($model,'filename'); 
+				if(empty($file)){
+					Yii::app()->user->setFlash('error','请选择附件!');
+					$this->redirect(Yii::app()->createUrl('user/userCenter/userInfo'));						
+					exit();
+				}
 
 				$fileName = $file->getName();
 				//$filenameUTF8 = iconv("gb2312","UTF-8",$fileName);
@@ -305,7 +311,7 @@ class UserCenterController extends Controller{
 	**安全中心
 	*/
 	public function actionUserSecurity(){
-		$this->pageTitle = '闪电贷';
+		$this->pageTitle = '安全中心';
 		$uid = Yii::app()->user->id;
 
 		$userData = $this->userData;
@@ -321,7 +327,7 @@ class UserCenterController extends Controller{
 	**投资列表
 	*/
 	public function actionMyLend(){
-		$this->pageTitle = '闪电贷';
+		$this->pageTitle = '我的投资';
 		$uid = Yii::app()->user->id;
 		$MyLend = array();
 		$waitingForBuy = array();
@@ -369,7 +375,7 @@ class UserCenterController extends Controller{
 	**我的借款
 	*/
 	public function actionMyBorrow(){
-		$this->pageTitle = '闪电贷';
+		$this->pageTitle = '我的借款';
 		$uid = Yii::app()->user->id;
 		$waitingForPay = array();
 		$waitingForBuy = array();
@@ -522,7 +528,7 @@ class UserCenterController extends Controller{
 		$uid = $this->app->user->id;
 		
 		$userRate = $this->app->getModule('credit')->getComponent('userCreditManager')->UserRateGet($uid);
-		$this->pageTitle = '闪电贷';
+		$this->pageTitle = '资金管理';
 	
 		$userData = $this->userData;
 		$IconUrl = Yii::app()->getModule('user')->userManager->getUserIcon($uid);
@@ -589,7 +595,7 @@ class UserCenterController extends Controller{
 
 
 	/*
-	**获取用户体现利率
+	**获取用户提现利率
 	*/
 	public function actionPayBackMoney(){
 		$post = $this->getPost();
@@ -612,6 +618,65 @@ class UserCenterController extends Controller{
 				
 			}
 
+		}
+	}
+
+	/*
+	**用户提现
+	*/
+
+	public function actionGetCash(){
+		$post = $this->getPost();
+		$uid = $this->app->user->id;
+
+		if(!empty($post['sum']) && !empty($post['bank_card']) && !empty($post['pay_password'])){
+			$sum = $post['sum'];
+			$bank_card = $post['bank_card'];
+			$pay_password = $post['pay_password'];
+			$security = Yii::app()->getSecurityManager();
+			$passwordVerify = $security->verifyPassword($pay_password,$this->userData->pay_password);
+
+			if($passwordVerify !== true){
+				Yii::app()->user->setFlash('error','资金密码验证失败');
+				$this->redirect(Yii::app()->createUrl('user/userCenter/userFund'));
+				exit();
+			}
+
+			$type = 'getCash';
+			$charge = $this->ChargeCaculator($sum,$uid,$type);
+
+			if($charge !== false){
+				$chargeSum = $charge;
+				$getCash = $this->app->getModule('pay')->fundManager->raiseWithdraw($uid,$sum,$charge);
+				if($getCash === true){
+					$this->userData->bank = $bank_card;
+					$this->userData->save();
+					Yii::app()->user->setFlash('success','提交提现申请成功!');
+					$this->redirect(Yii::app()->createUrl('user/userCenter/userFund'));
+
+				}
+			}
+
+
+		}
+	}
+
+	
+	/*
+	**手续费计算器
+	*/
+
+	public function ChargeCaculator($sum,$uid,$type){
+		if(is_numeric($sum) && is_numeric($uid) && !empty($type)){
+
+			if($type === 'getCash'){
+				$userRate = $this->app->getModule('credit')->getComponent('userCreditManager')->UserRateGet($uid);
+				if($userRate !== 400){
+					$userPaySum = $sum * $userRate['on_withdraw'];
+					return $userPaySum;
+				}			
+			}else
+				return false;
 		}
 	}
 }

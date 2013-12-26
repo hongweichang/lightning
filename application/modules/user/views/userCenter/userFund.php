@@ -17,7 +17,16 @@ $('#export-record').on('click',function(){
 	});
 });
 ");
+
+if(Yii::app()->user->hasFlash('success')){
+    $info = Yii::app()->user->getFlash('success');
 ?>
+<script>alert('<?php echo $info;?>');</script>
+<?php }elseif(Yii::app()->user->hasFlash('error')){
+    $info = Yii::app()->user->getFlash('error');
+?>
+<script>alert('<?php echo $info;?>')</script>
+<?php }?>
     <div id="container">
         <div class="wd989">
             <h1 class="aud-nav">
@@ -46,10 +55,6 @@ $('#export-record').on('click',function(){
             </div>
             <div class="aud-find">
                 <div class="find-table-box find-table-box-show fund">
-                    <div class="tab-border tab-top"></div>
-                    <div class="tab-border tab-bottom"></div>
-                    <div class="tab-border-l tab-left"></div>
-                    <div class="tab-border-l tab-right"></div>
                     <div class="table-content">
                         <div class="tab-content-l">
                             <div class="tab-border-l tab-right"></div>
@@ -88,7 +93,7 @@ $('#export-record').on('click',function(){
                         	<option value="12">一年以内</option>
                         </select>
                         <a href="javascript:void(0);" class="form-button" id="query-button">查询</a>
-                        <a href="javascript:void(0);" id="export-record">导出查询结果</a>
+                        <!-- <a href="javascript:void(0);" id="export-record">导出查询结果</a> -->
                     </div>
                     <table class="record-table"> 
                         <thead>
@@ -158,21 +163,25 @@ $('#export-record').on('click',function(){
                 <div class="find-table-content withdraw">
                     <div class="pay-form">
                         <h2>请填写提现数据</h2>
-                        <form id="fund-withdraw">
+                        <form id="fund-withdraw" method="post" action="GetCash">
                             <ul>
                                 <li>
                                     <label>可用资金 </label>
-                                    <span class="number">0.00</span>
+                                    <span class="number"><?php echo $userData->balance?></span>
                                     <span>元</span>
                                 </li>
                                 <li>
                                     <label for="withdraw-num">提现金额 </label>
-                                    <input type="text" id="withdraw-num"/>
+                                    <input type="text" id="withdraw-num" name="sum"/>
                                     <span>元</span>
                                 </li>
                                 <li>
                                     <label for="withdraw-num">银行卡号</label>
-                                    <input type="text" id="withdraw-num"/>
+                                    <?php if(empty($userData->bank)){?>
+                                    <input type="text" id="withdraw-num" name="bank_card"/>
+                                    <?php }else{?>
+                                    <input type="text" id="withdraw-num" name="bank_card" value="<?php echo $userData->bank;?>" />                                    
+                                    <?php }?>
                                 </li>                              
                                 <li>
                                     <label>提现费用 </label>
@@ -190,11 +199,11 @@ $('#export-record').on('click',function(){
                                 </li>
                                 <li>
                                     <label>预计到账日期 </label>
-                                    <span>2013-11-17</span>
+                                    <span><?php echo date('Y-m-d',time()+5*24*60*60)?></span>
                                 </li>
                                 <li>
                                     <label>资金密码 </label>
-                                    <input type="password" id="withdraw-passwd" />
+                                    <input type="password" id="withdraw-passwd" name="pay_password"/>
                                     <a href="#">忘记密码</a>
                                 </li>
                                 <li>

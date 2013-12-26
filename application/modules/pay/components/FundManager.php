@@ -63,7 +63,7 @@ class FundManager extends CApplicationComponent{
 	 * @return boolean
 	 */
 	public function raiseWithdraw($uid,$sum,$arg3 = null){
-		$user = Yii::app()->getModule('user')->userManager->findByPk($uid);
+		$user = Yii::app()->getModule('user')->userManager->getUserInfo($uid);
 		$credit = Yii::app()->getModule('credit')->userCreditManager;
 		//费用计算
 		$rate = $credit->userRateGet($uid);
@@ -71,7 +71,7 @@ class FundManager extends CApplicationComponent{
 		
 		$transaction = Yii::app()->db->beginTransaction();
 		try{
-			$user->updateCounters(array(
+			$user->saveCounters(array(
 				'balance' => -($sum + $fee) * 100
 			));
 			

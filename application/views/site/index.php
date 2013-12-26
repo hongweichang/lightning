@@ -41,7 +41,7 @@ $bidProgressCssClassMap = $this->app['bidProgressCssClassMap'];
             <div class="news clearfix">
                 <div class="title">
                 <h1>最新公告</h1>
-                <a href="<?php echo $this->createUrl('/content/article')?>">More</a>
+                <a href="<?php echo $this->createUrl('/content/article')?>">更多</a>
                 </div>
                 <ul>
                 <?php 
