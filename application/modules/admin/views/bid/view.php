@@ -5,7 +5,6 @@
  * date: 2013-12-12
  * desc: 
  */
-$status = array('待审核','正在招标','正在还款','已完成','已流标');
 $form=$this->beginWidget('CActiveForm',array(
 	'focus' => array($selector,'nickname'),
 	'method' => 'get'
@@ -31,7 +30,6 @@ $form=$this->beginWidget('CActiveForm',array(
 		<th>结束时间</th>
 		<th>招标进度</th>
 		<th>发布时间</th>
-		<th>状态</th>
 	</thead>
 	
 	<tbody>
@@ -46,7 +44,6 @@ $form=$this->beginWidget('CActiveForm',array(
 			<td><?php echo date('Y-n-j',$data->end); ?></td>
 			<td><?php echo $data->progress; ?></td>
 			<td><?php echo date('Y-n-j H:i:s',$data->pub_time); ?></td>
-			<td><?php echo $status[$data->verify_progress];?></td>
 		</tr>
 	<?php endforeach;?>
 	</tbody>

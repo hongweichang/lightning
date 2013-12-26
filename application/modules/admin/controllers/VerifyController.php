@@ -330,8 +330,8 @@ class VerifyController extends Admin{
 			}
 
 			$this->render('bidVerifyList',array('bidList'=>$bidList,'pages'=>$pager));
-		}
-	$this->render('bidVerifyList',array('bidList'=>$bidList,'pages'=>$pager));
+		}else
+			$this->render('bidVerifyList',array('bidList'=>$bidList,'pages'=>$pager));
 	}
 
 
@@ -344,6 +344,11 @@ class VerifyController extends Admin{
 
 			$bidData = Yii::app()->getModule('tender')->bidManager->getBidInfo($id);
 			if($action == 'pass'){
+				$asyncEventRunner = $this->app->getComponent('asyncEventRunner');
+				$asyncEventRunner->raiseAsyncEvent('onBidVerifySuccess',array(
+						'bidId' => $id
+				));
+				echo 'dasdas';die;
 				$bidData->verify_progress = 21;
 
 				if($bidData->save()){

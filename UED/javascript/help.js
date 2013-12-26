@@ -8,4 +8,5 @@ $(document).ready(function(){
 			title.addClass("on");
 		}
 	});
+	$("#hc-content .show").parent(".hc-hidden").css({display: 'block'});
 });
