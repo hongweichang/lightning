@@ -345,7 +345,6 @@ $this->widget('application.extensions.swfupload.CSwfUpload', array(
                             <td>
                                 
                             </td>
-                            <td class="score">10分</td>
                             <!-- <td class="score" rowspan="<?php echo $unnecessaryNum +1;?>"></td> -->
                         </tr>
                          <?php
@@ -395,7 +394,7 @@ $this->widget('application.extensions.swfupload.CSwfUpload', array(
                                     echo "未通过审核";
                             ?> 
                             </td>
-                            <td class="score">0分</td>
+                            <td class="score"><?php echo $value['grade'].'分'?></td>
                         </tr> 
                         <?php
                             $this->endWidget();

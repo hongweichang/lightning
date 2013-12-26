@@ -57,6 +57,7 @@ class UserCenterController extends Controller{
 									'id'=>$value['credit']->id,
 									'verification_name'=>$value['credit']->verification_name,
 									'optional'=>$value['optional'],
+									'grade'=>$value['grade'],
 									'status'=>'400'									
 									);
 					}else{
@@ -64,6 +65,7 @@ class UserCenterController extends Controller{
 									'id'=>$value['credit']->id,
 									'verification_name'=>$value['credit']->verification_name,
 									'optional'=>$value['optional'],
+									'grade'=>$value['grade'],
 									'status'=>'400'
 									);
 					}
@@ -74,6 +76,7 @@ class UserCenterController extends Controller{
 									'id'=>$value['credit']->id,
 									'verification_name'=>$value['credit']->verification_name,
 									'optional'=>$value['optional'],
+									'grade'=>$value['grade'],
 									'status'=>$finishedData[$finished]->status								
 									);
 					}else{
@@ -81,6 +84,7 @@ class UserCenterController extends Controller{
 									'id'=>$value['credit']->id,
 									'verification_name'=>$value['credit']->verification_name,
 									'optional'=>$value['optional'],
+									'grade'=>$value['grade'],
 									'status'=>$finishedData[$finished]->status
 									);
 					}
@@ -153,7 +157,8 @@ class UserCenterController extends Controller{
 			foreach($userCredit as $value){
 				$creditSetting[] = array(
 						'credit'=>$value->getRelated('verification'),
-						'optional'=>$value->optional
+						'optional'=>$value->optional,
+						'grade'=>$value->grade
 					);
 			}
 			
