@@ -21,7 +21,7 @@ class UserCenterController extends Controller{
 		$uid = $this->app->user->id;
 		$this->userData = $this->getModule()->getComponent('userManager')->getUserInfo($uid);
 		$this->userBidMoney = BidInfo::model()->sum('sum','user_id =:uid',array('uid'=>$uid))/100;
-		$this->userMetaBidMoney = BidMeta::model()->sum('sum','user_id =:uid',array('uid'=>$uid));
+		$this->userMetaBidMoney = BidMeta::model()->sum('sum','user_id =:uid',array('uid'=>$uid))/100;
 		$filterChain->run();
 	}
 	
@@ -29,7 +29,7 @@ class UserCenterController extends Controller{
 	*个人信息获取
 	*/
 	public function actionUserInfo(){
-		$this->pageTitle = '个人中心';
+		$this->pageTitle = '个人信息';
 		$uid = $this->app->user->id;
 		$userData = $this->userData;
 		$dataId = array();
@@ -86,8 +86,6 @@ class UserCenterController extends Controller{
 					}
 				}
 			}
-			// var_dump($unnecessaryList);
-			// die();
 
 		}
 
@@ -117,7 +115,9 @@ class UserCenterController extends Controller{
 				$this->redirect(Yii::app()->createUrl('user/userCenter/userInfo'));
 			}
 		}
-		
+
+		$userCreditLevel = $this->app->getModule('credit')->getComponent(
+								'userCreditManager')->UserLevelCaculator($userData->credit_grade);
 		$IconUrl = $this->user->getState('avatar');
 		$this->render('userInfo',array(
 						'userData'=>$userData,
@@ -127,6 +127,7 @@ class UserCenterController extends Controller{
 						'unnecessaryNum'=>$unnecessaryNum,
 						'model'=>new FrontCredit(),
 						'IconUrl'=>$IconUrl,
+						'creditLevel'=>$userCreditLevel,
 						'BidSum'=>$this->userBidMoney,
 						'MetaSum'=>$this->userMetaBidMoney));
 		
@@ -305,7 +306,7 @@ class UserCenterController extends Controller{
 	**安全中心
 	*/
 	public function actionUserSecurity(){
-		$this->pageTitle = '闪电贷';
+		$this->pageTitle = '安全中心';
 		$uid = Yii::app()->user->id;
 
 		$userData = $this->userData;
@@ -321,7 +322,7 @@ class UserCenterController extends Controller{
 	**投资列表
 	*/
 	public function actionMyLend(){
-		$this->pageTitle = '闪电贷';
+		$this->pageTitle = '我的投资';
 		$uid = Yii::app()->user->id;
 		$MyLend = array();
 		$waitingForBuy = array();
@@ -369,7 +370,7 @@ class UserCenterController extends Controller{
 	**我的借款
 	*/
 	public function actionMyBorrow(){
-		$this->pageTitle = '闪电贷';
+		$this->pageTitle = '我的借款';
 		$uid = Yii::app()->user->id;
 		$waitingForPay = array();
 		$waitingForBuy = array();
@@ -522,7 +523,7 @@ class UserCenterController extends Controller{
 		$uid = $this->app->user->id;
 		
 		$userRate = $this->app->getModule('credit')->getComponent('userCreditManager')->UserRateGet($uid);
-		$this->pageTitle = '闪电贷';
+		$this->pageTitle = '资金管理';
 	
 		$userData = $this->userData;
 		$IconUrl = Yii::app()->getModule('user')->userManager->getUserIcon($uid);
