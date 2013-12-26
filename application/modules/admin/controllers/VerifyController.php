@@ -341,17 +341,16 @@ class VerifyController extends Admin{
 
 	public function actionBidVerify($id,$action){
 		if(is_numeric($id) && !empty($action)){
-
 			$bidData = Yii::app()->getModule('tender')->bidManager->getBidInfo($id);
+			
 			if($action == 'pass'){
-				$asyncEventRunner = $this->app->getComponent('asyncEventRunner');
-				$asyncEventRunner->raiseAsyncEvent('onBidVerifySuccess',array(
-						'bidId' => $id
-				));
-				echo 'dasdas';die;
 				$bidData->verify_progress = 21;
 
 				if($bidData->save()){
+					$asyncEventRunner = $this->app->getComponent('asyncEventRunner');
+					$asyncEventRunner->raiseAsyncEvent('onBidVerifySuccess',array(
+							'bidId' => $id
+					));
 					$this->redirect($this->createUrl('verify/bidVerifyList'));
 				}
 			}elseif($action == 'unpass' ){
@@ -378,6 +377,11 @@ class VerifyController extends Admin{
 					$bidData->failed_description = $post['BidInfo']['failed_description'];
 					$bidData->verify_progress = 20;
 					if($bidData->save()){
+						$asyncEventRunner = $this->app->getComponent('asyncEventRunner');
+						$asyncEventRunner->raiseAsyncEvent('onBidVerifyFailed',array(
+								'bidId' => $id
+						));
+						
 						$this->redirect(Yii::app()->createUrl('adminnogateway/verify/bidVerifyList'));
 					}
 						

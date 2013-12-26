@@ -165,6 +165,14 @@ class mainConf extends ConfigBase{
 // 												array(
 // 														'command' => array('sendMail','bidVerifySuccess')
 // 												)
+										),
+										'onBidVerifySuccess' => array(
+												array(
+														'command' => array('sendSms','bidVerifySuccess')
+												),
+//												array(
+// 														'command' => array('sendMail','bidVerifySuccess')
+// 												)
 										)
 								),
 						),
