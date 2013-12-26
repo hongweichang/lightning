@@ -157,6 +157,12 @@ $this->widget('application.extensions.swfupload.CSwfUpload', array(
                                 <div class="personal-ico personal-role"></div>
                                 <p><?php echo FrontUser::getRoleName($userData->role);?></p>
                             </li>
+                            <li class="clearfix">
+                                <label class="personal-name">会员级别</label>
+                                <div class="personal-ico personal-role"></div>
+                                <p><?php echo $creditLevel?></p>
+                            </li>
+
                         </ul>
                     </form>
 

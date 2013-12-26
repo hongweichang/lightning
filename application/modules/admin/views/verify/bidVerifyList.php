@@ -25,7 +25,7 @@ if(!empty($bidList)){
         <td><?php echo $value['rate'].'%';?></td>
         <td><?php echo $value['nickname'];?></td>
         <td>
-        <a href="<?php echo $this->createUrl('UserDetail',array('uid'=>$value['uid']))?>"><?php echo $value['realname'];?></a>
+        <a href="<?php echo $this->createUrl('UserDetail',array('uid'=>$value['uid'],'id'=>$value['id']))?>"><?php echo $value['realname'];?></a>
         </td>
         <td><?php echo $value['mobile'];?></td>
         <td><?php echo $value['level'];?></td>

@@ -7,6 +7,27 @@ design By HJtianling_LXY,<2507073658@qq.com>
 
 class VerifyController extends Admin{
 
+
+	public $WDDZnecessaryCreditNum = 0;
+	public $QYZnecessaryCreditNum = 0;
+	public $GXJCnecessaryCreditNum = 0;
+
+	public function filters(){
+		$filters = parent::filters();
+		$filters[] = 'GetCreditData + CreditVerify,checkCreditForGrade';
+		return $filters;	
+	}
+
+	public function filterGetCreditData($filterChain){
+		$this->WDDZnecessaryCreditNum = CreditRole::model()->count(
+			'role =:role AND optional =:optional',array('role'=>'wddz','optional'=>'0'));
+		$this->QYZnecessaryCreditNum = CreditRole::model()->count(
+			'role =:role AND optional =:optional',array('role'=>'qyz','optional'=>'0'));
+		$this->GXJCnecessaryCreditNum = CreditRole::model()->count(
+			'role =:role AND optional =:optional',array('role'=>'gxjc','optional'=>'0'));				
+		$filterChain->run();
+	}
+
 	/*
 	**用户信息审核列表
 	*/
@@ -163,7 +184,7 @@ class VerifyController extends Admin{
 			if(!empty($userData)){
 				if($action == 'pass' && $userData->status != 1){
 						$userData->status = 1;
-
+						$userGradeAdd = $this->checkCreditForGrade($uid);
 					if($userData->save())
 						$this->redirect($this->createUrl('verify/creditDetail/id/'.$uid.''));
 
@@ -174,6 +195,58 @@ class VerifyController extends Admin{
 			}	
 		}
 
+	}
+
+	
+	/*
+	**判断该用户必要信用信息是否已经完善
+	*/
+	public function checkCreditForGrade($uid){
+		if(is_numeric($uid)){
+			$userData = FrontUser::model()->findByPk($uid);
+			if(!empty($userData)){
+				if(empty($userData->nickname))
+					return 400;
+				elseif(empty($userData->realname))
+					return 400;
+				elseif(empty($userData->gender))
+					return 400;
+				elseif(empty($userData->mobile))
+					return 400;
+				elseif(empty($userData->role))
+					return 400;
+				elseif(empty($userData->identity_id))
+					return 400;
+				elseif(empty($userData->address))
+					return 400;
+				else{
+					$userRole = $userData->role;
+					$userCreditSum = FrontCredit::model()->count(
+						'user_id =:uid AND status =:status',array(':uid'=>$uid,':status'=>'1'));
+					/*
+					**根据用户角色获取其必须完善的信用信息数目
+					*/
+					if($userRole == 'wddz')
+						$roleCreditSum = $this->WDDZnecessaryCreditNum;
+					elseif($userRole == 'qyz')
+						$roleCreditSum = $this->QYZnecessaryCreditNum;
+					elseif($userRole == 'gxjc')
+						$roleCreditSum = $this->GXJCnecessaryCreditNum ;
+
+					if($userCreditSum +1 ==$roleCreditSum){
+						$userGrade = $userData->credit_grade;
+						$userData->credit_grade = $userGrade+60;
+						if($userData->save())
+							return 200;
+					}
+					else
+						return 400;
+
+
+				}
+
+			}
+		}
 	}
 
 
@@ -316,18 +389,22 @@ class VerifyController extends Admin{
 **风控信息查看
 */
 	
-	public function actionUserDetail($uid){
+	public function actionUserDetail($uid,$id){
 		$userCredit = array();
 		$fileUrl = null;
+		$file = null;
 
-		if(is_numeric($uid)){
+		if(is_numeric($uid) && is_numeric($id)){
 			$userData = FrontUser::model()->findAll('id =:uid',array('uid'=>$uid));
 
 			$criteria = new CDbCriteria;
 			$criteria->condition = 'user_id =:uid AND status =:status';
+			$criteria->params = array(
+									':uid'=>$uid,
+									'status'=>'1'
+								);
 
-			$userCreditData = FrontCredit::model()->with('creditSetting')->findAll(
-				'user_id =:uid',array(':uid'=>$uid));
+			$userCreditData = FrontCredit::model()->with('creditSetting')->findAll($criteria);
 
 			if(!empty($userCreditData) && !empty($userData)){
 				foreach($userCreditData as $value){
@@ -342,10 +419,8 @@ class VerifyController extends Admin{
 									'fileUrl'=>$file,
 								);
 				}
-
-
 			}
-			$this->render('userDetail',array('userData'=>$userData,'userCredit'=>$userCredit));
+			$this->render('userDetail',array('userData'=>$userData,'userCredit'=>$userCredit,'id'=>$id));
 		}
 	}
 
