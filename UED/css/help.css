@@ -506,3 +506,7 @@ body {
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap; }
+.news ul, .news li, .news .news-liststyle, .news .news-list {
+  float: left; }
+.news .news-time {
+  float: right; }

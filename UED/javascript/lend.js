@@ -109,7 +109,10 @@ Page = function(){
 			$(o).on("click",function(e){
 				var e = e.target,
 					e_class = $(e).attr("class");
-				alert(e_class);
+				$.ajax({
+					url: ajaxBids,
+					type: 
+				});
 			});
 		}
 	}
