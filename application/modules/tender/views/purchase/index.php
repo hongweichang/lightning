@@ -98,16 +98,14 @@ $this->cs->registerScriptFile($this->scriptUrl.'lend.js',CClientScript::POS_END)
 					'cssFile' => false,
 					'baseScriptUrl' => null,
 				)); ?>
-                <!-- <div id="viewMore">
-                	<img src="<?php echo $this->imageUrl;?>more_ico.png" />
-                	<span>查看更多</span>
-                </div> -->
-                <ul id="page">
-                    <li><a href="#" class="page-prev">上一页</a></li>
-                    <li><a href="#" class="active">1</a></li>
-                    <li><a href="#">2</a></li>
-                    <li><a href="#">3</a></li>
-                    <li><a href="#" class="page-next">下一页</a></li>
-                </ul>
+                <div id="viewMore">
+                    <ul id="page">
+                        <li><a href="#" class="page-prev">上一页</a></li>
+                        <li><a href="#" class="active">1</a></li>
+                        <li><a href="#">2</a></li>
+                        <li><a href="#">3</a></li>
+                        <li><a href="#" class="page-next">下一页</a></li>
+                    </ul>
+                </div>
             </div>
     	</div>
