@@ -384,7 +384,7 @@ class UserCenterController extends Controller{
 		$myBorrowData = $this->app->getModule('tender')->getComponent('bidManager')->getBidList('user_id =:uid',array(
 			'uid'=>$uid));
 		foreach($myBorrowData as $value){
-			if($value->attributes['verify_progress'] == 1){
+			if($value->attributes['verify_progress'] == 21){
 				if($value->attributes['progress'] == 100){
 					$waitingForPay[] = array(
 							$value->attributes
@@ -644,8 +644,16 @@ class UserCenterController extends Controller{
 
 			$type = 'getCash';
 			$charge = $this->ChargeCaculator($sum,$uid,$type);
+			$balance = $this->userData->balance/100;
 
 			if($charge !== false){
+				$SumMoney = $sum+$charge;
+				if($SumMoney > $balance){
+					Yii::app()->user->setFlash('error','余额不足');
+					$this->redirect(Yii::app()->createUrl('user/userCenter/userFund'));
+					exit();				
+				}
+							
 				$chargeSum = $charge;
 				$getCash = $this->app->getModule('pay')->fundManager->raiseWithdraw($uid,$sum,$charge);
 				if($getCash === true){
