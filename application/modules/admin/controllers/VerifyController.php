@@ -31,7 +31,7 @@ class VerifyController extends Admin{
 	**用户信息审核列表
 	*/
 	public function actionCredit(){
-		$this->pageTitle = '信用信息审核';
+		$this->tabTitle = '信用信息审核';
 		$userCreditData = array();
 		$userArray = array();
 		$fileUrl = null;
@@ -81,6 +81,7 @@ class VerifyController extends Admin{
 	**审核信息详情
 	*/
 	public function actionCreditDetail($id){
+		$this->tabTitle = '审核信息详情';
 		$detail = array();
 		$fileUrl = null;
 		$file = null;
@@ -293,7 +294,7 @@ class VerifyController extends Admin{
 */
 	public function actionBidVerifyList(){
 		$bidList = array();
-
+		$this->tabTitle = '风控审核';
 		$criteria = new CDbCriteria;
 		$criteria->condition = 'verify_progress =:progress';
 		$criteria->params = array(
@@ -326,9 +327,10 @@ class VerifyController extends Admin{
 
 						);
 			}
-			
+
 			$this->render('bidVerifyList',array('bidList'=>$bidList,'pages'=>$pager));
 		}
+	$this->render('bidVerifyList',array('bidList'=>$bidList,'pages'=>$pager));
 	}
 
 
@@ -358,6 +360,7 @@ class VerifyController extends Admin{
 */
 
 	public function actionBidVerifyReasonInput($id){
+		$this->tabTitle = '审核原因输入';
 		$post = $this->getPost();
 
 		if(is_numeric($id)){
@@ -389,6 +392,7 @@ class VerifyController extends Admin{
 */
 	
 	public function actionUserDetail($uid,$id){
+		$this->tabTitle = '风控信息查看';
 		$userCredit = array();
 		$fileUrl = null;
 		$file = null;

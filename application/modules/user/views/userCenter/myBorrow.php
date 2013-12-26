@@ -136,15 +136,15 @@ $this->cs->registerCssFile($this->cssUrl.'detail.css');
                             <span><?php echo $value[0]['deadline'].'个月'?></span>
                             <span class="deadline">
                             <?php
-                                if($value[0]['verify_progress'] == 0)
+                                if($value[0]['verify_progress'] == 11)
                                     echo "正在审核";
-                                elseif($value[0]['verify_progress'] == 2)
+                                elseif($value[0]['verify_progress'] == 20)
                                     echo "审核未通过";
                                 else
                                     echo "正在投标";
                             ?>
                             </span>
-                            <span class="repay"><a href="">查看</a></span>
+                            <span class="repay"><a href="<?php echo Yii::app()->createUrl('tender/purchase/info/',array('id'=>$value[0]['id']))?>">查看</a></span>
                         </li>         
                         <?php }
                             } 
