@@ -129,6 +129,9 @@ class mainConf extends ConfigBase{
 												//'levels'=>'error, warning',
 												'except' => 'access.*'
 										),
+										array(
+												'class' => 'CProfileLogRoute'
+										)
 								),
 						),
 						'zmqClient' => array(
