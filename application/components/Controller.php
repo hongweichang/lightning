@@ -71,7 +71,7 @@ class Controller extends CmsController{
 	}
 	
 	public function setPageTitle($value){
-		parent::setPageTitle($value.' - 闪电贷');
+		parent::setPageTitle($value.' | 闪电贷 专业、诚信、迅速');
 	}
 	
 	public function filterPublicClientScript($filterChain){

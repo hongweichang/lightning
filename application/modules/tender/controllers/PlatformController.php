@@ -6,25 +6,26 @@
  * desc: 支付平台选择
  */
 class PlatformController extends Controller{
-	private $name = "结算中心";
+	private $name = '结算中心';
 	
 	public function actionOrder(){
-		$meta = BidMeta::model()->with('user','bid')->findByPk($this->getQuery('meta_no'));
+		$metaId = Utils::appendDecrypt($this->getQuery('metano'));
+		$meta = BidMeta::model()->with('user','bid')->findByPk($metaId);
 		
 		if(!empty($meta) && $meta->getAttribute('user_id') == $this->user->getId()){
 			$user = $meta->getRelated('user');
 			$bid = $meta->getRelated('bid');
 			
-			$this->setPageTitle($bid->getAttribute('title').' - '.$this->name.' - '.$this->app->name);
+			$this->setPageTitle($bid->getAttribute('title').' - '.$this->name);
 			
 			$userManager = Yii::app()->getModule('user')->userManager;
 			$bider = $userManager->getUserInfo($bid->getAttribute('user_id'));
 			
 			if(!empty($_POST)){
 				$payment = $this->getPost('payment','ips');
-				$in_pay = $this->getPost('in-pay');
+				$in_pay = $this->getPost('in-pay','off');
 				
-				if($in_pay == 'on'){
+				if($in_pay == 'on' && $bider->getAttribute('balance') >= $meta->getAttribute('sum')){
 					$this->render('check',array(
 						'user' => $user,
 						'bid' => $bid,
@@ -33,10 +34,10 @@ class PlatformController extends Controller{
 					));
 					$this->app->end();
 				}else{
-					$this->redirect(Yii::app()->getModule('pay')->fundManager->pay($payment,array(
-						'meta_no' => $meta->getAttribute('id'),
-						'inpay' => $in_pay,
-					)));
+					$this->redirect(Yii::app()->getModule('pay')->fundManager->pay($payment,
+						Utils::appendEncrypt($meta->getAttribute('id')),
+						$in_pay
+					));
 				}
 			}
 			
@@ -52,20 +53,31 @@ class PlatformController extends Controller{
 	}
 	
 	public function actionCheck(){
-		$meta = BidMeta::model()->with('user','bid')->findByPk($this->getQuery('meta_no'));
+		$metaId = Utils::appendDecrypt($this->getQuery('metano'));
+		$meta = BidMeta::model()->with('user','bid')->findByPk($metaId);
 
-		if(!empty($meta) && $meta->getAttribute('user_id') == $this->user->getId()){
-			$this->setPageTitle($meta->getRelated('bid')->getAttribute('title').' - '.$this->name.' - '.$this->app->name);
+		if( $meta !== null && $meta->getAttribute('user_id') == $this->user->getId()){
+			$this->setPageTitle($meta->getRelated('bid')->getAttribute('title').' - '.$this->name);
 			
-			$user = $meta->getRelated('user');
+			$data = $this->getPost('Check');
 			$password = $this->getPost('pay_pwd');
-			$verify = $this->getPost('pay_verify');
+			$code = $this->getPost('pay_verify');
+			$user = $meta->getRelated('user');
 			
-			if($this->getModule()->bidManager->payPurchasedBid($this->getQuery('meta_no'))){
+// 			if ( $this->app->getSecurityManager()->verifyPassword() === false ){
+//
+// 			}
+			
+			
+			$asyncEventRunner = Yii::app()->getComponent('asyncEventRunner');
+			$asyncEventRunner->raiseAsyncEvent('onPayPurchasedBid',array(
+				'metano' => $metaId
+			));
+			/*if($this->getModule()->bidManager->payPurchasedBid()){
 				$this->render('success');
 			}else{
 				//$this->render();//失败 - 账户余额补足  或 重复付款
-			}
+			}*/
 		}else{
 			// 404
 		}

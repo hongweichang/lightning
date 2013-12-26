@@ -71,8 +71,9 @@ $(document).ready(function(){
 			data: "getSum="+w_num,
 			success: function(data){
 				var data = data.data;
-				$("#getSum").text(data.getSum);
+				$("#getSum").text(data.GetSum);
 				$("#userPaySum").text(data.userPaySum);
+
 			}
 		})
 		

@@ -54,20 +54,20 @@ $this->widget('application.extensions.swfupload.CSwfUpload', array(
             <?php $this->renderPartial('_baseInfo')?>
             <div class="aud-find aud-find-menu">
                 <ul id="find-table-button">
+                    <a href="<?php echo Yii::app()->createUrl('user/userCenter/userInfo');?>">
+                        <li class="find-table-3"><div class="find-table-op-hidden">个人信息</div></li>
+                    </a>
                     <a href="<?php echo Yii::app()->createUrl('user/userCenter/myBorrow');?>">
-                        <li class="find-table-0"><div class="find-table-op"></div>我的借款</li>
+                        <li class="find-table-0"><div class="find-table-op">我的借款</div></li>
                     </a>
                     <a href="<?php echo Yii::app()->createUrl('user/userCenter/myLend');?>">
-                        <li class="find-table-1"><div class="find-table-op"></div>我的投资</li>
+                        <li class="find-table-1"><div class="find-table-op">我的投资</div></li>
                     </a>
                     <a href="<?php echo Yii::app()->createUrl('user/userCenter/userSecurity');?>">
-                        <li class="find-table-2"><div class="find-table-op"></div>安全中心</li>
-                    </a>
-                    <a href="<?php echo Yii::app()->createUrl('user/userCenter/userInfo');?>">
-                        <li class="find-table-3"><div class="find-table-op-hidden"></div>个人信息</li>
+                        <li class="find-table-2"><div class="find-table-op">安全中心</div></li>
                     </a>
                     <a href="<?php echo $this->createUrl('userCenter/userFund')?>">
-                        <li class="find-table-4"><div class="find-table-op"></div>资金管理</li>
+                        <li class="find-table-4"><div class="find-table-op">资金管理</div></li>
                     </a>
                 </ul>
             </div>
@@ -77,7 +77,6 @@ $this->widget('application.extensions.swfupload.CSwfUpload', array(
                     <ul id="find-table-detail">
                         <li class="find-selected">基本信息</li>
                         <li>信用资料</li>
-                        <li>银行卡</li>
                     </ul>
                 </div>
                 <div class="basic-info find-table-content find-table-content-show">
@@ -303,11 +302,17 @@ $this->widget('application.extensions.swfupload.CSwfUpload', array(
                            <?php if($value['status'] != '1'){?>
                             <td>
                                 <?php echo $form->FileField($model,'filename'); ?>
-                                <?php echo CHtml::submitButton('提交',array(
-                                                'name'=>$value['verification_name'],
-                                                'class'=>'form-button')
-                                            ); 
-                                     ?>
+                                <?php if($value['status'] == '400') 
+                                            echo CHtml::submitButton('提交',array(
+                                                    'name'=>$value['verification_name'],
+                                                    'class'=>'form-button')
+                                                                    ); 
+                                    elseif($value['status'] == '0' || $value['status'] == '2') 
+                                            echo CHtml::submitButton('修改',array(
+                                                    'name'=>$value['verification_name'],
+                                                    'class'=>'form-button')
+                                                                    );  
+                                ?>
                             </td>
                             <?php }?>
                             <td>
@@ -318,7 +323,7 @@ $this->widget('application.extensions.swfupload.CSwfUpload', array(
                                     echo "等待审核";
                                 elseif($value['status'] == '1')
                                     echo "审核通过";
-                                elseif($value['stauts'] == '2')
+                                elseif($value['status'] == '2')
                                     echo "未通过审核";
                             ?> 
                             </td>
@@ -358,11 +363,17 @@ $this->widget('application.extensions.swfupload.CSwfUpload', array(
                            <?php if($value['status'] != '1'){?>
                             <td>
                                 <?php echo $form->FileField($model,'filename'); ?>
-                                <?php echo CHtml::submitButton('提交',array(
-                                                'name'=>$value['verification_name'],
-                                                'class'=>'form-button')
-                                            ); 
-                                     ?>
+                                <?php if($value['status'] == '400') 
+                                            echo CHtml::submitButton('提交',array(
+                                                    'name'=>$value['verification_name'],
+                                                    'class'=>'form-button')
+                                                                    ); 
+                                    elseif($value['status'] == '0' || $value['status'] == '2') 
+                                            echo CHtml::submitButton('修改',array(
+                                                    'name'=>$value['verification_name'],
+                                                    'class'=>'form-button')
+                                                                    ); 
+                                ?>
                             </td>
                             <?php }?>
                             <td>
@@ -373,7 +384,7 @@ $this->widget('application.extensions.swfupload.CSwfUpload', array(
                                     echo "等待审核";
                                 elseif($value['status'] == '1')
                                     echo "审核通过";
-                                elseif($value['stauts'] == '2')
+                                elseif($value['status'] == '2')
                                     echo "未通过审核";
                             ?> 
                             </td>
@@ -384,28 +395,6 @@ $this->widget('application.extensions.swfupload.CSwfUpload', array(
                         }}?>                                              
  
                     </table>
-                </div>
-
-                <div class="find-table-content bankcard">
-                    <a href="#" class="bankcard-box">
-                        <div>
-                            <img src="<?php echo $this->imageUrl.'psbc.png'?>"/>
-                            <p>尾号6236</p>
-                        </div>
-                        <p class="bankcard-op">删除银行卡</p>
-                    </a>
-                    <a href="#" class="bankcard-box add">
-                        <div>
-                            <img src="../images/bankcard_add.png" />
-                        </div>
-                        <p class="bankcard-op">新增银行卡</p>
-                    </a>
-                    <a href="#" class="bankcard-box add last">
-                        <div>
-                            <img src="../images/bankcard_add.png" />
-                        </div>
-                        <p class="bankcard-op">新增银行卡</p>
-                    </a>
                 </div>
             </div>
         </div>

@@ -1,6 +1,7 @@
 <?php
 class AdminModule extends CmsModule
 {
+	public $userAuthTimeout = 3600;
 	public $name = 'admin';
 	public function init()
 	{
@@ -18,7 +19,7 @@ class AdminModule extends CmsModule
 				'allowAutoLogin' => false,
 				'autoRenewCookie' => false,
 				'guestName' => '游客',
-				'authTimeout' => 3600,
+				'authTimeout' => $this->userAuthTimeout,
 		));
 		
 		Yii::setPathOfAlias('accessManage',dirname(__FILE__).DS.'modules'.DS.'accessManage');

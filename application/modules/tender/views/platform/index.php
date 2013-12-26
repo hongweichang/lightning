@@ -33,15 +33,15 @@ $this->cs->registerCssFile($this->cssUrl.'lend.css');
           	年利率：<?php echo $bid->getAttribute('month_rate') / 100; ?>%，
           	期限：<?php echo $bid->getAttribute('deadline'); ?>期</p>
           <div id="borrow-details">
-            <p>借款人：<?php echo $bider->getAttribute('realname'); ?><?php echo $bider->getAttribute('gender') ? '先生' : '女士'; ?></p>
-           	<p>社会角色：<?php echo $this->app['roleMap'][$bider->getAttribute('role')]?></p>
+            <p>借款人：<?php echo $bider->getAttribute('realname'); ?><?php echo $bider->getAttribute('gender') ? '先生' : '女士'; ?>
+           	社会角色：<?php echo $this->app['roleMap'][$bider->getAttribute('role')]?></p>
             <p>身份证号码：<?php $bider->getAttribute('identity_id'); ?></p>
             <p>现居地:<?php echo $bider->getAttribute('address'); ?></p>
-            <p>借款金额：<?php echo number_format($bid->getAttribute('sum') / 100,2);?>元</p>
-            <p>标段年利率：<?php echo $bid->getAttribute('month_rate') / 100; ?>%</p>
-            <p>标段期限：<?php echo $bid->getAttribute('deadline'); ?>期</p>
-            <p>招标完成度：<?php echo $bid->getAttribute('progress'); ?>%</p>
-            <p>招标时间：<?php echo date('Y年n月j日',$bid->getAttribute('start')); ?> 至 <?php echo date('Y年n月j日',$bid->getAttribute('end')); ?></p>
+            <p>借款金额：<?php echo number_format($bid->getAttribute('sum') / 100,2);?>元
+				标段年利率：<?php echo $bid->getAttribute('month_rate') / 100; ?>%
+				标段期限：<?php echo $bid->getAttribute('deadline'); ?>期</p>
+			<p>招标完成度：<?php echo $bid->getAttribute('progress') / 100; ?>%
+				招标时间：<?php echo date('Y年n月j日',$bid->getAttribute('start')); ?> 至 <?php echo date('Y年n月j日',$bid->getAttribute('end')); ?></p>
           </div>
           <div id="borrow-num"><span><?php echo number_format($meta->getAttribute('sum') / 100,2);?>元</span></div>
           <div id="borrow-avatar">
@@ -54,8 +54,8 @@ $this->cs->registerCssFile($this->cssUrl.'lend.css');
           <form method="post" id="pay-method">
             <div class="paymethod-item userinfo">
               <div class="paymethod-manage">
-                <a href="<?php echo $this->app->createUrl('user/userCenter')?>">管理我的账户 |</a>
-                <a href="<?php echo $this->app->createUrl('help')?>">使用帮助</a>
+                <a href="<?php echo $this->app->createUrl('/user/userCenter')?>">管理我的账户 |</a>
+                <a href="<?php echo $this->app->createUrl('/content/help')?>">使用帮助</a>
               </div>  
               <div><?php echo $user->getAttribute('nickname'); ?><span><?php echo $user->getAttribute('mobile'); ?></span></div>
             </div>

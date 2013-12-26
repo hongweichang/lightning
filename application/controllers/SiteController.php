@@ -22,7 +22,7 @@ class SiteController extends Controller{
 		
 		$articles = $cache->get('INDEX_ARTICLES');
 		if ( $articles === false ){
-			$articlesProvider = $content->getArticleProvider(array(
+			$articlesProvider = $content->getArticleProviderViaType(array(
 					'criteria' => array(
 							'order' => 'add_time DESC',
 							'limit' => 5,
@@ -31,7 +31,7 @@ class SiteController extends Controller{
 			),0);
 			$articles = $articlesProvider->getData();
 			foreach ( $articles as $i => $article ){
-				$articles[$i]->content = preg_replace('/(.*)<.*>(.*)/iU','$1$2',$article->content);
+				$articles[$i]->content = str_replace('&nbsp;',' ',preg_replace('/(.*)<.*>(.*)/iU','$1$2',$article->content));
 			}
 			$cache->set('INDEX_ARTICLES',$articles,6*3600);
 		}
@@ -40,7 +40,7 @@ class SiteController extends Controller{
 		if ( empty($bidData) ){
 			$bidManager = $this->app->getModule('tender')->getComponent('bidManager');
 			$bids = $bidManager->getBidList(array(
-					'condition' => 'verify_progress=1 AND start<=:start',
+					'condition' => 'verify_progress=21 AND start<=:start',
 					'limit' => 5,
 					'offset' => 0,
 					'order' => 'pub_time DESC',
@@ -63,7 +63,7 @@ class SiteController extends Controller{
 				$icons = $bid->user->icons;
 				$iconName = empty($icons) ? null : $icons[0]->file_name;
 				$icon = $userManager->resolveIconUrl($iconName,$iconName === null ? null : $uid);
-				$rank = $userCreditManager->UserLevelCaculator($uid);
+				$rank = $userCreditManager->UserLevelCaculator($bid->user->credit_grade);
 				
 				$bidData[] = array(
 						'id' => $bid->id,

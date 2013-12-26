@@ -88,6 +88,11 @@ class CreditController extends Admin{
 								'select'=>'role'
 							)
 					);
+		$sum = CreditSettings::model()->count($criteria);
+		$pager = new CPagination($sum);
+		$pager->pageSize = 15;
+		$pager->applyLimit($criteria);
+
 		$creditData = CreditSettings::model()->findAll($criteria);
 		$creditList = array();
 		$roleData = array();
@@ -102,7 +107,7 @@ class CreditController extends Admin{
 								'roleData'=>$value->getrelated('CreditRole')
 							);
 			}
-			$this->render('creditList',array('creditData'=>$creditList));
+			$this->render('creditList',array('creditData'=>$creditList,'pages'=>$pager));
 		}
 
 	}

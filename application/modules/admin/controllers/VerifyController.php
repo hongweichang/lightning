@@ -17,14 +17,16 @@ class VerifyController extends Admin{
 	public function actionCredit(){
 		$this->pageTitle = '信用信息审核';
 		$userCreditData = array();
+		$userArray = array();
 		$fileUrl = null;
+		$file = null;
 
 		$criteria = new CDbCriteria;
 		$sum = FrontCredit::model()->count($criteria);
 		$pager = new CPagination($sum);
 		$pager->pageSize = 15;
 		$pager->applyLimit($criteria);
-		$criteria->select = 'id,user_id,verification_id,file_type,submit_time,status,description';
+		$criteria->select = 'id,user_id,verification_id,file_type,submit_time,status,description,content';
 		$criteria->condition = 'status =:status';
 		$criteria->params = array(
 							':status'=>'0'
@@ -32,27 +34,71 @@ class VerifyController extends Admin{
 		$criteria->order = 'submit_time DESC';
 
 		$userInfoData = FrontCredit::model()->with('user','creditSetting')->findAll($criteria);
-		foreach($userInfoData as $value){
-			if($value->file_type =='image'){
-				$fileUrl = dirname(Yii::app()->basePath).DS.$this->app->getPath('creditFile').
-																	$this->app->partition($value->user_id,'creditFile');
+		if(!empty($userInfoData)){
+			foreach($userInfoData as $key=>$value){
+				if($value->file_type =='image'){
+					$fileUrl = Yii::app()->getPartedUrl('creditFile',$value->user_id);
+					$file = $fileUrl.$value->content;
+				}
 
-			}
-
-			$userCreditData[] = array(
-								'nickname'=>$value->getRelated('user')->attributes['nickname'],
-								'realname'=>$value->getRelated('user')->attributes['realname'],
-								'mobile'=>$value->getRelated('user')->attributes['mobile'],
-								'verification_name'=>$value->getRelated('creditSetting')->attributes['verification_name'],
-								'id'=>$value->attributes['id'],
-								'submit_time'=>date('Y-m-d H:i:s',$value->attributes['submit_time']),
-								'fileUrl'=>$fileUrl
+				$userCreditData[$value->getRelated('user')->realname][] = array(
+								'user_id'=>$value->user_id,
+								'nickname'=>$value->getRelated('user')->nickname,
+								'realname'=>$value->getRelated('user')->realname,
+								'mobile'=>$value->getRelated('user')->mobile,
+								'verification_name'=>$value->getRelated('creditSetting')->verification_name,
+								'id'=>$value->id,
+								'submit_time'=>date('Y-m-d H:i:s',$value->submit_time),
+								'fileUrl'=>$file
 
 							);
 			
+			}
+
 		}
 		$this->render('credit',array('userCreditData'=>$userCreditData,'pages'=>$pager));
 
+	}
+
+	
+	/*
+	**审核信息详情
+	*/
+	public function actionCreditDetail($id){
+		$detail = array();
+		$fileUrl = null;
+		$file = null;
+
+		if(is_numeric($id)){
+			$criteria = new CDbCriteria;
+			$criteria->condition = 'status =:status AND user_id =:uid';
+			$criteria->params = array(
+									':status'=>'0',
+									':uid'=>$id
+								);
+			$detailData = FrontCredit::model()->with('user','creditSetting')->findAll($criteria);
+
+			if(!empty($detailData)){
+				foreach($detailData as $value){
+					if($value->file_type =='image'){
+						$fileUrl = Yii::app()->getPartedUrl('creditFile',$value->user_id);
+						$file = $fileUrl.$value->content;
+					}
+
+					$detail[] = array(
+							'id'=>$value->id,
+							'user_id'=>$value->user_id,
+							'verification_name'=>$value->getRelated('creditSetting')->verification_name,
+							'mobile'=>$value->getRelated('user')->mobile,
+							'submit_time'=>date('Y-m-d H:i:s',$value->submit_time),
+							'fileUrl'=>$file							
+							);
+				}
+
+			}
+
+			$this->render('creditDetail',array('detailData'=>$detail));
+		}
 	}
 
 	/*
@@ -114,8 +160,8 @@ class VerifyController extends Admin{
 	/*
 	**用户信息审核
 	*/
-	public function actionCreditVerify($id,$action){
-		if(!empty($id) && is_numeric($id) && !empty($action)){
+	public function actionCreditVerify($id,$action,$uid){
+		if(is_numeric($uid) && is_numeric($id) && !empty($action)){
 			$userData = FrontCredit::model()->findByPk($id);
 
 			if(!empty($userData)){
@@ -123,10 +169,10 @@ class VerifyController extends Admin{
 						$userData->status = 1;
 
 					if($userData->save())
-						$this->redirect($this->createUrl('verify/credit'));
+						$this->redirect($this->createUrl('verify/creditDetail/id/'.$uid.''));
 
 				}elseif($action == 'unpass' && $userData->status != 2){
-					$this->redirect($this->createUrl('verify/verifyReasonInput',array('id'=>$id)));
+					$this->redirect($this->createUrl('verify/verifyReasonInput',array('id'=>$id,'uid'=>$uid)));
 				}
 
 			}	
@@ -139,8 +185,8 @@ class VerifyController extends Admin{
 	/*
 	**审核未通过原因输入
 	*/
-	public function actionVerifyReasonInput($id){
-		if(!empty($id) && is_numeric($id)){
+	public function actionVerifyReasonInput($id,$uid){
+		if(is_numeric($uid) && is_numeric($id)){
 			$infoData = FrontCredit::model()->findByPk($id);
 
 			if(!empty($infoData)){
@@ -155,7 +201,7 @@ class VerifyController extends Admin{
 						$infoData->description = $description;
 
 						if($infoData->save())
-							$this->redirect(Yii::app()->createUrl('adminnogateway/verify/credit'));
+							$this->redirect($this->createUrl('verify/creditDetail/id/'.$uid.''));
 
 					}else
 						$this->showMessage('审核原因不得为空','verify/credit');
@@ -201,6 +247,7 @@ class VerifyController extends Admin{
 							'id'=>$value->id,
 							'title'=>$value->attributes['title'],
 							'description'=>$value->attributes['description'],
+							'uid'=>$value->getRelated('user')->id,
 							'nickname'=>$value->getRelated('user')->nickname,
 							'realname'=>$value->getRelated('user')->realname,
 							'mobile'=>$value->getRelated('user')->mobile,
@@ -226,7 +273,7 @@ class VerifyController extends Admin{
 
 			$bidData = Yii::app()->getModule('tender')->bidManager->getBidInfo($id);
 			if($action == 'pass'){
-				$bidData->verify_progress = '1';
+				$bidData->verify_progress = 21;
 
 				if($bidData->save()){
 					$this->redirect($this->createUrl('verify/bidVerifyList'));
@@ -252,7 +299,7 @@ class VerifyController extends Admin{
 				if(!empty($post['BidInfo']['failed_description'])){
 
 					$bidData->failed_description = $post['BidInfo']['failed_description'];
-					$bidData->verify_progress = 2;
+					$bidData->verify_progress = 20;
 					if($bidData->save()){
 						$this->redirect(Yii::app()->createUrl('adminnogateway/verify/bidVerifyList'));
 					}
@@ -267,7 +314,44 @@ class VerifyController extends Admin{
 		}
 
 	}
+
+
+/*
+**风控信息查看
+*/
 	
+	public function actionUserDetail($uid){
+		$userCredit = array();
+		$fileUrl = null;
+
+		if(is_numeric($uid)){
+			$userData = FrontUser::model()->findAll('id =:uid',array('uid'=>$uid));
+
+			$criteria = new CDbCriteria;
+			$criteria->condition = 'user_id =:uid AND status =:status';
+
+			$userCreditData = FrontCredit::model()->with('creditSetting')->findAll(
+				'user_id =:uid',array(':uid'=>$uid));
+
+			if(!empty($userCreditData) && !empty($userData)){
+				foreach($userCreditData as $value){
+					if($value->file_type =='image'){
+						$fileUrl = Yii::app()->getPartedUrl('creditFile',$value->user_id);
+						$file = $fileUrl.$value->content;
+					}
+
+					$userCredit[] = array(
+									'id'=>$value->id,
+									'verification_name'=>$value->getRelated('creditSetting')->verification_name,
+									'fileUrl'=>$file,
+								);
+				}
+
+
+			}
+			$this->render('userDetail',array('userData'=>$userData,'userCredit'=>$userCredit));
+		}
+	}
 
 }
 ?>

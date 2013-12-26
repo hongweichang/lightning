@@ -234,8 +234,7 @@ body {
     font-family: "Microsoft Yahei";
     font-weight: normal; }
 
-.loan-filter.creditor {
-  border-color: #9ed8ca; }
+
 
 .guide {
   float: left;
@@ -279,11 +278,9 @@ body {
     background-color: #309da0;
     color: white;
     cursor: pointer; }
-  .filter .filter-choice.creditor.active {
-    background-color: #9ed8ca; }
-  .filter .filter-choice.creditor:hover {
+/*  .filter .filter-choice.creditor:hover {
     background-color: #9ed8ca;
-    cursor: pointer; }
+    cursor: pointer; }*/
 
 #filter-switch {
   display: block;

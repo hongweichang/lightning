@@ -31,7 +31,12 @@ class AccountController extends Admin{
 	}
 	
 	public function actionLogout(){
+		$cache = $this->app->cache;
+		if ( $cache !== null ){
+			$cache->delete('ADMIN_MENU_CACHE_'.$this->user->getId());
+		}
 		$this->user->logout();
+		
 		$this->redirect($this->createUrl('account/login'));
 	}
 }

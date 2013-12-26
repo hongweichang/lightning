@@ -10,14 +10,16 @@
  * @property string $sum
  * @property integer $refund
  * @property string $buy_time
- * @property integer $finish_time
+ * @property string $pay_time
+ * @property string $repay_time
+ * @property string $finish_time
  * @property integer $status
  *
  * The followings are the available model relations:
  * @property Bid $bid
  * @property FrontUser $user
  */
-class BidMeta extends CActiveRecord
+class BidMeta extends CmsActiveRecord
 {
 	/**
 	 * @return string the associated database table name
@@ -35,12 +37,12 @@ class BidMeta extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('user_id, bid_id, sum, refund, buy_time', 'required'),
-			array('refund, finish_time, status', 'numerical', 'integerOnly'=>true),
-			array('user_id, bid_id, sum, buy_time', 'length', 'max'=>11),
+			array('user_id, bid_id, sum, refund', 'required'),
+			array('refund, status', 'numerical', 'integerOnly'=>true),
+			array('user_id, bid_id, sum, buy_time, pay_time, repay_time, finish_time', 'length', 'max'=>11),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, user_id, bid_id, sum, refund, buy_time, finish_time, status', 'safe', 'on'=>'search'),
+			array('id, user_id, bid_id, sum, refund, buy_time, pay_time, repay_time, finish_time, status', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -69,6 +71,8 @@ class BidMeta extends CActiveRecord
 			'sum' => 'Sum',
 			'refund' => 'Refund',
 			'buy_time' => 'Buy Time',
+			'pay_time' => 'Pay Time',
+			'repay_time' => 'Repay Time',
 			'finish_time' => 'Finish Time',
 			'status' => 'Status',
 		);
@@ -91,13 +95,16 @@ class BidMeta extends CActiveRecord
 		// @todo Please modify the following code to remove attributes that should not be searched.
 
 		$criteria=new CDbCriteria;
+
 		$criteria->compare('id',$this->id,true);
 		$criteria->compare('user_id',$this->user_id,true);
 		$criteria->compare('bid_id',$this->bid_id,true);
 		$criteria->compare('sum',$this->sum,true);
 		$criteria->compare('refund',$this->refund);
 		$criteria->compare('buy_time',$this->buy_time,true);
-		$criteria->compare('finish_time',$this->finish_time);
+		$criteria->compare('pay_time',$this->pay_time,true);
+		$criteria->compare('repay_time',$this->repay_time,true);
+		$criteria->compare('finish_time',$this->finish_time,true);
 		$criteria->compare('status',$this->status);
 
 		return new CActiveDataProvider($this, array(

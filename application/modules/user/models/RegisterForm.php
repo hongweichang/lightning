@@ -33,10 +33,6 @@ class RegisterForm extends CFormModel
 			'captcha' => array('code', 'verifyMobileCode'),
 			'protocal' => array('protocal','confirm','message'=>'请同意网站服务协议'),
 		);
-		if ( $this->getScenario() === 'appRegister' ){
-			//unset($rules['captcha']);
-			unset($rules['protocal']);
-		}
 		return $rules;
 	}
 	

@@ -98,6 +98,12 @@ class OperationController extends Access{
 								'class' => 'form-input-text',
 								'placeholder' => '可不填写',
 								'required' => false
+						),
+						'list_order' => array(
+								'type' => 'text',
+								'label' => '顺序',
+								'class' => 'form-input-text',
+								'required' => false
 						)
 				),
 				'buttons' => array(

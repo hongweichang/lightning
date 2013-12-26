@@ -52,7 +52,7 @@ class ContentController extends Controller{
 			$this->categoryId = $this->activeCategory->id;
 		}else {
 			foreach ( $category as $cat ){
-				if ( $cat->id == $cid ){
+				if ( $cat->id == $this->categoryId ){
 					$this->activeCategory = $cat;
 					break;
 				}
