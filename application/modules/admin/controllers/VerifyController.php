@@ -229,7 +229,7 @@ class VerifyController extends Admin{
 		$criteria = new CDbCriteria;
 		$criteria->condition = 'verify_progress =:progress';
 		$criteria->params = array(
-						':progress'=>'0'
+						':progress'=>11
 					);
 		$criteria->order = 'pub_time DESC';
 

@@ -303,14 +303,22 @@ body {
   #hc-content li {
     line-height: 1.8; }
     #hc-content li p {
-      font-size: 12px;
+      font-size: 14px;
       color: #656464;
       margin-bottom: 10px;
       display: none; }
+    #hc-content.about li p{
+      display: block;
+    }
   .about-content .hc-title:hover {
     color: #2d9491;
     cursor: pointer; }
   .about-content .hc-title.on {
+    color: #2d9491; }
+  #hc-content .hc-title:hover {
+    color: #2d9491;
+    cursor: pointer; }
+  #hc-content .hc-title.on {
     color: #2d9491; }
 
 .hc-side.about-side li a:hover {

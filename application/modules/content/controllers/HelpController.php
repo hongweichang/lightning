@@ -21,17 +21,20 @@ class HelpController extends ContentController {
 		$cache = $this->app->cache;
 		
 		$this->getCategoryByFid(1);
+		
 		if ( $cache !== null ){
-			$cacheArticleKey = 'SITE_GET_HELPS_ARTICLE_BY_CID'.$this->categoryId;
+			$cacheArticleKey = 'SITE_GET_HELPS_ARTICLE_BY_CID_'.$this->categoryId;
 			$article = $cache->get($cacheArticleKey);
+			$article =false;
 			if ( $article === false ){
-				$article = $this->getModule()->getComponent('contentManager')->getArticleProviderViaType(array(),1,false)->getData();
+				$article = $this->getModule()->getComponent('contentManager')->getArticleProviderViaCat(array(),$this->categoryId,false)->getData();
 				$cache->set($cacheArticleKey,$article,600);
 			}
 		}else {
-			$article = $this->getModule()->getComponent('contentManager')->getArticleProviderViaType(array(),1,false)->getData();
+			$article = $this->getModule()->getComponent('contentManager')->getArticleProviderViaCat(array(),$this->categoryId,false)->getData();
 		}
 		
+		$this->cs->registerScriptFile($this->scriptUrl.'help.js',CClientScript::POS_END);
 		$this->render('index',array(
 				'article' => $article,
 		));
