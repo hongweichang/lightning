@@ -13,18 +13,17 @@ class SendSmsCommand extends NotifyCommandBase{
 			return false;
 		}
 		
-		if ( empty($this->parameters['mobile']) || $this->notify->checkMobileFormat($this->parameters['mobile']) === false ){
-			return false;
-		}
-		
 		return true;
 	}
 	
 	protected function sendSms($placeholders=array()){
+		if ( empty($this->parameters['mobile']) || $this->notify->checkMobileFormat($this->parameters['mobile']) === false ){
+			return false;
+		}
+		
 		$content = $this->notify->getSettingProviderByNameType($this->eventName,'sms')->getData();
 		$holders = array_merge($placeholders,$this->placeholders);//替换默认的占位符为程序中自定义的占位符
 		foreach ( $content as $c ){
-			echo PlaceholderManager::replacePlaceholders($c->content,$placeholders);die;
 			$this->notify->sendSms($this->parameters['mobile'],PlaceholderManager::replacePlaceholders($c->content,$placeholders));
 		}
 	}
@@ -54,10 +53,12 @@ class SendSmsCommand extends NotifyCommandBase{
 		$notify = $this->notify;
 		
 		$bid = $this->app->getModule('tender')->getComponent('bidManager')->getBidInfo($this->parameters['bidId']);
+		
 		if ( $bid === null ){
 			return false;
 		}
 		
+		$this->parameters['mobile'] = $bid->user->mobile;
 		$this->sendSms(array(
 				'{bid}' => $bid->title,
 				'{userName}' => $bid->user->nickname
