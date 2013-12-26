@@ -13,7 +13,7 @@ class UserCenterController extends Controller{
 	
 	public function filters(){
 		$filters = parent::filters();
-		$filters[] = 'fetchUserData + userInfo,myLend,myBorrow,userSecurity,userFund';
+		$filters[] = 'fetchUserData + userInfo,myLend,myBorrow,userSecurity,userFund,GetCash';
 		return $filters;
 	}
 	
@@ -220,6 +220,11 @@ class UserCenterController extends Controller{
 
 				$model = new FrontCredit;
 				$file=CUploadedFile::getInstance($model,'filename'); 
+				if(empty($file)){
+					Yii::app()->user->setFlash('error','请选择附件!');
+					$this->redirect(Yii::app()->createUrl('user/userCenter/userInfo'));						
+					exit();
+				}
 
 				$fileName = $file->getName();
 				//$filenameUTF8 = iconv("gb2312","UTF-8",$fileName);
@@ -590,7 +595,7 @@ class UserCenterController extends Controller{
 
 
 	/*
-	**获取用户体现利率
+	**获取用户提现利率
 	*/
 	public function actionPayBackMoney(){
 		$post = $this->getPost();
@@ -613,6 +618,65 @@ class UserCenterController extends Controller{
 				
 			}
 
+		}
+	}
+
+	/*
+	**用户提现
+	*/
+
+	public function actionGetCash(){
+		$post = $this->getPost();
+		$uid = $this->app->user->id;
+
+		if(!empty($post['sum']) && !empty($post['bank_card']) && !empty($post['pay_password'])){
+			$sum = $post['sum'];
+			$bank_card = $post['bank_card'];
+			$pay_password = $post['pay_password'];
+			$security = Yii::app()->getSecurityManager();
+			$passwordVerify = $security->verifyPassword($pay_password,$this->userData->pay_password);
+
+			if($passwordVerify !== true){
+				Yii::app()->user->setFlash('error','资金密码验证失败');
+				$this->redirect(Yii::app()->createUrl('user/userCenter/userFund'));
+				exit();
+			}
+
+			$type = 'getCash';
+			$charge = $this->ChargeCaculator($sum,$uid,$type);
+
+			if($charge !== false){
+				$chargeSum = $charge;
+				$getCash = $this->app->getModule('pay')->fundManager->raiseWithdraw($uid,$sum,$charge);
+				if($getCash === true){
+					$this->userData->bank = $bank_card;
+					$this->userData->save();
+					Yii::app()->user->setFlash('success','提交提现申请成功!');
+					$this->redirect(Yii::app()->createUrl('user/userCenter/userFund'));
+
+				}
+			}
+
+
+		}
+	}
+
+	
+	/*
+	**手续费计算器
+	*/
+
+	public function ChargeCaculator($sum,$uid,$type){
+		if(is_numeric($sum) && is_numeric($uid) && !empty($type)){
+
+			if($type === 'getCash'){
+				$userRate = $this->app->getModule('credit')->getComponent('userCreditManager')->UserRateGet($uid);
+				if($userRate !== 400){
+					$userPaySum = $sum * $userRate['on_withdraw'];
+					return $userPaySum;
+				}			
+			}else
+				return false;
 		}
 	}
 }
