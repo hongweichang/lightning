@@ -330,8 +330,8 @@ class VerifyController extends Admin{
 			}
 
 			$this->render('bidVerifyList',array('bidList'=>$bidList,'pages'=>$pager));
-		}
-	$this->render('bidVerifyList',array('bidList'=>$bidList,'pages'=>$pager));
+		}else
+			$this->render('bidVerifyList',array('bidList'=>$bidList,'pages'=>$pager));
 	}
 
 

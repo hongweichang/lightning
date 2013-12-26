@@ -228,6 +228,7 @@ class CreditController extends Admin{
 */
 	public function actionCreditLevelList(){
 		$this->addToSubTab('添加会员级别','credit/creditLevelAdd');
+		$this->addToSubTab('导出会员级别列表','excelOutput/creditLevelOutPut');
 		$criteria = new CDbCriteria;
 		$criteria->order = 'start DESC';
 

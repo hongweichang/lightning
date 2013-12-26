@@ -10,7 +10,15 @@ $BidSum = $this->userBidMoney;
 $MetaSum = $this->userMetaBidMoney;
 ?>
 <div class="aud-detail">
-                <div class="det-per-inf">
+                <?php if(6<=date('H') && date('H')<12){?>
+                <div class="det-per-inf morning">
+                <?php }elseif(12<=date('H') && date('H')<15){?>
+                <div class="det-per-inf noon">               
+                <?php }elseif(15<=date('H') && date('H')<=18){?>
+                <div class="det-per-inf afternoon">
+                <?php }elseif(18<date('H')||0<=date('H') && date('H')<6){?>
+                <div class="det-per-inf night">
+                <?php }?>
                     <img src="<?php echo $this->user->getState('avatar')?>" class="det-img" />
                     <p>
                         <span class="aud-time">
