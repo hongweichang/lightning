@@ -6,6 +6,7 @@
  * The followings are the available columns in table '{{recharge}}':
  * @property string $id
  * @property string $user_id
+ * @property string $meta_id
  * @property string $sum
  * @property string $fee
  * @property string $raise_time
@@ -41,13 +42,13 @@ class Recharge extends CmsActiveRecord
 		return array(
 			array('user_id, sum, fee, raise_time', 'required'),
 			array('status', 'numerical', 'integerOnly'=>true),
-			array('user_id, sum, raise_time, pay_time, finish_time', 'length', 'max'=>11),
+			array('user_id, meta_id, sum, raise_time, pay_time, finish_time', 'length', 'max'=>11),
 			array('fee', 'length', 'max'=>5),
 			array('platform, subject, buyer, buyer_id', 'length', 'max'=>255),
 			array('trade_no', 'length', 'max'=>64),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, user_id, sum, fee, raise_time, platform, trade_no, subject, buyer, buyer_id, pay_time, finish_time, status', 'safe', 'on'=>'search'),
+			array('id, user_id, meta_id, sum, fee, raise_time, platform, trade_no, subject, buyer, buyer_id, pay_time, finish_time, status', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -71,6 +72,7 @@ class Recharge extends CmsActiveRecord
 		return array(
 			'id' => 'ID',
 			'user_id' => 'User',
+			'meta_id' => 'Meta',
 			'sum' => 'Sum',
 			'fee' => 'Fee',
 			'raise_time' => 'Raise Time',
@@ -105,6 +107,7 @@ class Recharge extends CmsActiveRecord
 
 		$criteria->compare('id',$this->id,true);
 		$criteria->compare('user_id',$this->user_id,true);
+		$criteria->compare('meta_id',$this->meta_id,true);
 		$criteria->compare('sum',$this->sum,true);
 		$criteria->compare('fee',$this->fee,true);
 		$criteria->compare('raise_time',$this->raise_time,true);

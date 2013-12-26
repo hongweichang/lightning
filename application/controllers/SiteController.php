@@ -22,7 +22,7 @@ class SiteController extends Controller{
 		
 		$articles = $cache->get('INDEX_ARTICLES');
 		if ( $articles === false ){
-			$articlesProvider = $content->getArticleProvider(array(
+			$articlesProvider = $content->getArticleProviderViaType(array(
 					'criteria' => array(
 							'order' => 'add_time DESC',
 							'limit' => 5,
@@ -31,7 +31,7 @@ class SiteController extends Controller{
 			),0);
 			$articles = $articlesProvider->getData();
 			foreach ( $articles as $i => $article ){
-				$articles[$i]->content = preg_replace('/(.*)<.*>(.*)/iU','$1$2',$article->content);
+				$articles[$i]->content = str_replace('&nbsp;',' ',preg_replace('/(.*)<.*>(.*)/iU','$1$2',$article->content));
 			}
 			$cache->set('INDEX_ARTICLES',$articles,6*3600);
 		}

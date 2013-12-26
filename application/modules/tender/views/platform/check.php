@@ -40,7 +40,7 @@ $this->cs->registerCssFile($this->cssUrl.'lend.css');
             <p>借款金额：<?php echo number_format($bid->getAttribute('sum') / 100,2);?>元
 				标段年利率：<?php echo $bid->getAttribute('month_rate') / 100; ?>%
 				标段期限：<?php echo $bid->getAttribute('deadline'); ?>期</p>
-			<p>招标完成度：<?php echo $bid->getAttribute('progress'); ?>%
+			<p>招标完成度：<?php echo $bid->getAttribute('progress') / 100; ?>%
 				招标时间：<?php echo date('Y年n月j日',$bid->getAttribute('start')); ?> 至 <?php echo date('Y年n月j日',$bid->getAttribute('end')); ?></p>
           </div>
           <div id="borrow-num"><span><?php echo number_format($meta->getAttribute('sum') / 100,2);?>元</span></div>
@@ -60,7 +60,7 @@ $this->cs->registerCssFile($this->cssUrl.'lend.css');
             </div>
             <div class="paycenter-item">
               <label for="pay-pw">支付密码：</label>
-              <input type="password" name="pay_pwd" id="pay-pw"/>
+              <input type="password" name="Check[payPasswd]" id="pay-pw"/>
               <a href="<?php echo $this->app->createUrl('user/account/forgot')?>" class="paycenter-tips">忘记密码?</a>
               <p class="paycenter-alert">您已经开通短信服务，每次交易需要输入密码</p>
             </div>
@@ -70,7 +70,7 @@ $this->cs->registerCssFile($this->cssUrl.'lend.css');
             </div>
             <div class="paycenter-item">
               <label for="pay-verfiy">校验码： </label>
-              <input type="text" value="点击获取校验码" name="pay_verify" id="pay-verify" />
+              <input type="text" value="点击获取校验码" name="Check[payVerify]" id="pay-verify" />
               <a href="#" class="paycenter-tips">没收到校验码?</a>
               <p class="paycenter-hint">校验码已发送，30分钟内输入才有效，请勿泄露</p>
             </div>

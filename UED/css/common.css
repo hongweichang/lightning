@@ -60,7 +60,10 @@ body {
 .he-wl {
   margin-right: 9px;
   line-height: 25px; }
-
+.he-lo{
+  height: 24px;
+  line-height: 24px;
+}
 .he-lo a {
   margin-left: 10px; }
 
@@ -99,6 +102,10 @@ body {
   color: #000000; }
 #he-nav ul li{
   border-color: #226e72;
+}
+#he-wb{
+  float: right;
+  margin-left: 10px;
 }
 /*.origin {
   border-color: #eea758; }
@@ -289,4 +296,28 @@ body {
 }
 .f-text{
   color: gray;
+}
+
+#page{
+  float: right;
+}
+#page li{
+  float: left;
+  padding: 10px;
+}
+#page li a{
+  padding: 2px;
+  font-size: 12px;
+  color: #309da0;
+}
+#page a.active{
+  border: 1px solid #309da0;
+}
+#page li a:hover{
+  color: #fff;
+  background-color: #309da0;
+}
+.page-prev,
+.page-next{
+  border: 1px solid #309da0;
 }

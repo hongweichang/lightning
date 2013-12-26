@@ -8,10 +8,6 @@
 class IpsController extends PayController{
 	protected $platform = 'ips';
 	
-	public function filters(){
-		return array();
-	}
-	
 	public function init(){
 		parent::init();
 		$this->module->setImport(array(	
@@ -19,19 +15,14 @@ class IpsController extends PayController{
 		));
 	}
 	
-	public function actionIndex(){
-		//付款金额
-		$meta_no = $this->getQuery('meta_no');
-		$in_pay = $this->getQuery('inpay','');
-		
-		//手续费
-		$fee = round($charge * 0.05,2);
+	public function actionOrder(){
+		$order = $this->getPayOrder();
+		$amount = ($order->getAttribute('sum') + $order->getAttribute('fee')) / 100;
 		
 		$ips = $this->module->ips;
-		
-		$ips['mercode'] = $this->raiseOrder($charge, $fee);
-		$ips['amount'] = $charge + $fee;
-		$ips['Attach'] = '闪电贷：'.($charge + $fee).'元（含手续费：'.$fee.'元）';
+		$ips['mercode'] = $order->getAttribute('id');
+		$ips['amount'] = $amount;
+		$ips['Attach'] = '闪电贷：'.$amount.'元（含手续费：'.($order->getAttribute('fee') / 100).'元）';
 		$ips['date'] = date('Ymd');
 		
 		$submit = new IpsSubmit($ips);

@@ -17,7 +17,7 @@
         </div>
         <div id="lend-details" class="clearfix">
           <div class="details-head clearfix">
-            <div class="return"><a href="<?php echo $this->createUrl('purchase/index'); ?>">←返回</a></div>
+            <div class="return"></div>
             <div class="name">标段详情</div>
             <div class="balance">
             <?php if ( $user !== null) :?>
@@ -62,9 +62,9 @@
             <div class="info-progress">
               <div class="loan-progress">
                   <div class="bar-in">
-                    <span class="bar-complete" style="width:<?php echo $bid->getAttribute('progress');?>%"></span>
+                    <span class="bar-complete" style="width:<?php echo $bid->getAttribute('progress') / 100;?>%"></span>
                   </div>
-                  <span><?php echo number_format($progress,2);?>元</span>
+                  <span><?php echo number_format($bid->getAttribute('progress_sum') / 100,2);?>元</span>
               </div>
               <div class="loan-progress"><span class="tick">√</span><span>100%安全认证，确保交易有效</span></div>
             </div>
@@ -73,7 +73,7 @@
             <div class="info-title">投资金额<span class="info-subtitle">投资有风险，请谨慎考虑</span></div>
             <form method="post" id="lend-form" action="<?php echo $this->createUrl('purchase/info',array('id' => $bid->getAttribute('id')));?>">
               <input type="text" name="sum" id="lend-num" data-info="<?php 
-              	echo $bid->getAttribute('sum').";".$bid->getAttribute('deadline').";".$bid->getAttribute('month_rate').";".$bid->getAttribute('progress_sum');;
+              	echo $bid->getAttribute('sum').";".$bid->getAttribute('deadline').";".$bid->getAttribute('month_rate').";".($bid->getAttribute('progress_sum'));
               ?>" /><span>元</span>
               <p>到期总收益 ¥<span id="lend-income">0.00元</span></p>
               <?php if(CCaptcha::checkRequirements()){ ?>

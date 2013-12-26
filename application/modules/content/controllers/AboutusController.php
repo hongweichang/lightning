@@ -13,22 +13,23 @@ class AboutusController extends ContentController{
 	}
 	
 	public function actionIndex(){
-		$this->setPageTitle($this->name);
 		$cache = $this->app->cache;
-		
-		$categories = $this->getCategoryByFid(2);
+	
+		$this->getCategoryByFid(2);
 		if ( $cache !== null ){
-			$cacheKey = 'SITE_GET_ABOUTUS_BY_CID_'.$this->categoryId;
-			$aboutus = $cache->get($cacheKey);
-			if ( $aboutus === false ){
-				$aboutus = $this->content->getArticleProvider(array(),2,$cid,false)->getData();
-				$cache->set($cacheKey,$aboutus,60);
+			$cacheArticleKey = 'SITE_GET_ABOUTUS_BY_CID_'.$this->categoryId;
+			$abouts = $cache->get($cacheArticleKey);
+			if ( $abouts === false ){
+				$abouts = $this->getModule()->getComponent('contentManager')->getArticleProviderViaType(array(),0,false)->getData();
+				$cache->set($cacheArticleKey,$abouts,600);
 			}
+		}else {
+			$abouts = $this->getModule()->getComponent('contentManager')->getArticleProviderViaType(array(),0,false)->getData();
 		}
-		
+	
 		$this->cs->registerCssFile($this->cssUrl.'help.css');
-		$this->render('index',array(
-				'article' => $abouts
+		$this->render('/help/index',array(
+				'article' => $abouts,
 		));
 	}
 }

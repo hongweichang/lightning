@@ -48,7 +48,7 @@ $bidProgressCssClassMap = $this->app['bidProgressCssClassMap'];
            	    $today = mktime(0,0,0);     
                 foreach ( $articles as $article ):
                 $addTime = $article->add_time;
-                $content = $article->content;     
+                $content = $article->content;;  
            ?>
                     <li>
                         <p class="news-time"><?php echo date('Y-m-d',$addTime)?></p>
