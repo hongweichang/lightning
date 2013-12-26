@@ -373,13 +373,12 @@ class VerifyController extends Admin{
 			$bidData = Yii::app()->getModule('tender')->bidManager->getBidInfo($id);
 			if(isset($post['submit'])){
 				if(!empty($post['BidInfo']['failed_description'])){
-
 					$bidData->failed_description = $post['BidInfo']['failed_description'];
 					$bidData->verify_progress = 20;
 					if($bidData->save()){
 						$asyncEventRunner = $this->app->getComponent('asyncEventRunner');
 						$asyncEventRunner->raiseAsyncEvent('onBidVerifyFailed',array(
-								'bidId' => $id
+								'bidId' => $id,
 						));
 						
 						$this->redirect(Yii::app()->createUrl('adminnogateway/verify/bidVerifyList'));
