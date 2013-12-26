@@ -1,4 +1,14 @@
 $(document).ready(function(){
+	$("#borrow-message textarea").on('focus', function(event) {
+		$("#borrow-message .placeholder").hide();
+	});
+	$("#borrow-message textarea").on('blur', function(event) {
+		$("#borrow-message .placeholder").show();
+	});
+	$("#borrow-message .placeholder").on('click', function(event) {
+		$(this).hide();
+	});
+
 	$('.input-daterange').datepicker({
 	    startDate: "today",
 	    language: "zh-CN",    

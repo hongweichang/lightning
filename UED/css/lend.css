@@ -392,7 +392,7 @@ body {
     height: 30px;
     line-height: 30px;
     border: none;
-    background-color: #2da9ac;
+    background-color: #309da0;
     color: #fff;
     text-align: center;
     cursor: pointer;
@@ -404,7 +404,7 @@ body {
     border-radius: 5px;
   }
   .loan-list .invest:hover{
-    background-color: #2d9491;
+    background-color: #3ec4cb;
   }
 #viewMore {
   text-align: center;

@@ -141,10 +141,8 @@ $('.input-daterange').datepicker({
                         </li>
                         <li class="message-item">
                             <label>标段介绍:</label>
-                            <textarea name="desc"><?php echo $form->desc; ?>
-借款理由：
-还款保障：
-</textarea>
+                            <textarea name="desc"><?php echo $form->desc; ?></textarea>
+                            <span class="placeholder">借款理由、还款保障</span>
                             <?php if($form->hasErrors('desc')){ ?>
 							<p class="message-hint" style="color:red;"><?php echo $form->getError('desc'); ?></p>
 							<?php } ?>

@@ -185,7 +185,12 @@
   height: 745px;
   margin-left: 25px;
   background: #fff; }
-
+.message-item .placeholder {
+  position: absolute;
+  top: 4px;
+  left: 220px;
+  color: #8a8a8a;
+}
 .message-item label {
   float: left;
   width: 200px;
