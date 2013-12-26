@@ -296,6 +296,9 @@ body {
       color: #656464;
       margin-bottom: 10px;
       display: none; }
+    #hc-content li .hc-hidden .show {
+      display: block;
+    }
     #hc-content.about li p{
       display: block;
     }

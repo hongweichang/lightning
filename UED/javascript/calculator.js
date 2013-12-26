@@ -42,7 +42,7 @@ $("#cal-form").validate({
 		},
 		"annual-rate":{
 			required: true,
-			range: [5,20],
+			range: [8,24],
 			digits: true
 		},
 		"loan-deadline":{
@@ -59,7 +59,7 @@ $("#cal-form").validate({
 		},
 		"annual-rate":{
 			required:"不能为空",
-			range: "利率范围5%-20%",
+			range: "利率范围8%-24%",
 			digits: "请输入整数"
 		},
 		"loan-deadline":{
@@ -99,6 +99,7 @@ function incomeInfo(o){
 	desc.eq(5).text(info.c+"元");
 	desc.eq(6).text("您将在"+month+"个月后收回/还清全部本息");
 	$(".calc-result").eq(0).show();
+	$(".calc-result").eq(1).show();
 	if(o[3].value === "open"){
 		detail.siblings('tr').remove();
 		for(var i = month; i > 0; i--){
@@ -109,7 +110,7 @@ function incomeInfo(o){
 				dom += createTd((info.c*(i-1)).toFixed(2));
 			detail.parent().append("<tr>"+dom+"</tr>");
 		}
-		$(".calc-result").eq(1).show();
+		$(".calc-result").eq(2).show();
 		function createTd(text){
 			var dom = "<td>"+text+"</td>";
 			return dom;

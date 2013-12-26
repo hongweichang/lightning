@@ -25,6 +25,18 @@
     height: 122px;
     background: url("../images/detail-bg.png") no-repeat;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); }
+    #container .aud-detail .det-per-inf.morning {
+      background: url("../images/morning.png") no-repeat;
+    }
+    #container .aud-detail .det-per-inf.noon {
+      background: url("../images/noon.png") no-repeat;
+    }
+    #container .aud-detail .det-per-inf.afternoon {
+      background: url("../images/afternoon.png") no-repeat;
+    }
+    #container .aud-detail .det-per-inf.night {
+      background: url("../images/night.png") no-repeat;
+    }
     #container .aud-detail .det-per-inf img.det-img {
       position: relative;
       float: left;
