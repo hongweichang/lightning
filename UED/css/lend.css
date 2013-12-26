@@ -188,32 +188,6 @@ body {
 .w30 {
   width: 30px; }
 
-.rankA,
-.rankAA,
-.rankAAA,
-.rankHR {
-  width: 30px;
-  height: 30px;
-  margin: 0 auto;
-  line-height: 30px;
-  color: #fff;
-  font-size: 16px;
-  font-family: "Microsoft Yahei";
-  font-weight: normal;
-  text-align: center;
-  font-weight: bold; }
-
-.rankA {
-  background-color: #00ffcc; }
-
-.rankAA {
-  background-color: #09c93b; }
-
-.rankAAA {
-  background-color: #07ee58; }
-
-.rankHR {
-  background-color: #ff001e; }
 
 .info-content .adu-d-nav, .info-content p, .info-content ul, .info-content ul.adu-img-bar li {
   font-weight: normal;
@@ -418,7 +392,7 @@ body {
     height: 30px;
     line-height: 30px;
     border: none;
-    background-color: #2da9ac;
+    background-color: #309da0;
     color: #fff;
     text-align: center;
     cursor: pointer;
@@ -430,7 +404,7 @@ body {
     border-radius: 5px;
   }
   .loan-list .invest:hover{
-    background-color: #2d9491;
+    background-color: #3ec4cb;
   }
 #viewMore {
   text-align: center;

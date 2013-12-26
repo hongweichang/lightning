@@ -134,7 +134,7 @@ class mainConf extends ConfigBase{
 										)
 								),
 						),
-						'zmqClient' => array(
+						/*'zmqClient' => array(
 								'class' => 'cms.components.asyncEvent.ZMQClient',
 								'zmqServer' => 'tcp://localhost:5556',
 								'sendTimeout' => 3000,
@@ -159,7 +159,7 @@ class mainConf extends ConfigBase{
 												'command' => array('bid','pay')
 										),
 								),
-						),
+						),*/
 						'image'=>array(
 								'class'=>'ext.image.CImageComponent',
 								'driver'=>'GD',
