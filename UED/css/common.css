@@ -197,11 +197,12 @@ body {
 
 .w30 {
   width: 30px; }
-
+.rankAA,
 .rankA,
+.rankBB,
 .rankB,
 .rankC,
-.rankHR {
+.rankD {
   width: 30px;
   height: 30px;
   margin: 0 auto;
@@ -213,18 +214,21 @@ body {
   text-align: center;
   font-weight: bold; }
 
+.rankAA {
+  background-color: #deb839; }
+
 .rankA {
-  background-color: #00ffcc; }
+  background-color: #c0c0c1; }
+
+.rankBB {
+  background-color: #1bb8e2; }
 
 .rankB {
-  background-color: #09c93b; }
-
+  background-color: #7bde1a; }
 .rankC {
-  background-color: #07ee58; }
-
-.rankHR {
-  background-color: #ff001e; }
-
+  background-color: #e3e11c;}
+.rankD {
+  background-color: #e52012;}
 .footer-sec {
   float: left;
   padding: 10px 0;
