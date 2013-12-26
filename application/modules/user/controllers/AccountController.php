@@ -7,6 +7,7 @@
  */
 class AccountController extends Controller{
 	public $layout='//layouts/login';
+	public $defaultAction = 'login';
 	
 	public function noneLoginRequired(){
 		return 'register,login,sendRegisterVerify,loginTransit';

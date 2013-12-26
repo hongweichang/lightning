@@ -5,9 +5,6 @@ design By HJtianling_LXY,<2507073658@qq.com>
 2013.11.16
 */
 class CreditController extends Admin{
-	public function filters(){
-		return array();
-	}
 
 	public function init(){
 		parent::init();

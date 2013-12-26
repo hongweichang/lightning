@@ -300,6 +300,8 @@ body {
 
 #page{
   float: right;
+  border: 0;
+  line-height: 20px;
 }
 #page li{
   float: left;
@@ -321,3 +323,19 @@ body {
 .page-next{
   border: 1px solid #309da0;
 }
+
+.breadcrumb {
+  margin: 40px 0; }
+  .breadcrumb li {
+    display: inline-block; }
+  .breadcrumb li:last-child {
+    color: #454545; }
+
+.breadcrumb-item a {
+  color: #848383;
+  font-size: 16px;
+  font-family: "Microsoft Yahei";
+  font-weight: normal; }
+
+.breadcrumb-item.active a {
+  color: #454545; }

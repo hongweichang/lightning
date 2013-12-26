@@ -59,6 +59,27 @@ class ContentManager extends CApplicationComponent{
 		return ArticleCategory::model()->deleteByPk($id,$condition,$params);
 	}
 	
+	public function getArticleProvider($config,$enablePagination=true,$enableSort=true){
+		Utils::resovleProviderConfigCriteria($config,$enablePagination,$enableSort);
+	
+		return new CActiveDataProvider('Article',$config);
+	}
+	
+	public function getArticleProviderViaCat($config,$category=null,$enablePagination=true,$enableSort=true){
+		Utils::resovleProviderConfigCriteria($config,$enablePagination,$enableSort);
+		$criteria = $config['criteria'];
+		$countCriteria = $config['countCriteria'];
+		
+		if ( $category !== null ){
+			$criteria->addCondition('category=:cid');
+			$countCriteria->addCondition('category=:cid');
+			$criteria->params[':cid'] = $category;
+			$countCriteria->params[':cid'] = $category;
+		}
+	
+		return new CActiveDataProvider('Article',$config);
+	}
+	
 	public function getArticleProviderViaType($config,$type=null,$enablePagination=true,$enableSort=true){
 		$categories = $this->getCategoryProviderViaType(array(),$type)->getData();
 		$ins = array();
@@ -71,6 +92,7 @@ class ContentManager extends CApplicationComponent{
 		$countCriteria = $config['countCriteria'];
 		
 		$criteria->addInCondition('category',$ins);
+		$countCriteria->addInCondition('category',$ins);
 		
 		return new CActiveDataProvider('Article',$config);
 	}

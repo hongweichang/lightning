@@ -20,15 +20,14 @@ class AboutusController extends ContentController{
 			$cacheArticleKey = 'SITE_GET_ABOUTUS_BY_CID_'.$this->categoryId;
 			$abouts = $cache->get($cacheArticleKey);
 			if ( $abouts === false ){
-				$abouts = $this->getModule()->getComponent('contentManager')->getArticleProviderViaType(array(),0,false)->getData();
+				$abouts = $this->getModule()->getComponent('contentManager')->getArticleProviderViaCat(array(),$this->categoryId,false)->getData();
 				$cache->set($cacheArticleKey,$abouts,600);
 			}
 		}else {
-			$abouts = $this->getModule()->getComponent('contentManager')->getArticleProviderViaType(array(),0,false)->getData();
+			$abouts = $this->getModule()->getComponent('contentManager')->getArticleProviderViaCat(array(),$this->categoryId,false)->getData();
 		}
-	
-		$this->cs->registerCssFile($this->cssUrl.'help.css');
-		$this->render('/help/index',array(
+
+		$this->render('index',array(
 				'article' => $abouts,
 		));
 	}

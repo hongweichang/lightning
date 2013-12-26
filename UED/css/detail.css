@@ -85,8 +85,15 @@
           cursor: pointer; }
       #container .aud-detail .aud-money .mon-show div #int {
         color: #3aee61; }
+      #container .aud-detail .aud-money .mon-show div #int:hover{
+        color: #fff;
+        background-color: #3aee61;
+      }  
       #container .aud-detail .aud-money .mon-show div #out {
         color: #2d9194; }
+        #container .aud-detail .aud-money .mon-show div #out:hover {
+        color: #fff;
+        background-color: #2d9194; }
     #container .aud-detail .aud-money .mon-show p {
       margin-left: 84px;
       margin-top: 21px; }
@@ -712,7 +719,6 @@ input:focus {
       color: #27d0fb; }
     #container #fund-withdraw li a:visited {
       color: #27d0fb; }
-
 .hint {
   position: relative;
   display: inline-block; }

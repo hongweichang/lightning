@@ -17,7 +17,7 @@ $(document).ready(function(){
 			rate:{
 				required: true,
 				digits: true,
-				range: [5,20]
+				range: [8,24]
 			},
 			deadline:{
 				required: true,
@@ -37,7 +37,7 @@ $(document).ready(function(){
 			rate:{
 				required: "不能为空",
 				digits: "请输入整数",
-				range: "年利率介于5到12%之间"
+				range: "年利率介于8到24%之间"
 			},
 			deadline:{
 				required: "不能为空",

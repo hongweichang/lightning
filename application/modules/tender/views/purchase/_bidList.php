@@ -40,4 +40,5 @@ foreach ( $bidProgressCssClassMap as $key => $bidProgressCssClass ){
 			</div>
 		</div>
 	</div>
+	<a href="<?php echo $this->createUrl('purchase/info', array('id' => $data->getAttribute('id')));?>" class="invest">投标</a>
 </li>
