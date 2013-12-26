@@ -331,6 +331,8 @@ class UserCenterController extends Controller{
 		$uid = Yii::app()->user->id;
 		$MyLend = array();
 		$waitingForBuy = array();
+		$finished = array();
+		$waitingForPay = array();
 
 		$criteria = new CDbCriteria;
 		$criteria->alias = "meta";
@@ -345,10 +347,18 @@ class UserCenterController extends Controller{
 			foreach($LendData as $value){
 				$userData = $value->getRelated('user');
 				$bidData = $value->getRelated('bid');
-				if( $value->finish_time != 0){
-					if($bidData->progress == 100){
+				if($value->status == 21){
+					if($bidData->verify_progress == 41){
+						$finished[] = array(
+							'nickname'=>$userData->nickname,
+							'bidTitle'=>$bidData->title,
+							'rate'=>$bidData->month_rate,
+							'sum'=>$value->sum/100,
+							'deadline'=>$bidData->deadline,
+							'buyTime'=>date('Y:m:d H:i:s',$value->finish_time),									
+									);
 
-					}else{
+					}elseif($bidData->verify_progress == 21){
 						$waitingForBuy[] = array(
 							'nickname'=>$userData->nickname,
 							'bidTitle'=>$bidData->title,
@@ -358,6 +368,16 @@ class UserCenterController extends Controller{
 							'buyTime'=>date('Y:m:d H:i:s',$value->finish_time),
 
 						);
+
+					}elseif($bidData->verify_progress == 31){
+						$waitingForPay[] = array(
+							'nickname'=>$userData->nickname,
+							'bidTitle'=>$bidData->title,
+							'rate'=>$bidData->month_rate,
+							'sum'=>$value->sum/100,
+							'deadline'=>$bidData->deadline,
+							'buyTime'=>date('Y:m:d H:i:s',$value->finish_time),
+										);
 					}
 
 				}
@@ -367,7 +387,11 @@ class UserCenterController extends Controller{
 		}
 
 		$IconUrl = Yii::app()->getModule('user')->userManager->getUserIcon($uid);
-		$this->render('myLend',array('waitingForBuy'=>$waitingForBuy,'IconUrl'=>$IconUrl));
+		$this->render('myLend',array(
+			'waitingForBuy'=>$waitingForBuy,
+			'IconUrl'=>$IconUrl,
+			'finished'=>$finished
+			));
 		
 	}
 
@@ -379,28 +403,34 @@ class UserCenterController extends Controller{
 		$uid = Yii::app()->user->id;
 		$waitingForPay = array();
 		$waitingForBuy = array();
+		$finished = array();
 		$borrowSum = 0;
 
 		$myBorrowData = $this->app->getModule('tender')->getComponent('bidManager')->getBidList('user_id =:uid',array(
 			'uid'=>$uid));
 		foreach($myBorrowData as $value){
-			if($value->attributes['verify_progress'] == 21){
-				if($value->attributes['progress'] == 100){
+			if($value->attributes['verify_progress'] == 31){
 					$waitingForPay[] = array(
 							$value->attributes
 						);
 					$borrowSum += $value->attributes['sum']/100;
-				}else{
+
+			}elseif($value->attributes['verify_progress'] == 41){
+				$finished[] = array(
+								$value->attributes
+							);
+
+			}else{
 				$waitingForBuy[] = array(
-							$value->attributes
-						);
-				}
+									$value->attributes
+								);
 			}
 		}
 		$IconUrl = Yii::app()->getModule('user')->userManager->getUserIcon($uid);
 		$this->render('myBorrow',array(
 									'waitingForPay'=>$waitingForPay,
 									'waitingForBuy'=>$waitingForBuy,
+									'finished'=>$finished,
 									'borrowSum'=>$borrowSum,
 									'IconUrl'=>$IconUrl
 									));
@@ -523,7 +553,9 @@ class UserCenterController extends Controller{
 		}
 	}
 
-
+	/*
+	**资金管理
+	*/
 	public function actionUserFund(){
 		$uid = $this->app->user->id;
 		
@@ -621,10 +653,10 @@ class UserCenterController extends Controller{
 		}
 	}
 
+	
 	/*
 	**用户提现
 	*/
-
 	public function actionGetCash(){
 		$post = $this->getPost();
 		$uid = $this->app->user->id;
@@ -653,7 +685,7 @@ class UserCenterController extends Controller{
 					$this->redirect(Yii::app()->createUrl('user/userCenter/userFund'));
 					exit();				
 				}
-							
+
 				$chargeSum = $charge;
 				$getCash = $this->app->getModule('pay')->fundManager->raiseWithdraw($uid,$sum,$charge);
 				if($getCash === true){

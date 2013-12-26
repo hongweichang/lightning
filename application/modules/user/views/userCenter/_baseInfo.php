@@ -16,9 +16,11 @@ $MetaSum = $this->userMetaBidMoney;
                         <span class="aud-time">
                         <?php  
                         //var_dump((int)date('H'));die();
-                            if(6<=date('H') && date('H')<=13)
+                            if(6<=date('H') && date('H')<12)
                                 echo '早上好';
-                            elseif(13<date('H') && date('H')<=18)
+                            elseif(12<=date('H') && date('H')<15)
+                                echo '中午好';
+                            elseif(15<=date('H') && date('H')<=18)
                                 echo '下午好';
                             elseif(18<date('H')||0<=date('H') && date('H')<6)
                                 echo '晚上好';

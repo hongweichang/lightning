@@ -51,7 +51,7 @@ $this->cs->registerCssFile($this->cssUrl.'detail.css');
                 <ul id="find-table-detail">
                     <li class="find-selected">完成标段</li>
                     <li>正在竞标</li>
-                    <li>债权转让</li>
+                    <li>正在还款</li>
                 </ul>
                 <div class="find-table-content find-table-content-show">
                     <ul>
@@ -59,29 +59,20 @@ $this->cs->registerCssFile($this->cssUrl.'detail.css');
                             <span>借款人</span>
                             <span>借款标题</span>
                             <span>年利率</span>
-                            <span>还款金额</span>
+                            <span>投资金额</span>
                             <span>期限</span>
-                            <span class="deadline">状态</span>
-                            <span class="repay">查看详情</span>
+                            <span class="deadline">投标时间</span>
                         </li>
+                        <?php foreach($finished as $value){?>
                         <li>
-                            <span><img src="#" /></span>
-                            <span>再次支持免费充值</span>
-                            <span>10.00 % </span>
-                            <span>￥25000元</span>
-                            <span>3个月</span>
-                            <span class="deadline">待转</span>
-                            <span class="repay"><a href="">查看</a></span>
+                            <span><?php echo $value['nickname'];?></span>
+                            <span><?php echo $value['bidTitle'];?></span>
+                            <span><?php echo $value['rate'].'%';?></span>
+                            <span><?php echo '￥'.$value['sum'].'元'?></span>
+                            <span><?php echo $value['deadline']?>个月</span>
+                            <span class="deadline"><?php echo $value['buyTime'];?></span>
                         </li>
-                        <li>
-                            <span><img src="#" /></span>
-                            <span>再次支持免费充值</span>
-                            <span>10.00 % </span>
-                            <span>￥25000元</span>
-                            <span>3个月</span>
-                            <span class="deadline">已转</span>
-                            <span class="repay"><a href="">查看</a></span>
-                        </li>
+                        <?php }?>
                     </ul>
                 </div>
                 <div class="find-table-content">
@@ -92,7 +83,7 @@ $this->cs->registerCssFile($this->cssUrl.'detail.css');
                             <span>年利率</span>
                             <span>投资金额</span>
                             <span>期限</span>
-                            <span class="deadline">成立时间</span>
+                            <span class="deadline">投标时间</span>
                             <span class="repay">查看详情</span>
                         </li>
                         <?php if(!empty($waitingForBuy)){
@@ -117,29 +108,23 @@ $this->cs->registerCssFile($this->cssUrl.'detail.css');
                             <span>借款人</span>
                             <span>借款标题</span>
                             <span>年利率</span>
-                            <span>还款金额</span>
+                            <span>投资金额</span>
                             <span>期限</span>
-                            <span class="deadline">状态</span>
-                            <span class="repay">查看详情</span>
+                            <span class="deadline">投标时间</span>
                         </li>
+                        <?php if(!empty($waitingForPay)){
+                            foreach($waitingForPay as $value){
+                        ?>
                         <li>
-                            <span><img src="#" /></span>
-                            <span>再次支持免费充值</span>
-                            <span>10.00 % </span>
-                            <span>￥25000元</span>
-                            <span>3个月</span>
-                            <span class="deadline">待转</span>
-                            <span class="repay"><a href="">查看</a></span>
+                            <span><?php echo $value['nickname'];?></span>
+                            <span><?php echo $value['bidTitle'];?></span>
+                            <span><?php echo $value['rate'].'%';?></span>
+                            <span><?php echo '￥'.$value['sum'].'元'?></span>
+                            <span><?php echo $value['deadline']?>个月</span>
+                            <span class="deadline"><?php echo $value['buyTime'];?></span>
                         </li>
-                        <li>
-                            <span><img src="#" /></span>
-                            <span>再次支持免费充值</span>
-                            <span>10.00 % </span>
-                            <span>￥25000元</span>
-                            <span>3个月</span>
-                            <span class="deadline">待转</span>
-                            <span class="repay"><a href="">查看</a></span>
-                        </li>
+                        <?php  }
+                            }?>
                     </ul>
                 </div>
             </div>
