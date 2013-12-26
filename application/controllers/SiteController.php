@@ -11,7 +11,6 @@ class SiteController extends Controller{
 	}
 	
 	public function actionIndex(){
-		Yii::beginProfile('index');
 		$content = $this->app->getModule('content')->getComponent('contentManager');
 		$cache = $this->app->cache;
 		
@@ -84,7 +83,6 @@ class SiteController extends Controller{
 		$this->cs->registerCssFile($this->cssUrl.'index.css');
 		$this->cs->registerScriptFile($this->scriptUrl.'slide_fade.js',CClientScript::POS_END);
 		$this->render('index',array('banner'=>$banner,'articles'=>&$articles,'bids'=>$bidData));
-		Yii::endProfile('index');
 	}
 	
 	public function actionTest(){
