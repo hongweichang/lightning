@@ -48,7 +48,7 @@ $this->cs->registerCssFile($this->cssUrl.'help.css');
                     ?>
                     <li>
                         <div class="hc-title"><?php echo ($i+1).".".$val->title;?></div>
-                        <p><?php echo $val->content;?></p>
+                        <div class="hc-hidden"><?php echo $val->content;?></div>
                     </li>
                     <?php endforeach;?>
                 </ul>

@@ -188,32 +188,6 @@ body {
 .w30 {
   width: 30px; }
 
-.rankA,
-.rankAA,
-.rankAAA,
-.rankHR {
-  width: 30px;
-  height: 30px;
-  margin: 0 auto;
-  line-height: 30px;
-  color: #fff;
-  font-size: 16px;
-  font-family: "Microsoft Yahei";
-  font-weight: normal;
-  text-align: center;
-  font-weight: bold; }
-
-.rankA {
-  background-color: #00ffcc; }
-
-.rankAA {
-  background-color: #09c93b; }
-
-.rankAAA {
-  background-color: #07ee58; }
-
-.rankHR {
-  background-color: #ff001e; }
 
 .info-content .adu-d-nav, .info-content p, .info-content ul, .info-content ul.adu-img-bar li {
   font-weight: normal;
