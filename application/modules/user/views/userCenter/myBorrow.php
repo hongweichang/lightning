@@ -56,7 +56,7 @@ $this->cs->registerCssFile($this->cssUrl.'detail.css');
                             <span>月还款金额</span>
                             <span>期限</span>
                             <span class="deadline">结束时间</span>
-                            <span class="repay">还款</span>
+                            <span class="repay">操作</span>
                         </li>
                         <?php
                             if(!empty($waitingForPay)){ 
@@ -64,7 +64,7 @@ $this->cs->registerCssFile($this->cssUrl.'detail.css');
                             ?>
                         <li>
                             <span><?php echo $value[0]['title'];?></span>
-                            <span><?php echo $value[0]['month_rate'].'%';?> </span>
+                            <span><?php echo $value[0]['month_rate']/100;?>%</span>
                             <span><?php echo $value[0]['refund']/100;?></span>
                             <span><?php echo $value[0]['deadline'].'个月';?></span>
                             <span class="deadline"><?php echo date('Y:m:d H:i:s',$value[0]['end']);?></span>
@@ -117,7 +117,7 @@ $this->cs->registerCssFile($this->cssUrl.'detail.css');
                          <li>
                             <span><?php echo $value[0]['title'];?></span>
                             <span><?php echo $value[0]['month_rate'];?></span>
-                            <span><?php echo $value[0]['sum'];?></span>
+                            <span><?php echo $value[0]['sum']/100;?></span>
                             <span><?php echo $value[0]['deadline'].'个月'?></span>
                             <span class="deadline">
                             <?php

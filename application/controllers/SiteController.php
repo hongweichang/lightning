@@ -90,4 +90,12 @@ class SiteController extends Controller{
 		$async = $this->app->getComponent('asyncEventRunner');
 		$async->raiseAsyncEvent('onRegisterSuccess',array('data'=>'sasa'));
 	}
+
+	/*
+	**理财计算器
+	*/
+	public function actionCashCaculator(){
+		$uid = $this->user->id;
+		echo $uid;
+	}
 }

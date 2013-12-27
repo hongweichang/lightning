@@ -134,7 +134,7 @@ class mainConf extends ConfigBase{
 										)
 								),
 						),
-						/*'zmqClient' => array(
+						'zmqClient' => array(
 								'class' => 'cms.components.asyncEvent.ZMQClient',
 								'zmqServer' => 'tcp://localhost:5556',
 								'sendTimeout' => 3000,
@@ -158,8 +158,24 @@ class mainConf extends ConfigBase{
 										'onPayPurchasedBid' => array(
 												'command' => array('bid','pay')
 										),
+										'onBidVerifySuccess' => array(
+												array(
+														'command' => array('sendSms','bidVerifySuccess')
+												),
+// 												array(
+// 														'command' => array('sendMail','bidVerifySuccess')
+// 												)
+										),
+										'onBidVerifyFailed' => array(
+												array(
+														'command' => array('sendSms','bidVerifyFailed')
+												),
+//												array(
+// 														'command' => array('sendMail','bidVerifyFailed')
+// 												)
+										)
 								),
-						),*/
+						),
 						'image'=>array(
 								'class'=>'ext.image.CImageComponent',
 								'driver'=>'GD',

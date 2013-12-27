@@ -215,7 +215,7 @@ class UserCenterController extends Controller{
 			$verificationData = CreditRole::model()->with('verification')->findAll($criteria);
 
 			if(empty($verificationData)){
-				Yii::app()->user->setFlash('error','该角色无次信用项');
+				Yii::app()->user->setFlash('upload_error','该角色无次信用项');
 				$this->redirect(Yii::app()->createUrl('user/userCenter/userInfo'));
 				exit();
 			}
@@ -226,7 +226,7 @@ class UserCenterController extends Controller{
 				$model = new FrontCredit;
 				$file=CUploadedFile::getInstance($model,'filename'); 
 				if(empty($file)){
-					Yii::app()->user->setFlash('error','请选择附件!');
+					Yii::app()->user->setFlash('upload_error','请选择附件!');
 					$this->redirect(Yii::app()->createUrl('user/userCenter/userInfo'));						
 					exit();
 				}
@@ -239,7 +239,7 @@ class UserCenterController extends Controller{
 				$TypeVerify = $this->TypeVerify($fileType);
 
 				if($TypeVerify == 400){
-					Yii::app()->user->setFlash('error','文件类型不合法');
+					Yii::app()->user->setFlash('upload_error','文件类型不合法');
 					$this->redirect(Yii::app()->createUrl('user/userCenter/userInfo'));
 					exit();
 
@@ -272,7 +272,7 @@ class UserCenterController extends Controller{
 						}
 
 						if($model->save()){
-							Yii::app()->user->setFlash('success','上传成功');
+							Yii::app()->user->setFlash('upload_success','上传成功');
 							$this->redirect(Yii::app()->createUrl('user/userCenter/userInfo'));
 
 						}
