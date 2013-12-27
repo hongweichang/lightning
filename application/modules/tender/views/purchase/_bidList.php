@@ -7,6 +7,7 @@
  */
 $userManager = $this->app->getModule('user')->userManager;
 $bidProgressCssClassMap = $this->app['bidProgressCssClassMap'];
+$progressClass = '';
 foreach ( $bidProgressCssClassMap as $key => $bidProgressCssClass ){
 	if ( $data->progress <= $key ){
 		$progressClass = $bidProgressCssClass;
