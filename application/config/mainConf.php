@@ -188,7 +188,7 @@ class mainConf extends ConfigBase{
 								'index' => '/site',
 								'useHelp' => '#',
 						),
-						'bidsPerPage' => 1,//默认的每次请求的标段条数
+						'bidsPerPage' => 10,//默认的每次请求的标段条数
 						
 						//标段选择条件参数
 						'selectorMap' => array(
