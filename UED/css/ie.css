@@ -1,0 +1,109 @@
+#header,#banner,#container,#footer,.online_service{
+            display:none;
+}
+.attention {
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 198;
+	width: 100%;
+	height: 100%;
+	text-align: center;
+	padding-top: 30px;
+	margin: 0;
+	color: #797775;
+	font: 1.4em/1.6 '幼圆', '微软雅黑', arial, sans-serif;
+	background-color: #F3EFE8;
+}
+.attention .btn {
+	margin-bottom: 10px;
+	text-align: left;
+}
+.btn {
+	margin-left: 30px;
+	top: 30px;
+}
+ul.btn li {
+display: block;
+}
+ul.btn li a {
+display: block;
+width: 125px;
+height: 40px;
+background-image: url(../images/btn_sqr.png);
+background-color: transparent;
+background-repeat: no-repeat;
+}
+.btn .dn a {
+background-position: 0 0;
+}
+.attention h1 {
+	height: 40px;
+	line-height: 40px;
+	color: #fff;
+	background: #37b0b3;
+}
+.btn .pcd a {
+	margin-top: 10px;
+	background-position: 0 -41px;
+}
+.attention p.sry {
+	height: 122px;
+	margin-top: 10px;
+	text-indent: -999em;
+	border: 4px solid #66C0B8;
+	border-left: none;
+	border-right: none;
+	background: url(../images/sorry.png) transparent center center no-repeat;
+}
+.explain {
+	margin-top: 5px;
+}
+.explain span {
+color: #E33258;
+}
+.rec {
+width: 200px;
+margin: 20px auto 30px;
+overflow: hidden;
+}
+.rec h4 {
+font-size: 0.7em;
+font-weight: normal;
+}
+.brss {
+display: inline;
+width: 50px;
+float: left;
+margin: 20px auto auto 0;
+}
+.brss.chr a {
+background-position: 0 0;
+}
+.brss a {
+width: 50px;
+height: 66px;
+display: block;
+text-indent: -999em;
+background-repeat: no-repeat;
+background-image: url(../images/brss.png);
+}
+.brss.fir {
+margin-left: 100px;
+}
+.brss {
+display: inline;
+width: 50px;
+float: left;
+margin: 20px auto auto 0;
+}
+.brss.fir a {
+background-position: -51px 0;
+}
+p.no-upgrd {
+font-size: 0.9em;
+}
+p.no-upgrd a:link {
+color: #797775;
+text-decoration: underline;
+}
