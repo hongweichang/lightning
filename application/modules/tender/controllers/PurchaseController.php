@@ -96,7 +96,7 @@ class PurchaseController extends Controller {
 				);
 				
 				if($model->validate()){
-					if(($metano = $model->save()) !== false){
+					if(($metano = $model->save()) !== 0){
 						$this->redirect($this->createUrl('platform/order',array(
 							'metano' => Utils::appendEncrypt($metano)
 						)));
