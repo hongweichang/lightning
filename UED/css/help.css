@@ -503,7 +503,6 @@ body {
 .news ul, .news li, .news .news-liststyle, .news .news-list {
   float: left; }
 .news .news-time {
-<<<<<<< HEAD
   float: right; }
 .title {
   padding: 0 36px;
@@ -523,9 +522,6 @@ body {
   font-size: 20px;
   font-weight: normal;
 }
-=======
-  float: right;
-  color: #a9a9a9; }
 
 
   .hc {
@@ -576,4 +572,3 @@ body {
           -moz-box-shadow: 0 0 10px 5px #efefef;
           box-shadow: 0 0 10px 5px #efefef;
         }
->>>>>>> 766fa2e724e9e3c0d2cbcadaf784f80f6a32319c

@@ -106,7 +106,6 @@ $bidProgressCssClassMap = $this->app['bidProgressCssClassMap'];
                                 </div>
                             </div>
                         </div>
-                    </div>
                     <a href="<?php echo $this->createUrl('tender/purchase/info',array('id'=>$bid['id']))?>" target="_blank" class="invest">投标</a>
                 </li>
             <?php endforeach;?>
@@ -118,5 +117,4 @@ $bidProgressCssClassMap = $this->app['bidProgressCssClassMap'];
             <a href="#"><img src="<?php echo $this->imageUrl;?>ios.png" id="ios"/></a>
             <a href="#"><img src="<?php echo $this->imageUrl;?>wx.png" id="wx"/></a>
         </div>
-    </div>
     <a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=574891711&site=qq&menu=yes" class="online_service" title="点击给我发送消息"></a>
