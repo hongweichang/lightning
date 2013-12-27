@@ -51,7 +51,7 @@ class BidManager extends CApplicationComponent{
 	 * @return array
 	 */
 	public function getBidMetaListByBid($bid){
-		if($bid_id instanceof CActiveRecord){
+		if($bid instanceof CActiveRecord){
 			$bid_id = $bid->getAttribute('id');
 		}else{
 			$bid_id = $bid;
@@ -87,6 +87,23 @@ class BidManager extends CApplicationComponent{
 		$n = $sum * $rate / 100 * $pow;
 		$m = $pow - 1;
 		return round($n / $m ,2);
+	}
+	
+	/**
+	 * 计算每月所得利息
+	 * @param float $sum
+	 * @param float $rate
+	 * @param float $refund
+	 * @param integer $need
+	 * @return number
+	 */
+	public function calculateInterest($sum,$rate,$refund,$need){
+		$return = $sum * $rate / 100;
+		for($i = 2;$i <= $need;$i++){
+			$sum = $sum - $refund + $return;
+			$return = $sum * $rate / 100;
+		}
+		return $return;
 	}
 	
 	/**
@@ -171,10 +188,10 @@ class BidManager extends CApplicationComponent{
 		$credit = Yii::app()->getModule('credit')->userCreditManager;
 		$rate = $credit->userRateGet($bid->getAttribute('user_id'));
 		if($bid->getAttribute('deadline') > 6){
-			$fee = round($bid->getAttribute('refund') * $rate['on_over6'],2);
+			$fee = round($bid->getAttribute('sum') * $rate['on_over6'],2);
 			$rate['on_bid'] = $rate['on_over6'];
 		}else{
-			$fee = round($bid->getAttribute('refund') * $rate['on_below6'],2);
+			$fee = round($bid->getAttribute('sum') * $rate['on_below6'],2);
 			$rate['on_bid'] = $rate['on_below6'];
 		}
 		
@@ -208,8 +225,8 @@ class BidManager extends CApplicationComponent{
 				//借款人收款记录
 				$fund->p2p($bid->getAttribute('user_id'),
 						$meta->getAttribute('user_id'),
-						$meta->getAttribute('refund'),
-						round($meta->getAttribute('refund') * $rate['on_bid'],2));
+						$meta->getAttribute('sum'),
+						round($meta->getAttribute('sum') * $rate['on_bid'],2));
 			}
 			
 			//标段状态更换 已满标开始还款
@@ -292,37 +309,37 @@ class BidManager extends CApplicationComponent{
 		$fund = Yii::app()->getModule('pay')->fundManager;
 		$credit = Yii::app()->getModule('credit')->userCreditManager;
 		
-		if(($month = 1) && $isAll){
-			$month = $bid->getAttribute('repay_deadline');
-		}
-		
 		$transaction = Yii::app()->db->beginTransaction();
 		try{
 			//借款人扣款
 			$bid->getRelated('user')->saveCounters(array(
-				'balance' => - $bid->getAttribute('refund') * $month,
+				'balance' => - $bid->getAttribute('refund'),
 			));
 			
 			foreach($metas as $meta){
 				//费用计算
 				$rate = $credit->userRateGet($meta->getAttribute('user_id'));
-				$fee = round($meta->getAttribute('refund') * $rate['on_pay_back'],2);
+				$interest = $this->calculateInterest($meta->getAttribute('sum') / 100,
+						$bid->getAttribute('month_rate') / 1200, 
+						$meta->getAttribute('refund') / 100,
+						 $bid->getAttribute('deadline') - $bid->getAttribute('repay_deadline') + 1);
+				$fee = round($interest * $rate['on_pay_back'],2);
 				
 				//投资人收款
 				$meta->getRelated('user')->saveCounters(array(
-					'balance' => ($meta->getAttribute('refund') - $fee * 100) * $month
+					'balance' => ($meta->getAttribute('refund') - $fee * 100)
 				));
 				
 				//投资人收款记录
 				$fund->p2p($meta->getAttribute('user_id'),
 						$bid->getAttribute('user_id'),
-						$meta->getAttribute('refund') * $month,
-						$fee * $month);
+						$meta->getAttribute('refund'),
+						$fee);
 			}
 			
 			//还款期限 递减
 			$bid->saveCounters(array(
-				'repay_deadline' => - $month,
+				'repay_deadline' => -1,
 			));
 		
 			$transaction->commit();
