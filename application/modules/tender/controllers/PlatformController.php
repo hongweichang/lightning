@@ -69,11 +69,11 @@ class PlatformController extends Controller{
 //
 // 			}
 			
-			Yii::app()->getModule('tender')->bidManager->payPurchasedBid($metaId);
-			//$asyncEventRunner = Yii::app()->getComponent('asyncEventRunner');
-			//$asyncEventRunner->raiseAsyncEvent('onPayPurchasedBid',array(
-			//	'metano' => $metaId
-			//));
+			//Yii::app()->getModule('tender')->bidManager->payPurchasedBid($metaId);
+			$asyncEventRunner = Yii::app()->getComponent('asyncEventRunner');
+			$asyncEventRunner->raiseAsyncEvent('onPayPurchasedBid',array(
+				'metano' => $metaId
+			));
 			
 			$this->render('success');
 		}else{
