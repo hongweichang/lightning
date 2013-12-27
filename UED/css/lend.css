@@ -299,7 +299,7 @@ body {
   display: inline-block;
   height: 40px;
   line-height: 40px;
-  width: 130px;
+  width: 125px;
   font-size: 16px;
   text-align: center; }
 
@@ -308,7 +308,7 @@ body {
   position: relative; }
   .loan-list div {
     display: inline-block;
-    width: 130px;
+    width: 125px;
     text-align: center;
     font-size: 16px; }
   .loan-list:hover{
@@ -412,6 +412,9 @@ body {
   }
   .loan-list .invest:hover{
     background-color: #3ec4cb;
+  }
+  .loan-list .invest.off {
+    background-color: #ccc;
   }
 #viewMore {
   text-align: center;
@@ -913,7 +916,9 @@ body {
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
   border-radius: 5px; }
-
+#lend-confirm.off{
+  background-color: #ccc;
+}
 #creditor-confirm {
   margin-top: 10px; }
 
