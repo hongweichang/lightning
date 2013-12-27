@@ -201,7 +201,7 @@ body {
 
 .loan-filter {
   padding: 20px 27px;
-  border: 3px solid #309da0;
+  border: 3px solid #37b0b3;
   color: #848383; }
   .loan-filter h4 {
     font-size: 23px;
@@ -247,9 +247,9 @@ body {
       color: white;
     }
   .filter .filter-choice.active {
-    background-color: #309da0; }
+    background-color: #37b0b3; }
   .filter .filter-choice:hover {
-    background-color: #309da0;
+    background-color: #37b0b3;
     color: white;
     cursor: pointer; }
 /*  .filter .filter-choice.creditor:hover {
@@ -286,7 +286,7 @@ body {
   color: #fff; }
 
 .loan .title {
-  background-color: #309da0; }
+  background-color: #37b0b3; }
 .loan .title.creditor {
   background-color: #9ed8ca; }
 .loan li {
@@ -311,6 +311,12 @@ body {
     width: 130px;
     text-align: center;
     font-size: 16px; }
+  .loan-list:hover{
+    background-color: #fff;
+  }
+  .loan-list .val{
+    font-size: 18px;
+  }
   .loan-list .loan-avatar {
     position: relative; }
     .loan-list .loan-avatar img {
@@ -359,6 +365,7 @@ body {
     margin: 2px;
     width: 76px;
     height: 21px;
+    background: #cbcbcd;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     border-radius: 5px; }
@@ -392,7 +399,7 @@ body {
     height: 30px;
     line-height: 30px;
     border: none;
-    background-color: #309da0;
+    background-color: #37b0b3;
     color: #fff;
     text-align: center;
     cursor: pointer;

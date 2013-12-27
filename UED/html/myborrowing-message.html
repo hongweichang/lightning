@@ -110,22 +110,39 @@
                         <li class="message-item">
                                 <label>标段名字:</label>
                                 <input type="text" maxlength="10" name="borrow_title" />
-                            <p class="message-hint">申请借款的用户需要根据不同的产品提交相应的信用认证材料，经过闪电贷审核后获取相应的信用级及借款额度。</p>
+                            <p class="message-hint">
+                                申请借款的用户需要根据不同的产品提交相应的信用认证材料，经过闪电贷审核后获取相应的信用级及借款额度。
+                            </p>
                         </li>
                         <li class="message-item">
                             <label>借款金额:</label>
                             <input type="text" name="borrow_num" />
-                            <span class="unit">元<span>
+                            <span class="unit">元</span>
+                            <p class="message-hint">请在此栏填写</p>
                         </li>
                         <li class="message-item">
                             <label>标段年利率:</label>
                             <input type="text" name="borrow_rate"/>
                             <span class="unit">%</span>
+                            <p class="message-hint">
+                                年利率范围在：5% - 20% 之间，请填写您能够接受的借贷利率。
+                            </p>
                         </li>
                         <li class="message-item">
                             <label>标段期限:</label>
                             <input type="text" name="borrow_month"/>
                             <span class="unit">月</span>
+                            <p class="message-hint">
+                                您的借贷将分期付款，请在此栏填写您能够接受的期限，期限不超过36期
+                            </p>
+                            <div class="message-alert">
+                                <p>温馨提示</p>
+                                <p>还款方式：等额本息</p>
+                                <p>月还本息：￥<span id="calc-borrow-month"></span></p>
+                                <p>一次性缴纳服务费：￥<span id="calc-borrow-service"></span>
+                                </p>
+                                <img src="../images/message-hint.png" />
+                            </div>
                         </li>
                         <li class="message-item">
                             <div class="input-daterange" id="datepicker">
@@ -145,7 +162,7 @@
                             <textarea></textarea>
                         </li>
                     </ul>
-                    <p><input type="submit" value="下一步" id="message-next"  /> </p>
+                    <p><input type="submit" value="下一步" id="message-next" data-info="2"  /> </p>
                 </form>
             </div>
         </div>
