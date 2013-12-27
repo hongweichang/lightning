@@ -52,7 +52,8 @@ class PurchaseController extends Controller {
 		$this->setPageTitle($this->name);
 		
 		$pager = new CPagination(BidInfo::model()->count("verify_progress=21 AND start<='".strtotime(date('Y-m-d'))."'"));
-		$pager->setPageSize($this->_bidsPerPage);
+		//$pager->setPageSize($this->_bidsPerPage);
+		$pager->setPageSize(1);
 		
 		$bidInfo = BidInfo::model()->with('user')->findAll(array(
 			'offset' => $pager->getOffset(),
@@ -65,7 +66,8 @@ class PurchaseController extends Controller {
   			'monthRate' => $this->_monthRate,
   			'deadline' => $this->_deadline,
   			'authenGrade' => $this->_authenGrade,
-         	'data' => new CArrayDataProvider($bidInfo),
+         		'data' => new CArrayDataProvider($bidInfo),
+  			'pager' => $pager
 		));
 	}
 	

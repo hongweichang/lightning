@@ -1,11 +1,25 @@
 <?php
 $this->cs->registerCssFile($this->cssUrl.'help.css'); 
 ?>
-	
+	<div class="wd1002">
+		<div class="breadcrumb">
+    			<ul>
+    				<li class="breadcrumb-item">
+    					<a href="<?php echo $this->createUrl('/site'); ?>">首页</a> > 
+    				</li>
+    				<li class="breadcrumb-item">
+    					<a href="<?php echo $this->createUrl('/content/help'); ?>">关于我们</a> > 
+    				</li>
+    				<li class="breadcrumb-item">
+    					<?php echo $this->activeCategory->category_name;?>
+    				</li>
+    			</ul>
+    		</div>
+	</div>
 	
     <div class="wd1002 outer">
          <div class="wd1002 hc clearfix">
-         
+            <div class="container1">
                 <div class="hc-side about-side">
                     <ul>
                     	<?php 
@@ -42,6 +56,6 @@ $this->cs->registerCssFile($this->cssUrl.'help.css');
                         </ul>
                     </div>
                 </div>
-                
+            </div>
         </div>
     </div>
