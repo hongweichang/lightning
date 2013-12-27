@@ -1,20 +1,37 @@
-<?php $this->cs->registerCssFile($this->cssUrl.'help.css'); 
-$this->cs->registerScriptFile($this->scriptUrl.'help.js',CClientScript::POS_END);
+<?php
+$this->cs->registerCssFile($this->cssUrl.'help.css'); 
 ?>
+	<div class="wd1002">
+	<div class="breadcrumb">
+    			<ul>
+    				<li class="breadcrumb-item">
+    					<a href="<?php echo $this->createUrl('/site'); ?>">首页</a> > 
+    				</li>
+    				<li class="breadcrumb-item">
+    					<a href="<?php echo $this->createUrl('/content/help'); ?>">关于我们</a> > 
+    				</li>
+    				<li class="breadcrumb-item">
+    					<?php echo $this->activeCategory->category_name;?>
+    				</li>
+    			</ul>
+    		</div>
+	</div>
+    		
+    		
          <div class="wd1002 hc clearfix">
-            <div class="hc-side">
+            <div class="hc-side about-side">
                 <ul>
                 	<?php 
-                	$cid = $activeCategory->id;
-                	foreach ($category as $val):
+                	$cid = $this->activeCategory->id;
+                	foreach ($this->categories as $val):
                 		$name = $val->category_name;
-                		if ( mb_strlen($name,'UTF-8') > 5 ){
-                			$name = mb_substr($name,0,5,'UTF-8').'...';
+                		if ( mb_strlen($name,'UTF-8') > 6 ){
+                			$name = mb_substr($name,0,6,'UTF-8').'...';
                 		}
                 	?>
                     <li class="hc-side-item" title="<?php echo $val->category_name?>">
                     	<a href="<?php echo $this->createUrl('',array('cid'=>$val->id))?>" <?php if($val->id == $cid) echo ' class="active"';?>>
-                    	<?php echo $name?><span>>></span>
+                    	<?php echo $name?>
                     	</a>
                     </li>
                     
@@ -22,14 +39,16 @@ $this->cs->registerScriptFile($this->scriptUrl.'help.js',CClientScript::POS_END)
                 </ul>
             </div>
             <div id="hc-content">
-                <h2><?php echo $activeCategory->category_name;?></h2>
+            	<div class="about-title">
+                    <h2><?php echo $this->activeCategory->category_name;?></h2>
+                </div>
                 <ul>
                     <?php
                     	foreach ($article as $i => $val):
                     ?>
                     <li>
                         <div class="hc-title"><?php echo ($i+1).".".$val->title;?></div>
-                        <p><?php echo $val->content;?></p>
+                        <div class="hc-hidden"><?php echo $val->content;?></div>
                     </li>
                     <?php endforeach;?>
                 </ul>

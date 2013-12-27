@@ -120,3 +120,11 @@
 #calc-detail{
   text-align: center;
 }
+#calc-rank {
+  text-align: center;
+}
+#calc-borrow-service,
+#calc-lend-service {
+  color: #37b0b3;
+  font-size: 18px;
+}

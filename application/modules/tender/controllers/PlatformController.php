@@ -34,7 +34,8 @@ class PlatformController extends Controller{
 					));
 					$this->app->end();
 				}else{
-					$this->redirect(Yii::app()->getModule('pay')->fundManager->pay($payment,
+					$this->redirect(Yii::app()->getModule('pay')->fundManager->pay(
+						$payment,
 						Utils::appendEncrypt($meta->getAttribute('id')),
 						$in_pay
 					));

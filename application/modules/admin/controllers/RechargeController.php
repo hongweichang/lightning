@@ -102,6 +102,7 @@ class RechargeController extends Admin{
 			),
 		));
 		$this->tabTitle = '提现列表';
+		$this->addToSubTab('导出提现记录','excelOutput/withDraw');
 		$this->addNotifications('搜索','information',true);
 		$this->render('withdraw',array(
 			'dataProvider' => $dataProvider,

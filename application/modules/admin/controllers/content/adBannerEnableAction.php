@@ -20,9 +20,7 @@ class adBannerEnableAction extends CmsAction{
 		$cache = Yii::app()->getCache();
 		if ( $cache !== null ){
 			$siteBanner = $content->getInUsingBanner(0);
-			$appBanner = $content->getInUsingBanner(1);
 			$cache->set('SITE_BANNER',$siteBanner,24*3600);
-			$cache->set('APP_BANNER',$appBanner,24*3600);
 		}
 		
 		if ( $result === true ){

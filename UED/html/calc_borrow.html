@@ -65,7 +65,7 @@
                             <label for="is-open-time-list">显示还款时间表</label>
                         </div>
                         <div class="calc-inf">
-                            <input type="submit" value="开始计算" id="cal-submit" />
+                            <input type="submit" value="开始计算" id="cal-submit" data-service="C;2;4" data-type="borrow" />
                         </div>
                     </form>
                 </div>
@@ -85,6 +85,42 @@
                                 <td colspan="2">您将在1个月后收回全部本息</td>
                             </tr>
                         </tbody>
+                    </table>
+                </div>
+                <div class="calc-result">
+                    <h2>会员级别</h2>
+                    <table id="calc-rank">
+                        <tr>
+                            <td>会员级别</td>
+                            <td>AA</td>
+                            <td>A</td>
+                            <td>BB</td>
+                            <td>B</td>
+                            <td>C</td>
+                            <td>D</td>
+                        </tr>
+                        <tr>
+                            <td>小于6个月服务费利率</td>
+                            <td>1%</td>
+                            <td>1%</td>
+                            <td>2%</td>
+                            <td>2%</td>
+                            <td>2%</td>
+                            <td>0%</td>
+                        </tr>
+                        <tr>
+                            <td>大于6个月服务费利率</td>
+                            <td>2%</td>
+                            <td>3%</td>
+                            <td>3%</td>
+                            <td>4%</td>
+                            <td>4%</td>
+                            <td>0%</td>
+                        </tr>
+                        <tr>
+                            <td colspan="3">您的会员级别为<span id="calc-rank-show">C</span></td>
+                            <td colspan="4">借款一次性扣除服务费金额为<span id="calc-borrow-service">1000</span>元</td>
+                        </tr>
                     </table>
                 </div>
                 <div class="calc-result">

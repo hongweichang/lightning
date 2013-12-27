@@ -23,7 +23,7 @@ $pageUrl = urlencode( $pager->createPageUrl($this,$pager->getCurrentPage()) );
 			<td><?php echo $data->scheme_name?></td>
 			<td><?php echo $data->is_using != 0 ? '是' : '否'?></td>
 			<td>
-				<a href="<?php echo $this->createUrl('content/adBannerEnable',$params)?>"><?php echo $data->is_using == 0 ? '启用' : '停用'?></a>
+				<a href="<?php echo $this->createUrl('content/appBannerEnable',$params)?>"><?php echo $data->is_using == 0 ? '启用' : '停用'?></a>
 				&nbsp;|
 				<a href="<?php echo $this->createUrl('content/appDetail',$params)?>">查看</a>
 			</td>

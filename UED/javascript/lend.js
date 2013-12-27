@@ -52,12 +52,14 @@ var Filter = function(){
 		},
 		send: function(str){
 			$.ajax({
-				url: ajaxBids,
+				url: "test.php",
 				type: 'GET',
 				data: str,
 				dataType: 'json',
 				success: function(listData){
 					List.removeList();
+					$("#page").remove();
+						$("#viewMore").append("<ul id='page'><li><a href='#'>test</a></li><li><a href='#'>tt</a></li></ul>");
 					for(var i = 0,length = listData.data.length ;i < length; i++ ){
 						var list = listData.data[i];
 						List.insertList(List.createList(list));
@@ -99,6 +101,34 @@ List = function(){
 		},
 		insertList: function(list){
 			loan.append(list);
+		}
+	}
+}(),
+Page = function(){
+	var page = 1;
+	return{
+		initial: function(o){
+			$(o).on("click",function(e){
+				var ev = e.target,
+					str = "href="+$(ev).attr("href");
+				e.preventDefault();
+				$.ajax({
+					url: "test.php",
+					type: "GET",
+					data: str,
+					dataType: "json",
+					success: function(listData){
+						List.removeList();
+						$("#page").remove();
+						$("#viewMore").append("<ul id='page'><li><a href='#'>test</a></li><li><a href='#'>tt</a></li></ul>");
+						for(var i = 0,length = listData.data.content.length ;i < length; i++ ){
+							var list = listData.data[i];
+							List.insertList(List.createList(list));
+						}
+
+					}
+				});
+			});
 		}
 	}
 }(),
@@ -150,12 +180,12 @@ $(".filter-choice").bind("click",function(){
 		$(this).children(".lend-mask").remove();		
 	}
 });*/
-$("#viewMore").bind("click",function(){
+/*$("#viewMore").bind("click",function(){
 	isFilter = false;
 	var str = Filter.checked($(this));
 	str += '&viewmore=1';
 	List.showMore(str);
-});
+});*/
 //lend-pay
 $("#view-detail").toggle(
 	function(){
@@ -168,7 +198,7 @@ $("#view-detail").toggle(
 	}
 );
 Lend.placeholder($("#pay-verify"));
-
+Page.initial("#page");
 //lend-details
 $(".fakeCheck,label[for='keepSignIn'],label[for='protocal']").toggle(function(){
 	$(this).parent().find("span").css({display: "none"});

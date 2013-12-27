@@ -37,7 +37,7 @@ class ContentController extends Controller{
 		$cache = $this->app->cache;
 		
 		if ( $cache !== null ){
-			$cacheCategoryKey = 'SITE_GET_HELPS_CATEGORY';
+			$cacheCategoryKey = 'SITE_GET_HELPS_CATEGORY_VIA_TYPE_'.$fid;
 			$category = $cache->get($cacheCategoryKey);
 			if ( $category === false ){
 				$category = $this->content->getCategoryProviderViaType($config,$fid,false)->getData();
@@ -52,7 +52,7 @@ class ContentController extends Controller{
 			$this->categoryId = $this->activeCategory->id;
 		}else {
 			foreach ( $category as $cat ){
-				if ( $cat->id == $cid ){
+				if ( $cat->id == $this->categoryId ){
 					$this->activeCategory = $cat;
 					break;
 				}

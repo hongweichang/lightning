@@ -138,7 +138,7 @@
                  ?></span>
                 </li>
 
-                <li>
+                <li class="separator">
                   <span class="borrower-name"></span>
                   <span class="borrower-val separation">以下是选填项目</span>
                 </li>

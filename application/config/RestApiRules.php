@@ -48,6 +48,10 @@ return array(
 				'verb'=>'POST'
 
 			),
+		array(
+				'pattern'=>'<_m:(appservice)>/<_a:(getBanner)>',
+				'<_m>/appContent/<_a>',
+			)
 
 	);
 ?>

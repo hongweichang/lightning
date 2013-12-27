@@ -13,28 +13,24 @@ $this->cs->registerCssFile($this->cssUrl.'detail.css');
             <div class="aud-find aud-find-menu">
                 <ul id="find-table-button">
                     <a href="<?php echo Yii::app()->createUrl('user/userCenter/userInfo');?>">
-                        <li class="find-table-3"><div class="find-table-op"></div>个人信息</li>
-                    </a>                
+                        <li class="find-table-3"><div class="find-table-op">个人信息</div></li>
+                    </a>
                     <a href="<?php echo Yii::app()->createUrl('user/userCenter/myBorrow');?>">
-                        <li class="find-table-0"><div class="find-table-op-hidden"></div>我的借款</li>
+                        <li class="find-table-0"><div class="find-table-op-hidden">我的借款</div></li>
                     </a>
                     <a href="<?php echo Yii::app()->createUrl('user/userCenter/myLend');?>">
-                        <li class="find-table-1"><div class="find-table-op"></div>我的投资</li>
+                        <li class="find-table-1"><div class="find-table-op">我的投资</div></li>
                     </a>
                     <a href="<?php echo Yii::app()->createUrl('user/userCenter/userSecurity');?>">
-                        <li class="find-table-2"><div class="find-table-op"></div>安全中心</li>
+                        <li class="find-table-2"><div class="find-table-op">安全中心</div></li>
                     </a>
                     <a href="<?php echo $this->createUrl('userCenter/userFund')?>">
-                        <li class="find-table-4"><div class="find-table-op"></div>资金管理</li>
+                        <li class="find-table-4"><div class="find-table-op">资金管理</div></li>
                     </a>
                 </ul>
             </div>
             <div class="aud-find">
                 <div class="find-table-box find-table-box-show">
-                    <div class="tab-border tab-top"></div>
-                    <div class="tab-border tab-bottom"></div>
-                    <div class="tab-border-l tab-left"></div>
-                    <div class="tab-border-l tab-right"></div>
                     <div class="table-content">
                         <div class="tab-content-l">
                             <div class="tab-border-l tab-right"></div>
@@ -87,32 +83,21 @@ $this->cs->registerCssFile($this->cssUrl.'detail.css');
                 <div class="find-table-content">
                     <ul>
                         <li>
-                            <span>借款人</span>
                             <span>借款标题</span>
                             <span>年利率</span>
                             <span>还款金额</span>
                             <span>期限</span>
                             <span class="deadline">还清时间</span>
-                            <span class="repay">合同</span>
                         </li>
+                        <?php foreach($finished as $value){?>
                         <li>
-                            <span><img src="#" /></span>
-                            <span>再次支持免费充值</span>
-                            <span>10.00 % </span>
-                            <span>￥25000元</span>
-                            <span>3个月</span>
-                            <span class="deadline">2013-11-15 23:59</span>
-                            <span class="repay"><a href="">查看</a></span>
+                            <span><?php echo $value[0]['title'];?></span>
+                            <span><?php echo $value[0]['month_rate'].'%';?> </span>
+                            <span><?php echo $value[0]['refund']/100;?></span>
+                            <span><?php echo $value[0]['deadline'].'个月';?></span>
+                            <span class="deadline"><?php echo date('Y:m:d H:i:s',$value[0]['end']);?></span>
                         </li>
-                        <li>
-                            <span><img src="#" /></span>
-                            <span>再次支持免费充值</span>
-                            <span>10.00 % </span>
-                            <span>￥25000元</span>
-                            <span>3个月</span>
-                            <span class="deadline">2013-11-15 23:59</span>
-                            <span class="repay"><a href="">查看</a></span>
-                        </li>
+                        <?php }?>
                     </ul>
                 </div>
                 <div class="find-table-content">
@@ -136,15 +121,17 @@ $this->cs->registerCssFile($this->cssUrl.'detail.css');
                             <span><?php echo $value[0]['deadline'].'个月'?></span>
                             <span class="deadline">
                             <?php
-                                if($value[0]['verify_progress'] == 0)
+                                if($value[0]['verify_progress'] == 11)
                                     echo "正在审核";
-                                elseif($value[0]['verify_progress'] == 2)
+                                elseif($value[0]['verify_progress'] == 20)
                                     echo "审核未通过";
-                                else
+                                elseif($value[0]['verify_progress'] == 21)
                                     echo "正在投标";
                             ?>
                             </span>
-                            <span class="repay"><a href="">查看</a></span>
+                            <?php if($value[0]['verify_progress'] == 21){?>
+                            <span class="repay"><a href="<?php echo Yii::app()->createUrl('tender/purchase/info/',array('id'=>$value[0]['id']))?>">查看</a></span>
+                            <?php }?>
                         </li>         
                         <?php }
                             } 

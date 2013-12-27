@@ -23,17 +23,17 @@ $bidProgressCssClassMap = $this->app['bidProgressCssClassMap'];
             <div class="intro clearfix">
                 <a href="#">
                     <span class="intro-pic intro-pic-1"></span>
-                    <span class="intro-title">新手向导</span>
+                    <span class="intro-title">安全保障</span>
                     <span class="intro-text">成为理财人，通过主动投标或加入优选理财计划将资金进行出借投资，可获得预期1214%的稳定年化收益。我们会教会你所有网站的操作流程等一系列的措施。</span>
                 </a>
                 <a href="#">
                     <span class="intro-pic intro-pic-2"></span>
-                    <span class="intro-title">安全机制</span>
+                    <span class="intro-title">快速成交</span>
                     <span class="intro-text">优化系统结构，控制访问路径，将非法访问禁止在外。系统文件比对，防止伪装木马。高强度加密方式防破解，每套程序都有自已唯一的key，保障数据安全</span>
                 </a>
                 <a href="#">
                     <span class="intro-pic intro-pic-3"></span>
-                    <span class="intro-title">债权转让</span>
+                    <span class="intro-title">诚信服务</span>
                     <span class="intro-text">我手上有闲钱，想要拿出来理财，我要借出的具体细节。我急需要用钱，想要借款，我要借入的的具体细节。管理我的的账户，近期参与活动，账户安全管理，收益及余额查询等。</span>
                 </a>
             </div>
@@ -41,14 +41,14 @@ $bidProgressCssClassMap = $this->app['bidProgressCssClassMap'];
             <div class="news clearfix">
                 <div class="title">
                 <h1>最新公告</h1>
-                <a href="#">More</a>
+                <a href="<?php echo $this->createUrl('/content/article')?>">更多</a>
                 </div>
                 <ul>
                 <?php 
            	    $today = mktime(0,0,0);     
                 foreach ( $articles as $article ):
                 $addTime = $article->add_time;
-                $content = $article->content;     
+                $content = $article->content;;  
            ?>
                     <li>
                         <p class="news-time"><?php echo date('Y-m-d',$addTime)?></p>
@@ -57,7 +57,7 @@ $bidProgressCssClassMap = $this->app['bidProgressCssClassMap'];
                             <a href="<?php echo $this->createUrl('content/article/view',array('id'=>$article->id))?>">
                    	    <?php echo $article->title?>        
                             </a>
-                            <div class="subText text-overflow"><?php echo $content?></div>
+                            <!-- <div class="subText text-overflow"><?php echo $content?></div> -->
                             <?php if ( $addTime >= $today ):?>
                             <div class="news-tips"></div>
                             <?php endif;?>
@@ -67,7 +67,7 @@ $bidProgressCssClassMap = $this->app['bidProgressCssClassMap'];
                 </ul>
             </div>
             <div class="loan">
-                <div class="title">投资列表</div>
+                <div class="title">最新投资</div>
                 <div class="list-head">
                     <span>借款人</span>
                     <span>借款标题</span>
@@ -79,6 +79,7 @@ $bidProgressCssClassMap = $this->app['bidProgressCssClassMap'];
                 </div>
                 <ul>
                 <?php foreach ( $bids as $bid ):
+                $progressClass = '';
                 foreach ( $bidProgressCssClassMap as $key => $bidProgressCssClass ){
 					if ( $bid['progress'] <= $key ){
 							$progressClass = $bidProgressCssClass;
@@ -96,7 +97,7 @@ $bidProgressCssClassMap = $this->app['bidProgressCssClassMap'];
                         	</a>
                         </div>
                         <div class="loan-rate loan-num"><?php echo $bid['monthRate']?></div>
-                        <div class="loan-rank"><div><?php echo $bid['rank']?></div></div>
+                        <div class="loan-rank"><div class="rank<?php echo $bid['rank']?>"><?php echo $bid['rank']?></div></div>
                         <div class="loan-amount loan-num"><?php echo $bid['sum']?></div>
                         <div class="loan-time loan-num"><?php echo $bid['deadline']?></div>
                         <div class="loan-progress">
@@ -107,6 +108,7 @@ $bidProgressCssClassMap = $this->app['bidProgressCssClassMap'];
                                 </div>
                             </div>
                         </div>
+                        <a href="<?php echo $this->createUrl('tender/purchase/info',array('id'=>$bid['id']))?>" target="_blank" class="invest">投标</a>
                     </li>
                 <?php endforeach;?>
                 </ul>

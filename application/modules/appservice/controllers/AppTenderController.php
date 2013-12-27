@@ -129,6 +129,10 @@ class AppTenderController extends Controller{
 					$criteria_condition = 'credit_grade';
 					break;
 
+				case 'sum':
+					$criteria_condition = 'sum';
+					break;
+
 				default:
 					$criteria_condition = null;
 					break;
@@ -152,6 +156,10 @@ class AppTenderController extends Controller{
 				$criteria->order = $criteria_condition.' '.$criteria_order;
 				$criteria->offset = ($page - 1)* $this->tenderPageSize;
 				$criteria->limit = $this->tenderPageSize;
+				$criteria->condition = 'verify_progress =:status';
+				$criteria->params = array(
+									'status'=>'21'
+								);
 
 				return $criteria;
 			}else{

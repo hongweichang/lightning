@@ -28,6 +28,7 @@ class FundManager extends CApplicationComponent{
 				$key = $this->raisePayOrder($sum, $sum * $rate['on_recharge'],$meta->getAttribute('id'));
 			}
 		}
+		
 		return Yii::app()->createUrl('pay/'.$payment.'/order',array(
 			'key'=> Utils::appendEncrypt($key)
 		));
@@ -63,7 +64,7 @@ class FundManager extends CApplicationComponent{
 	 * @return boolean
 	 */
 	public function raiseWithdraw($uid,$sum,$arg3 = null){
-		$user = Yii::app()->getModule('user')->userManager->findByPk($uid);
+		$user = Yii::app()->getModule('user')->userManager->getUserInfo($uid);
 		$credit = Yii::app()->getModule('credit')->userCreditManager;
 		//费用计算
 		$rate = $credit->userRateGet($uid);
@@ -72,7 +73,8 @@ class FundManager extends CApplicationComponent{
 		$transaction = Yii::app()->db->beginTransaction();
 		try{
 			$user->saveCounters(array(
-				'balance' => -$sum * 100
+				'balance' => -($sum + $fee) * 100
+				//'balance' => -$sum * 100
 			));
 			
 			$db = new Withdraw();

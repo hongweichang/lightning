@@ -24,6 +24,7 @@ class FrontUserController extends Admin{
 		));
 		
 		$this->tabTitle = '用户列表';
+		$this->addToSubTab('导出用户数据','excelOutput/userDataOutPut');
 		$this->addNotifications('搜索','information',true);
 		$this->render('view',array('dataProvider'=>$dataProvider,'selector'=>$selector));
 	}

@@ -134,6 +134,7 @@ class BidManager extends CApplicationComponent{
 			'start' => $start,
 			'end' => $end,
 			'deadline' => $deadline,
+			'repay_deadline' => $deadline,
 			'pub_time' => time(),
 			'progress' => 0,
 			'verify_progress' => 11, // 提交待审

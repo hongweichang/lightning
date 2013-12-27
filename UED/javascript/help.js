@@ -1,13 +1,11 @@
-/*
 $(document).ready(function(){
-	$("#hc-content li").bind('click',function(event) {
-		var title = $(this).children(".hc-title");
-		$(this).children("p").toggle();
-		if(title.hasClass("on")){
-			title.removeClass("on");
+	$("#hc-content li .hc-title").bind('click',function(event) {
+		$(this).siblings(".hc-hidden").toggle();
+		if($(this).hasClass("on")){
+			$(this).removeClass("on");
 		}else{
-			title.addClass("on");
+			$(this).addClass("on");
 		}
 	});
+	$("#hc-content .show").parent(".hc-hidden").css({display: 'block'});
 });
-*/

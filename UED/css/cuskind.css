@@ -168,18 +168,27 @@
       left: 50%;
       margin-left: -15px;
       bottom: 23px; }
+    #container .con-cuskind:hover .cuskind-color-0{
+        background: #EBA352;
+    }
+#container .con-cuskind:hover .cuskind-color-1{
+    background: #18e3b3;
+}
+#container .con-cuskind:hover .cuskind-color-2{
+    background: #70f131;
+}
   #container:after {
     content: " ";
     display: block;
     clear: both; }
   #container .cuskind-color-0 {
-    background: #eea758;
+    background: #ed8411;
     border-color: #f3c189; }
   #container .cuskind-color-1 {
-    background: #9dd8ca;
+    background: #4fD8B7;
     border-color: #d7efe9; }
   #container .cuskind-color-2 {
-    background: #a8f48b;
+    background: #84E95D;
     border-color: #c2f7ad; }
   #container .aud-nav {
     margin-top: 47px;

@@ -49,6 +49,7 @@ class ContentController extends Admin{
 				'app',//app动态列表
 				'appAdd',//添加app动态
 				'appDetail',//app动态详情
+				'appBannerEnable'
 		);
 	}
 	
@@ -72,7 +73,7 @@ class ContentController extends Admin{
 						'pageSize' => 20
 				),
 		);
-		$dataProvider = $content->getArticleProvider($config,$type);
+		$dataProvider = $content->getArticleProviderViaType($config,$type);
 		
 		$this->render('articleList',array('dataProvider'=>$dataProvider,'type'=>$type));
 	}

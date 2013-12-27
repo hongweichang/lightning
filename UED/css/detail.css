@@ -25,6 +25,18 @@
     height: 122px;
     background: url("../images/detail-bg.png") no-repeat;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); }
+    #container .aud-detail .det-per-inf.morning {
+      background: url("../images/morning.png") no-repeat;
+    }
+    #container .aud-detail .det-per-inf.noon {
+      background: url("../images/noon.png") no-repeat;
+    }
+    #container .aud-detail .det-per-inf.afternoon {
+      background: url("../images/afternoon.png") no-repeat;
+    }
+    #container .aud-detail .det-per-inf.night {
+      background: url("../images/night.png") no-repeat;
+    }
     #container .aud-detail .det-per-inf img.det-img {
       position: relative;
       float: left;
@@ -85,8 +97,15 @@
           cursor: pointer; }
       #container .aud-detail .aud-money .mon-show div #int {
         color: #3aee61; }
+      #container .aud-detail .aud-money .mon-show div #int:hover{
+        color: #fff;
+        background-color: #3aee61;
+      }  
       #container .aud-detail .aud-money .mon-show div #out {
         color: #2d9194; }
+        #container .aud-detail .aud-money .mon-show div #out:hover {
+        color: #fff;
+        background-color: #2d9194; }
     #container .aud-detail .aud-money .mon-show p {
       margin-left: 84px;
       margin-top: 21px; }
@@ -127,39 +146,35 @@
       text-align: center;
       float: left;
       font-size: 24px;
-      color: white;
+      color: #37b0b3;
       transition: backgorund 0.5s ease 0s; }
       #container .aud-find ul#find-table-button li .find-table-op {
         position: absolute;
         width: 100%;
         height: 100%;
-        background: #000000;
         *left: 0;
         *top: 0;
-        filter: alpha(opacity=30);
-        opacity: 0.3;
         transition: opacity 1s ease 0s;
         zoom: 1; }
       #container .aud-find ul#find-table-button li .find-table-op-hidden {
-        height: 0; }
-      #container .aud-find ul#find-table-button li:hover .find-table-op {
-        opacity: 0; }
+          color: #ffffff;
+        background: #37b0b3; }
+#container .aud-find ul#find-table-button li:hover .find-table-op{
+    background: #3ec4cb;
+    color: #ffffff;
+}
     #container .aud-find ul#find-table-button li.find-table-0 {
-      background: #eea758; }
+      background: #fff; }
     #container .aud-find ul#find-table-button li.find-table-1 {
-      background: #f4e690; }
+      background: #fff; }
     #container .aud-find ul#find-table-button li.find-table-2 {
-      background: #a8f48b; }
+      background: #fff; }
     #container .aud-find ul#find-table-button li.find-table-3 {
-      background: #9dd8ca; }
+      background: #fff; }
     #container .aud-find ul#find-table-button li.find-table-4 {
-      background: #f9bdea; }
-  #container .aud-find .find-table-box.fund .tab-border-l {
-    background: url("../images/fund-border-l.png") repeat-y; }
+      background: #fff; }
   #container .aud-find .find-table-box.fund .tab-border {
     background: url("../images/fund-border-top.png") repeat-x; }
-  #container .aud-find .find-table-box.fund .table-content .tab-content-l p {
-    color: #833202; }
     #container .aud-find .find-table-box.fund .table-content .tab-content-l p span span {
       color: #833202; }
   #container .aud-find .find-table-box.fund .table-content .tab-content-r p {
@@ -170,6 +185,7 @@
   #container .aud-find .find-table-box {
     position: relative;
     width: 95%;
+    border: 3px solid #37b0b3;
     margin: 0 auto;
     background: #fff;
     opacity: 0;
@@ -184,7 +200,7 @@
     #container .aud-find .find-table-box .tab-border-l {
       width: 4px;
       height: 100%;
-      background: url("../images/tab-border-l.png") repeat-y; }
+      background: #37b0b3; }
     #container .aud-find .find-table-box .tab-top {
       top: 0; }
     #container .aud-find .find-table-box .tab-bottom {
@@ -290,6 +306,10 @@
       line-height: 48px;
       text-align: center;
       overflow: hidden; }
+    #container .aud-find div.find-table-content span.essential {
+      display: inline;
+      color : red;
+    }
       #container .aud-find div.find-table-content span img {
         position: absolute;
         width: 46px;
@@ -715,7 +735,6 @@ input:focus {
       color: #27d0fb; }
     #container #fund-withdraw li a:visited {
       color: #27d0fb; }
-
 .hint {
   position: relative;
   display: inline-block; }

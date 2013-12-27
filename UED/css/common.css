@@ -60,7 +60,10 @@ body {
 .he-wl {
   margin-right: 9px;
   line-height: 25px; }
-
+.he-lo{
+  height: 24px;
+  line-height: 24px;
+}
 .he-lo a {
   margin-left: 10px; }
 
@@ -99,6 +102,10 @@ body {
   color: #000000; }
 #he-nav ul li{
   border-color: #226e72;
+}
+#he-wb{
+  float: right;
+  margin-left: 10px;
 }
 /*.origin {
   border-color: #eea758; }
@@ -190,11 +197,12 @@ body {
 
 .w30 {
   width: 30px; }
-
+.rankAA,
 .rankA,
+.rankBB,
 .rankB,
 .rankC,
-.rankHR {
+.rankD {
   width: 30px;
   height: 30px;
   margin: 0 auto;
@@ -206,18 +214,21 @@ body {
   text-align: center;
   font-weight: bold; }
 
+.rankAA {
+  background-color: #deb839; }
+
 .rankA {
-  background-color: #00ffcc; }
+  background-color: #c0c0c1; }
+
+.rankBB {
+  background-color: #1bb8e2; }
 
 .rankB {
-  background-color: #09c93b; }
-
+  background-color: #7bde1a; }
 .rankC {
-  background-color: #07ee58; }
-
-.rankHR {
-  background-color: #ff001e; }
-
+  background-color: #e3e11c;}
+.rankD {
+  background-color: #e52012;}
 .footer-sec {
   float: left;
   padding: 10px 0;
@@ -290,3 +301,45 @@ body {
 .f-text{
   color: gray;
 }
+
+#page{
+  float: right;
+  border: 0;
+  line-height: 20px;
+}
+#page li{
+  float: left;
+  padding: 10px;
+}
+#page li a{
+  padding: 2px;
+  font-size: 12px;
+  color: #37b0b3;
+}
+#page a.active{
+  border: 1px solid #37b0b3;
+}
+#page li a:hover{
+  color: #fff;
+  background-color: #37b0b3;
+}
+.page-prev,
+.page-next{
+  border: 1px solid #37b0b3;
+}
+
+.breadcrumb {
+  margin: 40px 0; }
+  .breadcrumb li {
+    display: inline-block; }
+  .breadcrumb li:last-child {
+    color: #454545; }
+
+.breadcrumb-item a {
+  color: #848383;
+  font-size: 16px;
+  font-family: "Microsoft Yahei";
+  font-weight: normal; }
+
+.breadcrumb-item.active a {
+  color: #454545; }

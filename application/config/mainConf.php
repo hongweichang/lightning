@@ -84,7 +84,7 @@ class mainConf extends ConfigBase{
 						'request' => array(
 								'class' => 'application.components.Request'
 						),
-						/*'cache' => array(
+						'cache' => array(
 								'class' => 'CMemCache',
 								'useMemcached' => true,
 								'keyPrefix' => 'lightning',
@@ -106,7 +106,7 @@ class mainConf extends ConfigBase{
 								//'cacheID' => 'cache',
 								'autoStart' => true,
 								'timeout' => 3600*24
-						),*/
+						),
 						'clientScript' => array(
 								'scriptMap' => array(
 										'jquery.js' => false,
@@ -129,9 +129,12 @@ class mainConf extends ConfigBase{
 												//'levels'=>'error, warning',
 												'except' => 'access.*'
 										),
+										array(
+												'class' => 'CProfileLogRoute'
+										)
 								),
 						),
-						/*'zmqClient' => array(
+						'zmqClient' => array(
 								'class' => 'cms.components.asyncEvent.ZMQClient',
 								'zmqServer' => 'tcp://localhost:5556',
 								'sendTimeout' => 3000,
@@ -155,8 +158,24 @@ class mainConf extends ConfigBase{
 										'onPayPurchasedBid' => array(
 												'command' => array('bid','pay')
 										),
+										'onBidVerifySuccess' => array(
+												array(
+														'command' => array('sendSms','bidVerifySuccess')
+												),
+// 												array(
+// 														'command' => array('sendMail','bidVerifySuccess')
+// 												)
+										),
+										'onBidVerifyFailed' => array(
+												array(
+														'command' => array('sendSms','bidVerifyFailed')
+												),
+//												array(
+// 														'command' => array('sendMail','bidVerifyFailed')
+// 												)
+										)
 								),
-						),*/
+						),
 						'image'=>array(
 								'class'=>'ext.image.CImageComponent',
 								'driver'=>'GD',

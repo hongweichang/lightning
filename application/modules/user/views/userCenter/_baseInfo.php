@@ -10,15 +10,25 @@ $BidSum = $this->userBidMoney;
 $MetaSum = $this->userMetaBidMoney;
 ?>
 <div class="aud-detail">
-                <div class="det-per-inf">
+                <?php if(6<=date('H') && date('H')<12){?>
+                <div class="det-per-inf morning">
+                <?php }elseif(12<=date('H') && date('H')<15){?>
+                <div class="det-per-inf noon">               
+                <?php }elseif(15<=date('H') && date('H')<=18){?>
+                <div class="det-per-inf afternoon">
+                <?php }elseif(18<date('H')||0<=date('H') && date('H')<6){?>
+                <div class="det-per-inf night">
+                <?php }?>
                     <img src="<?php echo $this->user->getState('avatar')?>" class="det-img" />
                     <p>
                         <span class="aud-time">
                         <?php  
                         //var_dump((int)date('H'));die();
-                            if(6<=date('H') && date('H')<=13)
+                            if(6<=date('H') && date('H')<12)
                                 echo '早上好';
-                            elseif(13<date('H') && date('H')<=18)
+                            elseif(12<=date('H') && date('H')<15)
+                                echo '中午好';
+                            elseif(15<=date('H') && date('H')<=18)
                                 echo '下午好';
                             elseif(18<date('H')||0<=date('H') && date('H')<6)
                                 echo '晚上好';
@@ -28,25 +38,26 @@ $MetaSum = $this->userMetaBidMoney;
                     </p>
                     <p class="aud-st-serve">
                         <?php if(!empty($userData->nickname)){?>
-                        <img src="<?php echo $this->imageUrl.'det-person.png'?>"  title="已绑定昵称"/>
-                        <?php }
-                            if(!empty($userData->realname)){
-                        ?>
-                        <img src="<?php echo $this->imageUrl.'det-pro.png'?>" title="已填写实名"/>
-                        <?php }
-                            if(!empty($userData->email)){
-                        ?>
-                        <img src="<?php echo $this->imageUrl.'det-email.png'?>" title="已填写邮箱"/>
-                        <?php }
-                            if(!empty($userData->mobile)){
-                        ?>
-                        <img src="<?php echo $this->imageUrl.'det-cal.png'?>" title="已绑定手机"/>
-                        <?php }
-                            if(!empty($userData->pay_password)){
-                        ?>
-                        <img src="<?php echo $this->imageUrl.'det-bank.png'?>" title="已绑定资金密码"/>
-                        <?php }
-                        ?>
+                        <img src="<?php echo $this->imageUrl.'icon-1.png'?>"  title="已绑定昵称"/>
+                        <?php }else{?>
+                        <img src="<?php echo $this->imageUrl.'icon-1-1.png'?>"  title="未绑定昵称"/>
+                         <?php }if(!empty($userData->realname)){?>
+                        <img src="<?php echo $this->imageUrl.'icon-2.png'?>" title="已填写实名"/>
+                        <?php }else{?>
+                        <img src="<?php echo $this->imageUrl.'icon-2-1.png'?>" title="未填写实名"/>
+                        <?php }if(!empty($userData->email)){?>
+                        <img src="<?php echo $this->imageUrl.'icon-4.png'?>" title="已填写邮箱"/>
+                        <?php }else{?>
+                        <img src="<?php echo $this->imageUrl.'icon-4-1.png'?>" title="未填写邮箱"/>
+                        <?php }if(!empty($userData->mobile)){?>
+                        <img src="<?php echo $this->imageUrl.'icon-5.png'?>" title="已绑定手机"/>
+                        <?php }else{?>
+                        <img src="<?php echo $this->imageUrl.'icon-5-1.png'?>" title="未绑定手机"/>
+                        <?php }if(!empty($userData->pay_password)){?>
+                        <img src="<?php echo $this->imageUrl.'icon-6.png'?>" title="已绑定资金密码"/>
+                        <?php }else{?>
+                        <img src="<?php echo $this->imageUrl.'icon-6-1.png'?>" title="未绑定资金密码"/>
+                        <?php }?>
                         <span>安全等级 :  <span class="det-rank">高</span></span>
                         <span>上次登录 :  <span class="det-ip"> <?php echo $this->request->getIpLocation($userData->last_login_ip).' '.date('Y-m-d H:i:s',$userData['last_login_time'])?></span></span>
                     </p>
@@ -71,9 +82,9 @@ $MetaSum = $this->userMetaBidMoney;
                             </span>
 
                          
-                            <span><?php echo $BidSum.'元';?></span>
+                            <span><?php echo $MetaSum.'元';?></span>
                             
-                            <span><?php echo $MetaSum.'元'?></span>
+                            <span><?php echo $BidSum.'元'?></span>
                         </p>
                         <div>
                             <a href="<?php echo $this->createUrl('userCenter/userFund');?>" id="int">充值</a>

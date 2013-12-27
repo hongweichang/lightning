@@ -18,7 +18,7 @@ class BannerSchemeForm extends CFormModel{
 				array('scheme_name','required','message'=>'请填写{attribute}'),
 				array('files','notEmpty',),
 				array('files','check'),
-				array('banner_type,file_titles,redirect_urls','safe')
+				array('banner_type,file_titles,redirect_urls,description','safe')
 		);
 	}
 	

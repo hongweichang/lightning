@@ -5,9 +5,6 @@ design By HJtianling_LXY,<2507073658@qq.com>
 2013.11.16
 */
 class CreditController extends Admin{
-	public function filters(){
-		return array();
-	}
 
 	public function init(){
 		parent::init();
@@ -85,7 +82,7 @@ class CreditController extends Admin{
 		$criteria->order = 'credit.id DESC';
 		$criteria->with = array(
 						'CreditRole'=>array(
-								'select'=>'role'
+								'select'=>'role,grade'
 							)
 					);
 		$sum = CreditSettings::model()->count($criteria);
@@ -107,6 +104,7 @@ class CreditController extends Admin{
 								'roleData'=>$value->getrelated('CreditRole')
 							);
 			}
+
 			$this->render('creditList',array('creditData'=>$creditList,'pages'=>$pager));
 		}
 
@@ -231,6 +229,7 @@ class CreditController extends Admin{
 */
 	public function actionCreditLevelList(){
 		$this->addToSubTab('添加会员级别','credit/creditLevelAdd');
+		$this->addToSubTab('导出会员级别列表','excelOutput/creditLevelOutPut');
 		$criteria = new CDbCriteria;
 		$criteria->order = 'start DESC';
 

@@ -125,6 +125,14 @@ $('.input-daterange').datepicker({
                             <p class="message-hint">
                             	您的借贷将分期付款，请在此栏填写您能够接受的期限，期限不超过36期
                             </p>
+                            <div class="message-alert">
+                                <p>温馨提示</p>
+                                <p>还款方式：等额本息</p>
+                                <p>月还本息：￥<span id="calc-borrow-month"></span></p>
+                                <p>一次性缴纳服务费：￥<span id="calc-borrow-service"></span>
+                                </p>
+                                <img src="../images/message-hint.png" />
+                            </div>
                         </li>
                         <li class="message-item">
                             <div class="input-daterange" id="datepicker">
@@ -141,16 +149,15 @@ $('.input-daterange').datepicker({
                         </li>
                         <li class="message-item">
                             <label>标段介绍:</label>
-                            <textarea name="desc"><?php echo $form->desc; ?>
-借款理由：
-还款保障：
-</textarea>
+                            <textarea name="desc"><?php echo $form->desc; ?></textarea>
+                            <span class="placeholder">借款理由、还款保障</span>
                             <?php if($form->hasErrors('desc')){ ?>
 							<p class="message-hint" style="color:red;"><?php echo $form->getError('desc'); ?></p>
 							<?php } ?>
                         </li>
                     </ul>
-                    <p><input type="submit" value="下一步" id="message-next"  /> </p>
+                    <!-- data-info为用户对应扣除服务费比例  如2% 则为2 -->
+                    <p><input type="submit" value="下一步" id="message-next" data-info="2"  /> </p>
                 </form>
             </div>
         </div>

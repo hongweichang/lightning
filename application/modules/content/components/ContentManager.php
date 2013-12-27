@@ -59,23 +59,40 @@ class ContentManager extends CApplicationComponent{
 		return ArticleCategory::model()->deleteByPk($id,$condition,$params);
 	}
 	
-	public function getArticleProvider($config,$type=null,$category=null,$enablePagination=true,$enableSort=true){
+	public function getArticleProvider($config,$enablePagination=true,$enableSort=true){
+		Utils::resovleProviderConfigCriteria($config,$enablePagination,$enableSort);
+	
+		return new CActiveDataProvider('Article',$config);
+	}
+	
+	public function getArticleProviderViaCat($config,$category=null,$enablePagination=true,$enableSort=true){
 		Utils::resovleProviderConfigCriteria($config,$enablePagination,$enableSort);
 		$criteria = $config['criteria'];
 		$countCriteria = $config['countCriteria'];
 		
-		if ( $type !== null ){
-			$criteria->addCondition('art_type=:type');
-			$criteria->params[':type'] = $type;
-			$countCriteria->addCondition('art_type=:type');
-			$countCriteria->params[':type'] = $criteria->params[':type'];
-		}
 		if ( $category !== null ){
-			$criteria->addCondition('category=:category');
-			$criteria->params[':category'] = $category;
-			$countCriteria->addCondition('category=:category');
-			$countCriteria->params[':category'] = $criteria->params[':category'];
+			$criteria->addCondition('category=:cid');
+			$countCriteria->addCondition('category=:cid');
+			$criteria->params[':cid'] = $category;
+			$countCriteria->params[':cid'] = $category;
 		}
+	
+		return new CActiveDataProvider('Article',$config);
+	}
+	
+	public function getArticleProviderViaType($config,$type=null,$enablePagination=true,$enableSort=true){
+		$categories = $this->getCategoryProviderViaType(array(),$type)->getData();
+		$ins = array();
+		foreach ( $categories as $category ){
+			$ins[] = $category->id;
+		}
+		
+		Utils::resovleProviderConfigCriteria($config,$enablePagination,$enableSort);
+		$criteria = $config['criteria'];
+		$countCriteria = $config['countCriteria'];
+		
+		$criteria->addInCondition('category',$ins);
+		$countCriteria->addInCondition('category',$ins);
 		
 		return new CActiveDataProvider('Article',$config);
 	}
@@ -86,7 +103,6 @@ class ContentManager extends CApplicationComponent{
 		if ( $data === null ){
 			return $form;
 		}
-		$data['art_type'] = $type;
 		$data['add_time'] = time();
 		$data['admin_name'] = Yii::app()->getUser()->getName();
 		$form->attributes = $data;
