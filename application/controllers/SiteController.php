@@ -36,7 +36,7 @@ class SiteController extends Controller{
 			$cache->set('INDEX_ARTICLES',$articles,6*3600);
 		}
 		
-		$bidData = $cache->get('INDEX_BIDS');
+		$bidData = $cache->get('INDEX_BIDS_');
 		if ( empty($bidData) ){
 			$bidManager = $this->app->getModule('tender')->getComponent('bidManager');
 			$bids = $bidManager->getBidList(array(
@@ -58,6 +58,7 @@ class SiteController extends Controller{
 			$bidData = array();
 			$userManager = $this->app->getModule('user')->getComponent('userManager');
 			$userCreditManager = $this->app->getModule('credit')->getComponent('userCreditManager');
+			
 			foreach ( $bids as $bid ){
 				$uid = $bid->user_id;
 				$icons = $bid->user->icons;
@@ -70,10 +71,10 @@ class SiteController extends Controller{
 						'userId' => $uid,
 						'userIcon' => $icon,
 						'title' => $bid->title,
-						'monthRate' => ($bid->month_rate / 100).'%',
+						'monthRate' => ($bid->month_rate / 100),
 						'rank' => $rank,
-						'sum' => '￥'.number_format($bid->sum / 100,2).'元',
-						'deadline' => $bid->deadline.'个月',
+						'sum' => '￥'.number_format($bid->sum / 100,2),
+						'deadline' => $bid->deadline,
 						'progress' => $bid->progress / 100
 				);
 			}
@@ -83,13 +84,6 @@ class SiteController extends Controller{
 		$this->cs->registerCssFile($this->cssUrl.'index.css');
 		$this->cs->registerScriptFile($this->scriptUrl.'slide_fade.js',CClientScript::POS_END);
 		$this->render('index',array('banner'=>$banner,'articles'=>&$articles,'bids'=>$bidData));
-	}
-
-	
-	public function actionTest(){
-		//var_dump($this->app->getEventHandlers('onEndRequest'));
-		$async = $this->app->getComponent('asyncEventRunner');
-		$async->raiseAsyncEvent('onRegisterSuccess',array('data'=>'sasa'));
 	}
 
 	/*

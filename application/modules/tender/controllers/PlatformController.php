@@ -11,7 +11,7 @@ class PlatformController extends Controller{
 	public function actionOrder(){
 		$metaId = Utils::appendDecrypt($this->getQuery('metano'));
 		$meta = BidMeta::model()->with('user','bid')->findByPk($metaId);
-		
+
 		if(!empty($meta) && $meta->getAttribute('user_id') == $this->user->getId()){
 			$user = $meta->getRelated('user');
 			$bid = $meta->getRelated('bid');
@@ -25,7 +25,7 @@ class PlatformController extends Controller{
 				$payment = $this->getPost('payment','ips');
 				$in_pay = $this->getPost('in-pay','off');
 				
-				if($in_pay == 'on' && $bider->getAttribute('balance') >= $meta->getAttribute('sum')){
+				if($in_pay == 'on' && $user->getAttribute('balance') >= $meta->getAttribute('sum')){
 					$this->render('check',array(
 						'user' => $user,
 						'bid' => $bid,
@@ -74,11 +74,8 @@ class PlatformController extends Controller{
 			$asyncEventRunner->raiseAsyncEvent('onPayPurchasedBid',array(
 				'metano' => $metaId
 			));
-			/*if($this->getModule()->bidManager->payPurchasedBid()){
-				$this->render('success');
-			}else{
-				//$this->render();//失败 - 账户余额补足  或 重复付款
-			}*/
+			
+			$this->render('success');
 		}else{
 			// 404
 		}
