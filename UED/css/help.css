@@ -190,11 +190,10 @@ body {
   width: 30px; }
 
 #container {
-  height: auto;
   padding: 20px 0 100px 0;
   background: url("../images/bg.jpg") repeat; }
 
-.hc {
+/*.hc {
   border: 1px solid #e0e0e0;
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
@@ -204,7 +203,7 @@ body {
   -moz-box-shadow: 0 0 10px 5px #efefef;
   box-shadow: 0 0 10px 5px #efefef;
   background-color: #fff;
-  overflow: hidden; }
+  overflow: hidden; }*/
 
 #security-side #side-top {
   width: 136px;
@@ -218,12 +217,12 @@ body {
   height: 4px;
   background: url("../images/side_bottom.png"); }
 
-.hc-side {
+/*.hc-side {
   width: 185px;
   height: 100%;
   margin-bottom: -9997px;
   padding-bottom: 9999px;
-  background-color: #ededed; }
+  background-color: #ededed; }*/
   .hc-side ul {
     width: 130px;
     margin: 40px auto; }
@@ -262,9 +261,9 @@ body {
     right: 10px;
     color: #f0f0f0; }
 
-#hc-content {
+/*#hc-content {
   width: 775px;
-  padding: 30px 20px; }
+  padding: 30px 20px; }*/
 #hc-content .hc-apply {
   float: right;
   padding: 0 10px;
@@ -504,6 +503,7 @@ body {
 .news ul, .news li, .news .news-liststyle, .news .news-list {
   float: left; }
 .news .news-time {
+<<<<<<< HEAD
   float: right; }
 .title {
   padding: 0 36px;
@@ -523,3 +523,57 @@ body {
   font-size: 20px;
   font-weight: normal;
 }
+=======
+  float: right;
+  color: #a9a9a9; }
+
+
+  .hc {
+    overflow: hidden;
+    position: relative;
+    background-color: #ededed;
+  }
+        #container1 {
+            background-color: #fff;
+            width: 100%;
+            float: left;
+            position: relative;
+            left: 185px;
+        }
+        .hc-side {            
+            float: left;
+            margin-right: -100%;
+            margin-left: -185px;
+            width: 185px;
+/*            width: 185px;
+  background-color: #ededed;*/
+        }
+        #hc-content {
+          float: left;
+          width: 962px;
+          padding: 30px 20px;
+          margin-left: -185px;
+        }
+        #contentInner {            
+          margin-left: 185px;
+          overflow: hidden;
+        }
+        
+        .hc-side,
+        #hc-content {
+          min-height: 200px;
+          height: auto !important;
+          height: 200px;
+        }
+        #container .outer{
+          padding: 3px;
+          background-color: #fff;
+          border: 1px solid #e0e0e0;
+          -webkit-border-radius: 5px;
+          -moz-border-radius: 5px;
+          border-radius: 5px;
+          -webkit-box-shadow: 0 0 10px 5px #efefef;
+          -moz-box-shadow: 0 0 10px 5px #efefef;
+          box-shadow: 0 0 10px 5px #efefef;
+        }
+>>>>>>> 766fa2e724e9e3c0d2cbcadaf784f80f6a32319c

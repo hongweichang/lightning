@@ -131,7 +131,7 @@ $('.input-daterange').datepicker({
                                 <p>月还本息：￥<span id="calc-borrow-month"></span></p>
                                 <p>一次性缴纳服务费：￥<span id="calc-borrow-service"></span>
                                 </p>
-                                <img src="../images/message-hint.png" />
+                                <img src="<?php echo $this->imageUrl;?>message-hint.png" />
                             </div>
                         </li>
                         <li class="message-item">

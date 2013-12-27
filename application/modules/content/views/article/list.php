@@ -48,5 +48,5 @@ $this->cs->registerCssFile($this->cssUrl.'help.css');
                <?php endforeach;?>
                 </ul>
             </div>
-            <?php $this->renderPartial('pager',array('pager'=>$pager))?>
+            <?php $this->renderPartial('//common/pager',array('pager'=>$pager))?>
 </div>
