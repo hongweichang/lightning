@@ -168,7 +168,7 @@ class NotifyManager extends CApplicationComponent{
 		}
 		
 		$cachedCode = $cache->get($this->mobileCodePrefix.$mobile);
-		
+		$this->clearMobileVerifyCode($mobile);
 		return $cachedCode !== false && $cachedCode === $code;
 	}
 }

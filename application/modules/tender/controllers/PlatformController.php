@@ -88,8 +88,6 @@ class PlatformController extends Controller{
 			}
 			
 			if ( $notify->applyMobileCodeVerify($user->mobile,$code) === false ){
-				$notify->clearMobileVerifyCode($user->mobile);
-				
 				$this->redirect($this->createUrl('platform/order',array(
 						'metano' => Utils::appendEncrypt($metaId),
 						'e' => base64_encode('2验证码错误')
