@@ -52,7 +52,7 @@ var Filter = function(){
 		},
 		send: function(str){
 			$.ajax({
-				url: baseUrl + 'tender/purchase/ajaxBids',
+				url: baseUrl + 'tender/purchase/ajaxBids?'+str,
 				type: "GET",
 				dataType: "json",
 				success: function(listData){
@@ -99,7 +99,7 @@ List = function(){
 			$(".loan-list",loan).remove();
 		},
 		createList: function(list){
-			var node = $('<li class="loan-list"><div class="loan-avatar"><img src="'+(list.avatarSrc || list.avatar)+'" /><span>信</span></div><div class="loan-title"><a href="'+list.titleHref+'">'+list.title+'</a></div><div class="loan-rate loan-num">'+list.month_rate+'%</div><div class="loan-rank"><div class="rank'+list.authGrade+'">'+list.authGrade+'</div></div><div class="loan-amount loan-num">￥'+list.sum+'</div><div class="loan-time loan-num">'+list.deadline+'个月</div><div class="loan-progress"><div class="bar-out"><div class="bar-in"><span class="bar-complete '+list.processClass+'" style="width:'+list.progress+'%"></span><span class="bar-num">'+list.progress+'%</span></div></div></div><a href="'+list.titleHref+'" class="invest">投标</a></li>');
+			var node = $('<li class="loan-list"><div class="loan-avatar"><img src="'+(list.avatar)+'" /><span>信</span></div><div class="loan-title"><a href="'+list.titleHref+'">'+list.title+'</a></div><div class="loan-rate loan-num"><span class="val">'+list.month_rate+'</span>%</div><div class="loan-rank"><div class="rank'+list.authGrade+'">'+list.authGrade+'</div></div><div class="loan-amount loan-num"><span class="val">￥'+list.sum+'</span>元</div><div class="loan-time loan-num"><span class="val">'+list.deadline+'</span>个月</div><div class="loan-progress"><div class="bar-out"><div class="bar-in"><span class="bar-complete '+list.processClass+'" style="width:'+list.progress+'%"></span><span class="bar-num">'+list.progress+'%</span></div></div></div><a href="'+list.titleHref+'" class="invest">投标</a></li>');
 			return node;
 		},
 		insertList: function(list){
@@ -111,7 +111,7 @@ Page = function(){
 	var page = 1;
 	return{
 		initial: function(o){
-			$(o).on("click",function(e){
+			$(o).live("click",function(e){
 				var ev = e.target,
 					str = $(ev).attr("href");
 				e.preventDefault();
