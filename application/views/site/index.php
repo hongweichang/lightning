@@ -94,10 +94,10 @@ $bidProgressCssClassMap = $this->app['bidProgressCssClassMap'];
                         	<?php echo $bid['title']?>
                         	</a>
                         </div>
-                        <div class="loan-rate loan-num"><?php echo $bid['monthRate']?></div>
+                        <div class="loan-rate loan-num"><span class="val"><?php echo $bid['monthRate']?></span>%</div>
                         <div class="loan-rank"><div class="rank<?php echo $bid['rank']?>"><?php echo $bid['rank']?></div></div>
-                        <div class="loan-amount loan-num"><?php echo $bid['sum']?></div>
-                        <div class="loan-time loan-num"><?php echo $bid['deadline']?></div>
+                        <div class="loan-amount loan-num"><span class="val"><?php echo $bid['sum']?></span>元</div>
+                        <div class="loan-time loan-num"><span class="val"><?php echo $bid['deadline']?></span>个月</div>
                         <div class="loan-progress">
                             <div class="bar-out">
                                 <div class="bar-in">
@@ -117,4 +117,4 @@ $bidProgressCssClassMap = $this->app['bidProgressCssClassMap'];
             <a href="#"><img src="<?php echo $this->imageUrl;?>ios.png" id="ios"/></a>
             <a href="#"><img src="<?php echo $this->imageUrl;?>wx.png" id="wx"/></a>
         </div>
-    <a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=574891711&site=qq&menu=yes" class="online_service" title="点击给我发送消息"></a>
+</div>

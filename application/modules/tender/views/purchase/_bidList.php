@@ -9,7 +9,7 @@ $userManager = $this->app->getModule('user')->userManager;
 $bidProgressCssClassMap = $this->app['bidProgressCssClassMap'];
 $progressClass = '';
 foreach ( $bidProgressCssClassMap as $key => $bidProgressCssClass ){
-	if ( $data->progress <= $key ){
+	if ( ($data->getAttribute('progress')/100) <= $key ){
 		$progressClass = $bidProgressCssClass;
 	}
 }
@@ -36,7 +36,7 @@ foreach ( $bidProgressCssClassMap as $key => $bidProgressCssClass ){
 	<div class="loan-progress">
 		<div class="bar-out">
 			<div class="bar-in">
-				<span class="bar-complete <?php echo $progressClass?>" style="width:<?php echo $data->getAttribute('progress');?>%"></span>
+				<span class="bar-complete <?php echo $progressClass; ?>" style="width:<?php echo $data->getAttribute('progress') / 100;?>%"></span>
 				<span class="bar-num"><?php echo $data->getAttribute('progress') / 100;?>%</span>
 			</div>
 		</div>

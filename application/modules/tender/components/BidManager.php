@@ -449,7 +449,7 @@ class BidManager extends CApplicationComponent{
 			));
 
 			$bid->saveCounters(array(
-				'progress_sum' => $meta->getAttribute('sum') * 100, 
+				'progress_sum' => $meta->getAttribute('sum'), 
 				'progress' => ($meta->getAttribute('sum') * 10000) / $bid->getAttribute('sum')
 			));
 			
@@ -462,7 +462,7 @@ class BidManager extends CApplicationComponent{
 			$transaction->commit();
 			
 			//满标处理
-			if($bid->getAttribute('progress_sum') + $meta->getAttribute('sum') == $bid->getAttribute('sum')){
+			if($bid->getAttribute('progress_sum') == $bid->getAttribute('sum')){
 				$this->compeleteBid($bid);
 			}
 			return true;
