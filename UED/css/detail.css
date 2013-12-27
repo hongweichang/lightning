@@ -146,7 +146,7 @@
       text-align: center;
       float: left;
       font-size: 24px;
-      color: #309da0;
+      color: #37b0b3;
       transition: backgorund 0.5s ease 0s; }
       #container .aud-find ul#find-table-button li .find-table-op {
         position: absolute;
@@ -158,7 +158,7 @@
         zoom: 1; }
       #container .aud-find ul#find-table-button li .find-table-op-hidden {
           color: #ffffff;
-        background: #309da0; }
+        background: #37b0b3; }
 #container .aud-find ul#find-table-button li:hover .find-table-op{
     background: #3ec4cb;
     color: #ffffff;
@@ -185,7 +185,7 @@
   #container .aud-find .find-table-box {
     position: relative;
     width: 95%;
-    border: 3px solid #309da0;
+    border: 3px solid #37b0b3;
     margin: 0 auto;
     background: #fff;
     opacity: 0;
@@ -200,7 +200,7 @@
     #container .aud-find .find-table-box .tab-border-l {
       width: 4px;
       height: 100%;
-      background: #309da0; }
+      background: #37b0b3; }
     #container .aud-find .find-table-box .tab-top {
       top: 0; }
     #container .aud-find .find-table-box .tab-bottom {
