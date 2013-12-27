@@ -212,7 +212,10 @@ body {
   font-family: "Microsoft Yahei";
   font-weight: normal;
   text-align: center;
-  font-weight: bold; }
+  font-weight: bold;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  border-radius: 50%;  }
 
 .rankAA {
   background-color: #deb839; }

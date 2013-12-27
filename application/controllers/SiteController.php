@@ -7,7 +7,7 @@
  */
 class SiteController extends Controller{
 	public function noneLoginRequired(){
-		return 'index,test';
+		return 'index';
 	}
 	
 	public function actionIndex(){
@@ -74,7 +74,7 @@ class SiteController extends Controller{
 						'rank' => $rank,
 						'sum' => '￥'.number_format($bid->sum / 100,2).'元',
 						'deadline' => $bid->deadline.'个月',
-						'progress' => $bid->progress
+						'progress' => $bid->progress / 100
 				);
 			}
 			$cache->set('INDEX_BIDS',$bidData,300);
@@ -83,11 +83,5 @@ class SiteController extends Controller{
 		$this->cs->registerCssFile($this->cssUrl.'index.css');
 		$this->cs->registerScriptFile($this->scriptUrl.'slide_fade.js',CClientScript::POS_END);
 		$this->render('index',array('banner'=>$banner,'articles'=>&$articles,'bids'=>$bidData));
-	}
-	
-	public function actionTest(){
-		//var_dump($this->app->getEventHandlers('onEndRequest'));
-		$async = $this->app->getComponent('asyncEventRunner');
-		$async->raiseAsyncEvent('onRegisterSuccess',array('data'=>'sasa'));
 	}
 }

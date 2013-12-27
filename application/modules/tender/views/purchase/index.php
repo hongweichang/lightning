@@ -99,13 +99,7 @@ $this->cs->registerScriptFile($this->scriptUrl.'lend.js',CClientScript::POS_END)
 					'baseScriptUrl' => null,
 				)); ?>
                 <div id="viewMore">
-                    <ul id="page">
-                        <li><a href="#" class="page-prev">上一页</a></li>
-                        <li><a href="#" class="active">1</a></li>
-                        <li><a href="#">2</a></li>
-                        <li><a href="#">3</a></li>
-                        <li><a href="#" class="page-next">下一页</a></li>
-                    </ul>
+                <?php $this->renderPartial('//common/pager',array('pager'=>$data->getPagination()))?>
                 </div>
             </div>
     	</div>
