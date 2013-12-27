@@ -96,7 +96,7 @@ List = function(){
 			$(".loan-list",loan).remove();
 		},
 		createList: function(list){
-			var node = $('<li class="loan-list"><div class="loan-avatar"><img src="'+(list.avatarSrc || "../images/intro-pic_1.png")+'" /><span>信</span></div><div class="loan-title"><a href="'+list.titleHref+'">'+list.title+'</a></div><div class="loan-rate loan-num">'+list.month_rate+'%</div><div class="loan-rank"><div class="rank'+list.authGrade+'">'+list.authGrade+'</div></div><div class="loan-amount loan-num">￥'+list.sum+'</div><div class="loan-time loan-num">'+list.deadline+'个月</div><div class="loan-progress"><div class="bar-out"><div class="bar-in"><span class="bar-complete" style="width:'+list.progress+'%"></span><span class="bar-num">'+list.progress+'%</span></div></div></div></li>');
+			var node = $('<li class="loan-list"><div class="loan-avatar"><img src="'+(list.avatarSrc || list.avatar)+'" /><span>信</span></div><div class="loan-title"><a href="'+list.titleHref+'">'+list.title+'</a></div><div class="loan-rate loan-num">'+list.month_rate+'%</div><div class="loan-rank"><div class="rank'+list.authGrade+'">'+list.authGrade+'</div></div><div class="loan-amount loan-num">￥'+list.sum+'</div><div class="loan-time loan-num">'+list.deadline+'个月</div><div class="loan-progress"><div class="bar-out"><div class="bar-in"><span class="bar-complete '+list.processClass+'" style="width:'+list.progress+'%"></span><span class="bar-num">'+list.progress+'%</span></div></div></div><a href="'+list.titleHref+'" class="invest">投标</a></li>');
 			return node;
 		},
 		insertList: function(list){
@@ -110,20 +110,22 @@ Page = function(){
 		initial: function(o){
 			$(o).on("click",function(e){
 				var ev = e.target,
-					str = "href="+$(ev).attr("href");
+					str = $(ev).attr("href");
 				e.preventDefault();
 				$.ajax({
-					url: "test.php",
+					url: str,
 					type: "GET",
-					data: str,
 					dataType: "json",
 					success: function(listData){
+						var page_html = listData.data.pageHtml,
+							list = listData.data.content,
+							page_size = listData.data.pageSize;
 						List.removeList();
 						$("#page").remove();
-						$("#viewMore").append("<ul id='page'><li><a href='#'>test</a></li><li><a href='#'>tt</a></li></ul>");
-						for(var i = 0,length = listData.data.content.length ;i < length; i++ ){
-							var list = listData.data[i];
-							List.insertList(List.createList(list));
+						$("#viewMore").append(page_html);
+						for(var i = 0 ;i < page_size; i++ ){
+							var li = list[i];
+							List.insertList(List.createList(li));
 						}
 
 					}

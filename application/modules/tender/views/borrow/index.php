@@ -52,7 +52,7 @@
                     <li><span class="kind_list">在现单位工作满3个月</span></li>
                     <li><span class="kind_list">月收入2000以上</span></li>
                 </ul>
-                <a href="<?php echo $this->createUrl('/content/help/index',array('cid'=>17))?>">查看详细信息</a>
+                <a href="<?php echo $this->createUrl('/content/help/index',array('cid'=>17))?>#prod-work">查看详细信息</a>
             </div>
             <div class="con-cuskind">
                 <div class="cuskind cuskind-color-1">
@@ -65,7 +65,7 @@
                     <li><span class="kind_list">22-55周岁的中国公民</span></li>
                     <li><span class="kind_list">企业经营时间满1年</span></li>
                 </ul>
-                <a href="<?php echo $this->createUrl('/content/help/index',array('cid'=>17))?>">查看详细信息</a>
+                <a href="<?php echo $this->createUrl('/content/help/index',array('cid'=>17))?>#prod-biz">查看详细信息</a>
             </div>
             <div class="con-cuskind">
                 <div class="cuskind cuskind-color-2">
@@ -79,7 +79,7 @@
                     <li><span class="kind_list">在淘宝或天猫平台经营网店半年以上</span></li>
                     <li><span class="kind_list">近3个月交易总额满3万元，并且交易笔数超过50笔</span></li>
                 </ul>
-                <a href="<?php echo $this->createUrl('/content/help/index',array('cid'=>17))?>">查看详细信息</a>
+                <a href="<?php echo $this->createUrl('/content/help/index',array('cid'=>17))?>#prod-ecomm">查看详细信息</a>
             </div>
             <div class="next">
             	<?php if($roleName){ ?>

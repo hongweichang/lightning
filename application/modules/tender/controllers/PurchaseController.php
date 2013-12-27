@@ -37,10 +37,10 @@ class PurchaseController extends Controller {
 	public function init() {
 		parent::init();
 
-		$this->_monthRate = $this->app['monthRate'];
-		$this->_deadline = $this->app['deadline'];
-		$this->_authenGrade = $this->app['authenGrade'];
 		$this->_selectorMap = $this->app['selectorMap'];
+		$this->_monthRate = $this->_selectorMap['monthRate'];
+		$this->_deadline = $this->_selectorMap['deadline'];
+		$this->_authenGrade = $this->_selectorMap['authenGrade'];
 		$this->_bidsPerPage = $this->app['bidsPerPage'];
 	}
 	
@@ -53,6 +53,7 @@ class PurchaseController extends Controller {
 		
 		$pager = new CPagination(BidInfo::model()->count("verify_progress=21 AND start<='".strtotime(date('Y-m-d'))."'"));
 		$pager->setPageSize($this->_bidsPerPage);
+		$pager->route = 'purchase/ajaxBids';
 		
 		$bidInfo = BidInfo::model()->with('user')->findAll(array(
 			'offset' => $pager->getOffset(),
@@ -73,7 +74,6 @@ class PurchaseController extends Controller {
 	/**
 	 * 用于获取Ajax请求来对标段列表进行筛选
 	 * 购买标段的action
-	 * Enter description here ...
 	 * @param $bidId：标段id
 	 * @param $userId：借款人的id
 	 */
@@ -113,7 +113,7 @@ class PurchaseController extends Controller {
 			));
 			
 			$bider = $bid->getRelated('user');
-			$this->render("info",array(
+			$this->render('info',array(
 				'bid' => $bid,
 				'bider' => $bider,
 				'form' => $model,
@@ -147,21 +147,34 @@ class PurchaseController extends Controller {
 		$pager->params = $conditions;
 		
 		$criteria->order = 'pub_time DESC';
+		$criteria->with = array('user');
 		$data = BidInfo::model()->findAll($criteria);
 		
 		$return = array();
+		$bidProgressCssClassMap = $this->app['bidProgressCssClassMap'];
+		
+		$credit = Yii::app()->getModule('credit')->getComponent('userCreditManager');
+		$userManager = $this->app->getModule('user')->userManager;
 		foreach($data as $key => $value) {
 			$return[$key] = $value->getAttributes();
+			$return[$key]['avatar'] = $userManager->getUserIcon($value->user_id);
 			$return[$key]['month_rate'] /= 100;
 			$return[$key]['sum'] = number_format($return[$key]['sum'],2).'元';
 			$return[$key]['titleHref'] = $this->createUrl('purchase/info', array('id' => $value->getAttribute('id')));
-			$return[$key]['authGrade'] = Yii::app()->getModule('credit')->getComponent('userCreditManager')->getUserCreditLevel($value->getAttribute('user_id'));
+			$return[$key]['authGrade'] = $credit->getUserCreditLevel($value->user->credit_grade);
+			$return[$key]['processClass'] = '';
+			foreach ( $bidProgressCssClassMap as $key => $bidProgressCssClass ){
+				if ( ($value->getAttribute('progress')/100) <= $key ){
+					$return[$key]['processClass'] = $bidProgressCssClass;
+				}
+			}
 		}
 		
 		$this->response(200,'ok',array(
 				'state' => 1,
 				'content' => $return,
-				'pageHtml' => $this->renderPartial('//common/pager',array('pager'=>$pager),true)
+				'pageHtml' => $this->renderPartial('//common/pager',array('pager'=>$pager),true),
+				'pageSize' => $this->_bidsPerPage
 		));
 	}
 
