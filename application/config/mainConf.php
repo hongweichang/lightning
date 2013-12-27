@@ -200,13 +200,13 @@ class mainConf extends ConfigBase{
 						//标段选择条件参数
 						'selectorMap' => array(
 								'monthRate' => array(//月利率条件
-										'all' => 'all',
+										'all' => null,
 										'5%-10%' => ' month_rate BETWEEN 500 AND 1000 ',
 										'11%-15%' => ' month_rate BETWEEN 1100 AND 1500 ',
 										'16%-20%' => ' month_rate BETWEEN 1600 AND 2000 ',
 								),
 								'deadline' => array(//借款期限条件
-										'all' => 'all',
+										'all' => null,
 										'6-12' => ' deadline BETWEEN 6 AND 12 ',
 										'12-24' => ' deadline BETWEEN 12 AND 24 ',
 										'24-36' => ' deadline BETWEEN 24 AND 36 ',

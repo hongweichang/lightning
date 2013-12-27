@@ -52,8 +52,7 @@ class PurchaseController extends Controller {
 		$this->setPageTitle($this->name);
 		
 		$pager = new CPagination(BidInfo::model()->count("verify_progress=21 AND start<='".strtotime(date('Y-m-d'))."'"));
-		//$pager->setPageSize($this->_bidsPerPage);
-		$pager->setPageSize(1);
+		$pager->setPageSize($this->_bidsPerPage);
 		
 		$bidInfo = BidInfo::model()->with('user')->findAll(array(
 			'offset' => $pager->getOffset(),
@@ -131,37 +130,25 @@ class PurchaseController extends Controller {
 	 * 用于获取Ajax请求
 	 */
 	function actionAjaxBids() {
-		/**
-		 * 下面这个利用foreach来遍历二维数组
-		 * 获取Ajax请求的参数
-		 * 并根据Ajax请求的参数，来设置相应的查询条件
-		 */
 		$criteria = new CDbCriteria();
-		$criteria->addCondition('verify_progress=1');
-		$criteria->addCondition('start<='.strtotime(date('Y-m-d')));
-		$criteria->order = 'pub_time DESC';
+		$criteria->condition = 'verify_progress=21 AND start<='.strtotime(date('Y-m-d'));
 
-		
+		$conditions = array();
 		foreach ($this->_selectorMap as $key => $value) {
-			if($key == 'authenGrade'){
-				$criteria->with = array(
-					'user' => array(
-						'condition' => $value[$_GET[$key]]
-					)
-				);
-			}
-			if(isset($_GET[$key]) && $_GET[$key] != 'all' && $_GET[$key] != '') {
+			if(isset($_GET[$key]) && isset($value[$_GET[$key]]) && $value[$_GET[$key]] != null) {
+				$conditions[$_GET[$key]] = $value[$_GET[$key]];
 				$criteria->addCondition($value[$_GET[$key]]);
 			}
 		}
 		
 		$pager = new CPagination(BidInfo::model()->count($criteria));
-		$pager->validateCurrentPage = false;
 		$pager->setPageSize($this->_bidsPerPage);
 		$pager->applyLimit($criteria);
+		$pager->params = $conditions;
+		
+		$criteria->order = 'pub_time DESC';
 		$data = BidInfo::model()->findAll($criteria);
 		
-		//把从数据库获取到的数据，处理后返回给前台
 		$return = array();
 		foreach($data as $key => $value) {
 			$return[$key] = $value->getAttributes();
@@ -171,8 +158,11 @@ class PurchaseController extends Controller {
 			$return[$key]['authGrade'] = Yii::app()->getModule('credit')->getComponent('userCreditManager')->getUserCreditLevel($value->getAttribute('user_id'));
 		}
 		
-		$return = array("state"=> 1 ,"data"=> $return );//state=1,表示结果正常返回
-		echo CJSON::encode($return);//利用php的jsonencode()返回json格式的数据
+		$this->response(200,'ok',array(
+				'state' => 1,
+				'content' => $return,
+				'pageHtml' => $this->renderPartial('//common/pager',array('pager'=>$pager),true)
+		));
 	}
 
 	/**
