@@ -135,10 +135,21 @@ class PurchaseController extends Controller {
 		$criteria->condition = '(verify_progress=21 OR verify_progress=31 ) AND start<='.time();
 
 		$conditions = array();
+		$withUser = false;
 		foreach ($this->_selectorMap as $key => $value) {
-			if(isset($_GET[$key]) && isset($value[$_GET[$key]]) && $value[$_GET[$key]] != null) {
-				$conditions[$_GET[$key]] = $value[$_GET[$key]];
-				$criteria->addCondition($value[$_GET[$key]]);
+			if(isset($_GET[$key]) && isset($value[$_GET[$key]]) && $value[$_GET[$key]] !== 'all') {
+				$conditions[$key] = $_GET[$key];
+				$condition = $value[$_GET[$key]];
+				if ( $key === 'authenGrade' ){
+					$criteria->with = array(
+							'user' => array(
+									'condition' => $condition
+							)
+					);
+					$withUser = true;
+				}else {
+					$criteria->addCondition($condition);
+				}
 			}
 		}
 		
@@ -148,7 +159,9 @@ class PurchaseController extends Controller {
 		$pager->params = $conditions;
 		
 		$criteria->order = 'pub_time DESC';
-		$criteria->with = array('user');
+		if ( $withUser === false ){
+			$criteria->with = array('user');
+		}
 		$data = BidInfo::model()->findAll($criteria);
 		
 		$return = array();
@@ -158,18 +171,19 @@ class PurchaseController extends Controller {
 		$userManager = $this->app->getModule('user')->userManager;
 		foreach($data as $key => $value) {
 			$return[$key] = $value->getAttributes();
+			$return[$key]['progress'] = $value->getAttribute('progress')/100;
 			$return[$key]['avatar'] = $userManager->getUserIcon($value->user_id);
 			$return[$key]['month_rate'] /= 100;
-			$return[$key]['sum'] = number_format($return[$key]['sum'],2).'元';
+			$return[$key]['sum'] = number_format($return[$key]['sum']/100,2);
 			$return[$key]['titleHref'] = $this->createUrl('purchase/info', array('id' => $value->getAttribute('id')));
-			$return[$key]['authGrade'] = $credit->getUserCreditLevel($value->user->credit_grade);
+			$return[$key]['authGrade'] = $credit->UserLevelCaculator($value->user->credit_grade);
 			$return[$key]['bidding'] = 0;//正在招标
 			if ( $value->verify_progress == 31  ){
 				$return[$key]['bidding'] = 1;//满标
 			}
 			$return[$key]['processClass'] = '';
-			foreach ( $bidProgressCssClassMap as $key => $bidProgressCssClass ){
-				if ( ($value->getAttribute('progress')/100) <= $key ){
+			foreach ( $bidProgressCssClassMap as $x => $bidProgressCssClass ){
+				if ( ($return[$key]['progress']) <= $x ){
 					$return[$key]['processClass'] = $bidProgressCssClass;
 				}
 			}

@@ -24,7 +24,7 @@ $this->cs->registerScriptFile($this->scriptUrl.'lend.js',CClientScript::POS_END)
     							<li class="filter-item">年&nbsp;利&nbsp;率&nbsp;</li>
     							<?php foreach ($monthRate as $key => $val):?>
     							<li class="filter-item filter-choice<?php echo $key==='不限' ? ' active' : ''?>">
-    								<input type="checkbox" name="monthRate" value="<?php echo $val; ?>" />
+    								<input type="checkbox" name="monthRate" value="<?php echo $key; ?>" />
     								<span><?php echo $key; ?></span>
     							</li>
     							<?php endforeach?>
@@ -35,7 +35,7 @@ $this->cs->registerScriptFile($this->scriptUrl.'lend.js',CClientScript::POS_END)
     							<li class="filter-item">借款期限</li>
     							<?php foreach ($deadline as $key => $val): ?>
     							<li class="filter-item filter-choice<?php echo $key==='不限' ? ' active' : ''?>">
-    								<input type="checkbox" name="deadline" value="<?php echo $val; ?>" />
+    								<input type="checkbox" name="deadline" value="<?php echo $key; ?>" />
     								<span><?php echo $key==='不限' ? $key : $key.'个月';; ?></span>
     							</li>
     							<?php endforeach?>
@@ -46,7 +46,7 @@ $this->cs->registerScriptFile($this->scriptUrl.'lend.js',CClientScript::POS_END)
     							<li class="filter-item">认证等级</li>
     							<?php foreach ($authenGrade as $key => $val):?>
     							<li class="filter-item filter-choice<?php echo $key==='不限' ? ' active' : ''?>">
-    								<input type="checkbox" name="authenGrade" value="<?php echo $val; ?>" />
+    								<input type="checkbox" name="authenGrade" value="<?php echo $key; ?>" />
     								<span><?php echo $key; ?></span>
     							</li>
     							<?php endforeach;?>
