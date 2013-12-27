@@ -85,16 +85,6 @@ class SiteController extends Controller{
 		$this->cs->registerScriptFile($this->scriptUrl.'slide_fade.js',CClientScript::POS_END);
 		$this->render('index',array('banner'=>$banner,'articles'=>&$articles,'bids'=>$bidData));
 	}
-<<<<<<< HEAD
-}
-=======
-
-	
-	public function actionTest(){
-		//var_dump($this->app->getEventHandlers('onEndRequest'));
-		$async = $this->app->getComponent('asyncEventRunner');
-		$async->raiseAsyncEvent('onRegisterSuccess',array('data'=>'sasa'));
-	}
 
 	/*
 	**理财计算器
@@ -116,4 +106,3 @@ class SiteController extends Controller{
 	}
 
 }
->>>>>>> f3307d56adb4dcc687d396d21395228f42a48ee4
