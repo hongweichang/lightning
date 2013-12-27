@@ -55,7 +55,7 @@ $bidProgressCssClassMap = $this->app['bidProgressCssClassMap'];
                             <a href="<?php echo $this->createUrl('content/article/view',array('id'=>$article->id))?>">
                    	    <?php echo $article->title?>        
                             </a>
-                            <!-- <div class="subText text-overflow"><?php echo $content?></div> -->
+                            <div class="subText text-overflow"><?php echo $content?></div>
                             <?php if ( $addTime >= $today ):?>
                             <div class="news-tips"></div>
                             <?php endif;?>

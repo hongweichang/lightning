@@ -1107,3 +1107,12 @@ body {
     color: #adadad;
     left: 80%;
 }
+
+.paycenter-item .error {
+	display: block;
+	position: relative;
+	left: 88px;
+	top: 10px;
+	color: red;
+	font-size: 14px;
+}

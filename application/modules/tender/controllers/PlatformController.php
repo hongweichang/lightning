@@ -12,7 +12,7 @@ class PlatformController extends Controller{
 		$metaId = Utils::appendDecrypt($this->getQuery('metano'));
 		$meta = BidMeta::model()->with('user','bid')->findByPk($metaId);
 
-		if(!empty($meta) && $meta->getAttribute('user_id') == $this->user->getId()){
+		if( !empty($meta) && $meta->getAttribute('user_id') == $this->user->getId() ){
 			$user = $meta->getRelated('user');
 			$bid = $meta->getRelated('bid');
 			
@@ -21,16 +21,19 @@ class PlatformController extends Controller{
 			$userManager = Yii::app()->getModule('user')->userManager;
 			$bider = $userManager->getUserInfo($bid->getAttribute('user_id'));
 			
-			if(!empty($_POST)){
+			$errorMsg = $this->getQuery('e',null);
+			if( !empty($_POST) ){
 				$payment = $this->getPost('payment','ips');
 				$in_pay = $this->getPost('in-pay','off');
+				$check = $user->getAttribute('balance') >= $meta->getAttribute('sum');
 				
-				if($in_pay == 'on' && $user->getAttribute('balance') >= $meta->getAttribute('sum')){
+				if($in_pay == 'on' && $check === true ){
 					$this->render('check',array(
 						'user' => $user,
 						'bid' => $bid,
 						'bider' => $bider,
-						'meta' => $meta
+						'meta' => $meta,
+						'errorMsg' => null
 					));
 					$this->app->end();
 				}else{
@@ -40,6 +43,15 @@ class PlatformController extends Controller{
 						$in_pay
 					));
 				}
+			}elseif ( !empty($errorMsg) ){
+				$this->render('check',array(
+						'user' => $user,
+						'bid' => $bid,
+						'bider' => $bider,
+						'meta' => $meta,
+						'errorMsg' => base64_decode($errorMsg)
+				));
+				$this->app->end();
 			}
 			
 			$this->render('index',array(
@@ -47,6 +59,7 @@ class PlatformController extends Controller{
 				'bid' => $bid,
 				'bider' => $bider,
 				'meta' => $meta,
+				'errorMsg' => $errorMsg
 			));
 		}else{
 			//404
@@ -65,10 +78,20 @@ class PlatformController extends Controller{
 			$code = $this->getPost('pay_verify');
 			$user = $meta->getRelated('user');
 			
-// 			if ( $this->app->getSecurityManager()->verifyPassword() === false ){
-//
-// 			}
+			if ( $this->app->getSecurityManager()->verifyPassword($password,$user->pay_password) === false ){
+				$this->redirect($this->createUrl('platform/order',array(
+						'metano' => Utils::appendEncrypt($metaId),
+						'e' => base64_encode('1支付密码错误')
+				)));
+			}
 			
+			$notify = $this->app->getModule('notify')->getComponent('notifyManager');
+			if ( $notify->applyMobileCodeVerify($user->mobile,$code) ){
+				$this->redirect($this->createUrl('platform/order',array(
+						'metano' => Utils::appendEncrypt($metaId),
+						'e' => base64_encode('2验证码错误')
+				)));
+			}
 			
 			$asyncEventRunner = Yii::app()->getComponent('asyncEventRunner');
 			$asyncEventRunner->raiseAsyncEvent('onPayPurchasedBid',array(
