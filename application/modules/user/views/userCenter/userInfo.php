@@ -184,10 +184,10 @@ $this->widget('application.extensions.swfupload.CSwfUpload', array(
                                 <p>
                                 <?php 
                                     echo $creditLevel;
-                                    echo $loanable;
                                     if($loanable == false){
-                                        echo "当前不允许投标(发标),请完善资料";
-                                    }
+                                ?>
+                                    <span style="color:red;font-size:14px;display:inline;">当前不允许发标,请完善资料</span>
+                                <?php }
                                 ?>
                                 </p>
                             </li>

@@ -254,7 +254,7 @@ class UserCenterController extends Controller{
 					}
 
 					$randName = Tool::getRandName();//获取一个随机名
-					$newName = "Credit".$randName.".".$fileName;//对文件进行重命名
+					$newName = "Credit".$randName.".".$fileType;//对文件进行重命名
 
 					$saveUrl = $uploadDir.$newName;
 					$isUp = $file->saveAs($saveUrl);//保存上传文件
