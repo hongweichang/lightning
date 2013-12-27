@@ -84,6 +84,23 @@ class UserCreditManager extends CApplicationComponent{
 		}
 
 	}
+
+	
+	/*
+	**判断用户是否可以发标
+	*/
+	public function UserBidCheck(){
+		$uid = Yii::app()->user->id;
+
+		$userLevel = $this->getUserCreditLevel($uid);
+		if(!empty($userLevel)){
+			$levelData = CreditGradeSettings::model()->findAll('label =:label',array('label'=>$userLevel));
+			if($levelData[0]->loanable == '0')
+				return false;
+			elseif($levelData[0]->loanable == '1')
+				return true;
+		}
+	}
 }
 
 	

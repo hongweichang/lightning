@@ -75,7 +75,8 @@ $this->cs->registerScriptFile($this->scriptUrl.'jquery.validate.min.js',CClientS
                         <tr>
                             <td>标段利息利润利率</td>
                             <?php foreach($levelData as $value){?>
-                            <td><?php echo $value->onLoan.'%';?></td>
+                            <td><?php echo $value->on_loan.'%';?></td>
+                            <?php }?>
                         </tr>
                         <tr>
                             <td colspan="3">您的会员级别为<span id="calc-rank-show"><?php echo $level;?></span></td>

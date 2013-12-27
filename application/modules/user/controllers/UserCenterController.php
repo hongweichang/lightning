@@ -123,6 +123,7 @@ class UserCenterController extends Controller{
 		$userCreditLevel = $this->app->getModule('credit')->getComponent(
 								'userCreditManager')->UserLevelCaculator($userData->credit_grade);
 		$IconUrl = $this->user->getState('avatar');
+		$loanable = $this->app->getModule('credit')->userCreditManager->UserBidCheck();
 		$this->render('userInfo',array(
 						'userData'=>$userData,
 						'necessaryCreditData'=>$necessaryList,
@@ -133,6 +134,7 @@ class UserCenterController extends Controller{
 						'IconUrl'=>$IconUrl,
 						'creditLevel'=>$userCreditLevel,
 						'BidSum'=>$this->userBidMoney,
+						'loanable'=>$loanable,
 						'MetaSum'=>$this->userMetaBidMoney));
 		
 	}

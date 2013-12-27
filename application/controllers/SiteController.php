@@ -93,7 +93,7 @@ class SiteController extends Controller{
 		$uid = $this->user->id;
 		$onLoan = '10';
 		$level = 'C';
-		$levelData = $this->app()->getModule('credit')->userCreditManager->userLevelList();
+		$levelData = Yii::app()->getModule('credit')->userCreditManager->userLevelList();
 
 		if(!empty($uid)){
 			$userCreditLevel = $this->app->getModule('credit')->userCreditManager->getUserCreditLevel($uid);
