@@ -2,9 +2,6 @@
 $this->cs->registerCssFile($this->cssUrl.'lend.css');
 $this->cs->registerScriptFile($this->scriptUrl.'lend.js',CClientScript::POS_END);
 ?>
-<script type="text/javascript">
-	var ajaxBids='<?php echo $this->createUrl('purchase/ajaxBids'); ?>'
-</script>
 <div class="wd1002">
     		<div class="breadcrumb">
     			<ul>
