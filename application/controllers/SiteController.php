@@ -93,6 +93,7 @@ class SiteController extends Controller{
 		$uid = $this->user->id;
 		$onLoan = '10';
 		$level = 'C';
+		$levelData = Yii::app()->getModule('credit')->userCreditManager->userLevelList();
 
 		if(!empty($uid)){
 			$userCreditLevel = $this->app->getModule('credit')->userCreditManager->getUserCreditLevel($uid);
@@ -102,7 +103,7 @@ class SiteController extends Controller{
 			
 			$onLoan = '10';
 		}
-		$this->render('cashCaculator',array('uid'=>$uid,'onLoan'=>$onLoan,'level'=>$level));
+		$this->render('cashCaculator',array('uid'=>$uid,'onLoan'=>$onLoan,'level'=>$level,'levelData'=>$levelData));
 	}
 
 }

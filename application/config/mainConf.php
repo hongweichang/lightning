@@ -90,7 +90,7 @@ class mainConf extends ConfigBase{
 								'keyPrefix' => 'lightning',
 								'servers' => array(
 										array(
-												'host' => 'localhost',
+												//'host' => 'localhost',
 												//本地memcached缓存
 												//阿里云外网IP
 												'host' => '115.29.186.221',
@@ -154,6 +154,12 @@ class mainConf extends ConfigBase{
 										),
 										'onRegisterSuccess' => array(
 												'command' => array('sendMail','registerSuccess')
+										),
+										'onBidVerifySuccess' => array(
+												'command' => array('sendSms','bidVerifySuccess')
+										),
+										'onBidVerifyFailed' => array(
+												'command' => array('sendSms','bidVerifyFailed')
 										),
 										'onPayPurchasedBid' => array(
 												'command' => array('bid','pay')

@@ -181,7 +181,15 @@ $this->widget('application.extensions.swfupload.CSwfUpload', array(
                             <li class="clearfix">
                                 <label class="personal-name">会员级别</label>
                                 <div class="personal-ico personal-role"></div>
-                                <p><?php echo $creditLevel?></p>
+                                <p>
+                                <?php 
+                                    echo $creditLevel;
+                                    if($loanable == false){
+                                ?>
+                                    <span style="color:red;font-size:14px;display:inline;">当前不允许发标,请完善资料</span>
+                                <?php }
+                                ?>
+                                </p>
                             </li>
 
                         </ul>

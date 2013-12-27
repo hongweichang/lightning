@@ -52,18 +52,21 @@ var Filter = function(){
 		},
 		send: function(str){
 			$.ajax({
-				url: "test.php",
-				type: 'GET',
-				data: str,
-				dataType: 'json',
+				url: baseUrl + 'tender/purchase/ajaxBids',
+				type: "GET",
+				dataType: "json",
 				success: function(listData){
+					var page_html = listData.data.pageHtml,
+						list = listData.data.content,
+						page_size = listData.data.pageSize;
 					List.removeList();
 					$("#page").remove();
-						$("#viewMore").append("<ul id='page'><li><a href='#'>test</a></li><li><a href='#'>tt</a></li></ul>");
-					for(var i = 0,length = listData.data.length ;i < length; i++ ){
-						var list = listData.data[i];
-						List.insertList(List.createList(list));
+					$("#viewMore").append(page_html);
+					for(var i = 0 ;i < page_size; i++ ){
+						var li = list[i];
+						List.insertList(List.createList(li));
 					}
+
 				}
 			});
 		}

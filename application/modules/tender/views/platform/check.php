@@ -62,6 +62,7 @@ $this->cs->registerCssFile($this->cssUrl.'lend.css');
               <label for="pay-pw">支付密码：</label>
               <input type="password" name="Check[payPasswd]" id="pay-pw"/>
               <a href="<?php echo $this->app->createUrl('user/account/forgot')?>" class="paycenter-tips">忘记密码?</a>
+         	  <span for="pay-pw" class="error"><?php echo substr($errorMsg,0,1) == 1 ? substr($errorMsg,1) : ''?></span>
               <p class="paycenter-alert">您已经开通短信服务，每次交易需要输入密码</p>
             </div>
             <div class="paycenter-item">
@@ -73,6 +74,7 @@ $this->cs->registerCssFile($this->cssUrl.'lend.css');
               <input type="text" value="点击获取校验码" name="Check[payVerify]" id="pay-verify" />
               <a href="#" class="paycenter-tips">没收到校验码?</a>
               <p class="paycenter-hint">校验码已发送，30分钟内输入才有效，请勿泄露</p>
+          	  <span for="pay-pw" class="error"><?php echo substr($errorMsg,0,1) == 2 ? substr($errorMsg,1)  : ''?></span>
             </div>
             <div>
               <input type="submit" value="确认支付" class="paycenter-button" id="paycenter-pay"/>

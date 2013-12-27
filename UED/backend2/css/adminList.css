@@ -1,0 +1,105 @@
+
+.searchUser {
+	margin:10px auto;
+}
+.yiiPager li{
+	display: inline-block;
+}
+
+.yiiPager li.page-button {
+	padding:0px 5px;
+}
+.div-subNav {
+	display: inline-block;
+	margin: 0px 15px 0px 0px;
+}
+.checkbox-list-div {
+	display: inline-block;
+	padding: 0px 10px;
+	font-size: 13px;
+}
+
+.checkbox-list-text {
+	
+}
+
+.inputOrder{
+	text-align: center;
+}
+.table-list{
+
+}
+.table-list thead th{
+	height: 30px;
+	background: #efe3ff;
+	border-bottom: 1px solid #d5dfe8;
+	font-weight: bold;
+	font-size: 12px;
+}
+
+.table-list tbody tr td {
+	padding:5px 0px;
+	font-size: 12px;
+}
+.table-list tbody tr {
+	text-align: center;
+}
+
+.table-list .levelTwo{
+	padding-left: 20px;
+}
+
+.table-list .levelThree{
+	padding-left: 40px;
+}
+
+.form-list {
+	width: 700px;
+	margin: auto;
+}
+
+.form-list form div label {
+	width: 20%;
+	display: inline-block;
+}
+
+.form-title {
+	text-align: center;
+	font-weight: bold;
+	margin-top: 2px;
+	margin-bottom: 5px;
+}
+
+.form-input-text,
+.form-input-dropdownlist,
+.form-input-textarea {
+	line-height: 21px;
+	width: 300px;
+	height: 21px;
+	margin-top: 4px;
+}
+
+.form-input-textarea {
+	height: 100px;
+}
+
+.form-button {
+	background-color: #eee;
+	cursor: pointer;
+	padding: 2px 4px;
+	font-family: "微软雅黑 宋体";
+}
+
+.form-button-submit {
+	display: block;
+	margin: auto;
+	margin-top: 10px;
+}
+
+.form-input-textarea{
+	line-height: 21px;
+	width: 300px;
+	height: 105px;
+	margin-top: 4px;
+}
+s
