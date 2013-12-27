@@ -99,7 +99,7 @@ $this->cs->registerScriptFile($this->scriptUrl.'lend.js',CClientScript::POS_END)
 					'baseScriptUrl' => null,
 				)); ?>
                 <div id="viewMore">
-                <?php $this->renderPartial('//common/pager',array('pager'=>$data->getPagination()))?>
+                <?php $this->renderPartial('//common/pager',array('pager'=>$pager))?>
                 </div>
             </div>
     	</div>
