@@ -70,10 +70,10 @@ class SiteController extends Controller{
 						'userId' => $uid,
 						'userIcon' => $icon,
 						'title' => $bid->title,
-						'monthRate' => ($bid->month_rate / 100).'%',
+						'monthRate' => ($bid->month_rate / 100),
 						'rank' => $rank,
-						'sum' => '￥'.number_format($bid->sum / 100,2).'元',
-						'deadline' => $bid->deadline.'个月',
+						'sum' => '￥'.number_format($bid->sum / 100,2),
+						'deadline' => $bid->deadline,
 						'progress' => $bid->progress
 				);
 			}
