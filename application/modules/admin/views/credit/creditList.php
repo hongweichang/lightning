@@ -4,6 +4,7 @@
         <td><label>信用项标题</label></td>
         <td><label>信用项内容</label></td>
         <td><label>对应角色</label></td>
+        <td><label>信用积分</label></td>
         <td><label>操作</label></td>
     </tr>
 <?php
@@ -19,6 +20,13 @@ if(!empty($creditData)){
                     foreach($value['roleData'] as $roleValue){
                         echo FrontUser::getRoleName($roleValue->role)." ";
                     }
+                }
+            ?>
+        </td>
+        <td>
+            <?php
+                if(!empty($value['roleData'])){
+                    echo $value['roleData'][0]->grade;
                 }
             ?>
         </td>

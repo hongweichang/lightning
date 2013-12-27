@@ -14,6 +14,7 @@ class BidController extends Admin{
 	
 	public function actionBidding(){
 		$this->tabTitle = '正在招标';
+		$this->addToSubTab('导出标段列表','excelOutput/bidDataOutput');
 		$this->process(21);
 	}
 	
@@ -36,6 +37,7 @@ class BidController extends Admin{
 		$criteria = new CDbCriteria();
 		$criteria->addCondition('verify_progress=:progress');
 		$criteria->params[':progress'] = $progress;
+
 		
 		$selector = Selector::load('BidSeletor',$this->getQuery('BidSeletor'),$criteria);
 		

@@ -31,6 +31,7 @@ class AdminModule extends CmsModule
 		
 		$app->getModule('credit');
 		$app->getModule('user');
+		$app->getModule('pay');
 	}
 	
 	public function beforeControllerAction($controller, $action){

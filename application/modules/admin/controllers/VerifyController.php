@@ -250,8 +250,6 @@ class VerifyController extends Admin{
 		}
 	}
 
-
-	
 	/*
 	**审核未通过原因输入
 	*/
