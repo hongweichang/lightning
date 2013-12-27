@@ -72,6 +72,18 @@ class UserCreditManager extends CApplicationComponent{
 				return 400;
 		}
 	}
+
+	/*
+	**获取会员级别列表
+	*/
+
+	public function UserLevelList(){
+		$levelData = CreditGradeSettings::model()->findAll();
+		if(!empty($levelData)){
+			return $levelData;
+		}
+
+	}
 }
 
 	
