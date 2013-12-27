@@ -82,7 +82,7 @@ class CreditController extends Admin{
 		$criteria->order = 'credit.id DESC';
 		$criteria->with = array(
 						'CreditRole'=>array(
-								'select'=>'role'
+								'select'=>'role,grade'
 							)
 					);
 		$sum = CreditSettings::model()->count($criteria);
@@ -104,6 +104,7 @@ class CreditController extends Admin{
 								'roleData'=>$value->getrelated('CreditRole')
 							);
 			}
+
 			$this->render('creditList',array('creditData'=>$creditList,'pages'=>$pager));
 		}
 

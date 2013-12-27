@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:wb="http://open.weibo.com/wb">
+<html>
 <head>
     <meta charset="UTF-8" />
     <meta name="renderer" content="webkit"> 
@@ -7,15 +7,13 @@
     <script type="text/javascript" src="<?php echo $this->scriptUrl; ?>jquery-1.8.2.min.js"></script>
     <script type="text/javascript">
      var baseUrl = '<?php echo $this->app->getSiteBaseUrl();?>';
-</script>
-    <script src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js" type="text/javascript" charset="utf-8"></script>  
+</script>  
 </head>
 <body>
     <div id="header">
     
       <div id="he-login">
         <div class="wd1002">
-        <wb:follow-button uid="2180128737" type="red_2" width="136" height="24" id="he-wb" ></wb:follow-button>
         <?php if ( $this->user->getIsGuest() === true ):?>
             <p class="he-lo">
               <a href="<?php echo $this->createUrl('/user/account/login')?>">登录</a>

@@ -56,4 +56,77 @@ $(document).ready(function(){
 			}
 		}
 	});
+
+	var calculator = function(){
+		var a = [],   //月收本金
+			b = [],   //月收利息
+			c,		  //月收本息
+			d = [],   //月管理费
+			rank,     //会员级别 
+			service;  //服务费
+		return{
+			month: function(month,capital,rate){ //月收本息
+				var rate = rate/100,
+					result = capital*rate*Math.pow((1+rate),month)/(Math.pow((1+rate),month)-1);
+					c = result.toFixed(2);
+				return c;
+			},
+			detail: function(capital,rate,n,month,s){
+				var rate = rate/100, 
+					result = capital*rate*Math.pow((1+rate),(n-1))/(Math.pow((1+rate),month)-1);
+					a.push(result.toFixed(2));
+					result = c - a[month-n];
+					b.push(result.toFixed(2));
+					result = result*parseInt(s)/100;
+					d.push(result.toFixed(2));
+					if(n>1){
+						arguments.callee(capital,rate*100,n-1,month,s);
+					}
+			},
+			getDetail: function(){
+				return {
+					a: a,
+					b: b,
+					c: c,
+					d: d,
+					rank: rank,
+					service: service
+				}
+			},
+			service: function(capital,month,s){	//服务费
+				if(month<6){
+					service = capital*parseInt(s)/100;
+				}else{
+					service = capital*parseInt(s)/100;
+				}
+			},
+			clearinfo: function(){
+				a = [],
+				b = [],
+				c = 0,
+				d = [],
+				rank = "",
+				service = 0;
+			}
+		};
+	}();
+	var rank_rate = $("#message-next").data("info");
+	$("#borrow-message").on("change",function(e){
+		var info = $(this).serializeArray(),
+			capital = info[1].value,
+			month = info[3].value,
+			rate = info[2].value,
+			month_num,
+			detail,
+			lend_service = 0;
+
+		if(capital && month && rate){
+			month_num = calculator.month(month,capital,rate/12);
+			calculator.detail(capital, rate, month, month, rank_rate);
+			calculator.service(capital, month, rank_rate);
+			lend_service = calculator.getDetail().service;
+			$("#calc-borrow-month").text(month_num);
+			$("#calc-borrow-service").text(lend_service);
+		}
+	});
 });
