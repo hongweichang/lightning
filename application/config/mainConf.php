@@ -215,7 +215,7 @@ class mainConf extends ConfigBase{
 										'all' => 'credit_grade >= 0',
 										'初级' => " credit_grade BETWEEN 60 AND 80 ",
 										'普通会员' => " credit_grade BETWEEN 80 AND 100 ",
-										'牛逼会员' => " credit_grade >= 120 ",
+										'高级会员' => " credit_grade >= 120 ",
 								),
 						),
 						//月利率的查询条件
