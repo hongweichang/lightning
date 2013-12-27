@@ -123,6 +123,7 @@ class UserCenterController extends Controller{
 		$userCreditLevel = $this->app->getModule('credit')->getComponent(
 								'userCreditManager')->UserLevelCaculator($userData->credit_grade);
 		$IconUrl = $this->user->getState('avatar');
+		$loanable = $this->app->getModule('credit')->userCreditManager->UserBidCheck();
 		$this->render('userInfo',array(
 						'userData'=>$userData,
 						'necessaryCreditData'=>$necessaryList,
@@ -133,6 +134,7 @@ class UserCenterController extends Controller{
 						'IconUrl'=>$IconUrl,
 						'creditLevel'=>$userCreditLevel,
 						'BidSum'=>$this->userBidMoney,
+						'loanable'=>$loanable,
 						'MetaSum'=>$this->userMetaBidMoney));
 		
 	}
@@ -252,7 +254,7 @@ class UserCenterController extends Controller{
 					}
 
 					$randName = Tool::getRandName();//获取一个随机名
-					$newName = "Credit".$randName.".".$fileName;//对文件进行重命名
+					$newName = "Credit".$randName.".".$fileType;//对文件进行重命名
 
 					$saveUrl = $uploadDir.$newName;
 					$isUp = $file->saveAs($saveUrl);//保存上传文件

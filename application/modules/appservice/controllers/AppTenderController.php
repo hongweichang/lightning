@@ -211,6 +211,13 @@ class AppTenderController extends Controller{
 	public function actionRaiseBid(){
 		$post = $this->getPost();
 
+		$loanable = $this->app->getModule('credit')->userCreditManager->UserBidCheck();
+
+		if($loanable === false){
+			$this->response('400','发标失败,当前会员级别无法发标');
+			exit();
+		}
+
 		if(!empty($post)){
 			$uid = Yii::app()->user->id;
 			//$uid = 23;
@@ -229,7 +236,8 @@ class AppTenderController extends Controller{
 				$this->response('200','投标成功','');
 			else
 				$this->response('400','投标失败','');
-		}
+		}else
+			$this->response('400','投标失败,信息不完善');
 	}
 
 

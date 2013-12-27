@@ -68,6 +68,8 @@ class BorrowController extends Controller {
 	 */
 	function actionInfo() {
 		$this->setPageTitle($this->role.' - '.$this->name);
+		$uid = $this->app->user->id;
+		$userRate = $this->app->getModule('credit')->getComponent('userCreditManager')->userRateGet($uid);
 		
 		$model = new BidForm();
 		if(!empty($_POST)){
@@ -88,7 +90,8 @@ class BorrowController extends Controller {
 		
 		$this->render("info",array(
 			'role' => $this->role,
-			'form' => $model
+			'form' => $model,
+			'userRate'=>$userRate
 		));
 	}
 	
