@@ -146,6 +146,15 @@ class NotifyManager extends CApplicationComponent{
 		return $code;
 	}
 	
+	public function clearMobileVerifyCode($mobile){
+		$cache = Yii::app()->getComponent($this->cacheID);
+		if ( $cache === null ){
+			return false;
+		}
+		$cache->delete($this->mobileCodePrefix.$mobile);
+		return true;
+	}
+	
 	/**
 	 * 验证手机验证码是否正确
 	 * @param string $mobile

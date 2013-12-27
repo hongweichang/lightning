@@ -146,16 +146,33 @@ Lend = function(){
 			show.show();
 		},
 		placeholder: function(o){
-			var defaultV = o.val();
-			o.bind("focus",function(){
-				o.val("");
-				o.css({color:"#000"});
-				//ajax
-				o.siblings('.paycenter-hint').show();
-			});
-			o.bind("blur",function(){
-				if(!$(this).val())
-					$(this).val(defaultV).css({color:"#ccc"});
+			o.bind("click",function(){
+				var time;
+				var text;
+				if(!$(this).hasClass("disabled")){
+					$(this).addClass("disabled");
+					$.ajax({
+						url: baseUrl + 'tender/platform/sendVerify/mobile/' + o.attr('data-mobile'),
+						type: "GET",
+						dataType: "json",
+						success: function(){
+							o.siblings('.paycenter-hint').show();
+						}
+					});
+					time = 30;
+					text = $(this).text();
+					changeVal();
+				}
+				function changeVal(){
+					if(time>0){
+						o.text(time+"秒重新获取");
+						setTimeout(changeVal,1000);
+						--time;
+					}else{
+						o.removeClass("disabled").text(text);
+					}
+				}
+				return false;
 			});
 		}
 	}
@@ -176,21 +193,6 @@ $(".filter-choice").bind("click",function(){
 	var str = Filter.checked($(this));
 	Filter.send(str);
 });
-/*$(".loan-list").live("hover",function(e){
->>>>>>> 8a0eb23ddc03e17913ff0affcefdee6b090f7162
-	if(e.type == "mouseenter"){
-		var href = $(".loan-title a",$(this)).attr("href");
-		$(this).append("<a href='"+href+"' class='lend-mask'></a>");
-	}else{
-		$(this).children(".lend-mask").remove();		
-	}
-});*/
-/*$("#viewMore").bind("click",function(){
-	isFilter = false;
-	var str = Filter.checked($(this));
-	str += '&viewmore=1';
-	List.showMore(str);
-});*/
 //lend-pay
 $("#view-detail").toggle(
 	function(){
@@ -202,7 +204,7 @@ $("#view-detail").toggle(
 		$("#view-detail").css({background:"url('"+baseUrl+"UED/images/viewDetail.png')"})
 	}
 );
-Lend.placeholder($("#pay-verify"));
+Lend.placeholder($("#pay-verify-button"));
 Page.initial("#page");
 //lend-details
 $(".fakeCheck,label[for='keepSignIn'],label[for='protocal']").toggle(function(){

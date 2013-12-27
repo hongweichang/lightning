@@ -62,9 +62,9 @@ class UserCreditManager extends CApplicationComponent{
 						'on_withdraw'=>$userRate[0]->on_withdraw/100,
 						'on_pay_back'=>$userRate[0]->on_pay_back/100,
 						'on_over6'=>$userRate[0]->on_over6/100,
-						'on_blow6'=>$userRate[0]->on_below6/100
-
-							);
+						'on_below6'=>$userRate[0]->on_below6/100,
+						'loanable'=>$userRate[0]->loanable
+				);
 				return $rate;
 
 

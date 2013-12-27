@@ -70,6 +70,10 @@ class BorrowController extends Controller {
 		$this->setPageTitle($this->role.' - '.$this->name);
 		$uid = $this->app->user->id;
 		$userRate = $this->app->getModule('credit')->getComponent('userCreditManager')->userRateGet($uid);
+		if ( !is_array($userRate) || !isset($userRate['loanable']) || $userRate['loanable'] == 0 ){
+			$this->render('accessDenied');
+			$this->app->end();
+		}
 		
 		$model = new BidForm();
 		if(!empty($_POST)){
@@ -88,7 +92,7 @@ class BorrowController extends Controller {
 			}
 		}
 		
-		$this->render("info",array(
+		$this->render('info',array(
 			'role' => $this->role,
 			'form' => $model,
 			'userRate'=>$userRate

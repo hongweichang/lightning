@@ -89,8 +89,4 @@ class AccountController extends Controller{
 				'mobile' => $mobile
 		));
 	}
-	
-	public function actionSendVerify(){
-		$this->actionSendRegisterVerify();
-	}
 }

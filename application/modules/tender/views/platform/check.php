@@ -30,7 +30,7 @@ $this->cs->registerCssFile($this->cssUrl.'lend.css');
           <p id="borrow-brief" class="text-overflow">
           	借款人：<?php echo $bider->getAttribute('realname'); ?>，
           	借款：<?php echo number_format($bid->getAttribute('sum') / 100,2);?>元，
-          	年利率：<?php echo $bid->getAttribute('month_rate'); ?>%，
+          	年利率：<?php echo $bid->getAttribute('month_rate') / 100; ?>%，
           	期限：<?php echo $bid->getAttribute('deadline'); ?>期</p>
           <div id="borrow-details">
             <p>借款人：<?php echo $bider->getAttribute('realname'); ?><?php echo $bider->getAttribute('gender') ? '先生' : '女士'; ?>
@@ -60,10 +60,10 @@ $this->cs->registerCssFile($this->cssUrl.'lend.css');
             </div>
             <div class="paycenter-item">
               <label for="pay-pw">支付密码：</label>
-              <input type="password" name="Check[payPasswd]" id="pay-pw"/>
+              <input type="password" name="pay_pwd" id="pay-pw"/>
               <a href="<?php echo $this->app->createUrl('user/account/forgot')?>" class="paycenter-tips">忘记密码?</a>
          	  <span for="pay-pw" class="error"><?php echo substr($errorMsg,0,1) == 1 ? substr($errorMsg,1) : ''?></span>
-              <p class="paycenter-alert">您已经开通短信服务，每次交易需要输入密码</p>
+              <p class="paycenter-alert">为确保您的交易安全，每次交易需要输入资金密码</p>
             </div>
             <div class="paycenter-item">
               <label>手机号码：</label>
@@ -71,8 +71,8 @@ $this->cs->registerCssFile($this->cssUrl.'lend.css');
             </div>
             <div class="paycenter-item">
               <label for="pay-verfiy">校验码： </label>
-              <input type="text" value="点击获取校验码" name="Check[payVerify]" id="pay-verify" />
-              <a href="#" class="paycenter-tips">没收到校验码?</a>
+              <input type="text" name="pay_verify" id="pay-verify" data-mobile="<?php echo $user->getAttribute('mobile'); ?>" />
+              <button id="pay-verify-button" data-mobile="<?php echo $user->getAttribute('mobile'); ?>" >点击获取</button>
               <p class="paycenter-hint">校验码已发送，30分钟内输入才有效，请勿泄露</p>
           	  <span for="pay-pw" class="error"><?php echo substr($errorMsg,0,1) == 2 ? substr($errorMsg,1)  : ''?></span>
             </div>
