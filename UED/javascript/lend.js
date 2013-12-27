@@ -176,21 +176,6 @@ $(".filter-choice").bind("click",function(){
 	var str = Filter.checked($(this));
 	Filter.send(str);
 });
-/*$(".loan-list").live("hover",function(e){
->>>>>>> 8a0eb23ddc03e17913ff0affcefdee6b090f7162
-	if(e.type == "mouseenter"){
-		var href = $(".loan-title a",$(this)).attr("href");
-		$(this).append("<a href='"+href+"' class='lend-mask'></a>");
-	}else{
-		$(this).children(".lend-mask").remove();		
-	}
-});*/
-/*$("#viewMore").bind("click",function(){
-	isFilter = false;
-	var str = Filter.checked($(this));
-	str += '&viewmore=1';
-	List.showMore(str);
-});*/
 //lend-pay
 $("#view-detail").toggle(
 	function(){
