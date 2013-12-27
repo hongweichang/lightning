@@ -73,26 +73,30 @@ class PlatformController extends Controller{
 		if( $meta !== null && $meta->getAttribute('user_id') == $this->user->getId()){
 			$this->setPageTitle($meta->getRelated('bid')->getAttribute('title').' - '.$this->name);
 			
-			$data = $this->getPost('Check');
 			$password = $this->getPost('pay_pwd');
 			$code = $this->getPost('pay_verify');
 			$user = $meta->getRelated('user');
+			$notify = $this->app->getModule('notify')->getComponent('notifyManager');
 			
 			if ( $this->app->getSecurityManager()->verifyPassword($password,$user->pay_password) === false ){
+				$notify->clearMobileVerifyCode($user->mobile);
+				
 				$this->redirect($this->createUrl('platform/order',array(
 						'metano' => Utils::appendEncrypt($metaId),
 						'e' => base64_encode('1支付密码错误')
 				)));
 			}
 			
-			$notify = $this->app->getModule('notify')->getComponent('notifyManager');
-			if ( $notify->applyMobileCodeVerify($user->mobile,$code) ){
+			if ( $notify->applyMobileCodeVerify($user->mobile,$code) === false ){
+				$notify->clearMobileVerifyCode($user->mobile);
+				
 				$this->redirect($this->createUrl('platform/order',array(
 						'metano' => Utils::appendEncrypt($metaId),
 						'e' => base64_encode('2验证码错误')
 				)));
 			}
 			
+			$notify->clearMobileVerifyCode($user->mobile);
 			$asyncEventRunner = Yii::app()->getComponent('asyncEventRunner');
 			$asyncEventRunner->raiseAsyncEvent('onPayPurchasedBid',array(
 				'metano' => $metaId
@@ -102,5 +106,17 @@ class PlatformController extends Controller{
 		}else{
 			// 404
 		}
+	}
+	
+	public function actionSendVerify(){
+		$mobile = $this->getQuery('mobile');
+		if ( $mobile === null ){
+			$this->response(404);
+		}
+		
+		$asyncEventRunner = $this->app->getComponent('asyncEventRunner');
+		$asyncEventRunner->raiseAsyncEvent('onBeforePayBidSuccess',array(
+				'mobile' => $mobile
+		));
 	}
 }

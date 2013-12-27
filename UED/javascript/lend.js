@@ -146,16 +146,33 @@ Lend = function(){
 			show.show();
 		},
 		placeholder: function(o){
-			var defaultV = o.val();
-			o.bind("focus",function(){
-				o.val("");
-				o.css({color:"#000"});
-				//ajax
-				o.siblings('.paycenter-hint').show();
-			});
-			o.bind("blur",function(){
-				if(!$(this).val())
-					$(this).val(defaultV).css({color:"#ccc"});
+			o.bind("click",function(){
+				var time;
+				var text;
+				if(!$(this).hasClass("disabled")){
+					$(this).addClass("disabled");
+					$.ajax({
+						url: baseUrl + 'tender/platform/sendVerify/mobile/' + o.attr('data-mobile'),
+						type: "GET",
+						dataType: "json",
+						success: function(){
+							o.siblings('.paycenter-hint').show();
+						}
+					});
+					time = 30;
+					text = $(this).text();
+					changeVal();
+				}
+				function changeVal(){
+					if(time>0){
+						o.text(time+"秒重新获取");
+						setTimeout(changeVal,1000);
+						--time;
+					}else{
+						o.removeClass("disabled").text(text);
+					}
+				}
+				return false;
 			});
 		}
 	}
@@ -187,7 +204,7 @@ $("#view-detail").toggle(
 		$("#view-detail").css({background:"url('"+baseUrl+"UED/images/viewDetail.png')"})
 	}
 );
-Lend.placeholder($("#pay-verify"));
+Lend.placeholder($("#pay-verify-button"));
 Page.initial("#page");
 //lend-details
 $(".fakeCheck,label[for='keepSignIn'],label[for='protocal']").toggle(function(){

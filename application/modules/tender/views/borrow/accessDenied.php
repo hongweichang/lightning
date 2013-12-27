@@ -1,7 +1,7 @@
 <?php $this->cs->registerCssFile($this->cssUrl.'cuskind.css'); ?>
 <div id="container">
         <div class="wd1002">
-            <h1 class="con-nav">闪电贷借款 - 产品介绍</h1>
+            <h1 class="con-nav">闪电贷借款 - 填写借款信息</h1>
             <div id="aud-check" class="aud-common">
                 <div class="aud-warning">
                     <div class="adu-war-box adu-war-box-first aud-active">
@@ -9,7 +9,7 @@
                         <span class="adu-next"></span>
                         <div class="adu-bar"></div>
                     </div>
-                    <div class="adu-war-box">
+                    <div class="adu-war-box  aud-active">
                         <div class="adu-step"><span>2.填写借款信息</span></div>
                         <span class="adu-next"></span>
                         <div class="adu-bar"></div>
@@ -32,12 +32,7 @@
                 </div>
             </div>
             <div class="con-hint">
-            	<?php 
-            	if($roleName){ ?>
-            	您的社会角色为： <?php echo $roleName; ?>, 请点击下一步
-            	<?php }else{ ?>
-            	请到<a href="<?php echo $this->app->createUrl('user/userCenter'); ?>">个人中心</a>完善您的信用资料
-            	<?php } ?>
+            	您目前的信用等级不能借款请到<a href="<?php echo $this->app->createUrl('user/userCenter'); ?>">个人中心</a>完善您的信用资料
             </div>
             <div class="con-cuskind">
                 <div class="cuskind cuskind-color-0">
@@ -81,9 +76,6 @@
                 <a href="<?php echo $this->createUrl('/content/help/index',array('cid'=>17))?>#prod-ecomm">查看详细信息</a>
             </div>
             <div class="next">
-            	<?php if($roleName){ ?>
-                <a href="<?php echo $this->createUrl("borrow/info"); ?>" class="borrow-button" id="borrow-next">下一步</a>
-            	<?php } ?>
             </div>
         </div>
     </div>

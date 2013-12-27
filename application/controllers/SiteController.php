@@ -78,7 +78,7 @@ class SiteController extends Controller{
 						'progress' => $bid->progress / 100
 				);
 			}
-			$cache->set('INDEX_BIDS',$bidData,300);
+			$cache->set('INDEX_BIDS_',$bidData,300);
 		}
 		
 		$this->cs->registerCssFile($this->cssUrl.'index.css');

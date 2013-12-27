@@ -164,6 +164,9 @@ class mainConf extends ConfigBase{
 										'onPayPurchasedBid' => array(
 												'command' => array('bid','pay')
 										),
+										'onBeforePayBidSuccess' => array(
+												'command' => array('sendSms','verifyCode')
+										)
 								),
 						),
 						'image'=>array(
