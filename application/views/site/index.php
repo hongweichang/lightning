@@ -79,6 +79,7 @@ $bidProgressCssClassMap = $this->app['bidProgressCssClassMap'];
                 </div>
                 <ul>
                 <?php foreach ( $bids as $bid ):
+                $progressClass = '';
                 foreach ( $bidProgressCssClassMap as $key => $bidProgressCssClass ){
 					if ( $bid['progress'] <= $key ){
 							$progressClass = $bidProgressCssClass;
