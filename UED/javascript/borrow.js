@@ -33,6 +33,15 @@ $(document).ready(function(){
 				required: true,
 				digits: true,
 				range: [1,36]
+			},
+			start:{
+				required: true
+			},
+			end:{
+				required: true
+			},
+			desc:{
+				required: true
 			}
 		},
 		messages:{
@@ -53,6 +62,15 @@ $(document).ready(function(){
 				required: "不能为空",
 				digits: "请输入整数",
 				range: "期限介于1到36个月"
+			},
+			start:{
+				required:"请选择开始时间"
+			},
+			end:{
+				required:"请选择结束时间"
+			},
+			desc:{
+				required:"请填写描述信息"
 			}
 		}
 	});
@@ -110,7 +128,7 @@ $(document).ready(function(){
 			}
 		};
 	}();
-	var rank_rate = $("#message-next").data("info");
+	var rank_rate = $("#message-next").data("info").split(";");
 	$("#borrow-message").on("change",function(e){
 		var info = $(this).serializeArray(),
 			capital = info[1].value,
@@ -120,10 +138,14 @@ $(document).ready(function(){
 			detail,
 			lend_service = 0;
 
+		if(month < 6){
+			r_rate = rank_rate[0];
+		}else
+			r_rate = rank_rate[1];
 		if(capital && month && rate){
 			month_num = calculator.month(month,capital,rate/12);
-			calculator.detail(capital, rate, month, month, rank_rate);
-			calculator.service(capital, month, rank_rate);
+			calculator.detail(capital, rate, month, month, r_rate);
+			calculator.service(capital, month, r_rate);
 			lend_service = calculator.getDetail().service;
 			$("#calc-borrow-month").text(month_num);
 			$("#calc-borrow-service").text(lend_service);

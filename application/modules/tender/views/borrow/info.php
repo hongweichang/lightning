@@ -50,6 +50,8 @@ $('.input-daterange').datepicker({
             </div>
             <div class="adu-detail clearfix">
                 <div class="aud-ucenter">
+                    <span>您即将发布的标段为</span>
+                    <span class="hint">企业主</span>
                     <a href="<?php echo $this->app->createUrl('user/userCenter'); ?>">进入个人中心 |</a>
                     <a href="<?php echo $this->app->createUrl('help'); ?>">使用帮助</a>
                 </div>
