@@ -186,3 +186,6 @@
       -webkit-border-radius: 5px;
       -moz-border-radius: 5px;
       border-radius: 5px; }
+      #container #aud-detail .borrow-button:hover {
+        background-color: #3ec4cb;
+      }

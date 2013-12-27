@@ -41,7 +41,7 @@ body {
   font-size: 12px;
   color: white; }
 
-.he-wl, .he-lo, #he-nav ul, #fo-contact, #fo-contact p, #hc-content, .about-content {
+.he-wl, .he-lo, #he-nav ul, #fo-contact, #fo-contact p, #hc-content {
   float: right; }
 
 #he-nav ul li, #fo-nav, #fo-nav > li, #fo-nav > li > img, #fo-contact img, .hc-side {
@@ -563,7 +563,8 @@ left: 185px;
         }
         
         .hc-side,
-        #hc-content {
+        #hc-content,
+        .about-content {
           min-height: 200px;
           height: auto !important;
           height: 200px;
