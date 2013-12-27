@@ -134,7 +134,7 @@ class mainConf extends ConfigBase{
 										)
 								),
 						),
-						/*'zmqClient' => array(
+						'zmqClient' => array(
 								'class' => 'cms.components.asyncEvent.ZMQClient',
 								'zmqServer' => 'tcp://localhost:5556',
 								'sendTimeout' => 3000,
@@ -158,8 +158,24 @@ class mainConf extends ConfigBase{
 										'onPayPurchasedBid' => array(
 												'command' => array('bid','pay')
 										),
+										'onBidVerifySuccess' => array(
+												array(
+														'command' => array('sendSms','bidVerifySuccess')
+												),
+// 												array(
+// 														'command' => array('sendMail','bidVerifySuccess')
+// 												)
+										),
+										'onBidVerifyFailed' => array(
+												array(
+														'command' => array('sendSms','bidVerifyFailed')
+												),
+//												array(
+// 														'command' => array('sendMail','bidVerifyFailed')
+// 												)
+										)
 								),
-						),*/
+						),
 						'image'=>array(
 								'class'=>'ext.image.CImageComponent',
 								'driver'=>'GD',
@@ -184,24 +200,30 @@ class mainConf extends ConfigBase{
 						//标段选择条件参数
 						'selectorMap' => array(
 								'monthRate' => array(//月利率条件
-										'不限' => 'all',
+										'all' => 'all',
 										'5%-10%' => ' month_rate BETWEEN 500 AND 1000 ',
 										'11%-15%' => ' month_rate BETWEEN 1100 AND 1500 ',
 										'16%-20%' => ' month_rate BETWEEN 1600 AND 2000 ',
 								),
 								'deadline' => array(//借款期限条件
-										'不限' => 'all',
+										'all' => 'all',
 										'6-12' => ' deadline BETWEEN 6 AND 12 ',
 										'12-24' => ' deadline BETWEEN 12 AND 24 ',
 										'24-36' => ' deadline BETWEEN 24 AND 36 ',
 								),
 								'authenGrade' => array(//认证等级条件
-										'不限' => 'credit_grade >= 0',
-										'初级' => ' credit_grade BETWEEN 60 AND 80 ',
-										'普通会员' => ' credit_grade BETWEEN 80 AND 100 ',
-										'高级会员' => ' credit_grade >= 120 ',
+										'all' => 'credit_grade >= 0',
+										'初级' => " credit_grade BETWEEN 60 AND 80 ",
+										'普通会员' => " credit_grade BETWEEN 80 AND 100 ",
+										'牛逼会员' => " credit_grade >= 120 ",
 								),
 						),
+						//月利率的查询条件
+						'monthRate' => array('5%-10%','11%-15%','16%-20%',),
+						//借款期限的查询条件
+						'deadline' => array('6-12','12-24','24-36',),
+						//认证等级的查询条件
+						'authenGrade' => array('初级','普通会员','牛逼会员',),
 						'bidProgressCssClassMap' => array(
 								'100' => 'w100',
 								'99' => 'w80_99',

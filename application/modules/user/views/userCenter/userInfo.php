@@ -1,15 +1,25 @@
 <?php
 $this->cs->registerScriptFile($this->scriptUrl.'jquery.validate.min.js',CClientScript::POS_END);
 $this->cs->registerCssFile($this->cssUrl.'detail.css');
-if(Yii::app()->user->hasFlash('success')){
+if(Yii::app()->user->hasFlash('upload_success')){
+    $upload_info = Yii::app()->user->getFlash('upload_success');
+?>
+<script>alert('<?php echo $upload_info?>');</script>
+<?php }elseif(Yii::app()->user->hasFlash('upload_error')){
+    $upload_info = Yii::app()->user->getFlash('upload_error');
+?>
+<script>alert('<?php echo $upload_info?>');</script>
+
+<?php 
+}if(Yii::app()->user->hasFlash('success')){
     $info = Yii::app()->user->getFlash('success');
 ?>
 <script>alert('<?php echo $info?>');</script>
 <?php }elseif(Yii::app()->user->hasFlash('error')){
     $info = Yii::app()->user->getFlash('error');
-
 ?>
 <script>alert('<?php echo $info?>');</script>
+
 <?php
 }
 $this->widget('application.extensions.swfupload.CSwfUpload', array(
@@ -74,12 +84,23 @@ $this->widget('application.extensions.swfupload.CSwfUpload', array(
             <div class="aud-find">
                 
                 <div class="tab-list">
+                    <?php if(isset($upload_info)){?>
                     <ul id="find-table-detail">
+                        <li>基本信息</li>
+                        <li class="find-selected">信用资料</li>
+                    </ul>
+                    <?php }else{?>
+                     <ul id="find-table-detail">
                         <li class="find-selected">基本信息</li>
                         <li>信用资料</li>
-                    </ul>
+                    </ul>                   
+                    <?php }?>
                 </div>
+                <?php if(isset($upload_info)){?>
+                <div class="basic-info find-table-content">    
+                <?php }else{?>
                 <div class="basic-info find-table-content find-table-content-show">
+                <?php }?>
                     <a href="javascript:;"  class="user-avatar">
                     <?php if(!empty($IconUrl)){?>
                         <img src="<?php echo $IconUrl;?>"/>
@@ -267,8 +288,11 @@ $this->widget('application.extensions.swfupload.CSwfUpload', array(
                     <a href="javascript:;" class="form-button" id="personal-modify">修改信息</a>
                 </div>
 
+                <?php if(isset($upload_info)){?>
+                <div class="find-table-content verify find-table-content-show">
+                <?php }else{?>
                 <div class="find-table-content verify">
-               
+                <?php }?>
                     <table>
                         <tr>
                             <td>&nbsp</td>
@@ -320,6 +344,8 @@ $this->widget('application.extensions.swfupload.CSwfUpload', array(
                                                                     );  
                                 ?>
                             </td>
+                            <?php }else{?>
+                            <td></td>
                             <?php }?>
                             <td>
                             <?php
@@ -381,6 +407,8 @@ $this->widget('application.extensions.swfupload.CSwfUpload', array(
                                                                     ); 
                                 ?>
                             </td>
+                            <?php }else{?>
+                            <td></td>
                             <?php }?>
                             <td>
                             <?php

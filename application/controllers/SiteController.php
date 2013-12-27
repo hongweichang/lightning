@@ -7,7 +7,7 @@
  */
 class SiteController extends Controller{
 	public function noneLoginRequired(){
-		return 'index';
+		return 'index,cashCaculator';
 	}
 	
 	public function actionIndex(){
@@ -85,4 +85,31 @@ class SiteController extends Controller{
 		$this->cs->registerScriptFile($this->scriptUrl.'slide_fade.js',CClientScript::POS_END);
 		$this->render('index',array('banner'=>$banner,'articles'=>&$articles,'bids'=>$bidData));
 	}
+
+	
+	public function actionTest(){
+		//var_dump($this->app->getEventHandlers('onEndRequest'));
+		$async = $this->app->getComponent('asyncEventRunner');
+		$async->raiseAsyncEvent('onRegisterSuccess',array('data'=>'sasa'));
+	}
+
+	/*
+	**理财计算器
+	*/
+	public function actionCashCaculator(){
+		$uid = $this->user->id;
+		$onLoan = '10';
+		$level = 'C';
+
+		if(!empty($uid)){
+			$userCreditLevel = $this->app->getModule('credit')->userCreditManager->getUserCreditLevel($uid);
+			if($userCreditLevel !== null){
+				$level = $userCreditLevel;
+			}
+			
+			$onLoan = '10';
+		}
+		$this->render('cashCaculator',array('uid'=>$uid,'onLoan'=>$onLoan,'level'=>$level));
+	}
+
 }
