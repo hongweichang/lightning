@@ -49,17 +49,19 @@ class AppTenderController extends Controller{
 					$Credit = $this->app->getModule('credit')->userCreditManager->UserLevelCaculator($value->getRelated('user')->credit_grade);
 
 					$bidInfo[] = array(
-							'id'=>$value->attributes['id'],
+							'id'=>$value->id,
 							'uid'=>$value->getRelated('user')->id,
 							'nickname'=>$value->getRelated('user')->nickname,
-							'title'=>$value->attributes['title'],
-							'Content'=>$value->attributes['description'],
-							'sum'=>$value->attributes['sum'],
-							'rate'=>$value->attributes['month_rate'],
-							'TimeLimit'=>$value->attributes['deadline'],
-							'Start'=>$value->attributes['start'],
-							'Over'=>$value->attributes['end'],
+							'title'=>$value->title,
+							'Content'=>$value->description,
+							'sum'=>$value->sum,
+							'rate'=>$value->month_rate,
+							'TimeLimit'=>$value->deadline,
+							'Start'=>$value->start,
+							'Over'=>$value->end,
 							'Icon'=>$Icon,
+							'progress'=>$value->progress,
+							'verify_progress'=>$value->verify_progress,
 							'creditLevel'=>$Credit
 
 						);
@@ -287,15 +289,16 @@ class AppTenderController extends Controller{
 			$criteria->alias = 'meta';
 			
 			if ( $action === 'unfull' ){
-				$criteria->condition = 'progress < 100 AND meta.user_id =:uid AND finish_time != 0';
+				$criteria->condition = 'verify_progress = 21 AND meta.user_id =:uid AND status =:status';
 			}elseif ( $action === 'full' ){
-				$criteria->condition = 'progress = 100 AND meta.user_id =:uid AND finish_time != 0';
+				$criteria->condition = 'verify_progress = 31 AND meta.user_id =:uid AND status =:status';
 			}else{//action not match
 				$this->response('401','参数不合法','');
 			}
 			
 			$criteria->params = array(
 					':uid'=>$uid,
+					':status'=>'21'
 			);
 			$metaData = BidMeta::model()->with('bid','user')->findAll($criteria);
 			
