@@ -1,3 +1,16 @@
+html, body {
+  height: 100%; }
+#container {
+  min-height: 100%;
+  height: auto !important;
+  height: 100%;
+  margin: 0 auto -4em;
+  background: url("../images/bg.jpg") repeat;
+}
+.push {
+  height: 4em;
+}
+
 /* line 3, ../sass/calc.scss */
 .p2p-calc-content .section .calc-inf:after {
   content: " ";

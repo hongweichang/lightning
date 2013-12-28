@@ -63,7 +63,7 @@ $this->cs->registerCssFile($this->cssUrl.'detail.css');
                         <li>
                             <span><?php echo $value['nickname'];?></span>
                             <span><?php echo $value['bidTitle'];?></span>
-                            <span><?php echo $value['rate'].'%';?></span>
+                            <span><?php echo $value['rate']/100;?>%</span>
                             <span><?php echo '￥'.$value['sum'].'元'?></span>
                             <span><?php echo $value['deadline']?>个月</span>
                             <span class="deadline"><?php echo $value['buyTime'];?></span>

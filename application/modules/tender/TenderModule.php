@@ -2,7 +2,7 @@
 class TenderModule extends CmsModule{
 	public function init(){
 		parent::init();
-		
+		$this->defaultController = 'purchase';
 		$this->setImport(array(
 			'user.models.*',
 			'tender.models.*',

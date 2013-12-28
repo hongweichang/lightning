@@ -62,14 +62,43 @@ class UserCreditManager extends CApplicationComponent{
 						'on_withdraw'=>$userRate[0]->on_withdraw/100,
 						'on_pay_back'=>$userRate[0]->on_pay_back/100,
 						'on_over6'=>$userRate[0]->on_over6/100,
-						'on_blow6'=>$userRate[0]->on_below6/100
-
-							);
+						'on_below6'=>$userRate[0]->on_below6/100,
+						'loanable'=>$userRate[0]->loanable
+				);
 				return $rate;
 
 
 			}else
 				return 400;
+		}
+	}
+
+	/*
+	**获取会员级别列表
+	*/
+
+	public function UserLevelList(){
+		$levelData = CreditGradeSettings::model()->findAll();
+		if(!empty($levelData)){
+			return $levelData;
+		}
+
+	}
+
+	
+	/*
+	**判断用户是否可以发标
+	*/
+	public function UserBidCheck(){
+		$uid = Yii::app()->user->id;
+
+		$userLevel = $this->getUserCreditLevel($uid);
+		if(!empty($userLevel)){
+			$levelData = CreditGradeSettings::model()->findAll('label =:label',array('label'=>$userLevel));
+			if($levelData[0]->loanable == '0')
+				return false;
+			elseif($levelData[0]->loanable == '1')
+				return true;
 		}
 	}
 }

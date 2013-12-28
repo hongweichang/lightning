@@ -37,10 +37,10 @@ class PurchaseController extends Controller {
 	public function init() {
 		parent::init();
 
-		$this->_monthRate = $this->app['monthRate'];
-		$this->_deadline = $this->app['deadline'];
-		$this->_authenGrade = $this->app['authenGrade'];
 		$this->_selectorMap = $this->app['selectorMap'];
+		$this->_monthRate = $this->_selectorMap['monthRate'];
+		$this->_deadline = $this->_selectorMap['deadline'];
+		$this->_authenGrade = $this->_selectorMap['authenGrade'];
 		$this->_bidsPerPage = $this->app['bidsPerPage'];
 	}
 	
@@ -51,13 +51,15 @@ class PurchaseController extends Controller {
 	function actionIndex() {
 		$this->setPageTitle($this->name);
 		
-		$pager = new CPagination(BidInfo::model()->count("verify_progress=21 AND start<='".strtotime(date('Y-m-d'))."'"));
+		$condition = "(verify_progress=21 OR verify_progress=31 ) AND start<=".time();
+		$pager = new CPagination(BidInfo::model()->count($condition));
 		$pager->setPageSize($this->_bidsPerPage);
+		$pager->route = 'purchase/ajaxBids';
 		
 		$bidInfo = BidInfo::model()->with('user')->findAll(array(
 			'offset' => $pager->getOffset(),
 			'limit' => $pager->getLimit(),
-			'condition' => "verify_progress=21 AND start<='".strtotime(date('Y-m-d'))."'",
+			'condition' => $condition,
 			'order' => 'pub_time DESC'
 		));
 		
@@ -73,7 +75,6 @@ class PurchaseController extends Controller {
 	/**
 	 * 用于获取Ajax请求来对标段列表进行筛选
 	 * 购买标段的action
-	 * Enter description here ...
 	 * @param $bidId：标段id
 	 * @param $userId：借款人的id
 	 */
@@ -113,7 +114,7 @@ class PurchaseController extends Controller {
 			));
 			
 			$bider = $bid->getRelated('user');
-			$this->render("info",array(
+			$this->render('info',array(
 				'bid' => $bid,
 				'bider' => $bider,
 				'form' => $model,
@@ -131,13 +132,24 @@ class PurchaseController extends Controller {
 	 */
 	function actionAjaxBids() {
 		$criteria = new CDbCriteria();
-		$criteria->condition = 'verify_progress=21 AND start<='.strtotime(date('Y-m-d'));
+		$criteria->condition = '(verify_progress=21 OR verify_progress=31 ) AND start<='.time();
 
 		$conditions = array();
+		$withUser = false;
 		foreach ($this->_selectorMap as $key => $value) {
-			if(isset($_GET[$key]) && isset($value[$_GET[$key]]) && $value[$_GET[$key]] != null) {
-				$conditions[$_GET[$key]] = $value[$_GET[$key]];
-				$criteria->addCondition($value[$_GET[$key]]);
+			if(isset($_GET[$key]) && isset($value[$_GET[$key]]) && $value[$_GET[$key]] !== 'all') {
+				$conditions[$key] = $_GET[$key];
+				$condition = $value[$_GET[$key]];
+				if ( $key === 'authenGrade' ){
+					$criteria->with = array(
+							'user' => array(
+									'condition' => $condition
+							)
+					);
+					$withUser = true;
+				}else {
+					$criteria->addCondition($condition);
+				}
 			}
 		}
 		
@@ -147,21 +159,41 @@ class PurchaseController extends Controller {
 		$pager->params = $conditions;
 		
 		$criteria->order = 'pub_time DESC';
+		if ( $withUser === false ){
+			$criteria->with = array('user');
+		}
 		$data = BidInfo::model()->findAll($criteria);
 		
 		$return = array();
+		$bidProgressCssClassMap = $this->app['bidProgressCssClassMap'];
+		
+		$credit = Yii::app()->getModule('credit')->getComponent('userCreditManager');
+		$userManager = $this->app->getModule('user')->userManager;
 		foreach($data as $key => $value) {
 			$return[$key] = $value->getAttributes();
+			$return[$key]['progress'] = $value->getAttribute('progress')/100;
+			$return[$key]['avatar'] = $userManager->getUserIcon($value->user_id);
 			$return[$key]['month_rate'] /= 100;
-			$return[$key]['sum'] = number_format($return[$key]['sum'],2).'元';
+			$return[$key]['sum'] = number_format($return[$key]['sum']/100,2);
 			$return[$key]['titleHref'] = $this->createUrl('purchase/info', array('id' => $value->getAttribute('id')));
-			$return[$key]['authGrade'] = Yii::app()->getModule('credit')->getComponent('userCreditManager')->getUserCreditLevel($value->getAttribute('user_id'));
+			$return[$key]['authGrade'] = $credit->UserLevelCaculator($value->user->credit_grade);
+			$return[$key]['bidding'] = 0;//正在招标
+			if ( $value->verify_progress == 31  ){
+				$return[$key]['bidding'] = 1;//满标
+			}
+			$return[$key]['processClass'] = '';
+			foreach ( $bidProgressCssClassMap as $x => $bidProgressCssClass ){
+				if ( ($return[$key]['progress']) <= $x ){
+					$return[$key]['processClass'] = $bidProgressCssClass;
+				}
+			}
 		}
 		
 		$this->response(200,'ok',array(
 				'state' => 1,
 				'content' => $return,
-				'pageHtml' => $this->renderPartial('//common/pager',array('pager'=>$pager),true)
+				'pageHtml' => $this->renderPartial('//common/pager',array('pager'=>$pager),true),
+				'pageSize' => $this->_bidsPerPage
 		));
 	}
 

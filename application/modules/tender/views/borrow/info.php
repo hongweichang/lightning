@@ -156,8 +156,7 @@ $('.input-daterange').datepicker({
 							<?php } ?>
                         </li>
                     </ul>
-                    <!-- data-info为用户对应扣除服务费比例  如2% 则为2 -->
-                    <p><input type="submit" value="下一步" id="message-next" data-info="2"  /> </p>
+                    <p><input type="submit" value="下一步" id="message-next" data-info="<?php echo $userRate['on_over6'].';'.$userRate['on_below6']?>"  /> </p>
                 </form>
             </div>
         </div>

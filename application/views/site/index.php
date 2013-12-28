@@ -55,7 +55,7 @@ $bidProgressCssClassMap = $this->app['bidProgressCssClassMap'];
                             <a href="<?php echo $this->createUrl('content/article/view',array('id'=>$article->id))?>">
                    	    <?php echo $article->title?>        
                             </a>
-                            <!-- <div class="subText text-overflow"><?php echo $content?></div> -->
+                            <div class="subText text-overflow"><?php echo $content?></div>
                             <?php if ( $addTime >= $today ):?>
                             <div class="news-tips"></div>
                             <?php endif;?>
@@ -117,4 +117,4 @@ $bidProgressCssClassMap = $this->app['bidProgressCssClassMap'];
             <a href="#"><img src="<?php echo $this->imageUrl;?>ios.png" id="ios"/></a>
             <a href="#"><img src="<?php echo $this->imageUrl;?>wx.png" id="wx"/></a>
         </div>
-    <a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=574891711&site=qq&menu=yes" class="online_service" title="点击给我发送消息"></a>
+</div>

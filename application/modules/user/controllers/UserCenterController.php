@@ -40,8 +40,6 @@ class UserCenterController extends Controller{
 		$role = $userData['role'];
 		$creditData= $this->getUserCredit($role);
 
-
-
 		$finishedId = array();
 		$finishedData = $this->getFnishedCreditData($uid);
 		foreach($finishedData as $i => $value){
@@ -123,6 +121,7 @@ class UserCenterController extends Controller{
 		$userCreditLevel = $this->app->getModule('credit')->getComponent(
 								'userCreditManager')->UserLevelCaculator($userData->credit_grade);
 		$IconUrl = $this->user->getState('avatar');
+		$loanable = $this->app->getModule('credit')->userCreditManager->UserBidCheck();
 		$this->render('userInfo',array(
 						'userData'=>$userData,
 						'necessaryCreditData'=>$necessaryList,
@@ -133,6 +132,7 @@ class UserCenterController extends Controller{
 						'IconUrl'=>$IconUrl,
 						'creditLevel'=>$userCreditLevel,
 						'BidSum'=>$this->userBidMoney,
+						'loanable'=>$loanable,
 						'MetaSum'=>$this->userMetaBidMoney));
 		
 	}
@@ -215,7 +215,7 @@ class UserCenterController extends Controller{
 			$verificationData = CreditRole::model()->with('verification')->findAll($criteria);
 
 			if(empty($verificationData)){
-				Yii::app()->user->setFlash('error','该角色无次信用项');
+				Yii::app()->user->setFlash('upload_error','该角色无次信用项');
 				$this->redirect(Yii::app()->createUrl('user/userCenter/userInfo'));
 				exit();
 			}
@@ -226,7 +226,7 @@ class UserCenterController extends Controller{
 				$model = new FrontCredit;
 				$file=CUploadedFile::getInstance($model,'filename'); 
 				if(empty($file)){
-					Yii::app()->user->setFlash('error','请选择附件!');
+					Yii::app()->user->setFlash('upload_error','请选择附件!');
 					$this->redirect(Yii::app()->createUrl('user/userCenter/userInfo'));						
 					exit();
 				}
@@ -239,7 +239,7 @@ class UserCenterController extends Controller{
 				$TypeVerify = $this->TypeVerify($fileType);
 
 				if($TypeVerify == 400){
-					Yii::app()->user->setFlash('error','文件类型不合法');
+					Yii::app()->user->setFlash('upload_error','文件类型不合法');
 					$this->redirect(Yii::app()->createUrl('user/userCenter/userInfo'));
 					exit();
 
@@ -252,7 +252,7 @@ class UserCenterController extends Controller{
 					}
 
 					$randName = Tool::getRandName();//获取一个随机名
-					$newName = "Credit".$randName.".".$fileName;//对文件进行重命名
+					$newName = "Credit".$randName.".".$fileType;//对文件进行重命名
 
 					$saveUrl = $uploadDir.$newName;
 					$isUp = $file->saveAs($saveUrl);//保存上传文件
@@ -272,7 +272,7 @@ class UserCenterController extends Controller{
 						}
 
 						if($model->save()){
-							Yii::app()->user->setFlash('success','上传成功');
+							Yii::app()->user->setFlash('upload_success','上传成功');
 							$this->redirect(Yii::app()->createUrl('user/userCenter/userInfo'));
 
 						}

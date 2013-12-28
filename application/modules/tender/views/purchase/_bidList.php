@@ -41,5 +41,9 @@ foreach ( $bidProgressCssClassMap as $key => $bidProgressCssClass ){
 			</div>
 		</div>
 	</div>
+	<?php if ( $data->getAttribute('verify_progress') == 21 ):?>
 	<a href="<?php echo $this->createUrl('purchase/info', array('id' => $data->getAttribute('id')));?>" class="invest">投标</a>
+	<?php elseif ( $data->getAttribute('verify_progress') == 31 ):?>
+	<a href="javascript:void(0);" class="invest off">还款中</a>
+	<?php endif;?>
 </li>

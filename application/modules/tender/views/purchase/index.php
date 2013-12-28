@@ -6,7 +6,10 @@ $this->cs->registerScriptFile($this->scriptUrl.'lend.js',CClientScript::POS_END)
     		<div class="breadcrumb">
     			<ul>
     				<li class="breadcrumb-item">
-    					<a href="<?php echo $this->createUrl('purchase/index'); ?>">我要投资</a>
+    					<a href="<?php echo $this->createUrl('/site'); ?>">首页</a> > 
+    				</li>
+    				<li class="breadcrumb-item">
+    				我要投资
     				</li>
     			</ul>
     		</div>
@@ -19,49 +22,34 @@ $this->cs->registerScriptFile($this->scriptUrl.'lend.js',CClientScript::POS_END)
     					<li>
     						<ul>
     							<li class="filter-item">年&nbsp;利&nbsp;率&nbsp;</li>
-    							<li class="filter-item filter-choice active">
-    								<input type="checkbox" name="monthRate" value="all" checked="checked" />
-    								<span>不限</span>
+    							<?php foreach ($monthRate as $key => $val):?>
+    							<li class="filter-item filter-choice<?php echo $key==='不限' ? ' active' : ''?>">
+    								<input type="checkbox" name="monthRate" value="<?php echo $key; ?>" />
+    								<span><?php echo $key; ?></span>
     							</li>
-    							<!-- 月利率条件循环开始 -->
-    							<?php foreach ($monthRate as $key => $val) {?>
-    							<li class="filter-item filter-choice">
-    								<input type="checkbox" name="monthRate" value="<?php echo $val; ?>" />
-    								<span><?php echo $val; ?></span>
-    							</li>
-    							<?php }?><!-- 月利率条件循环结束 -->
+    							<?php endforeach?>
     						</ul>
     					</li>
     					<li>
     						<ul>
     							<li class="filter-item">借款期限</li>
-    							<li class="filter-item filter-choice active">
-    								<input type="checkbox" name="deadline" value="all" checked="checked" />
-    								<span>不限</span>
+    							<?php foreach ($deadline as $key => $val): ?>
+    							<li class="filter-item filter-choice<?php echo $key==='不限' ? ' active' : ''?>">
+    								<input type="checkbox" name="deadline" value="<?php echo $key; ?>" />
+    								<span><?php echo $key==='不限' ? $key : $key.'个月';; ?></span>
     							</li>
-    							<!-- 借款期限条件列表开始 -->
-    							<?php foreach ($deadline as $key => $val) {?>
-    							<li class="filter-item filter-choice">
-    								<input type="checkbox" name="deadline" value="<?php echo $val; ?>" />
-    								<span><?php echo $val; ?>个月</span>
-    							</li>
-    							<?php }?><!-- 借款期限条件列表结束 -->
+    							<?php endforeach?>
     						</ul>
     					</li>
     					<li>
     						<ul>
     							<li class="filter-item">认证等级</li>
-    							<li class="filter-item filter-choice active">
-    								<input type="checkbox" name="authenGrade" value="all" checked="checked" />
-    								<span>不限</span>
+    							<?php foreach ($authenGrade as $key => $val):?>
+    							<li class="filter-item filter-choice<?php echo $key==='不限' ? ' active' : ''?>">
+    								<input type="checkbox" name="authenGrade" value="<?php echo $key; ?>" />
+    								<span><?php echo $key; ?></span>
     							</li>
-    							<!-- 认证等级条件列表开始 -->
-    							<?php foreach ($authenGrade as $key => $val) {?>
-    							<li class="filter-item filter-choice">
-    								<input type="checkbox" name="authenGrade" value="<?php echo $val; ?>" />
-    								<span><?php echo $val; ?></span>
-    							</li>
-    							<?php }?><!-- 认证等级条件列表结束 -->
+    							<?php endforeach;?>
     						</ul>
     					</li>
     				</ul>

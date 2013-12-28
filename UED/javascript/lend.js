@@ -52,18 +52,21 @@ var Filter = function(){
 		},
 		send: function(str){
 			$.ajax({
-				url: "test.php",
-				type: 'GET',
-				data: str,
-				dataType: 'json',
+				url: baseUrl + 'tender/purchase/ajaxBids?'+str,
+				type: "GET",
+				dataType: "json",
 				success: function(listData){
+					var page_html = listData.data.pageHtml,
+						list = listData.data.content,
+						page_size = listData.data.pageSize;
 					List.removeList();
 					$("#page").remove();
-						$("#viewMore").append("<ul id='page'><li><a href='#'>test</a></li><li><a href='#'>tt</a></li></ul>");
-					for(var i = 0,length = listData.data.length ;i < length; i++ ){
-						var list = listData.data[i];
-						List.insertList(List.createList(list));
+					$("#viewMore").append(page_html);
+					for(var i = 0 ;i < page_size; i++ ){
+						var li = list[i];
+						List.insertList(List.createList(li));
 					}
+
 				}
 			});
 		}
@@ -96,7 +99,7 @@ List = function(){
 			$(".loan-list",loan).remove();
 		},
 		createList: function(list){
-			var node = $('<li class="loan-list"><div class="loan-avatar"><img src="'+(list.avatarSrc || "../images/intro-pic_1.png")+'" /><span>信</span></div><div class="loan-title"><a href="'+list.titleHref+'">'+list.title+'</a></div><div class="loan-rate loan-num">'+list.month_rate+'%</div><div class="loan-rank"><div class="rank'+list.authGrade+'">'+list.authGrade+'</div></div><div class="loan-amount loan-num">￥'+list.sum+'</div><div class="loan-time loan-num">'+list.deadline+'个月</div><div class="loan-progress"><div class="bar-out"><div class="bar-in"><span class="bar-complete" style="width:'+list.progress+'%"></span><span class="bar-num">'+list.progress+'%</span></div></div></div></li>');
+			var node = $('<li class="loan-list"><div class="loan-avatar"><img src="'+(list.avatar)+'" /><span>信</span></div><div class="loan-title"><a href="'+list.titleHref+'">'+list.title+'</a></div><div class="loan-rate loan-num"><span class="val">'+list.month_rate+'</span>%</div><div class="loan-rank"><div class="rank'+list.authGrade+'">'+list.authGrade+'</div></div><div class="loan-amount loan-num"><span class="val">￥'+list.sum+'</span>元</div><div class="loan-time loan-num"><span class="val">'+list.deadline+'</span>个月</div><div class="loan-progress"><div class="bar-out"><div class="bar-in"><span class="bar-complete '+list.processClass+'" style="width:'+list.progress+'%"></span><span class="bar-num">'+list.progress+'%</span></div></div></div><a href="'+list.titleHref+'" class="invest">投标</a></li>');
 			return node;
 		},
 		insertList: function(list){
@@ -108,22 +111,24 @@ Page = function(){
 	var page = 1;
 	return{
 		initial: function(o){
-			$(o).on("click",function(e){
+			$(o).live("click",function(e){
 				var ev = e.target,
-					str = "href="+$(ev).attr("href");
+					str = $(ev).attr("href");
 				e.preventDefault();
 				$.ajax({
-					url: "test.php",
+					url: str,
 					type: "GET",
-					data: str,
 					dataType: "json",
 					success: function(listData){
+						var page_html = listData.data.pageHtml,
+							list = listData.data.content,
+							page_size = listData.data.pageSize;
 						List.removeList();
 						$("#page").remove();
-						$("#viewMore").append("<ul id='page'><li><a href='#'>test</a></li><li><a href='#'>tt</a></li></ul>");
-						for(var i = 0,length = listData.data.content.length ;i < length; i++ ){
-							var list = listData.data[i];
-							List.insertList(List.createList(list));
+						$("#viewMore").append(page_html);
+						for(var i = 0 ;i < page_size; i++ ){
+							var li = list[i];
+							List.insertList(List.createList(li));
 						}
 
 					}
@@ -141,16 +146,33 @@ Lend = function(){
 			show.show();
 		},
 		placeholder: function(o){
-			var defaultV = o.val();
-			o.bind("focus",function(){
-				o.val("");
-				o.css({color:"#000"});
-				//ajax
-				o.siblings('.paycenter-hint').show();
-			});
-			o.bind("blur",function(){
-				if(!$(this).val())
-					$(this).val(defaultV).css({color:"#ccc"});
+			o.bind("click",function(){
+				var time;
+				var text;
+				if(!$(this).hasClass("disabled")){
+					$(this).addClass("disabled");
+					$.ajax({
+						url: baseUrl + 'tender/platform/sendVerify/mobile/' + o.attr('data-mobile'),
+						type: "GET",
+						dataType: "json",
+						success: function(){
+							o.siblings('.paycenter-hint').show();
+						}
+					});
+					time = 30;
+					text = $(this).text();
+					changeVal();
+				}
+				function changeVal(){
+					if(time>0){
+						o.text(time+"秒重新获取");
+						setTimeout(changeVal,1000);
+						--time;
+					}else{
+						o.removeClass("disabled").text(text);
+					}
+				}
+				return false;
 			});
 		}
 	}
@@ -171,21 +193,6 @@ $(".filter-choice").bind("click",function(){
 	var str = Filter.checked($(this));
 	Filter.send(str);
 });
-/*$(".loan-list").live("hover",function(e){
->>>>>>> 8a0eb23ddc03e17913ff0affcefdee6b090f7162
-	if(e.type == "mouseenter"){
-		var href = $(".loan-title a",$(this)).attr("href");
-		$(this).append("<a href='"+href+"' class='lend-mask'></a>");
-	}else{
-		$(this).children(".lend-mask").remove();		
-	}
-});*/
-/*$("#viewMore").bind("click",function(){
-	isFilter = false;
-	var str = Filter.checked($(this));
-	str += '&viewmore=1';
-	List.showMore(str);
-});*/
 //lend-pay
 $("#view-detail").toggle(
 	function(){
@@ -197,7 +204,7 @@ $("#view-detail").toggle(
 		$("#view-detail").css({background:"url('"+baseUrl+"UED/images/viewDetail.png')"})
 	}
 );
-Lend.placeholder($("#pay-verify"));
+Lend.placeholder($("#pay-verify-button"));
 Page.initial("#page");
 //lend-details
 $(".fakeCheck,label[for='keepSignIn'],label[for='protocal']").toggle(function(){
