@@ -40,8 +40,6 @@ class UserCenterController extends Controller{
 		$role = $userData['role'];
 		$creditData= $this->getUserCredit($role);
 
-
-
 		$finishedId = array();
 		$finishedData = $this->getFnishedCreditData($uid);
 		foreach($finishedData as $i => $value){

@@ -86,14 +86,14 @@ class mainConf extends ConfigBase{
 						),
 						'cache' => array(
 								'class' => 'CMemCache',
-								'useMemcached' => false,
+								'useMemcached' => true,
 								'keyPrefix' => 'lightning',
 								'servers' => array(
 										array(
-												'host' => 'localhost',
+												//'host' => 'localhost',
 												//本地memcached缓存
 												//阿里云外网IP
-												//'host' => '115.29.186.221',
+												'host' => '115.29.186.221',
 												//阿里云内网IP，本地测试可以使用本地memcached服务器
 												//'host' => '10.161.138.206',
 												'port' => 11211
@@ -140,6 +140,12 @@ class mainConf extends ConfigBase{
 								'sendTimeout' => 3000,
 								'reciveTimeout' => 3000,
 						),
+						'zmqPurchaseClient' => array(
+								'class' => 'cms.components.asyncEvent.ZMQClient',
+								'zmqServer' => 'tcp://localhost:5558',
+								'sendTimeout' => 3000,
+								'reciveTimeout' => 3000,
+						),
 						'asyncEventRunner' => array(
 								'class' => 'cms.components.asyncEvent.AsyncEventRunner',
 								'zmqClientId' => 'zmqClient',
@@ -155,9 +161,18 @@ class mainConf extends ConfigBase{
 										'onRegisterSuccess' => array(
 												'command' => array('sendMail','registerSuccess')
 										),
+										'onBidVerifySuccess' => array(
+												'command' => array('sendSms','bidVerifySuccess')
+										),
+										'onBidVerifyFailed' => array(
+												'command' => array('sendSms','bidVerifyFailed')
+										),
 										'onPayPurchasedBid' => array(
 												'command' => array('bid','pay')
 										),
+										'onBeforePayBidSuccess' => array(
+												'command' => array('sendSms','verifyCode')
+										)
 								),
 						),
 						'image'=>array(

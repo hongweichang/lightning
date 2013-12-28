@@ -160,8 +160,9 @@ $('.input-daterange').datepicker({
                             ?>
                         </li>
                     </ul>
+
                     <!-- data-info为用户对应扣除服务费比例  如2% 则为2 -->
-                    <p><input type="submit" value="下一步" id="message-next" data-info="<?php echo $rateBelow.';'.$rateOver?>"  /> </p>
+                    <p><input type="submit" value="下一步" id="message-next" data-info="<?php echo $rateBelow.';'.$rateOver?>"/> </p>
                 </form>
             </div>
         </div>
