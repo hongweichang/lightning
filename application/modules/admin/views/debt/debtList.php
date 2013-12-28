@@ -12,7 +12,7 @@
     	<td><?php echo $value['title'];?></td>
         <td><?php echo $value['start'];?></td>
         <td><?php echo $value['end'];?></td>
-        <td><?php echo $value['deadline'];?></td>
+        <td><?php echo $value['deadline'].'个月';?></td>
         <td>
         	<a href="<?php echo Yii::app()->createUrl('adminnogateway/debt/debtUpdate',array(
             'id'=>$value['id']))?>"  
@@ -20,6 +20,9 @@
         	<a href="<?php echo Yii::app()->createUrl('adminnogateway/debt/debtdelete',array(
             'id'=>$value['id']))?>" 
             class="check" data-method="check-pass">删除</a>
+        	<a href="<?php echo Yii::app()->createUrl('adminnogateway/debt/debtUser',array(
+            'id'=>$value['id']))?>" 
+            class="check" data-method="check-pass" target="_blank">想要加入的用户</a>
         </td>
     </tr>
     <?php }?>

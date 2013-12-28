@@ -67,5 +67,15 @@ class DebtController extends Admin{
 			}
 		}
 	}
+
+	public function actionDebtUser($id){
+		if(is_numeric($id)){
+			$userData = DebtUser::model()->with('user')->findAll('did =:id',array('id'=>$id));
+			if(!empty($userData)){
+				$this->render('DebtUser',array('userData'=>$userData));
+			}
+		}
+		
+	}
 }
 ?>
