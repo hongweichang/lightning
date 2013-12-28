@@ -250,7 +250,7 @@ class UserCenterController extends Controller{
 					                    $this->app->partition($uid,'creditFile');
 
 					if(!is_dir($uploadDir)){ //若目标目录不存在，则生成该目录
-						mkdir($uploadDir,0077,true);
+						mkdir($uploadDir,0775,true);
 					}
 
 					$randName = Tool::getRandName();//获取一个随机名
