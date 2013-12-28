@@ -8,6 +8,7 @@
 class console extends ConfigBase{
 	public function merge(){
 		return array(
+				'hostName' => 'http://localhost',
 				'modules' => array(
 						'pay',
 						'user',
@@ -98,14 +99,23 @@ class console extends ConfigBase{
 						),
 				),
 				'commandMap' => array(
-						'notifyWorkerBroker' => array(
+						'notifyBroker' => array(
 								'class' => 'cms.components.asyncEvent.zmqCommands.Broker',
 								'frontendBindAddress' => 'tcp://*:5556',
 								'backendBindAddress' => 'tcp://*:5557'
 						),
-						'notifyWorkerWorker' => array(
+						'notifyWorker' => array(
 								'class' => 'cms.components.asyncEvent.zmqCommands.BrokerEventRouter',
 								'brokerAddress' => 'tcp://localhost:5557'
+						),
+						'purchaseBroker' => array(//排队买标中继
+								'class' => 'cms.components.asyncEvent.zmqCommands.Broker',
+								'frontendBindAddress' => 'tcp://*:5558',
+								'backendBindAddress' => 'tcp://*:5559'
+						),
+						'purchaseWorker' => array(//排队买标队列处理器
+								'class' => 'cms.components.asyncEvent.zmqCommands.BrokerEventRouter',
+								'brokerAddress' => 'tcp://localhost:5559'
 						),
 						'sendMail' => array(
 								'class' => 'application.commands.SendMailCommand'

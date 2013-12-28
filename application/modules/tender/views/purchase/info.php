@@ -1,3 +1,9 @@
+<?php 
+$compelete = false;
+if ( $bid->verify_progress == 31 ){
+	$compelete = true;
+}
+?>
 <?php $this->cs->registerCssFile($this->cssUrl.'lend.css');?>
 <?php $this->cs->registerScriptFile($this->scriptUrl.'jquery.validate.min.js',CClientScript::POS_END);?>
 <?php $this->cs->registerScriptFile($this->scriptUrl.'calculator.js',CClientScript::POS_END);?>
@@ -64,7 +70,7 @@
                   <div class="bar-in">
                     <span class="bar-complete" style="width:<?php echo $bid->getAttribute('progress') / 100;?>%"></span>
                   </div>
-                  <span><?php echo number_format($bid->getAttribute('progress_sum') / 10000,2);?>元</span>
+                  <span><?php echo number_format($bid->getAttribute('progress_sum') / 100,2);?>元</span>
               </div>
               <div class="loan-progress"><span class="tick">√</span><span>100%安全认证，确保交易有效</span></div>
             </div>
@@ -72,14 +78,14 @@
           <div class="details-lend">
             <div class="info-title">投资金额<span class="info-subtitle">投资有风险，请谨慎考虑</span></div>
             <form method="post" id="lend-form" action="<?php echo $this->createUrl('purchase/info',array('id' => $bid->getAttribute('id')));?>">
-              <input type="text" name="sum" id="lend-num" data-info="<?php 
-              	echo $bid->getAttribute('sum').";".$bid->getAttribute('deadline').";".$bid->getAttribute('month_rate').";".($bid->getAttribute('progress_sum')/100);
+              <input type="text" name="sum" id="lend-num"<?php echo $compelete===true ? ' disabled="disabled" ' : ' '?>data-info="<?php 
+              	echo $bid->getAttribute('sum').";".$bid->getAttribute('deadline').";".$bid->getAttribute('month_rate').";".($bid->getAttribute('progress_sum'));
               ?>" /><span>元</span>
               <p>到期总收益 ¥<span id="lend-income">0.00元</span></p>
               <?php if(CCaptcha::checkRequirements()){ ?>
               <p class="lend-verify">
                 <label for="verifycode">验证码</label>
-                <input type="text" name="code" id="verifycode"/>
+                <input type="text" name="code" id="verifycode"<?php echo $compelete===true ? ' disabled="disabled" ' : ' '?> />
                 <?php $this->widget('CCaptcha',array(
 					'id' => 'randImage',
 					'showRefreshButton' => false,
@@ -97,7 +103,11 @@
                 <div class="fakeCheck"><span></span></div>
                 <label for="protocal" id="protocal-label">我同意<a href="#">《投资人投资协议》</a></label>
               </div>
+              <?php if ( $compelete === false ):?>
               <input type="submit" value="加入" id="lend-confirm" />
+              <?php else:?>
+              <input type="submit" value="还款中" id="lend-confirm" disabled="disabled" class="off"/>
+              <?php endif;?>
             </form>
           </div>
           <ul class="details-tab">
