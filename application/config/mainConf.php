@@ -140,6 +140,12 @@ class mainConf extends ConfigBase{
 								'sendTimeout' => 3000,
 								'reciveTimeout' => 3000,
 						),
+						'zmqPurchaseClient' => array(
+								'class' => 'cms.components.asyncEvent.ZMQClient',
+								'zmqServer' => 'tcp://localhost:5558',
+								'sendTimeout' => 3000,
+								'reciveTimeout' => 3000,
+						),
 						'asyncEventRunner' => array(
 								'class' => 'cms.components.asyncEvent.AsyncEventRunner',
 								'zmqClientId' => 'zmqClient',

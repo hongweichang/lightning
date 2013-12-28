@@ -104,6 +104,7 @@ class PlatformController extends Controller{
 			
 			$notify->clearMobileVerifyCode($user->mobile);
 			$asyncEventRunner = Yii::app()->getComponent('asyncEventRunner');
+			$asyncEventRunner->zmqClientId = 'zmqPurchaseClient';
 			$asyncEventRunner->raiseAsyncEvent('onPayPurchasedBid',array(
 				'metano' => $metaId
 			));
