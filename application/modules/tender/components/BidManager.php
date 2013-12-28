@@ -200,12 +200,12 @@ class BidManager extends CApplicationComponent{
 		try{
 			//借款人收款
 			$bid->getRelated('user')->saveCounters(array(
-				'balance' => $bid->getAttribute('sum') - $fee * 100
+				'balance' => $bid->getAttribute('sum') - $fee
 			));
 			
 			foreach($metas as $meta){
 				//投资状态更换
-				switch ($meta->getAttribute('status')){
+				switch ( intval($meta->getAttribute('status')) ){
 					case 11: // 订单状态
 						$meta->attributes = array(
 							'pay_time' => $time,
@@ -436,6 +436,7 @@ class BidManager extends CApplicationComponent{
 		}else{
 			$meta = $this->getBidMetaInfo($meta_no);
 		}
+		
 		if(empty($meta) || $meta->getAttribute('status') != 11) return false;
 		
 		$bid = $meta->getRelated('bid');
@@ -444,6 +445,10 @@ class BidManager extends CApplicationComponent{
 		
 		$transaction = Yii::app()->db->beginTransaction();
 		try{
+			$balance = $meta->getRelated('user')->balance;
+			if ( $balance - $meta->getAttribute('sum') < 0 ){
+				throw new CException();
+			}
 			$meta->getRelated('user')->saveCounters(array(
 				'balance' => - $meta->getAttribute('sum')
 			));

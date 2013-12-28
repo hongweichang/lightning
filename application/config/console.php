@@ -8,6 +8,7 @@
 class console extends ConfigBase{
 	public function merge(){
 		return array(
+				'hostName' => 'http://localhost',
 				'modules' => array(
 						'pay',
 						'user',
