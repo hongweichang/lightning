@@ -11,7 +11,7 @@
  * @property string $start
  * @property string $end
  * @property string $condition
- * @property string $deadline
+ * @property integer $deadline
  * @property string $charge
  * @property string $protection
  * @property string $remark
@@ -35,10 +35,11 @@ class Debt extends CmsActiveRecord
 		// will receive user inputs.
 		return array(
 			array('title, description, incomeWay, start, end, condition, deadline, charge, protection, remark', 'required'),
+			array('deadline', 'numerical', 'integerOnly'=>true),
 			array('title, protection', 'length', 'max'=>30),
 			array('description', 'length', 'max'=>200),
 			array('incomeWay, condition, charge, remark', 'length', 'max'=>50),
-			array('start, end, deadline', 'length', 'max'=>20),
+			array('start, end', 'length', 'max'=>20),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('id, title, description, incomeWay, start, end, condition, deadline, charge, protection, remark', 'safe', 'on'=>'search'),
@@ -101,7 +102,7 @@ class Debt extends CmsActiveRecord
 		$criteria->compare('start',$this->start,true);
 		$criteria->compare('end',$this->end,true);
 		$criteria->compare('condition',$this->condition,true);
-		$criteria->compare('deadline',$this->deadline,true);
+		$criteria->compare('deadline',$this->deadline);
 		$criteria->compare('charge',$this->charge,true);
 		$criteria->compare('protection',$this->protection,true);
 		$criteria->compare('remark',$this->remark,true);

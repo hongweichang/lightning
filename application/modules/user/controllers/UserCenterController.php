@@ -237,8 +237,9 @@ class UserCenterController extends Controller{
 				//$filenameUTF8 = iconv("gb2312","UTF-8",$fileName);
 				$fileSize = $file->getSize();
 				$fileType = pathinfo($fileName, PATHINFO_EXTENSION);
+				$fileTypeName = strtolower($fileType);
 				//对上传文件类型进行审核
-				$TypeVerify = $this->TypeVerify($fileType);
+				$TypeVerify = $this->TypeVerify($fileTypeName);
 
 				if($TypeVerify == 400){
 					Yii::app()->user->setFlash('upload_error','文件类型不合法');
@@ -462,7 +463,7 @@ class UserCenterController extends Controller{
 					                    $this->app->partition($uid,'avatar');
 
 			if(!is_dir($uploadDir)){ //若目标目录不存在，则生成该目录
-				mkdir($uploadDir,0077,true);
+				mkdir($uploadDir,0075,true);
 			}
 
 			$randName = Tool::getRandName();//获取一个随机名
