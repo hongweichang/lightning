@@ -11,7 +11,11 @@ class PlatformController extends Controller{
 	public function actionOrder(){
 		$metaId = Utils::appendDecrypt($this->getQuery('metano'));
 		$meta = BidMeta::model()->with('user','bid')->findByPk($metaId);
-
+		
+		if ( $meta !== null && $meta->status != 11 ){
+			$meta = null;
+		}
+		
 		if( !empty($meta) && $meta->getAttribute('user_id') == $this->user->getId() ){
 			$user = $meta->getRelated('user');
 			$bid = $meta->getRelated('bid');
@@ -69,7 +73,11 @@ class PlatformController extends Controller{
 	public function actionCheck(){
 		$metaId = Utils::appendDecrypt($this->getQuery('metano'));
 		$meta = BidMeta::model()->with('user','bid')->findByPk($metaId);
-
+		
+		if ( $meta !== null && $meta->status != 11 ){
+			$meta = null;
+		}
+		
 		if( $meta !== null && $meta->getAttribute('user_id') == $this->user->getId()){
 			$this->setPageTitle($meta->getRelated('bid')->getAttribute('title').' - '.$this->name);
 			

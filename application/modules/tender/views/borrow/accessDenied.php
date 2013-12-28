@@ -32,7 +32,7 @@
                 </div>
             </div>
             <div class="con-hint">
-            	您目前的信用等级不能借款请到<a href="<?php echo $this->app->createUrl('user/userCenter'); ?>">个人中心</a>完善您的信用资料
+            	您目前的信用等级不能借款。请到<a href="<?php echo $this->app->createUrl('user/userCenter'); ?>">个人中心</a>完善您的信用资料
             </div>
             
             <div class="next">
