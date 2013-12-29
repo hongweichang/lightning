@@ -8,7 +8,6 @@
 ?>
 <div class="wd1002 clearfix">
 				<div id="verify">
-					<h2>重置密码</h2>
 					<div class="verify-p">
 						<p>如果遇到问题，请联系客服<?php echo $this->app['phone']?></p>
 					</div>
