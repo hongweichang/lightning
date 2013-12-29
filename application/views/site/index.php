@@ -26,14 +26,14 @@ $bidProgressCssClassMap = $this->app['bidProgressCssClassMap'];
                 <span class="intro-text">拥有金融精英团队，对客户资格严格审核、有效监控、跟踪服务，以确保资金安全；拥有网络专业团队，对您的信息加密保护，通过第三方支付平台交易，确保您账户安全。</span>
             </a>
             <a href="#">
-                <span class="intro-pic intro-pic-2"></span>
-                <span class="intro-title">快速成交</span>
-                <span class="intro-text">申请、交易过程步骤少、操作简单；专业团队对信息进行及时反应、快速处理，使您享受犹如闪电般的投融资服务。</span>
-            </a>
-            <a href="#">
                 <span class="intro-pic intro-pic-3"></span>
                 <span class="intro-title">诚信服务</span>
                 <span class="intro-text">平台交易内容及过程真实可信；本着长期经营，诚信为本的宗旨，为您提供真实、透明的真诚服务。</span>
+            </a>
+            <a href="#">
+                <span class="intro-pic intro-pic-2"></span>
+                <span class="intro-title">快速成交</span>
+                <span class="intro-text">申请、交易过程步骤少、操作简单；专业团队对信息进行及时反应、快速处理，使您享受犹如闪电般的投融资服务。</span>
             </a>
         </div>
             <div class="news clearfix">
@@ -55,9 +55,8 @@ $bidProgressCssClassMap = $this->app['bidProgressCssClassMap'];
                             <a href="<?php echo $this->createUrl('content/article/view',array('id'=>$article->id))?>">
                    	    <?php echo $article->title?>        
                             </a>
-                            <div class="subText text-overflow"><?php echo $content?></div>
                             <?php if ( $addTime >= $today ):?>
-                            <div class="news-tips"></div>
+                            <div class="news-tips"></div>s
                             <?php endif;?>
                         </div>
                     </li>
@@ -118,3 +117,4 @@ $bidProgressCssClassMap = $this->app['bidProgressCssClassMap'];
             <a href="#"><img src="<?php echo $this->imageUrl;?>wx.png" id="wx"/></a>
         </div>
 </div>
+<a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=574891711&site=qq&menu=yes" class="online_service" title="点击给我发送消息"></a>

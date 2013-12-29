@@ -60,6 +60,7 @@
                     <li><a href="#">借款说明</a></li>
                     <li><a href="#">投资说明</a></li>
                     <li><a href="#">帮助中心</a></li>
+                    <li><a href="<?php echo $this->createUrl('/site/guide')?>">新手引导</a></li>
                     <li><a href="#">联系我们</a></li>
                     <li><a href="#">万兆投资</a></li>
                     <li><a href="#">常见问题</a></li>
@@ -72,6 +73,9 @@
                     <li><a href=""  class="f-img" id="f-tx"></a></li>
                     <li><a href=""  class="f-img" id="f-wx"></a></li>
                 </ul>
+            </div>
+            <div class="footer-sec">
+            	<p>免责声明：本网站只提供资金需求信息，以促成双方达成交易为目的并从中收取一定管理费，不提供资金担保以及本金保障服务，特此声明</p>
             </div>
             <div class="footer-sec clearfix last">
                 <div id="f-copyright">
