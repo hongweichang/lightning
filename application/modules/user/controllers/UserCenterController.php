@@ -481,9 +481,7 @@ class UserCenterController extends Controller{
 
 				FrontUserIcon::model()->updateAll(array('in_using'=>0),'user_id=:uid',array(':uid'=>$uid));
 				if($Icon->save()){
-					Yii::app()->user->setFlash('success','上传成功');
 					$this->user->setState('avatar',$this->app->getPartedUrl('avatar',$uid).$newName);
-					$this->redirect(Yii::app()->createUrl('user/userCenter/userInfo'));
 				}
 			}
 		}
