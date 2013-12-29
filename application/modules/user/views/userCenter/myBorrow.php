@@ -92,7 +92,7 @@ $this->cs->registerCssFile($this->cssUrl.'detail.css');
                         <?php foreach($finished as $value){?>
                         <li>
                             <span><?php echo $value[0]['title'];?></span>
-                            <span><?php echo $value[0]['month_rate']/100.'%';?> </span>
+                            <span><?php echo ($value[0]['month_rate']/100);?>%</span>
                             <span><?php echo $value[0]['refund']/100;?></span>
                             <span><?php echo $value[0]['deadline'].'个月';?></span>
                             <span class="deadline"><?php echo date('Y:m:d H:i:s',$value[0]['end']);?></span>
@@ -116,7 +116,7 @@ $this->cs->registerCssFile($this->cssUrl.'detail.css');
                         ?>
                          <li>
                             <span><?php echo $value[0]['title'];?></span>
-                            <span><?php echo $value[0]['month_rate']/100;?></span>
+                            <span><?php echo $value[0]['month_rate']/100;?>%</span>
                             <span><?php echo $value[0]['sum']/100;?></span>
                             <span><?php echo $value[0]['deadline'].'个月'?></span>
                             <span class="deadline">
