@@ -157,7 +157,7 @@ $('.input-daterange').datepicker({
 							<p class="message-hint" style="color:red;"><?php echo $form->getError('desc'); ?></p>
 							<?php 
                                 } 
-                                $rateBelow = $userRate['on_blow6']*100;
+                                $rateBelow = $userRate['on_below6']*100;
                                 $rateOver = $userRate['on_over6']*100;
                             ?>
                         </li>
