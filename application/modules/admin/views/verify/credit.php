@@ -19,7 +19,7 @@ if(!empty($userCreditData)){
     <tr>
         <td><?php echo $key;?></td>
         <td>
-            <a href="<?php echo Yii::app()->createUrl('adminnogateway/verify/creditDetail',array('id'=>$value[0]['user_id']))?>" class = "verify">审核</a>
+            <a href="<?php echo Yii::app()->createUrl('adminnogateway/verify/creditDetail',array('id'=>$value[0]['user_id']))?>" class = "verify" target="_blank">审核</a>
         </td>
     </tr>
  <?php }
