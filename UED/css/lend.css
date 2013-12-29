@@ -1165,3 +1165,9 @@ body {
 .details-info.creditor{
   height: auto;
 }
+.link{
+  color: #2d9194;
+}
+.link:visited{
+  color: #2d9194;
+}
