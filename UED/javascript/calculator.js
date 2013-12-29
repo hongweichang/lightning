@@ -36,7 +36,7 @@ var calculator = function(){
 		},
 		service: function(capital,month,s){	//服务费
 			rank = s[0];
-			if(month<6){
+			if(month<=6){
 				service = capital*parseInt(s[1])/100;
 			}else{
 				service = capital*parseInt(s[2])/100;
