@@ -37,7 +37,7 @@ class SendSmsCommand extends NotifyCommandBase{
 		$codeLifeTime = isset($this->parameters['codeLifeTime']) ? $this->parameters['codeLifeTime'] : 1800;
 		$codeLength = isset($this->parameters['codeLength']) ? $this->parameters['codeLength'] : 4;
 		
-		$code = $notify->setMobileVerifyCode($this->parameters['mobile'].$this->eventName,$codeLifeTime,$codeLength);
+		$code = $notify->setMobileVerifyCode($this->parameters['mobile'],$codeLifeTime,$codeLength);
 		$this->sendSms(array(
 				'{code}' => $code,
 				'{codeLifeTime}' => $codeLifeTime / 60

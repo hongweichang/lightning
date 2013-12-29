@@ -15,7 +15,11 @@
 					<form id="verify-form" method="post">
 						<div class="verify-item">
 							<label>新密码</label>
-							<input type="text" name="password" id="verify-password" class="verify-text-input" />
+							<input type="password" name="password" id="verify-password" class="verify-text-input" />
+						</div>
+						<div class="verify-item">
+							<label>重复密码</label>
+							<input type="password" name="repassword" id="verify-password" class="verify-text-input" />
 						</div>
 						<div class="verify-item">
 							<input type="submit" value="完成修改" class="verify-submit" />

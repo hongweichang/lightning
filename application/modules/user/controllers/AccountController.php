@@ -114,7 +114,7 @@ class AccountController extends Controller{
 			$form->attributes = $post;
 			if ( $form->validate() ){
 				$cacheKey = 'RESET_PASSWORD_'.$form->mobile;
-				$cache->set($cacheKey,array('id'=>$form->id,'mobile'=>$form->mobile),1800);
+				$cache->set($cacheKey,array('id'=>$form->user->id,'mobile'=>$form->mobile),1800);
 				$this->redirect($this->createUrl('account/resetPassword',array('mobile'=>$form->mobile)) );
 			}
 		}
@@ -142,11 +142,28 @@ class AccountController extends Controller{
 		$cache = $this->app->cache;
 		$cacheKey = 'RESET_PASSWORD_'.$mobile;
 		
-		if ( $cache->get($cacheKey) === $mobile ){
+		$content = $cache->get($cacheKey);
+		if ( isset($content['mobile']) && $content['mobile'] === $mobile ){
 			$password = $this->getPost('password',null);
-			if ( $password !== null ){
-				
+			if ( $password !== null && $password === $this->getPost('repassword') ){
+				$userManager = $this->getModule()->getComponent('userManager');
+				$user = $userManager->getUserInfo($content['id']);
+				if ( $user === null ){
+					throw new CHttpException(404);
+				}
+				$user->setPassword($password);
+				if ( $user->save() ){
+					$cache->delete($cacheKey);
+					$this->layout = false;
+					$this->cs->registerScript('success','alert("修改成功");window.location.href="'.$this->createUrl('/site').'"');
+					$this->render('resetSuccess');
+					$this->app->end();
+				}
 			}
+			
+			$this->cs->registerCssFile($this->cssUrl.'login.css');
+			$this->cs->registerScriptFile($this->scriptUrl.'login.js',CClientScript::POS_END);
+			$this->render('reset');
 		}else {
 			throw new CHttpException(403);
 		}
