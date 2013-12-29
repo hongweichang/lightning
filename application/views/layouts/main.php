@@ -9,7 +9,7 @@
      var baseUrl = '<?php echo $this->app->getSiteBaseUrl();?>';
     </script>
     <!--[if lt IE 8]>
-    <link rel="stylesheet" type="text/css" href="../css/ie.css">
+    <link rel="stylesheet" type="text/css" href="<?php echo $this->cssUrl?>ie.css">
     <![endif]-->
 </head>
 <body>
@@ -34,7 +34,7 @@
                 </a>
             </p>
         </div>
-    <![endif]-->
+<![endif]-->
     <div id="header">
     
       <div id="he-login">

@@ -84,7 +84,7 @@ if(Yii::app()->user->hasFlash('error')){
                         <div class="clearfix sec-fold">
                             <div class="sec-img ico-pwd"></div>
                             <p class="sec-val">登录密码</p>
-                            <p class="sec-status">已设置</p>
+                            <p class="sec-status">**********</p>
                             <div class="sec-update">
                                 <a href="javascript:;">修改</a>
                             </div>
@@ -132,12 +132,14 @@ if(Yii::app()->user->hasFlash('error')){
                             <p class="sec-val">资金密码</p>
                             <p class="sec-status">
                                 <?php
-                                    if(!empty($userData->pay_password)){
-                                        echo "已设置";
-                                    }else{
-                                        echo "未设置"
-                                ?>
-
+                                    if(!empty($userData->pay_password)):
+                     ?>
+                     **********
+                     		</p>
+                     		<div class="sec-pay-update">
+                     		 <a href="<?php echo $this->createUrl('/user/account/resetPasswordVerify',array('u'=>strtoupper(md5(time() ))));?>">修改</a>
+                     		 </div>
+                               <?php else: echo "未设置"; ?>
                             </p>
                             <div class="sec-update">
                                 <a href="javascript:;">设置</a>
@@ -158,7 +160,7 @@ if(Yii::app()->user->hasFlash('error')){
                                 </div>
                             </form>
                         </div>
-                        <?php }?>
+                        <?php endif?>
                     </li>
                 </ul>
             </div>

@@ -137,13 +137,14 @@ $(document).ready(function(){
 		$(this).siblings("p").css({display: "none"});
 	}
 	
+	reset;
 	$("#getVerifyCodeButton").bind("click",function(){
 		var time;
 		var text;
 		if(!$(this).hasClass("disabled")){
 			$(this).addClass("disabled");
 			$.ajax({
-				url: $(this).attr('data-url') + '?mobile=' + $('#verify-mobile').val(),
+				url: $(this).attr('data-url') + '?mobile=' + $('#verify-mobile').val() + '&reset=' + reset,
 				type: 'GET',
 			});
 			time = 30;

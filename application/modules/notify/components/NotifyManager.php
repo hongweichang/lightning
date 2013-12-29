@@ -105,15 +105,15 @@ class NotifyManager extends CApplicationComponent{
 	 * @return string
 	 */
 	public function generateRandomCode($length=4){
-		$letters = 'bcdfghjklmnpqrstvwxyz';
-		$vowels = 'aeiou';
+		$letters = '0134689';
+		$vowels = '257';
 		$code = '';
 		for($i = 0; $i < $length; ++$i)
 		{
 			if($i % 2 && mt_rand(0,10) > 2 || !($i % 2) && mt_rand(0,10) > 9)
-				$code .= $vowels[mt_rand(0,4)];
+				$code .= $vowels[mt_rand(0,2)];
 			else
-				$code .= $letters[mt_rand(0,20)];
+				$code .= $letters[mt_rand(0,6)];
 		}
 		
 		return $code;

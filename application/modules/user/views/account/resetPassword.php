@@ -8,7 +8,7 @@
 ?>
 <div class="wd1002 clearfix">
 				<div id="verify">
-					<h2>重置密码</h2>
+					<h2><?php echo $resetName;?></h2>
 					<div class="verify-p">
 						<p>手机号是您在闪电贷理财借款的重要安全凭证。</p>
 						<p>为了确保您的帐号安全，我们将同时验证您的昵称和手机是否匹配</p>
