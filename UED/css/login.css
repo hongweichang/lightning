@@ -462,7 +462,8 @@ html, body {
   border-color: #2d9194;
   outline: 0; }
 
-#getVerifycode {
+#getVerifycode,
+#getVerifyCodeButton {
   height: 23px;
   width: 87px;
   padding: 2px 4px;
@@ -474,5 +475,13 @@ html, body {
   border-radius: 5px;
   cursor: pointer; }
 
-#getVerifycode.disabled {
+#getVerifycode.disabled,
+#getVerifyCodeButton.disabled {
   background: #ccc; }
+
+.verify-text-input{
+	border: 1px solid #ccc;
+	width: 150px;
+	height: 22px;
+	padding: 4px 5px;
+	}

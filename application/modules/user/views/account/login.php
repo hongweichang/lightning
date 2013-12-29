@@ -24,7 +24,7 @@
 						<div class="fakeCheck">
 							<span></span>
 						</div>
-						<label for="keepSignIn">记住我</label> <a href="#" id="findPw">忘记密码</a>
+						<label for="keepSignIn">记住我</label> <a href="<?php echo $this->createUrl('account/resetPasswordVerify')?>" id="findPw">忘记密码</a>
 					</div>
 					<div class="form-item">
 						<input type="submit" id="loginBtn" value="登录" />

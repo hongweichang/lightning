@@ -123,8 +123,8 @@ body {
   border-top-width: 4px; }
 
 #footer {
-  height: 150px;
-  background: url("../images/f_bg.png"); }
+  height: 160px;
+  background: url("../images/h_bg.png"); }
 
 #fo-nav {
   margin-top: 37px; }
@@ -432,9 +432,11 @@ body {
     border-radius: 5px; }
   .loan-list .bar-in {
     position: relative;
-    margin: 2px;
+    /*margin: 2px;
     width: 76px;
-    height: 21px;
+    /*height: 21px;*/
+    width: 80px;
+    height: 25px;
     background: #cbcbcd;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
@@ -442,8 +444,10 @@ body {
     .loan-list .bar-in span {
       width: 100%;
       position: absolute;
-      height: 21px;
-      line-height: 21px;
+      /*height: 21px;
+      line-height: 21px;*/
+      height: 25px;
+      line-height: 25px;
       text-align: center;
       font-size: 12px;
       color: #fff; }
