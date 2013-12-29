@@ -155,10 +155,16 @@ $('.input-daterange').datepicker({
                             <span class="placeholder">借款理由、还款保障</span>
                             <?php if($form->hasErrors('desc')){ ?>
 							<p class="message-hint" style="color:red;"><?php echo $form->getError('desc'); ?></p>
-							<?php } ?>
+							<?php 
+                                } 
+                                $rateBelow = $userRate['on_blow6']*100;
+                                $rateOver = $userRate['on_over6']*100;
+                            ?>
                         </li>
                     </ul>
-                    <p><input type="submit" value="下一步" id="message-next" data-info="<?php echo $userRate['on_over6'].';'.$userRate['on_below6']?>"  /> </p>
+
+                    <!-- data-info为用户对应扣除服务费比例  如2% 则为2 -->
+                    <p><input type="submit" value="下一步" id="message-next" data-info="<?php echo $rateBelow.';'.$rateOver?>"/> </p>
                 </form>
             </div>
         </div>
