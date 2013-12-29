@@ -90,12 +90,17 @@
     color: #454545; }
   #container .con-hint {
     padding: 0 20px;
-    width: 348px;
+    width: 480px;
     margin: 15px auto;
     background: url("../images/cus_hint.png") no-repeat;
     font-size: 18px;
     font-weight: normal;
     color: #a6a6a6; }
+#container .con-hint a {
+	font-size: 18px;
+	font-weight: normal;
+	color: #2e8a8d;
+	  }
   #container .next {
     width: 100px;
     margin: 0 auto; }

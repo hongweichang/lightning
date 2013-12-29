@@ -37,7 +37,7 @@
             <li class="origin"><a href="<?php echo $this->app->homeUrl; ?>">首页</a></li>
             <li class="yellow"><a href="<?php echo $this->app->createUrl('tender/borrow'); ?>">我要借款</a></li>
             <li class="green"><a href="<?php echo $this->app->createUrl('tender/purchase'); ?>">我要投资</a></li>
-            <li class="deepGreen"><a href="#">债券转让</a></li>
+            <li class="deepGreen"><a href="#">债权转让</a></li>
             <li class="pink"><a href="<?php echo $this->createUrl('/content/aboutus')?>">关于我们</a></li>
             <li class="violet"><a href="<?php echo $this->app->createUrl('user/userCenter/userInfo'); ?>">个人中心</a></li>
           </ul>
@@ -60,6 +60,7 @@
                     <li><a href="#">借款说明</a></li>
                     <li><a href="#">投资说明</a></li>
                     <li><a href="#">帮助中心</a></li>
+                    <li><a href="<?php echo $this->createUrl('/site/guide')?>">新手引导</a></li>
                     <li><a href="#">联系我们</a></li>
                     <li><a href="#">万兆投资</a></li>
                     <li><a href="#">常见问题</a></li>
@@ -72,6 +73,9 @@
                     <li><a href=""  class="f-img" id="f-tx"></a></li>
                     <li><a href=""  class="f-img" id="f-wx"></a></li>
                 </ul>
+            </div>
+            <div class="footer-sec">
+            	<p>免责声明：本网站只提供资金需求信息，以促成双方达成交易为目的并从中收取一定管理费，不提供资金担保以及本金保障服务，特此声明</p>
             </div>
             <div class="footer-sec clearfix last">
                 <div id="f-copyright">

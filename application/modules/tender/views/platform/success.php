@@ -6,4 +6,4 @@
  * desc: 
  */
 ?>
-付款成功
+<script type="text/javascript">alert('付款成功')</script>

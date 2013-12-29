@@ -608,7 +608,7 @@ body {
   margin: 30px 0 45px 0; }
 
 #pay-verify {
-  width: 90px; }
+  width: 100px; }
 
 #paycenter-pay {
   margin-left: 90px; }
@@ -1112,6 +1112,31 @@ body {
     left: 80%;
 }
 
+
+.paycenter-item .error {
+	display: block;
+	position: relative;
+	left: 88px;
+	top: 10px;
+	color: red;
+	font-size: 14px;
+}
+
+#pay-verify-button {
+  height: 23px;
+  width: 87px;
+  padding: 2px 4px;
+  background: #2d9194;
+  border: 0;
+  color: #fff;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  cursor: pointer; }
+
+#pay-verify-button.disabled {
+  background: #ccc; }
+=======
 .tab-body.creditor{
 
 }

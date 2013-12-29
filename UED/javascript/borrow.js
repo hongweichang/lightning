@@ -138,7 +138,7 @@ $(document).ready(function(){
 			detail,
 			lend_service = 0;
 
-		if(month < 6){
+		if(month <= 6){
 			r_rate = rank_rate[0];
 		}else
 			r_rate = rank_rate[1];

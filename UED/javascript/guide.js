@@ -19,7 +19,7 @@ $(document).ready(function(){
 				$(e).parents(".mask").hide().next(".mask").show();
 				break;
 			case "close":
-				window.location = "http://www.shanddai.com";
+				window.location = baseUrl;
 			default :
 				break;
 		}

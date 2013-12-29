@@ -40,8 +40,6 @@ class UserCenterController extends Controller{
 		$role = $userData['role'];
 		$creditData= $this->getUserCredit($role);
 
-
-
 		$finishedId = array();
 		$finishedData = $this->getFnishedCreditData($uid);
 		foreach($finishedData as $i => $value){
@@ -123,6 +121,7 @@ class UserCenterController extends Controller{
 		$userCreditLevel = $this->app->getModule('credit')->getComponent(
 								'userCreditManager')->UserLevelCaculator($userData->credit_grade);
 		$IconUrl = $this->user->getState('avatar');
+		$loanable = $this->app->getModule('credit')->userCreditManager->UserBidCheck();
 		$this->render('userInfo',array(
 						'userData'=>$userData,
 						'necessaryCreditData'=>$necessaryList,
@@ -133,6 +132,7 @@ class UserCenterController extends Controller{
 						'IconUrl'=>$IconUrl,
 						'creditLevel'=>$userCreditLevel,
 						'BidSum'=>$this->userBidMoney,
+						'loanable'=>$loanable,
 						'MetaSum'=>$this->userMetaBidMoney));
 		
 	}
@@ -235,8 +235,9 @@ class UserCenterController extends Controller{
 				//$filenameUTF8 = iconv("gb2312","UTF-8",$fileName);
 				$fileSize = $file->getSize();
 				$fileType = pathinfo($fileName, PATHINFO_EXTENSION);
+				$fileTypeName = strtolower($fileType);
 				//对上传文件类型进行审核
-				$TypeVerify = $this->TypeVerify($fileType);
+				$TypeVerify = $this->TypeVerify($fileTypeName);
 
 				if($TypeVerify == 400){
 					Yii::app()->user->setFlash('upload_error','文件类型不合法');
@@ -248,11 +249,11 @@ class UserCenterController extends Controller{
 					                    $this->app->partition($uid,'creditFile');
 
 					if(!is_dir($uploadDir)){ //若目标目录不存在，则生成该目录
-						mkdir($uploadDir,0077,true);
+						mkdir($uploadDir,0775,true);
 					}
 
 					$randName = Tool::getRandName();//获取一个随机名
-					$newName = "Credit".$randName.".".$fileName;//对文件进行重命名
+					$newName = "Credit".$randName.".".$fileType;//对文件进行重命名
 
 					$saveUrl = $uploadDir.$newName;
 					$isUp = $file->saveAs($saveUrl);//保存上传文件
@@ -460,7 +461,7 @@ class UserCenterController extends Controller{
 					                    $this->app->partition($uid,'avatar');
 
 			if(!is_dir($uploadDir)){ //若目标目录不存在，则生成该目录
-				mkdir($uploadDir,0077,true);
+				mkdir($uploadDir,0775,true);
 			}
 
 			$randName = Tool::getRandName();//获取一个随机名
@@ -480,9 +481,7 @@ class UserCenterController extends Controller{
 
 				FrontUserIcon::model()->updateAll(array('in_using'=>0),'user_id=:uid',array(':uid'=>$uid));
 				if($Icon->save()){
-					Yii::app()->user->setFlash('success','上传成功');
 					$this->user->setState('avatar',$this->app->getPartedUrl('avatar',$uid).$newName);
-					$this->redirect(Yii::app()->createUrl('user/userCenter/userInfo'));
 				}
 			}
 		}

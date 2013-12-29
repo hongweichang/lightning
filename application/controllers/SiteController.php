@@ -7,7 +7,7 @@
  */
 class SiteController extends Controller{
 	public function noneLoginRequired(){
-		return 'index,cashCaculator';
+		return 'index,cashCaculator,guide';
 	}
 	
 	public function actionIndex(){
@@ -78,7 +78,7 @@ class SiteController extends Controller{
 						'progress' => $bid->progress / 100
 				);
 			}
-			$cache->set('INDEX_BIDS',$bidData,300);
+			$cache->set('INDEX_BIDS_',$bidData,300);
 		}
 		
 		$this->cs->registerCssFile($this->cssUrl.'index.css');
@@ -93,6 +93,7 @@ class SiteController extends Controller{
 		$uid = $this->user->id;
 		$onLoan = '10';
 		$level = 'C';
+		$levelData = Yii::app()->getModule('credit')->userCreditManager->userLevelList();
 
 		if(!empty($uid)){
 			$userCreditLevel = $this->app->getModule('credit')->userCreditManager->getUserCreditLevel($uid);
@@ -102,7 +103,12 @@ class SiteController extends Controller{
 			
 			$onLoan = '10';
 		}
-		$this->render('cashCaculator',array('uid'=>$uid,'onLoan'=>$onLoan,'level'=>$level));
+		$this->render('cashCaculator',array('uid'=>$uid,'onLoan'=>$onLoan,'level'=>$level,'levelData'=>$levelData));
+	}
+	
+	public function actionGuide(){
+		$this->layout = false;
+		$this->render('guide');
 	}
 
 }

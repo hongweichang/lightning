@@ -68,24 +68,18 @@ $this->cs->registerScriptFile($this->scriptUrl.'jquery.validate.min.js',CClientS
                     <table id="calc-rank">
                         <tr>
                             <td>会员级别</td>
-                            <td>AA</td>
-                            <td>A</td>
-                            <td>BB</td>
-                            <td>B</td>
-                            <td>C</td>
-                            <td>D</td>
+                            <?php foreach($levelData as $value){?>
+                            <td><?php echo $value->label;?></td>
+                            <?php }?>
                         </tr>
                         <tr>
                             <td>标段利息利润利率</td>
-                            <td>6%</td>
-                            <td>7%</td>
-                            <td>8%</td>
-                            <td>9%</td>
-                            <td>10%</td>
-                            <td>0%</td>
+                            <?php foreach($levelData as $value){?>
+                            <td><?php echo $value->on_loan.'%';?></td>
+                            <?php }?>
                         </tr>
                         <tr>
-                            <td colspan="3">您的会员级别为<span id="calc-rank-show">C</span></td>
+                            <td colspan="3">您的会员级别为<span id="calc-rank-show"><?php echo $level;?></span></td>
                             <td colspan="4">总共扣除平台管理费<span id="calc-lend-service">1000</span>元</td>
                         </tr>
                     </table>

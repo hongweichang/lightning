@@ -32,7 +32,6 @@
                 </div>
             </div>
             <div class="con-hint">
-            
             	<?php 
             	if($roleName){ ?>
             	您的社会角色为： <?php echo $roleName; ?>, 请点击下一步

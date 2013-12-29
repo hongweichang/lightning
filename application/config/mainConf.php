@@ -90,7 +90,7 @@ class mainConf extends ConfigBase{
 								'keyPrefix' => 'lightning',
 								'servers' => array(
 										array(
-												'host' => 'localhost',
+												//'host' => 'localhost',
 												//本地memcached缓存
 												//阿里云外网IP
 												'host' => '115.29.186.221',
@@ -140,75 +140,20 @@ class mainConf extends ConfigBase{
 								'sendTimeout' => 3000,
 								'reciveTimeout' => 3000,
 						),
-						'asyncEventRunner' => array(
-								'class' => 'cms.components.asyncEvent.AsyncEventRunner',
-								'zmqClientId' => 'zmqClient',
-								'asyncLogRoutes' => array(
-										'accessLog' => array(
-												'class' => 'cms.components.asyncEvent.logging.AccessLogRoute'
-										),
-								),
-								'events' => array(
-										'onBeforeRegisterSuccess' => array(
-												'command' => array('sendSms','verifyCode')
-										),
-										'onRegisterSuccess' => array(
-												'command' => array('sendMail','registerSuccess')
-										),
-										'onPayPurchasedBid' => array(
-												'command' => array('bid','pay')
-										),
-								),
+						'zmqPurchaseClient' => array(
+								'class' => 'cms.components.asyncEvent.ZMQClient',
+								'zmqServer' => 'tcp://localhost:5558',
+								'sendTimeout' => 3000,
+								'reciveTimeout' => 3000,
 						),
+						'asyncEventRunner' => require dirname(__FILE__).'/asyncEventRunner.config.php',
 						'image'=>array(
 								'class'=>'ext.image.CImageComponent',
 								'driver'=>'GD',
 								'params'=>array('directory'=>'/opt/local/bin'),
 						),
 				),
-				'params' => array(
-						'copyright' => '<p>重庆闪电贷金融信息服务有限公司 版权所有 2007-2013<p><p>Copyright Reserved 2007-2013&copy;闪电贷（www.shanddai.com） | 渝ICP备13008004号</p>',
-						'asyncEvent' => array(),
-						'roleMap' =>array(
-								'gxjc' => '工薪阶层',
-								'qyz' => '企业主',
-								'wddz' => '网店店主',
-								'unknown' => '还未填写角色',
-						),
-						'commonUrls' =>array(
-								'index' => '/site',
-								'useHelp' => '#',
-						),
-						'bidsPerPage' => 10,//默认的每次请求的标段条数
-						
-						//标段选择条件参数
-						'selectorMap' => array(
-								'monthRate' => array(//月利率条件
-										'不限' => 'all',
-										'5%-10%' => ' month_rate BETWEEN 500 AND 1000 ',
-										'11%-15%' => ' month_rate BETWEEN 1100 AND 1500 ',
-										'16%-20%' => ' month_rate BETWEEN 1600 AND 2000 ',
-								),
-								'deadline' => array(//借款期限条件
-										'不限' => 'all',
-										'6-12' => ' deadline BETWEEN 6 AND 12 ',
-										'12-24' => ' deadline BETWEEN 12 AND 24 ',
-										'24-36' => ' deadline BETWEEN 24 AND 36 ',
-								),
-								'authenGrade' => array(//认证等级条件
-										'不限' => 'credit_grade >= 0',
-										'初级' => ' credit_grade BETWEEN 60 AND 80 ',
-										'普通会员' => ' credit_grade BETWEEN 80 AND 100 ',
-										'高级会员' => ' credit_grade >= 120 ',
-								),
-						),
-						'bidProgressCssClassMap' => array(
-								'100' => 'w100',
-								'99' => 'w80_99',
-								'79' => 'w50_79',
-								'49' => 'w0_49'
-						),
-				),
+				'params' => require dirname(__FILE__).'/params.php',
 		);
 	}
 }
