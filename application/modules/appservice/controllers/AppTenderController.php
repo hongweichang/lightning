@@ -316,6 +316,7 @@ class AppTenderController extends Controller{
 							'description'=>$bid->description,
 							'TimeLimit'=>$bid->deadline,
 							'sum'=>$bid->sum,
+							'progress'=>$bid->progress,
 							'investMoney'=>$value->sum,
 							'uid'=>$user->id,
 							'nickname'=>$user->nickname,

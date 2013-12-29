@@ -6,6 +6,10 @@ design By HJtianling_LXY,<2507073658@qq.com>
 */
 
 class AppDebtController extends Controller{
+
+	public function filters(){
+		return array();
+	}
 	/*
 	**获取债权列表
 	*/
