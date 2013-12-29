@@ -31,7 +31,8 @@
 	line-height: 50px;
 }
 .step-next,
-.step-last {
+.step-last,
+.finish {
 	padding: 8px 22px;
 	color: #000;
 	background: #f6fdfb;
@@ -48,7 +49,8 @@
 }
 #register,
 #borrow,
-#lend{
+#lend,
+#lend-detail{
 	display: none;
 	position: absolute;
 	width: 100%;
@@ -62,6 +64,9 @@
 }
 #lend{
 	background: url("../images/guide_l.png") no-repeat;
+}
+#lend-detail{
+	background: url("../images/guide_ld.png") no-repeat;
 }
 .center{
 	top: 30%;
@@ -174,4 +179,27 @@
 #guide-s11-t{
 	top: 180px;
 	right: 10px;
+}
+#step12{
+	top: 30px;
+	left: 500px;
+}
+#guide-s12-h{
+	top: 250px;
+	left: -300px;
+}
+#guide-s12-t{
+	top: 186px;
+	right: 15px;
+}
+#step13{
+	top: 50px;
+	left: 760px;
+}
+#guide-s13-h{
+	top: -48px;
+	left: 365px;
+}
+#guide-s13-t{
+	right: 15px;
 }

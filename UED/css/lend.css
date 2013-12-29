@@ -1111,3 +1111,32 @@ body {
     color: #adadad;
     left: 80%;
 }
+
+.tab-body.creditor{
+
+}
+.tab-body.creditor li{
+  width: 100%;
+}
+.tab-content table{
+  border-spacing: 0;
+}
+.tab-content td{
+  border-bottom: 1px solid #c7c7c7;
+}
+.t-borrower-name{
+  width: 155px;
+  text-align: right;
+  padding: 14px 20px;
+  border-right: 1px solid #c7c7c7;
+  background: #f0f5f7;
+  overflow: hidden;
+}
+.t-borrower-val{
+  width: 380px;
+  padding: 0 30px;
+  overflow: hidden;
+}
+.details-info.creditor{
+  height: auto;
+}

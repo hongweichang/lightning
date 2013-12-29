@@ -5,7 +5,7 @@ $(document).ready(function(){
 
 	$(".step").on('click', function(event) {
 		var e = event.target;
-		event.preventDefault();
+		//event.preventDefault();
 		switch($(e).attr("class")){
 			case "step-next":
 				$(e).parents(".step").hide();
@@ -17,6 +17,11 @@ $(document).ready(function(){
 				index++;
 				$("#step"+index).show();
 				$(e).parents(".mask").hide().next(".mask").show();
+				break;
+			case "close":
+				window.location = "http://www.shanddai.com";
+			default :
+				break;
 		}
 	});
 });
