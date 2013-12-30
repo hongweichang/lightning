@@ -27,7 +27,6 @@ $form=$this->beginWidget('CActiveForm',array(
 		<th>手机</th>
 		<th>邮箱</th>
 		<th>身份证</th>
-		<th>年龄</th>
 		<th>余额</th>
 		<th>操作</th>
 	</thead>
@@ -49,9 +48,11 @@ $form=$this->beginWidget('CActiveForm',array(
 			<td><?php echo $data->mobile?></td>
 			<td><?php echo $data->email?></td>
 			<td><?php echo $data->identity_id?></td>
-			<td><?php echo $data->age?></td>
 			<td><?php echo $data->balance?></td>
-			<td><?php echo ''?></td>
+			<td>
+				<a class="openWindow" href="<?php echo $this->createUrl('verify/userDetail',array('uid'=>$data->id))?>">查看信用信息</a> | 
+				<a href="<?php echo $this->createUrl('frontUser/edit',array('id'=>$data->id))?>">修改</a>
+			</td>
 		</tr>
 	<?php endforeach;?>
 	</tbody>

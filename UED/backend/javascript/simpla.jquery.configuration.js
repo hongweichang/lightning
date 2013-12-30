@@ -4,6 +4,12 @@ $(document).ready(function($){
         $("a.deleteLink").click(function(){
         	return confirm("确定要删除吗？");
       });
+        
+        $("a.openWindow").click(function(){
+        	var href = $(this).attr("href");
+        	window.open(href,'','width=1200,height=500,resizable=0,scrollbars=auto');
+        	return false;
+      });
 	//Sidebar Accordion Menu:
 		
 		$("#main-nav li ul").hide(); // Hide all sub menus

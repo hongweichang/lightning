@@ -26,6 +26,12 @@ return array(
 				'onBidVerifyFailed' => array(
 						'command' => array('sendSms','bidVerifyFailed')
 				),
+				'onCreditVerifySuccess' => array(
+						'command' => array('sendSms','creditVerifySuccess')
+				),
+				'onCreditVerifyFailed' => array(
+						'command' => array('sendSms','creditVerifyFailed')
+				),
 				'onPayPurchasedBid' => array(
 						'command' => array('bid','pay')
 				),

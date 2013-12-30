@@ -28,4 +28,20 @@ class FrontUserController extends Admin{
 		$this->addNotifications('搜索','information',true);
 		$this->render('view',array('dataProvider'=>$dataProvider,'selector'=>$selector));
 	}
+	
+	public function actionEdit(){
+		$id = $this->getQuery('id');
+		$data = $this->getPost('FrontUserEditForm',null);
+		$form = new FrontUserEditForm();
+		if ( $data !== null ){
+			$data['id'] = $id;
+			$form->attributes = $form;
+			if ( $form->validate() ){
+				$form->save();
+				$this->showMessage('修改成功','frontUser/view');
+			}
+		}
+		
+		
+	}
 }

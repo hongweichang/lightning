@@ -19,13 +19,23 @@ if(!empty($bidList)){
 ?>
     <tr>
         <td><?php echo $value['title'];?></td>
-        <td><?php echo $value['description'];?></td>
+        <td title="<?php echo $value['description'];?>">
+        <?php
+        if ( mb_strlen($value['description'],'UTF-8') > 16 ){
+	 	echo mb_substr($value['description'],0,12,'UTF-8').'...';
+	 }else {
+	 	echo $value['description'];
+	 }
+       ?>
+        </td>
         <td><?php echo $value['sum'].'元'?></td>
         <td><?php echo $value['deadline'].'个月'?></td>
         <td><?php echo $value['rate'].'%';?></td>
         <td><?php echo $value['nickname'];?></td>
         <td>
-        <a href="<?php echo $this->createUrl('UserDetail',array('uid'=>$value['uid'],'id'=>$value['id']))?>" target="_blank"><?php echo $value['realname'];?></a>
+        <a class="openWindow" href="<?php echo $this->createUrl('UserDetail',array('uid'=>$value['uid'],'id'=>$value['id']))?>">
+        <?php echo $value['realname'];?>
+        </a>
         </td>
         <td><?php echo $value['mobile'];?></td>
         <td><?php echo $value['level'];?></td>
