@@ -46,13 +46,15 @@ $this->cs->registerCssFile($this->cssUrl.'lend.css');
                 </ul>
                 <?php }?>
                 <div id="viewMore">
-                <ul id="page">
+              
+<!--                 <ul id="page">
                     <li><a href="baidu.com" class="page-prev">上一页</a></li>
                     <li><a href="#" class="active">1</a></li>
                     <li><a href="#">2</a></li>
                     <li><a href="#">3</a></li>
                     <li><a href="#" class="page-next">下一页</a></li>
-                </ul>
+                </ul> -->
+
                 </div>
             </div>
         </div>
