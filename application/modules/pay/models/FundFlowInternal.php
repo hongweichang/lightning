@@ -36,8 +36,7 @@ class FundFlowInternal extends CmsActiveRecord
 		return array(
 			array('sum, time, fee', 'required'),
 			array('status', 'numerical', 'integerOnly'=>true),
-			array('to_user, from_user, sum, time', 'length', 'max'=>11),
-			array('fee', 'length', 'max'=>5),
+			array('fee, to_user, from_user, sum, time', 'length', 'max'=>11),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('id, to_user, from_user, sum, time, fee, status', 'safe', 'on'=>'search'),

@@ -95,6 +95,7 @@ class PlatformController extends Controller{
 				)));
 			}
 			
+
 			if ( $notify->applyMobileCodeVerify($user->mobile,$code) === false ){
 				$this->redirect($this->createUrl('platform/order',array(
 						'metano' => Utils::appendEncrypt($metaId),
