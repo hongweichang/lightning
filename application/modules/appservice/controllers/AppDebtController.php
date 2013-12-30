@@ -41,5 +41,26 @@ class AppDebtController extends Controller{
 		}
 
 	}
+
+	/*
+	**加入债权
+	*/
+	public function actionJoinDebt(){
+		$post = $this->getPost();
+		$uid = Yii::app()->user->id;
+
+		if(!empty($post['id'])){
+			$id = $post['id'];
+			$model = new DebtUser;
+			$model->user_id = $uid;
+			$model->did = $id;
+
+			if($model->save()){
+				$this->response('200','操作成功');
+			}else
+				$this->response('400','添加失败',$model->getErrors());
+		}else
+			$this->response('400','参数错误');
+	}
 }	
 ?>
