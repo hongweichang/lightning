@@ -81,14 +81,14 @@
             </div>
             <div class="footer-sec clearfix">
                 <ul>
-                    <li><a href="#">公司介绍</a></li>
-                    <li><a href="#">借款说明</a></li>
-                    <li><a href="#">投资说明</a></li>
-                    <li><a href="#">帮助中心</a></li>
+                    <li><a href="<?php echo $this->createUrl('/content/aboutus/index',array('cid'=>28))?>">公司介绍</a></li>
+                    <li><a href="<?php echo $this->createUrl('/content/help/index',array('cid'=>17))?>">借款说明</a></li>
+                    <li><a href="<?php echo $this->createUrl('/content/help/index',array('cid'=>18))?>">理财说明</a></li>
+                    <li><a href="<?php echo $this->createUrl('/content/help')?>">帮助中心</a></li>
                     <li><a href="<?php echo $this->createUrl('/site/guide')?>">新手引导</a></li>
-                    <li><a href="#">联系我们</a></li>
+                    <li><a href="<?php echo $this->createUrl('/content/aboutus/index',array('cid'=>26))?>">联系我们</a></li>
                     <li><a href="#">万兆投资</a></li>
-                    <li><a href="#">常见问题</a></li>
+                    <li><a href="<?php echo $this->createUrl('/content/help/index',array('cid'=>24))?>">常见问题</a></li>
                 </ul>
             </div>
             <div class="footer-sec clearfix">
