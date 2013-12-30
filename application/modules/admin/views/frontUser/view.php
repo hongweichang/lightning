@@ -9,6 +9,8 @@ $form=$this->beginWidget('CActiveForm',array(
 		'focus' => array($selector,'nickname'),
 		'method' => 'get'
 ));
+$pager = $dataProvider->getPagination();
+$pageUrl = urlencode( $pager->createPageUrl($this,$pager->getCurrentPage()) );
 ?>
 昵称：<?php echo $form->textField($selector,'nickname',array('class'=>'text-input tiny-input'));?>&nbsp;
 姓名：<?php echo $form->textField($selector,'realname',array('class'=>'text-input tiny-input'));?>&nbsp;
@@ -51,7 +53,7 @@ $form=$this->beginWidget('CActiveForm',array(
 			<td><?php echo $data->balance?></td>
 			<td>
 				<a class="openWindow" href="<?php echo $this->createUrl('verify/userDetail',array('uid'=>$data->id))?>">查看信用信息</a> | 
-				<a href="<?php echo $this->createUrl('frontUser/edit',array('id'=>$data->id))?>">修改</a>
+				<a href="<?php echo $this->createUrl('frontUser/edit',array('id'=>$data->id,'redirect'=>$pageUrl))?>">修改</a>
 			</td>
 		</tr>
 	<?php endforeach;?>

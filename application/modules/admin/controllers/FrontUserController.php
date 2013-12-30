@@ -30,18 +30,29 @@ class FrontUserController extends Admin{
 	}
 	
 	public function actionEdit(){
+		$redirect = urldecode($this->getQuery('redirect',$this->createUrl('frontUser/view')));
 		$id = $this->getQuery('id');
-		$data = $this->getPost('FrontUserEditForm',null);
-		$form = new FrontUserEditForm();
-		if ( $data !== null ){
-			$data['id'] = $id;
-			$form->attributes = $form;
-			if ( $form->validate() ){
-				$form->save();
-				$this->showMessage('修改成功','frontUser/view');
-			}
+		$this->app->getModule('user');
+		
+		$model =  FrontUser::model()->findByPk($id);
+		if ( $model === null ){
+			$this->showMessage('修改失败，用户不存在',$redirect,false);
 		}
 		
+		$post = $this->getPost('FrontUserEditForm',null);
+		$form = new FrontUserEditForm();
+		if ( $post !== null ){
+			$post['model'] = $model;
+			$form->attributes = $post;
+			if ( $form->update() ){
+				$this->showMessage('修改成功',$redirect,false);
+			}
+		}else {
+			$form->attributes = $model->attributes;
+			$form->password = null;
+		}
 		
+		$this->tabTitle = '修改信息';
+		$this->render('form',array('model'=>$form,'action'=>$this->createUrl('frontUser/edit',array('id'=>$id,'redirect'=>urlencode($redirect)) )));
 	}
 }
