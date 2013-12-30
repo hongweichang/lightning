@@ -1,9 +1,4 @@
 $(document).ready(function(){
-	/*$(".login-tab li").bind("click",function(){
-		var i = $(this).index();
-		$(this).addClass("tab-on").siblings().removeClass("tab-on");
-		$(".tab-content").eq(i).addClass("tab-show").siblings().removeClass("tab-show");
-	});*/
 	$(".form-item input").each(function(){
 		if($(this).val())
 			$(this).siblings('p').css({display: "none"});
@@ -141,4 +136,29 @@ $(document).ready(function(){
 	function check(){
 		$(this).siblings("p").css({display: "none"});
 	}
+	
+	reset;
+	$("#getVerifyCodeButton").bind("click",function(){
+		var time;
+		var text;
+		if(!$(this).hasClass("disabled")){
+			$(this).addClass("disabled");
+			$.ajax({
+				url: $(this).attr('data-url') + '?mobile=' + $('#verify-mobile').val() + '&reset=' + reset,
+				type: 'GET',
+			});
+			time = 30;
+			text = $(this).text();
+			changeVal();
+		}
+		function changeVal(){
+			if(time>0){
+				$("#getVerifyCodeButton").text(time+"秒重新获取");
+				setTimeout(changeVal,1000);
+				time--;
+			}else
+				$("#getVerifyCodeButton").removeClass("disabled").text(text);
+		}
+		return false;
+	});
 });

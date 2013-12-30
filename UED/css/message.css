@@ -100,6 +100,12 @@
   #container .aud-ucenter a {
     color: #767676;
     font-size: 12px; }
+.aud-ucenter span{
+  float: left;
+}
+.aud-ucenter span.hint{
+  color:#37b0b3;
+}
 #container input {
   border: 1px solid #dfdfdf; }
 #container input:hover,

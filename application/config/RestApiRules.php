@@ -51,7 +51,13 @@ return array(
 		array(
 				'pattern'=>'<_m:(appservice)>/<_a:(getBanner)>',
 				'<_m>/appContent/<_a>',
-			)
+			),
+
+		array(
+				'pattern'=>'<_m:(appservice)>/<_a:(Debt)>',
+				'<_m>/appDebt/get<_a>',
+				'verb'=>'post'
+			),
 
 	);
 ?>

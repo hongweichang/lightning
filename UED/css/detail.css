@@ -386,10 +386,14 @@
 .sec-status {
   width: 235px; }
 
+    .sec-pay-update,
 .sec-update {
   float: right; }
+    
+    .sec-pay-update a,
   .sec-update a {
     color: #2d9194; }
+    .sec-pay-update a:visited,
   .sec-update a:visited {
     color: #2d9194; }
 

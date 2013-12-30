@@ -7,7 +7,7 @@
  */
 class SiteController extends Controller{
 	public function noneLoginRequired(){
-		return 'index,cashCaculator';
+		return 'index,cashCaculator,guide';
 	}
 	
 	public function actionIndex(){
@@ -104,6 +104,11 @@ class SiteController extends Controller{
 			$onLoan = '10';
 		}
 		$this->render('cashCaculator',array('uid'=>$uid,'onLoan'=>$onLoan,'level'=>$level,'levelData'=>$levelData));
+	}
+	
+	public function actionGuide(){
+		$this->layout = false;
+		$this->render('guide');
 	}
 
 }

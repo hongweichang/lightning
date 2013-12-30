@@ -212,7 +212,7 @@ class AppTenderController extends Controller{
 	*/
 	public function actionRaiseBid(){
 		$post = $this->getPost();
-
+		
 		$loanable = $this->app->getModule('credit')->userCreditManager->UserBidCheck();
 
 		if($loanable === false){
@@ -292,7 +292,7 @@ class AppTenderController extends Controller{
 				$criteria->condition = 'verify_progress = 21 AND meta.user_id =:uid AND status =:status';
 			}elseif ( $action === 'full' ){
 				$criteria->condition = 'verify_progress = 31 AND meta.user_id =:uid AND status =:status';
-			}else{//action not match
+			}else{
 				$this->response('401','参数不合法','');
 			}
 			
@@ -306,6 +306,7 @@ class AppTenderController extends Controller{
 				foreach($metaData as $value){
 					$bid = $value->getRelated('bid');
 					$user = $value->getRelated('user');
+					$userLevel = $this->app->getModule('credit')->userCreditManager->UserLevelCaculator($user->credit_grade);
 					$bidUser_id = $user->id;
 					$userIcon =  $this->app->getModule('user')->userManager->getUserIcon($bidUser_id);
 					
@@ -315,9 +316,13 @@ class AppTenderController extends Controller{
 							'description'=>$bid->description,
 							'TimeLimit'=>$bid->deadline,
 							'sum'=>$bid->sum,
+							'progress'=>$bid->progress,
 							'investMoney'=>$value->sum,
 							'uid'=>$user->id,
 							'nickname'=>$user->nickname,
+							'gender'=>$user->gender,
+							'realname'=>$user->realname,
+							'userLevel'=>$userLevel,
 							'userIcon'=>$userIcon
 			
 					);

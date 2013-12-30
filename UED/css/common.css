@@ -129,7 +129,7 @@ body {
   border-top-width: 4px; }
 
 #footer {
-  height: 150px;
+  height: 160px;
   background: url("../images/h_bg.png"); }
 
 #fo-nav {
@@ -197,9 +197,9 @@ body {
 
 .w30 {
   width: 30px; }
+.rankAAA,
 .rankAA,
 .rankA,
-.rankBB,
 .rankB,
 .rankC,
 .rankD {
@@ -217,13 +217,13 @@ body {
   -moz-border-radius: 50%;
   border-radius: 50%;  }
 
-.rankAA {
+.rankAAA {
   background-color: #deb839; }
 
-.rankA {
+.rankAA {
   background-color: #c0c0c1; }
 
-.rankBB {
+.rankA {
   background-color: #1bb8e2; }
 
 .rankB {
@@ -235,6 +235,10 @@ body {
 .footer-sec {
   float: left;
   padding: 10px 0;
+}
+.footer-sec p{
+	color: gray;
+	font-size:12px;
 }
 .footer-sec.last{
   width: 100%;

@@ -7,9 +7,34 @@
     <script type="text/javascript" src="<?php echo $this->scriptUrl; ?>jquery-1.8.2.min.js"></script>
     <script type="text/javascript">
      var baseUrl = '<?php echo $this->app->getSiteBaseUrl();?>';
-</script>  
+    </script>
+    <!--[if lt IE 8]>
+    <link rel="stylesheet" type="text/css" href="<?php echo $this->cssUrl?>ie.css">
+    <![endif]-->
 </head>
 <body>
+<!--[if lt IE 8]>
+    <div class="attention">
+            <ul class="btn">
+                <li class="dn"><a href="http://hr.bingyan.net/info/download/form.doc" target="_blank"></a></li>
+                <li class="pcd"><a href="http://hr.bingyan.net/info/flow.html" target="_blank"></a></li>
+            </ul>
+            <h1>闪电贷</h1>
+            <p class="sry">We are so sorry, but……</p>
+            <p class="explain">你的浏览器版本过低，无法看到我的全身-n-! 快升级你的浏览器吧<br>如果你使用的是360浏览器或搜狗浏览器，切换到<span>高速模式</span>就可以看到！</p>
+            <div class="rec">
+                <h4>推荐浏览器</h4>
+                <span class="brss chr"><a href="http://www.google.com/chrome" target="_blank" title="谷歌浏览器">谷歌浏览器</a></span>
+                <span class="brss fir"><a href="http://firefox.com.cn/download/" target="_blank" title="火狐浏览器">火狐浏览器</a></span>
+            </div>
+            <p class="no-upgrd">
+                如果你暂时不想升级，也可以从这里获得信息<br>
+                <a href="http://theie6countdown.cn/" target="_blank">
+                    对IE6/7说再见吧！
+                </a>
+            </p>
+        </div>
+<![endif]-->
     <div id="header">
     
       <div id="he-login">
@@ -56,13 +81,14 @@
             </div>
             <div class="footer-sec clearfix">
                 <ul>
-                    <li><a href="#">公司介绍</a></li>
-                    <li><a href="#">借款说明</a></li>
-                    <li><a href="#">投资说明</a></li>
-                    <li><a href="#">帮助中心</a></li>
-                    <li><a href="#">联系我们</a></li>
+                    <li><a href="<?php echo $this->createUrl('/content/aboutus/index',array('cid'=>28))?>">公司介绍</a></li>
+                    <li><a href="<?php echo $this->createUrl('/content/help/index',array('cid'=>17))?>">借款说明</a></li>
+                    <li><a href="<?php echo $this->createUrl('/content/help/index',array('cid'=>18))?>">理财说明</a></li>
+                    <li><a href="<?php echo $this->createUrl('/content/help')?>">帮助中心</a></li>
+                    <li><a href="<?php echo $this->createUrl('/site/guide')?>">新手引导</a></li>
+                    <li><a href="<?php echo $this->createUrl('/content/aboutus/index',array('cid'=>26))?>">联系我们</a></li>
                     <li><a href="#">万兆投资</a></li>
-                    <li><a href="#">常见问题</a></li>
+                    <li><a href="<?php echo $this->createUrl('/content/help/index',array('cid'=>24))?>">常见问题</a></li>
                 </ul>
             </div>
             <div class="footer-sec clearfix">
@@ -72,6 +98,9 @@
                     <li><a href=""  class="f-img" id="f-tx"></a></li>
                     <li><a href=""  class="f-img" id="f-wx"></a></li>
                 </ul>
+            </div>
+            <div class="footer-sec">
+            	<p>免责声明：本网站只提供资金需求信息，以促成双方达成交易为目的并从中收取一定管理费，不提供资金担保以及本金保障服务，特此声明</p>
             </div>
             <div class="footer-sec clearfix last">
                 <div id="f-copyright">
