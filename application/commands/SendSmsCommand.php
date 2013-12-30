@@ -69,7 +69,6 @@ class SendSmsCommand extends NotifyCommandBase{
 		if ( isset($this->parameters['bidId']) === false ){
 			return false;
 		}
-		$notify = $this->notify;
 		
 		$bid = $this->app->getModule('tender')->getComponent('bidManager')->getBidInfo($this->parameters['bidId']);
 		
@@ -82,6 +81,39 @@ class SendSmsCommand extends NotifyCommandBase{
 				'{bid}' => $bid->title,
 				'{userName}' => $bid->user->nickname,
 				'{bidFailedReason}' => $bid->failed_description
+		));
+	}
+	
+	public function actionCreditVerifySuccess($params=''){
+		if ( isset($this->parameters['creditId']) === false ){
+			return false;
+		}
+		$this->app->getModule('credit');
+		$credit = FrontCredit::model()->with('creditSetting','user')->findByPk($this->parameters['creditId']);
+		if ( $credit === null ){
+			return false;
+		}
+		
+		$this->parameters['mobile'] = $credit->user->mobile;
+		$this->sendSms(array(
+				'{credit}' => $credit->creditSetting->verification_name,
+		));
+	}
+	
+	public function actionCreditVerifyFailed($params=''){
+		if ( isset($this->parameters['creditId']) === false ){
+			return false;
+		}
+		$this->app->getModule('credit');
+		$credit = FrontCredit::model()->with('creditSetting','user')->findByPk($this->parameters['creditId']);
+		if ( $credit === null ){
+			return false;
+		}
+		
+		$this->parameters['mobile'] = $credit->user->mobile;
+		$this->sendSms(array(
+				'{credit}' => $credit->creditSetting->verification_name,
+				'{creditFailedReason}' => $credit->description
 		));
 	}
 }

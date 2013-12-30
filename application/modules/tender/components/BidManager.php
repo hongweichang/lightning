@@ -226,8 +226,8 @@ class BidManager extends CApplicationComponent{
 				//借款人收款记录
 				$fund->p2p($bid->getAttribute('user_id'),
 						$meta->getAttribute('user_id'),
-						$meta->getAttribute('sum'),
-						round($meta->getAttribute('sum') * $rate['on_bid'],2));
+						$meta->getAttribute('sum') / 100,
+						round($meta->getAttribute('sum') * $rate['on_bid'] / 100, 2));
 			}
 			
 			//标段状态更换 已满标开始还款
@@ -334,7 +334,7 @@ class BidManager extends CApplicationComponent{
 				//投资人收款记录
 				$fund->p2p($meta->getAttribute('user_id'),
 						$bid->getAttribute('user_id'),
-						$meta->getAttribute('refund'),
+						$meta->getAttribute('refund') / 100,
 						$fee);
 			}
 			

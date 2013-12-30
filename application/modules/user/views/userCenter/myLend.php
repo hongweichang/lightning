@@ -35,12 +35,14 @@ $this->cs->registerCssFile($this->cssUrl.'detail.css');
                     <div class="table-content">
                         <div class="tab-content-l">
                             <div class="tab-border-l tab-right"></div>
-                            <p>投资总金额<span>0.00<span>元</span></span></p>
+                            <p>投资总金额<span><?php echo $userMetaBidMoney;?><span>元</span></span></p>
                         </div>
                         <div class="tab-content-r">
-                            <p><span>投标金额</span><span>收益</span><span>近30天应收益</span></p>
-                            <p class="aud-det-money"><span>0.00元</span><span>0.00元</span><span>0.00元</span></p>
-                            <p class="aud-det-prompt">您最近10天内有 8笔 投资将收益，总额 0.00元</p>
+                            <p><span>满标金额</span><span>总收益</span><span>近30天应收益</span></p>
+                            <p class="aud-det-money"><span><?php echo $waitingForPaySum;?>元</span>
+                            <span><?php echo $inComeSum;?>元</span>
+                            <span><?php echo $inComeSum_month;?>元</span>
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -88,11 +90,11 @@ $this->cs->registerCssFile($this->cssUrl.'detail.css');
                         <li>
                             <span><?php echo $value['nickname'];?></span>
                             <span><?php echo $value['bidTitle'];?></span>
-                            <span><?php echo ($value['rate']/100);?>%</span>
+                            <span><?php echo $value['rate']/100;?>%</span>
                             <span><?php echo '￥'.$value['sum'].'元'?></span>
                             <span><?php echo $value['deadline']?>个月</span>
                             <span class="deadline"><?php echo $value['buyTime'];?></span>
-                            <span class="repay"><a href="">查看</a></span>
+                            <span class="repay"><a href="<?php echo Yii::app()->createUrl('tender/purchase/info/',array('id'=>$value['id']))?>">查看</a></span>
                         </li>
                         <?php  }
                             }?>
@@ -114,7 +116,7 @@ $this->cs->registerCssFile($this->cssUrl.'detail.css');
                         <li>
                             <span><?php echo $value['nickname'];?></span>
                             <span><?php echo $value['bidTitle'];?></span>
-                            <span><?php echo ($value['rate']/100);?>%</span>
+                            <span><?php echo $value['rate']/100;?>%</span>
                             <span><?php echo '￥'.$value['sum'].'元'?></span>
                             <span><?php echo $value['deadline']?>个月</span>
                             <span class="deadline"><?php echo $value['buyTime'];?></span>

@@ -1,51 +1,4 @@
-<h3>用户基本信息</h3>
-<table>
-	<tbody>
-		<tr>
-			<td>用户昵称</td>
-			<td><?php echo $userData[0]->nickname;?></td>
-		</tr>
-		<tr>
-			<td>用户真实姓名</td>
-			<td><?php echo $userData[0]->realname;?></td>
-		</tr>
-		<tr>
-			<td>用户性别</td>
-			<td>
-				<?php
-                  if($userData[0]->gender == ''){
-                     echo "保密";                       
-                  }else{
-                         if($userData[0]->gender == '1')
-                             echo "男";
-                         if($userData[0]->gender == '0')
-                             echo "女"; 
-                        }					 
-				?>
-			</td>
-		</tr>
-		<tr>
-			<td>用户身份证号</td>
-			<td><?php echo $userData[0]->identity_id;?></td>
-		</tr>
-		<tr>
-			<td>用户角色</td>
-			<td><?php echo FrontUser::getRoleName($userData[0]->role);?></td>
-		</tr>
-		<tr>
-			<td>用户手机号</td>
-			<td><?php echo $userData[0]->mobile;?></td>
-		</tr>
-		<tr>
-			<td>用户邮箱</td>
-			<td><?php echo $userData[0]->email;?></td>
-		</tr>
-		<tr>
-			<td>用户居住地址</td>
-			<td><?php echo $userData[0]->address?></td>
-		</tr>
-	</tbody>
-</table>
+<?php $this->renderPartial('_baseUserInfo',array('data'=>$userData[0]))?>
 
 <h3>用户信用资料</h3>
 <table>
@@ -67,6 +20,7 @@
 	</tbody>
 </table>
 
+<?php if ( empty($id) === false && true === is_numeric($id) ):?>
 <h3>该标段是否通过审核？</h3>
 <label>
 <a href="<?php echo Yii::app()->createUrl('adminnogateway/verify/bidVerify',array(
@@ -80,3 +34,4 @@
    class="check" data-method="check-pass">审核不通过
 </a>
 </label>
+<?php endif;?>
