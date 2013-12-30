@@ -3,11 +3,12 @@
 <head>
     <meta charset="UTF-8" />
     <title>闪电贷</title>
+    <link rel="stylesheet" type="text/css" href="../css/common.css">
     <link rel="stylesheet" type="text/css" href="../css/lend.css">
     <script type="text/javascript" src="../javascript/jquery-1.8.2.min.js"></script>    
 </head>
 <body>
-	<div id="header">
+    <div id="header">
         <div id="he-login">
             <div class="wd1002">
                 <p class="he-lo">
@@ -24,8 +25,8 @@
                 <ul>
                     <li class="origin"><a href="#">首页</a></li>
                     <li class="yellow"><a href="#">我要借贷</a></li>
-                    <li class="green"><a href="#">我要投资</a></li>
-                    <li class="deepGreen where"><a href="#">债券转让</a></li>
+                    <li class="green active"><a href="#">我要投资</a></li>
+                    <li class="deepGreen"><a href="#">债券转让</a></li>
                     <li class="pink"><a href="#">关于我们</a></li>
                     <li class="violet"><a href="#">个人中心</a></li>
                 </ul>
@@ -33,117 +34,105 @@
         </div>
     </div>
     <div id="container">
-    	<div class="wd1002">
-    		<div class="breadcrumb">
-    			<ul>
-    				<li class="breadcrumb-item">
-    					<a href="#">债权转让</a>
-    				</li>
-    				<li class="breadcrumb-separator"> >
-    				</li>
-    				<li class="breadcrumb-item active">
-    					<a href="#">转让中心</a>
-    				</li>
-    			</ul>
-    		</div>
-    		<div class="loan-filter clearfix creditor">
-    			<div class="filter">
-    				<div class="filter-header clearfix">
-    					<h4>筛选债权项目</h4>
-    					<!-- <span id="filter-switch">多选</span> -->
-    				</div>
-    				<ul>
-    					<li>
-    						<ul>
-    							<li class="filter-item">月利率</li>
-    							<li class="filter-item filter-choice creditor active">
-    								<input type="checkbox" name="monthRate" value="all" checked="checked" />
-    								<span>不限</span>
-    							</li>
-    							<li class="filter-item filter-choice creditor">
-    								<input type="checkbox" name="monthRate" value="" />
-    								<span>信用认证标</span>
-    							</li>
-    							<li class="filter-item filter-choice creditor">
-    								<input type="checkbox" name="monthRate" value="" />
-    								<span>信用认证标</span>
-    							</li>
-    						</ul>
-    					</li>
-    					<li>
-    						<ul>
-    							<li class="filter-item">借款期限</li>
-    							<li class="filter-item filter-choice creditor active">
-    								<input type="checkbox" name="deadline" value="all" checked="checked" />
-    								<span>不限</span>
-    							</li>
-    							<li class="filter-item filter-choice creditor">
-    								<input type="checkbox" name="deadline" value="term_3_6" />
-    								<span>3-6个月</span>
-    							</li>
-    							<li class="filter-item filter-choice creditor">
-    								<input type="checkbox" name="deadline" value="term_9_12" />
-    								<span>9-12个月</span>
-    							</li>
-    						</ul>
-    					</li>
-    					<li>
-    						<ul>
-    							<li class="filter-item">认证等级</li>
-    							<li class="filter-item filter-choice creditor active">
-    								<input type="checkbox" name="authenGrade" value="all" checked="checked" />
-    								<span>不限</span>
-    							</li>
-    							<li class="filter-item filter-choice creditor">
-    								<input type="checkbox" name="authenGrade" value="rank_AA" />
-    								<span>AA</span>
-    							</li>
-    							<li class="filter-item filter-choice creditor">
-    								<input type="checkbox" name="authenGrade" value="rank_A" />
-    								<span>A</span>
-    							</li>
-    						</ul>
-    					</li>
-    				</ul>
-    			</div>
-    			<div class="guide">
-    				<h4>转让注意</h4>
-    				<p>确认债权信息，不要盲目转让</p>
-    				<p>不要听从旁人指导，自己确认</p>
-    				<p>标段有风险，请用户须知</p>
-    				<p>如有问题，可以询问客服</p>
-    			</div>
-    		</div>
-    		<div class="loan">
-                <div class="title creditor">债权推荐</div>
+        <div class="wd1002">
+            <div class="breadcrumb">
+                <ul>
+                    <li class="breadcrumb-item">
+                        <a href="#">我要投资</a>
+                    </li>
+                    <li class="breadcrumb-separator"> >
+                    </li>
+                    <li class="breadcrumb-item active">
+                        <a href="#">投资中心</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="loan-filter clearfix">
+                <div class="filter">
+                    <div class="filter-header clearfix">
+                        <h4>筛选投资项目</h4>
+                        <!-- <span id="filter-switch">多选</span> -->
+                    </div>
+                    <ul>
+                        <li>
+                            <ul>
+                                <li class="filter-item">月利率</li>
+                                <li class="filter-item filter-choice active">
+                                    <input type="checkbox" name="monthRate" value="all" checked="checked" />
+                                    <span>不限</span>
+                                </li>
+                                <li class="filter-item filter-choice">
+                                    <input type="checkbox" name="monthRate" value="" />
+                                    <span>信用认证标</span>
+                                </li>
+                                <li class="filter-item filter-choice">
+                                    <input type="checkbox" name="monthRate" value="" />
+                                    <span>信用认证标</span>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <ul>
+                                <li class="filter-item">借款期限</li>
+                                <li class="filter-item filter-choice active">
+                                    <input type="checkbox" name="deadline" value="all" checked="checked" />
+                                    <span>不限</span>
+                                </li>
+                                <li class="filter-item filter-choice">
+                                    <input type="checkbox" name="deadline" value="term_3_6" />
+                                    <span>3-6个月</span>
+                                </li>
+                                <li class="filter-item filter-choice">
+                                    <input type="checkbox" name="deadline" value="term_9_12" />
+                                    <span>9-12个月</span>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <ul>
+                                <li class="filter-item">认证等级</li>
+                                <li class="filter-item filter-choice active">
+                                    <input type="checkbox" name="authenGrade" value="all" checked="checked" />
+                                    <span>不限</span>
+                                </li>
+                                <li class="filter-item filter-choice">
+                                    <input type="checkbox" name="authenGrade" value="rank_AA" />
+                                    <span>AA</span>
+                                </li>
+                                <li class="filter-item filter-choice">
+                                    <input type="checkbox" name="authenGrade" value="rank_A" />
+                                    <span>A</span>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <div class="guide">
+                    <h4>转让注意</h4>
+                    <p>确认债权信息，不要盲目转让</p>
+                    <p>不要听从旁人指导，自己确认</p>
+                    <p>标段有风险，请用户须知</p>
+                    <p>如有问题，可以询问客服</p>
+                </div>
+            </div>
+            <div class="loan creditor">
+                <div class="title">投资推荐</div>
                 <div class="list-head">
-                    <span>借款人</span>
-                    <span>借款标题</span>
-                    <span>年利率</span>
-                    <span>信用等级</span>
-                    <span>金额</span>
-                    <span>期限</span>
-                    <span>进度</span>
+                    <span class="creditor-head-n">转让方名称</span>
+                    <span class="creditor-head-t">债权转让标题</span>
+                    <span class="creditor-head-d">简要描述</span>
                 </div>
                 <ul>
                     <li class="loan-list">
-                        <div class="loan-avatar">
-                            <img src="../images/intro-pic_1.png" />
-                            <span>信</span>
+                        <div class="loan-avatar creditor-head-n">
+                            <div>逗逼方</div>
                         </div>
-                        <div class="loan-title"><a href="#">再次支持免费充值</a></div>
-                        <div class="loan-rate loan-num">10.00%</div>
-                        <div class="loan-rank"><div class="rankA">A</div></div>
-                        <div class="loan-amount loan-num">￥3000元</div>
-                        <div class="loan-time loan-num">3个月</div>
-                        <div class="loan-progress">
-                            <div class="bar-out">
-                                <div class="bar-in">
-                                    <span class="bar-complete" style="width:30%"></span>
-                                    <span class="bar-num">30%</span>
-                                </div>
-                            </div>
+                        <div class="loan-title creditor-head-t"><a href="#">再次支持免费充值</a></div>
+                        <div class="creditor-desc creditor-head-d">
+                            <p>1.test</p>
+                            <p>1.test</p>
                         </div>
+                        <a href="#" class="invest">查看</a>
                     </li>
                     <li class="loan-list">
                         <div class="loan-avatar">
@@ -165,14 +154,21 @@
                         </div>
                     </li>
                 </ul>
+                <ul id="page">
+                    <li><a href="baidu.com" class="page-prev">上一页</a></li>
+                    <li><a href="#" class="active">1</a></li>
+                    <li><a href="#">2</a></li>
+                    <li><a href="#">3</a></li>
+                    <li><a href="#" class="page-next">下一页</a></li>
+                </ul>
                 <div id="viewMore">
-                	<img src="../images/more_ico.png" />
-                	<span>查看更多</span>
+                    <img src="../images/more_ico.png" />
+                    <span>查看更多</span>
                 </div>
             </div>
-    	</div>
+        </div>
     </div>
-	<div id="footer">
+    <div id="footer">
         <div class="wd1002">
             <ul id="fo-nav">
                 <li><img src="../images/wl.png" />新手入门
@@ -183,7 +179,7 @@
                     </ul>
                 </li>
                 <li><img src="../images/out.png" />我要借出
-                	<ul>
+                    <ul>
                         <li><a href="#">浏览借款</a></li>
                         <li><a href="#">自动投票</a></li>
                         <li><a href="#">成为VIP</a></li>
