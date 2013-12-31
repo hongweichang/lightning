@@ -1,6 +1,13 @@
 <?php 
 $jsUrl = $this->scriptUrl;
 $cssUrl = $this->cssUrl;
+$this->cs->registerScript("verify","
+setInterval(function(){
+	$.get('".$this->createUrl('verify/bidVerifyList')."',function(res){
+		$('#verify_number').html(res);
+	});
+},2000);
+");
 ?>
 <!DOCTYPE html>
 
@@ -50,12 +57,12 @@ $cssUrl = $this->cssUrl;
 		<a href="<?php echo Yii::app()->createUrl('index/index');?>" target="_blank">
 		<img id="logo" src="<?php echo $this->imageUrl;?>logo.png" alt="<?php echo $this->getPageTitle()?>" />
 		</a>
-
 		<div id="profile-links">
 			你好，管理员 
 			<a href="<?php echo $this->createUrl('mine/info')?>" title="编辑个人信息" target="mainFrame">
 			<?php echo $this->user->getName();?>
-			</a>
+			</a><br />
+			<a href="<?php echo $this->createUrl('verify/bidVerifyList'); ?>" target="mainFrame">共有<span id="verify_number">0</span>个标段未审核</a>
 			<br />
 			<a href="<?php echo $this->app->getSiteBaseUrl()?>" target="_blank" title="浏览网站前台">浏览网站</a> | 
 			<a href="<?php echo $this->createUrl('account/logout')?>" target="_parent" title="退出登录">登出</a>
