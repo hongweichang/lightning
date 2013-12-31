@@ -13,7 +13,7 @@ class UserCenterController extends Controller{
 	
 	public function filters(){
 		$filters = parent::filters();
-		$filters[] = 'fetchUserData + userInfo,myLend,myBorrow,userSecurity,userFund,GetCash';
+		$filters[] = 'fetchUserData + userInfo,myLend,myBorrow,userSecurity,userFund,GetCash,userRefund';
 		return $filters;
 	}
 	
@@ -606,6 +606,44 @@ class UserCenterController extends Controller{
 			'IconUrl'=>$IconUrl,
 			'p2p' => new CArrayDataProvider($p2p),
 		));
+	}
+	
+	public function actionUserRefund(){
+		$this->pageTitle = '标段还款';
+		
+		$bid = $this->app->getModule('tender')->bidManager->getBidInfo($this->getQuery('bid',81));
+		// && $bid->getAttribute('user_id') == $this->app->user->getId()
+		if(!empty($bid)){
+			
+			if(!empty($_POST)){
+				$password = $this->getPost('pay_password');
+				$notify = $this->app->getModule('notify')->getComponent('notifyManager');
+				//$user = $bid->getRelated('user');
+				if ( $this->app->getSecurityManager()->verifyPassword($password,$this->userData->pay_password) === false ){			
+					$this->redirect($this->createUrl('userCenter/userRefund',array(
+						'bid' => $this->getQuery('bid',81),
+						'e' => base64_encode('1资金密码错误')
+					)));
+				}
+				
+				if($this->userData->getAttribute('balance') - $bid->getAttribute('refund')){
+					if($this->app->getModule('tender')->bidManger->repayBid($bid)){
+						//成功
+					}else{
+						//失败
+					}
+				}else{
+					$this->redirect($this->createUrl('userCenter/userFund'));
+				}
+			}
+			
+			$this->render('userRefund',array(
+				'userData' => $this->userData,
+				'bid' => $bid,
+			));
+		}else{
+			//404
+		}
 	}
 	
 	public function actionAjaxFund(){
