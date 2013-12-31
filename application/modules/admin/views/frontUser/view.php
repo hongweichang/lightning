@@ -29,7 +29,7 @@ $pageUrl = urlencode( $pager->createPageUrl($this,$pager->getCurrentPage()) );
 		<th>手机</th>
 		<th>邮箱</th>
 		<th>身份证</th>
-		<th>余额</th>
+		<th>余额(￥)</th>
 		<th>操作</th>
 	</thead>
 	
