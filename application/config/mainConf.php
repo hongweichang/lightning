@@ -14,7 +14,7 @@ class mainConf extends ConfigBase{
 	
 	public function merge(){
 		return array(
-				'hostName' => 'http://www.shanddai.com',
+				'hostName' => 'http://localhost',
 				'preloadModels' => array(),
 				'modules' => array(
 						'pay',

@@ -9,7 +9,7 @@ setInterval(function(){
 	$.get('".$this->createUrl('verify/bidVerifyList')."',{},function(res){
 		$('#verify_number').html(res);
 	});
-},3000);
+},30000);
 ",CClientScript::POS_END);
 ?>
 <!DOCTYPE html>

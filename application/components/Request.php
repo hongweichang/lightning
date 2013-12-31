@@ -7,8 +7,8 @@
  */
 class Request extends CHttpRequest{
 	public function getUserHostAddress(){
-		if ( isset($_SERVER['x-forwarded-for']) ){
-			return $_SERVER['forwarded'];
+		if ( isset($_SERVER['HTTP_X_FORWARDED_FOR']) ){
+			return $_SERVER['HTTP_X_FORWARDED_FOR'];
 		}else {
 			return parent::getUserHostAddress();
 		}
