@@ -34,11 +34,11 @@ $this->cs->registerCssFile($this->cssUrl.'detail.css');
                     <div class="table-content">
                         <div class="tab-content-l">
                             <div class="tab-border-l tab-right"></div>
-                            <p>借款总金额<span><?php echo $borrowSum;?><span>元</span></span></p>
+                            <p>借款总金额<span><?php echo $userBidMoney;?><span>元</span></span></p>
                         </div>
                         <div class="tab-content-r">
                             <p><span>逾期金额</span><span>待还金额</span><span>近30天应还金额</span></p>
-                            <p class="aud-det-money"><span>0.00元</span><span>0.00元</span><span>0.00元</span></p>
+                            <p class="aud-det-money"><span>0.00元</span><span><?php echo $borrowSum;?>元</span><span><?php echo $borrowSum_month;?>元</span></p>
                             <p class="aud-det-prompt">您最近10天内有 0笔 借款须归还，总额 0.00元</p>
                         </div>
                     </div>
@@ -130,7 +130,8 @@ $this->cs->registerCssFile($this->cssUrl.'detail.css');
                             ?>
                             </span>
                             <?php if($value[0]['verify_progress'] == 21){?>
-                            <span class="repay"><a href="<?php echo Yii::app()->createUrl('tender/purchase/info/',array('id'=>$value[0]['id']))?>">查看</a></span>
+                            <span class="repay"><a href="<?php echo Yii::app()->createUrl('tender/purchase/info/',array('id'=>$value[0]['id']))?>">查看</a>
+                            </span>
                             <?php }?>
                         </li>         
                         <?php }

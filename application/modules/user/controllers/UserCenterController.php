@@ -339,10 +339,14 @@ class UserCenterController extends Controller{
 		$waitingForBuy = array();
 		$finished = array();
 		$waitingForPay = array();
+		$waitingForPaySum = 0;
+		$inComeSum = 0;
+		$inComeSum_month = 0;
 
 		$criteria = new CDbCriteria;
 		$criteria->alias = "meta";
 		$criteria->condition = 'meta.user_id=:uid';
+		$criteria->order = 'buy_time DESC';
 		$criteria->params = array(
 				':uid' => $uid
 		);
@@ -353,10 +357,14 @@ class UserCenterController extends Controller{
 			foreach($LendData as $value){
 				$userData = $value->getRelated('user');
 				$bidData = $value->getRelated('bid');
-				if($value->status == 21){
+				$BorrowUser = FrontUser::model()->findByPk($bidData->user_id);
+				if($value->status != 11){
+					$inComeSum_month += $value->refund/100;
+					$inComeSum += $value->refund/100 * $bidData->deadline;
+
 					if($bidData->verify_progress == 41){
 						$finished[] = array(
-							'nickname'=>$userData->nickname,
+							'nickname'=>$BorrowUser->nickname,
 							'bidTitle'=>$bidData->title,
 							'rate'=>$bidData->month_rate,
 							'sum'=>$value->sum/100,
@@ -366,7 +374,8 @@ class UserCenterController extends Controller{
 
 					}elseif($bidData->verify_progress == 21){
 						$waitingForBuy[] = array(
-							'nickname'=>$userData->nickname,
+							'id'=>$bidData->id,
+							'nickname'=>$BorrowUser->nickname,
 							'bidTitle'=>$bidData->title,
 							'rate'=>$bidData->month_rate,
 							'sum'=>$value->sum/100,
@@ -376,8 +385,10 @@ class UserCenterController extends Controller{
 						);
 
 					}elseif($bidData->verify_progress == 31){
+						$waitingForPaySum += $value->sum/100;
+
 						$waitingForPay[] = array(
-							'nickname'=>$userData->nickname,
+							'nickname'=>$BorrowUser->nickname,
 							'bidTitle'=>$bidData->title,
 							'rate'=>$bidData->month_rate,
 							'sum'=>$value->sum/100,
@@ -395,8 +406,14 @@ class UserCenterController extends Controller{
 		$IconUrl = Yii::app()->getModule('user')->userManager->getUserIcon($uid);
 		$this->render('myLend',array(
 			'waitingForBuy'=>$waitingForBuy,
+			'waitingForPay'=>$waitingForPay,
+			'waitingForPaySum'=>$waitingForPaySum,
 			'IconUrl'=>$IconUrl,
-			'finished'=>$finished
+			'finished'=>$finished,
+			'userMetaBidMoney'=>$this->userMetaBidMoney,
+			'inComeSum_month'=>$inComeSum_month,
+			'inComeSum'=>$inComeSum
+
 			));
 		
 	}
@@ -411,11 +428,15 @@ class UserCenterController extends Controller{
 		$waitingForBuy = array();
 		$finished = array();
 		$borrowSum = 0;
+		$borrowSum_month = 0;
+		$userBidMoney = $this->userBidMoney;
 
 		$myBorrowData = $this->app->getModule('tender')->getComponent('bidManager')->getBidList('user_id =:uid',array(
 			'uid'=>$uid));
 		foreach($myBorrowData as $value){
 			if($value->attributes['verify_progress'] == 31){
+					$borrowSum_month += $value->refund/100;
+
 					$waitingForPay[] = array(
 							$value->attributes
 						);
@@ -438,7 +459,9 @@ class UserCenterController extends Controller{
 									'waitingForBuy'=>$waitingForBuy,
 									'finished'=>$finished,
 									'borrowSum'=>$borrowSum,
-									'IconUrl'=>$IconUrl
+									'IconUrl'=>$IconUrl,
+									'userBidMoney'=>$userBidMoney,
+									'borrowSum_month'=>$borrowSum_month
 									));
 	}
 

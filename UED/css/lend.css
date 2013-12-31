@@ -367,7 +367,7 @@ body {
     /*height: 21px;*/
     width: 80px;
     height: 25px;
-    background: #cbcbcd;
+    background: #e5e5e6;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     border-radius: 5px; }
@@ -1164,4 +1164,51 @@ body {
 }
 .details-info.creditor{
   height: auto;
+}
+.link{
+  color: #2d9194;
+}
+.link:visited{
+  color: #2d9194;
+}
+.filter-header .button{
+  height: 35px;
+  line-height: 35px;
+  color: #fff;
+  background: #84e95d;
+  padding: 5px 10px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+}
+.filter-header .button:hover{
+  background: #70f131;
+}
+.loan.creditor .creditor-head-n{
+  width: 200px;
+}
+.loan.creditor .creditor-head-t{
+  width: 300px;
+}
+.loan.creditor .creditor-head-d{
+  width: 350px;
+}
+.loan.creditor .loan-avatar div{
+  height: 47px;
+  line-height: 47px;
+  width: 200px;
+  overflow: hidden;
+}
+.creditor .creditor-desc{
+  width: 350px;
+  text-align: left;
+  overflow: hidden;
+}
+.loan-title.creditor-head-t{
+  height: 47px;
+  line-height: 47px;
+}
+.creditor .invest{
+  position: relative;
+  top: -20px;
 }

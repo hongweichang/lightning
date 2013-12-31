@@ -105,7 +105,7 @@
             <div class="footer-sec clearfix last">
                 <div id="f-copyright">
                     <span>渝ICP备13008004号 |</span>
-                    <span>© 2013-2014 重庆万兆投资有限公司  All rights reserved|</span>
+                    <span>© 2013-2014 重庆万兆投资有限公司  All rights reserved | </span>
                     <span>闪电贷</span>
                 </div>
             </div>

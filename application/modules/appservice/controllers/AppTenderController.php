@@ -323,6 +323,7 @@ class AppTenderController extends Controller{
 							'gender'=>$user->gender,
 							'realname'=>$user->realname,
 							'userLevel'=>$userLevel,
+							'rate'=>$bid->month_rate/100,
 							'userIcon'=>$userIcon
 			
 					);

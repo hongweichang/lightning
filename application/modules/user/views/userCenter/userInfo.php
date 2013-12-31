@@ -176,7 +176,16 @@ $this->widget('application.extensions.swfupload.CSwfUpload', array(
                             <li class="clearfix">
                                 <label class="personal-name"><span class="essential">*</span>社会角色</label>
                                 <div class="personal-ico personal-role"></div>
-                                <p><?php echo FrontUser::getRoleName($userData->role);?></p>
+                                <p>
+                                <?php
+                                    if($userData->role == null){
+   
+                                ?>
+                                <span style="display:inline;">暂未设置</span><span style="display:inline;font-size:12px;color:red;">请选择社会角色后上传信用资料</span>
+                                <?php }else
+                                        echo FrontUser::getRoleName($userData->role);
+                                ?>
+                                </p>
                             </li>
                             <li class="clearfix">
                                 <label class="personal-name">会员级别</label>
@@ -371,7 +380,9 @@ $this->widget('application.extensions.swfupload.CSwfUpload', array(
                         </tr>
                         <?php
                             $this->endWidget();
-                        }}?> 
+                        }}else{?>
+                            <p style="font-size:14px;margin-left:40px;color:red;">请在个人信息中选择角色后上传信用资料</p>
+                        <?php }?> 
                         <tr>
                             <td rowspan="<?php echo $unnecessaryNum +1;?>">选填信息</td>
                             <td></td>
