@@ -2,12 +2,15 @@
 $jsUrl = $this->scriptUrl;
 $cssUrl = $this->cssUrl;
 $this->cs->registerScript("verify","
+$.get('".$this->createUrl('verify/bidVerifyList')."',{},function(res){
+	$('#verify_number').html(res);
+});
 setInterval(function(){
-	$.get('".$this->createUrl('verify/bidVerifyList')."',function(res){
+	$.get('".$this->createUrl('verify/bidVerifyList')."',{},function(res){
 		$('#verify_number').html(res);
 	});
-},2000);
-");
+},3000);
+",CClientScript::POS_END);
 ?>
 <!DOCTYPE html>
 
