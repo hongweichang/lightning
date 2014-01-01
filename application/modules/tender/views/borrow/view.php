@@ -37,7 +37,7 @@
             </div>
             <div id="aud-detail">
                 <div class="aud-ucenter">
-                    <a href="<?php echo $this->app->createUrl('user/userCenter/userInfo'); ?>">进入个人中心 |</a>
+                    <a href="<?php echo $this->app->createUrl('user/userCenter/myBorrow'); ?>">进入个人中心 |</a>
                     <a href="<?php echo $this->app->createUrl('/content/help/index');?>">使用帮助</a>
                 </div>
                 <div class="aud-warning">
