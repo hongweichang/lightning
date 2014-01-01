@@ -333,7 +333,7 @@ $this->widget('application.extensions.swfupload.CSwfUpload', array(
                                 $form=$this->beginWidget('CActiveForm', array(
                                             'id'=>'FrontCredit-form',
                                             'enableAjaxValidation'=>true,
-                                            'action'=>'verificationAdd?type='.$value['id'].'',
+                                            'action'=>$this->createUrl('userCenter/verificationAdd',array('type'=>$value['id'])),
                                             'htmlOptions' => array(
                                                         //'class' => 'hidden'
                                                         'name'=>'file',

@@ -13,8 +13,15 @@
 			 <td><a href="<?php echo $this->createUrl('Download',array('id'=>$value['id']))?>">下载图片</a></td>	
 			<?php }else{
 			?>
-			<td><a href="<?php echo $this->createUrl('Download',array('id'=>$value['id']))?>">下载附件</a></td>
+			<td clospan="2">
+				<a href="<?php echo $this->createUrl('Download',array('id'=>$value['id']))?>">下载附件</a>
+			</td>
 			<?php }?>
+			<?php if ( $id != null ):?>
+			<td>
+			<a href="<?php echo $this->createUrl('creditVerify',array('id'=>$value['id'],'action'=>'unpass','uid'=>$userData[0]->id))?>">审核不通过</a>
+			</td>
+			<?php endif;?>
 		</tr>
 		<?php }?>
 	</tbody>

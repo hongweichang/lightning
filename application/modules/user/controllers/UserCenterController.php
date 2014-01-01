@@ -204,7 +204,8 @@ class UserCenterController extends Controller{
 	/*
 	**添加信用项
 	*/
-	public function actionVerificationAdd($type){
+	public function actionVerificationAdd(){
+		$type = $this->getQuery('type');
 		if(!empty($type)){
 			$uid = $this->app->user->id;
 			$role = $this->user->getState('role');

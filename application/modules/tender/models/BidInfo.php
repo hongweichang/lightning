@@ -49,12 +49,10 @@ class BidInfo extends CmsActiveRecord
 			array('user_id, title, description, sum, refund, month_rate, start, end, deadline, repay_deadline', 'required'),
 			array('refund, repay_deadline, progress_sum, verify_progress', 'numerical', 'integerOnly'=>true),
 			array('user_id, sum, start, end, deadline, progress, pub_time, begin_time, repay_time, finish_time', 'length', 'max'=>11),
+			array('sum','number','min'=>5000,'integerOnly'=>true,'message'=>'借款金额不合法'),
 			array('title', 'length', 'max'=>50),
 			array('month_rate', 'length', 'max'=>5),
 			array('failed_description', 'safe'),
-			// The following rule is used by search().
-			// @todo Please remove those attributes that should not be searched.
-			array('id, user_id, title, description, sum, refund, month_rate, start, end, deadline, repay_deadline, progress, progress_sum, pub_time, begin_time, repay_time, finish_time, verify_progress, failed_description', 'safe', 'on'=>'search'),
 		);
 	}
 
