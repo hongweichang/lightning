@@ -37,12 +37,12 @@ class Debt extends CmsActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('title, description, incomeWay, start, end, condition, deadline, charge, protection, remark', 'required'),
+			array('title, Debt_master,description, incomeWay, start, end, condition, deadline, charge, protection, remark', 'required'),
 			array('deadline', 'numerical', 'integerOnly'=>true),
 			array('title, protection', 'length', 'max'=>30),
 			array('description', 'length', 'max'=>200),
 			array('incomeWay, condition, charge, remark', 'length', 'max'=>50),
-			array('start, end', 'length', 'max'=>20),
+			array('start, end,Debt_master', 'length', 'max'=>20),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('id, title, description, incomeWay, start, end, condition, deadline, charge, protection, remark', 'safe', 'on'=>'search'),
