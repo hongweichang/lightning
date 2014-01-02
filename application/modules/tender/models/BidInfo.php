@@ -43,13 +43,11 @@ class BidInfo extends CmsActiveRecord
 	 */
 	public function rules()
 	{
-		// NOTE: you should only define rules for those attributes that
-		// will receive user inputs.
 		return array(
 			array('user_id, title, description, sum, refund, month_rate, start, end, deadline, repay_deadline', 'required'),
 			array('refund, repay_deadline, progress_sum, verify_progress', 'numerical', 'integerOnly'=>true),
 			array('user_id, sum, start, end, deadline, progress, pub_time, begin_time, repay_time, finish_time', 'length', 'max'=>11),
-			array('sum','number','min'=>5000,'integerOnly'=>true,'message'=>'借款金额不合法'),
+			array('sum','numerical','min'=>5000,'integerOnly'=>true,'message'=>'借款金额不合法'),
 			array('title', 'length', 'max'=>50),
 			array('month_rate', 'length', 'max'=>5),
 			array('failed_description', 'safe'),
