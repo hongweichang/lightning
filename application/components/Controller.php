@@ -24,6 +24,11 @@ class Controller extends CmsController{
 	 * @var Application
 	 */
 	public $app;
+	/**
+	 * 
+	 * @var CHtmlPurifier
+	 */
+	public $purifier = null;
 	
 	public function filters(){
 		$filters = parent::filters();
