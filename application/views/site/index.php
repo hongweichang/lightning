@@ -13,7 +13,7 @@ $bidProgressCssClassMap = $this->app['bidProgressCssClassMap'];
         <ul>
         <?php foreach ( $bannerFiles as $file ):?>
             <li style="background:url('<?php echo $this->app->getPartedUrl('siteBanner',$bannerAddTime).$file['filename']?>') 50% 50% no-repeat">
-                <a href="javascript:void(0);"></a>
+                <a href="<?php echo $file['redirect']?>" target="_blank"></a>
             </li>
        <?php endforeach;?>
        </ul>

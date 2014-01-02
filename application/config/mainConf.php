@@ -82,7 +82,8 @@ class mainConf extends ConfigBase{
 								'tablePrefix' => 'xcms_'
 						),
 						'request' => array(
-								'class' => 'application.components.Request'
+								'class' => 'application.components.Request',
+								'enableCookieValidation' => true
 						),
 						'cache' => array(
 								'class' => 'CMemCache',
