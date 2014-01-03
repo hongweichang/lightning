@@ -519,10 +519,10 @@ body {
   position: fixed;
   top: 50%;
   right: 0;
-  width: 98px;
-  height: 178px;
-  background: url("../images/online_service.png");
+  width: 46px;
+  height: 112px;
+  background: url("../images/online_service.png") no-repeat;
 }
-.online_service:hover {
+/*.online_service:hover {
   background: url("../images/online_service_on.png");
-}
+}*/
