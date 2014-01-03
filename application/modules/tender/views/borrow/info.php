@@ -132,7 +132,7 @@ $('.input-daterange').datepicker({
                                 <p>还款方式：等额本息</p>
                                 <p>月还本息：￥<span id="calc-borrow-month"></span></p>
                                 <p>一次性缴纳服务费：￥<span id="calc-borrow-service"></span>
-                                    <span class="calc-borrow-hint"><a href="<?php echo $this->createUrl('content/help/index/cid/23'); ?>">查看收取方式</a></span>
+                                    <span class="calc-borrow-hint"><a href="<?php echo $this->app->createUrl('content/help/index/cid/23'); ?>">查看收取方式</a></span>
                                 </p>
                                 <img src="<?php echo $this->imageUrl;?>message-hint.png" />
                             </div>
