@@ -148,4 +148,14 @@ class FrontUser extends SingleInheritance
 			}
 		}
 	}
+	
+	public function beforeSave(){
+		if ( parent::beforeSave() ){
+			$purifier = new CHtmlPurifier();
+			$this->attributes = $purifier->purify($this->attributes);
+			return true;
+		}else {
+			return false;
+		}
+	}
 }

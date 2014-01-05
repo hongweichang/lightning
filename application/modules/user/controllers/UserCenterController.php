@@ -204,7 +204,8 @@ class UserCenterController extends Controller{
 	/*
 	**添加信用项
 	*/
-	public function actionVerificationAdd($type){
+	public function actionVerificationAdd(){
+		$type = $this->getQuery('type');
 		if(!empty($type)){
 			$uid = $this->app->user->id;
 			$role = $this->user->getState('role');
@@ -369,7 +370,7 @@ class UserCenterController extends Controller{
 							'rate'=>$bidData->month_rate,
 							'sum'=>$value->sum/100,
 							'deadline'=>$bidData->deadline,
-							'buyTime'=>date('Y:m:d H:i:s',$value->finish_time),									
+							'buyTime'=>date('Y:m:d H:i:s',$value->buy_time),									
 									);
 
 					}elseif($bidData->verify_progress == 21){
@@ -380,7 +381,7 @@ class UserCenterController extends Controller{
 							'rate'=>$bidData->month_rate,
 							'sum'=>$value->sum/100,
 							'deadline'=>$bidData->deadline,
-							'buyTime'=>date('Y:m:d H:i:s',$value->finish_time),
+							'buyTime'=>date('Y:m:d H:i:s',$value->buy_time),
 
 						);
 
@@ -393,7 +394,7 @@ class UserCenterController extends Controller{
 							'rate'=>$bidData->month_rate,
 							'sum'=>$value->sum/100,
 							'deadline'=>$bidData->deadline,
-							'buyTime'=>date('Y:m:d H:i:s',$value->finish_time),
+							'buyTime'=>date('Y:m:d H:i:s',$value->buy_time),
 										);
 					}
 

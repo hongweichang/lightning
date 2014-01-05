@@ -40,8 +40,34 @@ class PurchaseController extends Controller {
 		$this->_selectorMap = $this->app['selectorMap'];
 		$this->_monthRate = $this->_selectorMap['monthRate'];
 		$this->_deadline = $this->_selectorMap['deadline'];
-		$this->_authenGrade = $this->_selectorMap['authenGrade'];
+		//$this->_authenGrade = $this->_selectorMap['authenGrade'];
 		$this->_bidsPerPage = $this->app['bidsPerPage'];
+	}
+	
+	public function loadCreditSettings(){
+		$cache = $this->app->cache;
+		$cackeKey = 'FRONT_CREDIT_SETTING_';
+		$credit = $this->app->getModule('credit');
+		
+		$creditSettings = $cache->get($cackeKey);
+		if ( $creditSettings === false ){
+			$credit = $credit->getComponent('userCreditManager');
+			$creditSettings = $credit->UserLevelList();
+			$cache->set($cackeKey,$creditSettings,600);
+		}
+		
+		$this->_authenGrade['不限'] = 'credit_grade >= 0';
+		for ( $i=0; isset($creditSettings[$i]); ++$i ){
+			if ( $creditSettings[$i]->start <= 0 ){
+				continue;
+			}
+			if ( isset($creditSettings[$i+1]) && $creditSettings[$i+1]->start > 0 ){
+				$this->_authenGrade[$creditSettings[$i]->label] = 'credit_grade BETWEEN '.$creditSettings[$i]->start.' AND '.$creditSettings[$i+1]->start;
+			}else {
+				$this->_authenGrade[$creditSettings[$i]->label] = 'credit_grade>='.$creditSettings[$i]->start;
+			}
+		}
+		$this->_selectorMap['authenGrade'] = $this->_authenGrade;
 	}
 	
 	/**
@@ -50,6 +76,8 @@ class PurchaseController extends Controller {
 	 */
 	function actionIndex() {
 		$this->setPageTitle($this->name);
+		
+		$this->loadCreditSettings();
 		
 		$condition = "(verify_progress=21 OR verify_progress=31 ) AND start<=".time();
 		$pager = new CPagination(BidInfo::model()->count($condition));
@@ -136,6 +164,9 @@ class PurchaseController extends Controller {
 
 		$conditions = array();
 		$withUser = false;
+		
+		$this->loadCreditSettings();
+		
 		foreach ($this->_selectorMap as $key => $value) {
 			if(isset($_GET[$key]) && isset($value[$_GET[$key]]) && $value[$_GET[$key]] !== 'all') {
 				$conditions[$key] = $_GET[$key];

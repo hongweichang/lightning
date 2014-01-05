@@ -58,6 +58,11 @@ return array(
 				'<_m>/appDebt/get<_a>',
 				'verb'=>'post'
 			),
+		array(
+				'pattern'=>'<_m:(appservice)>/<_a:(JoinDebt)>',
+				'<_m>/appDebt/<_a>',
+				'verb'=>'post'
+			),
 
 	);
 ?>

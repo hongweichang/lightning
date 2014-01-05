@@ -19,6 +19,8 @@ $form=$this->beginWidget('CActiveForm', array(
 <?php echo $form->textField($model,'title',array('class'=>'text-input'));?>
 <p><label>债权简介</label></p>
 <?php echo $form->textArea($model,'description',array('class'=>'text-input textarea'));?>
+<p><label>债权人信息</label></p>
+<?php echo $form->textArea($model,'Debt_master',array('class'=>'text-input textarea'));?>
 <p><label>获利方式</label></p>
 <?php echo $form->textArea($model,'incomeWay',array('class'=>'text-input textarea'));?>
 <div class="input-daterange" id="datepicker">
