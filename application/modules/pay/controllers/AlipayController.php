@@ -5,7 +5,7 @@
  * date: 2013-11-16
  * desc: Alipay即时到账交易接口接入页
  */
-class AlipayController extends PayController{
+/*class AlipayController extends PayController{
 	protected $platform = 'alipay';
 	
 	public function init(){
@@ -109,4 +109,4 @@ class AlipayController extends PayController{
 			
 		}
 	}
-}
+}*/

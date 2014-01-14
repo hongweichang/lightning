@@ -6,11 +6,11 @@
  * desc: 
  */
 return array(
-	'alipay' => array(
+	/*'alipay' => array(
 		//合作身份者id，以2088开头的16位纯数字
-		'partner' => '2088002995371000',
+		'partner' => '',
 		//安全检验码，以数字和字母组成的32位字符
-		'key' => 'zo67sbf6teku60tme7fle4xzae1yxzzw',
+		'key' => '',
 		//签名方式 不需修改
 		'sign_type' => strtoupper('MD5'),
 		//字符编码格式 目前支持 gbk 或 utf-8
@@ -31,7 +31,7 @@ return array(
 		'return_url' => Yii::app()->hostName.Yii::app()->createUrl("pay/alipay/return"),
 		//商品展示地址
 		'show_url' => Yii::app()->hostName.Yii::app()->createUrl("pay/platform/bill"),
-	),
+	),*/
 	
 	'ips' => array(
 		//IPS商户编号

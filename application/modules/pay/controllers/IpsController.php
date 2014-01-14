@@ -57,9 +57,9 @@ class IpsController extends PayController{
 				$this->buyer_id = $this->getQuery('bankbillno');
 				//;
 				if($this->beginPay($this->getQuery('mercode')) && $this->afterPay($this->getQuery('mercode'))){
-					
+					//完成
 				}else{
-					
+					//失败
 				}
 			}else{
 				//交易失败
@@ -94,7 +94,6 @@ class IpsController extends PayController{
 				$this->subject = $this->getQuery('Attach');
 				$this->buyer = $this->getQuery('msg');
 				$this->buyer_id = $this->getQuery('bankbillno');
-				//;
 				if($this->beginPay($this->getQuery('mercode')) && $this->afterPay($this->getQuery('mercode'))){
 					
 				}else{

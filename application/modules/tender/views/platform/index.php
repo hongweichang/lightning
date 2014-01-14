@@ -73,9 +73,9 @@ $this->cs->registerCssFile($this->cssUrl.'lend.css');
                 <ul>
                   <li>
                   	<?php if($user->getAttribute('balance') - $meta->getAttribute('sum') >= 0){ ?>
-                    <input type="radio" name="payment" value="alipay" id="b-icbc"/>
+                    <input type="radio" name="payment" value="ips" id="b-icbc"/>
                     <?php }else{ ?>
-                    <input type="radio" name="payment" value="alipay" id="b-icbc" checked="checked" />
+                    <input type="radio" name="payment" value="ips" id="b-icbc" checked="checked" />
                     <?php } ?>
                     <label class="icbc" for="b-icbc"></label>
                   </li>

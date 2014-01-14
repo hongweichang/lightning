@@ -11,7 +11,7 @@ class IpsSubmit{
 	 * 正式 https://pay.ips.com.cn/ipayment.aspx
 	 * 测试 https://pay.ips.net.cn/ipayment.aspx
 	 */
-	private $form_url = 'https://pay.ips.net.cn/ipayment.aspx';
+	private $form_url = 'https://pay.ips.com.cn/ipayment.aspx';
 	private $ips_config;
 	
 	public function __construct($ips_config){
