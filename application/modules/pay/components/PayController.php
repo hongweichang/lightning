@@ -25,7 +25,8 @@ class PayController extends Controller{
 	 */
 	protected function beginPay($trade_no){
 		$record = Recharge::model()->findByPk($trade_no);
-		if($record->getAttribute('status') >= 1) return false;
+		if($record === null) return false;
+		if($record->getAttribute('status') >= 1) return true; //已接收来自支付平台的通知
 		
 		$transaction = Yii::app()->db->beginTransaction();
 		try{

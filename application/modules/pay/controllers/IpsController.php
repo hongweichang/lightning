@@ -36,36 +36,36 @@ class IpsController extends PayController{
 		
 		if($result){
 			if($this->getQuery('succ') == 'Y'){
-				/**----------------------------------------------------
-				 *比较返回的订单号和金额与您数据库中的金额是否相符
-				*compare the billno and amount from ips with the data recorded in your datebase
-				*----------------------------------------------------
-				
-				if(不等)
-					echo "从IPS返回的数据和本地记录的不符合，失败！"
-				exit
-				else
-					'----------------------------------------------------
-				'交易成功，处理您的数据库
-				'The transaction is successful. update your database.
-				'----------------------------------------------------
-				end if
-				**/
 				$this->trade_no = $this->getQuery('ipsbillno');
 				$this->subject = $this->getQuery('Attach');
 				$this->buyer = $this->getQuery('msg');
 				$this->buyer_id = $this->getQuery('bankbillno');
 				//;
-				if($this->beginPay($this->getQuery('mercode')) && $this->afterPay($this->getQuery('mercode'))){
-					//完成
+				if($this->beginPay($this->getQuery('mercode'))){
+					$record = Recharge::model()->findByPk($trade_no);
+					if($record->getAttribute('meta_id') != 0){
+						$meta = Yii::app()->getModule('tender')->bidManager->getBidMetaInfo($record->getAttribute('meta_id'));
+						$this->render('/tender/platform/compelete',array(
+							'metano' => $record->getAttribute('meta_id'),
+							'bid' => $meta->getRelated('bid')->getAttribute('id'),
+						));
+					}else{
+						$this->render('success');
+					}
 				}else{
-					//失败
+					$this->render('failure',array(
+						'title' => '充值出错'
+					));
 				}
 			}else{
-				//交易失败
+				$this->render('failure',array(
+					'title' => '充值失败'
+				));
 			}
 		}else{
-			//签名不正确
+			$this->render('failure',array(
+				'title' => '签名验证失败'
+			));
 		}
 	}
 	
@@ -95,15 +95,15 @@ class IpsController extends PayController{
 				$this->buyer = $this->getQuery('msg');
 				$this->buyer_id = $this->getQuery('bankbillno');
 				if($this->beginPay($this->getQuery('mercode')) && $this->afterPay($this->getQuery('mercode'))){
-					
+					echo "success";
 				}else{
-					
+					echo "fail";
 				}
 			}else{
-				//交易失败
+				echo "fail";
 			}
 		}else{
-			//签名不正确
+			echo "fail";
 		}
 	}
 }
