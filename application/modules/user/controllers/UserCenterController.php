@@ -478,7 +478,7 @@ class UserCenterController extends Controller{
 			$TypeVerify = $this->TypeVerify($fileType);
 			if($TypeVerify !== 'image'){
 				echo "上传文件不合法!";
-				die();
+				exit();
 			}
 			$uploadDir = dirname(Yii::app()->basePath).DS.$this->app->getPath('avatar').
 					                    $this->app->partition($uid,'avatar');
@@ -505,6 +505,8 @@ class UserCenterController extends Controller{
 				FrontUserIcon::model()->updateAll(array('in_using'=>0),'user_id=:uid',array(':uid'=>$uid));
 				if($Icon->save()){
 					$this->user->setState('avatar',$this->app->getPartedUrl('avatar',$uid).$newName);
+					$newIcon = array('flag'=>'1','newIconUrl'=>$this->app->getPartedUrl('avatar',$uid).$newName);
+					echo json_encode($newIcon);
 				}
 			}
 		}

@@ -19,7 +19,7 @@ $MetaSum = $this->userMetaBidMoney;
                 <?php }elseif(18<date('H')||0<=date('H') && date('H')<6){?>
                 <div class="det-per-inf night">
                 <?php }?>
-                    <img src="<?php echo $this->user->getState('avatar')?>" class="det-img" />
+                    <img src="<?php echo $this->user->getState('avatar')?>" class="det-img" id="base-img" />
                     <p>
                         <span class="aud-time">
                         <?php  

@@ -54,7 +54,7 @@ function uploadProgress(file, bytesLoaded) {
 			progress.setStatus("Creating thumbnail...");
 			progress.toggleCancel(false, this);
 		} else {
-			progress.setStatus("Uploading...");
+			progress.setStatus("正在上传...");
 			progress.toggleCancel(true, this);
 		}
 	} catch (ex) {
@@ -62,14 +62,15 @@ function uploadProgress(file, bytesLoaded) {
 	}
 }
 
+//上传成功触发事件
 function uploadSuccess(file, serverData) {
 	try {
 		var progress = new FileProgress(file,  this.customSettings.upload_target);
-
-		if (serverData.substring(0, 7) === "FILEID:") {
-			addImage("thumbnail.php?id=" + serverData.substring(7));
-
-			progress.setStatus("Thumbnail Created.");
+		var data = eval("("+serverData+")");
+		if (data.newIconUrl != null) {
+			//动态更改头像显示
+			document.getElementById("mini-icon").src = data.newIconUrl;
+			document.getElementById("base-img").src = data.newIconUrl;
 			progress.toggleCancel(false);
 		} else {
 			addImage("images/error.gif");
@@ -93,7 +94,7 @@ function uploadComplete(file) {
 		} else {
 			var progress = new FileProgress(file,  this.customSettings.upload_target);
 			progress.setComplete();
-			progress.setStatus("All images received.");
+			progress.setStatus("上传成功");
 			progress.toggleCancel(false);
 		}
 	} catch (ex) {
@@ -222,6 +223,7 @@ function FileProgress(file, targetID) {
 		progressCancel.appendChild(document.createTextNode(" "));
 
 		var progressText = document.createElement("div");
+		//文件名显示
 		progressText.className = "progressName";
 		progressText.appendChild(document.createTextNode(file.name));
 

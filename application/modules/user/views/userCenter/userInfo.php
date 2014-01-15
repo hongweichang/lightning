@@ -22,6 +22,7 @@ if(Yii::app()->user->hasFlash('upload_success')){
 
 <?php
 }
+
 $this->widget('application.extensions.swfupload.CSwfUpload', array(
     'jsHandlerUrl'=>Yii::app()->request->baseUrl."/plugins/swfupload/js/handlers.js", //配置swfupload事件的js文件
     'postParams'=>array('PHPSESSID'=>Yii::app()->session->sessionID),//由于flash上传不可以传递cookie只能将session_id用POST方式传递
@@ -42,9 +43,9 @@ $this->widget('application.extensions.swfupload.CSwfUpload', array(
         'upload_complete_handler'=>'js:uploadComplete',
         'custom_settings'=>array('upload_target'=>'divFileProgressContainer'),
         'button_placeholder_id'=>'swfupload',
-        'button_width'=>140,
-        'button_height'=>28,
-        //'button_image_url'=> $this->imageUrl.'upload_button.png',
+        'button_width'=>97,
+        'button_height'=>25,
+       // 'button_image_url'=>$IconUrl,
         'button_text'=>'<span class="button">点击修改头像</span>',
         'button_text_style'=>'.button { font-family:"微软雅黑", sans-serif; font-size: 15px; text-align: center;color: #666666; }',
         'button_text_top_padding'=>0,
@@ -102,13 +103,14 @@ $this->widget('application.extensions.swfupload.CSwfUpload', array(
                 <div class="basic-info find-table-content find-table-content-show">
                 <?php }?>
                     <a href="javascript:;"  class="user-avatar">
-                    <?php if(!empty($IconUrl)){?>
-                        <img src="<?php echo $IconUrl;?>"/>
+                     <?php if(!empty($IconUrl)){?>
+                        <img id="mini-icon" src="<?php echo $IconUrl;?>"/>
                     <?php }else{?>
                         <img src="<?php echo $this->imageUrl.'user-avatar.png'?>" />
                     <?php }?>
                          <div class="swfupload" style="display:inline-block"><span id="swfupload"></span>
                          </div>
+                         <div id="divFileProgressContainer"></div>
                     </a>
                     <form class="show">
                         <ul class="personal-info">
