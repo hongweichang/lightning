@@ -153,7 +153,7 @@ class PlatformController extends Controller{
 	}
 	
 	public function actionRefund(){
-		$bid = BidInfo::model()->findByPk($this->Query('bid'));
+		$bid = BidInfo::model()->findByPk($this->getQuery('bid'));
 		if($bid != null && $bid->getAttribute('user_id') == $this->user->getId()){
 			if($this->module->bidManager->repayBid($bid)){
 				$this->render('refund');

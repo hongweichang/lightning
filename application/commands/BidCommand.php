@@ -67,7 +67,7 @@ class BidCommand extends LightningCommandBase{
 			}
 			
 			if($isSend){
-				//@TODO 发送通知
+				$asyncEvent = $this->app->getComponent();
 			}
 		}
 	}
