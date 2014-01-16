@@ -103,7 +103,7 @@ $('.input-daterange').datepicker({
 							<p class="message-hint" style="color:red;"><?php echo $form->getError('sum'); ?></p>
 							<?php } ?>
 							<p class="message-hint">
-                            	请在此栏填写大于等于1万的借款金额，金额必须是正整数
+                            	请在此栏填写大于等于5000的借款金额，金额必须是正整数
                             </p>
                         </li>
                         <li class="message-item">
@@ -114,7 +114,7 @@ $('.input-daterange').datepicker({
 							<p class="message-hint" style="color:red;"><?php echo $form->getError('rate'); ?></p>
 							<?php } ?>
                           	<p class="message-hint">
-                            	年利率范围在：5% - 20% 之间，请填写您能够接受的借贷利率。
+                            	年利率范围在：8% - 24% 之间，请填写您能够接受的借贷利率。
                             </p>
                         </li>
                         <li class="message-item">
@@ -144,7 +144,7 @@ $('.input-daterange').datepicker({
                                     <input type="text" class="input-small" name="start" value="<?php echo $form->start; ?>"/>
                                 </p>
                                 <p><span class="add-on">to</span></p>
-                                <p>
+                                <p style="position:relative;">
                                     <label>招标结束时间:</label>
                                     <input type="text" class="input-small" name="end" value="<?php echo $form->end; ?>"/>
                                 </p>
