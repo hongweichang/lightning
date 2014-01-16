@@ -661,7 +661,10 @@ body {
   background: url("../images/bank.jpg") no-repeat 0px -132px; }
 .paymethod-bank .cgb {
   background: url("../images/bank.jpg") no-repeat 0px -165px; }
-
+.paymethod-bank .ips{
+	background :url("../images/ips.jpg") no-repeat center;
+	background-size:132px 35px;
+}
 #lend-details {
   background: #fff;
   padding: 10px 30px 40px; }

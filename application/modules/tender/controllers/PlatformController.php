@@ -65,8 +65,8 @@ class PlatformController extends Controller{
 				'meta' => $meta,
 				'errorMsg' => $errorMsg
 			));
-		}else{
-			//404
+		}else{ /*404*/
+			$this->render('//common/404');
 		}
 	}
 	
@@ -110,10 +110,34 @@ class PlatformController extends Controller{
 				'metano' => $metaId
 			));
 			
-			$this->render('success');
-		}else{
-			// 404
+			$this->render('compelete',array(
+				'metano' => Utils::appendDecrypt($metaId),
+				'bid' => $meta->getRelated('bid')->getAttribute('id')
+			));
+		}else{ /*404*/
+			$this->render('//common/404');
 		}
+	}
+	
+	/**
+	 * ajax
+	 */
+	public function actionSuccess(){
+		if($this->request->getIsAjaxRequest()){
+			$metano = Utils::appendEncrypt($this->getPost('metaId'));
+			$meta = BidMeta::model()->findByPk($metano);
+			if ( $meta !== null && $meta->status == 21 ){
+				echo CJSON::encode(array('status'=>1));
+			}else{
+				echo CJSON::encode(array('status'=>0));
+			}
+		}else{
+			$this->render('success');
+		}
+	}
+	
+	public function actionFailure(){
+		$this->render('failure');
 	}
 	
 	public function actionSendVerify(){
@@ -126,5 +150,18 @@ class PlatformController extends Controller{
 		$asyncEventRunner->raiseAsyncEvent('onBeforePayBidSuccess',array(
 				'mobile' => $mobile
 		));
+	}
+	
+	public function actionRefund(){
+		$bid = BidInfo::model()->findByPk($this->Query('bid'));
+		if($bid != null && $bid->getAttribute('user_id') == $this->user->getId()){
+			if($this->module->bidManager->repayBid($bid)){
+				$this->render('refund');
+			}else{
+				$this->render('badfund');
+			}
+		}else{
+			$this->render('//common/404');
+		}
 	}
 }

@@ -6,11 +6,11 @@
  * desc: 
  */
 return array(
-	'alipay' => array(
+	/*'alipay' => array(
 		//合作身份者id，以2088开头的16位纯数字
-		'partner' => '2088002995371000',
+		'partner' => '',
 		//安全检验码，以数字和字母组成的32位字符
-		'key' => 'zo67sbf6teku60tme7fle4xzae1yxzzw',
+		'key' => '',
 		//签名方式 不需修改
 		'sign_type' => strtoupper('MD5'),
 		//字符编码格式 目前支持 gbk 或 utf-8
@@ -31,13 +31,15 @@ return array(
 		'return_url' => Yii::app()->hostName.Yii::app()->createUrl("pay/alipay/return"),
 		//商品展示地址
 		'show_url' => Yii::app()->hostName.Yii::app()->createUrl("pay/platform/bill"),
-	),
+	),*/
 	
 	'ips' => array(
 		//IPS商户编号
+		//'Mer_code' => '025841',
 		'Mer_code' => '000015',
-		//IPS商户证书
 		'Mer_key' => 'GDgLwwdK270Qj1w4xho8lyTpRQZV9Jm5x4NwWOTThUa4fMhEBK9jOXFrKRT6xhlJuU2FEa89ov0ryyjfJuuPkcGzO5CeVx5ZIrkkt1aBlZV36ySvHOMcNv8rncRiy3DQ',
+		//IPS商户证书
+		//'Mer_key' => 'sbr0wmWfKAGXxcstBpXJk2sY3UvuAALDreUX9QdHfeZlMDxDTjdOuMXqkJwRrbU9p3fH8KjlBEd4S6BqWhRSXwJV7eorUBR39QwHYf58zsCehSNc66v9A2cskAATVsG0',
 		//币种
 		'Currency_Type' => 'RMB',
 		//支付卡种

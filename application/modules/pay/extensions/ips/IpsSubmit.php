@@ -28,6 +28,7 @@ class IpsSubmit{
 		$prestr = IpsCore::createSignstring($para_sort);
 	
 		$mysign = "";
+
 		switch (strtoupper(trim($this->ips_config['OrderEncodeType']))) {
 			case "5" :
 				$mysign = IpsMd5::md5Sign($prestr, $this->ips_config['Mer_key']);
@@ -71,7 +72,7 @@ class IpsSubmit{
 		//待请求参数数组
 		$para = $this->buildRequestPara($para_temp);
 	
-		$sHtml = "<form id='ips' name='ips' action='".$this->form_url." method='".$method."'>";
+		$sHtml = "<form id='ips' name='ips' action='".$this->form_url."' method='".$method."'>";
 		foreach($para as $key => $val){
 			$sHtml.= "<input type='hidden' name='".$key."' value='".$val."'/>";
 		}

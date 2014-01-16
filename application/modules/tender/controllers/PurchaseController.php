@@ -130,8 +130,8 @@ class PurchaseController extends Controller {
 						$this->redirect($this->createUrl('platform/order',array(
 							'metano' => Utils::appendEncrypt($metano)
 						)));
-					}else{
-						 // 已满标
+					}else{ // 满标
+						$this->render('failure');
 					}
 				}
 			}
@@ -150,8 +150,8 @@ class PurchaseController extends Controller {
 				'user' => $this->app->getModule('user')->userManager->getUserInfo($this->user->getId()),
 				'authGrade' => $this->app->getModule('credit')->getComponent('userCreditManager')->getUserCreditLevel($bider->getAttribute('id')),
 			));
-		}else{
-			// 404
+		}else{ /*404*/
+			$this->render('//common/404');
 		}
 	}
 	

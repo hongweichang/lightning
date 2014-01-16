@@ -116,7 +116,7 @@ class BorrowController extends Controller {
 				'model' => $model
 			));
 		}else{
-			echo "错误";
+			$this->render('//common/404');
 		}
 	}
 }

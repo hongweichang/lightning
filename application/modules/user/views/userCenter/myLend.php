@@ -60,6 +60,7 @@ $this->cs->registerCssFile($this->cssUrl.'detail.css');
                             <span>投资金额</span>
                             <span>期限</span>
                             <span class="deadline">投标时间</span>
+                            <span class="repay">状态</span>
                         </li>
                         <?php foreach($finished as $value){?>
                         <li>
@@ -69,6 +70,7 @@ $this->cs->registerCssFile($this->cssUrl.'detail.css');
                             <span><?php echo '￥'.$value['sum'].'元'?></span>
                             <span><?php echo $value['deadline']?>个月</span>
                             <span class="deadline"><?php echo $value['buyTime'];?></span>
+                            <span class="repay"><?php echo $value['status'] == 41 ? "已完成" : "已流标" ?></span>
                         </li>
                         <?php }?>
                     </ul>
@@ -82,7 +84,7 @@ $this->cs->registerCssFile($this->cssUrl.'detail.css');
                             <span>投资金额</span>
                             <span>期限</span>
                             <span class="deadline">投标时间</span>
-                            <span class="repay">查看详情</span>
+                            <span class="repay">操作</span>
                         </li>
                         <?php if(!empty($waitingForBuy)){
                             foreach($waitingForBuy as $value){
@@ -94,7 +96,10 @@ $this->cs->registerCssFile($this->cssUrl.'detail.css');
                             <span><?php echo '￥'.$value['sum'].'元'?></span>
                             <span><?php echo $value['deadline']?>个月</span>
                             <span class="deadline"><?php echo $value['buyTime'];?></span>
-                            <span class="repay"><a href="<?php echo Yii::app()->createUrl('tender/purchase/info/',array('id'=>$value['id']))?>">查看</a></span>
+                            <span class="repay">
+                            	<a target="_blank" href="<?php echo Yii::app()->createUrl('tender/purchase/info',array('id'=>$value['id']))?>">查看</a>
+                            	<?php if($value['status'] == 11){ ?><a href="<?php echo  $this->app->createUrl('tender/platform/order',array('metano' => Utils::appendEncrypt($value['meta_id']))); ?>">付款</a><?php } ?>
+                            </span>
                         </li>
                         <?php  }
                             }?>
@@ -109,6 +114,7 @@ $this->cs->registerCssFile($this->cssUrl.'detail.css');
                             <span>投资金额</span>
                             <span>期限</span>
                             <span class="deadline">投标时间</span>
+                            <span class="repay">剩余期数</span>
                         </li>
                         <?php if(!empty($waitingForPay)){
                             foreach($waitingForPay as $value){
@@ -120,6 +126,7 @@ $this->cs->registerCssFile($this->cssUrl.'detail.css');
                             <span><?php echo '￥'.$value['sum'].'元'?></span>
                             <span><?php echo $value['deadline']?>个月</span>
                             <span class="deadline"><?php echo $value['buyTime'];?></span>
+                            <span class="repay"><?php echo $value['status'] == 31 ? $value['repay_deadline']."个月" : "已逾期"; ?></span>
                         </li>
                         <?php  }
                             }?>

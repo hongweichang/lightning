@@ -119,18 +119,18 @@ if(Yii::app()->user->hasFlash('success')){
                     </table>
                 </div>
                 <div class="find-table-content fund">
+                    <form action="" method="post">
                     <div class="paymethod-bank clearfix">
                         <h2>选择充值方式</h2>
                         <ul>
                           <li>
-                            <input type="radio" name="pay_bank" value="ips" id="b-ips" />
+                            <input type="radio" name="payment" value="ips" id="b-ips" checked="checked"/>
                             <label class="ips" for="b-ips"></label>
                           </li>
                         </ul>
                       </div>
                     <div class="pay-form">
                         <h2>填写充值金额</h2>
-                        <form>
                             <ul>
                                 <li>
                                     <label>账户余额</label>
@@ -139,26 +139,20 @@ if(Yii::app()->user->hasFlash('success')){
                                 </li>
                                 <li>
                                     <label for="pay-num">充值金额</label>
-                                    <input type="text" id="pay-num"/>
+                                    <input type="text" name="sum" id="pay-num"/>
                                     <span>元</span>
                                 </li>
                                 <li>
                                     <label>充值费用</label>
-                                    <span>0.00</span>
+                                    <span id="userPayCharge">0.00</span>
                                     <span>元</span>
                                 </li>
                                 <li>
-                                    <label>手机号码</label>
-                                    <span><?php echo $userData->getAttribute('mobile'); ?></span>
-                                </li>
-                                <li>
-                                    <label>验证码</label>
-                                    <input type="text" class="verifycode"/>
-                                    <img src="" id="randImage"/>
+                                    <input type="submit" class="form-button" id="fund-withdraw-submit" value="充值"/>
                                 </li>
                             </ul>
-                        </form>
                     </div>
+                    </form>
                 </div>
                 <div class="find-table-content withdraw">
                     <div class="pay-form">

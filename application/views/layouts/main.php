@@ -62,6 +62,7 @@
             <li class="origin"><a href="<?php echo $this->app->homeUrl; ?>">首页</a></li>
             <li class="yellow"><a href="<?php echo $this->app->createUrl('tender/borrow'); ?>">我要借款</a></li>
             <li class="green"><a href="<?php echo $this->app->createUrl('tender/purchase'); ?>">我要投资</a></li>
+            <!-- <li class="deepGreen"><a href="#">债权转让</a></li>-->
             <li class="pink"><a href="<?php echo $this->createUrl('/content/aboutus')?>">关于我们</a></li>
             <li class="violet"><a href="<?php echo $this->app->createUrl('user/userCenter/userInfo'); ?>">个人中心</a></li>
           </ul>

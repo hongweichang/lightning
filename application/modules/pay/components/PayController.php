@@ -25,11 +25,12 @@ class PayController extends Controller{
 	 */
 	protected function beginPay($trade_no){
 		$record = Recharge::model()->findByPk($trade_no);
-		if($record->getAttribute('status') >= 1) return false;
+		if($record === null) return false;
+		if($record->getAttribute('status') >= 1) return true; //已接收来自支付平台的通知
 		
 		$transaction = Yii::app()->db->beginTransaction();
 		try{
-			$record->attribute = array(
+			$record->attributes = array(
 				'platform' => $this->platform,
 				'trade_no' => $this->trade_no,
 				'subject' => $this->subject,
@@ -40,7 +41,7 @@ class PayController extends Controller{
 			);
 			$record->save();
 			
-			$user = Yii::app()->getModule('user')->userManager->findByPk(Yii::app()->user->getId());
+			$user = Yii::app()->getModule('user')->userManager->getUserInfo(Yii::app()->user->getId());
 			$user->saveCounters(array(
 				'balance' => $record->getAttribute('sum')
 			));

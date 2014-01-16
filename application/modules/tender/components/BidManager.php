@@ -299,7 +299,7 @@ class BidManager extends CApplicationComponent{
 	 * @param mixed $bid_id
 	 * @return boolean
 	 */
-	public function repayBid($bid_id,$isAll = false){
+	public function repayBid($bid_id,$isAll = false){ // isAll 提前还款预留
 		if($bid_id instanceof CActiveRecord){
 			$bid = $bid_id;
 		}else{

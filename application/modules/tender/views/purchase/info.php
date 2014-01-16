@@ -124,8 +124,8 @@ if ( $bid->verify_progress == 31 ){
                   <span class="borrower-val"><?php echo $bider->getAttribute('nickname');?></span>
                 </li>
                 <li>
-                  <span class="borrower-name">真实姓名</span>
-                  <span class="borrower-val"><?php echo $bider->getAttribute('realname');?></span>
+                  <span class="borrower-name"></span>
+                  <span class="borrower-val"></span>
                 </li>
                 <li>
                   <span class="borrower-name">性别</span>
@@ -142,10 +142,10 @@ if ( $bid->verify_progress == 31 ){
                 <li>
                   <span class="borrower-name">社会角色</span>
                   <span class="borrower-val"><?php
-                 if($role = $bider->getAttribute('role'))
-                 	echo $this->app['roleMap'][$role];
-                 else 
-                 	echo "还未填写角色";
+                 //if($role == $bider->getAttribute('role'))
+                 	echo $this->app['roleMap'][$bider->getAttribute('role')];
+                 //else 
+                 //	echo "还未填写角色";
                  ?></span>
                 </li>
 

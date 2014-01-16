@@ -37,9 +37,11 @@ return array(
 				),
 				'authenGrade' => array(//认证等级条件
 						'不限' => 'credit_grade >= 0',
-						'初级' => ' credit_grade BETWEEN 60 AND 80 ',
-						'普通会员' => ' credit_grade BETWEEN 80 AND 100 ',
-						'高级会员' => ' credit_grade >= 120 ',
+						'AAA' => ' credit_grade >= 160 ',
+						'AA' => ' credit_grade >= 120 AND credit_grade < 160 ',
+						'A' => ' credit_grade >= 90 AND credit_grade < 120 ',
+						'B' => ' credit_grade >= 70 AND credit_grade < 90 ',
+						'C' => ' credit_grade >= 60 AND credit_grade < 70 ',
 				),
 		),
 		'bidProgressCssClassMap' => array(
