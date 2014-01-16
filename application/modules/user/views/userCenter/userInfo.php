@@ -282,16 +282,12 @@ $this->widget('application.extensions.swfupload.CSwfUpload', array(
                                 <label class="personal-name"><span class="essential">*</span>社会角色</label>
                                 <div class="personal-ico personal-role"></div>
                                 <?php 
-                                    if(!empty($userData->role)){
-                                       echo FrontUser::getRoleName($userData->role);
-                                    }else{
-                                        echo $form->dropDownList($userData,'role',array(
+                                      echo $form->dropDownList($userData,'role',array(
                                             'gxjc'=>'工薪阶层',
                                             'qyz'=>'企业主',
                                             'wddz'=>'网店店主'
 
                                      ));
-                                    }
                                     ?>
                             </li>
                             <li class="clearfix">

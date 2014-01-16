@@ -26,7 +26,7 @@ class UserCenterController extends Controller{
 	}
 	
 	/*
-	*个人信息获取
+	**用户个人信息
 	*/
 	public function actionUserInfo(){
 		$this->pageTitle = '个人信息';
@@ -41,7 +41,7 @@ class UserCenterController extends Controller{
 		$creditData= $this->getUserCredit($role);
 
 		$finishedId = array();
-		$finishedData = $this->getFnishedCreditData($uid);
+		$finishedData = $this->getFnishedCreditData($uid,$role);
 		foreach($finishedData as $i => $value){
 			$finishedId[$i] = $value->verification_id;
 		}
@@ -104,8 +104,59 @@ class UserCenterController extends Controller{
 			if(isset($attributes['realname']))
 				$userData->realname = $attributes['realname'];
 
-			if(isset($attributes['role']))
-				$userData->role = $attributes['role'];
+			/*角色修改*/
+			if(isset($attributes['role']) && $attributes['role'] != $userData->role){
+				$necessaryNum = '0';
+				$unNecessaryGrade = '0';
+				$newNecessaryNum = '0';
+				$newUnNecessaryGrade = '0';
+				$oldRole = $userData->role;
+				$newRole = $attributes['role'];
+				$userData->role = $newRole;
+				$this->user->setState('role',$newRole);
+
+				//计算原角色通过审核的必填信用项目数目
+				foreach($necessaryList as $value){
+					if($value['status'] == 1)
+						$necessaryNum++;
+				}
+
+				//计算原角色通过审核的选填信用项目应加总分
+				foreach($unnecessaryList as $value){
+					if($value['status'] == 1)
+						$unNecessaryGrade += $value['grade'];
+				}
+
+				$newRoleCreditData = $this->getUserCredit($newRole);
+				$newFinishedData = $this->getFnishedCreditData($uid,$newRole);
+				$newFinishedId = array();
+
+				foreach($newFinishedData as $i => $value){
+					$newFinishedId[$i] = $value->verification_id;
+				}
+
+				if(!empty($newRoleCreditData)){
+
+					foreach($newRoleCreditData as $value){
+						$finished = $this->finishCreditCheck($value['credit']->id,$newFinishedId);
+						if($finished !== false){
+							if($value['optional'] == '0'){
+								$newNecessaryNum++;
+							}elseif($value['optional'] == '1'){
+								$newUnNecessaryGrade += $value['grade'];
+							}
+						}
+
+					}
+				}
+
+				$userGrade = $userData->credit_grade;
+				$newCreditGrade = $this->roleGradeReset(
+					$oldRole,$newRole,$necessaryNum,$unNecessaryGrade,$newNecessaryNum,$newUnNecessaryGrade,$userGrade);
+
+				$userData->credit_grade = $newCreditGrade;
+			}
+
 			if(isset($attributes['identity_id']) && !empty($attributes['identity_id']))
 				$userData->identity_id = $attributes['identity_id'];
 
@@ -135,6 +186,36 @@ class UserCenterController extends Controller{
 						'loanable'=>$loanable,
 						'MetaSum'=>$this->userMetaBidMoney));
 		
+	}
+
+	
+	/*
+	**角色信用积分重置
+	*/
+	public function roleGradeReset($oldRole,$newRole,$oldfinishedSum,$oldunNecessaryGrade,$newfinishedSum,$newunNecessaryGrade,$userGrade){
+		if(!empty($oldRole) && !empty($newRole) && is_numeric($oldfinishedSum) && is_numeric($oldunNecessaryGrade) && is_numeric($userGrade)){
+			$oldnecessarySum = CreditRole::model()->count('role =:role AND optional =:optional',array(
+								':role'=>$oldRole,
+								':optional'=>'0'));
+
+			$newnecessarySum = CreditRole::model()->count('role =:role AND optional =:optional',array(
+								':role'=>$newRole,
+								':optional'=>'0'));
+				
+
+			if($oldfinishedSum == $oldnecessarySum)
+				$userGrade -= 60;
+
+			$userGrade -= $oldunNecessaryGrade;
+
+			if($newfinishedSum == $newnecessarySum){
+				$userGrade += 60;
+			}
+			$userGrade += $newunNecessaryGrade;
+			
+			$creditGrade = $userGrade;
+			return $creditGrade;
+		}
 	}
 
 	/*
@@ -170,14 +251,15 @@ class UserCenterController extends Controller{
 	/*
 	**获取用户等待后台处理的信用项
 	*/
-	public function getFnishedCreditData($uid){
-		if(is_numeric($uid)){
+	public function getFnishedCreditData($uid,$role){
+		if(is_numeric($uid) && !empty($role)){
 			$finishCredit = array();
 			$criteria = new CDbCriteria;
 
-			$criteria->condition = 'user_id =:uid';
+			$criteria->condition = 'user_id =:uid AND role =:role';
 			$criteria->params = array(
-							':uid'=>$uid
+							':uid'=>$uid,
+							':role'=>$role
 						);
 			
 			$criteria->order = 'verification_id ASC,submit_time DESC ';
@@ -215,7 +297,7 @@ class UserCenterController extends Controller{
 			$verificationData = CreditRole::model()->with('verification')->findAll($criteria);
 
 			if(empty($verificationData)){
-				Yii::app()->user->setFlash('upload_error','该角色无次信用项');
+				Yii::app()->user->setFlash('upload_error','你的角色无次信用项');
 				$this->redirect(Yii::app()->createUrl('user/userCenter/userInfo'));
 				exit();
 			}
@@ -265,8 +347,13 @@ class UserCenterController extends Controller{
 						$model->content = $newName;
 						$model->submit_time = time();
 						$model->status = 0;
+						$model->role = $role;
 
-						$userCredit = FrontCredit::model()->findAll('verification_id =:id AND user_id =:uid',array(':id'=>$type,':uid'=>$uid));
+						$userCredit = FrontCredit::model()->findAll('verification_id =:id AND user_id =:uid AND role =:role',array(
+							':id'=>$type,
+							':uid'=>$uid,
+							'role'=>$role));
+
 						if(!empty($userCredit)){
 							foreach($userCredit as $value)
 								$value->delete();
