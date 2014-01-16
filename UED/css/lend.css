@@ -1012,7 +1012,7 @@ body {
   text-align: center; }
 
 .record-content table {
-  width: 750px;
+  width: 100%;
   margin: 0 auto;
   font-size: 12px; }
 .record-content thead th {

@@ -34,6 +34,12 @@ class PlaceholderManager{
 			'{withdrawalDate}' => array(
 					'label' => '申请提现时间'
 			),
+			'{money}' => array(
+					'label' => '还款金额'
+			),
+			'{dayLeft}' => array(
+					'label' => '还款剩余期限(到达还款日期前三天和后两天，共五天)'
+			)
 	);
 	
 	public static function getPlaceholderLables($names=array()){

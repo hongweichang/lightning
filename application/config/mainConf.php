@@ -137,6 +137,12 @@ class mainConf extends ConfigBase{
 										)
 								),
 						),
+						'zmqClient' => array(
+								'class' => 'cms.components.asyncEvent.ZMQClient',
+								'zmqServer' => 'tcp://localhost:5556',
+								'sendTimeout' => 3000,
+								'reciveTimeout' => 3000,
+						),
 						'asyncEventRunner' => require dirname(__FILE__).'/asyncEventRunner.config.php',
 						'image'=>array(
 								'class'=>'ext.image.CImageComponent',

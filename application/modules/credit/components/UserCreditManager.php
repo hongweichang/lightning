@@ -101,7 +101,17 @@ class UserCreditManager extends CApplicationComponent{
 				return true;
 		}
 	}
-}
-
 	
-?>
+	public function getPassedCredit($uid,$role){
+		$criteria = new CDbCriteria();
+		$criteria->condition = 'user_id=:uid AND role=:role AND status=1';
+		$criteria->with = array(
+				'creditSetting'
+		);
+		$criteria->params = array(
+				':uid' => $uid,
+				':role' => $role
+		);
+		return FrontCredit::model()->findAll($criteria);
+	}
+}
