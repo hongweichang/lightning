@@ -15,12 +15,14 @@ class LightningCommandBase extends CConsoleCommand{
 	}
 	
 	protected function beforeAction($action, $params){
-		$content = json_decode($params[0],true);
-		if ( !empty($content) ){
-			$this->eventName = $content['eventName'];
-			$this->parameters = $content['params'];
-		}else {
-			return false;
+		if ( !empty($params) ){
+			$content = json_decode($params[0],true);
+			if ( !empty($content) ){
+				$this->eventName = $content['eventName'];
+				$this->parameters = $content['params'];
+			}else {
+				return false;
+			}
 		}
 		
 		return parent::beforeAction($action, $params);

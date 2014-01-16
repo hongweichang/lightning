@@ -41,5 +41,8 @@ return array(
 				'onResetPassword' => array(
 						'command' => array('sendSms','verifyCode')
 				),
+				'onResetPayPassword' => array(
+						'command' => array('sendSms','verifyCode')
+				),
 		),
 );

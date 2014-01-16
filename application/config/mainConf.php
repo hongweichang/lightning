@@ -79,7 +79,9 @@ class mainConf extends ConfigBase{
 								'username' => 'lancelot',
 								'password' => 'lancelot@lightningdbmysqladmin',
 								'charset' => 'utf8',
-								'tablePrefix' => 'xcms_'
+								'tablePrefix' => 'xcms_',
+								'schemaCacheID' => 'cache',//表结构缓存
+								'schemaCachingDuration' => 3600,//缓存1小时
 						),
 						'request' => array(
 								'class' => 'application.components.Request',

@@ -4,7 +4,7 @@ $this->cs->registerCssFile($this->cssUrl.'login.css');
 ?>
 <div class="wd1002 clearfix">
 	<div class="guide">
-		<img src="<?php echo $this->imageUrl; ?>guide.png" />
+		<a href="<?php echo $this->createUrl('/site/guide')?>"><img src="<?php echo $this->imageUrl; ?>guide.png" /></a>
 	</div>
 	<div id="loginBox">
 		<ul class="login-tab clearfix">

@@ -86,8 +86,7 @@ class UserManager extends CApplicationComponent{
 				}
 					
 		}
-			return $url.$icon;
-		
+		return $url.$icon;
 	}
 	
 	public function findUsers($criteira='',$params=array()){
