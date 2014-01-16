@@ -38,8 +38,7 @@ $this->cs->registerCssFile($this->cssUrl.'detail.css');
                         </div>
                         <div class="tab-content-r">
                             <p><span>逾期金额</span><span>待还金额</span><span>近30天应还金额</span></p>
-                            <p class="aud-det-money"><span>0.00元</span><span><?php echo $borrowSum;?>元</span><span><?php echo $borrowSum_month;?>元</span></p>
-                            <p class="aud-det-prompt">您最近10天内有 0笔 借款须归还，总额 0.00元</p>
+                            <p class="aud-det-money"><span><?php echo $borrowSum - $borrowSum_month; ?>元</span><span><?php echo $borrowSum;?>元</span><span><?php echo $borrowSum_month;?>元</span></p>
                         </div>
                     </div>
                 </div>
@@ -71,7 +70,7 @@ $this->cs->registerCssFile($this->cssUrl.'detail.css');
                             <span><?php echo $value[0]['refund']/100;?></span>
                             <span class="deadline"><?php echo $value[0]['repay_deadline'].'个月';?></span>
                             <span class="repay"><?php if($value[0]['verify_progress'] == 31){ ?>
-                                <a href="">
+                                <a href="<?php echo $this->app->createUrl('tender/platform/refund',array('bid' => $value[0]['id'])); ?>">
                                     <img src="<?php echo $this->imageUrl.'repay.png'?>"/>
                                 </a>
                             <?php }else{ ?>
@@ -103,7 +102,7 @@ $this->cs->registerCssFile($this->cssUrl.'detail.css');
                             <span><?php echo $value[0]['month_rate']/100;?>%</span>
                             <span><?php echo $value[0]['deadline'].'个月';?></span>
                             <span><?php echo $value[0]['refund']/100;?></span>
-                            <span class="deadline"><?php echo date('Y:m:d H:i:s',$value[0]['finish_time']);?></span>
+                            <span class="deadline"><?php echo date('Y－m－d H:i:s',$value[0]['finish_time']);?></span>
                             <span class="repay"></span>
                         </li>
                         <?php }?>

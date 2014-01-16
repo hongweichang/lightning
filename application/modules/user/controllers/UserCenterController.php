@@ -20,8 +20,8 @@ class UserCenterController extends Controller{
 	public function filterFetchUserData($filterChain){
 		$uid = $this->app->user->id;
 		$this->userData = $this->getModule()->getComponent('userManager')->getUserInfo($uid);
-		$this->userBidMoney = BidInfo::model()->sum('sum','user_id =:uid',array('uid'=>$uid))/100;
-		$this->userMetaBidMoney = BidMeta::model()->sum('sum','user_id =:uid',array('uid'=>$uid))/100;
+		$this->userBidMoney = BidInfo::model()->sum('sum','user_id =:uid and (verify_progress=21 or verify_progress=31 or verify_progress=40)',array('uid'=>$uid))/100;
+		$this->userMetaBidMoney = BidMeta::model()->sum('sum','user_id =:uid and (status=21 or status=31 or status=40)',array('uid'=>$uid))/100;
 		$filterChain->run();
 	}
 	
@@ -359,9 +359,6 @@ class UserCenterController extends Controller{
 				$userData = $value->getRelated('user');
 				$bidData = $value->getRelated('bid');
 				$BorrowUser = FrontUser::model()->findByPk($bidData->user_id);
-				//if($value->status != 11){
-					$inComeSum_month += $value->refund/100;
-					$inComeSum += $value->refund/100 * $bidData->deadline;
 
 					if($value->status == 41 || $value->status == 30){ //  完成、流标
 						$finished[] = array(
@@ -370,7 +367,7 @@ class UserCenterController extends Controller{
 							'rate'=>$bidData->month_rate,
 							'sum'=>$value->sum/100,
 							'deadline'=>$bidData->deadline,
-							'buyTime'=>date('Y:m:d H:i:s',$value->buy_time),
+							'buyTime'=>date('Y-m-d H:i:s',$value->buy_time),
 							'status' => $value->status								
 						);
 					}elseif($value->status == 21 || $value->status == 11 || $value->status == 20){ // 未付款、已付款、已取消
@@ -381,13 +378,16 @@ class UserCenterController extends Controller{
 							'rate'=>$bidData->month_rate,
 							'sum'=>$value->sum/100,
 							'deadline'=>$bidData->deadline,
-							'buyTime'=>date('Y:m:d H:i:s',$value->buy_time),
+							'buyTime'=>date('Y-m-d H:i:s',$value->buy_time),
 							'meta_id' => $value->id,
 							'status' => $value->status
 						);
 					}elseif($value->status == 31 || $value->status == 40){  //满标（还款）、逾期
-						if($value->status == 31)
+						if($value->status == 31){
 							$waitingForPaySum += $value->sum/100;
+							$inComeSum_month += $value->refund/100;
+							$inComeSum += $value->refund/100 * $bidData->deadline;
+						}
 
 						$waitingForPay[] = array(
 							'nickname'=>$BorrowUser->nickname,
@@ -395,13 +395,11 @@ class UserCenterController extends Controller{
 							'rate'=>$bidData->month_rate,
 							'sum'=>$value->sum/100,
 							'deadline'=>$bidData->deadline,
-							'buyTime'=>date('Y:m:d H:i:s',$value->buy_time),
+							'buyTime'=>date('Y-m-d H:i:s',$value->buy_time),
 							'status' => $value->status,
 							'repay_deadline' => $bidData->repay_deadline
 						);
 					}
-
-				//}
 
 			}
 			
@@ -439,22 +437,21 @@ class UserCenterController extends Controller{
 			'uid'=>$uid));
 		foreach($myBorrowData as $value){
 			if($value->attributes['verify_progress'] == 31 || $value->attributes['verify_progress'] == 40){ // 满标(还款)、逾期
+				if($value->attributes['verify_progress'] == 31){
 					$borrowSum_month += $value->refund/100;
-
-					$waitingForPay[] = array(
-							$value->attributes
-						);
-					$borrowSum += $value->attributes['sum']/100;
-
+				}
+				$borrowSum += $value->refund/100;
+				$waitingForPay[] = array(
+					$value->attributes
+				);
 			}elseif($value->attributes['verify_progress'] == 41){ //完成(还清)
 				$finished[] = array(
-								$value->attributes
-							);
-
+					$value->attributes
+				);
 			}else{
 				$waitingForBuy[] = array( //提交待审、未通过、通过招标、流标
-									$value->attributes
-								);
+					$value->attributes
+				);
 			}
 		}
 		$IconUrl = Yii::app()->getModule('user')->userManager->getUserIcon($uid);
