@@ -14,6 +14,6 @@ $this->cs->registerCssFile($this->cssUrl.'pay_hint.css');
 	</div>
 	<div class="hint-button">
 		<a href="<?php echo $this->app->homeUrl; ?>">返回首页</a>
-		<a href="<?php echo $this->createUrl('userCenter'); ?>" class="last">个人中心</a>
+		<a href="<?php echo $this->app->createUrl('user/userCenter'); ?>" class="last">个人中心</a>
 	</div>
 </div>

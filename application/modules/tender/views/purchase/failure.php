@@ -13,7 +13,7 @@ $this->cs->registerCssFile($this->cssUrl.'pay_hint.css');
 		<p>您可以选择其他标段进行投资，请点击下方按钮返回</p>
 	</div>
 	<div class="hint-button">
-		<a href="<?php echo $this->createUrl('purchase'); ?>">返回投资中心</a>
-		<a href="<?php echo $this->createUrl('userCenter'); ?>" class="last">个人中心</a>
+		<a href="<?php echo $this->app->createUrl('tender/purchase'); ?>">返回投资中心</a>
+		<a href="<?php echo $this->app->createUrl('user/userCenter'); ?>" class="last">个人中心</a>
 	</div>
 </div>

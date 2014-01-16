@@ -30,7 +30,7 @@ class PayController extends Controller{
 		
 		$transaction = Yii::app()->db->beginTransaction();
 		try{
-			$record->attribute = array(
+			$record->attributes = array(
 				'platform' => $this->platform,
 				'trade_no' => $this->trade_no,
 				'subject' => $this->subject,
@@ -41,7 +41,7 @@ class PayController extends Controller{
 			);
 			$record->save();
 			
-			$user = Yii::app()->getModule('user')->userManager->findByPk(Yii::app()->user->getId());
+			$user = Yii::app()->getModule('user')->userManager->getUserInfo(Yii::app()->user->getId());
 			$user->saveCounters(array(
 				'balance' => $record->getAttribute('sum')
 			));

@@ -52,10 +52,11 @@ $this->cs->registerCssFile($this->cssUrl.'detail.css');
                     <ul>
                         <li>
                             <span>借款标题</span>
+                            <span>借款金额</span>
                             <span>年利率</span>
-                            <span>月还款金额</span>
                             <span>期限</span>
-                            <span class="deadline">结束时间</span>
+                            <span>月还款金额</span>
+                            <span class="deadline">剩余期数</span>
                             <span class="repay">操作</span>
                         </li>
                         <?php
@@ -63,15 +64,19 @@ $this->cs->registerCssFile($this->cssUrl.'detail.css');
                             foreach($waitingForPay as $value){ 
                             ?>
                         <li>
-                            <span><?php echo $value[0]['title'];?></span>
+                            <span><?php echo $value[0]['title']; ?></span>
+                            <span><?php echo $value[0]['sum']; ?></span>
                             <span><?php echo $value[0]['month_rate']/100;?>%</span>
-                            <span><?php echo $value[0]['refund']/100;?></span>
                             <span><?php echo $value[0]['deadline'].'个月';?></span>
-                            <span class="deadline"><?php echo date('Y:m:d H:i:s',$value[0]['end']);?></span>
-                            <span class="repay">
+                            <span><?php echo $value[0]['refund']/100;?></span>
+                            <span class="deadline"><?php echo $value[0]['repay_deadline'].'个月';?></span>
+                            <span class="repay"><?php if($value[0]['verify_progress'] == 31){ ?>
                                 <a href="">
                                     <img src="<?php echo $this->imageUrl.'repay.png'?>"/>
                                 </a>
+                            <?php }else{ ?>
+                            	已逾期
+                            <?php } ?>
                             </span>
                         </li>
                         <?php 
@@ -84,18 +89,22 @@ $this->cs->registerCssFile($this->cssUrl.'detail.css');
                     <ul>
                         <li>
                             <span>借款标题</span>
+                            <span>借款金额</span>
                             <span>年利率</span>
-                            <span>还款金额</span>
                             <span>期限</span>
+                            <span>月还款金额</span>
                             <span class="deadline">还清时间</span>
+                            <span class="repay">操作</span>
                         </li>
                         <?php foreach($finished as $value){?>
                         <li>
                             <span><?php echo $value[0]['title'];?></span>
+                            <span><?php echo $value[0]['sum']; ?></span>
                             <span><?php echo $value[0]['month_rate']/100;?>%</span>
-                            <span><?php echo $value[0]['refund']/100;?></span>
                             <span><?php echo $value[0]['deadline'].'个月';?></span>
-                            <span class="deadline"><?php echo date('Y:m:d H:i:s',$value[0]['end']);?></span>
+                            <span><?php echo $value[0]['refund']/100;?></span>
+                            <span class="deadline"><?php echo date('Y:m:d H:i:s',$value[0]['finish_time']);?></span>
+                            <span class="repay"></span>
                         </li>
                         <?php }?>
                     </ul>
@@ -104,9 +113,10 @@ $this->cs->registerCssFile($this->cssUrl.'detail.css');
                     <ul>
                         <li>
                             <span>借款标题</span>
+                            <span>借款金额</span>
                             <span>年利率</span>
-                            <span>还款金额</span>
                             <span>期限</span>
+                            <span>月还款金额</span>
                             <span class="deadline">状态</span>
                             <span class="repay">操作</span>
                         </li>
@@ -116,9 +126,10 @@ $this->cs->registerCssFile($this->cssUrl.'detail.css');
                         ?>
                          <li>
                             <span><?php echo $value[0]['title'];?></span>
+                            <span><?php echo $value[0]['sum']; ?></span>
                             <span><?php echo $value[0]['month_rate']/100;?>%</span>
-                            <span><?php echo $value[0]['sum']/100;?></span>
                             <span><?php echo $value[0]['deadline'].'个月'?></span>
+                            <span><?php echo $value[0]['sum']/100;?></span>
                             <span class="deadline">
                             <?php
                                 if($value[0]['verify_progress'] == 11)
@@ -127,11 +138,12 @@ $this->cs->registerCssFile($this->cssUrl.'detail.css');
                                     echo "审核未通过";
                                 elseif($value[0]['verify_progress'] == 21)
                                     echo "正在投标";
+                                elseif($value[0]['verify_progress'] == 30)
+                                	echo "已流标"
                             ?>
                             </span>
-                            <?php if($value[0]['verify_progress'] == 21){?>
-                            <span class="repay"><a href="<?php echo Yii::app()->createUrl('tender/purchase/info/',array('id'=>$value[0]['id']))?>">查看</a>
-                            </span>
+                            <?php if($value[0]['verify_progress'] == 21){ ?>
+                            <span class="repay"><a href="<?php echo Yii::app()->createUrl('tender/purchase/info/',array('id'=>$value[0]['id']))?>">查看</a></span>
                             <?php }?>
                         </li>         
                         <?php }

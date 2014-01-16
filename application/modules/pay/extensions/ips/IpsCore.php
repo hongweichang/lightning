@@ -26,7 +26,7 @@ class IpsCore{
 	 * @return array 去掉无用签名参数后的新签名参数组
 	 */
 	public static function paraFilter($para) {
-		$allow = array('mercode','currency_type','amount','date','orderencodetype','succ','ipsbillno','retencodetype');
+		$allow = array('billno','currency_type','amount','date','orderencodetype','succ','ipsbillno','retencodetype');
 		$para_filter = array();
 		foreach($para as $key => $val){
 			if(in_array(strtolower($key), $allow)){
@@ -43,7 +43,7 @@ class IpsCore{
 	 */
 	public static function argSort($para) {
 		$new_para = array(
-			'billno' => $para['mercode'],
+			'billno' => $para['billno'],
 			'currencytype' => $para['currency_type'],
 			'amount' => $para['amount'],
 			'date' => $para['date']

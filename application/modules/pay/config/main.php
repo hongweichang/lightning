@@ -35,9 +35,11 @@ return array(
 	
 	'ips' => array(
 		//IPS商户编号
-		'Mer_code' => '025841',
+		//'Mer_code' => '025841',
+		'Mer_code' => '000015',
+		'Mer_key' => 'GDgLwwdK270Qj1w4xho8lyTpRQZV9Jm5x4NwWOTThUa4fMhEBK9jOXFrKRT6xhlJuU2FEa89ov0ryyjfJuuPkcGzO5CeVx5ZIrkkt1aBlZV36ySvHOMcNv8rncRiy3DQ',
 		//IPS商户证书
-		'Mer_key' => '48894025232898486214782152219364610579212257522839266846574271597727790700152553948910877490593166079404955679392023357694039010',
+		//'Mer_key' => 'sbr0wmWfKAGXxcstBpXJk2sY3UvuAALDreUX9QdHfeZlMDxDTjdOuMXqkJwRrbU9p3fH8KjlBEd4S6BqWhRSXwJV7eorUBR39QwHYf58zsCehSNc66v9A2cskAATVsG0',
 		//币种
 		'Currency_Type' => 'RMB',
 		//支付卡种

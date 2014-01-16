@@ -85,7 +85,7 @@ class mainConf extends ConfigBase{
 								'class' => 'application.components.Request',
 								'enableCookieValidation' => true
 						),
-						/*'cache' => array(
+						'cache' => array(
 								'class' => 'CMemCache',
 								'useMemcached' => true,
 								'keyPrefix' => 'lightning',
@@ -107,7 +107,7 @@ class mainConf extends ConfigBase{
 								//'cacheID' => 'cache',
 								'autoStart' => true,
 								'timeout' => 3600*24
-						),*/
+						),
 						'clientScript' => array(
 								'scriptMap' => array(
 										'jquery.js' => false,
