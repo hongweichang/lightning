@@ -622,40 +622,39 @@ class UserCenterController extends Controller{
 	
 	public function actionRefund(){
 		$this->pageTitle = '标段还款';
-		
 		$bid = $this->app->getModule('tender')->bidManager->getBidInfo($this->getQuery('bid'));
-		if(!empty($bid) && $bid->getAttribute('user_id') == $this->app->user->getId()){
-			
-			if(!empty($_POST)){
-				$password = $this->getPost('pay_password');
-				$notify = $this->app->getModule('notify')->getComponent('notifyManager');
-				//$user = $bid->getRelated('user');
-				if ( $this->app->getSecurityManager()->verifyPassword($password,$this->userData->pay_password) === false ){			
-					$this->redirect($this->createUrl('userCenter/userRefund',array(
-						'bid' => $this->getQuery('bid',81),
-						'e' => base64_encode('1资金密码错误')
-					)));
-				}
-				
-				if($this->userData->getAttribute('balance') - $bid->getAttribute('refund')){
-					if($this->app->getModule('tender')->bidManger->repayBid($bid)){
-						$this->render('refundSuccess');
-					}else{
-						$this->render('refundFail');
-					}
-				}else{
-					$this->render('refundFail');
-					//$this->redirect($this->createUrl('userCenter/userFund'));
-				}
+		if(empty($bid)) 
+			throw new CHttpException(404);
+		if($bid->getAttribute('user_id') != $this->app->user->getId())
+			throw new CHttpException(404);
+		
+		if (! empty ( $_POST )) {
+			$password = $this->getPost ( 'pay_password' );
+			$notify = $this->app->getModule ( 'notify' )->getComponent ( 'notifyManager' );
+			// $user = $bid->getRelated('user');
+			if ($this->app->getSecurityManager ()->verifyPassword ( $password, $this->userData->pay_password ) === false) {
+				$this->redirect ( $this->createUrl ( 'userCenter/userRefund', array (
+						'bid' => $this->getQuery ( 'bid', 81 ),
+						'e' => base64_encode ( '1资金密码错误' ) 
+				) ) );
 			}
 			
-			$this->render('userRefund',array(
-				'userData' => $this->userData,
-				'bid' => $bid,
-			));
-		}else{
-			$this->render('//common/404');
+			if ($this->userData->getAttribute ( 'balance' ) - $bid->getAttribute ( 'refund' )) {
+				if ($this->app->getModule ( 'tender' )->bidManger->repayBid ( $bid )) {
+					$this->render ( 'refundSuccess' );
+				} else {
+					$this->render ( 'refundFail' );
+				}
+			} else {
+				$this->render ( 'refundFail' );
+				// $this->redirect($this->createUrl('userCenter/userFund'));
+			}
 		}
+		
+		$this->render ( 'userRefund', array (
+				'userData' => $this->userData,
+				'bid' => $bid 
+		) );
 	}
 	
 	public function actionAjaxFund(){
