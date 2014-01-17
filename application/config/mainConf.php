@@ -79,7 +79,9 @@ class mainConf extends ConfigBase{
 								'username' => 'lancelot',
 								'password' => 'lancelot@lightningdbmysqladmin',
 								'charset' => 'utf8',
-								'tablePrefix' => 'xcms_'
+								'tablePrefix' => 'xcms_',
+								'schemaCacheID' => 'cache',//表结构缓存
+								'schemaCachingDuration' => 3600,//缓存1小时
 						),
 						'request' => array(
 								'class' => 'application.components.Request',
@@ -135,7 +137,13 @@ class mainConf extends ConfigBase{
 										)
 								),
 						),
-						//'asyncEventRunner' => require dirname(__FILE__).'/asyncEventRunner.config.php',
+						'zmqClient' => array(
+								'class' => 'cms.components.asyncEvent.ZMQClient',
+								'zmqServer' => 'tcp://localhost:5556',
+								'sendTimeout' => 3000,
+								'reciveTimeout' => 3000,
+						),
+						'asyncEventRunner' => require dirname(__FILE__).'/asyncEventRunner.config.php',
 						'image'=>array(
 								'class'=>'ext.image.CImageComponent',
 								'driver'=>'GD',

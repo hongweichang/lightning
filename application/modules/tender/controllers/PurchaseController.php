@@ -78,7 +78,6 @@ class PurchaseController extends Controller {
 		$this->setPageTitle($this->name);
 		
 		$this->loadCreditSettings();
-		
 		$condition = "(verify_progress=21 OR verify_progress=31 ) AND start<=".time();
 		$pager = new CPagination(BidInfo::model()->count($condition));
 		$pager->setPageSize($this->_bidsPerPage);
@@ -142,9 +141,11 @@ class PurchaseController extends Controller {
 			));
 			
 			$bider = $bid->getRelated('user');
+			$credits = $this->app->getModule('credit')->getComponent('userCreditManager')->getPassedCredit($bider->id,$bider->role);
 			$this->render('info',array(
 				'bid' => $bid,
 				'bider' => $bider,
+				'credits' => $credits,
 				'form' => $model,
 				'meta' => new CArrayDataProvider($meta),
 				'user' => $this->app->getModule('user')->userManager->getUserInfo($this->user->getId()),

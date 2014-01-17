@@ -28,6 +28,13 @@ class SendSmsCommand extends NotifyCommandBase{
 		}
 	}
 	
+	protected function findBid(){
+		if ( isset($this->parameters['bidId']) === false ){
+			return null;
+		}
+		return $this->app->getModule('tender')->getComponent('bidManager')->getBidInfo($this->parameters['bidId']);
+	}
+	
 	/**
 	 * 发送手机短信验证码
 	 */
@@ -47,13 +54,7 @@ class SendSmsCommand extends NotifyCommandBase{
 	}
 	
 	public function actionBidVerifySuccess($params=''){
-		if ( isset($this->parameters['bidId']) === false ){
-			return false;
-		}
-		$notify = $this->notify;
-		
-		$bid = $this->app->getModule('tender')->getComponent('bidManager')->getBidInfo($this->parameters['bidId']);
-		
+		$bid = $this->findBid();
 		if ( $bid === null ){
 			return false;
 		}
@@ -66,12 +67,7 @@ class SendSmsCommand extends NotifyCommandBase{
 	}
 	
 	public function actionBidVerifyFailed($params=''){
-		if ( isset($this->parameters['bidId']) === false ){
-			return false;
-		}
-		
-		$bid = $this->app->getModule('tender')->getComponent('bidManager')->getBidInfo($this->parameters['bidId']);
-		
+		$bid = $this->findBid();
 		if ( $bid === null ){
 			return false;
 		}
@@ -114,6 +110,38 @@ class SendSmsCommand extends NotifyCommandBase{
 		$this->sendSms(array(
 				'{credit}' => $credit->creditSetting->verification_name,
 				'{creditFailedReason}' => $credit->description
+		));
+	}
+	
+	//还款通知
+	public function actionRepay($params=''){
+		$bid = $this->findBid();
+		if ( $bid === null ){
+			return false;
+		}
+		
+		$this->parameters['mobile'] = $bid->user->mobile;
+		$this->sendSms(array(
+				'{bid}' => $bid->title,
+				'{dayLeft}' => $this->parameters['dayLeft'],
+				'{money}' => $bid->refund
+		));
+	}
+	
+	/**
+	 * 逾期
+	 * 满标
+	 * 留标
+	 */
+	public function actionBidMessage($params=''){
+		$bid = $this->findBid();
+		if ( $bid === null ){
+			return false;
+		}
+		
+		$this->parameters['mobile'] = $bid->user->mobile;
+		$this->sendSms(array(
+				'{bid}' => $bid->title,
 		));
 	}
 }

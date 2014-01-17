@@ -41,5 +41,20 @@ return array(
 				'onResetPassword' => array(
 						'command' => array('sendSms','verifyCode')
 				),
+				'onResetPayPassword' => array(
+						'command' => array('sendSms','verifyCode')
+				),
+				'onRepay' => array(//催款通知
+						'command' => array('sendSms','repay'),
+				),
+				'onRepayDelay' => array(//还款逾期未操作
+						'command' => array('sendSms','bidMessage')
+				),
+				'onRevokeBid' => array(//流标
+						'command' => array('sendSms','bidMessage')
+				),
+				'onCompeleteBid' => array(//满标
+						'command' => array('sendSms','bidMessage')
+				)
 		),
 );

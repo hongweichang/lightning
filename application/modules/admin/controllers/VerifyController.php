@@ -331,12 +331,7 @@ class VerifyController extends Admin{
 		}else
 			$this->render('bidVerifyList',array('bidList'=>$bidList,'pages'=>$pager));
 	}
-
-
-/*
-**The action of bid verify
-*/
-
+	
 	public function actionBidVerify($id,$action){
 		if(is_numeric($id) && !empty($action)){
 			$bidData = Yii::app()->getModule('tender')->bidManager->getBidInfo($id);
@@ -356,12 +351,7 @@ class VerifyController extends Admin{
 			}
 		}
 	}
-
-
-/*
-**To input the reason why bid unpassed verify
-*/
-
+	
 	public function actionBidVerifyReasonInput($id){
 		$this->tabTitle = '审核原因输入';
 		$post = $this->getPost();

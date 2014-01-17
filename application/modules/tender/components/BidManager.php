@@ -238,6 +238,10 @@ class BidManager extends CApplicationComponent{
 			$bid->save();
 			
 			//@TODO 满标通知
+			$asyncEvent = Yii::app()->getComponent('asyncEventRunner');
+			$asyncEvent->raiseAsyncEvent('onCompeleteBid',array(
+					'bidId' => $bid->id
+			));
 			
 			$transaction->commit();
 			return true;

@@ -102,7 +102,10 @@ if ( $bid->verify_progress == 31 ){
               <div>
                 <input type="checkbox" checked="checked" name="protocal" id="protocal" />
                 <div class="fakeCheck"><span></span></div>
-                <label for="protocal" id="protocal-label">我同意<a href="#">《投资人投资协议》</a></label>
+                <?php /**
+                * @todo
+                */?>
+                <label for="protocal" id="protocal-label">我同意<a href="#">《投资人协议》</a></label>
               </div>
               <?php if ( $compelete === false ):?>
               <input type="submit" value="加入" id="lend-confirm" />
@@ -124,8 +127,14 @@ if ( $bid->verify_progress == 31 ){
                   <span class="borrower-val"><?php echo $bider->getAttribute('nickname');?></span>
                 </li>
                 <li>
-                  <span class="borrower-name"></span>
-                  <span class="borrower-val"></span>
+                  <span class="borrower-name">姓名</span>
+                  <span class="borrower-val"><?php 
+                  $realname = $bider->getAttribute('realname');
+                  $len = mb_strlen($realname,'UTF-8');
+                  echo mb_substr($realname,0,1,'UTF-8');
+                  while ( --$len > 0 )
+            		echo '*';      	
+                  ?></span>
                 </li>
                 <li>
                   <span class="borrower-name">性别</span>
@@ -153,14 +162,12 @@ if ( $bid->verify_progress == 31 ){
                   <span class="borrower-name"></span>
                   <span class="borrower-val separation">以下是选填项目</span>
                 </li>
+                <?php foreach ( $credits as $credit ):?>
                 <li>
-                  <span class="borrower-name">房产证</span>
+                  <span class="borrower-name"><?php echo $credit->creditSetting->verification_name?></span>
                   <span class="borrower-val"><img src="<?php echo $this->imageUrl;?>auth.png" /></span>
                 </li>
-                <li>
-                  <span class="borrower-name">月收入证明</span>
-                  <span class="borrower-val"><img src="<?php echo $this->imageUrl;?>auth.png" /></span>
-                </li>
+                <?php endforeach;?>
               </ul>
             </div>
             <div class="tab-content record-content">

@@ -33,6 +33,11 @@ class BidController extends Admin{
 		$this->process(30);
 	}
 	
+	public function actionDelay(){
+		$this->tabTitle = '逾期';
+		$this->process(40);
+	}
+	
 	protected function process($progress){
 		$criteria = new CDbCriteria();
 		$criteria->addCondition('verify_progress=:progress');

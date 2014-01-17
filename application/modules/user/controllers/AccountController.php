@@ -97,8 +97,8 @@ class AccountController extends Controller{
 		if ( $mobile === null ){
 			$this->response(404);
 		}
-		$event = $this->getQuery('reset',null);
-		if ( $event === null ){
+		$event = $this->getQuery('reset','passwd');
+		if ( $event == 'passwd' ){
 			$event = 'onResetPassword';//重置密码
 		}else {
 			$event = 'onResetPayPassword';//重置资金密码
@@ -114,17 +114,23 @@ class AccountController extends Controller{
 	public function actionResetPasswordVerify(){
 		$cache = $this->app->cache;
 		$post = $this->getPost('Verify');
-		$reset = $this->getQuery('u',null);//r为重置资金密码标识
+		$reset = $this->getQuery('u','passwd');//u为重置资金密码标识，u不为空时为重置支付密码
 		$form = new ResetPasswordForm();
+		
+		//密码重置类型
+		if ( $reset != 'passwd' ){
+			$resetType = 'pay_password';
+			$resetName = '重置支付密码';
+			$resetIdentifier = '\''.strtoupper(md5(microtime(true))).'\'';
+		}else {
+			$resetType = 'password';
+			$resetName = '重置密码';
+			$resetIdentifier = '\'passwd\'';
+		}
 		
 		if ( $post !== null ){
 			$form->attributes = $post;
 			if ( $form->validate() ){
-				if ( $reset !== null ){
-					$resetType = 'password';
-				}else {
-					$resetType = 'pay_password';
-				}
 				$cacheKey = 'RESET_PASSWORD_'.$form->mobile;
 				$cache->set($cacheKey,array('id'=>$form->user->id,'mobile'=>$form->mobile,'resetType'=>$resetType),1800);
 				$this->redirect($this->createUrl('account/resetPassword',array('mobile'=>$form->mobile)) );
@@ -141,13 +147,10 @@ class AccountController extends Controller{
 			$this->cs->registerScript('error','alert("'.$alertErrors.'")',CClientScript::POS_END);
 		}
 		
-		$resetName = '重置密码';
+		//产生随机码，以识别支付密码
+		$this->cs->registerScript('reset','reset='.$resetIdentifier.';',CClientScript::POS_END);
 		$this->cs->registerCssFile($this->cssUrl.'login.css');
 		$this->cs->registerScriptFile($this->scriptUrl.'login.js',CClientScript::POS_END);
-		if ( $reset !== null ){
-			$this->cs->registerScript('reset','reset='.strtoupper(md5(microtime(true))),CClientScript::POS_END);
-			$resetName = '重置支付密码';
-		}
 		
 		$this->render('resetPassword',array('form'=>$form,'resetName'=>$resetName));
 	}
@@ -168,7 +171,7 @@ class AccountController extends Controller{
 					throw new CHttpException(404);
 				}
 				
-				$user->setPassword($content['resetType']);
+				$user->setPassword($password,11,$content['resetType']);
 				if ( $user->save() ){
 					$cache->delete($cacheKey);
 					$this->layout = false;
