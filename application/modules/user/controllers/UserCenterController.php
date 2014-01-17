@@ -13,7 +13,7 @@ class UserCenterController extends Controller{
 	
 	public function filters(){
 		$filters = parent::filters();
-		$filters[] = 'fetchUserData + userInfo,myLend,myBorrow,userSecurity,userFund,GetCash,userRefund';
+		$filters[] = 'fetchUserData + userInfo,myLend,myBorrow,userSecurity,userFund,GetCash,Refund';
 		return $filters;
 	}
 	
@@ -722,7 +722,7 @@ class UserCenterController extends Controller{
 			$notify = $this->app->getModule ( 'notify' )->getComponent ( 'notifyManager' );
 			// $user = $bid->getRelated('user');
 			if ($this->app->getSecurityManager ()->verifyPassword ( $password, $this->userData->pay_password ) === false) {
-				$this->redirect ( $this->createUrl ( 'userCenter/userRefund', array (
+				$this->redirect ( $this->createUrl ( 'userCenter/refund', array (
 						'bid' => $this->getQuery ( 'bid', 81 ),
 						'e' => base64_encode ( '1资金密码错误' ) 
 				) ) );
@@ -739,9 +739,10 @@ class UserCenterController extends Controller{
 				// $this->redirect($this->createUrl('userCenter/userFund'));
 			}
 		}
-		
+		$IconUrl = Yii::app()->getModule('user')->userManager->getUserIcon($this->user->getId());
 		$this->render ( 'userRefund', array (
 				'userData' => $this->userData,
+				'IconUrl'=>$IconUrl,
 				'bid' => $bid 
 		) );
 	}
