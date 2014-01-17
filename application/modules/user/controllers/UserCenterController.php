@@ -620,12 +620,11 @@ class UserCenterController extends Controller{
 		));
 	}
 	
-	public function actionUserRefund(){
+	public function actionRefund(){
 		$this->pageTitle = '标段还款';
 		
-		$bid = $this->app->getModule('tender')->bidManager->getBidInfo($this->getQuery('bid',81));
-		// && $bid->getAttribute('user_id') == $this->app->user->getId()
-		if(!empty($bid)){
+		$bid = $this->app->getModule('tender')->bidManager->getBidInfo($this->getQuery('bid'));
+		if(!empty($bid) && $bid->getAttribute('user_id') == $this->app->user->getId()){
 			
 			if(!empty($_POST)){
 				$password = $this->getPost('pay_password');
@@ -640,12 +639,13 @@ class UserCenterController extends Controller{
 				
 				if($this->userData->getAttribute('balance') - $bid->getAttribute('refund')){
 					if($this->app->getModule('tender')->bidManger->repayBid($bid)){
-						//成功
+						$this->render('refundSuccess');
 					}else{
-						//失败
+						$this->render('refundFail');
 					}
 				}else{
-					$this->redirect($this->createUrl('userCenter/userFund'));
+					$this->render('refundFail');
+					//$this->redirect($this->createUrl('userCenter/userFund'));
 				}
 			}
 			
@@ -654,7 +654,7 @@ class UserCenterController extends Controller{
 				'bid' => $bid,
 			));
 		}else{
-			//404
+			$this->render('//common/404');
 		}
 	}
 	

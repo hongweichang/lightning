@@ -151,22 +151,4 @@ class PlatformController extends Controller{
 				'mobile' => $mobile
 		));
 	}
-	
-	public function actionRefund(){
-		$bid = BidInfo::model()->with('user')->findByPk($this->getQuery('bid'));
-		
-		$this->render('refund',array(
-			'bid' => $bid,
-			'bider' => $bid->getRelated('user')
-		));
-		/*if($bid != null && $bid->getAttribute('user_id') == $this->user->getId()){
-			if($this->module->bidManager->repayBid($bid)){
-				$this->render('refundSuccess');
-			}else{
-				$this->render('refundFail');
-			}
-		}else{
-			$this->render('//common/404');
-		}*/
-	}
 }

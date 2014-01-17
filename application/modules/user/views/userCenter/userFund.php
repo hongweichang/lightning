@@ -161,7 +161,7 @@ if(Yii::app()->user->hasFlash('success')){
                             <ul>
                                 <li>
                                     <label>可用资金 </label>
-                                    <span class="number"><?php echo $userData->balance/100?></span>
+                                    <span class="number"><?php echo number_format($userData->balance/100,2); ?></span>
                                     <span>元</span>
                                 </li>
                                 <li>
@@ -198,7 +198,7 @@ if(Yii::app()->user->hasFlash('success')){
                                 <li>
                                     <label>资金密码 </label>
                                     <input type="password" id="withdraw-passwd" name="pay_password"/>
-                                    <a href="#">忘记密码</a>
+                                    <a href="<?php echo $this->app->createUrl('user/account/resetPasswordVerify',array('u' => time())); ?>">忘记密码</a>
                                 </li>
                                 <li>
                                     <input type="submit" value="提现" class="form-button" id="fund-withdraw-submit"/>
