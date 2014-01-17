@@ -175,7 +175,6 @@ class AccountController extends Controller{
 				if ( $user->save() ){
 					$cache->delete($cacheKey);
 					$this->layout = false;
-					$this->cs->registerScript('success','alert("修改成功");window.location.href="'.$this->createUrl('/site').'"');
 					$this->render('resetSuccess');
 					$this->app->end();
 				}

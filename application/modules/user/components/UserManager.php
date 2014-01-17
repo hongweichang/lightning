@@ -80,10 +80,10 @@ class UserManager extends CApplicationComponent{
 		if ( $icon === null ){
 			return $url.'default.png';
 		}else{
-				if(!file_exists($url.$icon)){
-					$defaultUrl = Yii::app()->getPartedUrl('avatar',null);
-					return $defaultUrl.'default.png';
-				}
+			if(!file_exists($url.$icon)){
+				$defaultUrl = Yii::app()->getPartedUrl('avatar',null);
+				return $defaultUrl.'default.png';
+			}
 					
 		}
 		return $url.$icon;
