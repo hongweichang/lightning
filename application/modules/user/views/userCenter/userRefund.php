@@ -112,7 +112,7 @@ if(Yii::app()->user->hasFlash('success')){
                                 <li>
                                     <label>资金密码 </label>
                                     <input type="password" id="withdraw-passwd" name="pay_password"/>
-                                    <a href="<?php echo $this->createUrl('account/resetPasswordVerify',array('u' => time()));?>">忘记密码</a>
+                                    <a href="<?php echo $this->createUrl('account/resetPasswordVerify',array('u'=>strtoupper(md5(time() ))));?>">忘记密码</a>
                                 </li>
                                 <li>
                                     <input type="submit" value="还款" class="form-button" id="fund-withdraw-submit"/>

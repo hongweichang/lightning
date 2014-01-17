@@ -61,7 +61,7 @@ $this->cs->registerCssFile($this->cssUrl.'lend.css');
             <div class="paycenter-item">
               <label for="pay-pw">支付密码：</label>
               <input type="password" name="pay_pwd" id="pay-pw"/>
-              <a href="<?php echo $this->app->createUrl('user/account/forgot')?>" class="paycenter-tips">忘记密码?</a>
+              <a href="<?php echo $this->app->createUrl('user/account/resetPasswordVerify',array('u'=>strtoupper(md5(time() )))); ?>" class="paycenter-tips">忘记密码?</a>
          	  <span for="pay-pw" class="error"><?php echo substr($errorMsg,0,1) == 1 ? substr($errorMsg,1) : ''?></span>
               <p class="paycenter-alert">为确保您的交易安全，每次交易需要输入资金密码</p>
             </div>
