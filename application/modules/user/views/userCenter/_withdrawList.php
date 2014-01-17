@@ -9,8 +9,8 @@
 <tr>
 	<td><?php echo date('Y-n-j H:i:s',$data->getAttribute('raise_time')); ?></td>
 	<td><?php echo $data->getRelated('user')->getAttribute('bank'); ?></td>
-	<td>-<?php echo number_format($data->getAttribute('sum') / 100,2); ?></td>
-	<td><?php echo number_format($data->getAttribute('fee') / 100,2); ?></td>
+	<td>-<?php echo number_format($data->getAttribute('sum') / 100,2); ?>元</td>
+	<td><?php echo number_format($data->getAttribute('fee') / 100,2); ?>元</td>
 	<td><?php $status = $data->getAttribute('status');
 		if($status == 0) echo "正在处理";
 		elseif($status == 1) echo "提现完成";

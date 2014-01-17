@@ -14,18 +14,18 @@ class FundManager extends CApplicationComponent{
 		$credit = Yii::app()->getModule('credit')->userCreditManager;
 		$rate = $credit->userRateGet(Yii::app()->user->getId());
 		if(empty($inpay)){
-			$key = $this->raisePayOrder($metano, $metano * $rate['on_recharge']);
+			$key = $this->raisePayOrder($payment,$metano, $metano * $rate['on_recharge']);
 		}else{
 			$key = 0;
 			$meta = $bid->getBidMetaInfo(Utils::appendDecrypt($metano));
 			if($inpay == 'on'){
 				$sum = ($meta->getAttribute('sum') - $meta->getRelated('user')->getAttribute('balance')) / 100;
 				if($sum > 0){
-					$key = $this->raisePayOrder($sum, $sum * $rate['on_recharge'],$meta->getAttribute('id'));
+					$key = $this->raisePayOrder($payment,$sum, $sum * $rate['on_recharge'],$meta->getAttribute('id'));
 				}
 			}else{
 				$sum = $meta->getAttribute('sum') / 100;
-				$key = $this->raisePayOrder($sum, $sum * $rate['on_recharge'],$meta->getAttribute('id'));
+				$key = $this->raisePayOrder($payment,$sum, $sum * $rate['on_recharge'],$meta->getAttribute('id'));
 			}
 		}
 		
@@ -40,13 +40,14 @@ class FundManager extends CApplicationComponent{
 	 * @param float $charge
 	 * @return integer|boolean
 	 */
-	protected function raisePayOrder($sum,$charge,$meta = 0){
+	protected function raisePayOrder($payment,$sum,$charge,$meta = 0){
 		$db = new Recharge();
 		$db->attributes = array(
 			'user_id' => Yii::app()->user->getId(),
 			'meta_id' => $meta,
 			'sum' => $sum * 100,
 			'fee' => $charge * 100,
+			'platform' => $payment,
 			'raise_time' => time(),
 			'status' => 0,
 		);
