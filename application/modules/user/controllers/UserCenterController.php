@@ -800,7 +800,7 @@ class UserCenterController extends Controller{
 		$uid = $this->app->user->id;
 		$payBackData = array();
 		 //提现
-		if(is_numeric($post['getSum'])){
+		if(isset($post['getSum']) && is_numeric($post['getSum'])){
 			$sum = $post['getSum'];
 			$userRate = $this->app->getModule('credit')->getComponent('userCreditManager')->UserRateGet($uid);
 			if($userRate !==400){
@@ -817,9 +817,11 @@ class UserCenterController extends Controller{
 			}
 		}
 		//充值
-		if(is_numeric($post['paySum'])){
+	
+		if(isset($post['paySum']) && is_numeric($post['paySum'])){
 			$sum = $post['paySum'];
 			$userRate = $this->app->getModule('credit')->getComponent('userCreditManager')->UserRateGet($uid);
+			
 			if($userRate !==400){
 				$userPaySum = $sum * $userRate['on_recharge'];
 				//$GetSum = $userPaySum + $sum;

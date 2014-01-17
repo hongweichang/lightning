@@ -83,7 +83,7 @@ $(document).ready(function(){
 			url: 'PayBackMoney',
 			type: 'POST',
 			dataType: 'json',
-			data: "psySum="+w_num,
+			data: "paySum="+w_num,
 			success: function(data){
 				var data = data.data;
 				$("#userPayCharge").text(data.userPayCharge);
