@@ -252,21 +252,21 @@ class UserCenterController extends Controller{
 	**获取用户等待后台处理的信用项
 	*/
 	public function getFnishedCreditData($uid,$role){
+		$finishedData = array();
 		if(is_numeric($uid) && !empty($role)){
-			$finishCredit = array();
 			$criteria = new CDbCriteria;
-
+		
 			$criteria->condition = 'user_id =:uid AND role =:role';
 			$criteria->params = array(
-							':uid'=>$uid,
-							':role'=>$role
-						);
-			
+					':uid'=>$uid,
+					':role'=>$role
+			);
+				
 			$criteria->order = 'verification_id ASC,submit_time DESC ';
-			
+				
 			$finishedData = FrontCredit::model()->findAll($criteria);
-			return $finishedData;
 		}
+		return $finishedData;
 	}
 
 
