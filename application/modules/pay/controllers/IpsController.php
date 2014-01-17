@@ -24,7 +24,7 @@ class IpsController extends PayController{
 		$ips = $this->module->ips;
 		$ips['Billno'] = $order->getAttribute('id');
 		$ips['Amount'] = number_format($amount,2,".","");
-		$ips['Attach'] = '闪电贷:'.$amount.'元(含手续费:'.($order->getAttribute('fee') / 100).'元)';
+		//$ips['Attach'] = '闪电贷:'.$amount.'元(含手续费:'.($order->getAttribute('fee') / 100).'元)';
 		$ips['Date'] = date('Ymd');
 		unset($ips['Mer_key']);
 		
@@ -40,10 +40,10 @@ class IpsController extends PayController{
 		if($result){
 			if($this->getQuery('succ') == 'Y'){
 				$this->trade_no = $this->getQuery('ipsbillno');
-				$this->subject = urldecode($this->getQuery('attach'));
+				$this->subject = urldecode($this->getQuery('attach',''));
 				$this->buyer = urldecode($this->getQuery('msg'));
 				$this->buyer_id = $this->getQuery('bankbillno');
-				//;
+				
 				if($this->beginPay($this->getQuery('billno'))){
 					$record = Recharge::model()->findByPk($this->getQuery('billno'));
 					if($record->getAttribute('meta_id') != 0){
@@ -94,7 +94,7 @@ class IpsController extends PayController{
 				end if
 				**/
 				$this->trade_no = $this->getQuery('ipsbillno');
-				$this->subject = urldecode($this->getQuery('attach'));
+				$this->subject = urldecode($this->getQuery('attach',''));
 				$this->buyer = urldecode($this->getQuery('msg'));
 				$this->buyer_id = $this->getQuery('bankbillno');
 				if($this->beginPay($this->getQuery('billno')) && $this->afterPay($this->getQuery('billno'))){
