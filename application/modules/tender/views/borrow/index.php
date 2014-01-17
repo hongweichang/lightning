@@ -40,10 +40,12 @@
             	<?php } ?>
             </div>
             <div class="con-cuskind">
+            <a class="intro" target="_blank" href="<?php echo $this->createUrl('/content/help/index',array('cid'=>17))?>#prod-work">
                 <div class="cuskind cuskind-color-0">
                     <p>工薪族</p>
                     <img src="<?php echo $this->imageUrl;?>kind.png" />
                 </div>
+                </a>
                 <h2>适用工薪阶层</h2>
                 <span>申请条件</span>
                 <ul>
@@ -54,10 +56,12 @@
                 <a href="<?php echo $this->createUrl('/content/help/index',array('cid'=>17))?>#prod-work">查看详细信息</a>
             </div>
             <div class="con-cuskind">
+            <a class="intro" target="_blank" href="<?php echo $this->createUrl('/content/help/index',array('cid'=>17))?>#prod-biz">
                 <div class="cuskind cuskind-color-1">
                     <p>企业主</p>
                     <img src="<?php echo $this->imageUrl;?>kind.png" />
                 </div>
+                </a>
                 <h2>适用私营企业主</h2>
                 <span>申请条件</span>
                 <ul>
@@ -67,10 +71,12 @@
                 <a href="<?php echo $this->createUrl('/content/help/index',array('cid'=>17))?>#prod-biz">查看详细信息</a>
             </div>
             <div class="con-cuskind">
+            <a class="intro" target="_blank" href="<?php echo $this->createUrl('/content/help/index',array('cid'=>17))?>#prod-ecomm">
                 <div class="cuskind cuskind-color-2">
                     <p>网店主</p>
                     <img src="<?php echo $this->imageUrl;?>kind.png" />
                 </div>
+                </a>
                 <h2>适用电子网店商户</h2>
                 <span>申请条件</span>
                 <ul>

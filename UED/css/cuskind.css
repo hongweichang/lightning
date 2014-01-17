@@ -161,6 +161,9 @@
       font-size: 14px;
       font-weight: normal;
       color: #2e8a8d; }
+	#container .con-cuskind a.intro {
+	position: static;
+	}
   #container .cuskind {
     position: relative;
     width: 57px;

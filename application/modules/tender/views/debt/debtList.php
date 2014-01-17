@@ -7,13 +7,11 @@ $this->cs->registerCssFile($this->cssUrl.'lend.css');
             <div class="breadcrumb">
                 <ul>
                     <li class="breadcrumb-item">
-                        <a href="#">我要投资</a>
+                        <a href="<?php echo $this->createUrl('/site')?>">首页</a>
                     </li>
                     <li class="breadcrumb-separator"> >
                     </li>
-                    <li class="breadcrumb-item active">
-                        <a href="#">投资中心</a>
-                    </li>
+                    <li class="breadcrumb-item active">债权转让</li>
                 </ul>
             </div>
             <div class="loan creditor">
