@@ -42,13 +42,13 @@ class BidController extends Admin{
 		$criteria = new CDbCriteria();
 		$criteria->addCondition('verify_progress=:progress');
 		$criteria->params[':progress'] = $progress;
-
-		
-		$selector = Selector::load('BidSeletor',$this->getQuery('BidSeletor'),$criteria);
+		$criteria->with = array('user');
+		$selector = Selector::load('BidSeletor',$this->getQuery('BidSeletor'),$criteria,'AND');
 		
 		$dataProvider = new CActiveDataProvider('BidInfo',array(
 				'criteria' => $criteria,
 				'countCriteria' => array(
+						'with' => $criteria->with,
 						'condition' => $criteria->condition,
 						'params' => $criteria->params
 				),

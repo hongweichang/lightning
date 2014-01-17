@@ -15,11 +15,13 @@ class RechargeController extends Admin{
 		$criteria = new CDbCriteria();
 		$criteria->addCondition('status=0');
 		
+		$criteria->with = array('user');
 		$selector = Selector::load('RechargeSelector',$this->getQuery('RechargeSelector'),$criteria);
 		
 		$dataProvider = new CActiveDataProvider('Withdraw',array(
 			'criteria' => $criteria,
 			'countCriteria' => array(
+				'with' => $criteria->with,
 				'condition' => $criteria->condition,
 				'params' => $criteria->params
 			),
@@ -64,12 +66,13 @@ class RechargeController extends Admin{
 	public function actionVerifyFailed(){
 		$criteria = new CDbCriteria();
 		$criteria->addCondition('status=2');
-		
+		$criteria->with = array('user');
 		$selector = Selector::load('RechargeSelector',$this->getQuery('RechargeSelector'),$criteria);
 		
 		$dataProvider = new CActiveDataProvider('Withdraw',array(
 			'criteria' => $criteria,
 			'countCriteria' => array(
+				'with' => $criteria->with,
 				'condition' => $criteria->condition,
 				'params' => $criteria->params
 			),
@@ -89,11 +92,13 @@ class RechargeController extends Admin{
 		$criteria = new CDbCriteria();
 		//$criteria->addCondition('status=0');
 		
+		$criteria->with = array('user');
 		$selector = Selector::load('RechargeSelector',$this->getQuery('RechargeSelector'),$criteria);
 		
 		$dataProvider = new CActiveDataProvider('Withdraw',array(
 			'criteria' => $criteria,
 			'countCriteria' => array(
+				'with' => $criteria->with,
 				'condition' => $criteria->condition,
 				'params' => $criteria->params
 			),
@@ -113,12 +118,13 @@ class RechargeController extends Admin{
 	public function actionView(){
 		$criteria = new CDbCriteria();
 		//$criteria->addCondition('status=0');
-		
+		$criteria->with = array('user');
 		$selector = Selector::load('RechargeSelector',$this->getQuery('RechargeSelector'),$criteria);
 		
 		$dataProvider = new CActiveDataProvider('Recharge',array(
 				'criteria' => $criteria,
 				'countCriteria' => array(
+						'with' => $criteria->with,
 						'condition' => $criteria->condition,
 						'params' => $criteria->params
 				),
