@@ -21,7 +21,12 @@ class BidCommand extends LightningCommandBase{
 		));
 		
 		foreach($bids as $bid){
-			$db->revokeBid($bid);
+			if($db->revokeBid($bid)){
+				$asyncEvent = $this->app->getComponent('asyncEventRunner');
+				$asyncEvent->raiseAsyncEvent('onRevokeBid',array(
+					'bidId' => $bid->id
+				));
+			}
 		}
 	}
 	
