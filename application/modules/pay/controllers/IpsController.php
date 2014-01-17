@@ -41,7 +41,7 @@ class IpsController extends PayController{
 			if($this->getQuery('succ') == 'Y'){
 				$this->trade_no = $this->getQuery('ipsbillno');
 				$this->subject = urldecode($this->getQuery('attach',''));
-				$this->buyer = urldecode($this->getQuery('msg'));
+				$this->buyer = urldecode(strtoupper($this->getQuery('msg')));
 				$this->buyer_id = $this->getQuery('bankbillno');
 				
 				if($this->beginPay($this->getQuery('billno'))){
@@ -95,7 +95,7 @@ class IpsController extends PayController{
 				**/
 				$this->trade_no = $this->getQuery('ipsbillno');
 				$this->subject = urldecode($this->getQuery('attach',''));
-				$this->buyer = urldecode($this->getQuery('msg'));
+				$this->buyer = urldecode(strtoupper($this->getQuery('msg')));
 				$this->buyer_id = $this->getQuery('bankbillno');
 				if($this->beginPay($this->getQuery('billno')) && $this->afterPay($this->getQuery('billno'))){
 					echo "ipscheckok";
