@@ -73,10 +73,10 @@ $MetaSum = $this->userMetaBidMoney;
                             <span>
                             <?php
                             $balance = $userData['balance']/100;
-                            if($balance >= 100000){
-                                $highBalance = $balance/10000;
-                                echo $highBalance."万元";
-                            }else 
+                            //if($balance >= 100000){
+                            //    $highBalance = $balance/10000;
+                            //    echo $highBalance."万元";
+                            //}else 
                                 echo $balance."元";
                             ?>
                             </span>

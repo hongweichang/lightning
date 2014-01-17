@@ -610,20 +610,21 @@ class UserCenterController extends Controller{
 				't' => mktime(0,0,0) - 2592000,
 			)
 		));
+		$p2p = new CArrayDataProvider($p2p);
+		$p2p->pagination = false;
 		
 		$this->render('userFund',array(
 			'userData'=>$userData,
 			'IconUrl'=>$IconUrl,
-			'p2p' => new CArrayDataProvider($p2p),
+			'p2p' => $p2p,
 		));
 	}
 	
-	public function actionUserRefund(){
+	public function actionRefund(){
 		$this->pageTitle = '标段还款';
 		
-		$bid = $this->app->getModule('tender')->bidManager->getBidInfo($this->getQuery('bid',81));
-		// && $bid->getAttribute('user_id') == $this->app->user->getId()
-		if(!empty($bid)){
+		$bid = $this->app->getModule('tender')->bidManager->getBidInfo($this->getQuery('bid'));
+		if(!empty($bid) && $bid->getAttribute('user_id') == $this->app->user->getId()){
 			
 			if(!empty($_POST)){
 				$password = $this->getPost('pay_password');
@@ -638,12 +639,13 @@ class UserCenterController extends Controller{
 				
 				if($this->userData->getAttribute('balance') - $bid->getAttribute('refund')){
 					if($this->app->getModule('tender')->bidManger->repayBid($bid)){
-						//成功
+						$this->render('refundSuccess');
 					}else{
-						//失败
+						$this->render('refundFail');
 					}
 				}else{
-					$this->redirect($this->createUrl('userCenter/userFund'));
+					$this->render('refundFail');
+					//$this->redirect($this->createUrl('userCenter/userFund'));
 				}
 			}
 			
@@ -652,7 +654,7 @@ class UserCenterController extends Controller{
 				'bid' => $bid,
 			));
 		}else{
-			//404
+			$this->render('//common/404');
 		}
 	}
 	
@@ -708,7 +710,7 @@ class UserCenterController extends Controller{
 		$post = $this->getPost();
 		$uid = $this->app->user->id;
 		$payBackData = array();
-
+		 //提现
 		if(is_numeric($post['getSum'])){
 			$sum = $post['getSum'];
 			$userRate = $this->app->getModule('credit')->getComponent('userCreditManager')->UserRateGet($uid);
@@ -725,7 +727,7 @@ class UserCenterController extends Controller{
 				
 			}
 		}
-		
+		//充值
 		if(is_numeric($post['paySum'])){
 			$sum = $post['paySum'];
 			$userRate = $this->app->getModule('credit')->getComponent('userCreditManager')->UserRateGet($uid);

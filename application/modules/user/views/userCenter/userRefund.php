@@ -78,12 +78,12 @@ if(Yii::app()->user->hasFlash('success')){
                         <form id="fund-withdraw" method="post" action="<?php echo $this->createUrl('userCenter/userRefund'); ?>">
                             <ul>
                                 <li>
-                                    <label>可用资金 </label>
+                                    <label>账户余额</label>
                                     <span class="number"><?php echo number_format($userData->balance/100,2);?></span>
                                     <span>元</span>
                                 </li>
                                 <li>
-                                    <label for="withdraw-num">还款金额 </label>
+                                    <label for="withdraw-num">还款金额</label>
                                     <span class="number"><?php echo number_format($bid->getAttribute('refund') / 100,2);?></span>
                                     <span>元</span>
                                 </li>                         
@@ -103,7 +103,7 @@ if(Yii::app()->user->hasFlash('success')){
                                     <a class="form-button" style="color:#FFF" target="_blank" href="<?php echo $this->createUrl('userCenter/userFund')?>">去充值</a>
                                 </li>
                                 <li>
-                                    <label>账户余额 </label>
+                                    <label>结算后余额</label>
                                     <span class="number" id="getSum"><?php 
                                     	echo number_format(($userData->balance - $bid->getAttribute('refund') + $pay) / 100,2);
                                     ?></span>
@@ -112,7 +112,7 @@ if(Yii::app()->user->hasFlash('success')){
                                 <li>
                                     <label>资金密码 </label>
                                     <input type="password" id="withdraw-passwd" name="pay_password"/>
-                                    <a href="#">忘记密码</a>
+                                    <a href="<?php echo $this->createUrl('account/resetPasswordVerify',array('u' => time()));?>">忘记密码</a>
                                 </li>
                                 <li>
                                     <input type="submit" value="还款" class="form-button" id="fund-withdraw-submit"/>

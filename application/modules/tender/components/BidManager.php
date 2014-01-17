@@ -206,18 +206,18 @@ class BidManager extends CApplicationComponent{
 			foreach($metas as $meta){
 				//投资状态更换
 				switch ( intval($meta->getAttribute('status')) ){
-					case 11: // 订单状态
+					case 11: // 未付款
 						$meta->attributes = array(
 							'pay_time' => $time,
 							'repay_time' => $time,
 							'finish_time' => $time,
-							'status' => 20
+							'status' => 20 // 订单取消
 						);
 					break;
 					case 21: // 已付款
 						$meta->attributes = array(
 							'repay_time' => $time,
-							'status' => 31
+							'status' => 31 //满标
 						);
 					break;
 				}
@@ -237,7 +237,6 @@ class BidManager extends CApplicationComponent{
 			);
 			$bid->save();
 			
-			//@TODO 满标通知
 			$asyncEvent = Yii::app()->getComponent('asyncEventRunner');
 			$asyncEvent->raiseAsyncEvent('onCompeleteBid',array(
 					'bidId' => $bid->id

@@ -70,7 +70,7 @@ $this->cs->registerCssFile($this->cssUrl.'detail.css');
                             <span><?php echo $value[0]['refund']/100;?></span>
                             <span class="deadline"><?php echo $value[0]['repay_deadline'].'个月';?></span>
                             <span class="repay"><?php if($value[0]['verify_progress'] == 31){ ?>
-                                <a href="<?php echo $this->app->createUrl('tender/platform/refund',array('bid' => $value[0]['id'])); ?>">
+                                <a href="<?php echo $this->createUrl('userCenter/refund',array('bid' => $value[0]['id'])); ?>">
                                     <img src="<?php echo $this->imageUrl.'repay.png'?>"/>
                                 </a>
                             <?php }else{ ?>

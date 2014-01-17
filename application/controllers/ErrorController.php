@@ -7,6 +7,11 @@
  */
 class ErrorController extends Controller{
 	public function actionIndex(){
-		
+		$error = $this->app->getErrorHandler()->getError();
+		if ( $error != NULL && $error['code'] == 500 ){
+			$this->render('500');
+		}else{
+			$this->render('404');
+		}
 	}
 }
