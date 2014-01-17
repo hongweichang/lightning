@@ -7,6 +7,7 @@
  */
 class NotifyManager extends CApplicationComponent{
 	public $smsAPI;//第三方短信接口地址
+	public $smsAPIConfig;
 	public $cacheID;
 	public $mobileCodePrefix = 'MOBILE_CODE_';
 	
@@ -84,10 +85,15 @@ class NotifyManager extends CApplicationComponent{
 	 * @return boolean
 	 */
 	public function sendSms($target,$content){
+		$this->smsAPIConfig['mobile'] = $target;
+		$this->smsAPIConfig['content'] = $content;
+		$this->smsAPIConfig['action'] = 'send';
+		
+		$url = $this->smsAPI.'sms.aspx';
 		$curl = $this->curl;
-		$curl->setMethod('GET');
-		$content = iconv('UTF-8','GB2312',$content);
-		$url = $this->smsAPI.'&mobile='.$target.'&content='.$content;
+		$curl->setMethod('POST');
+		$curl->setRequestBody($this->smsAPIConfig);
+		
 		$curl->curlSend($url);
 		if ( $curl->getHasError() ){
 			$error = $curl->getError();

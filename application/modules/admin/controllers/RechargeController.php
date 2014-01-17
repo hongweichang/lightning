@@ -124,7 +124,7 @@ class RechargeController extends Admin{
 		$criteria->with = array('user');
 		$selector = Selector::load('RechargeSelector',$this->getQuery('RechargeSelector'),$criteria);
 		
-		$critria->order = 'finish_time desc,pay_time desc';
+		$criteria->order = 'finish_time desc,pay_time desc';
 		$dataProvider = new CActiveDataProvider('Recharge',array(
 				'criteria' => $criteria,
 				'countCriteria' => array(
