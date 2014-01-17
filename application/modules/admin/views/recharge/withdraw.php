@@ -30,7 +30,7 @@ $form=$this->beginWidget('CActiveForm',array(
 		<th>银行卡</th>
 		<th>提现金额</th>
 		<th>手续费</th>
-		<th>订单时间</th>
+		<th>提现时间</th>
 		<th>完成时间</th>
 		<th>状态</th>
 	</thead>
