@@ -86,11 +86,10 @@ class NotifyManager extends CApplicationComponent{
 	 */
 	public function sendSms($target,$content){
 		$this->smsAPIConfig['mobile'] = $target;
-		$this->smsAPIConfig['content'] = iconv('UTF-8','GB2312',$content);
-		$this->smsAPIConfig['sendTime'] = time();
+		$this->smsAPIConfig['content'] = $content;
 		$this->smsAPIConfig['action'] = 'send';
 		
-		$url = $this->smsAPI.'smsGBK.aspx';
+		$url = $this->smsAPI.'sms.aspx';
 		$curl = $this->curl;
 		$curl->setMethod('POST');
 		$curl->setRequestBody($this->smsAPIConfig);
