@@ -308,6 +308,11 @@ class VerifyController extends Admin{
 		$criteria->order = 'pub_time DESC';
 
 		$sum = BidInfo::model()->count($criteria);
+		if ( $this->request->getIsAjaxRequest() === true ){
+			echo $sum;
+			$this->app->end();
+		}
+		
 		$pager = new CPagination($sum);
 		$pager->pageSize = 15;
 		$pager->applyLimit($criteria);
