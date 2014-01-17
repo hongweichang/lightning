@@ -19,6 +19,7 @@ class RechargeController extends Admin{
 		
 		$dataProvider = new CActiveDataProvider('Withdraw',array(
 			'criteria' => $criteria,
+			'order' => 'raise_time asc',
 			'countCriteria' => array(
 				'condition' => $criteria->condition,
 				'params' => $criteria->params
@@ -69,6 +70,7 @@ class RechargeController extends Admin{
 		
 		$dataProvider = new CActiveDataProvider('Withdraw',array(
 			'criteria' => $criteria,
+			'order' => 'finish_time desc,raise_time desc',
 			'countCriteria' => array(
 				'condition' => $criteria->condition,
 				'params' => $criteria->params
@@ -93,6 +95,7 @@ class RechargeController extends Admin{
 		
 		$dataProvider = new CActiveDataProvider('Withdraw',array(
 			'criteria' => $criteria,
+			'order' => 'finish_time desc,raise_time desc',
 			'countCriteria' => array(
 				'condition' => $criteria->condition,
 				'params' => $criteria->params
@@ -118,6 +121,7 @@ class RechargeController extends Admin{
 		
 		$dataProvider = new CActiveDataProvider('Recharge',array(
 				'criteria' => $criteria,
+				'order' => 'finish_time desc,pay_time desc',
 				'countCriteria' => array(
 						'condition' => $criteria->condition,
 						'params' => $criteria->params
