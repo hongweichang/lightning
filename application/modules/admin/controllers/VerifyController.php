@@ -166,11 +166,19 @@ class VerifyController extends Admin{
 	public function actionCreditVerify($id,$action,$uid){
 		if(is_numeric($uid) && is_numeric($id) && !empty($action)){
 			$userData = FrontCredit::model()->findByPk($id);
+			$creditOptional = CreditRole::model()->findAll('role =:role AND verification_id =:verification_id',array(
+							':verification_id'=>$userData->verification_id,
+							':role'=>$userData->role));
 
 			if(!empty($userData)){
 				if($action == 'pass' && $userData->status != 1){
 						$userData->status = 1;
-						$userGradeAdd = $this->checkCreditForGrade($uid);
+						if($creditOptional[0]->optional == 0)
+							$userGradeAdd = $this->checkCreditForGrade($uid);
+						else{
+							$userGrade = FrontUser::model()->updateCounters(array('credit_grade'=>$creditOptional[0]->grade));
+						}
+
 					if($userData->save()){
 						$asyncEventRunner = $this->app->getComponent('asyncEventRunner');
 						$asyncEventRunner->raiseAsyncEvent('onCreditVerifySuccess',array(
@@ -226,9 +234,12 @@ class VerifyController extends Admin{
 
 					if($userCreditSum +1 ==$roleCreditSum){
 						$userGrade = $userData->credit_grade;
-						$userData->credit_grade = $userGrade+60;
-						if($userData->save())
-							return 200;
+						if($userGrade < 60){
+							$userData->credit_grade = $userGrade+60;
+							if($userData->save())
+								return 200;
+						}	
+												
 					}
 					else
 						return 400;
@@ -295,13 +306,8 @@ class VerifyController extends Admin{
 						':progress'=>11
 					);
 		$criteria->order = 'pub_time DESC';
-		
+
 		$sum = BidInfo::model()->count($criteria);
-		if($this->request->getIsAjaxRequest()){
-			echo $sum;
-			$this->app->end();
-		}
-		
 		$pager = new CPagination($sum);
 		$pager->pageSize = 15;
 		$pager->applyLimit($criteria);
@@ -331,7 +337,12 @@ class VerifyController extends Admin{
 		}else
 			$this->render('bidVerifyList',array('bidList'=>$bidList,'pages'=>$pager));
 	}
-	
+
+
+/*
+**The action of bid verify
+*/
+
 	public function actionBidVerify($id,$action){
 		if(is_numeric($id) && !empty($action)){
 			$bidData = Yii::app()->getModule('tender')->bidManager->getBidInfo($id);
@@ -351,7 +362,12 @@ class VerifyController extends Admin{
 			}
 		}
 	}
-	
+
+
+/*
+**To input the reason why bid unpassed verify
+*/
+
 	public function actionBidVerifyReasonInput($id){
 		$this->tabTitle = '审核原因输入';
 		$post = $this->getPost();

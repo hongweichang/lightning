@@ -49,7 +49,13 @@ class mainConf extends ConfigBase{
 										'CharSet'=>'UTF-8',
 								),
 								'manager' => array(
-										'smsAPI' => 'http://sdk105.entinfo.cn/z_mdsmssend.aspx?sn=SDK-CSL-010-00245&pwd=69C90CB4B5E98574108BB62974EB0DF4',
+										//'smsAPI' => 'http://sdk105.entinfo.cn/z_mdsmssend.aspx?sn=SDK-CSL-010-00245&pwd=69C90CB4B5E98574108BB62974EB0DF4',
+										'smsAPI' => 'http://222.76.210.200:9999/',
+										'smsAPIConfig' => array(
+												'userid' => '259',
+												'account' => '023wztz',
+												'password' => '103',
+										),
 										'cacheID' => 'cache'
 								)
 						),

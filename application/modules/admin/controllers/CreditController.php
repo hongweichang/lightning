@@ -13,6 +13,7 @@ class CreditController extends Admin{
 	
 	}
 
+
 /*
 **后台添加信用项
 */
@@ -36,6 +37,7 @@ class CreditController extends Admin{
 					$Rolemodel->verification_id = $verification_id;
 					$Rolemodel->optional = $post['wddz'];
 					$Rolemodel->grade = $post['grade'];
+					//$gradeReset = FrontUser::model()->updateCounters(array('credit_grade'=>-60),'role =:role',array(':role'=>'wddz'));
 
 					$Rolemodel->save();
 				}
@@ -46,6 +48,7 @@ class CreditController extends Admin{
 					$Rolemodel->verification_id = $verification_id;
 					$Rolemodel->optional = $post['qyz'];
 					$Rolemodel->grade = $post['grade'];
+					//$gradeReset = FrontUser::model()->updateCounters(array('credit_grade'=>-60),'role =:role',array(':role'=>'qyz'));
 
 					$Rolemodel->save();
 
@@ -57,6 +60,7 @@ class CreditController extends Admin{
 					$Rolemodel->verification_id = $verification_id;
 					$Rolemodel->optional = $post['gxjc'];
 					$Rolemodel->grade = $post['grade'];
+					//$gradeReset = FrontUser::model()->updateCounters(array('credit_grade'=>-60),'role =:role',array(':role'=>'gxjc'));					
 
 					$Rolemodel->save();
 				}
