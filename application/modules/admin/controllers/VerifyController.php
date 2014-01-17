@@ -204,49 +204,30 @@ class VerifyController extends Admin{
 		if(is_numeric($uid)){
 			$userData = FrontUser::model()->findByPk($uid);
 			if(!empty($userData)){
-				if(empty($userData->nickname))
-					return 400;
-				elseif(empty($userData->realname))
-					return 400;
-				elseif(empty($userData->gender))
-					return 400;
-				elseif(empty($userData->mobile))
-					return 400;
-				elseif(empty($userData->role))
-					return 400;
-				elseif(empty($userData->identity_id))
-					return 400;
-				elseif(empty($userData->address))
-					return 400;
-				else{
-					$userRole = $userData->role;
-					$userCreditSum = FrontCredit::model()->count(
-						'user_id =:uid AND status =:status',array(':uid'=>$uid,':status'=>'1'));
-					/*
-					**根据用户角色获取其必须完善的信用信息数目
-					*/
-					if($userRole == 'wddz')
-						$roleCreditSum = $this->WDDZnecessaryCreditNum;
-					elseif($userRole == 'qyz')
-						$roleCreditSum = $this->QYZnecessaryCreditNum;
-					elseif($userRole == 'gxjc')
-						$roleCreditSum = $this->GXJCnecessaryCreditNum ;
+				$userRole = $userData->role;
+				$userCreditSum = FrontCredit::model()->count(
+					'user_id =:uid AND status =:status',array(':uid'=>$uid,':status'=>'1'));
+				/*
+				**根据用户角色获取其必须完善的信用信息数目
+				*/
+				if($userRole == 'wddz')
+					$roleCreditSum = $this->WDDZnecessaryCreditNum;
+				elseif($userRole == 'qyz')
+					$roleCreditSum = $this->QYZnecessaryCreditNum;
+				elseif($userRole == 'gxjc')
+					$roleCreditSum = $this->GXJCnecessaryCreditNum ;
 
-					if($userCreditSum +1 ==$roleCreditSum){
-						$userGrade = $userData->credit_grade;
-						if($userGrade < 60){
-							$userData->credit_grade = $userGrade+60;
-							if($userData->save())
-								return 200;
-						}	
-												
-					}
-					else
-						return 400;
-
-
+				if($userCreditSum +1 ==$roleCreditSum){
+					$userGrade = $userData->credit_grade;
+					if($userGrade < 60){
+						$userData->credit_grade = $userGrade+60;
+						if($userData->save())
+							return 200;
+					}	
+											
 				}
-
+				else
+					return 400;
 			}
 		}
 	}
