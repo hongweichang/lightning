@@ -18,9 +18,9 @@ class RechargeController extends Admin{
 		$criteria->with = array('user');
 		$selector = Selector::load('RechargeSelector',$this->getQuery('RechargeSelector'),$criteria);
 		
+		$criteria->order = 'raise_time asc';
 		$dataProvider = new CActiveDataProvider('Withdraw',array(
 			'criteria' => $criteria,
-			'order' => 'raise_time asc',
 			'countCriteria' => array(
 				'with' => $criteria->with,
 				'condition' => $criteria->condition,
@@ -70,9 +70,9 @@ class RechargeController extends Admin{
 		$criteria->with = array('user');
 		$selector = Selector::load('RechargeSelector',$this->getQuery('RechargeSelector'),$criteria);
 		
+		$criteria->order = 'finish_time desc,raise_time desc';
 		$dataProvider = new CActiveDataProvider('Withdraw',array(
 			'criteria' => $criteria,
-			'order' => 'finish_time desc,raise_time desc',
 			'countCriteria' => array(
 				'with' => $criteria->with,
 				'condition' => $criteria->condition,
@@ -97,9 +97,9 @@ class RechargeController extends Admin{
 		$criteria->with = array('user');
 		$selector = Selector::load('RechargeSelector',$this->getQuery('RechargeSelector'),$criteria);
 		
+		$criteria->order = 'finish_time desc,raise_time desc';
 		$dataProvider = new CActiveDataProvider('Withdraw',array(
 			'criteria' => $criteria,
-			'order' => 'finish_time desc,raise_time desc',
 			'countCriteria' => array(
 				'with' => $criteria->with,
 				'condition' => $criteria->condition,
