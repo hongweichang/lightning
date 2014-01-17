@@ -42,7 +42,7 @@ $form=$this->beginWidget('CActiveForm',array(
 			<td><?php echo $data->deadline; ?></td>
 			<td><?php echo date('Y-n-j',$data->start); ?></td>
 			<td><?php echo date('Y-n-j',$data->end); ?></td>
-			<td><?php echo $data->progress; ?></td>
+			<td><?php echo $data->progress / 100; ?>%</td>
 			<td><?php echo date('Y-n-j H:i:s',$data->pub_time); ?></td>
 		</tr>
 	<?php endforeach;?>

@@ -106,54 +106,51 @@ class PurchaseController extends Controller {
 	 * @param $userId：借款人的id
 	 */
 	function actionInfo() {
+		$this->setPageTitle ( $bid->getAttribute ( 'title' ) . ' - ' . $this->name );
 		$bid = BidInfo::model()->with('user','bidMeta')->findByPk($this->getQuery('id'));
+		if(empty($bid))
+			throw new CHttpException(404);
 		
-		if(!empty($bid)){
-			$this->setPageTitle($bid->getAttribute('title').' - '.$this->name);
-			
-			$model = new MetaForm();
-			if(!empty($_POST)){
-				if ( $this->user->getIsGuest() === true ){
-					$this->loginRequired();
-				}
-				
-				$model->attributes = array(
-					'bid' => $bid->getAttribute('id'),
-					'sum' => $this->getPost('sum'),
-					'code' => $this->getPost('code'),
-					'protocal' => $this->getPost('protocal')
-				);
-				
-				if($model->validate()){
-					if(($metano = $model->save()) !== 0){
-						$this->redirect($this->createUrl('platform/order',array(
-							'metano' => Utils::appendEncrypt($metano)
-						)));
-					}else{ // 满标
-						$this->render('failure');
-					}
-				}
+		$model = new MetaForm ();
+		if (! empty ( $_POST )) {
+			if ($this->user->getIsGuest () === true) {
+				$this->loginRequired ();
 			}
 			
-			$meta = BidMeta::model()->with('user')->findAll(array(
-				'order' => 'buy_time DESC',
-				'condition' => 'bid_id='.$bid->getAttribute('id')
-			));
+			$model->attributes = array (
+					'bid' => $bid->getAttribute ( 'id' ),
+					'sum' => $this->getPost ( 'sum' ),
+					'code' => $this->getPost ( 'code' ),
+					'protocal' => $this->getPost ( 'protocal' ) 
+			);
 			
-			$bider = $bid->getRelated('user');
-			$credits = $this->app->getModule('credit')->getComponent('userCreditManager')->getPassedCredit($bider->id,$bider->role);
-			$this->render('info',array(
+			if ($model->validate ()) {
+				if (($metano = $model->save ()) !== 0) {
+					$this->redirect ( $this->createUrl ( 'platform/order', array (
+							'metano' => Utils::appendEncrypt ( $metano ) 
+					) ) );
+				} else { // 满标
+					$this->render ( 'failure' );
+				}
+			}
+		}
+		
+		$meta = BidMeta::model ()->with ( 'user' )->findAll ( array (
+				'order' => 'buy_time DESC',
+				'condition' => 'bid_id=' . $bid->getAttribute ( 'id' ) 
+		) );
+		
+		$bider = $bid->getRelated ( 'user' );
+		$credits = $this->app->getModule ( 'credit' )->getComponent ( 'userCreditManager' )->getPassedCredit ( $bider->id, $bider->role );
+		$this->render ( 'info', array (
 				'bid' => $bid,
 				'bider' => $bider,
 				'credits' => $credits,
 				'form' => $model,
-				'meta' => new CArrayDataProvider($meta),
-				'user' => $this->app->getModule('user')->userManager->getUserInfo($this->user->getId()),
-				'authGrade' => $this->app->getModule('credit')->getComponent('userCreditManager')->getUserCreditLevel($bider->getAttribute('id')),
-			));
-		}else{ /*404*/
-			$this->render('//common/404');
-		}
+				'meta' => new CArrayDataProvider ( $meta ),
+				'user' => $this->app->getModule ( 'user' )->userManager->getUserInfo ( $this->user->getId () ),
+				'authGrade' => $this->app->getModule ( 'credit' )->getComponent ( 'userCreditManager' )->getUserCreditLevel ( $bider->getAttribute ( 'id' ) ) 
+		) );
 	}
 	
 	/**

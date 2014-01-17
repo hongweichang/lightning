@@ -17,8 +17,10 @@ class IpsController extends PayController{
 	
 	public function actionOrder(){
 		$order = $this->getPayOrder();
-		$amount = round(($order->getAttribute('sum') + $order->getAttribute('fee')) / 100,2);
+		if($order->getAttribute('user_id') != $this->user->getId())
+			throw new CHttpException(404);
 		
+		$amount = round(($order->getAttribute('sum') + $order->getAttribute('fee')) / 100,2);
 		$ips = $this->module->ips;
 		$ips['Billno'] = $order->getAttribute('id');
 		$ips['Amount'] = number_format($amount,2,".","");

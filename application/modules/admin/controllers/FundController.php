@@ -40,14 +40,17 @@ class FundController extends Admin{
 	public function actionSite(){
 
 		$this->render('site',array(
-			'sum' => FrontUser::model()->sum('balance') / 100,
-			'recharge' => Recharge::model()->sum('sum') / 100,
-			'withdraw' => Withdraw::model()->sum('sum') / 100,
-			'view' => BidInfo::model()->sum('sum','verify_progress=0') / 100,
-			'biding' => BidInfo::model()->sum('sum','verify_progress=1') / 100,
-			'repaying' => BidInfo::model()->sum('sum','verify_progress=3') / 100,
-			'done' => BidInfo::model()->sum('sum','verify_progress=4') / 100,
-			'lose' => BidInfo::model()->sum('sum','verify_progress=5') / 100,
+			'sum' => FrontUser::model()->sum('balance') / 100, //用户总额
+			'recharge' => Recharge::model()->sum('sum','status=1 or status=2') / 100, //充值
+			'withdraw' => Withdraw::model()->sum('sum','status=1') / 100, //提现
+			'recharge_fee' => Recharge::model()->sum('fee') / 100, // 支付平台扣费
+			'income' => FundFlowInternal::model()->sum('fee') / 100, //平台收入
+			'view' => BidInfo::model()->sum('sum','verify_progress=11') / 100,//暂未审核通过
+			'biding' => BidInfo::model()->sum('sum','verify_progress=21') / 100,//正在招标
+			'repaying' => BidInfo::model()->sum('sum','verify_progress=31') / 100,//已还款
+			'done' => BidInfo::model()->sum('sum','verify_progress=41') / 100, //已完成标段
+			'lose' => BidInfo::model()->sum('sum','verify_progress=30') / 100, // 流标资金
+			'daly' => BidInfo::model()->sum('sum','verify_progress=40') / 100, // 逾期资金
 		));
 	}
 }
