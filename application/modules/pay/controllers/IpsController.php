@@ -24,7 +24,7 @@ class IpsController extends PayController{
 		$ips = $this->module->ips;
 		$ips['Billno'] = $order->getAttribute('id');
 		$ips['Amount'] = number_format($amount,2,".","");
-		$ips['Attach'] = '闪电贷:'.$amount.'元(含手续费:'.($order->getAttribute('fee') / 100).'元)';
+		//$ips['Attach'] = '闪电贷:'.$amount.'元(含手续费:'.($order->getAttribute('fee') / 100).'元)';
 		$ips['Date'] = date('Ymd');
 		unset($ips['Mer_key']);
 		
