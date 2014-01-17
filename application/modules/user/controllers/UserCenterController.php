@@ -610,11 +610,13 @@ class UserCenterController extends Controller{
 				't' => mktime(0,0,0) - 2592000,
 			)
 		));
+		$p2p = new CArrayDataProvider($p2p);
+		$p2p->pagination = false;
 		
 		$this->render('userFund',array(
 			'userData'=>$userData,
 			'IconUrl'=>$IconUrl,
-			'p2p' => new CArrayDataProvider($p2p),
+			'p2p' => $p2p,
 		));
 	}
 	
@@ -708,7 +710,7 @@ class UserCenterController extends Controller{
 		$post = $this->getPost();
 		$uid = $this->app->user->id;
 		$payBackData = array();
-
+		 //提现
 		if(is_numeric($post['getSum'])){
 			$sum = $post['getSum'];
 			$userRate = $this->app->getModule('credit')->getComponent('userCreditManager')->UserRateGet($uid);
@@ -725,7 +727,7 @@ class UserCenterController extends Controller{
 				
 			}
 		}
-		
+		//充值
 		if(is_numeric($post['paySum'])){
 			$sum = $post['paySum'];
 			$userRate = $this->app->getModule('credit')->getComponent('userCreditManager')->UserRateGet($uid);
