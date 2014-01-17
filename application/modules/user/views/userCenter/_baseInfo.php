@@ -59,7 +59,7 @@ $MetaSum = $this->userMetaBidMoney;
                         <img src="<?php echo $this->imageUrl.'icon-6-1.png'?>" title="未绑定资金密码"/>
                         <?php }?>
                         <span>安全等级 :  <span class="det-rank">高</span></span>
-                        <span>上次登录 :  <span class="det-ip"> <?php echo $this->request->getIpLocation($userData->last_login_ip).' '.date('Y-m-d H:i:s',$userData['last_login_time'])?></span></span>
+                        <span>上次登录 :  <span class="det-ip"> <?php echo $this->request->getIpLocation($userData->last_login_ip).' '.date('Y-m-d H:i:s',$userData['last_login_time']); ?></span></span>
                     </p>
                 </div>
                 <div class="aud-money">

@@ -75,7 +75,7 @@ if(Yii::app()->user->hasFlash('success')){
                 </div>
                 <div class="find-table-content withdraw find-table-content-show">
                     <div class="pay-form">
-                        <form id="fund-withdraw" method="post" action="<?php echo $this->createUrl('userCenter/userRefund'); ?>">
+                        <form id="fund-withdraw" method="post" action="<?php echo $this->createUrl('userCenter/refund',array('bid'=>$bid->getAttribute('id'))); ?>">
                             <ul>
                                 <li>
                                     <label>账户余额</label>
