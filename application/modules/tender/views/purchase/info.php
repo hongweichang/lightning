@@ -82,7 +82,6 @@ if ( $bid->verify_progress == 31 ){
               	echo $bid->getAttribute('sum').";".$bid->getAttribute('deadline').";".$bid->getAttribute('month_rate').";".($bid->getAttribute('progress_sum'));
               ?>" /><span>元</span>
               <p>到期总收益 ¥<span id="lend-income">0.00元</span></p>
-              <p><a href="#" class="link">将收取一定管理费，计算方式点此</a></p>
               <?php if(CCaptcha::checkRequirements()){ ?>
               <p class="lend-verify">
                 <label for="verifycode">验证码</label>
