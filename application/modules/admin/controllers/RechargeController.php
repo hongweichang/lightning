@@ -15,12 +15,14 @@ class RechargeController extends Admin{
 		$criteria = new CDbCriteria();
 		$criteria->addCondition('status=0');
 		
+		$criteria->with = array('user');
 		$selector = Selector::load('RechargeSelector',$this->getQuery('RechargeSelector'),$criteria);
 		
+		$criteria->order = 'raise_time asc';
 		$dataProvider = new CActiveDataProvider('Withdraw',array(
 			'criteria' => $criteria,
-			'order' => 'raise_time asc',
 			'countCriteria' => array(
+				'with' => $criteria->with,
 				'condition' => $criteria->condition,
 				'params' => $criteria->params
 			),
@@ -65,13 +67,14 @@ class RechargeController extends Admin{
 	public function actionVerifyFailed(){
 		$criteria = new CDbCriteria();
 		$criteria->addCondition('status=2');
-		
+		$criteria->with = array('user');
 		$selector = Selector::load('RechargeSelector',$this->getQuery('RechargeSelector'),$criteria);
 		
+		$criteria->order = 'finish_time desc,raise_time desc';
 		$dataProvider = new CActiveDataProvider('Withdraw',array(
 			'criteria' => $criteria,
-			'order' => 'finish_time desc,raise_time desc',
 			'countCriteria' => array(
+				'with' => $criteria->with,
 				'condition' => $criteria->condition,
 				'params' => $criteria->params
 			),
@@ -91,12 +94,14 @@ class RechargeController extends Admin{
 		$criteria = new CDbCriteria();
 		//$criteria->addCondition('status=0');
 		
+		$criteria->with = array('user');
 		$selector = Selector::load('RechargeSelector',$this->getQuery('RechargeSelector'),$criteria);
 		
+		$criteria->order = 'finish_time desc,raise_time desc';
 		$dataProvider = new CActiveDataProvider('Withdraw',array(
 			'criteria' => $criteria,
-			'order' => 'finish_time desc,raise_time desc',
 			'countCriteria' => array(
+				'with' => $criteria->with,
 				'condition' => $criteria->condition,
 				'params' => $criteria->params
 			),
@@ -116,13 +121,14 @@ class RechargeController extends Admin{
 	public function actionView(){
 		$criteria = new CDbCriteria();
 		//$criteria->addCondition('status=0');
-		
+		$criteria->with = array('user');
 		$selector = Selector::load('RechargeSelector',$this->getQuery('RechargeSelector'),$criteria);
 		
+		$critria->order = 'finish_time desc,pay_time desc';
 		$dataProvider = new CActiveDataProvider('Recharge',array(
 				'criteria' => $criteria,
-				'order' => 'finish_time desc,pay_time desc',
 				'countCriteria' => array(
+						'with' => $criteria->with,
 						'condition' => $criteria->condition,
 						'params' => $criteria->params
 				),

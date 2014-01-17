@@ -9,12 +9,12 @@ class Selector extends CFormModel{
 	private $_config = array();
 	private $_elements = array();
 	
-	public static function load($modelName,$data,$criteria){
+	public static function load($modelName,$data,$criteria,$operator='OR'){
 		$selector = new $modelName;
 		$selector->attributes = $data;
 		if ( $selector->validate() ){
 			$selector->setConfig($selector->attributes);
-			$selector->applyCondition($criteria);
+			$selector->applyCondition($criteria,$operator);
 		}
 		return $selector;
 	}
@@ -29,7 +29,7 @@ class Selector extends CFormModel{
 	 * 
 	 * @param CDbCriteria $criteria
 	 */
-	public function applyCondition($criteria){
+	public function applyCondition($criteria,$operator='OR'){
 		foreach ( $this->_config as $column => $value ){
 			if ( isset($value) ){
 				if ( is_array($value) ){
@@ -38,10 +38,10 @@ class Selector extends CFormModel{
 					}elseif( empty($value[0]) ){
 						$criteria->compare($column, '<='.$value[1]);
 					}else {
-						$criteria->addBetweenCondition($column,$value[0],$value[1],'OR');
+						$criteria->addBetweenCondition($column,$value[0],$value[1],$operator);
 					}
 				}else {
-					$criteria->addSearchCondition($column,$value,true,'OR');
+					$criteria->addSearchCondition($column,$value,true,$operator);
 				}
 			}
 		}

@@ -1,9 +1,9 @@
 <?php
 /**
- * @file: 404.php
- * @author: Toruneko<toruneko@outlook.com>
- * @date: 2014-1-14
- * @desc: 
+ * @name error.php
+ * @author lancelot <lancelot1215@gmail.com>
+ * Date 2014-1-17 
+ * Encoding UTF-8
  */
 $this->cs->registerCssFile($this->cssUrl.'pay_hint.css');
 ?>
