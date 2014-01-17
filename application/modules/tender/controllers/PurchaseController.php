@@ -106,11 +106,10 @@ class PurchaseController extends Controller {
 	 * @param $userId：借款人的id
 	 */
 	function actionInfo() {
-		$this->setPageTitle ( $bid->getAttribute ( 'title' ) . ' - ' . $this->name );
 		$bid = BidInfo::model()->with('user','bidMeta')->findByPk($this->getQuery('id'));
 		if(empty($bid))
 			throw new CHttpException(404);
-		
+		$this->setPageTitle ( $bid->getAttribute ( 'title' ) . ' - ' . $this->name );
 		$model = new MetaForm ();
 		if (! empty ( $_POST )) {
 			if ($this->user->getIsGuest () === true) {
