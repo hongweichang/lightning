@@ -69,7 +69,7 @@ class BidManager extends CApplicationComponent{
 	public function getLockBalance($uid){
 		$progress = BidMeta::model()->find(array(
 			'select' => 'SUM(sum) AS sum',
-			'condition' => 'status=21 AND user_id='.$uid//
+			'condition' => 'status=21 AND user_id='.$uid
 		));
 		
 		return $progress->getAttribute('sum') / 100;
