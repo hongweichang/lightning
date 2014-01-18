@@ -176,7 +176,7 @@ class VerifyController extends Admin{
 						if($creditOptional[0]->optional == 0)
 							$userGradeAdd = $this->checkCreditForGrade($uid);
 						else{
-							$userGrade = FrontUser::model()->updateCounters(array('credit_grade'=>$creditOptional[0]->grade));
+							$userGrade = FrontUser::model()->updateCounters(array('credit_grade'=>$creditOptional[0]->grade),'id =:id',array(':id'=>$uid));
 						}
 
 					if($userData->save()){

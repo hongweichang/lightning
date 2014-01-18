@@ -54,6 +54,7 @@ class UserCenterController extends Controller{
 						$necessaryList[] = array(
 									'id'=>$value['credit']->id,
 									'verification_name'=>$value['credit']->verification_name,
+									'description'=>$value['credit']->description,
 									'optional'=>$value['optional'],
 									'grade'=>$value['grade'],
 									'status'=>'400'									
@@ -62,6 +63,7 @@ class UserCenterController extends Controller{
 						$unnecessaryList[] = array(
 									'id'=>$value['credit']->id,
 									'verification_name'=>$value['credit']->verification_name,
+									'description'=>$value['credit']->description,						
 									'optional'=>$value['optional'],
 									'grade'=>$value['grade'],
 									'status'=>'400'
@@ -73,6 +75,7 @@ class UserCenterController extends Controller{
 						$necessaryList[] = array(
 									'id'=>$value['credit']->id,
 									'verification_name'=>$value['credit']->verification_name,
+									'description'=>$value['credit']->description,
 									'optional'=>$value['optional'],
 									'grade'=>$value['grade'],
 									'status'=>$finishedData[$finished]->status								
@@ -81,6 +84,7 @@ class UserCenterController extends Controller{
 						$unnecessaryList[] = array(
 									'id'=>$value['credit']->id,
 									'verification_name'=>$value['credit']->verification_name,
+									'description'=>$value['credit']->description,
 									'optional'=>$value['optional'],
 									'grade'=>$value['grade'],
 									'status'=>$finishedData[$finished]->status
