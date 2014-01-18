@@ -67,7 +67,7 @@ $this->cs->registerCssFile($this->cssUrl.'detail.css');
                             <span><?php echo $value['nickname'];?></span>
                             <span><?php echo $value['bidTitle'];?></span>
                             <span><?php echo $value['rate']/100;?>%</span>
-                            <span><?php echo '￥'.$value['sum'].'元'?></span>
+                            <span><?php echo ($value['sum'] / 100).'元'?></span>
                             <span><?php echo $value['deadline']?>个月</span>
                             <span class="deadline"><?php echo $value['buyTime'];?></span>
                             <span class="repay"><?php echo $value['status'] == 41 ? "已完成" : "已流标" ?></span>
@@ -93,7 +93,7 @@ $this->cs->registerCssFile($this->cssUrl.'detail.css');
                             <span><?php echo $value['nickname'];?></span>
                             <span><?php echo $value['bidTitle'];?></span>
                             <span><?php echo $value['rate']/100;?>%</span>
-                            <span><?php echo '￥'.$value['sum'].'元'?></span>
+                            <span><?php echo ($value['sum'] / 100).'元'?></span>
                             <span><?php echo $value['deadline']?>个月</span>
                             <span class="deadline"><?php echo $value['buyTime'];?></span>
                             <span class="repay">
@@ -123,7 +123,7 @@ $this->cs->registerCssFile($this->cssUrl.'detail.css');
                             <span><?php echo $value['nickname'];?></span>
                             <span><?php echo $value['bidTitle'];?></span>
                             <span><?php echo $value['rate']/100;?>%</span>
-                            <span><?php echo '￥'.$value['sum'].'元'?></span>
+                            <span><?php echo ($value['sum'] / 100).'元'?></span>
                             <span><?php echo $value['deadline']?>个月</span>
                             <span class="deadline"><?php echo $value['buyTime'];?></span>
                             <span class="repay"><?php echo $value['status'] == 31 ? $value['repay_deadline']."个月" : "已逾期"; ?></span>

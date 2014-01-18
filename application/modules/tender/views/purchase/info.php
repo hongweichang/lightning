@@ -159,7 +159,7 @@ if ( $bid->verify_progress == 31 ){
 
                 <li class="separator">
                   <span class="borrower-name"></span>
-                  <span class="borrower-val separation">以下是选填项目</span>
+                  <span class="borrower-val separation">通过审核项目</span>
                 </li>
                 <?php foreach ( $credits as $credit ):?>
                 <li>
@@ -185,7 +185,7 @@ if ( $bid->verify_progress == 31 ){
                     <th class="tb-col-title">投资金额</th>
                     <th class="tb-col-num">每期获利</th>
                     <th class="tb-col-time">成交时间</th>
-                   	<!--<th class="tb-col-status">状态</th>-->
+                   	<th class="tb-col-status">状态</th>
                   </tr>
                 </thead>
 

@@ -98,7 +98,7 @@ class PlatformController extends Controller {
 		}
 		
 		$notify->clearMobileVerifyCode ( $user->mobile );
-		$asyncEventRunner = Yii::app ()->getComponent ( 'asyncEventRunner' );
+		$asyncEventRunner = $this->app->getComponent ( 'asyncEventRunner' );
 		$asyncEventRunner->raiseAsyncEvent ( 'onPayPurchasedBid', array (
 				'metano' => $metaId 
 		) );

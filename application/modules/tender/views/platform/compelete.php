@@ -12,7 +12,7 @@ setTimeout(function(){
 		if(res.status){
 			location.href='".$this->app->createUrl('tender/platform/success')."';
 		}else{
-			location.href='".$this->app->createUrl('tedder/platform/failure')."';
+			location.href='".$this->app->createUrl('tender/platform/failure')."';
 		}
 	});
 },3000);

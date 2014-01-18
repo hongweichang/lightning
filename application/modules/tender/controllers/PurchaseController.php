@@ -78,7 +78,7 @@ class PurchaseController extends Controller {
 		$this->setPageTitle($this->name);
 		
 		$this->loadCreditSettings();
-		$condition = "(verify_progress=21 OR verify_progress=31 ) AND start<=".time();
+		$condition = "verify_progress=21 AND start<=".time();
 		$pager = new CPagination(BidInfo::model()->count($condition));
 		$pager->setPageSize($this->_bidsPerPage);
 		$pager->route = 'purchase/ajaxBids';
@@ -157,7 +157,7 @@ class PurchaseController extends Controller {
 	 */
 	function actionAjaxBids() {
 		$criteria = new CDbCriteria();
-		$criteria->condition = '(verify_progress=21 OR verify_progress=31 ) AND start<='.time();
+		$criteria->condition = 'verify_progress=21 AND start<='.time();
 
 		$conditions = array();
 		$withUser = false;
@@ -205,10 +205,10 @@ class PurchaseController extends Controller {
 			$return[$key]['sum'] = number_format($return[$key]['sum']/100,2);
 			$return[$key]['titleHref'] = $this->createUrl('purchase/info', array('id' => $value->getAttribute('id')));
 			$return[$key]['authGrade'] = $credit->UserLevelCaculator($value->user->credit_grade);
-			$return[$key]['bidding'] = 0;//正在招标
-			if ( $value->verify_progress == 31  ){
-				$return[$key]['bidding'] = 1;//满标
-			}
+			//$return[$key]['bidding'] = 0;//正在招标
+			//if ( $value->verify_progress == 31  ){
+			//	$return[$key]['bidding'] = 1;//满标
+			//}
 			$return[$key]['processClass'] = '';
 			foreach ( $bidProgressCssClassMap as $x => $bidProgressCssClass ){
 				if ( ($return[$key]['progress']) <= $x ){
