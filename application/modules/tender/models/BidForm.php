@@ -43,8 +43,8 @@ class BidForm extends CFormModel{
 	}
 	
 	public function checkSum($attribute,$params){
-		if(!is_numeric($this->sum) || $this->sum < 10000){
-			$this->hasErrors('sum') or $this->addError('sum','请填写不小于1万的正整数');
+		if(!is_numeric($this->sum) || $this->sum < 5000){
+			$this->hasErrors('sum') or $this->addError('sum','请填写不小于5000的整数');
 		}
 	}
 	
