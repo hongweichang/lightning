@@ -128,7 +128,7 @@ $this->cs->registerCssFile($this->cssUrl.'detail.css');
                             <span><?php echo ($value[0]['sum'] / 100).'元'; ?></span>
                             <span><?php echo $value[0]['month_rate']/100;?>%</span>
                             <span><?php echo $value[0]['deadline'].'个月'?></span>
-                            <span><?php echo $value[0]['sum']/100;?></span>
+                            <span><?php echo $value[0]['refund']/100;?></span>
                             <span class="deadline">
                             <?php
                                 if($value[0]['verify_progress'] == 11)
