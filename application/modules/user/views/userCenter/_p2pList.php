@@ -18,13 +18,13 @@
 		<?php echo "-".number_format($data->getAttribute('sum') / 100,2); ?>元
 	</td>
 	<td>0.00元</td>
-	<td>还款</td>
-	<?php }else{ ?>
+	<td><?php echo $data->getAttribute('status') == 1 ? "投资" : "还款"; ?></td>
+	<?php }else{ // to_user == user->id ?>
 	<td>
 		<?php echo number_format($data->getAttribute('sum') / 100,2); ?>元
 	</td>
 	<td><?php echo number_format($data->getAttribute('fee') / 100,2); ?>元</td>
-	<td>收款</td>
+	<td><?php echo $data->getAttribute('status') == 1 ? "借款" : "收款"; ?></td>
 	<?php } ?>
 	<td></td>
 </tr>
