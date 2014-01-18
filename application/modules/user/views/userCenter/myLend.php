@@ -50,6 +50,7 @@ $this->cs->registerCssFile($this->cssUrl.'detail.css');
                     <li class="find-selected">完成标段</li>
                     <li>正在竞标</li>
                     <li>正在还款</li>
+             	  <li>我的电子合同</li>
                 </ul>
                 <div class="find-table-content find-table-content-show">
                     <ul>
@@ -131,6 +132,9 @@ $this->cs->registerCssFile($this->cssUrl.'detail.css');
                         <?php  }
                             }?>
                     </ul>
+                </div>
+                <div class="find-table-content">
+                hehe
                 </div>
             </div>
         </div>

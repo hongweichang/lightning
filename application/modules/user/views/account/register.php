@@ -45,7 +45,7 @@
 						<div class="fakeCheck">
 							<span></span>
 						</div>
-						<label for="protocal" id="protocal-label">我已阅读并同意<a href="#">《闪电贷网站服务协议》</a></label>
+						<label for="protocal" id="protocal-label">我已阅读并同意<a href="<?php echo $this->createUrl('/content/help/index',array('cid'=>29))?>">《闪电贷网站服务协议》</a></label>
 					</div>
 					<div class="form-item">
 						

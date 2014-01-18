@@ -104,7 +104,7 @@ if ( $bid->verify_progress == 31 ){
                 <?php /**
                 * @todo
                 */?>
-                <label for="protocal" id="protocal-label">我同意<a href="#">《投资人协议》</a></label>
+                <label for="protocal" id="protocal-label">我同意<a href="<?php echo $this->createUrl('/content/help/index',array('cid'=>29))?>">《投资人协议》</a></label>
               </div>
               <?php if ( $compelete === false ):?>
               <input type="submit" value="加入" id="lend-confirm" />
