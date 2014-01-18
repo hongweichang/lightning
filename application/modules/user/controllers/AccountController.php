@@ -148,7 +148,7 @@ class AccountController extends Controller{
 		}
 		
 		//产生随机码，以识别支付密码
-		$this->cs->registerScript('reset','reset='.$resetIdentifier.';',CClientScript::POS_END);
+		$this->cs->registerScript('reset','var reset='.$resetIdentifier.';',CClientScript::POS_END);
 		$this->cs->registerCssFile($this->cssUrl.'login.css');
 		$this->cs->registerScriptFile($this->scriptUrl.'login.js',CClientScript::POS_END);
 		

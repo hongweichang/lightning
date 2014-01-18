@@ -145,7 +145,6 @@ $(document).ready(function(){
 		$(this).siblings("p").css({display: "none"});
 	}
 	
-	var reset;
 	$("#getVerifyCodeButton").bind("click",function(){
 		var time;
 		var text;

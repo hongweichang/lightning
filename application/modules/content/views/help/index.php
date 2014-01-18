@@ -8,7 +8,7 @@ $this->cs->registerCssFile($this->cssUrl.'help.css');
     					<a href="<?php echo $this->createUrl('/site'); ?>">首页</a> > 
     				</li>
     				<li class="breadcrumb-item">
-    					<a href="<?php echo $this->createUrl('/content/help'); ?>">关于我们</a> > 
+    					<a href="<?php echo $this->createUrl('/content/help'); ?>">帮助中心</a> > 
     				</li>
     				<li class="breadcrumb-item">
     					<?php echo $this->activeCategory->category_name;?>
