@@ -733,7 +733,7 @@ class UserCenterController extends Controller{
 			}
 			
 			if ($this->userData->getAttribute ( 'balance' ) - $bid->getAttribute ( 'refund' )) {
-				if ($this->app->getModule ( 'tender' )->bidManger->repayBid ( $bid )) {
+				if ($this->app->getModule ( 'tender' )->bidManager->repayBid ( $bid )) {
 					$this->render ( 'refundSuccess' );
 				} else {
 					$this->render ( 'refundFail' );
