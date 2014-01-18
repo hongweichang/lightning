@@ -45,7 +45,7 @@ $this->cs->registerCssFile($this->cssUrl.'lend.css');
 					echo $bider->getAttribute('gender') ? '先生' : '女士'; ?>
            	社会角色：<?php echo $this->app['roleMap'][$bider->getAttribute('role')]?></p>
             <p>身份证号码：<?php echo mb_substr($bider->getAttribute('identity_id'), 0,6,'UTF-8')."********".mb_substr($bider->getAttribute('identity_id'), 14,18,'UTF-8'); ?></p>
-            <p>现居地:<?php echo mb_substr($bider->getAttribute('address'),0,2,'UTF-8'); ?>**</p>
+            <!--<p>现居地:<?php echo mb_substr($bider->getAttribute('address'),0,2,'UTF-8'); ?>**</p>-->
             <p>借款金额：<?php echo number_format($bid->getAttribute('sum') / 100,2);?>元
 				标段年利率：<?php echo $bid->getAttribute('month_rate') / 100; ?>%
 				标段期限：<?php echo $bid->getAttribute('deadline'); ?>期</p>
