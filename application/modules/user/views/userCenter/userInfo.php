@@ -341,7 +341,7 @@ $this->widget('application.extensions.swfupload.CSwfUpload', array(
                             ));
                         ?>
                         <tr>
-                            <td>
+                            <td title="<?php echo $value['description'];?>">
                                 <?php echo $value['verification_name']?>
                             </td>
                            <?php if($value['status'] != '1'){?>
@@ -406,7 +406,7 @@ $this->widget('application.extensions.swfupload.CSwfUpload', array(
                             ));
                         ?> 
                         <tr>
-                            <td>
+                            <td title="<?php echo $value['description'];?>">
                                 <?php echo $value['verification_name']?>
                             </td>
                            <?php if($value['status'] != '1'){?>
