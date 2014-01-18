@@ -162,8 +162,8 @@ class BidManager extends CApplicationComponent{
 		} else {
 			return BidInfo::model()->updateByPk($bid,array(
 				'verify_progress' => 20,
-				'begin_time' => $time,
-				'repay_time' => $time,
+				//'begin_time' => $time,
+				//'repay_time' => $time,
 				'finish_time' => $time,
 				'failed_description' => $message
 			));
@@ -208,8 +208,8 @@ class BidManager extends CApplicationComponent{
 				switch ( intval($meta->getAttribute('status')) ){
 					case 11: // 未付款
 						$meta->attributes = array(
-							'pay_time' => $time,
-							'repay_time' => $time,
+							//'pay_time' => $time,
+							//'repay_time' => $time,
 							'finish_time' => $time,
 							'status' => 20 // 订单取消
 						);
@@ -274,7 +274,7 @@ class BidManager extends CApplicationComponent{
 					));
 				}
 				$meta->attributes = array(
-					'repay_time' => $time,
+					//'repay_time' => $time,
 					'finish_time' => $time,
 					'status' => 30 // 订单关闭
 				);
@@ -283,7 +283,7 @@ class BidManager extends CApplicationComponent{
 			
 			//标段状态更换
 			$bid->attributes = array(
-				'repay_time' => $time,
+				//'repay_time' => $time,
 				'finish_time' => $time,
 				'verify_progress' => 30 // 流标
 			);
@@ -496,8 +496,8 @@ class BidManager extends CApplicationComponent{
 		$time = time();
 		
 		$meta->attributes = array(
-			'pay_time' => $time,
-			'repay_time' => $time,
+			//'pay_time' => $time,
+			//'repay_time' => $time,
 			'finish_time' => $time,
 			'status' => 20 // 取消订单
 		);

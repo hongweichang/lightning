@@ -38,7 +38,7 @@ $this->cs->registerScriptFile($this->scriptUrl.'lend.js',CClientScript::POS_END)
     								<input type="checkbox" name="deadline" value="<?php echo $key; ?>" />
     								<span><?php echo $key==='不限' ? $key : $key.'个月';; ?></span>
     							</li>
-    							<?php endforeach?>
+    							<?php endforeach; ?>
     						</ul>
     					</li>
     					<li>
