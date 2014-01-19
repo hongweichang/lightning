@@ -140,13 +140,12 @@ $this->widget('application.extensions.swfupload.CSwfUpload', array(
                                         echo "暂未填写";
 
                                 ?>
-                                </p>
-                                <p class="ico-status unpass">
+                                </p>     
                                 <?php
                                     if(!empty($userData->identity_id)) 
-                                        echo "已绑定";
+                                        echo "<p class=\"ico-status pass\">已绑定";
                                     else
-                                        echo "未绑定";
+                                        echo "<p class=\"ico-status unpass\">未绑定";
 
                                 ?>
                                 </p>

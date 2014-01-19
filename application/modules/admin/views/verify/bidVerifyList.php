@@ -42,7 +42,7 @@ if(!empty($bidList)){
         <td>
             <a href="<?php echo Yii::app()->createUrl('adminnogateway/verify/bidVerify',array(
             'action'=>'pass','id'=>$value['id']))?>"  
-            class="check" data-method="check-pass">审核通过
+            class="check" data-method="check-pass" onclick="return confirm('是否确认通过审核？');">审核通过
             </a>
             <a href="<?php echo Yii::app()->createUrl('adminnogateway/verify/bidVerify',array(
             'action'=>'unpass','id'=>$value['id']))?>" 
