@@ -141,7 +141,7 @@ if ( $bid->verify_progress == 31 ){
                   $gender = $bider->getAttribute('gender');
                   if ( $gender == 1 )
                   	echo '男';
-                  elseif ( $gender == 0 )
+                  elseif ( $gender == 0 && $gender != NULL )
                   	echo '女';
                   else 
                   	echo '保密';?></span>
