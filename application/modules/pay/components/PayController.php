@@ -69,9 +69,10 @@ class PayController extends Controller{
 	 */
 	protected function afterPay($trade_no){
 		$record = Recharge::model()->findByPk($trade_no);
-		if($record->getAttribute('status') >= 2) return false;
+		if($record == null) return false;
+		if($record->getAttribute('status') == 2) return true;
 		
-		$record->attribute = array(
+		$record->attributes = array(
 			'finish_time' => time(),
 			'status' => 2
 		);
