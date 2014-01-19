@@ -755,6 +755,7 @@ input:focus {
     left: 20px;
     border: 1px solid #27d0fb;
     padding: 4px 6px;
+	width:55px;
     height: 14px;
     line-height: 14px;
     font-size: 12px; }
