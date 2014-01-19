@@ -138,7 +138,32 @@ $this->cs->registerCssFile($this->cssUrl.'detail.css');
                     </ul>
                 </div>
                 <div class="find-table-content">
-                hehe
+                <ul>
+                        <li>
+                            <span>借款人</span>
+                            <span>借款标题</span>
+                            <span>年利率</span>
+                            <span>投资金额</span>
+                            <span>期限</span>
+                            <span class="deadline">投标时间</span>
+                            <span class="repay">操作</span>
+                        </li>
+                <?php foreach ( $allData as $data ):
+                $bid = $data->bid;
+           ?>
+                <li>
+                		<span><?php echo $bid->user->nickname?></span>
+                		<span><?php echo $bid->title?></span>
+                		<span><?php echo $bid->month_rate?></span>
+                		<span><?php echo $data->sum?></span>
+                		<span><?php echo $bid->deadline?></span>
+                		<span class="deadline"><?php echo date('Y-m-d H:i:s',$data->buy_time)?></span>
+                		<span class="repay">
+                		<a href="<?php echo $this->createUrl('/tender/contract/index',array('metano'=>Utils::appendEncrypt($data->id)))?>" target="_blank">查看合同</a>
+             		</span>  
+               </li>
+                <?php endforeach;?>
+                 </ul>
                 </div>
             </div>
         </div>

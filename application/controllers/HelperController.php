@@ -6,6 +6,7 @@
  * Encoding UTF-8
  */
 class HelperController extends Controller{
+	public $defaultAction = 'borrowCalculate';
 	public function init(){
 		parent::init();
 		$this->cs->registerScriptFile($this->scriptUrl.'jquery.validate.min.js',CClientScript::POS_END);

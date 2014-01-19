@@ -442,14 +442,26 @@ class UserCenterController extends Controller{
 		$criteria->params = array(
 				':uid' => $uid
 		);
+		$criteria->with = array(
+				'bid' => array(
+						'with' => array(
+								'user' => array(
+										'alias' => 'bider'
+								)
+						)
+				),
+				'user' => array(
+						'alias' => 'mine'
+				)
+		);
 
-		$LendData = BidMeta::model()->with('bid','user')->findAll($criteria);
+		$LendData = BidMeta::model()->findAll($criteria);
 
 		if(!empty($LendData)){
 			foreach($LendData as $value){
 				$userData = $value->getRelated('user');
 				$bidData = $value->getRelated('bid');
-				$BorrowUser = FrontUser::model()->findByPk($bidData->user_id);
+				$BorrowUser = $bidData->user;
 
 					if($value->status == 41 || $value->status == 30){ //  完成、流标
 						$finished[] = array(
@@ -505,8 +517,8 @@ class UserCenterController extends Controller{
 			'finished'=>$finished,
 			'userMetaBidMoney'=>$this->userMetaBidMoney,
 			'inComeSum_month'=>$inComeSum_month,
-			'inComeSum'=>$inComeSum
-
+			'inComeSum'=>$inComeSum,
+			'allData' => $LendData
 			));
 		
 	}
