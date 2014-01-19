@@ -154,8 +154,8 @@ $this->cs->registerCssFile($this->cssUrl.'detail.css');
                 <li>
                 		<span><?php echo $bid->user->nickname?></span>
                 		<span><?php echo $bid->title?></span>
-                		<span><?php echo $bid->month_rate?></span>
-                		<span><?php echo $data->sum?></span>
+                		<span><?php echo $bid->month_rate/100?></span>
+                		<span><?php echo $data->sum/100?></span>
                 		<span><?php echo $bid->deadline?></span>
                 		<span class="deadline"><?php echo date('Y-m-d H:i:s',$data->buy_time)?></span>
                 		<span class="repay">

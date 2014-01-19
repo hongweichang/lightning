@@ -49,6 +49,7 @@ class ContractController extends Controller{
 		$content = str_replace('{{refund}}',$bid->refund, $content);//乙方月偿还本息数额
 		$content = str_replace('{{description}}',$bid->description, $content);//标段描述
 		
+		$this->layout = false;
 		$this->render('index',array('content'=>$content));
 	}
 }

@@ -1,8 +1,10 @@
-<?php
-/**
- * @name index.php
- * @author lancelot <lancelot1215@gmail.com>
- * Date 2014-1-20 
- * Encoding UTF-8
- */
-echo $content;
+<!DOCTYPE html>
+<html>
+    <head>
+    	<meta charset="UTF-8" />
+    	<title>电子合同</title>
+    </head>
+    <body>
+<?php echo $content;?>
+</body>
+</html>
