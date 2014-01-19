@@ -137,7 +137,14 @@ if ( $bid->verify_progress == 31 ){
                 </li>
                 <li>
                   <span class="borrower-name">性别</span>
-                  <span class="borrower-val"><?php echo ($bider->getAttribute('gender')== 1) ? '男' : '女';?></span>
+                  <span class="borrower-val"><?php 
+                  $gender = $bider->getAttribute('gender');
+                  if ( $gender == 1 )
+                  	echo '男';
+                  elseif ( $gender == 0 )
+                  	echo '女';
+                  else 
+                  	echo '保密';?></span>
                 </li>
                 <li>
                   <span class="borrower-name">年龄</span>
