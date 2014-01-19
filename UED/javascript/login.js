@@ -16,20 +16,12 @@ $(document).ready(function(){
 		else
 			$(this).siblings("p").css({display: "none"});
 	});
-	$(".fakeCheck,label[for='keepSignIn'],label[for='protocal']").toggle(function(e){
-		if(e.target.href){
-			location.href = e.target.href;
-		}else{
-			$(this).parent().find("span").css({display: "none"});
-			$(this).siblings("input").removeAttr('checked');
-		}
-	},function(e){
-		if(e.target.href){
-			location.href = e.target.href;
-		}else{
-			$(this).parent().find("span").css({display: "block"});
-			$(this).siblings("input").attr("checked","checked");
-		}
+	$(".fakeCheck,label[for='keepSignIn'],label[for='protocal']").toggle(function(){
+		$(this).parent().find("span").css({display: "none"});
+		$(this).siblings("input").removeAttr('checked');
+	},function(){
+		$(this).parent().find("span").css({display: "block"});
+		$(this).siblings("input").attr("checked","checked");
 	});
 	$("#login").validate({
 		rules:{
@@ -145,6 +137,7 @@ $(document).ready(function(){
 		$(this).siblings("p").css({display: "none"});
 	}
 	
+	var reset;
 	$("#getVerifyCodeButton").bind("click",function(){
 		var time;
 		var text;

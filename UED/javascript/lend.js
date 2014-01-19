@@ -207,22 +207,14 @@ $("#view-detail").toggle(
 Lend.placeholder($("#pay-verify-button"));
 Page.initial("#page");
 //lend-details
-$(".fakeCheck,label[for='keepSignIn'],label[for='protocal']").toggle(function(e){
-	if(e.target.href){
-			location.href = e.target.href;
-	}else{
-		$(this).parent().find("span").css({display: "none"});
-	    $("#lend-confirm").css("background","#cbcbcd");
-		$(this).siblings("input").removeAttr('checked');
-	}
-},function(e){
-	if(e.target.href){
-			location.href = e.target.href;
-	}else{
-		$(this).parent().find("span").css({display: "block"});
-	    $("#lend-confirm").css("background","#2da9ac");
-		$(this).siblings("input").attr("checked","checked");
-	}
+$(".fakeCheck,label[for='keepSignIn'],label[for='protocal']").toggle(function(){
+	$(this).parent().find("span").css({display: "none"});
+    $("#lend-confirm").css("background","#cbcbcd");
+	$(this).siblings("input").removeAttr('checked');
+},function(){
+	$(this).parent().find("span").css({display: "block"});
+    $("#lend-confirm").css("background","#2da9ac");
+	$(this).siblings("input").attr("checked","checked");
 });
 $(".details-tab li").bind("click",function(){
 	var i = $(this).index();

@@ -220,11 +220,7 @@ body {
 
 #container {
   background: url("../images/bg.jpg") repeat; }
-#container .wd1002{
-  background: #fff;
-  -webkit-box-shadow:0 0 10px 1px #d9d9d9;
-  box-shadow: 0 0 10px 1px #d9d9d9;
-}
+
 .intro {
   padding: 20px 0;
 }
@@ -248,7 +244,6 @@ body {
   font-size: 24px;
   font-family: "Microsoft Yahei";
   font-weight: normal;
-  text-align: center;
   color: #000; }
 
 .intro-text {
@@ -293,9 +288,8 @@ body {
   font-family: "Microsoft Yahei";
   font-weight: normal;
   line-height: 40px;
-  color: #37b0b3;
-  border: 1px solid #dadadb;
-  border-bottom: 2px solid #37b0b3;}
+  color: #fff;
+  background-color: #37b0b3; }
 .title:after{
     content: " ";
     display: block;
@@ -307,9 +301,8 @@ body {
   font-weight: normal;
 }
 .title a{
-    color: #37b0b3;
+    color: #ffffff;
     float: right;
-    font-size: 16px;
 }
 .title a:hover{
     text-decoration: underline;
@@ -322,7 +315,7 @@ body {
 }
 .news li {
   position: relative;
-  width: 920px;
+  width: 930px;
   border-bottom: 1px solid #dadadb;
   padding: 0 38px 0 32px;
   line-height: 42px; }
@@ -360,9 +353,6 @@ body {
 
 /*.loan .title {
   background-color: #9dd8ca; }*/
-.loan{
-  padding: 5px;
-}
 .loan ul{
   border-left: 1px solid #dadadb;
   border-right: 1px solid #dadadb;}
@@ -376,16 +366,11 @@ body {
   border-bottom: 1px solid #dadadb; }
 .loan .list-head span {
   display: inline-block;
-  position: relative;
-  top: -2px;
   height: 40px;
   line-height: 40px;
-  width: 125px;
+  width: 130px;
   font-size: 16px;
   text-align: center; }
-.loan .list-head span.first{
-  border-top: 2px solid #eea758;
-}
 
 .loan-list {
   font-size: 0;
@@ -398,7 +383,7 @@ body {
   }
   .loan-list div {
     display: inline-block;
-    width: 125px;
+    width: 130px;
     text-align: center;
     font-size: 16px; }
   .loan-list .loan-avatar {
@@ -441,7 +426,7 @@ body {
     margin: 0 auto;
     width: 80px;
     height: 25px;
-    border: 1px solid #cbcbcd;
+    border: 1px solid #226e72;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     border-radius: 5px; }
@@ -452,7 +437,7 @@ body {
     /*height: 21px;*/
     width: 80px;
     height: 25px;
-    background: #efeff0;
+    background: #e5e5e6;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     border-radius: 5px; }
@@ -484,7 +469,7 @@ body {
   .loan-list .invest{
     display: inline-block;
     margin-left: 30px;
-    padding: 0 20px;
+    padding: 0 10px;
     height: 30px;
     line-height: 30px;
     border: none;
@@ -505,9 +490,6 @@ body {
 
 /*.platform .title {
   background-color: #90d375; }*/
-.platform .title{
-  background: url("../images/platform_bg.png") right no-repeat;
-}
 .platform #android {
   margin: 20px 45px; }
 .platform #ios {

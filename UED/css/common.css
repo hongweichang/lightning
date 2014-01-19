@@ -207,7 +207,7 @@ body {
   height: 30px;
   margin: 0 auto;
   line-height: 30px;
-  /*color: #fff;*/
+  color: #fff;
   font-size: 16px;
   font-family: "Microsoft Yahei";
   font-weight: normal;
@@ -218,27 +218,20 @@ body {
   border-radius: 50%;  }
 
 .rankAAA {
-  border: 2px solid #deb839;
-  color: #deb839;
-  font-size: 12px !important;}
+  background-color: #deb839; }
 
 .rankAA {
-  border: 2px solid #c0c0c1;
-  color:#c0c0c1; }
+  background-color: #c0c0c1; }
 
 .rankA {
-  border: 2px solid #1bb8e2;
-  color: #1bb8e2; }
+  background-color: #1bb8e2; }
 
 .rankB {
-  border: 2px solid #7bde1a;
-  color: #7bde1a }
+  background-color: #7bde1a; }
 .rankC {
-  border: 2px solid #e3e11c;
-  color: #e3e11c;}
+  background-color: #e3e11c;}
 .rankD {
-  border: 2px solid #e52012;
-  color: #e52012;}
+  background-color: #e52012;}
 .footer-sec {
   float: left;
   padding: 10px 0;

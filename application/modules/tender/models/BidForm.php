@@ -49,8 +49,8 @@ class BidForm extends CFormModel{
 	}
 	
 	public function checkRate($attribute,$params){
-		if(!is_numeric($this->rate) || $this->rate < 5 || $this->rate > 20){
-			$this->hasErrors('rate') or $this->addError('rate','年利率范围： 5% - 20% ');
+		if(!is_numeric($this->rate) || $this->rate < 8 || $this->rate > 24){
+			$this->hasErrors('rate') or $this->addError('rate','年利率范围： 8% - 24% ');
 		}
 	}
 	

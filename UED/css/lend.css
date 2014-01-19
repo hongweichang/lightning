@@ -232,6 +232,7 @@ body {
     color: #454545; }
   .filter .filter-header {
     margin-bottom: 10px; }
+  #calculator,
   .filter .filter-item {
     display: inline-block;
     padding: 0 5px;
@@ -243,6 +244,12 @@ body {
     border-radius: 5px; }
     .filter .filter-item input {
       display: none; }
+	#calculator {
+		background-color: #37b0b3;
+		color: white;
+		line-height: 1.8;
+		margin-left: 10px;
+	}
     .filter .active span{
       color: white;
     }
@@ -356,7 +363,7 @@ body {
     margin: 0 auto;
     width: 80px;
     height: 25px;
-    border: 1px solid #cbcbcd;
+    border: 1px solid #226e72;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     border-radius: 5px; }
@@ -367,7 +374,7 @@ body {
     /*height: 21px;*/
     width: 80px;
     height: 25px;
-    background: #efeff0;
+    background: #e5e5e6;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     border-radius: 5px; }
@@ -399,7 +406,7 @@ body {
   .loan-list .invest{
     display: inline-block;
     margin-left: 30px;
-    padding: 0 20px;
+    padding: 0 10px;
     height: 30px;
     line-height: 30px;
     border: none;
