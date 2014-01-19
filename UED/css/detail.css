@@ -752,7 +752,8 @@ input:focus {
     display: none;
     position: absolute;
     top: 0;
-    left: 20px;
+    left: 15px;
+    width: 80px;
     border: 1px solid #27d0fb;
     padding: 4px 6px;
     height: 14px;

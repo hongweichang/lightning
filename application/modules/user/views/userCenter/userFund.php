@@ -183,7 +183,7 @@ if(Yii::app()->user->hasFlash('success')){
                                     <span>元</span>
                                     <div class="hint">
                                         <img src="<?php echo $this->imageUrl.'fund_hint.png';?>" />
-                                        <p>test</p>
+                                        <p><a href="/content/help/index/cid/23">收取方式点此</a></p>
                                     </div>
                                 </li>
                                 <li>
