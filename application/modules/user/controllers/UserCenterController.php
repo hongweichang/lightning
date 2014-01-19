@@ -431,6 +431,7 @@ class UserCenterController extends Controller{
 		$waitingForBuy = array();
 		$finished = array();
 		$waitingForPay = array();
+		$allData = array();
 		$waitingForPaySum = 0;
 		$inComeSum = 0;
 		$inComeSum_month = 0;
@@ -503,7 +504,10 @@ class UserCenterController extends Controller{
 							'repay_deadline' => $bidData->repay_deadline
 						);
 					}
-
+					
+					if ( $value->status != 30 ){//未流标生成电子合同
+						$allData[] = $value;
+					}
 			}
 			
 		}
@@ -518,7 +522,7 @@ class UserCenterController extends Controller{
 			'userMetaBidMoney'=>$this->userMetaBidMoney,
 			'inComeSum_month'=>$inComeSum_month,
 			'inComeSum'=>$inComeSum,
-			'allData' => $LendData
+			'allData' => $allData
 			));
 		
 	}
