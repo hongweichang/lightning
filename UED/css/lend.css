@@ -356,7 +356,7 @@ body {
     margin: 0 auto;
     width: 80px;
     height: 25px;
-    border: 1px solid #226e72;
+    border: 1px solid #cbcbcd;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     border-radius: 5px; }
@@ -367,7 +367,7 @@ body {
     /*height: 21px;*/
     width: 80px;
     height: 25px;
-    background: #e5e5e6;
+    background: #efeff0;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     border-radius: 5px; }
