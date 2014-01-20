@@ -7,15 +7,19 @@
  */
 $this->cs->registerCssFile($this->cssUrl.'pay_hint.css');
 $this->cs->registerScript("ajax","
-setTimeout(function(){
+var i = 0;
+setInterval(function(){
 	$.post('".$this->app->createUrl('tender/platform/success')."',{metano:'".$metano."'},function(res){
 		if(res.status){
 			location.href='".$this->app->createUrl('tender/platform/success')."';
 		}else{
-			location.href='".$this->app->createUrl('tender/platform/failure')."';
+			if(i > 60){
+				location.href='".$this->app->createUrl('tender/platform/failure')."';
+			}
 		}
 	});
-},3000);
+	i = i + 1;
+},1000);
 ",CClientScript::POS_END);
 ?>
 <div class="hint-box wait">
