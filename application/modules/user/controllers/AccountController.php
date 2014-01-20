@@ -163,6 +163,9 @@ class AccountController extends Controller{
 		
 		$content = $cache->get($cacheKey);
 		if ( isset($content['mobile']) && $content['mobile'] === $mobile ){
+			$this->cs->registerCssFile($this->cssUrl.'login.css');
+			$this->cs->registerScriptFile($this->scriptUrl.'login.js',CClientScript::POS_END);
+			
 			$password = $this->getPost('password',null);
 			if ( $password !== null && $password === $this->getPost('repassword') ){
 				$userManager = $this->getModule()->getComponent('userManager');
@@ -174,14 +177,11 @@ class AccountController extends Controller{
 				$user->setPassword($password,11,$content['resetType']);
 				if ( $user->save() ){
 					$cache->delete($cacheKey);
-					$this->layout = '//resetSuccess';
 					$this->render('resetSuccess');
 					$this->app->end();
 				}
 			}
 			
-			$this->cs->registerCssFile($this->cssUrl.'login.css');
-			$this->cs->registerScriptFile($this->scriptUrl.'login.js',CClientScript::POS_END);
 			$this->render('reset');
 		}else {
 			throw new CHttpException(403);
