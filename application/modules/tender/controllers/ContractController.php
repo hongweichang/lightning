@@ -46,7 +46,7 @@ class ContractController extends Controller{
 		$content = str_replace('{{username_yi}}',$bid->user->realname, $content);//乙方真实姓名
 		$content = str_replace('{{nickname_yi}}',$bid->user->nickname, $content);//乙方昵称
 		$content = str_replace('{{identitycode}}',substr($bid->user->identity_id,0,5).'*************', $content);//乙方身份证号
-		$content = str_replace('{{refund}}',$bid->refund, $content);//乙方月偿还本息数额
+		$content = str_replace('{{refund}}',$bid->refund/100, $content);//乙方月偿还本息数额
 		$content = str_replace('{{description}}',$bid->description, $content);//标段描述
 		
 		$this->layout = false;
