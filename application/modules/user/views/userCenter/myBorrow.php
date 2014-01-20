@@ -67,7 +67,7 @@ $this->cs->registerCssFile($this->cssUrl.'detail.css');
                             <span><?php echo ($value[0]['sum'] / 100).'元'; ?></span>
                             <span><?php echo $value[0]['month_rate']/100;?>%</span>
                             <span><?php echo $value[0]['deadline'].'个月';?></span>
-                            <span><?php echo $value[0]['refund']/100;?></span>
+                            <span><?php echo $value[0]['refund']/100;?>元</span>
                             <span class="deadline"><?php echo $value[0]['repay_deadline'].'个月';?></span>
                             <span class="repay"><?php if($value[0]['verify_progress'] == 31){ ?>
                                 <a href="<?php echo $this->createUrl('userCenter/refund',array('bid' => $value[0]['id'])); ?>">
@@ -101,7 +101,7 @@ $this->cs->registerCssFile($this->cssUrl.'detail.css');
                             <span><?php echo ($value[0]['sum'] / 100).'元'; ?></span>
                             <span><?php echo $value[0]['month_rate']/100;?>%</span>
                             <span><?php echo $value[0]['deadline'].'个月';?></span>
-                            <span><?php echo $value[0]['refund']/100;?></span>
+                            <span><?php echo $value[0]['refund']/100;?>元</span>
                             <span class="deadline"><?php echo date('Y－m－d H:i:s',$value[0]['finish_time']);?></span>
                             <span class="repay"></span>
                         </li>
@@ -128,7 +128,7 @@ $this->cs->registerCssFile($this->cssUrl.'detail.css');
                             <span><?php echo ($value[0]['sum'] / 100).'元'; ?></span>
                             <span><?php echo $value[0]['month_rate']/100;?>%</span>
                             <span><?php echo $value[0]['deadline'].'个月'?></span>
-                            <span><?php echo $value[0]['refund']/100;?></span>
+                            <span><?php echo $value[0]['refund']/100;?>元</span>
                             <span class="deadline">
                             <?php
                                 if($value[0]['verify_progress'] == 11)
