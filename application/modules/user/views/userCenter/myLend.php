@@ -100,7 +100,7 @@ $this->cs->registerCssFile($this->cssUrl.'detail.css');
                             	<?php if($value['status'] == 11){ ?>
                             	<a target="_blank" href="<?php echo Yii::app()->createUrl('tender/purchase/info',array('id'=>$value['id']))?>">查看</a>
                             	<a href="<?php echo  $this->app->createUrl('tender/platform/order',array('metano' => Utils::appendEncrypt($value['meta_id']))); ?>">付款</a>
-                            	<?php }else if($value['status'] == 11){ ?>
+                            	<?php }else if($value['status'] == 21){ ?>
                             	<a target="_blank" href="<?php echo Yii::app()->createUrl('tender/purchase/info',array('id'=>$value['id']))?>">查看</a>
                             	<?php }else echo "已关闭"; ?>
                             </span>
