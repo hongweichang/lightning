@@ -142,7 +142,6 @@ $(document).ready(function(){
 		var text;
 		if(!$(this).hasClass("disabled")){
 			$(this).addClass("disabled");
-			alert(reset);
 			$.ajax({
 				url: $(this).attr('data-url') + '?mobile=' + $('#verify-mobile').val() + '&reset=' + reset,
 				type: 'GET',
