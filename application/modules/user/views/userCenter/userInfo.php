@@ -140,8 +140,15 @@ $this->widget('application.extensions.swfupload.CSwfUpload', array(
                                         echo "暂未填写";
 
                                 ?>
+                                </p>     
+                                <?php
+                                    if(!empty($userData->identity_id)) 
+                                        echo "<p class=\"ico-status pass\">已绑定";
+                                    else
+                                        echo "<p class=\"ico-status unpass\">未绑定";
+
+                                ?>
                                 </p>
-                                <p class="ico-status unpass">未认证</p>
                             </li>
                             <li class="clearfix">
                                 <label class="personal-name"><span class="essential">*</span>手机号码</label>
@@ -341,7 +348,7 @@ $this->widget('application.extensions.swfupload.CSwfUpload', array(
                             ));
                         ?>
                         <tr>
-                            <td>
+                            <td title="<?php echo $value['description'];?>">
                                 <?php echo $value['verification_name']?>
                             </td>
                            <?php if($value['status'] != '1'){?>
@@ -406,7 +413,7 @@ $this->widget('application.extensions.swfupload.CSwfUpload', array(
                             ));
                         ?> 
                         <tr>
-                            <td>
+                            <td title="<?php echo $value['description'];?>">
                                 <?php echo $value['verification_name']?>
                             </td>
                            <?php if($value['status'] != '1'){?>

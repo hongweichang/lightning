@@ -6,14 +6,14 @@ design By HJtianling_LXY,<2507073658@qq.com>
 */
 
 class DebtController extends Controller{
-	public function filters(){
-		return array();
+	public function noneLoginRequired(){
+		return 'debtList,debtDetail';
 	}
 
 	/*
 	**债权列表
 	*/
-	public function actionDebtList(){
+	public function actionIndex(){
 		$criteria = new CDbCriteria;
 		$criteria->order = 'start DESC';
 

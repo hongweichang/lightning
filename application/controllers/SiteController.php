@@ -85,26 +85,6 @@ class SiteController extends Controller{
 		$this->cs->registerScriptFile($this->scriptUrl.'slide_fade.js',CClientScript::POS_END);
 		$this->render('index',array('banner'=>$banner,'articles'=>&$articles,'bids'=>$bidData));
 	}
-
-	/*
-	**理财计算器
-	*/
-	public function actionCashCaculator(){
-		$uid = $this->user->id;
-		$onLoan = '10';
-		$level = 'C';
-		$levelData = Yii::app()->getModule('credit')->userCreditManager->userLevelList();
-
-		if(!empty($uid)){
-			$userCreditLevel = $this->app->getModule('credit')->userCreditManager->getUserCreditLevel($uid);
-			if($userCreditLevel !== null){
-				$level = $userCreditLevel;
-			}
-			
-			$onLoan = '10';
-		}
-		$this->render('cashCaculator',array('uid'=>$uid,'onLoan'=>$onLoan,'level'=>$level,'levelData'=>$levelData));
-	}
 	
 	public function actionGuide(){
 		$this->layout = false;

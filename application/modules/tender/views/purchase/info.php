@@ -82,7 +82,7 @@ if ( $bid->verify_progress == 31 ){
               	echo $bid->getAttribute('sum').";".$bid->getAttribute('deadline').";".$bid->getAttribute('month_rate').";".($bid->getAttribute('progress_sum'));
               ?>" /><span>元</span>
               <p>到期总收益 ¥<span id="lend-income">0.00元</span></p>
-              <p><a href="#" class="link">将收取一定管理费，计算方式点此</a></p>
+              <p><a href="<?php echo $this->createUrl('/helper/lendCalculate')?>" target="_blank" class="link">将收取一定管理费，计算方式点此</a></p>
               <?php if(CCaptcha::checkRequirements()){ ?>
               <p class="lend-verify">
                 <label for="verifycode">验证码</label>
@@ -105,7 +105,7 @@ if ( $bid->verify_progress == 31 ){
                 <?php /**
                 * @todo
                 */?>
-                <label for="protocal" id="protocal-label">我同意<a href="#">《投资人协议》</a></label>
+                <label for="protocal" id="protocal-label">我同意<a href="<?php echo $this->createUrl('/content/help/index',array('cid'=>29))?>">《投资人协议》</a></label>
               </div>
               <?php if ( $compelete === false ):?>
               <input type="submit" value="加入" id="lend-confirm" />
@@ -138,7 +138,14 @@ if ( $bid->verify_progress == 31 ){
                 </li>
                 <li>
                   <span class="borrower-name">性别</span>
-                  <span class="borrower-val"><?php echo ($bider->getAttribute('gender')== 1) ? '男' : '女';?></span>
+                  <span class="borrower-val"><?php 
+                  $gender = $bider->getAttribute('gender');
+                  if ( $gender == 1 )
+                  	echo '男';
+                  elseif ( $gender == 0 && $gender != NULL )
+                  	echo '女';
+                  else 
+                  	echo '保密';?></span>
                 </li>
                 <li>
                   <span class="borrower-name">年龄</span>

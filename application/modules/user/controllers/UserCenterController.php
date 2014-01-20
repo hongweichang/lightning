@@ -54,6 +54,7 @@ class UserCenterController extends Controller{
 						$necessaryList[] = array(
 									'id'=>$value['credit']->id,
 									'verification_name'=>$value['credit']->verification_name,
+									'description'=>$value['credit']->description,
 									'optional'=>$value['optional'],
 									'grade'=>$value['grade'],
 									'status'=>'400'									
@@ -62,6 +63,7 @@ class UserCenterController extends Controller{
 						$unnecessaryList[] = array(
 									'id'=>$value['credit']->id,
 									'verification_name'=>$value['credit']->verification_name,
+									'description'=>$value['credit']->description,						
 									'optional'=>$value['optional'],
 									'grade'=>$value['grade'],
 									'status'=>'400'
@@ -73,6 +75,7 @@ class UserCenterController extends Controller{
 						$necessaryList[] = array(
 									'id'=>$value['credit']->id,
 									'verification_name'=>$value['credit']->verification_name,
+									'description'=>$value['credit']->description,
 									'optional'=>$value['optional'],
 									'grade'=>$value['grade'],
 									'status'=>$finishedData[$finished]->status								
@@ -81,6 +84,7 @@ class UserCenterController extends Controller{
 						$unnecessaryList[] = array(
 									'id'=>$value['credit']->id,
 									'verification_name'=>$value['credit']->verification_name,
+									'description'=>$value['credit']->description,
 									'optional'=>$value['optional'],
 									'grade'=>$value['grade'],
 									'status'=>$finishedData[$finished]->status
@@ -252,21 +256,21 @@ class UserCenterController extends Controller{
 	**获取用户等待后台处理的信用项
 	*/
 	public function getFnishedCreditData($uid,$role){
+		$finishedData = array();
 		if(is_numeric($uid) && !empty($role)){
-			$finishCredit = array();
 			$criteria = new CDbCriteria;
-
+		
 			$criteria->condition = 'user_id =:uid AND role =:role';
 			$criteria->params = array(
-							':uid'=>$uid,
-							':role'=>$role
-						);
-			
+					':uid'=>$uid,
+					':role'=>$role
+			);
+				
 			$criteria->order = 'verification_id ASC,submit_time DESC ';
-			
+				
 			$finishedData = FrontCredit::model()->findAll($criteria);
-			return $finishedData;
 		}
+		return $finishedData;
 	}
 
 
@@ -427,6 +431,7 @@ class UserCenterController extends Controller{
 		$waitingForBuy = array();
 		$finished = array();
 		$waitingForPay = array();
+		$allData = array();
 		$waitingForPaySum = 0;
 		$inComeSum = 0;
 		$inComeSum_month = 0;
@@ -438,14 +443,26 @@ class UserCenterController extends Controller{
 		$criteria->params = array(
 				':uid' => $uid
 		);
+		$criteria->with = array(
+				'bid' => array(
+						'with' => array(
+								'user' => array(
+										'alias' => 'bider'
+								)
+						)
+				),
+				'user' => array(
+						'alias' => 'mine'
+				)
+		);
 
-		$LendData = BidMeta::model()->with('bid','user')->findAll($criteria);
+		$LendData = BidMeta::model()->findAll($criteria);
 
 		if(!empty($LendData)){
 			foreach($LendData as $value){
 				$userData = $value->getRelated('user');
 				$bidData = $value->getRelated('bid');
-				$BorrowUser = FrontUser::model()->findByPk($bidData->user_id);
+				$BorrowUser = $bidData->user;
 
 					if($value->status == 41 || $value->status == 30){ //  完成、流标
 						$finished[] = array(
@@ -487,7 +504,10 @@ class UserCenterController extends Controller{
 							'repay_deadline' => $bidData->repay_deadline
 						);
 					}
-
+					
+					if ( $value->status != 30 ){//未流标生成电子合同
+						$allData[] = $value;
+					}
 			}
 			
 		}
@@ -501,8 +521,8 @@ class UserCenterController extends Controller{
 			'finished'=>$finished,
 			'userMetaBidMoney'=>$this->userMetaBidMoney,
 			'inComeSum_month'=>$inComeSum_month,
-			'inComeSum'=>$inComeSum
-
+			'inComeSum'=>$inComeSum,
+			'allData' => $allData
 			));
 		
 	}

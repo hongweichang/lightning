@@ -232,6 +232,7 @@ body {
     color: #454545; }
   .filter .filter-header {
     margin-bottom: 10px; }
+  #calculator,
   .filter .filter-item {
     display: inline-block;
     padding: 0 5px;
@@ -243,6 +244,12 @@ body {
     border-radius: 5px; }
     .filter .filter-item input {
       display: none; }
+	#calculator {
+		background-color: #37b0b3;
+		color: white;
+		line-height: 1.8;
+		margin-left: 10px;
+	}
     .filter .active span{
       color: white;
     }
@@ -1204,7 +1211,7 @@ body {
 }
 .creditor .creditor-desc{
   width: 350px;
-  height: 47px;
+  height: 55px;
   text-align: left;
   overflow: hidden;
 }

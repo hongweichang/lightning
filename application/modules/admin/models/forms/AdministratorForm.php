@@ -42,6 +42,9 @@ class AdministratorForm extends CFormModel{
 		$assigner = $app->getAuthManager()->getAssigner();
 		$assigner->clear(AuthAssigner::ITEM_ROLE,AuthAssigner::ITEM_USER,'user_id=:u',array(':u'=>$userId));
 		$data = array();
+		if ( empty($this->roles) ){
+			$this->roles = array();
+		}
 		foreach ( $this->roles as $value ){
 			$data[] = array('user_id'=>$userId,'role_id'=>$value);
 		}

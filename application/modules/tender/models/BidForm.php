@@ -43,14 +43,14 @@ class BidForm extends CFormModel{
 	}
 	
 	public function checkSum($attribute,$params){
-		if(!is_numeric($this->sum) || $this->sum < 10000){
-			$this->hasErrors('sum') or $this->addError('sum','请填写不小于1万的正整数');
+		if(!is_numeric($this->sum) || $this->sum < 5000){
+			$this->hasErrors('sum') or $this->addError('sum','请填写不小于5000的整数');
 		}
 	}
 	
 	public function checkRate($attribute,$params){
-		if(!is_numeric($this->rate) || $this->rate < 5 || $this->rate > 20){
-			$this->hasErrors('rate') or $this->addError('rate','年利率范围： 5% - 20% ');
+		if(!is_numeric($this->rate) || $this->rate < 8 || $this->rate > 24){
+			$this->hasErrors('rate') or $this->addError('rate','年利率范围： 8% - 24% ');
 		}
 	}
 	

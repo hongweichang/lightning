@@ -58,11 +58,13 @@ class UserCreditManager extends CApplicationComponent{
 			if(!empty($userCreditLevel)){
 				$userRate = CreditGradeSettings::model()->findAll('label=:level',array(':level'=>$userCreditLevel));
 				$rate = array(
+						'label' => $userCreditLevel,
 						'on_recharge'=>$userRate[0]->on_recharge/100,
 						'on_withdraw'=>$userRate[0]->on_withdraw/100,
 						'on_pay_back'=>$userRate[0]->on_pay_back/100,
 						'on_over6'=>$userRate[0]->on_over6/100,
 						'on_below6'=>$userRate[0]->on_below6/100,
+						'on_loan'=>$userRate[0]->on_loan/100,
 						'loanable'=>$userRate[0]->loanable
 				);
 				return $rate;
@@ -79,10 +81,7 @@ class UserCreditManager extends CApplicationComponent{
 
 	public function UserLevelList(){
 		$levelData = CreditGradeSettings::model()->findAll();
-		if(!empty($levelData)){
-			return $levelData;
-		}
-
+		return $levelData;
 	}
 
 	
@@ -102,6 +101,12 @@ class UserCreditManager extends CApplicationComponent{
 		}
 	}
 	
+	/**
+	 * 获取用户通过审核的信用项
+	 * @param unknown_type $uid
+	 * @param unknown_type $role
+	 * 
+	 */
 	public function getPassedCredit($uid,$role){
 		$criteria = new CDbCriteria();
 		$criteria->condition = 'user_id=:uid AND role=:role AND status=1';

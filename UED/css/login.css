@@ -465,6 +465,7 @@ html, body {
 #getVerifycode,
 #getVerifyCodeButton {
   height: 23px;
+  line-height: 1;
   width: 87px;
   padding: 2px 4px;
   background: #2d9194;

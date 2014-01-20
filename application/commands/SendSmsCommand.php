@@ -24,7 +24,9 @@ class SendSmsCommand extends NotifyCommandBase{
 		$content = $this->notify->getSettingProviderByNameType($this->eventName,'sms')->getData();
 		$holders = array_merge($placeholders,$this->placeholders);//替换默认的占位符为程序中自定义的占位符
 		foreach ( $content as $c ){
-			$this->notify->sendSms($this->parameters['mobile'],PlaceholderManager::replacePlaceholders($c->content,$placeholders));
+			if ( $c->enabled == 1 ){
+				$this->notify->sendSms($this->parameters['mobile'],PlaceholderManager::replacePlaceholders($c->content,$placeholders));
+			}
 		}
 	}
 	

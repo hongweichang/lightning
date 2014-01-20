@@ -17,6 +17,8 @@ $this->cs->registerScriptFile($this->scriptUrl.'lend.js',CClientScript::POS_END)
     			<div class="filter">
     				<div class="filter-header clearfix">
     					<h4>筛选投资项目</h4>
+    					<a href="<?php echo $this->createUrl('/helper/lendCalculate')?>" target="_blank" id="calculator">理财计算器</a>
+    					<a href="<?php echo $this->createUrl('/helper/lendCalculate')?>" target="_blank" id="calculator">借款计算器</a>
     					</div>
     				<ul>
     					<li>

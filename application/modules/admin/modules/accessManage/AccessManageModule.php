@@ -8,7 +8,7 @@
  */
 class AccessManageModule extends CmsModule{
 	public function init(){
-		$this->defaultController = 'assignment';
+		$this->defaultController = 'operation';
 		Yii::import('accessManage.components.*');
 		Yii::import('accessManage.controllers.*');
 	}

@@ -181,10 +181,10 @@ if(Yii::app()->user->hasFlash('success')){
                                     <label>提现费用 </label>
                                     <span class="number" id="userPaySum">0.00</span>
                                     <span>元</span>
-                                    <div class="hint">
+                                    <a href="<?php echo $this->createUrl('/content/help/index',array('cid'=>23))?>" target="_blank"><div class="hint">
                                         <img src="<?php echo $this->imageUrl.'fund_hint.png';?>" />
-                                        <p>test</p>
-                                    </div>
+                                        <p>收取方式</p>
+                                    </div></a>
                                 </li>
                                 <li>
                                     <label>实际扣除金额 </label>
