@@ -7,17 +7,19 @@
     <script type="text/javascript" src="<?php echo $this->scriptUrl; ?>jquery-1.8.2.min.js"></script>
     <script type="text/javascript">
      var baseUrl = '<?php echo $this->app->getSiteBaseUrl();?>';
-     $(".f-wx").on("click",function(){
-        $("#mask").fadeIn();
-        $("#two-dim-code").css({
-            left:($(window).width() - $('#two-dim-code').outerWidth())/2,
-            top: ($(window).height() - $('#two-dim-code').outerHeight())/2 + $(document).scrollTop()
-        }).fadeIn();
+     $(document).ready(function() {
+        $(".f-wx").on("click",function(){
+            $("#mask").fadeIn();
+            $("#two-dim-code").css({
+                left:($(window).width() - $('#two-dim-code').outerWidth())/2,
+                top: ($(window).height() - $('#two-dim-code').outerHeight())/2 + $(document).scrollTop()
+            }).fadeIn();
+         });
+         $('#mask').on('click',function(){
+            $('#mask').fadeOut();
+            $('#two-dim-code').fadeOut();
+        }); 
      });
-     $('#mask').on('click',function(){
-        $('#mask').fadeOut();
-        $('#two-dim-code').fadeOut();
-    });
     </script>
     <!--[if lt IE 8]>
     <link rel="stylesheet" type="text/css" href="<?php echo $this->cssUrl?>ie.css">
