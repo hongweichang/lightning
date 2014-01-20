@@ -50,7 +50,7 @@ $pageUrl = urlencode( $pager->createPageUrl($this,$pager->getCurrentPage()) );
 			<td><?php echo $data->mobile?></td>
 			<td><?php echo $data->email?></td>
 			<td><?php echo $data->identity_id?></td>
-			<td><?php echo $data->balance?></td>
+			<td><?php echo $data->balance/100?></td>
 			<td>
 				<a class="openWindow" href="<?php echo $this->createUrl('verify/userDetail',array('uid'=>$data->id))?>">查看信用信息</a> | 
 				<a href="<?php echo $this->createUrl('frontUser/edit',array('id'=>$data->id,'redirect'=>$pageUrl))?>">修改</a>

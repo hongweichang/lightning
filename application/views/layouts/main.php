@@ -110,8 +110,8 @@
                 <ul>
                     <li class="f-text">关注我们</li>
                     <li><a href="http://weibo.com/u/3963075906" class="f-img" id="f-wb"></a></li>
-                    <li><a href=""  class="f-img" id="f-tx" onclick="alert('马上上线，敬请期待')"></a></li>
-                    <li><a href=""  class="f-img f-wx" id="f-wx"></a></li>
+                    <li><a href="javascript:void(0);"  class="f-img" id="f-tx" onclick="alert('马上上线，敬请期待')"></a></li>
+                    <li><a href="javascript:void(0);"  class="f-img f-wx" id="f-wx"></a></li>
                 </ul>
             </div>
             <div class="footer-sec">
