@@ -544,3 +544,10 @@ body {
 /*.online_service:hover {
   background: url("../images/online_service_on.png");
 }*/
+.news,.platform{
+  padding: 5px;
+}
+.platform .link{
+  border: 1px solid #dadadb;
+  border-top: 0;
+}
