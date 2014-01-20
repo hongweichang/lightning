@@ -540,3 +540,10 @@ body {
   height: 112px;
   background: url("../images/online_service.png") no-repeat;
 }
+.news,.platform{
+  padding: 5px;
+}
+.platform .link{
+  border: 1px solid #dadadb;
+  border-top: 0;
+}
