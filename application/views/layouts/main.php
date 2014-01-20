@@ -8,7 +8,8 @@
     <script type="text/javascript">
      var baseUrl = '<?php echo $this->app->getSiteBaseUrl();?>';
      $(document).ready(function() {
-        $(".f-wx").on("click",function(){
+        $(".f-wx").on("click",function(e){
+            e.preventDefault();
             $("#mask").fadeIn();
             $("#two-dim-code").css({
                 left:($(window).width() - $('#two-dim-code').outerWidth())/2,
