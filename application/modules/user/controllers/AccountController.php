@@ -174,7 +174,7 @@ class AccountController extends Controller{
 				$user->setPassword($password,11,$content['resetType']);
 				if ( $user->save() ){
 					$cache->delete($cacheKey);
-					$this->layout = false;
+					$this->layout = '//resetSuccess';
 					$this->render('resetSuccess');
 					$this->app->end();
 				}
