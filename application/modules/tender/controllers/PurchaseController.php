@@ -62,9 +62,9 @@ class PurchaseController extends Controller {
 				continue;
 			}
 			if ( isset($creditSettings[$i+1]) && $creditSettings[$i+1]->start > 0 ){
-				$this->_authenGrade[$creditSettings[$i]->label] = 'credit_grade BETWEEN '.$creditSettings[$i]->start.' AND '.$creditSettings[$i+1]->start;
+				$this->_authenGrade[$creditSettings[$i]->label] = 'credit_grade>='.$creditSettings[$i]->start.' AND credit_grade<'.$creditSettings[$i+1]->start;
 			}else {
-				$this->_authenGrade[$creditSettings[$i]->label] = 'credit_grade>='.$creditSettings[$i]->start;
+				$this->_authenGrade[$creditSettings[$i]->label] = 'credit_grade>='.$creditSettings[$i]->start.' AND credit_grade<'.$creditSettings[$i-1]->start;
 			}
 		}
 		$this->_selectorMap['authenGrade'] = $this->_authenGrade;
@@ -168,6 +168,7 @@ class PurchaseController extends Controller {
 			if(isset($_GET[$key]) && isset($value[$_GET[$key]]) && $value[$_GET[$key]] !== 'all') {
 				$conditions[$key] = $_GET[$key];
 				$condition = $value[$_GET[$key]];
+				
 				if ( $key === 'authenGrade' ){
 					$criteria->with = array(
 							'user' => array(
