@@ -6,6 +6,10 @@
  * Encoding UTF-8
  */
 class AppController extends Controller{
+	public function noneLoginRequired(){
+		return 'android,ios';
+	}
+	
 	public function actionAndroid(){
 		$this->request->xSendFile(Yii::getPathOfAlias('application.app.shandiandai').'.apk');
 	}
