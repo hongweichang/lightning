@@ -174,7 +174,13 @@ class AccountController extends Controller{
 					throw new CHttpException(404);
 				}
 				
-				$user->setPassword($password,11,$content['resetType']);
+				if ( $content['resetType'] === 'pay_password' ){
+					$security = $this->app->getSecurityManager();
+					$user->setAttribute('pay_password',$security->generatePassword($password));
+				}elseif ( $content['resetType'] === 'password' ) {
+					$user->setPassword($password);
+				}
+				
 				if ( $user->save() ){
 					$cache->delete($cacheKey);
 					$this->render('resetSuccess');
