@@ -74,8 +74,7 @@ class FundManager extends CApplicationComponent{
 		$transaction = Yii::app()->db->beginTransaction();
 		try{
 			$user->saveCounters(array(
-				'balance' => -($sum + $fee) * 100
-				//'balance' => -$sum * 100
+					'balance' => -100 * $sum
 			));
 			
 			$db = new Withdraw();
@@ -87,7 +86,7 @@ class FundManager extends CApplicationComponent{
 				'status' => 0, // 正在处理 - 等待后台处理
 			);
 			$db->save();
-			
+
 			$transaction->commit();
 			return true;
 		}catch (Exception $e){

@@ -187,7 +187,7 @@ if(Yii::app()->user->hasFlash('success')){
                                     </div></a>
                                 </li>
                                 <li>
-                                    <label>实际扣除金额 </label>
+                                    <label>实际到账金额 </label>
                                     <span class="number" id="getSum">0.00</span>
                                     <span>元</span>
                                 </li>
