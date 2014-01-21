@@ -42,8 +42,8 @@ class Recharge extends CmsActiveRecord
 		return array(
 			array('user_id, sum, fee, raise_time', 'required'),
 			array('status', 'numerical', 'integerOnly'=>true),
-			array('user_id, meta_id, sum, raise_time, pay_time, finish_time', 'length', 'max'=>11),
-			array('fee', 'length', 'max'=>5),
+			array('fee, user_id, meta_id, sum, raise_time, pay_time, finish_time', 'length', 'max'=>11),
+			//array('fee', 'length', 'max'=>5),
 			array('platform, subject, buyer, buyer_id', 'length', 'max'=>255),
 			array('trade_no', 'length', 'max'=>64),
 			// The following rule is used by search().

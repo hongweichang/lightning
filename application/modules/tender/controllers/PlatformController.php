@@ -42,7 +42,7 @@ class PlatformController extends Controller {
 				) );
 				$this->app->end ();
 			} else {
-				$this->redirect ( Yii::app ()->getModule ( 'pay' )->fundManager->pay ( $payment, Utils::appendEncrypt ( $meta->getAttribute ( 'id' ) ), $in_pay ) );
+				$this->redirect ( $this->app->getModule ( 'pay' )->fundManager->pay ( $payment,$meta->getAttribute ( 'id' ) , $in_pay ) );
 			}
 		} elseif (! empty ( $errorMsg )) {
 			$this->render ( 'check', array (

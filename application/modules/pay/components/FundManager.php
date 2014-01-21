@@ -17,9 +17,9 @@ class FundManager extends CApplicationComponent{
 			$key = $this->raisePayOrder($payment,$metano, $metano * $rate['on_recharge']);
 		}else{
 			$key = 0;
-			$meta = $bid->getBidMetaInfo(Utils::appendDecrypt($metano));
+			$meta = $bid->getBidMetaInfo($metano);
 			if($inpay == 'on'){
-				$sum = ($meta->getAttribute('sum') - $meta->getRelated('user')->getAttribute('balance')) / 100;
+				$sum = ($meta->getAttribute('sum') - $meta->getRelated('user')->getAttribute('balance')) / 100;	
 				if($sum > 0){
 					$key = $this->raisePayOrder($payment,$sum, $sum * $rate['on_recharge'],$meta->getAttribute('id'));
 				}
@@ -74,8 +74,7 @@ class FundManager extends CApplicationComponent{
 		$transaction = Yii::app()->db->beginTransaction();
 		try{
 			$user->saveCounters(array(
-				'balance' => -($sum + $fee) * 100
-				//'balance' => -$sum * 100
+					'balance' => -100 * $sum
 			));
 			
 			$db = new Withdraw();
@@ -87,7 +86,7 @@ class FundManager extends CApplicationComponent{
 				'status' => 0, // 正在处理 - 等待后台处理
 			);
 			$db->save();
-			
+
 			$transaction->commit();
 			return true;
 		}catch (Exception $e){
