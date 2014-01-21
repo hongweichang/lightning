@@ -47,6 +47,19 @@ class BidCommand extends LightningCommandBase{
 			$db->compeleteBid($bid);
 		}
 	}
+	/**
+	 * 还款完成
+	 */
+	public function actionFinish(){
+		$db = Yii::app()->getModule('tender')->bidManager;
+		$bids = $db->getBidList(array(
+			'condition' => 'repay_deadline=0',
+		));
+		
+		foreach($bids as $bid){
+			$db->finishBid($bid);
+		}
+	}
 	
 	/**
 	 * 还款通知
