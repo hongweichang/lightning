@@ -35,7 +35,7 @@ class AccountController extends Admin{
 		if ( $cache !== null ){
 			$cache->delete('ADMIN_MENU_CACHE_'.$this->user->getId());
 		}
-		$this->user->logout();
+		$this->user->logout(false);
 		
 		$this->redirect($this->createUrl('account/login'));
 	}

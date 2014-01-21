@@ -74,7 +74,7 @@ class AccountController extends Controller{
 	}
 	
 	public function actionLogout(){
-		Yii::app()->user->logout();
+		Yii::app()->user->logout(false);
 		$this->redirect($this->createUrl('/site'));
 	}
 	

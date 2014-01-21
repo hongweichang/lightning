@@ -11,7 +11,9 @@ class AppController extends Controller{
 	}
 	
 	public function actionAndroid(){
-		$this->request->xSendFile(Yii::getPathOfAlias('application.app.shandiandai').'.apk');
+		$this->request->xSendFile('/app/shandiandai.apk',array(
+			'xHeader' => 'X-Accel-Redirect'	
+		));
 	}
 	
 	public function actionIos(){
