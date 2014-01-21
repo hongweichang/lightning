@@ -63,6 +63,7 @@ class PlatformController extends Controller {
 				'errorMsg' => $errorMsg 
 		) );
 	}
+	
 	public function actionCheck() {
 		$metaId = Utils::appendDecrypt ( $this->getQuery ( 'metano' ) );
 		$meta = BidMeta::model ()->with ( 'user', 'bid' )->findByPk ( $metaId );
@@ -103,15 +104,26 @@ class PlatformController extends Controller {
 				'metano' => $metaId 
 		) );
 		
+		$this->redirect($this->createUrl('platform/compelete',array(
+			'metano' => Utils::appendEncrypt($metaId),
+		)));
+	}
+	
+	public function actionCompelete(){
+		$metaId = Utils::appendDecrypt ( $this->getQuery ( 'metano' ) );
+		$meta = BidMeta::model ()->with ( 'user', 'bid' )->findByPk ( $metaId );
+		
+		if (empty ( $meta ))
+			throw new CHttpException ( 404 );
+		if ($meta->getAttribute ( 'user_id' ) != $this->user->getId ())
+			throw new CHttpException ( 404 );
+		
 		$this->render ( 'compelete', array (
-				'metano' => Utils::appendDecrypt ( $metaId ),
-				'bid' => $meta->getRelated ( 'bid' )->getAttribute ( 'id' ) 
+			'metano' => $metaId,
+			'bid' => $meta->getRelated ( 'bid' )->getAttribute ( 'id' ) 
 		) );
 	}
 	
-	/**
-	 * ajax
-	 */
 	public function actionSuccess() {
 		if ($this->request->getIsAjaxRequest ()) {
 			$metano = Utils::appendDecrypt ( $this->getPost ( 'metaId' ) );

@@ -26,7 +26,7 @@ setInterval(function(){
 	<div class="hint-text">
 		<h2>请耐心等待支付结果......</h2>
 		<p>我们很努力的帮你把现金在交易平台搬来搬去，不要着急哦</p>
-		<p>如果很长时间还没有支付成功，请刷新页面或者检查网络</p>
+		<p>如果1分钟后还没有支付成功，请刷新页面或者检查网络</p>
 	</div>
 	<div class="hint-button">
 		<a href="<?php echo $this->app->createUrl('tender/purchase/info',array('id'=>$bid)); ?>">返回详情页</a>
