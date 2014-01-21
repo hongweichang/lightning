@@ -31,6 +31,24 @@ class BidCommand extends LightningCommandBase{
 	}
 	
 	/**
+	 * 满标
+	 */
+	public function actionCompelete(){
+		$db = Yii::app()->getModule('tender')->bidManager;
+		$bids = $db->getBidList(array(
+			'condition' => 'verify_progress=:s and progress=:p',
+			'params' => array(
+				's' => 21,
+				'p' => 100
+			)
+		));
+		
+		foreach($bids as $bid){
+			$db->compeleteBid($bid);
+		}
+	}
+	
+	/**
 	 * 还款通知
 	 */
 	public function actionRepay(){

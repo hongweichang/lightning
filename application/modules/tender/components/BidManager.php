@@ -238,12 +238,13 @@ class BidManager extends CApplicationComponent{
 			);
 			$bid->save();
 			
+			$transaction->commit();
+
 			$asyncEvent = Yii::app()->getComponent('asyncEventRunner');
 			$asyncEvent->raiseAsyncEvent('onCompeleteBid',array(
 					'bidId' => $bid->id
 			));
 			
-			$transaction->commit();
 			return true;
 		}catch (Exception $e){
 			$transaction->rollback();
