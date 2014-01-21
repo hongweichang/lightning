@@ -6,11 +6,6 @@
  * @desc: 
  */
 $this->cs->registerCssFile($this->cssUrl.'pay_hint.css');
-$this->cs->registerScript("ajax","
-setTimeout(function(){
-	location.href='".$this->app->createUrl('user/userCenter/myLend')."';
-},3000);
-",CClientScript::POS_END);
 ?>
 <div class="hint-box success">
 	<div class="hint-text">
