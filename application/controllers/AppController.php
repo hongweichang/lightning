@@ -11,7 +11,7 @@ class AppController extends Controller{
 	}
 	
 	public function actionAndroid(){
-		$this->request->xSendFile('/app/shandiandai.apk',array(
+		$this->request->xSendFile('/appdownload/shandiandai.apk',array(
 			'xHeader' => 'X-Accel-Redirect'	
 		));
 	}
