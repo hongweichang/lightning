@@ -119,7 +119,7 @@ class PlatformController extends Controller {
 			throw new CHttpException ( 404 );
 		
 		$this->render ( 'compelete', array (
-			'metano' => $metaId,
+			'metano' => Utils::appendEncrypt($metaId),
 			'bid' => $meta->getRelated ( 'bid' )->getAttribute ( 'id' ) 
 		) );
 	}
