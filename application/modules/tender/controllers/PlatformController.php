@@ -126,8 +126,9 @@ class PlatformController extends Controller {
 	
 	public function actionSuccess() {
 		if ($this->request->getIsAjaxRequest ()) {
-			$metano = Utils::appendDecrypt ( $this->getPost ( 'metaId' ) );
+			$metano = Utils::appendDecrypt ( $this->getPost ( 'metano' ) );
 			$meta = BidMeta::model ()->findByPk ( $metano );
+			header('Content-type: text/json');
 			if ($meta !== null && $meta->status == 21) {
 				echo CJSON::encode ( array (
 						'status' => 1 
