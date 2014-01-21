@@ -88,12 +88,12 @@ $this->widget('application.extensions.swfupload.CSwfUpload', array(
                     <?php if(isset($upload_info)){?>
                     <ul id="find-table-detail">
                         <li>基本信息</li>
-                        <li class="find-selected">信用资料</li>
+                        <li class="find-selected" id="creditTab">信用资料</li>
                     </ul>
                     <?php }else{?>
                      <ul id="find-table-detail">
                         <li class="find-selected">基本信息</li>
-                        <li>信用资料</li>
+                        <li id="creditTab">信用资料</li>
                     </ul>                   
                     <?php }?>
                 </div>
@@ -202,10 +202,11 @@ $this->widget('application.extensions.swfupload.CSwfUpload', array(
                                 <p>
                                 <?php 
                                     echo $creditLevel;
-                                    if($loanable == false){
-                                ?>
-                                    <span style="color:red;font-size:14px;display:inline;">当前不允许发标,请完善资料</span>
-                                <?php }
+                                    if($loanable == false):?>
+                                    <a href="javascript:void(0);" style="color:#2d9194;font-size:14px;display:inline;font-weight:bold;" id="pleaseFill">请完善资料</a>
+                                    <?php else :?>
+                                    <a href="<?php echo $this->createUrl('/tender/borrow')?>" style="color:#2d9194;font-size:14px;display:inline;font-weight:bold;">发布标段</a>
+                                <?php endif;
                                 ?>
                                 </p>
                             </li>

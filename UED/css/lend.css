@@ -919,7 +919,8 @@ body {
   width: 140px;
   height: 35px;
   border: none;
-  background-color: #2da9ac;
+  //background-color: #2da9ac;
+  background-color: #cbcbcd;
   line-height: 36px;
   color: #fff;
   text-align: center;
@@ -948,6 +949,7 @@ body {
   height: 13px;
   border: 1px solid #c9c9c9; }
   .fakeCheck span {
+   display: none;
     position: absolute;
     left: 0;
     top: -4px;

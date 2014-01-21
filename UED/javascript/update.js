@@ -27,6 +27,10 @@ $(document).ready(function(){
 			}
 		});
 	});
+	
+	$("#pleaseFill").click(function(){
+		$("#creditTab").trigger("click");
+	});
 
 	var personal = function(){
 		return{

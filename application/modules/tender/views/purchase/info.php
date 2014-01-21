@@ -102,13 +102,10 @@ if ( $bid->verify_progress == 31 ){
               <div>
                 <input type="checkbox" checked="checked" name="protocal" id="protocal" />
                 <div class="fakeCheck"><span></span></div>
-                <?php /**
-                * @todo
-                */?>
                 <label for="protocal" id="protocal-label">我同意<a href="<?php echo $this->createUrl('/content/help/index',array('cid'=>29))?>">《投资人协议》</a></label>
               </div>
               <?php if ( $compelete === false ):?>
-              <input type="submit" value="加入" id="lend-confirm" />
+              <input type="submit" value="确定" id="lend-confirm" />
               <?php else:?>
               <input type="submit" value="还款中" id="lend-confirm" disabled="disabled" class="off"/>
               <?php endif;?>

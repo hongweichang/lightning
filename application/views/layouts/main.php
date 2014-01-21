@@ -87,6 +87,7 @@
     </div>
    <div id="container">
     <?php echo $content; ?>
+    <a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=279029321&site=qq&menu=yes" class="online_service" title="点击给我发送消息"></a>
     </div>
     <div id="footer">
       <div class="wd1002 clearfix">

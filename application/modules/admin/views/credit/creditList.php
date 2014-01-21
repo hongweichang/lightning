@@ -37,7 +37,7 @@ if(!empty($creditData)){
             </a>
             <a href="<?php echo Yii::app()->createUrl('adminnogateway/credit/creditDelete',array(
             'id'=>$value['id']))?>" 
-            class="check" data-method="check-pass">删除
+            class="check deleteLink" data-method="check-pass">删除
             </a>
         </td>
     </tr>

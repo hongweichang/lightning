@@ -500,3 +500,10 @@ html, body {
 	height: 22px;
 	padding: 4px 5px;
 	}
+.tips {
+	color:#8a8a8a;
+	margin-bottom:20px;
+	margin-left:45px;
+	float:left;
+	font-weight:bold;
+}

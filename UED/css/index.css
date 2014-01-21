@@ -532,14 +532,6 @@ body {
     color: #adadad;
     left: 80%;
 }
-.online_service {
-  position: fixed;
-  top: 50%;
-  right: 0;
-  width: 60px;
-  height: 112px;
-  background: url("../images/online_service.png") no-repeat;
-}
 .news,.platform{
   padding: 5px;
 }

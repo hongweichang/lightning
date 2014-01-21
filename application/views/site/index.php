@@ -120,4 +120,4 @@ $bidProgressCssClassMap = $this->app['bidProgressCssClassMap'];
             <a href="#"><img src="<?php echo $this->imageUrl;?>wx.png" id="wx" class="f-wx"/></a>
         </div>
 </div>
-<a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=279029321&site=qq&menu=yes" class="online_service" title="点击给我发送消息"></a>
+
