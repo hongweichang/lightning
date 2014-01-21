@@ -110,10 +110,10 @@ class UserCenterController extends Controller{
 
 			/*角色修改*/
 			if(isset($attributes['role']) && $attributes['role'] != $userData->role){
-				$necessaryNum = '0';
-				$unNecessaryGrade = '0';
-				$newNecessaryNum = '0';
-				$newUnNecessaryGrade = '0';
+				$necessaryNum = 0;
+				$unNecessaryGrade = 0;
+				$newNecessaryNum = 0;
+				$newUnNecessaryGrade = 0;
 				$oldRole = $userData->role;
 				$newRole = $attributes['role'];
 				$userData->role = $newRole;
@@ -138,19 +138,15 @@ class UserCenterController extends Controller{
 				foreach($newFinishedData as $i => $value){
 					$newFinishedId[$i] = $value->verification_id;
 				}
-
-				if(!empty($newRoleCreditData)){
-
-					foreach($newRoleCreditData as $value){
-						$finished = $this->finishCreditCheck($value['credit']->id,$newFinishedId);
-						if($finished !== false){
-							if($value['optional'] == '0'){
-								$newNecessaryNum++;
-							}elseif($value['optional'] == '1'){
-								$newUnNecessaryGrade += $value['grade'];
-							}
+				
+				foreach($newRoleCreditData as $value){
+					$finished = $this->finishCreditCheck($value['credit']->id,$newFinishedId);
+					if($finished !== false){
+						if($value['optional'] == 0){
+							$newNecessaryNum++;
+						}elseif($value['optional'] == 1){
+							$newUnNecessaryGrade += $value['grade'];
 						}
-
 					}
 				}
 
@@ -277,7 +273,7 @@ class UserCenterController extends Controller{
 	/*
 	**判断该信用项用户是否已经上传
 	*/
-	public function finishCreditCheck($id,$creditData){
+	public function finishCreditCheck($id,&$creditData){
 		if(is_numeric($id) && is_array($creditData)){
 			foreach($creditData as $i => $value){
 				if($value == $id)

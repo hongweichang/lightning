@@ -60,7 +60,7 @@ class FrontUser extends SingleInheritance
 // 			array('email', 'length', 'max'=>50),
 // 			array('identity_id', 'length', 'max'=>18),
 // 			array('bank', 'length', 'max'=>20),
-			array('id,address', 'safe'),
+			array('id,address,credit_grade', 'safe'),
 			array('pay_password,realname,identity_id,bank,role,email_passed,email_verify_code,mobile_passed,mobile_verify_code','safe','on'=>'register'),
 			array('mobile, email','unique','message'=>'{attribute}已经被注册'),
 		);

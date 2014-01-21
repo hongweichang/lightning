@@ -7,6 +7,20 @@
     <script type="text/javascript" src="<?php echo $this->scriptUrl; ?>jquery-1.8.2.min.js"></script>
     <script type="text/javascript">
      var baseUrl = '<?php echo $this->app->getSiteBaseUrl();?>';
+     $(document).ready(function() {
+        $(".f-wx").on("click",function(e){
+            e.preventDefault();
+            $("#mask").fadeIn();
+            $("#two-dim-code").css({
+                left:($(window).width() - $('#two-dim-code').outerWidth())/2,
+                top: ($(window).height() - $('#two-dim-code').outerHeight())/2 + $(document).scrollTop()
+            }).fadeIn();
+         });
+         $('#mask').on('click',function(){
+            $('#mask').fadeOut();
+            $('#two-dim-code').fadeOut();
+        }); 
+     });
     </script>
     <!--[if lt IE 8]>
     <link rel="stylesheet" type="text/css" href="<?php echo $this->cssUrl?>ie.css">
@@ -35,6 +49,8 @@
             </p>
         </div>
 <![endif]-->
+    <div id="mask"></div>
+    <div id="two-dim-code"><img src="<?php echo $this->imageUrl; ?>qrcode.jpg" /><p>微信号：shandiandai8</p></div>
     <div id="header">
     
       <div id="he-login">
@@ -94,9 +110,9 @@
             <div class="footer-sec clearfix">
                 <ul>
                     <li class="f-text">关注我们</li>
-                    <li><a href="" class="f-img" id="f-wb"></a></li>
-                    <li><a href=""  class="f-img" id="f-tx"></a></li>
-                    <li><a href=""  class="f-img" id="f-wx"></a></li>
+                    <li><a href="http://weibo.com/u/3963075906" class="f-img" id="f-wb"></a></li>
+                    <li><a href="javascript:void(0);"  class="f-img" id="f-tx" onclick="alert('马上上线，敬请期待')"></a></li>
+                    <li><a href="javascript:void(0);"  class="f-img f-wx" id="f-wx"></a></li>
                 </ul>
             </div>
             <div class="footer-sec">

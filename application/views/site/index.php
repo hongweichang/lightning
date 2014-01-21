@@ -115,9 +115,9 @@ $bidProgressCssClassMap = $this->app['bidProgressCssClassMap'];
         </div>
         <div class="platform">
             <div class="title">传播平台</div>
-            <a href="#"><img src="<?php echo $this->imageUrl;?>android.png" id="android" /></a>
-            <a href="#"><img src="<?php echo $this->imageUrl;?>ios.png" id="ios"/></a>
-            <a href="#"><img src="<?php echo $this->imageUrl;?>wx.png" id="wx"/></a>
+            <a href="<?php echo $this->createUrl('/app/android')?>"><img src="<?php echo $this->imageUrl;?>android.png" id="android" /></a>
+            <a href="<?php echo $this->createUrl('/app/ios')?>"><img src="<?php echo $this->imageUrl;?>ios.png" id="ios"/></a>
+            <a href="#"><img src="<?php echo $this->imageUrl;?>wx.png" id="wx" class="f-wx"/></a>
         </div>
 </div>
 <a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=279029321&site=qq&menu=yes" class="online_service" title="点击给我发送消息"></a>

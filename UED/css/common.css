@@ -207,7 +207,7 @@ body {
   height: 30px;
   margin: 0 auto;
   line-height: 30px;
-  color: #fff;
+  /*color: #fff;*/
   font-size: 16px;
   font-family: "Microsoft Yahei";
   font-weight: normal;
@@ -218,20 +218,27 @@ body {
   border-radius: 50%;  }
 
 .rankAAA {
-  background-color: #deb839; }
+  border: 2px solid #deb839;
+  color: #deb839;
+  font-size: 12px !important;}
 
 .rankAA {
-  background-color: #c0c0c1; }
+  border: 2px solid #c0c0c1;
+  color:#c0c0c1; }
 
 .rankA {
-  background-color: #1bb8e2; }
+  border: 2px solid #1bb8e2;
+  color: #1bb8e2; }
 
 .rankB {
-  background-color: #7bde1a; }
+  border: 2px solid #7bde1a;
+  color: #7bde1a }
 .rankC {
-  background-color: #e3e11c;}
+  border: 2px solid #e3e11c;
+  color: #e3e11c;}
 .rankD {
-  background-color: #e52012;}
+  border: 2px solid #e52012;
+  color: #e52012;}
 .footer-sec {
   float: left;
   padding: 10px 0;
@@ -350,3 +357,28 @@ body {
 
 .breadcrumb-item.active a {
   color: #454545; }
+#mask{
+  display: none;
+  width: 100%;
+  height: 100%;
+  background: #000;
+  -o-pacity:.7;
+  -moz-opacity: .7;
+  opacity: .7;
+  filter:Alpha(opacity=70);
+  position: fixed;
+  z-index: 5000;
+}
+#two-dim-code{
+  padding: 20px;
+  background: #fff;
+  position: absolute;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+  display: none;
+  z-index: 5001;
+}
+#two-dim-code p{
+  text-align: center;
+}

@@ -239,9 +239,9 @@ $this->widget('application.extensions.swfupload.CSwfUpload', array(
                                 ?>
                                 </p>
                                 <?php if(!empty($userData->realname)){?>
-                                <p class="ico-status pass">已认证</p>
+                                <p class="ico-status pass">已绑定</p>
                                 <?php }else{?>
-                                 <p class="ico-status unpass">未认证</p>
+                                 <p class="ico-status unpass">未绑定</p>
                                 <?php }?>
                             </li>
                             <li class="clearfix">
@@ -256,7 +256,7 @@ $this->widget('application.extensions.swfupload.CSwfUpload', array(
                                 }
                                 ?>
                                 </p>
-                                <p class="ico-status unpass">未认证</p>
+                                <p class="ico-status unpass">未绑定</p>
                             </li>
                             <li class="clearfix">
                                 <label class="personal-name"><span class="essential">*</span>手机号码</label>
