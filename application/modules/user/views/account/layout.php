@@ -6,7 +6,7 @@ $this->cs->registerCssFile($this->cssUrl.'login.css');
 	<div class="guide">
 		<a href="<?php echo $this->createUrl('/site/guide')?>"><img src="<?php echo $this->imageUrl; ?>guide.png" /></a>
 	</div>
-	<div class="tips">您尚未登录，请登录。若您尚未注册闪电贷会员，请点击注册</div>
+	<div class="tips">请登录。若您不是会员，请点击注册</div>
 	<div id="loginBox">
 		<ul class="login-tab clearfix">
 			<?php if ( !$isLogin ):?>

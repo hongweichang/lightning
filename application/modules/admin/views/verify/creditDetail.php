@@ -12,8 +12,8 @@
 <?php endif;?>
 	<p><a href="<?php echo $this->createUrl('Download',array('id'=>$value['id']))?>">下载附件</a></p>
 	<label>
-	<a href="<?php echo $this->createUrl('creditVerify',array('id'=>$value['id'],'action'=>'pass','uid'=>$user->id))?>">审核通过</a>
-	<a href="<?php echo $this->createUrl('creditVerify',array('id'=>$value['id'],'action'=>'unpass','uid'=>$user->id))?>">审核不通过</a>
+	<a href="<?php echo $this->createUrl('creditVerify',array('id'=>$value['id'],'action'=>'pass','uid'=>$user->id))?>">通过</a>
+	<a href="<?php echo $this->createUrl('creditVerify',array('id'=>$value['id'],'action'=>'unpass','uid'=>$user->id))?>">不通过</a>
 	</label>
 	<br/>
 	<br/>

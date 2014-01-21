@@ -32,13 +32,13 @@
 <label>
 <a href="<?php echo Yii::app()->createUrl('adminnogateway/verify/bidVerify',array(
             'action'=>'pass','id'=>$id))?>"  
-   class="check" data-method="check-pass">审核通过
+   class="check" data-method="check-pass">通过
 </a>
 </label>
 <label>
 <a href="<?php echo Yii::app()->createUrl('adminnogateway/verify/bidVerify',array(
             'action'=>'unpass','id'=>$id))?>" 
-   class="check" data-method="check-pass">审核不通过
+   class="check" data-method="check-pass">不通过
 </a>
 </label>
 <?php endif;?>
