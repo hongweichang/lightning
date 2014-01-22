@@ -71,7 +71,7 @@ $this->cs->registerCssFile($this->cssUrl.'lend.css');
             <?php if($user->getAttribute('balance') > 0){ ?>
             <div class="paymethod-item method">
               <input type="checkbox" checked="checked" name="in-pay" id="pay-ssd"/>
-              <label for="pay-ssd">闪电贷账户余额支付</label>
+              <label for="pay-ssd">使用您的账户余额支付</label>
               <span>可支付余额： <?php echo number_format($user->getAttribute('balance') / 100,2); ?>元</span>
               <p class="paycenter-hint question">如果账户余额不足以此次投资，请选择支付平台进行补足支付</p>
             </div>
