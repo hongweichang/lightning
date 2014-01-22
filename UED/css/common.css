@@ -363,7 +363,8 @@ body {
   position: fixed;
   z-index: 5000;
 }
-#two-dim-code{
+#two-dim-code,
+#ios-qr{
   padding: 20px;
   background: #fff;
   position: absolute;

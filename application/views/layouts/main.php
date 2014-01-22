@@ -20,8 +20,8 @@
             e.preventDefault();
             $("#mask").fadeIn();
             $("#ios-qr").css({
-                left:($(window).width() - $('#two-dim-code').outerWidth())/2,
-                top: ($(window).height() - $('#two-dim-code').outerHeight())/2 + $(document).scrollTop()
+                left:($(window).width() - $('#ios-qr').outerWidth())/2,
+                top: ($(window).height() - $('#ios-qr').outerHeight())/2 + $(document).scrollTop()
             }).fadeIn();
         });
          $('#mask').on('click',function(){
