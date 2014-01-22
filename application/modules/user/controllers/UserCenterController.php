@@ -885,12 +885,11 @@ class UserCenterController extends Controller{
 					$this->redirect(Yii::app()->createUrl('user/userCenter/userFund'));
 					exit();				
 				}
-
+				$this->userData->bank = $bank_card;
+				$this->userData->save();
 				//$chargeSum = $charge;
 				$getCash = $this->app->getModule('pay')->fundManager->raiseWithdraw($uid,$sum);
 				if($getCash === true){
-					$this->userData->bank = $bank_card;
-					$this->userData->save();
 					Yii::app()->user->setFlash('success','提交提现申请成功!');
 					$this->redirect(Yii::app()->createUrl('user/userCenter/userFund'));
 
