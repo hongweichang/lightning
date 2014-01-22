@@ -16,9 +16,17 @@
                 top: ($(window).height() - $('#two-dim-code').outerHeight())/2 + $(document).scrollTop()
             }).fadeIn();
          });
+        $("#ios").on('click',function(){
+            e.preventDefault();
+            $("#mask").fadeIn();
+            $("#ios-qr").css({
+                left:($(window).width() - $('#two-dim-code').outerWidth())/2,
+                top: ($(window).height() - $('#two-dim-code').outerHeight())/2 + $(document).scrollTop()
+            }).fadeIn();
+        });
          $('#mask').on('click',function(){
             $('#mask').fadeOut();
-            $('#two-dim-code').fadeOut();
+            $('#two-dim-code,#ios-qr').fadeOut();
         }); 
      });
     </script>
@@ -51,6 +59,7 @@
 <![endif]-->
     <div id="mask"></div>
     <div id="two-dim-code"><img src="<?php echo $this->imageUrl; ?>qrcode.jpg" /><p>微信号：shandiandai8</p></div>
+    <div id="ios-qr" style="display:none;"><img src="<?php echo $this->imageUrl; ?>ios_qr.png" /></div>
     <div id="header">
     
       <div id="he-login">
