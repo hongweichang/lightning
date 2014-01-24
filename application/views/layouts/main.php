@@ -16,7 +16,7 @@
                 top: ($(window).height() - $('#two-dim-code').outerHeight())/2 + $(document).scrollTop()
             }).fadeIn();
          });
-        $("#ios").on('click',function(){
+        $("#ios").on('click',function(e){
             e.preventDefault();
             $("#mask").fadeIn();
             $("#ios-qr").css({
