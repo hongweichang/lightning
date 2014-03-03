@@ -130,6 +130,9 @@
             </div>
             <div class="footer-sec clearfix last">
                 <div id="f-copyright">
+                    <!--可信网站图片LOGO安装开始-->
+                    <script src="http://kxlogo.knet.cn/seallogo.dll?sn=e14022750010446940hapq000000&size=0"></script>
+                    <!--可信网站图片LOGO安装结束-->
                     <span>渝ICP备13008004号 |</span>
                     <span>© 2013-2014 重庆万兆投资有限公司  All rights reserved | </span>
                     <span>闪电贷</span>

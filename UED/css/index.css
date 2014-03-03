@@ -123,6 +123,7 @@ body {
 
 #footer {
   height: 160px;
+  padding: 10px 0;
   background: url("../images/h_bg.png"); }
 
 #fo-nav {
