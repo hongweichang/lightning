@@ -74,8 +74,9 @@ class FundManager extends CApplicationComponent{
 		$transaction = Yii::app()->db->beginTransaction();
 		try{
 			$user->saveCounters(array(
-					'balance' => -100 * $sum
+				'balance' => -100 * $sum
 			));
+			//$user->save();
 			
 			$db = new Withdraw();
 			$db->attributes = array(

@@ -157,7 +157,7 @@ if(Yii::app()->user->hasFlash('success')){
                 <div class="find-table-content withdraw">
                     <div class="pay-form">
                         <h2>请填写提现数据</h2>
-                        <form id="fund-withdraw" method="post" action="GetCash">
+                        <form id="fund-withdraw" method="post" action="<?php echo $this->createUrl('userCenter/getCash'); ?>">
                             <ul>
                                 <li>
                                     <label>可用资金 </label>
