@@ -36,7 +36,7 @@
             	if($roleName){ ?>
             	您的社会角色为： <?php echo $roleName; ?>, 请点击下一步
             	<?php }else{ ?>
-            	请到<a href="<?php echo $this->app->createUrl('user/userCenter'); ?>">个人中心</a>完善您的信用资料
+            	请到<a href="<?php echo $this->app->createUrl('user/userCenter#credit'); ?>">个人中心</a>完善您的信用资料
             	<?php } ?>
             </div>
             <div class="con-cuskind">

@@ -68,12 +68,14 @@
             <p class="he-lo">
               <a href="<?php echo $this->createUrl('/user/account/login')?>">登录</a>
               <a href="<?php echo $this->createUrl('/user/account/register')?>">注册中心</a>
+              <a href="<?php echo $this->createUrl('/site/guide')?>">新手引导</a>
               <a href="<?php echo $this->createUrl('/content/help')?>">帮助中心</a>
             </p>
             <p class="he-wl">您好，欢迎你来到闪电贷！</p>
       <?php else:?>
            <p class="he-lo">
               <a href="<?php echo $this->createUrl('/user/account/logout')?>">退出</a>
+              <a href="<?php echo $this->createUrl('/site/guide')?>">新手引导</a>
               <a href="<?php echo $this->createUrl('/content/help')?>">帮助中心</a>
             </p>
             <p class="he-wl">您好 <?php echo $this->user->getName()?>，欢迎你来到闪电贷！</p>

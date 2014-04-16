@@ -120,7 +120,7 @@ $(document).ready(function(){
 				url: baseUrl + 'user/account/SendregisterVerify?mobile=' + $('#signup-phone').val(),
 				type: 'GET',
 			});
-			time = 30;
+			time = 60;
 			text = $("#getVerifycode").text();
 			changeVal();
 		}
@@ -146,7 +146,7 @@ $(document).ready(function(){
 				url: $(this).attr('data-url') + '?mobile=' + $('#verify-mobile').val() + '&reset=' + reset,
 				type: 'GET',
 			});
-			time = 30;
+			time = 60;
 			text = $(this).text();
 			changeVal();
 		}

@@ -87,8 +87,8 @@ $MetaSum = $this->userMetaBidMoney;
                             <span><?php echo $BidSum.'元'?></span>
                         </p>
                         <div>
-                            <a href="<?php echo $this->createUrl('userCenter/userFund');?>" id="int">充值</a>
-                            <a href="<?php echo $this->createUrl('userCenter/userFund');?>" id="out">提现</a>
+                            <a href="<?php echo $this->createUrl('userCenter/userFund#int');?>" id="int">充值</a>
+                            <a href="<?php echo $this->createUrl('userCenter/userFund#out');?>" id="out">提现</a>
                         </div>
                     </div>
                 </div>
