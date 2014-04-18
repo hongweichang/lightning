@@ -1,5 +1,12 @@
 $(document).ready(function(){
 	var allShow = true;                //true表示未展开
+	var page = location.hash.substr(1);
+	if (page ==="credit") {
+		$("#find-table-detail li").removeClass("find-selected");
+		$("#find-table-detail li").eq(1).addClass("find-selected");
+		$(".find-table-content").removeClass("find-table-content-show");
+		$(".find-table-content").eq(1).addClass("find-table-content-show");
+	}
 	$(".sec-update a").each(function(){
 		$(this).click(function(){
 			var c = $(this).hasClass('unfold');

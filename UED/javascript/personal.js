@@ -1,4 +1,24 @@
 $(document).ready(function(){
+	var page = location.hash.substr(1);
+
+	$("#int").on("click",function(){
+		$("#find-table-detail li").removeClass("find-selected");
+		$("#find-table-detail li").eq(1).addClass("find-selected");
+		$(".find-table-content").removeClass("find-table-content-show");
+		$(".find-table-content").eq(1).addClass("find-table-content-show");
+	});
+	$("#out").on("click",function() {
+		$("#find-table-detail li").removeClass("find-selected");
+		$("#find-table-detail li").eq(2).addClass("find-selected");
+		$(".find-table-content").removeClass("find-table-content-show");
+		$(".find-table-content").eq(2).addClass("find-table-content-show");
+	});
+	if (page === "int") {
+		$("#int").click();
+	} else if (page === "out") {
+		$("#out").click();
+	}
+
 	var Mask = function(target,mask){
 		this.parentEle = $(target).parent();
 		this.clickEleName = $(target).attr("class");

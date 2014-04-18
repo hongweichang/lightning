@@ -318,6 +318,9 @@ $this->widget('application.extensions.swfupload.CSwfUpload', array(
                 <?php }?>
                     <table>
                         <tr>
+                            <td colspan="5" style="font-size:14px;">上传审核通过的资料越详细，得分越高，各项费率的收取就越少</td>
+                        </tr>
+                        <tr>
                             <td>&nbsp</td>
                             <td width="200">项目</td>
                             <td width="300"></td>
