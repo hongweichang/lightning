@@ -1,6 +1,6 @@
 <?php 
 $compelete = false;
-if ( $bid->verify_progress == 31 ){
+if ( $bid->verify_progress == 31 || $bid->verify_progress == 41 ){
 	$compelete = true;
 }
 ?>

@@ -78,7 +78,7 @@ class PurchaseController extends Controller {
 		$this->setPageTitle($this->name);
 		
 		$this->loadCreditSettings();
-		$condition = "verify_progress=21 AND start<=".time();
+		$condition = "(verify_progress=21 OR verify_progress=31 OR verify_progress=41) AND start<=".time();
 		$pager = new CPagination(BidInfo::model()->count($condition));
 		$pager->setPageSize($this->_bidsPerPage);
 		$pager->route = 'purchase/ajaxBids';
