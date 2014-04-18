@@ -427,6 +427,9 @@ body {
   .loan-list .invest.off {
     background-color: #ccc;
   }
+  .loan-list .invest.compelete {
+	background-color: #90d375;
+  }
 #viewMore {
   text-align: center;
   height: 42px;

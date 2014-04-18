@@ -46,6 +46,6 @@ foreach ( $bidProgressCssClassMap as $key => $bidProgressCssClass ){
 	<?php elseif ( $data->getAttribute('verify_progress') == 31 ):?>
 	<a href="javascript:void(0);" class="invest off">还款中</a>
 	<?php elseif ( $data->getAttribute('verify_progress') == 41 ):?>
-	<a href="javascript:void(0);" class="invest off">已完成</a>
+	<a href="javascript:void(0);" class="invest compelete">已完成</a>
 	<?php endif;?>
 </li>
