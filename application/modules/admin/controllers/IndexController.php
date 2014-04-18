@@ -37,6 +37,8 @@ class IndexController extends Admin{
 					}
 				}
 				$cache->set($cacheKey, $verifyTips);
+			}else {
+				$verifyTips = $tip;
 			}
 		}else {
 			$permissions = $calc->run($this->user->getId());
