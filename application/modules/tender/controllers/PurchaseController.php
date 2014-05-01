@@ -157,7 +157,7 @@ class PurchaseController extends Controller {
 	 */
 	function actionAjaxBids() {
 		$criteria = new CDbCriteria();
-		$criteria->condition = 'verify_progress=21 AND start<='.time();
+		$criteria->condition = '(verify_progress=21 OR verify_progress=31 OR verify_progress=41) AND start<='.time();
 
 		$conditions = array();
 		$withUser = false;
@@ -200,6 +200,19 @@ class PurchaseController extends Controller {
 		$userManager = $this->app->getModule('user')->userManager;
 		foreach($data as $key => $value) {
 			$return[$key] = $value->getAttributes();
+			
+			$verify_progress = $value->getAttribute('verify_progress');
+			if ( $verify_progress == 21 ){
+				$return[$key]['className'] = 'invest';
+				$return[$key]['status'] = '投标';
+			}else if ( $verify_progress == 31 ){
+				$return[$key]['className'] = 'invest off';
+				$return[$key]['status'] = '还款中';
+			}else if ( $verify_progress == 41 ){
+				$return[$key]['className'] = 'invest compelete';
+				$return[$key]['status'] = '已完成';
+			}
+			
 			$return[$key]['progress'] = $value->getAttribute('progress')/100;
 			$return[$key]['avatar'] = $userManager->getUserIcon($value->user_id);
 			$return[$key]['month_rate'] /= 100;
